@@ -1,20 +1,26 @@
-\documentclass[10pt]{report}
-\usepackage{geometry}
-\geometry{a4paper, top=20mm, left=30mm, right=20mm, bottom=25mm}
+\documentclass[10pt]{scrreprt}
+\usepackage[a4paper, top=30mm, left=30mm, right=20mm, bottom=30mm]{geometry}
 \usepackage[utf8]{inputenc}
 
 %Options: Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
-%\usepackage[Bjornstrup]{fncychap}
+\usepackage[Bjornstrup]{fncychap}
 \usepackage{ngerman}
 \usepackage{graphicx}
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\@makechapterhead}{\vspace*{50\p@}}{\vspace*{-20\p@}}{}{}
+\patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{\vspace*{-20\p@}}{}{}
+\makeatother
 
 \begin{document}
+\thispagestyle{empty}
 \title{Pflichtenheft}
 
 \begin{figure}
 	\begin{flushright}
-		\vspace{2.0 cm}
 		\includegraphics[scale=0.5]{uniLogo.png}
+		\vspace{2.0 cm}
 	\end{flushright}
 \end{figure}
 \begin{center}
@@ -24,14 +30,15 @@
 \vspace{1.0 cm}
 \textbf{{\Huge Pflichtenheft}}
 
-\vspace{0.5 cm}
+\vspace{0.8 cm}
 \begin{figure}[!htb]
 \begin{center}
-	\includegraphics[scale=1.0]{projektLogo.eps}
+	%\includegraphics[scale=1.0]{projektLogo.eps}
+	\includegraphics[scale=1.5]{Logo-Print.eps}
 \end{center}
 \end{figure}
 
-\vspace{0.5 cm}
+\vspace{0.2 cm}
 \textbf{{\Huge OpenStreetMap: Die Welt in 3D}}
 
 \vspace{1.5 cm}
@@ -76,6 +83,7 @@ Version: 1.0
 \input{Produktfunktionen}
 \input{Produktdaten}
 \input{Produktleistungen}
+\input{Benutzeroberflaeche}
 \input{Qualitaetsbestimmungen}
 \input{Testszenarien}
 \input{Entwicklungsumgebung}
