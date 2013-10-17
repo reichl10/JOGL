@@ -248,13 +248,13 @@ Verwendung von OpenStreetMap, Jogl usw. ist lizenzfrei...
 \renewcommand{\labelenumi}{\textbf{/F\numprint{\theenumi}0/}}
 
 \section{Fensterverhalten}
-\begin{enumerate}
+\begin{enumerate}[leftmargin=2cm]
 \item Das Programmfenster startet mit einer Größe von 1024x768 Pixeln. Die Größe ist mit 800x600 Pixeln nach unten, aber nicht nach oben beschränkt und kann vom Benutzer beliebig  verändert werden.
 \item Die Anwendung bietet einen Vollbildmodus, in dem Kartenansicht mit Seitenleiste über den gesamten Bildschirm gestreckt werden und Fensterdekorationen entfallen. Zwischen Fenster- und Vollbildmodus kann mit dem Tastenkürzel F11 gewechselt werden.
 \item Mit dem Tastenkürzel Strg+Q wird die Anwendung ohne Rückfrage beendet.
 \end{enumerate}
 \section{Kartenansicht}
-\begin{enumerate}[resume]
+\begin{enumerate}[leftmargin=2cm,resume]
 \item Die Kartenansicht kann interaktiv mit Maus oder Tastatur bedient werden.
 \item Im Sonnensystemmodus 
 \item Im 2D-Kartenmodus kann die Ansicht nach links/rechts und oben/unten verschoben sowie (perspektivisch) gekippt werden. 
@@ -263,14 +263,15 @@ Verwendung von OpenStreetMap, Jogl usw. ist lizenzfrei...
 \item Mit einem einfachen Linksklick werden im Detailfenster zusätzliche Daten zum Punkt unter dem Mauszeiger angezeigt. Bei POIs sind das Adresse sowie Beschreibung; bei anderen Punkten genauer Längen- und Breitengrad.
 \end{enumerate}
 \section{Navigationsdaten}
-\begin{enumerate}[resume]
+\begin{enumerate}[leftmargin=2cm,resume]
 \item Das Zoomlevel kann über einen Schieber angezeigt und geändert werden.
 \item Der Längen- und Breitengrad des Punktes an der Bildschirmmitte wird über Eingabefelder angezeigt, und kann über sie geändert werden.
 \item Ein Ladebalken zeigt den Fortschritt eventuell im Hintergrund geladener Kartendaten an.
+\item Der Maßstab des Punktes unter dem Anzeigemittelpunkt wird in einem Feld angezeigt.
 \end{enumerate}
 
 \section{Ansichtseinstellungen}
-\begin{enumerate}[resume]
+\begin{enumerate}[leftmargin=2cm,resume]
 \item Es kann zwischen 3D- (Globus) und 2D-Ansicht (Aufsicht) gewählt werden.
 \item Es besteht eine Auswahl aus verschiedenen Kartentypen; wie Satellitenbildern und Straßenkarten.
 \item Wird als Kartentyp die Kinder-Weltkarte gewählt, wir eine Auswahl an angezeigten POIs vorgegeben.
@@ -279,12 +280,12 @@ Verwendung von OpenStreetMap, Jogl usw. ist lizenzfrei...
 \end{enumerate}
 
 \section{Bedienungseinstellungen}
-\begin{enumerate}[resume]
+\begin{enumerate}[leftmargin=2cm,resume]
 \item Für Linkshänder können die Bedeutungen von linker und rechter Maustaste für die Kartenansicht vertauscht werden.
 \end{enumerate}
 
 \section{Detailfenster}
-\begin{enumerate}[resume]
+\begin{enumerate}[leftmargin=2cm,resume]
 \item Details
 \end{enumerate}
 
@@ -296,7 +297,7 @@ Verwendung von OpenStreetMap, Jogl usw. ist lizenzfrei...
 \renewcommand{\labelenumi}{\textbf{/D\numprint{\theenumi}0/}}
 
 \section{Kartenansicht}
-\begin{enumerate}
+\begin{enumerate}[leftmargin=2cm]
 \item Verfügbare Kartentypen sind:
 \begin{itemize}
 \item Satellitenbild
@@ -313,7 +314,7 @@ Verwendung von OpenStreetMap, Jogl usw. ist lizenzfrei...
 \end{itemize}
 \end{enumerate}
 \section{Kartendaten}
-\begin{enumerate}[resume]
+\begin{enumerate}[leftmargin=2cm,resume]
 \item Heruntergeladene Kacheln werden primär im Arbeitsspeicher \textbf{(W)} und sekundär in einem Cache im temporären Verzeichnis des Betriebssystems zwischengespeichert.
 \item Die Größe der Caches ist einstellbar. Standardmäßig ist der Cache im Arbeitsspeicher 50 MB, der im Dateisystem 200 MB groß.
 \end{enumerate}
@@ -325,8 +326,36 @@ Verwendung von OpenStreetMap, Jogl usw. ist lizenzfrei...
 
 \renewcommand{\labelenumi}{\textbf{/L\numprint{\theenumi}0/}}
 
-\begin{enumerate}
-\item Leistung
+\section{Darstellung der Kartenansicht}
+\begin{enumerate}[leftmargin=2cm]
+\item Aus der aktuellen Perspektive werden die sichtbaren Kartenabschnitte und die nötige Kartenauflösung bestimmt.
+\item Das Kartenmaterial ist in Kacheln aufgeteilt, die als Textur auf den Globus bzw. die Karte gelegt werden. Welche Kacheln geladen werden müssen, wird  aus den sichtbaren Kartenabschnitten und dem momentanen Zoomlevel bestimmt.
+\item In 3D-Darstellung kann die Ansicht nicht über die Pole hinweg gedreht werden, sodass die Pole im Fenster immer nach oben oder unten zeigen.
+\item Overlays wie Städtenamen oder Symbole für Tankstellen werden als zweidimensionale Objekte an die Stelle der Anzeigefläche projiziert, an der der markierte Punkt auf dem Bildschirm erscheint.
+\item Dreidimensionale Objekte wie Häusermodelle, Bäume, oder Stecknadeln zur Markierung von Punkten werden direkt in die Szene eingefügt.
+\end{enumerate}
+
+\section{Laden der Kartendaten}
+\begin{enumerate}[resume,leftmargin=2cm]
+\item Ist die Textur einer Kachel bereits geladen, wird sie direkt zur Anzeige verwendet.
+\item Ansonsten wird zuerst versucht sie aus dem Cache im Arbeitsspeicher, dann aus dem Cache im Dateisystem zu laden.
+\item Ist sie lokal nicht vorhanden, wird sie über einen passenden Kachelserver nachgeladen und dem Cache hinzugefügt.
+\item Ist eine Textur noch nicht geladen oder nicht verfügbar, wird sie zwischenzeitlich durch eine Platzhaltertextur ersetzt.
+\item Das Laden von Kacheldaten erfolgt im Hintergrund, während die Ansicht weiter gerendert werden kann.
+\item Das Laden von Kacheln geschieht über HTTP.
+\end{enumerate}
+
+\section{Qualitätsmerkmale}
+
+\begin{enumerate}[leftmargin=2cm,resume]
+\item Kartendaten werden effizient zwischengespeichert, um sowohl unnötiges Nachladen als auch den Speicherverbrauch zu minimieren.
+\item Der Energieverbrauch wird durch das vermeiden unnötiger Renderzyklen minimiert.
+\item Die Anwendung ist intuitiv mit der Toucheingabe auf Windows 8 bedienbar.
+\item Die Grafikeinstellungen lassen sich anpassen, sodass die Leistung auch auf älterer Hardware akzeptabel ist.
+\item Hintergrundvorgänge des Programms wie das Nachladen von Kartendaten unterbrechen den Rendervorgang nicht.
+\item Schlägt das Laden einer Kachel vom Server oder das Übergeben einer Textur an OpenGL fehl, fährt das Programm ohne Unterbrechung unter Verwendung einer Ersatztextur fort.
+\item Die Bewegung der Kamera und das anpassen des Zoomlevels wird derart beschränkt, dass keine Darstellungsfehler wie das Durchdringen der Kartenebene auftreten.
+\item Die Menge der Angezeigten Overlays und 3D-Modelle wird beschränkt, sodass die Leistung wie auch die Lesbarkeit von Beschriftungen akzeptabel bleibt.
 \end{enumerate}
 
 
@@ -339,6 +368,7 @@ Verwendung von OpenStreetMap, Jogl usw. ist lizenzfrei...
 	\item Im 2D-Modus zeigt die Ansicht eine Projektion der Karte auf die Ebene, die in der Ansicht nach links/rechts und oben/unten verschoben sowie (perspektivisch) gekippt werden kann.
 	\item Im 3D-Modus wird ein Globus gezeigt, auf den das Kartenmaterial projiziert wird. Die Ansicht kann um die Erdachse sowie in Richtung der Pole gedreht; ab einem gewissen Zoomlevel am Kameraursprung gekippt werden.
 	\item Am linken Rand des Fensters befindet sich eine Seitenleiste, die sämtliche Steuerungsfunktionen bereitstellt. Sie ist in Tabs unterteilt, mit denen die Funktionen gruppiert werden.
+\end{itemize}
 
 
 \begin{figure}
