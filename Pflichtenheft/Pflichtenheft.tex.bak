@@ -229,11 +229,10 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \begin{itemize}
 \item Keine First-Person-Ansicht
 \item Keine Druck / Speicherfunktion für Kartenmaterial
-\item Kein Export (Speicherfunktion) für markierte Punkte in externe Dateien
-\item Keine dynamischen Flüsse (Animationen)
+\item Keine Speicherfunktion für markierte Punkte in Textdatei
+\item Keine dyn. Flüsse, ...
 \item Keine Routenplanung
 \item Keine Unterstützung für Eingabegeräte wie Joysticks
-\item Kein Login, Authentifizierung oder Ähnliches
 \end{itemize}
 
 
@@ -451,31 +450,24 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 
 \chapter{Entwicklungsumgebung}
 \section{Software}
-Abgesehen vom Betriebssystem und Anwendungen wie Texteditoren ist die verwendete Software im Entwicklerteam einheitlich.
 \begin{itemize}
-\item Betriebssysteme: Windows 7, Windows 8, Linux, jeweils auf x86{\_}64
-\item Entwicklungsumgebung: Eclipse
-\item Framework: Java 7 (JDK)
-\item Textsatz: \LaTeX
-\item Versionsverwaltung: Git
-\item Visualisierung: IBM Software Rational Architect
+\item Windows 7, Windows 8, Linux, jeweils auf x86{\_}64
+\item Eclipse
+\item Java 7 (JDK)
+\item \LaTeX
+\item Git
+\item IBM Software Rational Architect
 \end{itemize}
 
 
 \section{Hardware}
-Auch wenn die Hardwareanforderungen bereits gegeben sind, sei hier nochmals die Ausstattung der Entwickler aufgeführt um die genauen Testbedingungen zu formulieren.
-
-\vspace{0.5cm}
-
 \begin{tabular}{l|c|c|c}
-\textsf{\textbf{Entwickler}} & \textsf{\textbf{Prozessor}} & \textsf{\textbf{RAM}} & \textsf{\textbf{Grafik}} \\
-Fabian Knorr & AMD PhenomII X4 840 @3,2GHz & 8 GB & ATi Radeon HD 6850 \\
-Fabian Knorr & AMD Athlon Neo X2 L335 @1,6GHz & 4 GB & ATi Radeon HD 3200 \\
-Gabriele Haas & Intel Core i3 550 @3,2GHz & 4 GB & Intel(R) HD Graphics (i3) \\
-Christof Blauberger & AMD A6-3420M & 8 GB & ATi Radeon HD 6520/7470M \\
-\end{tabular}
+Entwickler & Prozessor & RAM & Grafik \\
+\hline
+Fabian Knorr & AMD PhenomII X4 10?! & 8 GB & AMD Radeon HD 6850 \\
+Gabriele Haas & Intel(R) Core(TM) i3 CPU 550 3,2GHz & 4 GB & Intel(R) HD Graphics (i3) \\
 
-\vspace{0.5cm}
+\end{tabular}
 
 
 

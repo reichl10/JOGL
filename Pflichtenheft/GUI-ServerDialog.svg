@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.0000001"
-     inkscape:cx="118.80632"
-     inkscape:cy="87.64125"
+     inkscape:zoom="2.8284273"
+     inkscape:cx="213.16659"
+     inkscape:cy="115.81122"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -34,10 +34,10 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1366"
-     inkscape:window-height="748"
-     inkscape:window-x="-2"
-     inkscape:window-y="-3"
+     inkscape:window-width="1920"
+     inkscape:window-height="1014"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true" />
@@ -49,7 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -219,5 +219,81 @@
          x="206.08006"
          id="tspan4174"
          sodipodi:role="line">OK</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="113.08007"
+       y="277.13647"
+       id="text3197"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3199"
+         x="113.08007"
+         y="277.13647"
+         style="font-size:9px;font-style:italic;font-weight:normal;-inkscape-font-specification:Sans Italic">Namen eingeben...</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3201"
+       y="301.13647"
+       x="112.08008"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-size:9px;font-weight:normal;-inkscape-font-specification:Sans"
+         y="301.13647"
+         x="112.08008"
+         id="tspan3203"
+         sodipodi:role="line">OpenStreetMap</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3205"
+       y="325.13647"
+       x="113.08007"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-size:9px;font-style:italic;font-weight:normal;-inkscape-font-specification:Sans Italic"
+         y="325.13647"
+         x="113.08007"
+         id="tspan3207"
+         sodipodi:role="line">URL eingeben...</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="112.08008"
+       y="349.13647"
+       id="text3230"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3232"
+         x="112.08008"
+         y="349.13647"
+         style="font-size:9px;font-weight:normal;-inkscape-font-specification:Sans">Straßenkarte</tspan></text>
+    <rect
+       y="-307.49387"
+       x="227.05821"
+       height="18.723053"
+       width="19.003029"
+       id="rect5562"
+       style="fill:none;stroke:#000000;stroke-width:1.58175802;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       transform="scale(1,-1)" />
+    <path
+       sodipodi:nodetypes="cccc"
+       inkscape:connector-curvature="0"
+       id="path7407"
+       d="m 232.59088,296.50079 8.47952,0 -4.09356,4.6606 z"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.59924942;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <rect
+       transform="scale(1,-1)"
+       style="fill:none;stroke:#000000;stroke-width:1.58175802;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3243"
+       width="19.003029"
+       height="18.723053"
+       x="227.05821"
+       y="-355.49387" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.59924942;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 232.59088,344.50079 8.47952,0 -4.09356,4.6606 z"
+       id="path3245"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
   </g>
 </svg>
