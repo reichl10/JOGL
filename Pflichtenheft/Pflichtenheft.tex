@@ -112,16 +112,17 @@ Mit diesen Grundprinzipien soll eine 3D-Desktopanwendung basierend auf den Daten
 
 
 \chapter{Produkteinsatz}
-\section{Produktvision}
-Das Ziel des Projekts besteht darin, eine Desktopanwendung zu entwickeln, die eine 3D-Ansicht der Welt mit Hilfe freier Daten aus dem OpenStreetMap-Projekt bietet. Die grafische Benutzeroberfläche zeigt dafür eine Weltkugel, die frei gedreht und gezoomt werden kann. 
-
-Als Oberflächentextur kann dafür anfangs auf die freien Satellitenbilder der
-NASA zurückgegriffen werden, beim hineinzoomen in die Karte wird dann auf eine Kartenansicht von OpenStreetMap gewechselt.
-
-Die einfach zu bedienende Oberfläche bietet eine simple Steuerung via Maus und Tastatur und erlaubt zudem in verschiedene Einstellungen die Darstellung der Welt zu beeinflussen. 
-
-
 \section{Anwendungsbereich}
+Die Desktopanwendung „JoglEarth“ soll eine 3D-Ansicht der Welt mit Hilfe freier Daten aus dem OpenStreetMap-Projekt erzeugen.
+
+Die grafische Benutzeroberfläche zeigt dafür eine Weltkugel, die frei gedreht und gezoomt werden kann. Die Steuerung erfolgt hierbei mit Tastatur und Maus.
+
+Als Oberflächentextur können hierbei verschiedene Typen wie Satellitenbilder der NASA oder Kartendaten des OpenStreetMap-Projekts ausgewählt werden.
+
+So besteht die Möglichkeit bis zu Straßenkarten zu zoomen und auch Städte oder andere Orte mit Hilfe einer Suchfunktion zu finden.
+
+Es können auch weitere Anzeigeeinstellungen vorgenommen werden, wie eine freie Konfigurierbarkeit der Kartenserver oder das Einblenden von Overlays z.B. Banken, Tankstellen, Tierparks. 
+Damit ist eine Anpassung der angezeigten Inhalte auf verschiedene Altersstufen und Interessengruppen möglich.
 
 
 \section{Zielgruppe}
@@ -152,6 +153,8 @@ Die Anwendung wahrt die Sicherheit des Systems und schützt die Daten des Nutzer
 Wird das Produkt veröffentlicht, so müssen die Lizenzen der verwendeten Bibliotheken und Datenquellen berücksichtigt werden:
 \begin{itemize}
 \item Teile der JOGL-Bibliothek sind unter mehreren Versionen der BSD-Lizenz, der SGI Free Software License und der Apache-Lizenz, der Ubuntu Font License und mehreren proprietären Lizenzen veröffentlicht. Details dazu finden sich bei [\footnote{\url{https://jogamp.org/git/?p=jogl.git;a=blob;f=LICENSE.txt}}]
+\item OpenStreetMap ist „OpenData“ im Sinne der Open Data Commons Open Database Lizenz (ODbL). Die Karthografie der Kartenkacheln stehen unter der Linzenz  Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen“ 2.0 (CC BY-SA). Weitere Infos, wie auch eine Vorgabe zum Hinweisen auf der Urheberschaft des OSM-Projekts finden sich bei [\footnote{\url{http://www.openstretmap.org/copyright}}].
+\item Die Overpass API steht unter der GNU AGPL Lizenz.
 \end{itemize}
 
 
@@ -193,7 +196,7 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \begin{itemize}
 \item Drehen, Kippen, Zoomen der Ansichten (siehe \textbf{/F060/}, \textbf{/F070/}, \textbf{/F080/})
 \item Ansichtsmodus wechselbar zwischen 3D-Globus und flache Kartenansicht (siehe \textbf{/F140/})
-\item Kartenmaterial wechselbar zwischen Satelliteeblidern und OpenStreetMap (siehe \textbf{/F150/})
+\item Kartenmaterial wechselbar zwischen Satellitenblidern und OpenStreetMap (siehe \textbf{/F150/})
 \item Text- und Symboloverlays für Städte und POIs, Anzeige der Details dazu im Detailfenster (siehe \textbf{/F180/}, \textbf{/D020/}, \textbf{/L040/}, \textbf{/L190/})
 \item Anzeige der momentanen und der möglichen Zoomstufen (siehe \textbf{/F100/})
 \item Anzeige des mometanen Kartenmaßstabs  (siehe \textbf{/F130/})
