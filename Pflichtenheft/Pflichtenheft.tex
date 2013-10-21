@@ -123,9 +123,9 @@ Damit ist eine Anpassung der angezeigten Inhalte auf verschiedene Altersstufen u
 
 
 \section{Zielgruppe}
-Primäre Zielgruppe des Systems sind Privatpersonen (Jugendliche sowie erwachsene Personen), die eine andere Art der Kartendarstellung als die typischen Onlinekarten bevorzugen.
+Primäre Zielgruppe des Systems sind Privatpersonen (Jugendliche sowie erwachsene Personen), die eine andere Art der Kartendarstellung als die typischen Onlinekarten bevorzugen. \\
 
-Eine weitere Zielgruppe sollen wissbegierige Kinder darstellen. Voraussetzung ist lediglich der geübte Umgang mit der Maus und/ oder Tastatur. (Eingeschränkte Features)
+Eine weitere Zielgruppe sollen wissbegierige Kinder darstellen. Voraussetzung ist lediglich der geübte Umgang mit der Maus und/ oder Tastatur.
 
 \section{Betriebsbedingungen}
 \begin{itemize}
@@ -157,7 +157,7 @@ Wird das Produkt veröffentlicht, so müssen die Lizenzen der verwendeten Biblio
 
 \chapter{Produktumgebung}
 \section{Software}
-Da das Projekt auf Java setzt, ist es betriebssystemunabhängig. Es wird jedoch das Java Runtime Environment in Version 7 vorausgesetzt. Außerdem muss ein Fenstersystem, Netzwerkunterstützung sowie die nativen OpenGL-Bibliotheken zur Verfügung stehen.
+Da das Projekt auf Java setzt, ist es betriebssystemunabhängig. Es wird jedoch das Java Runtime Environment in Version 7 vorausgesetzt. Außerdem muss ein Fenstersystem, Netzwerkunterstützung sowie die nativen OpenGL-Bibliotheken zur Verfügung stehen. \\
 
 Da die Software von Seiten der Entwickler nur auf einem kleinen Teil der möglichen Umgebungen getestet werden kann, sollen mindestens folgende Konfigurationen unterstützt werden:
 \begin{itemize}
@@ -189,10 +189,10 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 \section{Musskriterien}
 \begin{itemize}
-\item Drehen, Kippen, Zoomen der Ansichten (siehe \textbf{/F070/}, \textbf{/F070/}, \textbf{/F090/})
+\item Drehen, Kippen, Zoomen der Ansichten (siehe \textbf{/F070/}, \textbf{/F080/}, \textbf{/F090/})
 \item Ansichtsmodus wechselbar zwischen 3D-Globus und flache Kartenansicht (siehe \textbf{/F150/})
 \item Kartenmaterial wechselbar zwischen Satellitenblidern und OpenStreetMap (siehe \textbf{/F160/})
-\item Text- und Symboloverlays für Städte und POIs, Anzeige der Details dazu im Detailfenster (siehe \textbf{/F190/}, \textbf{/D020/}, \textbf{/L040/}, \textbf{/L190/})
+\item Text- und Symboloverlays für Städte und POIs, Anzeige der Details dazu im Detailfenster (siehe \textbf{/F190/}, \textbf{/F220/}, \textbf{/D020/}, \textbf{/L040/}, \textbf{/L190/})
 \item Anzeige der momentanen und der möglichen Zoomstufen (siehe \textbf{/F110/})
 \item Anzeige des mometanen Kartenmaßstabs  (siehe \textbf{/F140/})
 \item Felder zur Anzeige und zum Ändern des Längen/Breitengrads (siehe \textbf{/F100/}, \textbf{/F120/})
@@ -223,6 +223,7 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Vermeiden des Ladens überflüssiger Kacheln (siehe \textbf{/L080/})
 \item Vorausladen von Kartendaten an den Rändern der Anzeige (siehe \textbf{/L080/})
 \end{itemize}
+
 \section{Abgrenzungskriterien}
 \begin{itemize}
 \item Keine First-Person-Ansicht
@@ -271,7 +272,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \begin{enumerate}[leftmargin=2cm,resume]
 \item Es kann zwischen 3D- (Globus) und 2D-Ansicht (Aufsicht) gewählt werden.
 \item Es besteht eine Auswahl aus verschiedenen Kartentypen; wie Satellitenbildern und Straßenkarten.
-\item \W Wird als Kartentyp die Kinder-Weltkarte gewählt, wir eine Auswahl an angezeigten POIs vorgegeben.
+\item \W Wird als Kartentyp die Kinder-Weltkarte gewählt, wird eine Auswahl an angezeigten POIs vorgegeben (Tierpark/ Zoo und Spielplätze).
 \item \W Es sind Höhenprofile, -linien, sowie 3D-Ansichten von Häusern und 
 Bäumen zuschaltbar.
 \end{enumerate}
@@ -323,7 +324,9 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \section{GUI}
 \begin{enumerate}[leftmargin=2cm,resume]
 \item Oberfläche der GUI in Übersetzung: Englisch und Deutsch
+\item Die GUI startet mit einer Größe von 1024x768 Pixeln. Die Größe ist mit 800x600 Pixeln nach unten, aber nicht nach oben beschränkt und kann vom Benutzer beliebig verändert werden.
 \end{enumerate}
+
 
 
 \chapter{Produktleistungen}
@@ -350,6 +353,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \item Das Laden von Kacheln geschieht über HTTP.
 \end{enumerate}
 
+\newpage
 \section{Qualitätsmerkmale}
 
 \begin{enumerate}[leftmargin=2cm,resume]
