@@ -1,5 +1,5 @@
 \documentclass[10pt]{scrreprt}
-\usepackage[a4paper, top=30mm, left=30mm, right=20mm, bottom=30mm]{geometry}
+\usepackage[a4paper, top=30mm, left=25mm, right=25mm, bottom=30mm]{geometry}
 \usepackage[utf8]{inputenc}
 
 %Options: Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
@@ -11,6 +11,7 @@
 \usepackage{enumitem}
 \usepackage{url}
 \usepackage{numprint}
+\usepackage{tabularx}
 
 \makeatletter
 \patchcmd{\@makechapterhead}{\vspace*{50\p@}}{\vspace*{-20\p@}}{}{}
@@ -90,7 +91,7 @@ Version: 1.0
 \chapter{Ausgangssituation}
 Die Kartendaten des OpenStreetMap-Projekts erfreuen sich immer größerer Beliebtheit. Der Detailgrad der Daten, die Menge an verschiedenen Merkmalen und die Genauigkeit der Daten sind in den meisten Regionen der Welt ihrer Konkurrenz weit voraus. Durch die verschiedenartigen Karten, Kartenstile und Spezialanwendungen auf Basis von OpenStreetMap gibt es eine unzählige Menge von Anwendungsmöglichkeiten.
 
-Außerdem ist die Grafikleistung einfacher Desktoprechner bereits für nach klassischer Sicht aufwändige 3D-Anwendungen ausgelegt. Die Vorlieben der Benutzer hat sich in den letzten Jahren dahingehend geändert, dass die visuelle Repräsentation wie auch die intuitive Bedienung ausschlaggebend für die Wahl eines Softwareproduktes ist.
+Außerdem ist die Grafikleistung einfacher Desktoprechner bereits für aufwändige 3D-Anwendungen ausgelegt. Die Vorlieben der Benutzer hat sich in den letzten Jahren dahingehend geändert, dass die visuelle Gestaltung wie auch die intuitive Bedienung ausschlaggebend für die Wahl eines Softwareproduktes ist.
 
 \vspace{0.5cm}
 
@@ -113,9 +114,9 @@ Mit diesen Grundprinzipien soll eine 3D-Desktopanwendung basierend auf den Daten
 
 \chapter{Produkteinsatz}
 \section{Anwendungsbereich}
-Die Desktopanwendung „JoglEarth“ soll eine 3D-Ansicht der Welt mit Hilfe freier Daten aus dem OpenStreetMap-Projekt erzeugen. \\
+Die Desktopanwendung „Jogl Earth“ soll eine interaktive, dreidimensionale Ansicht der Welt auf Basis der freien Daten des OpenStreetMap-Projekt bieten. \\
 
-Die grafische Benutzeroberfläche zeigt dafür eine Weltkugel, die frei gedreht und gezoomt werden kann. Die Steuerung erfolgt hierbei mit Tastatur und Maus. Als Oberflächentextur können hierbei verschiedene Typen wie Satellitenbilder der NASA oder Kartendaten des OpenStreetMap-Projekts ausgewählt werden. 
+Die grafische Benutzeroberfläche zeigt dafür eine Weltkugel, die frei gedreht und gezoomt werden kann. Die Steuerung erfolgt hierbei mit Tastatur und Maus. Die Oberflächentextur kann hierbei aus verschiedenen Typen wie Satellitenbildern der NASA oder Kartendaten des OpenStreetMap-Projekts gewählt werden. 
 So besteht die Möglichkeit bis zu Straßenkarten zu zoomen und auch Städte oder andere Orte mit Hilfe einer Suchfunktion zu finden. \\
 
 Es können auch weitere Anzeigeeinstellungen vorgenommen werden, wie eine freie Konfigurierbarkeit der Kartenserver oder das Einblenden von Overlays z.B. Banken, Tankstellen, Tierparks.  
@@ -123,7 +124,7 @@ Damit ist eine Anpassung der angezeigten Inhalte auf verschiedene Altersstufen u
 
 
 \section{Zielgruppe}
-Primäre Zielgruppe des Systems sind Privatpersonen (Jugendliche sowie erwachsene Personen), die eine andere Art der Kartendarstellung als die typischen Onlinekarten bevorzugen.
+Primäre Zielgruppe des Systems sind Privatanwender, die eine andere Art der Kartendarstellung als die typischen Onlinekarten bevorzugen.
 
 Eine weitere Zielgruppe sollen wissbegierige Kinder darstellen. Voraussetzung ist lediglich der geübte Umgang mit der Maus und/ oder Tastatur. (Eingeschränkte Features)
 
@@ -135,7 +136,7 @@ Veränderungen vorgenommen. Es erfolgt keine Wartung.
 \end{itemize} 
 
 \section{Sicherheit, Datenschutz}
-Die Anwendung wahrt die Sicherheit des Systems und schützt die Daten des Nutzers, da
+Die Anwendung wahrt per Design die Sicherheit des Systems und schützt die Privatsphäre des Nutzers, da
 \begin{itemize}
 \item weder zur Bedienung, noch zum Beschaffen der Kartendaten eine Authentifikation erforderlich ist
 \item keine Persönlichen Daten des Anwenders über das Netz übertragen werden
@@ -167,7 +168,7 @@ Da die Software von Seiten der Entwickler nur auf einem kleinen Teil der möglic
 
 
 \section{Hardware}
-Wie es auch bei der Software der Fall ist, sollte die Anwendung auf nahezu allen modernen Systemen lauffähig sein. Folgende Konfiguration sollte jedoch für eine optimale Darstellung mindestens vorhanden sein: 
+Wie auch bei der Software der Fall, sollte die Anwendung mit nahezu allen modernen Desktopsystemen kompatibel sein. Folgende Konfiguration wird jedoch für eine optimale Darstellung mindestens empfohlen:
 \begin{itemize}
 \item Dual-Core-Prozessor mit 1 GHz Taktfrequenz
 \item 2 Gigabyte RAM
@@ -233,6 +234,41 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Keine Unterstützung für Eingabegeräte wie Joysticks
 \item Kein Login, Authentifizierung oder Ähnliches
 \end{itemize}
+
+
+\chapter{Systemarchitektur}
+Die Systemarchitektur folgt dem Model-View-Controller-Pattern.
+\vspace{1cm}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{ModelViewController.eps}
+\caption{Die Systemarchitektur}
+\end{figure}
+\pagebreak
+\subsection*{Controller}
+Programmsteuerung
+\begin{itemize}
+\item Kamerasteuerung
+\item Ansichtseinstellungen
+\end{itemize}
+\subsection*{View}
+Benutzeroberfläche
+\begin{itemize}
+\item 3D-Ansicht
+\item Seitenleiste
+\end{itemize}
+\subsection*{Model}
+\begin{itemize}
+\item Sichtbarkeitsberechnungen
+\item OverpassAPI-Client
+\item Benutzermarkierungen
+\item \begin{itemize}
+\item Kartencache
+\item OpenStreetMap-Client
+\item NASA-Karten-Client
+\end{itemize}
+\end{itemize}
+\vspace{1cm}(Ausformulieren!)
 
 
 \chapter{Produktfunktionen}
@@ -527,7 +563,7 @@ Abgesehen vom Betriebssystem und Anwendungen wie Texteditoren ist die verwendete
 
 
 \section{Hardware}
-Auch wenn die Hardwareanforderungen bereits gegeben sind, sei hier nochmals die Ausstattung der Entwickler aufgeführt um die genauen Testbedingungen zu formulieren.
+Auch wenn die Hardwareanforderungen bereits gegeben sind, sei hier einmal die Ausstattung der Entwickler aufgeführt um die genauen Testbedingungen zu formulieren.
 
 \vspace{0.5cm}
 
@@ -549,30 +585,30 @@ Sebastian Reichl & Intel Core i5-4200U @ 2,29 Ghz & 4 GB & Intel HD Graphics \\
 
 \chapter{Anhang}
 \section{Glossar}
-\begin{itemize}
-\item Anisotropes Filtern: Methode um den Schärfeeindruck von entfernten Texturen zu erhalten
-\item Antialiasing: Methode zur Kantenglättung in Grafiken
-\item API: Application Programming Interface, englische Bezeichnung für Anwendungsprogrammierschnittstelle
-\item Detailfenster: Zeigt alle Details zu einem markierten Punkt
-\item Eclipse: Software-Plattform und Integrierte Entwicklungsumgebung
-\item GIT: Versionsverwaltungssoftware
-\item Java: Verwendete Programmiersprache
-\item Javadoc: Dokumentation von Klassen und Methoden in Java
-\item Jogl: (Java OpenGL) OpenGL API in Java
-\item \LaTeX: Textsatzprogramm
-\item OpenGL: API zur Entwicklung von 2D- und 3D-Computergrafik
-\item OpenStreetMap: Projekt, das freies Kartenmaterial zur Verfügung stellt
-\item Overlay: Bezeichnet die Text- oder Symboleinblendungen auf den Karten bzw. auf der Weltkugel
-\item Plattformunabhängigkeit: Das Programm kann auf diversen Betriebssystemen ausgeführt werden ohne entsprechende Anpassung vorzunehmen.
-\item POI: (Point Of Interest) POIs sind Orte, die für den Nutzer einer Karte oder eines Navigationssystems Bedeutung haben könnten, wie z.B. Tankstellen, Banken, Tierparks.
-\item RAM: Arbeitsspeicher
-\item Rendern: ??
-\item Server: Stellt die Kartendaten zur Verfügung
-\item Textur: Oberflächengrafik für 3D-Modelle
-
-
-
-\end{itemize}
+\newcolumntype{L}[1]{>{\sffamily\bfseries\hsize=#1\hsize\raggedright\arraybackslash}X}
+\newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}
+\setlength{\extrarowheight}{3mm}
+\begin{tabularx}{\textwidth}{L{0.35} R{1.65}}
+Anisotropes Filtern & Methode um den Schärfeeindruck von perspektivisch deformierten Texturen zu erhalten\\
+Antialiasing & Methode zur Kantenglättung in Grafiken\\
+API & Application Programming Interface, englische Bezeichnung für Anwendungsschnittstelle\\
+Detailfenster & Zeigt alle Details zu einem markierten Punkt [Streichen?]\\
+Eclipse & Software-Plattform und Integrierte Entwicklungsumgebung für (u.a.) Java\\
+Git & Verteiltes Versionsverwaltungssystem\\
+Java & Programmiersprache, siehe auch: JRE\\
+Javadoc & Dokumentation von Klassen und Methoden in Java\\
+JOGL & (Java OpenGL) Softwarebibliothek, die die OpenGL-API in Java zur Verfügung stellt\\
+{\LaTeX} & Freies Textsatzprogramm für wissenschaftliche Arbeiten\\
+OpenGL & API zur Generierung von 2D- und 3D-Computergrafik\\
+OpenStreetMap & Projekt, das freies Kartenmaterial im Internet anbietet\\
+Overlay & Text- oder Symboleinblendungen auf den Karten bzw. der Weltkugel\\
+Plattform"-unabhängigkeit & Das Programm kann auf mehreren Betriebssystemen ausgeführt werden ohne Anpassungen zu erfordern.\\
+POI & (Point Of Interest) POIs sind Orte auf der Weltkarte, die eine spezielle Bedeutung haben, wie Tankstellen, Banken, Tierparks oder Sehenswürdigkeiten.\\
+RAM & (Random Access Memory) Arbeitsspeicher.\\
+Rendern & Erzeugen eines Bildes aus Rohdaten, hier aus einem räumlichen Modell\\
+Server & Gegenstelle im Netzwerk, die einen Dienst zur Verfügung stellt, hier Lieferung des Kartenmaterials\\
+Textur & Zweidimensionale (Oberflächen-) Grafik im Kontext von Rendern.\\
+\end{tabularx}
 
 
 

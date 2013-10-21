@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="255.10768"
-     inkscape:cy="287.20421"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="144.45161"
+     inkscape:cy="324.41221"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -35,7 +35,7 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:window-width="1920"
-     inkscape:window-height="1014"
+     inkscape:window-height="1020"
      inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
@@ -890,55 +890,6 @@
          y="571.91821"
          style="font-size:8px;text-align:start;text-anchor:start">200</tspan></text>
     <rect
-       y="-417.93716"
-       x="-154.29224"
-       height="15.993665"
-       width="57.208244"
-       id="rect3114"
-       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       transform="scale(-1,-1)" />
-    <rect
-       transform="scale(1,-1)"
-       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       id="rect3116"
-       width="9.688344"
-       height="8.0648365"
-       x="154.12822"
-       y="-410.00418" />
-    <path
-       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.30241024;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 157.15298,412.87553 4.05696,0 -1.95853,2.48077 z"
-       id="path3122"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccc" />
-    <rect
-       y="-417.93256"
-       x="154.12279"
-       height="7.8661761"
-       width="9.699194"
-       id="rect3124"
-       style="fill:none;stroke:#000000;stroke-width:1.49746525;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       transform="scale(1,-1)" />
-    <path
-       sodipodi:nodetypes="cccc"
-       inkscape:connector-curvature="0"
-       id="path3126"
-       d="m 161.10237,407.31296 -4.05697,0 1.95854,-2.48077 z"
-       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.30241024;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-    <text
-       xml:space="preserve"
-       style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="104.71819"
-       y="399.57568"
-       id="text3128"
-       sodipodi:linespacing="125%"
-       transform="scale(0.96828996,1.0327485)"><tspan
-         sodipodi:role="line"
-         id="tspan3130"
-         x="104.71819"
-         y="399.57568"
-         style="font-size:8px;font-style:normal;text-align:start;text-anchor:start;-inkscape-font-specification:Sans">Aus</tspan></text>
-    <rect
        y="-437.85449"
        x="-146.02101"
        height="15.828264"
@@ -972,6 +923,68 @@
        inkscape:connector-curvature="0"
        id="path7407-5"
        d="m 150.38966,427.33209 8.34568,0 -4.02895,6.64831 z"
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.71004903;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <rect
+       transform="scale(-1,-1)"
+       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3110"
+       width="48.828972"
+       height="15.828264"
+       x="-146.02101"
+       y="-437.85449" />
+    <text
+       xml:space="preserve"
+       style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="104.71819"
+       y="418.94153"
+       id="text3112"
+       sodipodi:linespacing="125%"
+       transform="scale(0.96828996,1.0327485)"><tspan
+         sodipodi:role="line"
+         id="tspan3114"
+         x="104.71819"
+         y="418.94153"
+         style="font-size:8px;font-style:normal;text-align:start;text-anchor:start;-inkscape-font-specification:Sans">Aus</tspan></text>
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.71004903;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 150.38966,427.33209 8.34568,0 -4.02895,6.64831 z"
+       id="path3116"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <rect
+       y="-417.84152"
+       x="145.96193"
+       height="15.800137"
+       width="17.857801"
+       id="rect3118"
+       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       transform="scale(1,-1)" />
+    <rect
+       y="-417.85449"
+       x="-146.02101"
+       height="15.828264"
+       width="48.828972"
+       id="rect3120"
+       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       transform="scale(-1,-1)" />
+    <text
+       transform="scale(0.96828996,1.0327485)"
+       sodipodi:linespacing="125%"
+       id="text3122"
+       y="399.57574"
+       x="104.71819"
+       style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-size:8px;font-style:normal;text-align:start;text-anchor:start;-inkscape-font-specification:Sans"
+         y="399.57574"
+         x="104.71819"
+         id="tspan3124"
+         sodipodi:role="line">Aus</tspan></text>
+    <path
+       sodipodi:nodetypes="cccc"
+       inkscape:connector-curvature="0"
+       id="path3126"
+       d="m 150.38966,407.33209 8.34568,0 -4.02895,6.64831 z"
        style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.71004903;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
   </g>
 </svg>
