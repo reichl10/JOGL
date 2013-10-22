@@ -53,9 +53,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.5"
-     inkscape:cx="263.62332"
-     inkscape:cy="519.32214"
+     inkscape:zoom="1"
+     inkscape:cx="276.78641"
+     inkscape:cy="556.65219"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -67,8 +67,8 @@
      fit-margin-bottom="10"
      inkscape:window-width="1253"
      inkscape:window-height="695"
-     inkscape:window-x="254"
-     inkscape:window-y="170"
+     inkscape:window-x="51"
+     inkscape:window-y="70"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
@@ -198,14 +198,19 @@
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
        x="114.22664"
-       y="56.706764"
+       y="47.706764"
        id="text3800"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3802"
          x="114.22664"
-         y="56.706764"
-         style="font-size:14px;font-weight:normal;text-align:center;text-anchor:middle;-inkscape-font-specification:Sans">3D-Ansicht</tspan></text>
+         y="47.706764"
+         style="font-size:14px;font-weight:normal;text-align:center;text-anchor:middle;-inkscape-font-specification:Sans">Karten-</tspan><tspan
+         sodipodi:role="line"
+         x="114.22664"
+         y="65.206764"
+         style="font-size:14px;font-weight:normal;text-align:center;text-anchor:middle;-inkscape-font-specification:Sans"
+         id="tspan3072">ansicht</tspan></text>
     <rect
        y="591.40479"
        x="182.7486"

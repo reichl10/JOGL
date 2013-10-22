@@ -18,6 +18,12 @@
 \patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{\vspace*{-20\p@}}{}{}
 \makeatother
 
+\newenvironment{indents}{%
+  \parskip6pt \parindent5mm \raggedright%
+  \def\item{\hangindent=5mm \hangafter1}}{%
+  \par\ignorespaces} 
+  
+  
 
 \begin{document}
 
@@ -126,7 +132,7 @@ Damit ist eine Anpassung der angezeigten Inhalte auf verschiedene Altersstufen u
 \section{Zielgruppe}
 Primäre Zielgruppe des Systems sind Privatanwender, die eine andere Art der Kartendarstellung als die typischen Onlinekarten bevorzugen. \\
 
-Eine weitere Zielgruppe sollen wissbegierige Kinder darstellen. Voraussetzung ist lediglich der geübte Umgang mit der Maus und/ oder Tastatur.
+Auch soll die Anwendung wissbegierige Kinder ansprechen. Voraussetzung ist lediglich der geübte Umgang mit der Maus und/ oder Tastatur.
 
 \section{Betriebsbedingungen}
 \begin{itemize}
@@ -227,13 +233,12 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 \section{Abgrenzungskriterien}
 \begin{itemize}
-\item Keine First-Person-Ansicht
 \item Keine Druck / Speicherfunktion für Kartenmaterial
 \item Kein Export für markierte Punkte (Speicherfunktion in externe Datei)
-\item Keine dynamischen Flüsse (Animationen)
+\item Keine dynamischen Flüsse oder andere Animationen
 \item Keine Routenplanung
-\item Keine Unterstützung für Eingabegeräte wie Joysticks
-\item Kein Login, Authentifizierung oder Ähnliches
+\item Keine Unterstützung für andere Eingabegeräte wie Joysticks
+\item Kein Login oder Authentifizierung um Zugriff auf vom Benutzer gespeicherte Markierungen zu erhalten.
 \end{itemize}
 
 
@@ -247,18 +252,24 @@ Die Systemarchitektur folgt dem Model-View-Controller-Pattern.
 \end{figure}
 \pagebreak
 \subsection*{Controller}
-Programmsteuerung
-\begin{itemize}
-\item Kamerasteuerung
-\item Ansichtseinstellungen
-\end{itemize}
+Die \textbf{Programmsteuerung} übernimmt die Verarbeitung der Benutzereingaben und legt die \textbf{Kameraposition} sowie etwaige \textbf{Ansichtseinstellungen} fest.
 \subsection*{View}
-Benutzeroberfläche
-\begin{itemize}
-\item 3D-Ansicht
-\item Seitenleiste
-\end{itemize}
+Die \textbf{Benutzeroberfläche} dient als Schnittstelle zwischen Anwender und Programm. Sie kann wie folgt unterteilt werden:\\
+
+Die \textbf{Kartenansicht} ist die Hauptkomponente der Anwendung. Sie stellt den Ausgewählten Kartenabschnitt dar und nimmt Benutzereingaben zur Kamerasteuerung und Wahl einzelner Punkte auf der Karte entgegen.
+
+
+
+Die \textbf{Seitenleiste} dient der Auswahl von Orten, Beeinflussung der Ansicht, sowie Änderung der Programmeinstellungen.
+
+
+
 \subsection*{Model}
+Das \textbf{Datenmodell} ist dafür zuständig, alle Berechnungen und Anfragen bezüglich der Karte oder des Globus zu beantworten.
+
+Es führt \textbf{Sichtbarkeitsberechnungen} auf Basis der momentanen Kameraeinstellungen durch, um die benötigten Kartenabschnitte zu bestimmen.
+Auch beschafft es mittels des \textbf{OverpassAPI-Clients} die vom View anfragten Overlay-Daten.
+
 \begin{itemize}
 \item Sichtbarkeitsberechnungen
 \item OverpassAPI-Client
@@ -290,7 +301,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \section{Kartenansicht}
 \begin{enumerate}[leftmargin=2cm,resume]
 \item Die Kartenansicht kann interaktiv mit Maus oder Tastatur bedient werden.
-\item \W Im Sonnensystemmodus HIER FEHLT WAS
+\item \W Im Sonnensystemmodus werden zusätzliche Himmelskörper wie Sonne und Mond sichtbar, dafür ist die Zoommöglichkeit stark begrenzt.
 \item Im 2D-Kartenmodus kann die Ansicht nach links/rechts und oben/unten verschoben sowie (perspektivisch) gekippt werden. 
 \item Im 3D-Kartenmodus kann die Ansicht kann um die Erdachse sowie in Richtung der Pole gedreht; ab einem gewissen Zoomlevel am Kameraursprung gekippt werden.
 \item Mit Linksklick-Ziehen oder den Pfeiltasten der Tastatur wird die Karte verschoben bzw. der Globus gedreht, mit Rechsklick-Ziehen nach oben/unten oder den BildAuf/BildAb-Tasten der Tastatur wird die Ansicht gekippt.
@@ -322,7 +333,8 @@ Bäumen zuschaltbar.
 
 \section{Detailfenster}
 \begin{enumerate}[leftmargin=2cm,resume]
-\item Das Detailfenster bietet die Möglichkeit nähere Informationen zu einem Punkt auf der Karte zu erhalten, wie zugehörigem Längen- und Breitengrad. Des weiteren kann der Punkt markiert und gespeichert werden.
+\item Das Detailfenster bietet die Möglichkeit nähere Informationen zu einem Punkt auf der Karte zu erhalten, wie zugehörigem Längen- und Breitengrad.
+\item Der momentan in der Kartenansicht gewählte Punkt kann markiert,  gespeichert und falls bereits eine Markierung besteht wieder entfernt werden.
 \end{enumerate}
 
 
@@ -475,64 +487,17 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 
 \chapter{Qualitätsbestimmungen}
 
-\section{Funktionalität}
-\begin{itemize}
-\item Web Mining: Automatische Extraktion von Daten aus dem Internet. Bei \"Jogl Earth" findet das Web Mining bei der Suchfunktion z.B. nach Orten Anwendung.
-\item Interoperabilität: Das Programm \"Jogl Earth" soll mit OpenStreetMap und der Overpass-API und Ähnlichen Diensten interagieren um das Kartenmaterial mit Zusatzinformationen grafisch zu unterstützen.
-\end{itemize}
-
-
-\section{Zuverlässigkeit}
-\begin{itemize}
-\item Stabilität: Die Lauffähigkeit des Programms soll nicht unterbrochen bzw. beeinträchtigt werden.
-\item Fehlertoleranz: Das Programm soll trotz fehlerhafter Eingaben seine Funktionsweise aufrechterhalten.
-\item Wiederherstellbarkeit: Das Programm soll nach Beendigung wieder im gleichen Zustand verfügbar sein.
-\end{itemize}
-
-
-\section{Benutzbarkeit}
-\begin{itemize}
-\item Bedienbarkeit: Die Oberfläche soll intuitiv bedienbar sein.
-\item Erlernbarkeit: Die Bedienung der Oberfläche soll einfach verstanden werden.
-\item Grafische Gestaltung: Die Oberfläche soll optisch ansprechend wirken.
-\item Verständlichkeit: Die Oberfläche soll selbsterklärend sein.
-\end{itemize}
-
-
-\section{Effizienz}
-\begin{itemize}
-\item Bildqualität: Die Satellitenbilder und Kartendaten sollen in bestmöglicher Qualität dargestellt werden.
-\item Laufzeit: Trotz bestmöglicher Bildqualität sollen die Wartezeiten zum Laden der Daten gering gehalten werden.
-\item Speichermanagement: Die Kachel-Daten werden im Dateisystem und im Arbeitsspeicher effizient gepuffert.
-\end{itemize}
-
-
-\section{Anpassfähigkeit}
-\begin{itemize}
-\item Code-Qualität: Der Quellcode des Programms soll leicht verständlich gehalten werden.
-\item Modifizierbarkeit: Zusätzliche Änderungen bzw. Anpassungen des Codes sollen einfach umsetzbar sein.
-\end{itemize}
-
-
-\section{Portierbarkeit}
-\begin{itemize}
-\item Erweiterbarkeit: Zusätzliche Funktionalitäten sollen in den Code integrierbar sein.
-\item Konformität: Vorgegebene Konventionen sollen eingehalten werden.
-\end{itemize}
-
-
-\section{Dokumentation}
-Das Benutzerhandbuch, die Javadocs, die einzelnen Phasendokumente usw. sollen gut strukturiert, leicht verständlich, fachlich kompetent gehalten sein. 
 
 
 \section{Bewertung der Qualitätsbestimmungen}
+\vspace{1cm}
 \begin{center}
 \begin{tabular}{lcccc}
 \hline 
 \rule[-1ex]{0pt}{4ex} \textit{Produktqualität} & \textit{sehr gut} & \textit{gut} & \textit{normal} & \textit{nicht relevant} \\ 
 \hline 
 \rule[-1ex]{0pt}{4ex} \textbf{Funktionalität} &  &  &  &  \\ 
-\rule[-1ex]{0pt}{4ex} \hspace{10pt} Güte Web Mining & &  & • & \\ 
+\rule[-1ex]{0pt}{4ex} \hspace{10pt} Web-Mining & &  & • & \\ 
 \rule[-1ex]{0pt}{4ex} \hspace{10pt} Interoperabilität & & • & & \\ 
 
 \hline 
@@ -569,6 +534,70 @@ Das Benutzerhandbuch, die Javadocs, die einzelnen Phasendokumente usw. sollen gu
 \hline 
 \end{tabular} 
 \end{center}
+
+\pagebreak
+
+
+
+\section{Definition der Qualitätsbestimmungen}
+\subsection*{Funktionalität}
+\begin{indents}
+\item \textbf{Web Mining:} Automatische Extraktion von Daten aus dem Internet. Bei Jogl Earth findet das Web Mining bei der Suchfunktion z.B. nach Orten Anwendung.
+
+\item \textbf{Interoperabilität:} Das Programm „Jogl Earth“ soll mit OpenStreetMap und der Overpass-API und Ähnlichen Diensten interagieren um das Kartenmaterial mit Zusatzinformationen grafisch zu unterstützen.
+\end{indents}
+
+
+\subsection*{Zuverlässigkeit}
+\begin{indents}
+\item \textbf{Stabilität:} Die Lauffähigkeit des Programms soll nicht unterbrochen bzw. beeinträchtigt werden.
+
+\item \textbf{Fehlertoleranz:} Das Programm soll trotz fehlerhafter Eingaben seine Funktionsweise aufrechterhalten.
+
+\item \textbf{Wiederherstellbarkeit:} Das Programm soll nach Beendigung wieder im gleichen Zustand verfügbar sein.
+\end{indents}
+
+
+\subsection*{Benutzbarkeit}
+\begin{indents}
+\item \textbf{Bedienbarkeit:} Die Oberfläche soll intuitiv bedienbar sein.
+
+\item \textbf{Erlernbarkeit:} Die Bedienung der Oberfläche soll einfach verstanden werden.
+
+\item \textbf{Grafische Gestaltung:} Die Oberfläche soll optisch ansprechend wirken.
+
+\item \textbf{Verständlichkeit:} Die Oberfläche soll selbsterklärend sein.
+\end{indents}
+
+
+\subsection*{Effizienz}
+\begin{indents}
+\item \textbf{Bildqualität:} Die Satellitenbilder und Kartendaten sollen in bestmöglicher Qualität dargestellt werden.
+
+\item \textbf{Laufzeit:} Trotz bestmöglicher Bildqualität sollen die Wartezeiten zum Laden der Daten gering gehalten werden.
+
+\item \textbf{Speichermanagement:} Die Kachel-Daten werden im Dateisystem und im Arbeitsspeicher effizient gepuffert.
+\end{indents}
+
+
+\subsection*{Anpassfähigkeit}
+\begin{indents}
+\item \textbf{Code-Qualität:} Der Quellcode des Programms soll leicht verständlich gehalten werden.
+
+\item \textbf{Modifizierbarkeit:} Zusätzliche Änderungen bzw. Anpassungen des Codes sollen einfach umsetzbar sein.
+\end{indents}
+
+
+\subsection*{Portierbarkeit}
+\begin{indents}
+\item \textbf{Erweiterbarkeit:} Zusätzliche Funktionalitäten sollen in den Code integrierbar sein.
+
+\item \textbf{Konformität:} Vorgegebene Konventionen sollen eingehalten werden.
+\end{indents}
+
+
+\subsection*{Dokumentation}
+Das Benutzerhandbuch, die Javadocs, die einzelnen Phasendokumente usw. sollen gut strukturiert, leicht verständlich, fachlich kompetent gehalten sein. 
 
 
 
