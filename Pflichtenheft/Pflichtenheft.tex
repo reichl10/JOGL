@@ -308,6 +308,25 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \item Mit Linksklick-Ziehen oder den Pfeiltasten der Tastatur wird die Karte verschoben bzw. der Globus gedreht, mit Rechsklick-Ziehen nach oben/unten oder den BildAuf/BildAb-Tasten der Tastatur wird die Ansicht gekippt.
 \item \W Mit einem einfachen Linksklick werden im Detailfenster zusätzliche Daten zum Punkt unter dem Mauszeiger angezeigt. Bei POIs sind das Adresse sowie Beschreibung; bei anderen Punkten genauer Längen- und Breitengrad.
 \end{enumerate}
+\section{Kartendarstellung}
+\begin{enumerate}[leftmargin=2cm,resume]
+\item Aus der aktuellen Perspektive werden die sichtbaren Kartenabschnitte und die nötige Kartenauflösung bestimmt.
+\item Das Kartenmaterial ist in Kacheln aufgeteilt, die als Textur auf den Globus bzw. die Karte gelegt werden. Welche Kacheln geladen werden müssen, wird  aus den sichtbaren Kartenabschnitten und dem momentanen Zoomlevel bestimmt.
+\item Die Bewegung der Kamera und das anpassen des Zoomlevels wird derart beschränkt, dass keine Darstellungsfehler wie das Durchdringen der Kartenebene auftreten.
+\item In 3D-Darstellung kann die Ansicht nicht über die Pole hinweg gedreht werden, sodass die Pole im Fenster immer nach oben oder unten zeigen.
+\item Overlays wie Städtenamen oder Symbole für Tankstellen werden als zweidimensionale Objekte an die Stelle der Anzeigefläche projiziert, an der der markierte Punkt auf dem Bildschirm erscheint.
+\item \W Dreidimensionale Objekte wie Häusermodelle, Bäume, oder Stecknadeln zur Markierung von Punkten werden direkt in die Szene eingefügt.
+\item \W Die Menge der Angezeigten Overlays und 3D-Modelle wird beschränkt, sodass die Leistung wie auch die Lesbarkeit von Beschriftungen akzeptabel bleibt.
+\end{enumerate}
+\section{Laden der Kartendaten}
+\begin{enumerate}[resume,leftmargin=2cm]
+\item Ist die Textur einer Kachel bereits geladen, wird sie direkt zur Anzeige verwendet.
+\item \W Ansonsten wird zuerst versucht sie aus dem Cache im Arbeitsspeicher, dann aus dem Cache im Dateisystem zu laden.
+\item Ist sie lokal nicht vorhanden, wird sie über einen passenden Kachelserver nachgeladen und dem Cache hinzugefügt. Des weiteren können sogar die Server angepasst bzw. erweitert werden. Es werden nur die benötigen Karten für den jeweiligen Ausschnitt geladen sowie die direkten Randbereiche außerhalb der Ansicht (\W).
+\item Ist eine Textur noch nicht geladen oder nicht verfügbar, wird sie zwischenzeitlich durch eine Platzhaltertextur ersetzt.
+\item Das Laden von Kacheldaten erfolgt im Hintergrund, während die Ansicht weiter gerendert werden kann.
+\item Das Laden von Kacheln geschieht über HTTP.
+\end{enumerate}
 \section{Navigationsdaten}
 \begin{enumerate}[leftmargin=2cm,resume]
 \item Das Zoomlevel kann über einen Schieber angezeigt und geändert werden.
@@ -385,37 +404,12 @@ Daten werden in dem Ordner data relativ zum Ausführungsordner abgelegt.
 \renewcommand{\labelenumi}{\textbf{/L\numprint{\theenumi}0/}}
 Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskriterien.
 
-\section{Darstellung der Kartenansicht}
 \begin{enumerate}[leftmargin=2cm]
-\item Aus der aktuellen Perspektive werden die sichtbaren Kartenabschnitte und die nötige Kartenauflösung bestimmt.
-\item Das Kartenmaterial ist in Kacheln aufgeteilt, die als Textur auf den Globus bzw. die Karte gelegt werden. Welche Kacheln geladen werden müssen, wird  aus den sichtbaren Kartenabschnitten und dem momentanen Zoomlevel bestimmt.
-\item In 3D-Darstellung kann die Ansicht nicht über die Pole hinweg gedreht werden, sodass die Pole im Fenster immer nach oben oder unten zeigen.
-\item Overlays wie Städtenamen oder Symbole für Tankstellen werden als zweidimensionale Objekte an die Stelle der Anzeigefläche projiziert, an der der markierte Punkt auf dem Bildschirm erscheint.
-\item \W Dreidimensionale Objekte wie Häusermodelle, Bäume, oder Stecknadeln zur Markierung von Punkten werden direkt in die Szene eingefügt.
-\end{enumerate}
-
-\section{Laden der Kartendaten}
-\begin{enumerate}[resume,leftmargin=2cm]
-\item Ist die Textur einer Kachel bereits geladen, wird sie direkt zur Anzeige verwendet.
-\item \W Ansonsten wird zuerst versucht sie aus dem Cache im Arbeitsspeicher, dann aus dem Cache im Dateisystem zu laden.
-\item Ist sie lokal nicht vorhanden, wird sie über einen passenden Kachelserver nachgeladen und dem Cache hinzugefügt. Des weiteren können sogar die Server angepasst bzw. erweitert werden. Es werden nur die benötigen Karten für den jeweiligen Ausschnitt geladen sowie die direkten Randbereiche außerhalb der Ansicht (\W).
-\item Ist eine Textur noch nicht geladen oder nicht verfügbar, wird sie zwischenzeitlich durch eine Platzhaltertextur ersetzt.
-\item Das Laden von Kacheldaten erfolgt im Hintergrund, während die Ansicht weiter gerendert werden kann.
-\item Das Laden von Kacheln geschieht über HTTP.
-\end{enumerate}
-
-\newpage
-\section{Qualitätsmerkmale}
-
-\begin{enumerate}[leftmargin=2cm,resume]
 \item Kartendaten werden effizient zwischengespeichert, um sowohl unnötiges Nachladen als auch den Speicherverbrauch zu minimieren.
 \item \W Der Energieverbrauch wird durch das vermeiden unnötiger Renderzyklen minimiert.
 \item \W Die Anwendung ist intuitiv mit der Toucheingabe auf Windows 8 bedienbar.
 \item \W Die Grafikeinstellungen lassen sich anpassen, sodass die Leistung auch auf älterer Hardware akzeptabel ist.
 \item Hintergrundvorgänge des Programms wie das Nachladen von Kartendaten unterbrechen den Rendervorgang nicht.
-\item Schlägt das Laden einer Kachel vom Server oder das Übergeben einer Textur an OpenGL fehl, fährt das Programm ohne Unterbrechung unter Verwendung einer Ersatztextur fort.
-\item Die Bewegung der Kamera und das anpassen des Zoomlevels wird derart beschränkt, dass keine Darstellungsfehler wie das Durchdringen der Kartenebene auftreten.
-\item \W Die Menge der Angezeigten Overlays und 3D-Modelle wird beschränkt, sodass die Leistung wie auch die Lesbarkeit von Beschriftungen akzeptabel bleibt.
 \end{enumerate}
 
 
