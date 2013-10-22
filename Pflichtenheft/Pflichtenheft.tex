@@ -344,46 +344,40 @@ Bäumen zuschaltbar.
 
 \renewcommand{\labelenumi}{\textbf{/D\numprint{\theenumi}0/}}
 Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskriterien.
-
-\section{Kartenansicht}
+Daten werden in dem Ordner data relativ zum Ausführungsordner abgelegt.
+\section{Einstellungen}
 \begin{enumerate}[leftmargin=2cm]
-\item Verfügbare Kartentypen sind:
+\item Einstellungen werden in einer Datei settings im data Ordner gespeichert. Dazu gehören:
 \begin{itemize}
-\item Satellitenbild
-\item OpenStreetMap - Straßenkarte (Tag)
-\item \W OpenStreetMap - Straßenkarte (Nacht)
-\item \W Kinder - Weltkarte
+\item Sprache
+\item Antialiasing
+\item Texturfilter
+\item Der gewählte Kartenserver
+\item Pufferspeicher größen
 \end{itemize}
-
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[scale=0.35]{Kinder-Weltkarte.jpg}
-	\caption{Textur: Kinder-Weltkarte}
-\end{figure}
-
-\item Wählbare Overlays sind:
+\end{enumerate}
+\section{Ansicht}
+\begin{enumerate}[resume,leftmargin=2cm]
+\item Die ausgewählte Option unter Ansicht wird in der Datei view im data Ordner gespeichert. Dazu gehören:
 \begin{itemize}
-\item Städte- und Ländernamen
-\item Points of Interest, wie Banken, Tankstellen, Tierparks, Spielplätze etc.
-\item Straßennamen
-\item \W Länder- und Staatsgrenzen
+\item Der gewählte Ansichtsmodus
+\item Die gewählte Karte
+\item Höhenprofil
+\item 3D-Modelle
+\item Ländernamen
+\item Städtename
+\item Tankstellen
 \end{itemize}
-\item \W In der 3D-Ansicht ist ein Sternenhimmel als Hintergrund zuschaltbar
 \end{enumerate}
-
-\newpage
-\section{Kartendaten}
-\begin{enumerate}[leftmargin=2cm,resume]
-\item Heruntergeladene Kacheln werden primär im Arbeitsspeicher (\W) und sekundär in einem Cache im temporären Verzeichnis des Betriebssystems zwischengespeichert.
-\item Die Größe der Caches ist einstellbar. Standardmäßig ist der Cache im Arbeitsspeicher 50 MB, der im Dateisystem 200 MB groß.
+\section{Orte}
+\begin{enumerate}[resume,leftmargin=2cm]
+\item Markierte Punkte und deren Einstellungen werden in der Datei places im data Ordner gespeichert. Dazu gehören die Daten:
+\begin{itemize}
+\item Name
+\item Position
+\item Notiz
+\end{itemize}
 \end{enumerate}
-
-\section{GUI}
-\begin{enumerate}[leftmargin=2cm,resume]
-\item Oberfläche der GUI in Übersetzung: Englisch und Deutsch
-\item Die GUI startet mit einer Größe von 1024x768 Pixeln. Die Größe ist mit 800x600 Pixeln nach unten, aber nicht nach oben beschränkt und kann vom Benutzer beliebig verändert werden.
-\end{enumerate}
-
 
 
 \chapter{Produktleistungen}
