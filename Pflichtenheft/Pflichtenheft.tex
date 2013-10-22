@@ -156,7 +156,8 @@ Wird das Produkt veröffentlicht, so müssen die Lizenzen der verwendeten Biblio
 \begin{itemize}
 \item Teile der JOGL-Bibliothek sind unter mehreren Versionen der BSD-Lizenz, der SGI Free Software License und der Apache-Lizenz, der Ubuntu Font License und mehreren proprietären Lizenzen veröffentlicht. Details dazu finden sich bei [\footnote{\url{https://jogamp.org/git/?p=jogl.git;a=blob;f=LICENSE.txt}}]
 \item OpenStreetMap ist „OpenData“ im Sinne der Open Data Commons Open Database Lizenz (ODbL). Die Karthografie der Kartenkacheln stehen unter der Linzenz  Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen“ 2.0 (CC BY-SA). Weitere Infos, wie auch eine Vorgabe zum Hinweisen auf der Urheberschaft des OSM-Projekts finden sich bei [\footnote{\url{http://www.openstretmap.org/copyright}}].
-\item Die Overpass API steht unter der GNU AGPL Lizenz.
+\item Die Daten der Overpass API stehen ebenfalls unter der ODbL.
+\item Die Satellitenbilder der NASA sind frei verfügbar und stehen unter der Lizenz, die sich bei [\footnote{\url{http://www.nasa.gov/audience/formedia/features/MP_Photo_Guidelines.html}}] findet.
 \end{itemize}
 
 
@@ -542,62 +543,62 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \section{Definition der Qualitätsbestimmungen}
 \subsection*{Funktionalität}
 \begin{indents}
-\item \textbf{Web Mining:} Automatische Extraktion von Daten aus dem Internet. Bei Jogl Earth findet das Web Mining bei der Suchfunktion z.B. nach Orten Anwendung.
+\item \textbf{Web Mining:} Automatische Extraktion von Daten aus dem Internet. Bei Jogl Earth findet das Web Mining bei der Suchfunktion Anwendung. Um die Benutzeroberfläche übersichtlich zu halten, ist nur eine einfache Suche nach Wortteilen möglich, die nicht weiter eingegrenzt wird. Es wird weiter vorausgesetzt, dass sich die Overpass-Server genau wie in der Spezifikation verhalten; eine Fehlerkorrektur wird nicht versucht.
 
-\item \textbf{Interoperabilität:} Das Programm „Jogl Earth“ soll mit OpenStreetMap und der Overpass-API und Ähnlichen Diensten interagieren um das Kartenmaterial mit Zusatzinformationen grafisch zu unterstützen.
+\item \textbf{Interoperabilität:} Die Anwendung soll mit OpenStreetMap, der Overpass-API und ähnlichen Diensten interagieren um das Kartenmaterial mit Zusatzinformationen grafisch zu unterstützen. Da dies Kernbestandteil ist, wird Wert auf die Qualität der Interopabilität gelegt.
 \end{indents}
 
 
 \subsection*{Zuverlässigkeit}
 \begin{indents}
-\item \textbf{Stabilität:} Die Lauffähigkeit des Programms soll nicht unterbrochen bzw. beeinträchtigt werden.
+\item \textbf{Stabilität:} Die Lauffähigkeit des Programms soll nicht unterbrochen bzw. beeinträchtigt werden. Programmabstürze und Fehlverhalten führt sehr schnell zu Unzufriedenheit beim Benutzer, weswegen der Stabilität hohe Priorität zukommt.
 
-\item \textbf{Fehlertoleranz:} Das Programm soll trotz fehlerhafter Eingaben seine Funktionsweise aufrechterhalten.
+\item \textbf{Fehlertoleranz:} Das Programm soll trotz fehlerhafter Eingaben seitens des Anwenders seine Funktionsweise aufrechterhalten. Dies ist ein wichtiger Punkt, da falsche Behandlung von unsinnigen Eingaben zu Fehlverhalten führt (Siehe Stabilität).
 
-\item \textbf{Wiederherstellbarkeit:} Das Programm soll nach Beendigung wieder im gleichen Zustand verfügbar sein.
+\item \textbf{Wiederherstellbarkeit:} Bei Neustart nach unsachgemäßer Beendigung des Programms, z.B. durch einen Systemabsturz, verhält sich das Programm wie bei einem normalen Start. Es wird kein Versuch unternommen, die Sitzung wiederherzustellen, da der Zustand keine Informationen enthält, die für den Benutzer kritisch sind.
 \end{indents}
 
 
 \subsection*{Benutzbarkeit}
 \begin{indents}
-\item \textbf{Bedienbarkeit:} Die Oberfläche soll intuitiv bedienbar sein.
+\item \textbf{Bedienbarkeit:} Die Oberfläche soll intuitiv bedienbar sein. Dies ist auch deshalb von Bedeutung, da Kinder zur Zielgruppe gehören.
 
-\item \textbf{Erlernbarkeit:} Die Bedienung der Oberfläche soll einfach verstanden werden.
+\item \textbf{Erlernbarkeit:} Die Bedienung der Oberfläche soll einfach verstanden werden. Dies deckt sich mit der Anforderung nach intuitiver Bedienbarkeit.
 
-\item \textbf{Grafische Gestaltung:} Die Oberfläche soll optisch ansprechend wirken.
+\item \textbf{Grafische Gestaltung:} Die Oberfläche soll optisch ansprechend wirken. Dabei wird auch auf Einfachheit geachtet, was der Erlernbarkeit dient.
 
-\item \textbf{Verständlichkeit:} Die Oberfläche soll selbsterklärend sein.
+\item \textbf{Verständlichkeit:} Die Oberfläche soll selbsterklärend sein. Dieses Ziel ist leicht erreichbar, da der Funktionsumfang gut strukturiert ist.
 \end{indents}
 
 
 \subsection*{Effizienz}
 \begin{indents}
-\item \textbf{Bildqualität:} Die Satellitenbilder und Kartendaten sollen in bestmöglicher Qualität dargestellt werden.
+\item \textbf{Bildqualität:} Die Satellitenbilder und Kartendaten sollen in bestmöglicher Qualität dargestellt werden, außerdem sollen Bildänderungen flüssig erfolgen. Dies ist für die Sichtbarkeit von Kartendetails und die Bedienbarkeit unabdinglich.
 
-\item \textbf{Laufzeit:} Trotz bestmöglicher Bildqualität sollen die Wartezeiten zum Laden der Daten gering gehalten werden.
+\item \textbf{Laufzeit:} Trotz bestmöglicher Bildqualität sollen die Wartezeiten zum Laden der Daten gering gehalten werden. Die Zielsetzung ist es, dabei heutige Standards zu erreichen.
 
-\item \textbf{Speichermanagement:} Die Kachel-Daten werden im Dateisystem und im Arbeitsspeicher effizient gepuffert.
+\item \textbf{Speichermanagement:} Die Kachel-Daten werden im Dateisystem und im Arbeitsspeicher effizient gepuffert. Effizientes Speichermanagement wirkt sich unmittelbar auf die Ladezeiten aus, weswegen es höchste Aufmerksamkeit genießt.
 \end{indents}
 
 
 \subsection*{Anpassfähigkeit}
 \begin{indents}
-\item \textbf{Code-Qualität:} Der Quellcode des Programms soll leicht verständlich gehalten werden.
+\item \textbf{Code-Qualität:} Der Quellcode des Programms soll leicht verständlich gehalten werden. Dies ist für die Teamarbeit unerlässlich.
 
-\item \textbf{Modifizierbarkeit:} Zusätzliche Änderungen bzw. Anpassungen des Codes sollen einfach umsetzbar sein.
+\item \textbf{Modifizierbarkeit:} Zusätzliche Änderungen bzw. Anpassungen des Codes sollen einfach umsetzbar sein. Da die Software nach Beendigung des Projekts nicht weiterentwickelt wird, spielt dies eine untergeordnete Rolle.
 \end{indents}
 
 
 \subsection*{Portierbarkeit}
 \begin{indents}
-\item \textbf{Erweiterbarkeit:} Zusätzliche Funktionalitäten sollen in den Code integrierbar sein.
+\item \textbf{Erweiterbarkeit:} Zusätzliche Funktionalitäten sollen in den Code integrierbar sein. Hier gilt das selbe wie für die Modifizierbarkeit.
 
-\item \textbf{Konformität:} Vorgegebene Konventionen sollen eingehalten werden.
+\item \textbf{Konformität:} Vorgegebene Konventionen sollen eingehalten werden. 
 \end{indents}
 
 
 \subsection*{Dokumentation}
-Das Benutzerhandbuch, die Javadocs, die einzelnen Phasendokumente usw. sollen gut strukturiert, leicht verständlich, fachlich kompetent gehalten sein. 
+Ein gutes Softwareprodukt zeichnet sich unter Anderem durch die Qualität des Benutzerhandbuchs, der Quelltextdokumentation, der einzelnen Phasendokumente aus. Sie sollen gut strukturiert, leicht verständlich und fachlich kompetent gehalten sein. 
 
 
 
@@ -615,9 +616,13 @@ Abgesehen vom Betriebssystem und Anwendungen wie Texteditoren ist die verwendete
 \item Betriebssysteme: Windows 7, Windows 8, Linux, jeweils auf x86{\_}64
 \item Entwicklungsumgebung: Eclipse
 \item Framework: Java 7 (JDK)
+\item Unit Tests: JUnit
+\item Grafik- und Bildbearbeitung: Inkscape, GIMP
 \item Textsatz: \LaTeX
-\item Versionsverwaltung: Git
+\item Versionsverwaltung: Git mit Repository bei GitHub
 \item Visualisierung: IBM Software Rational Architect
+\item Teamkommunikation: E-Mail
+\item Bugtracking: Mit Git
 \end{itemize}
 
 
