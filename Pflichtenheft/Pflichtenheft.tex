@@ -12,6 +12,7 @@
 \usepackage{url}
 \usepackage{numprint}
 \usepackage{tabularx}
+\usepackage{multirow}
 
 \makeatletter
 \patchcmd{\@makechapterhead}{\vspace*{50\p@}}{\vspace*{-20\p@}}{}{}
@@ -207,7 +208,6 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Sprachunterstützung für Englisch und Deutsch (siehe \textbf{/D060/})
 \item Ladebalken für im Hintergrund geladene Kartendaten (siehe \textbf{/F130/}, \textbf{/D040/}, \textbf{/D050/})
 \item Einklappbare Seitenleiste (siehe \textbf{/F040/})
-\item Serverauswahl mit Möglichkeit zur Eingabe eigener Server (siehe \textbf{/L080/})
 \item Bedienung mit Maus und Tastatur (siehe \textbf{/F050/})
 \item Sinnvolle Beschränkung der Zoomstufen und Beweglichkeit (siehe \textbf{/F110/}, \textbf{/L030/}, \textbf{/L180/})
 \item Beschränkung der Anzahl gleichzeitig geladener Overpass-Einträge (siehe \textbf{/L190/})
@@ -245,7 +245,7 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 	\item Das Hauptelement der Benutzeroberfläche ist die Karten- oder Globusansicht, die sich im rechten Fensterteil befindet. Der sichtbare Kartenausschnitt kann interaktiv mit Maus oder Tastatur verschoben werden.
 	\item Im 2D-Modus zeigt die Ansicht eine Projektion der Karte auf die Ebene, die in der Ansicht nach links/rechts und oben/unten verschoben sowie (perspektivisch) gekippt werden kann.
 	\item Im 3D-Modus wird ein Globus gezeigt, auf den das Kartenmaterial projiziert wird. Die Ansicht kann um die Erdachse sowie in Richtung der Pole gedreht; ab einem gewissen Zoomlevel am Kameraursprung gekippt werden.
-	\item Am linken Rand des Fensters befindet sich eine Seitenleiste, die sämtliche Steuerungsfunktionen bereitstellt. Der obere Teil ist in Tabs unterteilt, mit denen Funktionen gruppiert werden; der untere Teil zeigt Details zum momentan Zentrierten Punkt an.
+	\item Am linken Rand des Fensters befindet sich eine Seitenleiste, die sämtliche Steuerungsfunktionen bereitstellt. Der obere Teil ist in Tabs unterteilt, mit denen Funktionen gruppiert werden; der untere Teil zeigt Details zum momentan zentrierten Punkt an.
 \end{itemize}
 
 
@@ -295,6 +295,48 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 	\caption{Das Dialogfenster zum Hinzufügen eines neuen Servers}
 \end{figure}
 
+
+\subsection*{Mausbelegung}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline 
+\textbf{Tastenbelegung} & \textbf{Bedeutung} \\ 
+\hline
+\hline
+\includegraphics[scale=2.0]{KeyImages/mouseDrag_left.eps} & Drehen der Erdkugel, Verschieben der Karten \\ 
+\hline 
+\includegraphics[scale=2.0]{KeyImages/mouseclick_left.eps} & Punkt markieren und zentrieren des Punkts im Kartenfenster \\
+\hline
+\includegraphics[scale=2.0]{KeyImages/mouseDoubleClick_left.eps} & ??? \\
+\hline
+\includegraphics[scale=2.0]{KeyImages/mouseDrag_right.eps} & Kippen der Karte \\
+\hline
+\includegraphics[scale=2.0]{KeyImages/mouse_scrollen.eps} & Zoomen der Ansicht \\
+\hline
+\end{tabular} 
+\end{center}
+
+
+
+
+\subsection*{Tastaturbelegung}
+\begin{center}
+\begin{tabular}{|m{4cm}|m{8cm}|}
+\hline 
+\rule[-1ex]{0pt}{4ex} \textbf{Tastenbelegung} & \textbf{Bedeutung} \\ 
+\hline 
+\hline
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.1]{KeyImages/key_arrow_up.eps} & \multirow{2}{*}{Drehen der Erdkugel, Verschieben der Karten}\\
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.1] {KeyImages/key_arrow_left.eps}\includegraphics[scale=0.1]{KeyImages/key_arrow_down.eps}\includegraphics[scale=0.1]{KeyImages/key_arrow_right.eps} &  \\
+\hline
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.1]{KeyImages/key_Bild_Auf.eps}  \includegraphics[scale=0.1]{KeyImages/key_Bild_Ab.eps} & Kippen der Karte \\
+\hline
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.1]{KeyImages/key_Plus.eps}  \includegraphics[scale=0.1]{KeyImages/key_Minus.eps} & Zoomen der Ansicht \\
+\hline
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.1]{KeyImages/key_Strg.eps} \textbf{+} \includegraphics[scale=0.1]{KeyImages/key_Q.eps} & Beenden der Anwendung und Schließen der GUI \\ 
+\hline
+\end{tabular} 
+\end{center}
 
 
 
@@ -351,16 +393,15 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \section{Fensterverhalten}
 \begin{enumerate}[leftmargin=2cm]
 \item Das Programmfenster startet mit einer Größe von 1024x768 Pixeln. Die Größe ist mit 800x600 Pixeln nach unten, aber nicht nach oben beschränkt und kann vom Benutzer beliebig  verändert werden.
-\item \W Die Anwendung bietet einen Vollbildmodus, in dem Kartenansicht mit Seitenleiste über den gesamten Bildschirm gestreckt werden und Fensterdekorationen entfallen. Zwischen Fenster- und Vollbildmodus kann mit dem Tastenkürzel F11 gewechselt werden.
 \item Über den Fenstermanager (die Schließen-Funktion des Fensters) oder mit einem Tastenkürzel wird die Anwendung ohne Rückfrage beendet.
 \item \W Die Einstellungsleiste am linken Rand der GUI ist einklappbar.
 \end{enumerate}
 \section{Kartenansicht}
 \begin{enumerate}[leftmargin=2cm,resume]
-\item Die Kartenansicht kann interaktiv mit Maus oder Tastatur bedient werden.
+\item Die Kartenansicht kann interaktiv mit Maus und Tastatur bedient werden.
 \item \W Im Sonnensystemmodus werden zusätzliche Himmelskörper wie Sonne und Mond sichtbar, dafür ist die Zoommöglichkeit stark begrenzt.
 \item Im 2D-Kartenmodus kann die Ansicht nach links/rechts und oben/unten verschoben sowie (perspektivisch) gekippt werden. 
-\item Im 3D-Kartenmodus kann die Ansicht kann um die Erdachse sowie in Richtung der Pole gedreht; ab einem gewissen Zoomlevel am Kameraursprung gekippt werden.
+\item Im 3D-Kartenmodus kann die Ansicht um die Erdachse sowie in Richtung der Pole gedreht; ab einem gewissen Zoomlevel am Kameraursprung gekippt werden.
 \item Mit Linksklick-Ziehen oder den Pfeiltasten der Tastatur wird die Karte verschoben bzw. der Globus gedreht, mit Rechsklick-Ziehen nach oben/unten oder den BildAuf/BildAb-Tasten der Tastatur wird die Ansicht gekippt.
 \item \W Mit einem einfachen Linksklick werden im Detailfenster zusätzliche Daten zum Punkt unter dem Mauszeiger angezeigt. Bei POIs sind das Adresse sowie Beschreibung; bei anderen Punkten genauer Längen- und Breitengrad.
 \end{enumerate}
