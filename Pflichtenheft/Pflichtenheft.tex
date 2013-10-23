@@ -211,6 +211,8 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Bedienung mit Maus und Tastatur (siehe \textbf{/F050/})
 \item Sinnvolle Beschränkung der Zoomstufen und Beweglichkeit (siehe \textbf{/F110/}, \textbf{/L030/}, \textbf{/L180/})
 \item Beschränkung der Anzahl gleichzeitig geladener Overpass-Einträge (siehe \textbf{/L190/})
+\item Vermeiden des Ladens überflüssiger Kacheln (siehe \textbf{/L080/})
+\item Vorausladen von Kartendaten an den Rändern der Anzeige (siehe \textbf{/L080/})
 \end{itemize}
 
 \section{Wunschkriterien}
@@ -224,8 +226,7 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Suchfunktion für Overpass-Einträge, Lokal/Global (siehe \textbf{/F210/})
 \item Nur rendern wenn nötig (bei Bildänderung) (siehe \textbf{/L130/})
 \item Grafikeinstellungen wie Antialiasing oder Texturfilterung (siehe \textbf{/L150/})
-\item Vermeiden des Ladens überflüssiger Kacheln (siehe \textbf{/L080/})
-\item Vorausladen von Kartendaten an den Rändern der Anzeige (siehe \textbf{/L080/})
+\item Platzhaltertextur für nicht verfügbare Kacheln
 \end{itemize}
 
 \section{Abgrenzungskriterien}
@@ -392,43 +393,16 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 
 \section{Fensterverhalten}
 \begin{enumerate}[leftmargin=2cm]
-\item Das Programmfenster startet mit einer Größe von 1024x768 Pixeln. Die Größe ist mit 800x600 Pixeln nach unten, aber nicht nach oben beschränkt und kann vom Benutzer beliebig  verändert werden.
+\item Das Programmfenster startet mit einer Größe von 1024x768 Pixeln. Die Größe ist mit 800x600 Pixeln nach unten, aber nicht nach oben beschränkt und kann vom Benutzer durch Vergrößern bzw. Verkleinern der GUI geändert werden.
 \item Über den Fenstermanager (die Schließen-Funktion des Fensters) oder mit einem Tastenkürzel wird die Anwendung ohne Rückfrage beendet.
-\item \W Die Einstellungsleiste am linken Rand der GUI ist einklappbar.
+\item Die Einstellungsleiste am linken Rand der GUI ist einklappbar.
 \end{enumerate}
-\section{Kartenansicht}
-\begin{enumerate}[leftmargin=2cm,resume]
-\item Die Kartenansicht kann interaktiv mit Maus und Tastatur bedient werden.
-\item \W Im Sonnensystemmodus werden zusätzliche Himmelskörper wie Sonne und Mond sichtbar, dafür ist die Zoommöglichkeit stark begrenzt.
-\item Im 2D-Kartenmodus kann die Ansicht nach links/rechts und oben/unten verschoben sowie (perspektivisch) gekippt werden. 
-\item Im 3D-Kartenmodus kann die Ansicht um die Erdachse sowie in Richtung der Pole gedreht; ab einem gewissen Zoomlevel am Kameraursprung gekippt werden.
-\item Mit Linksklick-Ziehen oder den Pfeiltasten der Tastatur wird die Karte verschoben bzw. der Globus gedreht, mit Rechsklick-Ziehen nach oben/unten oder den BildAuf/BildAb-Tasten der Tastatur wird die Ansicht gekippt.
-\item \W Mit einem einfachen Linksklick werden im Detailfenster zusätzliche Daten zum Punkt unter dem Mauszeiger angezeigt. Bei POIs sind das Adresse sowie Beschreibung; bei anderen Punkten genauer Längen- und Breitengrad.
-\end{enumerate}
-\section{Kartendarstellung}
-\begin{enumerate}[leftmargin=2cm,resume]
-\item Aus der aktuellen Perspektive werden die sichtbaren Kartenabschnitte und die nötige Kartenauflösung bestimmt.
-\item Das Kartenmaterial ist in Kacheln aufgeteilt, die als Textur auf den Globus bzw. die Karte gelegt werden. Welche Kacheln geladen werden müssen, wird  aus den sichtbaren Kartenabschnitten und dem momentanen Zoomlevel bestimmt.
-\item Die Bewegung der Kamera und das anpassen des Zoomlevels wird derart beschränkt, dass keine Darstellungsfehler wie das Durchdringen der Kartenebene auftreten.
-\item In 3D-Darstellung kann die Ansicht nicht über die Pole hinweg gedreht werden, sodass die Pole im Fenster immer nach oben oder unten zeigen.
-\item Overlays wie Städtenamen oder Symbole für Tankstellen werden als zweidimensionale Objekte an die Stelle der Anzeigefläche projiziert, an der der markierte Punkt auf dem Bildschirm erscheint.
-\item \W Dreidimensionale Objekte wie Häusermodelle, Bäume, oder Stecknadeln zur Markierung von Punkten werden direkt in die Szene eingefügt.
-\item \W Die Menge der Angezeigten Overlays und 3D-Modelle wird beschränkt, sodass die Leistung wie auch die Lesbarkeit von Beschriftungen akzeptabel bleibt.
-\end{enumerate}
-\section{Laden der Kartendaten}
-\begin{enumerate}[resume,leftmargin=2cm]
-\item Ist die Textur einer Kachel bereits geladen, wird sie direkt zur Anzeige verwendet.
-\item \W Ansonsten wird zuerst versucht sie aus dem Cache im Arbeitsspeicher, dann aus dem Cache im Dateisystem zu laden.
-\item Ist sie lokal nicht vorhanden, wird sie über einen passenden Kachelserver nachgeladen und dem Cache hinzugefügt. Des weiteren können sogar die Server angepasst bzw. erweitert werden. Es werden nur die benötigen Karten für den jeweiligen Ausschnitt geladen sowie die direkten Randbereiche außerhalb der Ansicht (\W).
-\item Ist eine Textur noch nicht geladen oder nicht verfügbar, wird sie zwischenzeitlich durch eine Platzhaltertextur ersetzt.
-\item Das Laden von Kacheldaten erfolgt im Hintergrund, während die Ansicht weiter gerendert werden kann.
-\item Das Laden von Kacheln geschieht über HTTP.
-\end{enumerate}
+
 \section{GUI-Elemente zur Navigation}
 \begin{enumerate}[leftmargin=2cm,resume]
 \item Das Zoomlevel kann über einen Schieber angezeigt und geändert werden.
-\item Der Längen- und Breitengrad des Punktes an der Bildschirmmitte wird über Eingabefelder angezeigt, und kann über sie geändert werden.
-\item Ein Ladebalken zeigt den Fortschritt eventuell im Hintergrund geladener Kartendaten an.
+\item Ein Ladebalken zeigt den Fortschritt der im Hintergrund geladenen Kartendaten an.
+\item Der Längen- und Breitengrad des Punktes in der Bildschirmmitte wird über Eingabefelder angezeigt, und können geändert werden.
 \item Der Maßstab des Punktes unter dem Anzeigemittelpunkt wird in einem Feld angezeigt.
 \end{enumerate}
 
@@ -436,9 +410,45 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \begin{enumerate}[leftmargin=2cm,resume]
 \item Es kann zwischen 3D- (Globus), 2D- (Aufsicht) und (\W) Sonnensystemmodus gewählt werden.
 \item Es besteht eine Auswahl aus verschiedenen Kartentypen; wie Satellitenbildern und Straßenkarten.
-\item \W Es sind Höhenprofile, -linien, sowie 3D-Ansichten von Häusern und 
+\item \W Es sind Höhenprofile, sowie 3D-Ansichten von Häusern und 
 Bäumen zuschaltbar.
 \end{enumerate}
+
+\section{Kartenansicht}
+\begin{enumerate}[leftmargin=2cm,resume]
+\item Die Kartenansicht kann interaktiv mit Maus und Tastatur bedient werden.
+\item Im 2D-Kartenmodus kann die Ansicht nach links/rechts und oben/unten verschoben sowie (perspektivisch) gekippt werden. 
+\item Im 3D-Kartenmodus kann die Ansicht um die Erdachse sowie in Richtung der Pole gedreht; ab einem gewissen Zoomlevel am Kameraursprung gekippt werden.
+\item Im 2D-Kartenmodus kann der Benutzer Punkte markieren und speichern.
+\item \W Im Detailfenster werden Informationen zum markierten Punkt angezeigt. Bei POIs sind das Adresse sowie Beschreibung; bei anderen Punkten genauer Längen- und Breitengrad.
+\item \W Im Sonnensystemmodus werden zusätzliche Himmelskörper wie Sonne und Mond sichtbar, dafür ist die Zoommöglichkeit stark begrenzt.
+\end{enumerate}
+
+\section{Kartendarstellung}
+\begin{enumerate}[leftmargin=2cm,resume]
+\item Das Kartenmaterial ist in Kacheln aufgeteilt, die als Textur auf den Globus bzw. die Karte gelegt werden.
+\item Aus der aktuellen Perspektive werden die sichtbaren Kartenabschnitte bestimmt.
+\item Die Bewegung der Kamera und das Anpassen des Zoomlevels wird beschränkt.
+\item In 3D-Darstellung kann die Ansicht nicht über die Pole hinweg gedreht werden, sodass die Pole im Fenster immer nach oben oder unten zeigen.
+\item Overlays wie Städtenamen oder Symbole für Tankstellen werden als zweidimensionale Objekte an die Stelle der Anzeigefläche projiziert, an der der markierte Punkt auf dem Bildschirm erscheint.
+\item \W Dreidimensionale Objekte wie Häusermodelle, Bäume, oder  Markierungen von Punkten werden direkt in die Szene eingefügt.
+\item \W Die Menge der Angezeigten Overlays und 3D-Modelle wird beschränkt, sodass die Leistung wie auch die Lesbarkeit von Beschriftungen akzeptabel bleibt.
+\end{enumerate}
+
+\section{Laden der Kartendaten}
+\begin{enumerate}[resume,leftmargin=2cm]
+\item Das Laden von Kacheln geschieht über HTTP.
+\item Welche Kacheln geladen werden müssen, wird  aus den sichtbaren Kartenabschnitten und dem momentanen Zoomlevel bestimmt.
+\item Es werden nur die benötigen Karten für den jeweiligen Ausschnitt geladen.
+\item Ist die Textur einer Kachel bereits geladen, wird sie direkt angezeigt.
+\item Ist sie lokal nicht vorhanden, wird sie über einen passenden Kachelserver nachgeladen und dem Cache hinzugefügt.
+\item Das Laden von Kacheldaten erfolgt im Hintergrund, während die Ansicht weiter gerendert werden kann.
+\item \W Ist eine Textur noch nicht geladen oder nicht verfügbar, wird sie zwischenzeitlich durch eine Platzhaltertextur ersetzt.
+\item \W Es werden zusätzliche Kacheln der direkten Randbereiche außerhalb der Ansicht geladen.
+\item \W Ist die Textur einer Kachel noch nicht geladen wird zuerst versucht sie aus dem Cache im Arbeitsspeicher, dann aus dem Cache im Dateisystem zu laden.
+\end{enumerate}
+
+
 
 \section{Orte}
 \begin{enumerate}[leftmargin=2cm,resume]
@@ -490,11 +500,22 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskriterien.
 
 \begin{enumerate}[leftmargin=2cm]
+\item Die Benutzeroberfläche soll grafisch ansprechend, gut strukturiert und intuitiv verständlich gehalten sein.
+\item Die Oberfläche wird in den Sprachen Englisch und Deutsch angeboten.
+\item Die gesamte GUI ist komfortabel mit Maus und Tastatur steuerbar.
+\item Die einklappbare Seitenleiste in der GUI soll dem Benutzer die Möglichkeit bieten, 3D- und 2D-Ansichten in einem größeren Umfang (flächig) darzustellen.
+\item Die Bewegung der Kamera und das Anpassen des Zoomlevels wird beschränkt, damit keine Darstellungsfehler wie das Durchdringen der Kartenebene auftreten.
+
 \item Kartendaten werden effizient zwischengespeichert, um sowohl unnötiges Nachladen als auch den Speicherverbrauch zu minimieren.
-\item \W Der Energieverbrauch wird durch das vermeiden unnötiger Renderzyklen minimiert.
+\item Hintergrundvorgänge des Programms wie das Nachladen von Kartendaten unterbrechen den Rendervorgang nicht.
+\item Ein Ladebalken verdeutlicht den Status der im Hintergrund geladenen Kartenkacheln.
+\item \W Rendervorgänge sollen nur bei Bildänderungen gestartet werden und minimieren somit den Energieverbrauch.
+
+
+
 \item \W Die Anwendung ist intuitiv mit der Toucheingabe auf Windows 8 bedienbar.
 \item \W Die Grafikeinstellungen lassen sich anpassen, sodass die Leistung auch auf älterer Hardware akzeptabel ist.
-\item Hintergrundvorgänge des Programms wie das Nachladen von Kartendaten unterbrechen den Rendervorgang nicht.
+
 \end{enumerate}
 
 
