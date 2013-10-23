@@ -166,7 +166,7 @@ Wird das Produkt veröffentlicht, so müssen die Lizenzen der verwendeten Biblio
 
 \chapter{Produktumgebung}
 \section{Software}
-Da das Projekt auf Java setzt, ist es betriebssystemunabhängig. Es wird jedoch das Java Runtime Environment in Version 7 vorausgesetzt. Außerdem muss ein Fenstersystem, Netzwerkunterstützung sowie die nativen OpenGL-Bibliotheken zur Verfügung stehen. \\
+Da das Projekt auf Java setzt, ist es betriebssystemunabhängig. Es wird jedoch das Java Runtime Environment in Version 7 vorausgesetzt. Außerdem muss ein Fenstersystem, Netzwerkunterstützung sowie die nativen OpenGL-Bibliotheken zur Verfügung stehen. Zusätzliche Programmbibliotheken, die zum Ausführen des Softwareprojekts nötig sind, werden mitgeliefert.\\
 
 Da die Software von Seiten der Entwickler nur auf einem kleinen Teil der möglichen Umgebungen getestet werden kann, sollen mindestens folgende Konfigurationen unterstützt werden:
 \begin{itemize}
@@ -198,35 +198,34 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 \section{Musskriterien}
 \begin{itemize}
-\item Drehen, Kippen, Zoomen der Ansichten (siehe \textbf{/F070/}, \textbf{/F080/}, \textbf{/F090/})
-\item Ansichtsmodus wechselbar zwischen 3D-Globus und flache Kartenansicht (siehe \textbf{/F150/})
-\item Kartenmaterial wechselbar zwischen Satellitenblidern und OpenStreetMap (siehe \textbf{/F160/})
-\item Text- und Symboloverlays für Städte und POIs, Anzeige der Details dazu im Detailfenster (siehe \textbf{/F190/}, \textbf{/F220/}, \textbf{/D020/}, \textbf{/L040/}, \textbf{/L190/})
-\item Anzeige der momentanen und der möglichen Zoomstufen (siehe \textbf{/F110/})
-\item Anzeige des mometanen Kartenmaßstabs  (siehe \textbf{/F140/})
-\item Felder zur Anzeige und zum Ändern des Längen/Breitengrads (siehe \textbf{/F100/}, \textbf{/F120/})
-\item Sprachunterstützung für Englisch und Deutsch (siehe \textbf{/D060/})
-\item Ladebalken für im Hintergrund geladene Kartendaten (siehe \textbf{/F130/}, \textbf{/D040/}, \textbf{/D050/})
-\item Einklappbare Seitenleiste (siehe \textbf{/F040/})
-\item Bedienung mit Maus und Tastatur (siehe \textbf{/F050/})
-\item Sinnvolle Beschränkung der Zoomstufen und Beweglichkeit (siehe \textbf{/F110/}, \textbf{/L030/}, \textbf{/L180/})
-\item Beschränkung der Anzahl gleichzeitig geladener Overpass-Einträge (siehe \textbf{/L190/})
-\item Vermeiden des Ladens überflüssiger Kacheln (siehe \textbf{/L080/})
-\item Vorausladen von Kartendaten an den Rändern der Anzeige (siehe \textbf{/L080/})
+\item Intuitiv bedienbare, grafisch ansprechende GUI mit einklappbarer Seitenleiste und Sprachunterstützung für Englisch und Deutsch (siehe \textbf{/F010/}, \textbf{/F020/}, \textbf{/F030/}, \textbf{/F040/})
+\item Bedienung mit Maus und Tastatur (siehe \textbf{/F150/})
+\item Anzeige der momentanen und der möglichen Zoomstufen (siehe \textbf{/F050/})
+\item Sinnvolle Beschränkung der Zoomstufen und Beweglichkeit (siehe \textbf{/F200/})
+\item Ladebalken für im Hintergrund geladene Kartendaten (siehe \textbf{/F060/})
+\item Felder zur Anzeige und zur Änderung des Längen- und Breitengrads (siehe \textbf{/F070/})
+\item Anzeige des mometanen Kartenmaßstabs (siehe \textbf{/F080/})
+\item Ansichtsmodus wechselbar zwischen 3D-Globus und flache Kartenansicht (siehe \textbf{/F090/})
+\item Kartenmaterial wechselbar zwischen Satellitenblidern und OpenStreetMap (siehe \textbf{/F100/})
+\item Drehen, Kippen, Zoomen der Ansichten (siehe \textbf{/F160/}, \textbf{/F170/})
+\item Text- und Symboloverlays für Städte und POIs, Anzeige der Details dazu im Detailfenster (ohne Markierung und Speicherfunktion) (siehe \textbf{/F190/}, \textbf{/F210/}, \textbf{/F340/}, \textbf{/F370/})
+\item Beschränkung der Anzahl gleichzeitig geladener Overpass-Einträge (siehe \textbf{/F230/})
+\item Effizientes Laden der Kartendaten (siehe \textbf{/F240/}, \textbf{/F250/}, \textbf{/F260/}, \textbf{/F270/}, \textbf{/F280/}, \textbf{/F290/}, \textbf{/F320W/})
 \end{itemize}
 
 \section{Wunschkriterien}
 \begin{itemize}
-\item Kinder-Kartenmaterial (siehe \textbf{/F170/})
-\item 3D-Höhenprofil (siehe \textbf{/F180/})
-\item 3D-Modelle für Häuser/Bäume (siehe \textbf{/F180/}, \textbf{/L190/})
-\item Sonnensystem-Modellansicht als dritten Ansichtsmodus (siehe \textbf{/F060/})
-\item Sternenhimmel als Hintergrund (siehe \textbf{/D030/})
-\item Punkte markieren (mit Notiz) (siehe \textbf{/F200/}, \textbf{/L050/})
-\item Suchfunktion für Overpass-Einträge, Lokal/Global (siehe \textbf{/F210/})
-\item Nur rendern wenn nötig (bei Bildänderung) (siehe \textbf{/L130/})
-\item Grafikeinstellungen wie Antialiasing oder Texturfilterung (siehe \textbf{/L150/})
-\item Platzhaltertextur für nicht verfügbare Kacheln
+\item Kinder-Weltkarte (siehe \textbf{/F090/})
+\item 3D-Höhenprofil (siehe \textbf{/F110W/})
+\item 3D-Modelle für Häuser/Bäume (siehe \textbf{/F110W/}, \textbf{/F220W/})
+\item Sonnensystem-Modellansicht als weiteren Ansichtsmodus (siehe \textbf{/F090/}, \textbf{/F120W/})
+\item Sternenhimmel als Hintergrund (siehe \textbf{/F130W/})
+\item Punkte markieren mit Notiz und Speicherfunktion (siehe \textbf{/F180W/}, \textbf{/F220W/}, \textbf{/F350W/}, \textbf{/F380W/})
+\item Suchfunktion für Overpass-Einträge, Lokal/Global (siehe \textbf{/F360W/})
+\item Nur rendern wenn nötig (bei Bildänderung) (siehe \textbf{/F330W/})
+\item Grafikeinstellungen wie Antialiasing oder Texturfilterung (siehe \textbf{/F140W/})
+\item Platzhaltertextur für nicht verfügbare Kacheln (siehe \textbf{/F300W/})
+\item Vorausladen von Kartendaten an den Rändern der Anzeige (siehe \textbf{/F310W/})
 \end{itemize}
 
 \section{Abgrenzungskriterien}
@@ -396,6 +395,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \item Das Programmfenster startet mit einer Größe von 1024x768 Pixeln. Die Größe ist mit 800x600 Pixeln nach unten, aber nicht nach oben beschränkt und kann vom Benutzer durch Vergrößern bzw. Verkleinern der GUI geändert werden.
 \item Über den Fenstermanager (die Schließen-Funktion des Fensters) oder mit einem Tastenkürzel wird die Anwendung ohne Rückfrage beendet.
 \item Die Einstellungsleiste am linken Rand der GUI ist einklappbar.
+\item Auswahlmöglichkeit der Sprache: Englisch oder Deutsch
 \end{enumerate}
 
 \section{GUI-Elemente zur Navigation}
@@ -408,10 +408,13 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 
 \section{Ansichtseinstellungen}
 \begin{enumerate}[leftmargin=2cm,resume]
-\item Es kann zwischen 3D- (Globus), 2D- (Aufsicht) und (\W) Sonnensystemmodus gewählt werden.
+\item Es kann zwischen 3D- (Globus), 2D- (Aufsicht), (\W) Kinder-Weltkarte und (\W) Sonnensystemmodus gewählt werden.
 \item Es besteht eine Auswahl aus verschiedenen Kartentypen; wie Satellitenbildern und Straßenkarten.
 \item \W Es sind Höhenprofile, sowie 3D-Ansichten von Häusern und 
 Bäumen zuschaltbar.
+\item \W Im Sonnensystemmodus werden zusätzliche Himmelskörper wie Sonne und Mond sichtbar, dafür ist die Zoommöglichkeit stark begrenzt.
+\item \W Ein Sternenhimmel als Hintergrundbild soll zuschaltbar sein.
+\item \W Grafikeinstellungen wie Antialiasing oder Texturfilterung
 \end{enumerate}
 
 \section{Kartenansicht}
@@ -419,9 +422,8 @@ Bäumen zuschaltbar.
 \item Die Kartenansicht kann interaktiv mit Maus und Tastatur bedient werden.
 \item Im 2D-Kartenmodus kann die Ansicht nach links/rechts und oben/unten verschoben sowie (perspektivisch) gekippt werden. 
 \item Im 3D-Kartenmodus kann die Ansicht um die Erdachse sowie in Richtung der Pole gedreht; ab einem gewissen Zoomlevel am Kameraursprung gekippt werden.
-\item Im 2D-Kartenmodus kann der Benutzer Punkte markieren und speichern.
-\item \W Im Detailfenster werden Informationen zum markierten Punkt angezeigt. Bei POIs sind das Adresse sowie Beschreibung; bei anderen Punkten genauer Längen- und Breitengrad.
-\item \W Im Sonnensystemmodus werden zusätzliche Himmelskörper wie Sonne und Mond sichtbar, dafür ist die Zoommöglichkeit stark begrenzt.
+\item \W Im 2D-Kartenmodus kann der Benutzer Punkte markieren und speichern.
+\item Im Detailfenster werden Informationen zum markierten Punkt angezeigt. Bei POIs sind das Adresse sowie Beschreibung; bei anderen Punkten genauer Längen- und Breitengrad.
 \end{enumerate}
 
 \section{Kartendarstellung}
@@ -429,7 +431,7 @@ Bäumen zuschaltbar.
 \item In 3D-Darstellung kann die Ansicht nicht über die Pole hinweg gedreht werden, sodass die Pole im Fenster immer nach oben oder unten zeigen.
 \item Overlays wie Städtenamen oder Symbole für Tankstellen werden als zweidimensionale Objekte an die Stelle der Anzeigefläche projiziert, an der der markierte Punkt auf dem Bildschirm erscheint.
 \item \W Dreidimensionale Objekte wie Häusermodelle, Bäume, oder  Markierungen von Punkten werden direkt in die Szene eingefügt.
-\item \W Die Menge der Angezeigten Overlays und 3D-Modelle wird beschränkt, sodass die Leistung wie auch die Lesbarkeit von Beschriftungen akzeptabel bleibt.
+\item Die Menge der Angezeigten Overlays und 3D-Modelle wird beschränkt, sodass die Leistung wie auch die Lesbarkeit von Beschriftungen akzeptabel bleibt.
 \end{enumerate}
 
 \section{Laden der Kartendaten}
@@ -443,6 +445,7 @@ Bäumen zuschaltbar.
 \item \W Ist eine Textur noch nicht geladen oder nicht verfügbar, wird sie zwischenzeitlich durch eine Platzhaltertextur ersetzt.
 \item \W Es werden zusätzliche Kacheln der direkten Randbereiche außerhalb der Ansicht geladen.
 \item \W Ist die Textur einer Kachel noch nicht geladen wird zuerst versucht sie aus dem Cache im Arbeitsspeicher, dann aus dem Cache im Dateisystem zu laden.
+\item \W Rendervorgänge sollen nur bei Bildänderungen gestartet werden
 \end{enumerate}
 
 
@@ -457,7 +460,7 @@ Bäumen zuschaltbar.
 \section{Detailfenster}
 \begin{enumerate}[leftmargin=2cm,resume]
 \item Das Detailfenster bietet die Möglichkeit nähere Informationen zu einem Punkt auf der Karte zu erhalten, wie zugehörigem Längen- und Breitengrad.
-\item Der momentan in der Kartenansicht gewählte Punkt kann markiert,  gespeichert und falls bereits eine Markierung besteht wieder entfernt werden.
+\item \W Der momentan in der Kartenansicht gewählte Punkt kann markiert,  gespeichert und falls bereits eine Markierung besteht wieder entfernt werden.
 \end{enumerate}
 
 
