@@ -296,7 +296,88 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 	\begin{minipage}[c]{6cm}
 	\centering
 		\includegraphics[scale=0.9]{GUI-Einstellungen.eps}
-	\end{minipage}
+	\end{minipage}293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+        \centering
+                \includegraphics[scale=0.9]{GUI-Orte.eps}
+        \end{minipage}
+        \begin{minipage}[c]{6cm}
+        \centering
+                \includegraphics[scale=0.9]{GUI-Einstellungen.eps}
+        \end{minipage}
+        \caption{Der Orte- und der Einstellungstab}
+\end{figure}
+\begin{figure}
+        \centering
+        \includegraphics[scale=0.9]{GUI-Markieren.eps}
+        \caption{Das Dialogfenster zur Eingabe der Beschreibung beim Markieren eines Punktes}
+\end{figure}
+\clearpage
+\pagebreak
+\section{Steuerung der Kartenansicht}
+\subsection{Mausbelegung}
+\vspace{3mm}
+\begin{center}
+\begin{tabular}{|>{\centering \arraybackslash}m{4cm}|m{8cm}|}
+\hline 
+\textbf{Tastenbelegung} & \textbf{Bedeutung} \\ 
+\hline
+\hline
+\includegraphics[scale=1.0]{KeyImages/mouseDrag_left.eps} & Drehen der Erdkugel, Verschieben der Karten \\ 
+\hline 
+\includegraphics[scale=1.0]{KeyImages/mouseDoubleClick_left.eps} & Punkt markieren und zentrieren des Punkts im Kartenfenster \\
+\hline
+\includegraphics[scale=1.0]{KeyImages/mouseDrag_right.eps} & Kippen der Karte \\
+\hline
+\includegraphics[scale=1.0]{KeyImages/mouse_scrollen.eps} & Zoomen der Ansicht \\
+\hline
+\end{tabular} 
+\end{center}
+\vspace{5mm}
+Commit summary: Extended description: (optional)
+eder52 eder.91@web.de
+
 	\caption{Der Orte- und der Einstellungstab}
 \end{figure}
 \begin{figure}
@@ -478,7 +559,7 @@ Bäumen zuschaltbar.
 \begin{enumerate}[leftmargin=2.5cm,resume]
 \item Städtenamen, Points of Interest und andere Informationen können unter einer Vielzahl an Overlays an- und abgewählt werden.
 \wunsch
-\item Eigene Punkte können auf der Karte markiert, die Markierungen ein-/ausgeblendet, in einer Liste verwaltet und wieder entfernt werden.
+\item Eigene Punkte können auf der Karte markiert, die Markierungen ein-/ausgeblendet, in einer Liste verwaltet und wieder entfernt werden. 
 \item Orte und POIs können mittels einer Suchfunktion aufgefunden, angezeigt und den markierten Punkten hinzugefügt werden. Es kann dabei entweder im momentanen Kartenausschnitt oder global gesucht werden.
 \end{enumerate}
 
@@ -487,6 +568,7 @@ Bäumen zuschaltbar.
 \item Das Detailfenster bietet die Möglichkeit nähere Informationen zu einem Punkt auf der Karte zu erhalten, wie zugehörigem Längen- und Breitengrad.
 \wunsch
 \item Der momentan in der Kartenansicht gewählte Punkt kann markiert,  gespeichert und falls bereits eine Markierung besteht wieder entfernt werden.
+\item POI's sowie gewisse Einstellungen werden in einer Datei gespeichert, die bei Programmstart geladen wird.
 \end{enumerate}
 
 
@@ -671,8 +753,25 @@ Ein gutes Softwareprodukt zeichnet sich unter Anderem durch die Qualität des Be
 
 \renewcommand{\muss}{\renewcommand{\labelenumi}{\textbf{/T\numprint{\theenumi}0/}}}
 \renewcommand{\wunsch}{\renewcommand{\labelenumi}{\textbf{/T\numprint{\theenumi}0W/}}}
-\muss
+\muss 
+\begin{enumerate}
 
+Ausgangspunkt: nackte Grundinstallation.
+
+\item Das Programm wird gestartet. Es öffnet sich die GUI in Standardgröße mit ausgeklappter Seitenleiste im Sonnensystemmodus mit Standardsprache Deutsch. 
+\item Wir verkleinern das Fenster, es lässt sich nicht kleiner als Minimalgröße setzen. (F010)
+\item Auswahl der Ansichtsmodi (Globus, Kinder-Karte, wieder Sonnensystem) in Seitenleiste, Ansichten ändern sich entsprechen. (F090)
+\item Wir versuchen, die Erde durch ziehen der Maus über die Pole zu drehen. Erde dreht sich konsistent, stoppt jedoch bei den Polen. (F200)
+\item Ändere Sprache auf Englisch, die Anzeigesprache ändert sich, und wieder zurück auf Deutsch. (F040)
+
+
+\item Klick auf Einklappsymbol, Seitenleiste klappt ein. (F030)
+\item Wir drücken Strg+Q. Das Fenster schliesst sich ohne Rückmeldung. (F020)
+
+
+
+
+\end{enumerate}
 
 
 
