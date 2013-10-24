@@ -687,7 +687,7 @@ Ein gutes Softwareprodukt zeichnet sich unter Anderem durch die Qualität des Be
 \renewcommand{\wunsch}{\renewcommand{\labelenumi}{\textbf{/T\numprint{\theenumi}0W/}}}
 \muss 
 
-Ausgangspunkt: nackte Grundinstallation \\
+Ausgangspunkt: Nackte Grundinstallation \\
 Test: Szenario - Anwendungsstart \\
 Voraussetzung: keine
 \begin{enumerate}[leftmargin = 2.5cm]
@@ -701,7 +701,7 @@ Voraussetzung: keine
 \end{enumerate}
 
 \vspace{1.0cm}
-Ausgangspunkt: nackte Grundinstallation \\
+Ausgangspunkt: Nackte Grundinstallation \\
 Test: Funktionalität GUI inklusive der gelieferten Texturen \\
 Voraussetzung: Szenario - Anwendungsstart ausführen
 \begin{enumerate}[leftmargin = 2.5cm, resume]
@@ -712,6 +712,12 @@ Voraussetzung: Szenario - Anwendungsstart ausführen
 \item Zoomlevel verringern und Maßstabsänderung kontrollieren (siehe \textbf{/F050/}, \textbf{/F080/}).
 \item Zoomlevel wieder rücksetzen auf Ausgangspunkt (siehe \textbf{/F050/}).
 \item Maßstabsanzeige vergleichen mit vorheriger Skalierung (siehe \textbf{/F080/}).
+\wunsch
+\item Höhenprofile einschalten und anschließend wieder ausschalten (siehe \textbf{/F120W/}).
+\item 3D-Modelle für Häuse/Bäume einschalten und anschließend wieder ausschalten (siehe \textbf{/F120W/}, \textbf{/F230W/}).
+\item Grafikeinstellung - Antialiasing einschalten und anschließend wieder ausschalten (siehe \textbf{/F150W/}).
+\item Grafikeinstellung - Texturfilterung einschalten und anschließend wieder ausschalten (siehe \textbf{/F150W/}).
+\muss
 \item Steuerung mittels Maus: Erde über die Pole drehen über X-Achse. Erde dreht sich konsistent - Pole dürfen sich jedoch nur $+/- 90^\circ$ drehen lassen - Pole wieder zurück drehen (siehe \textbf{/F160/}, \textbf{/F180/}, \textbf{/F210/}).
 \item Steuerung mittels Maus: Erde über die Pole drehen über Y-Achse. Erde dreht sich konsistent - Pole dürfen sich jedoch nur $+/- 90^\circ$ drehen lassen - Pole wieder zurück drehen (siehe \textbf{/F160/}, \textbf{/F180/}, \textbf{/F210/}).
 \item Steuerung mittels Tastatur: Erde über die Pole drehen über X-Achse. Erde dreht sich konsistent - Pole dürfen sich jedoch nur $+/- 90^\circ$ drehen lassen - Pole wieder zurück drehen (siehe \textbf{/F160/}, \textbf{/F180/}, \textbf{/F210/}).
@@ -722,20 +728,46 @@ Voraussetzung: Szenario - Anwendungsstart ausführen
 \item Einblenden der Seitenleiste (siehe \textbf{/F030/}).
 \wunsch
 \item Auswahl der Kinder-Weltkarte - Ansicht ändert sich entsprechend. Erneute Auswahl des Globus mit Kinder-Weltkarte darf nicht mehr möglich sein (siehe \textbf{/F100W/}).
+\item Sternenhimmel als Hintergrundbild einschalten und anschließend wieder ausschalten (siehe \textbf{/F140W/}).
 \muss
+\item Globus kippen und wieder Rücksetzen (siehe \textbf{/F180/}).
 \item Verkleinern des Fensters - Minimalgröße (800x600 Pixel) darf nicht unterschritten werden (siehe \textbf{/F010/}).
-\item Drücken von 'Strg + Q' beendet die Anwendung ohne Rückmeldung (siehe \textbf{/F020/}).
+\item Schließen der Anwendung mit Strg + Q ohne Rückmeldung (siehe \textbf{/F020/}).
 \end{enumerate}
 
 \vspace{1.0cm}
-Ausgangspunkt: nackte Grundinstallation \\
+Ausgangspunkt: Nackte Grundinstallation \\
 Test: Laden der Kartendaten von OpenStreetMap und NASA \\
 Voraussetzung: Szenario - Anwendungsstart ausführen
 \begin{enumerate}[leftmargin = 2.5cm, resume]
-\item (!) Kartenkacheln laden, Ladebalken für Fortschritt, Platzhaltertextur usw. testen (siehe \textbf{/F060/}, ...)
-\item Auswahl der Ansicht Karte mit Kartentyp OpenStreetMap (Straßenkarte) (siehe \textbf{/F090/}, \textbf{/F110/}). (Daten der Karten müssen vorab geladen worden sein!)
-\item Drücken des Schließen-Buttons beendet die Anwendung ohne Rückmeldung. Die Einstellungen der Kartendaten müssen gespeichert werden (siehe \textbf{/F020/}).
+\item Laden der Kartenkacheln testen (siehe \textbf{/F250/}, \textbf{/F260/}, \textbf{/F270/}, \textbf{/F290/}, \textbf{/F300/}).
+\wunsch
+\item Kontrollieren, ob Platzhaltertextur während des Ladens der Kartenkacheln erscheint (siehe \textbf{/F310W/}).
+\item Die Kacheln der direkten Randbereiche außerhalb der Ansicht werden geladen (siehe \textbf{/F320W/}).
+\item Ist die Textur einer Kachel noch nicht geladen, wird zuerst versucht sie aus dem Cache im Arbeitsspeicher, dann aus dem Cache im Dateisystem zu laden (siehe \textbf{/F330W/}).
+\muss
+\item Ladebalken für Fortschritt beobachten (siehe \textbf{/F060/}).
+\item Wenn Ladebalken 100\% erreicht hat, wird die Kachel direkt angezeigt (siehe \textbf{/F060/}, \textbf{/F280/}).
+\item Drücken des Schließen-Buttons beendet die Anwendung ohne Rückmeldung. Die Einstellungen der Kartendaten müssen hier gespeichert werden (siehe \textbf{/F020/}).
 \end{enumerate}
+
+\vspace{1.0cm}
+Ausgangspunkt: Geladene Kartendaten \\
+Test: Ansichtseinstellungen bei Karten \\
+Voraussetzung: Szenario - Anwendungsstart ausführen
+\begin{enumerate}[leftmargin = 2.5cm, resume]
+\item Auswahl der Ansicht Karte mit Kartentyp OpenStreetMap (Straßenkarte) (siehe \textbf{/F090/}, \textbf{/F110/}).
+\wunsch
+\item Höhenprofile einschalten und anschließend wieder ausschalten (siehe \textbf{/F120W/}).
+\item 3D-Modelle für Häuse/Bäume einschalten und anschließend wieder ausschalten (siehe \textbf{/F120W/}, \textbf{/F230W/}).
+\item Grafikeinstellung - Antialiasing einschalten und anschließend wieder ausschalten (siehe \textbf{/F150W/}).
+\item Grafikeinstellung - Texturfilterung einschalten und anschließend wieder ausschalten (siehe \textbf{/F150W/}).
+\muss
+\item Verschieben der Karten: Ansicht nach links/rechts/oben/unten verändern (siehe \textbf{/F170/}).
+\item Kippen des Kartenausschnitts und wieder Rücksetzen (siehe \textbf{/F170/}).
+\item Schließen der Anwendung mit Strg + Q ohne Rückmeldung (siehe \textbf{/F020/}).
+\end{enumerate}
+
 
 \vspace{1.0cm}
 Ausgangspunkt: Geladene Kartendaten \\
@@ -743,16 +775,37 @@ Test: Punkte markieren, POIs \\
 Voraussetzung: Szenario - Anwendungsstart ausführen
 \begin{enumerate}[leftmargin = 2.5cm, resume]
 \item Auswahl der Ansicht Karte mit Kartentyp OpenStreetMap (Straßenkarte) (siehe \textbf{/F090/}, \textbf{/F110/}).
-\item Schließen der Anwendung mit Strg + Q. Markierte Punkte werden gespeichert (siehe \textbf{/F020/}).
+\item Im Detailfenster müssen Informationen zum zentrierten Punkt, wie Längen- und Breitengrad angezeigt werden (siehe \textbf{/F200/}, \textbf{/F380/})
+\wunsch
+\item Suche mehrerer Orte/ Punkte auf Karten mittels Suchfunktion. Suchergebnisse müssen angezeigt werden (siehe \textbf{/F370W/}).
+\item Button Punkt markieren klicken und Punkt auf der Karte markieren. Der markierte Punkt wird nun im Kartenfenster zentriert (siehe \textbf{/F190W/}, \textbf{/F230W/}).
+\item Im Detailfenster müssen Informationen zum markierten Punkt, wie Längen- und Breitengrad angezeigt werden (siehe \textbf{/F200/}).
+\item Markierung des Punkts aus-/einblenden (siehe \textbf{/F360W/}).
+\item Markierten Punkt in der Liste speichern. Name und Bezeichnung eintragen (siehe \textbf{/F360W/}, \textbf{/F390W/}, \textbf{/F400W/}).
+\item Button Punkt markieren klicken und zweiten Punkt auf der Karte markieren. Der markierte Punkt wird nun im Kartenfenster zentriert (siehe \textbf{/F190W/}, \textbf{/F230W/}).
+\item Im Detailfenster müssen Informationen zum neuen markierten Punkt, wie Längen- und Breitengrad angezeigt werden (siehe \textbf{/F200/}).
+\item Markierten Punkt in der Liste speichern. Name und Bezeichnung eintragen (siehe \textbf{/F360W/}, \textbf{/F390W/}, \textbf{/F400W/}).
+\item Button Punkt markieren klicken und dritten Punkt auf der Karte markieren. Der markierte Punkt wird nun im Kartenfenster zentriert (siehe \textbf{/F190W/}, \textbf{/F230W/}).
+\item Markierten Punkt in der Liste speichern. Name und Bezeichnung eintragen (siehe \textbf{/F360W/}, \textbf{/F390W/}, \textbf{/F400W/}).
+\item Gespeicherten Punkt '2' aus der Liste löschen ohne Rückmeldung (siehe \textbf{/F360W/}, \textbf{/F390W/}, \textbf{/F400W/}).
+\item Markierten Punkt '1' und Punkt '3' in der Liste speichern (siehe \textbf{/F360W/}, \textbf{/F390W/}, \textbf{/F400W/}).
+\muss
+\item Anzeige von Overlays, wie Städtenamen anwählen (siehe \textbf{/F220/}, \textbf{/F350/}).
+\item Anzeige von POIs, wie Tankstellen anwählen (siehe \textbf{/F220/}, \textbf{/F350/}).
+\item Alle Overlays anwählen - Testen ob Lesbarkeit der Beschriftungen und der Symbole gegeben ist. Anschließend alle Overlays abwählen (siehe \textbf{/F220/}, \textbf{/F240/}).
+\item 3D-Modelle zuschalten - Testen ob Lesbarkeit der Beschriftungen und der Symbole gegeben ist (siehe \textbf{/F240/}).
+\item  Schließen der Anwendung mit Strg + Q ohne Rückmeldung. Die Einstellungen der Kartendaten und der markierten Punkte müssen hier gespeichert werden (siehe \textbf{/F020/}).
 \end{enumerate}
 
 \vspace{1.0cm}
 Ausgangspunkt: Liste der markierten Punkte und die Ansichtseinstellungen werden übernommen \\
 Test: Settings Speicherung \\
-Voraussetzung: Szenario - Anwendungsstart ausführen
+Voraussetzung: Szenario - Anwendungsstart ausführen, Veränderung der Settings-Datei (z.B. markierte Punkte setzen)
 \begin{enumerate}[leftmargin = 2.5cm, resume]
 \wunsch
-\item Kontrolle ob die Settings-Einstellungen übernommen wurden. (siehe \textbf{/F390W/})
+\item Kontrolle ob die Settings-Einstellungen übernommen wurden. (siehe \textbf{/F390W/}, \textbf{/F400W/})
+\item Kontrolle ob die beiden markierten Punkte noch in der Liste vorhanden sind (siehe \textbf{/F360W/}, \textbf{/F390W/}, \textbf{/F400W/}).
+\item Cache-Größe verändern.
 \muss
 \item Drücken des Schließen-Buttons beendet die Anwendung ohne Rückmeldung. (siehe \textbf{/F020/})
 \end{enumerate}
