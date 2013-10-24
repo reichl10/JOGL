@@ -13,6 +13,7 @@
 \usepackage{numprint}
 \usepackage{tabularx}
 \usepackage{multirow}
+\usepackage{array}
 
 \makeatletter
 \patchcmd{\@makechapterhead}{\vspace*{50\p@}}{\vspace*{-20\p@}}{}{}
@@ -242,6 +243,8 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 \chapter{Benutzeroberfläche}
 
+\section{Visuelles Konzept}
+
 \begin{itemize}
 	\item Das Hauptelement der Benutzeroberfläche ist die Karten- oder Globusansicht, die sich im rechten Fensterteil befindet. Der sichtbare Kartenausschnitt kann interaktiv mit Maus oder Tastatur verschoben werden.
 	\item Im 2D-Modus zeigt die Ansicht eine Projektion der Karte auf die Ebene, die in der Ansicht nach links/rechts und oben/unten verschoben sowie (perspektivisch) gekippt werden kann.
@@ -253,8 +256,14 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \vspace{1cm}
 \begin{figure}[h]
 	\centering
+	\includegraphics[scale=0.9]{GUI-Sonnensystem.eps}
+	\caption{Die Benutzeroberfläche mit geöffnetem Ansichts-Tab im Sonnensystemmodus}
+\end{figure}
+
+\begin{figure}
+	\centering
 	\includegraphics[scale=0.9]{GUI-Ansicht.eps}
-	\caption{Die Benutzeroberfläche mit geöffnetem Ansichts-Tab}
+	\caption{Die Benutzeroberfläche mit geöffnetem Ansichts-Tab mit dargestelltem Globus}
 \end{figure}
 
 \begin{figure}
@@ -292,27 +301,30 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \end{figure}
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.9]{GUI-ServerDialog.eps}
-	\caption{Das Dialogfenster zum Hinzufügen eines neuen Servers}
+	\includegraphics[scale=0.9]{GUI-Markieren.eps}
+	\caption{Das Dialogfenster zur Eingabe der Beschreibung beim Markieren eines Punktes}
 \end{figure}
 
+\clearpage
+\pagebreak
 
-\subsection*{Mausbelegung}
+\section{Steuerung der Kartenansicht}
+
+\subsection{Mausbelegung}
+\vspace{3mm}
 \begin{center}
-\begin{tabular}{|c|c|}
+\begin{tabular}{|>{\centering \arraybackslash}m{4cm}|m{8cm}|}
 \hline 
 \textbf{Tastenbelegung} & \textbf{Bedeutung} \\ 
 \hline
 \hline
-\includegraphics[scale=2.0]{KeyImages/mouseDrag_left.eps} & Drehen der Erdkugel, Verschieben der Karten \\ 
+\includegraphics[scale=1.0]{KeyImages/mouseDrag_left.eps} & Drehen der Erdkugel, Verschieben der Karten \\ 
 \hline 
-\includegraphics[scale=2.0]{KeyImages/mouseclick_left.eps} & Punkt markieren und zentrieren des Punkts im Kartenfenster \\
+\includegraphics[scale=1.0]{KeyImages/mouseDoubleClick_left.eps} & Punkt markieren und zentrieren des Punkts im Kartenfenster \\
 \hline
-\includegraphics[scale=2.0]{KeyImages/mouseDoubleClick_left.eps} & ??? \\
+\includegraphics[scale=1.0]{KeyImages/mouseDrag_right.eps} & Kippen der Karte \\
 \hline
-\includegraphics[scale=2.0]{KeyImages/mouseDrag_right.eps} & Kippen der Karte \\
-\hline
-\includegraphics[scale=2.0]{KeyImages/mouse_scrollen.eps} & Zoomen der Ansicht \\
+\includegraphics[scale=1.0]{KeyImages/mouse_scrollen.eps} & Zoomen der Ansicht \\
 \hline
 \end{tabular} 
 \end{center}
@@ -320,9 +332,11 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 
 
-\subsection*{Tastaturbelegung}
+\vspace{5mm}
+\subsection{Tastaturbelegung}
+\vspace{3mm}
 \begin{center}
-\begin{tabular}{|m{4cm}|m{8cm}|}
+\begin{tabular}{|>{\centering \arraybackslash}m{4cm}|m{8cm}|}
 \hline 
 \rule[-1ex]{0pt}{4ex} \textbf{Tastenbelegung} & \textbf{Bedeutung} \\ 
 \hline 
@@ -386,13 +400,16 @@ Auch beschafft es mittels des \textbf{OverpassAPI-Clients} die vom View anfragte
 \chapter{Produktfunktionen}
 
 \nplpadding{2}
-\renewcommand{\labelenumi}{\textbf{/F\numprint{\theenumi}0/}}
+\newcommand{\muss}{\renewcommand{\labelenumi}{\textbf{/F\numprint{\theenumi}0/}}}
+\newcommand{\wunsch}{\renewcommand{\labelenumi}{\textbf{/F\numprint{\theenumi}0W/}}}
+\muss
+
 
 \newcommand{\W}{\textbf{W }}
 Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskriterien.
 
 \section{Fensterverhalten}
-\begin{enumerate}[leftmargin=2cm]
+\begin{enumerate}[leftmargin=2.5cm]
 \item Das Programmfenster startet mit einer Größe von 1024x768 Pixeln. Die Größe ist mit 800x600 Pixeln nach unten, aber nicht nach oben beschränkt und kann vom Benutzer durch Vergrößern bzw. Verkleinern der GUI geändert werden.
 \item Über den Fenstermanager (die Schließen-Funktion des Fensters) oder mit einem Tastenkürzel wird die Anwendung ohne Rückfrage beendet.
 \item Die Einstellungsleiste am linken Rand der GUI ist einklappbar.
@@ -400,7 +417,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \end{enumerate}
 
 \section{GUI-Elemente zur Navigation}
-\begin{enumerate}[leftmargin=2cm,resume]
+\begin{enumerate}[leftmargin=2.5cm,resume]
 \item Das Zoomlevel kann über einen Schieber angezeigt und geändert werden.
 \item Ein Ladebalken zeigt den Fortschritt der im Hintergrund geladenen Kartendaten an.
 \item Der Längen- und Breitengrad des Punktes in der Bildschirmmitte wird über Eingabefelder angezeigt, und können geändert werden.
@@ -408,60 +425,68 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \end{enumerate}
 
 \section{Ansichtseinstellungen}
-\begin{enumerate}[leftmargin=2cm,resume]
+\begin{enumerate}[leftmargin=2.5cm,resume]
 \item Es kann zwischen 3D- (Globus), 2D- (Aufsicht), (\W) Kinder-Weltkarte und (\W) Sonnensystemmodus gewählt werden.
 \item Es besteht eine Auswahl aus verschiedenen Kartentypen; wie Satellitenbildern und Straßenkarten.
-\item \W Es sind Höhenprofile, sowie 3D-Ansichten von Häusern und 
+\wunsch
+\item Es sind Höhenprofile, sowie 3D-Ansichten von Häusern und 
 Bäumen zuschaltbar.
-\item \W Im Sonnensystemmodus werden zusätzliche Himmelskörper wie Sonne und Mond sichtbar, dafür ist die Zoommöglichkeit stark begrenzt.
-\item \W Ein Sternenhimmel als Hintergrundbild soll zuschaltbar sein.
-\item \W Grafikeinstellungen wie Antialiasing oder Texturfilterung
+\item Im Sonnensystemmodus werden zusätzliche Himmelskörper wie Sonne und Mond sichtbar, dafür ist die Zoommöglichkeit stark begrenzt.
+\item Ein Sternenhimmel als Hintergrundbild soll zuschaltbar sein.
+\item Grafikeinstellungen wie Antialiasing oder Texturfilterung
 \end{enumerate}
 
 \section{Kartenansicht}
-\begin{enumerate}[leftmargin=2cm,resume]
+\begin{enumerate}[leftmargin=2.5cm,resume]
 \item Die Kartenansicht kann interaktiv mit Maus und Tastatur bedient werden.
 \item Im 2D-Kartenmodus kann die Ansicht nach links/rechts und oben/unten verschoben sowie (perspektivisch) gekippt werden. 
 \item Im 3D-Kartenmodus kann die Ansicht um die Erdachse sowie in Richtung der Pole gedreht; ab einem gewissen Zoomlevel am Kameraursprung gekippt werden.
-\item \W Im 2D-Kartenmodus kann der Benutzer Punkte markieren und speichern.
+\wunsch
+\item Im 2D-Kartenmodus kann der Benutzer Punkte markieren und speichern.
+\muss
 \item Im Detailfenster werden Informationen zum markierten Punkt angezeigt. Bei POIs sind das Adresse sowie Beschreibung; bei anderen Punkten genauer Längen- und Breitengrad.
 \end{enumerate}
 
 \section{Kartendarstellung}
-\begin{enumerate}[leftmargin=2cm,resume]
+\begin{enumerate}[leftmargin=2.5cm,resume]
 \item In 3D-Darstellung kann die Ansicht nicht über die Pole hinweg gedreht werden, sodass die Pole im Fenster immer nach oben oder unten zeigen.
 \item Overlays wie Städtenamen oder Symbole für Tankstellen werden als zweidimensionale Objekte an die Stelle der Anzeigefläche projiziert, an der der markierte Punkt auf dem Bildschirm erscheint.
-\item \W Dreidimensionale Objekte wie Häusermodelle, Bäume, oder  Markierungen von Punkten werden direkt in die Szene eingefügt.
+\wunsch
+\item Dreidimensionale Objekte wie Häusermodelle, Bäume, oder  Markierungen von Punkten werden direkt in die Szene eingefügt.
+\muss
 \item Die Menge der Angezeigten Overlays und 3D-Modelle wird beschränkt, sodass die Leistung wie auch die Lesbarkeit von Beschriftungen akzeptabel bleibt.
 \end{enumerate}
 
 \section{Laden der Kartendaten}
-\begin{enumerate}[resume,leftmargin=2cm]
+\begin{enumerate}[resume,leftmargin=2.5cm]
 \item Das Laden von Kacheln geschieht über HTTP.
 \item Welche Kacheln geladen werden müssen, wird  aus den sichtbaren Kartenabschnitten und dem momentanen Zoomlevel bestimmt.
 \item Es werden nur die benötigen Karten für den jeweiligen Ausschnitt geladen.
 \item Ist die Textur einer Kachel bereits geladen, wird sie direkt angezeigt.
 \item Ist sie lokal nicht vorhanden, wird sie über einen passenden Kachelserver nachgeladen und dem Cache hinzugefügt.
 \item Das Laden von Kacheldaten erfolgt im Hintergrund, während die Ansicht weiter gerendert werden kann.
-\item \W Ist eine Textur noch nicht geladen oder nicht verfügbar, wird sie zwischenzeitlich durch eine Platzhaltertextur ersetzt.
-\item \W Es werden zusätzliche Kacheln der direkten Randbereiche außerhalb der Ansicht geladen.
-\item \W Ist die Textur einer Kachel noch nicht geladen wird zuerst versucht sie aus dem Cache im Arbeitsspeicher, dann aus dem Cache im Dateisystem zu laden.
-\item \W Rendervorgänge sollen nur bei Bildänderungen gestartet werden
+\wunsch
+\item Ist eine Textur noch nicht geladen oder nicht verfügbar, wird sie zwischenzeitlich durch eine Platzhaltertextur ersetzt.
+\item Es werden zusätzliche Kacheln der direkten Randbereiche außerhalb der Ansicht geladen.
+\item Ist die Textur einer Kachel noch nicht geladen wird zuerst versucht sie aus dem Cache im Arbeitsspeicher, dann aus dem Cache im Dateisystem zu laden.
+\item Rendervorgänge sollen nur bei Bildänderungen gestartet werden
 \end{enumerate}
 
 
 
 \section{Orte}
-\begin{enumerate}[leftmargin=2cm,resume]
+\begin{enumerate}[leftmargin=2.5cm,resume]
 \item Städtenamen, Points of Interest und andere Informationen können unter einer Vielzahl an Overlays an- und abgewählt werden.
-\item \W Eigene Punkte können auf der Karte markiert, die Markierungen ein-/ausgeblendet, in einer Liste verwaltet und wieder entfernt werden.
-\item \W Orte und POIs können mittels einer Suchfunktion aufgefunden, angezeigt und den markierten Punkten hinzugefügt werden. Es kann dabei entweder im momentanen Kartenausschnitt oder global gesucht werden.
+\wunsch
+\item Eigene Punkte können auf der Karte markiert, die Markierungen ein-/ausgeblendet, in einer Liste verwaltet und wieder entfernt werden.
+\item Orte und POIs können mittels einer Suchfunktion aufgefunden, angezeigt und den markierten Punkten hinzugefügt werden. Es kann dabei entweder im momentanen Kartenausschnitt oder global gesucht werden.
 \end{enumerate}
 
 \section{Detailfenster}
-\begin{enumerate}[leftmargin=2cm,resume]
+\begin{enumerate}[leftmargin=2.5cm,resume]
 \item Das Detailfenster bietet die Möglichkeit nähere Informationen zu einem Punkt auf der Karte zu erhalten, wie zugehörigem Längen- und Breitengrad.
-\item \W Der momentan in der Kartenansicht gewählte Punkt kann markiert,  gespeichert und falls bereits eine Markierung besteht wieder entfernt werden.
+\wunsch
+\item Der momentan in der Kartenansicht gewählte Punkt kann markiert,  gespeichert und falls bereits eine Markierung besteht wieder entfernt werden.
 \end{enumerate}
 
 
@@ -497,12 +522,17 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 
 \chapter{Produktleistungen}
 
-\renewcommand{\labelenumi}{\textbf{/L\numprint{\theenumi}0/}}
+\renewcommand{\muss}{\renewcommand{\labelenumi}{\textbf{/L\numprint{\theenumi}0/}}}
+\renewcommand{\wunsch}{\renewcommand{\labelenumi}{\textbf{/L\numprint{\theenumi}0W/}}}
+\muss
+
 Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskriterien.
 
-\begin{enumerate}[leftmargin=2cm]
+\begin{enumerate}[leftmargin=2.5cm]
 \item Die Benutzeroberfläche soll grafisch ansprechend, gut strukturiert und intuitiv verständlich gehalten sein.
-\item \W Um auch Kinder zu motivieren, Jogl Earth zu verwenden, wird eine altersgemäße Kinder-Weltkarte mitausgeliefert.
+\wunsch
+\item Um auch Kinder zu motivieren, Jogl Earth zu verwenden, wird eine altersgemäße Kinder-Weltkarte mitausgeliefert.
+\muss
 \item Die Oberfläche wird in den Sprachen Englisch und Deutsch angeboten.
 \item Die gesamte GUI ist komfortabel mit Maus und Tastatur steuerbar.
 \item Die einklappbare Seitenleiste in der GUI soll dem Benutzer die Möglichkeit bieten, 3D- und 2D-Ansichten in einem größeren Umfang (flächig) darzustellen.
@@ -513,13 +543,12 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \item Kartendaten werden effizient zwischengespeichert, um sowohl unnötiges Nachladen als auch den Speicherverbrauch zu minimieren.
 \item Hintergrundvorgänge des Programms wie das Nachladen von Kartendaten unterbrechen den Rendervorgang nicht.
 \item Ein Ladebalken verdeutlicht den Status der im Hintergrund geladenen Kartenkacheln.
-\item \W Nicht verfügbare Kartenausschnitte sollen durch eine Platzhaltertextur ersetzt werden.
-\item \W Rendervorgänge sollen nur bei Bildänderungen gestartet werden und minimieren somit den Energieverbrauch.
-\item \W Die Anwendung ist intuitiv mit der Toucheingabe auf Windows 8 bedienbar.
-\item \W Die Grafikeinstellungen lassen sich anpassen, sodass die Leistung auch auf älterer Hardware akzeptabel ist.
-\item \W Mit zusätzlichen Darstellungsmöglichkeiten, wie 3D-Höhenprofile, 3D-Modelle für Häuser bzw. Bäume, einer Sonnensystem-Modellansicht, einem wählbaren Sternenhimmel als Hintergrundmotiv werden die Ansichten optisch aufgewertet.
-
-
+\wunsch
+\item Nicht verfügbare Kartenausschnitte sollen durch eine Platzhaltertextur ersetzt werden.
+\item Rendervorgänge sollen nur bei Bildänderungen gestartet werden und minimieren somit den Energieverbrauch.
+\item Die Anwendung ist intuitiv mit der Toucheingabe auf Windows 8 bedienbar.
+\item Die Grafikeinstellungen lassen sich anpassen, sodass die Leistung auch auf älterer Hardware akzeptabel ist.
+\item Mit zusätzlichen Darstellungsmöglichkeiten, wie 3D-Höhenprofile, 3D-Modelle für Häuser bzw. Bäume, einer Sonnensystem-Modellansicht, einem wählbaren Sternenhimmel als Hintergrundmotiv werden die Ansichten optisch aufgewertet.
 \end{enumerate}
 
 
@@ -527,8 +556,6 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \chapter{Qualitätsbestimmungen}
 
 
-
-\section{Bewertung der Qualitätsbestimmungen}
 \vspace{1cm}
 \begin{center}
 \begin{tabular}{lcccc}
@@ -578,8 +605,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 
 
 
-\section{Definition der Qualitätsbestimmungen}
-\subsection*{Funktionalität}
+\section*{Funktionalität}
 \begin{indents}
 \item \textbf{Web Mining:} Automatische Extraktion von Daten aus dem Internet. Bei Jogl Earth findet das Web Mining bei der Suchfunktion Anwendung. Um die Benutzeroberfläche übersichtlich zu halten, ist nur eine einfache Suche nach Wortteilen möglich, die nicht weiter eingegrenzt wird. Es wird weiter vorausgesetzt, dass sich die Overpass-Server genau wie in der Spezifikation verhalten; eine Fehlerkorrektur wird nicht versucht.
 
@@ -587,7 +613,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \end{indents}
 
 
-\subsection*{Zuverlässigkeit}
+\section*{Zuverlässigkeit}
 \begin{indents}
 \item \textbf{Stabilität:} Die Lauffähigkeit des Programms soll nicht unterbrochen bzw. beeinträchtigt werden. Programmabstürze und Fehlverhalten führt sehr schnell zu Unzufriedenheit beim Benutzer, weswegen der Stabilität hohe Priorität zukommt.
 
@@ -597,7 +623,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \end{indents}
 
 
-\subsection*{Benutzbarkeit}
+\section*{Benutzbarkeit}
 \begin{indents}
 \item \textbf{Bedienbarkeit:} Die Oberfläche soll intuitiv bedienbar sein. Dies ist auch deshalb von Bedeutung, da Kinder zur Zielgruppe gehören.
 
@@ -609,7 +635,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \end{indents}
 
 
-\subsection*{Effizienz}
+\section*{Effizienz}
 \begin{indents}
 \item \textbf{Bildqualität:} Die Satellitenbilder und Kartendaten sollen in bestmöglicher Qualität dargestellt werden, außerdem sollen Bildänderungen flüssig erfolgen. Dies ist für die Sichtbarkeit von Kartendetails und die Bedienbarkeit unabdinglich.
 
@@ -619,7 +645,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \end{indents}
 
 
-\subsection*{Anpassfähigkeit}
+\section*{Anpassfähigkeit}
 \begin{indents}
 \item \textbf{Code-Qualität:} Der Quellcode des Programms soll leicht verständlich gehalten werden. Dies ist für die Teamarbeit unerlässlich.
 
@@ -627,7 +653,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \end{indents}
 
 
-\subsection*{Portierbarkeit}
+\section*{Portierbarkeit}
 \begin{indents}
 \item \textbf{Erweiterbarkeit:} Zusätzliche Funktionalitäten sollen in den Code integrierbar sein. Hier gilt das selbe wie für die Modifizierbarkeit.
 
@@ -635,7 +661,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \end{indents}
 
 
-\subsection*{Dokumentation}
+\section*{Dokumentation}
 Ein gutes Softwareprodukt zeichnet sich unter Anderem durch die Qualität des Benutzerhandbuchs, der Quelltextdokumentation, der einzelnen Phasendokumente aus. Sie sollen gut strukturiert, leicht verständlich und fachlich kompetent gehalten sein. 
 
 
@@ -643,6 +669,9 @@ Ein gutes Softwareprodukt zeichnet sich unter Anderem durch die Qualität des Be
 
 \chapter{Globale Testszenarien und Testfälle}
 
+\renewcommand{\muss}{\renewcommand{\labelenumi}{\textbf{/T\numprint{\theenumi}0/}}}
+\renewcommand{\wunsch}{\renewcommand{\labelenumi}{\textbf{/T\numprint{\theenumi}0W/}}}
+\muss
 
 
 
