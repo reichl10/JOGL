@@ -157,7 +157,7 @@ Die Anwendung wahrt per Design die Sicherheit des Systems und schützt die Priva
 Wird das Produkt veröffentlicht, so müssen die Lizenzen der verwendeten Bibliotheken und Datenquellen berücksichtigt werden:
 \begin{itemize}
 \item Teile der JOGL-Bibliothek sind unter mehreren Versionen der BSD-Lizenz, der SGI Free Software License und der Apache-Lizenz, der Ubuntu Font License und mehreren proprietären Lizenzen veröffentlicht. Details dazu finden sich bei [\footnote{\url{https://jogamp.org/git/?p=jogl.git;a=blob;f=LICENSE.txt}}]
-\item OpenStreetMap ist „OpenData“ im Sinne der Open Data Commons Open Database Lizenz (ODbL). Die Karthografie der Kartenkacheln stehen unter der Linzenz  Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen“ 2.0 (CC BY-SA). Weitere Infos, wie auch eine Vorgabe zum Hinweisen auf der Urheberschaft des OSM-Projekts finden sich bei [\footnote{\url{http://www.openstretmap.org/copyright}}].
+\item OpenStreetMap ist „OpenData“ im Sinne der Open Data Commons Open Database Lizenz (ODbL). Die Kartografie der Kartenkacheln stehen unter der Linzenz  Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen 2.0 (CC BY-SA). Weitere Infos, wie auch eine Vorgabe zum Hinweisen auf der Urheberschaft des OSM-Projekts finden sich bei [\footnote{\url{http://www.openstretmap.org/copyright}}].
 \item Die Daten der Overpass API stehen ebenfalls unter der ODbL.
 \item Die Satellitenbilder der NASA sind frei verfügbar und stehen unter der Lizenz, die sich bei [\footnote{\url{http://www.nasa.gov/audience/formedia/features/MP_Photo_Guidelines.html}}] findet.
 \item JGoodies Forms steht unter der BSD-Lizenz[\footnote{\url{http://opensource.org/licenses/bsd-license.html}}].
@@ -206,9 +206,9 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Sinnvolle Beschränkung der Zoomstufen und Beweglichkeit (siehe \textbf{/F200/})
 \item Ladebalken für im Hintergrund geladene Kartendaten (siehe \textbf{/F060/})
 \item Felder zur Anzeige und zur Änderung des Längen- und Breitengrads (siehe \textbf{/F070/})
-\item Anzeige des mometanen Kartenmaßstabs (siehe \textbf{/F080/})
+\item Anzeige des momentanen Kartenmaßstabs (siehe \textbf{/F080/})
 \item Ansichtsmodus wechselbar zwischen 3D-Globus und flache Kartenansicht (siehe \textbf{/F090/})
-\item Kartenmaterial wechselbar zwischen Satellitenblidern und OpenStreetMap (siehe \textbf{/F100/})
+\item Kartenmaterial wechselbar zwischen Satellitenbildern und OpenStreetMap (siehe \textbf{/F100/})
 \item Drehen, Kippen, Zoomen der Ansichten (siehe \textbf{/F160/}, \textbf{/F170/})
 \item Text- und Symboloverlays für Städte und POIs, Anzeige der Details dazu im Detailfenster (ohne Markierung und Speicherfunktion) (siehe \textbf{/F190/}, \textbf{/F210/}, \textbf{/F340/}, \textbf{/F370/})
 \item Beschränkung der Anzahl gleichzeitig geladener Overpass-Einträge (siehe \textbf{/F230/})
@@ -523,6 +523,10 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \end{itemize}
 \muss
 \item Mitgelieferte Texturen wie beispielsweise die Kinder-Weltkarte oder Symbole für POIs liegen im Ordner \texttt{textures}.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.3]{Kinder-Weltkarte.jpg}
+\end{figure}
 \item Zwischengespeicherte Kacheln werden im Ordner \texttt{cache} abgelegt. Dabei erhält jede Kombination aus Server- und Kartentyp ein eigenes Unterverzeichnis.
 \end{enumerate}
 
@@ -538,7 +542,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \begin{enumerate}[leftmargin=2.5cm]
 \item Die Benutzeroberfläche soll grafisch ansprechend, gut strukturiert und intuitiv verständlich gehalten sein.
 \wunsch
-\item Um auch Kinder zu motivieren, Jogl Earth zu verwenden, wird eine altersgemäße Kinder-Weltkarte mitausgeliefert.
+\item Um auch Kinder zu motivieren, Jogl Earth zu verwenden, wird eine altersgemäße Kinder-Weltkarte mit ausgeliefert.
 \muss
 \item Die Oberfläche wird in den Sprachen Englisch und Deutsch angeboten.
 \item Die gesamte GUI ist komfortabel mit Maus und Tastatur steuerbar.
@@ -616,7 +620,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \begin{indents}
 \item \textbf{Web Mining:} Automatische Extraktion von Daten aus dem Internet. Bei Jogl Earth findet das Web Mining bei der Suchfunktion Anwendung. Um die Benutzeroberfläche übersichtlich zu halten, ist nur eine einfache Suche nach Wortteilen möglich, die nicht weiter eingegrenzt wird. Es wird weiter vorausgesetzt, dass sich die Overpass-Server genau wie in der Spezifikation verhalten; eine Fehlerkorrektur wird nicht versucht.
 
-\item \textbf{Interoperabilität:} Die Anwendung soll mit OpenStreetMap, der Overpass-API und ähnlichen Diensten interagieren um das Kartenmaterial mit Zusatzinformationen grafisch zu unterstützen. Da dies Kernbestandteil ist, wird Wert auf die Qualität der Interopabilität gelegt.
+\item \textbf{Interoperabilität:} Die Anwendung soll mit OpenStreetMap, der Overpass-API und ähnlichen Diensten interagieren um das Kartenmaterial mit Zusatzinformationen grafisch zu unterstützen. Da dies Kernbestandteil ist, wird Wert auf die Qualität der Interoperabilität gelegt.
 \end{indents}
 
 
@@ -693,7 +697,7 @@ Ausgangspunkt: nackte Grundinstallation.
 
 
 \item Klick auf Einklappsymbol, Seitenleiste klappt ein. (F030)
-\item Wir drücken Strg+Q. Das Fenster schliesst sich ohne Rückmeldung. (F020)
+\item Wir drücken Strg+Q. Das Fenster schließt sich ohne Rückmeldung. (F020)
 
 
 
@@ -711,7 +715,7 @@ Abgesehen vom Betriebssystem und Anwendungen wie Texteditoren ist die verwendete
 \item Framework: Java 7 (JDK)
 \item Unit Tests: JUnit
 \item Messtool zur Testabdeckung: EclEmma
-\item Grafik- und Bildbearbeitung: Inkscape, GIMP
+\item Grafik- und Bildbearbeitung: Inkscape, GIMP, Microsoft Visio
 \item Textsatz: \LaTeX
 \item Versionsverwaltung: Git mit Repository bei GitHub
 \item Visualisierung: IBM Software Rational Architect
