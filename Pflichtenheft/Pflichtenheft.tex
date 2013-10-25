@@ -16,29 +16,33 @@
 \usepackage{multirow}
 \usepackage{caption}
 \usepackage{array}
+\usepackage{amssymb}
 
 \makeatletter
 \patchcmd{\@makechapterhead}{\vspace*{50\p@}}{\vspace*{-20\p@}}{}{}
 \patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{\vspace*{-20\p@}}{}{}
 \makeatother
 
-\newenvironment{indents}{%
-  \parskip6pt \parindent5mm \raggedright%
-  \def\item{\hangindent=5mm \hangafter1}}{%
+\newenvironment{details}[1][6pt]{%
+  \parskip#1 \parindent6mm \raggedright%
+  \def\item{\par\ignorespaces\hangindent=5mm \hangafter1}}{%
   \par\ignorespaces} 
   
 \captionsetup[figure]{labelfont={sf,bf},textfont={sf}}
-
 \deffootnotemark{[\thefootnotemark]}
 \deffootnote{1.5em}{1em}{[\thefootnotemark] }
+\setlength{\parindent}{0pt}
+\renewcommand{\labelitemi}{ $\blacktriangleright$ }
 
 \newcommand{\sfbf}[1]{\textbf{\sffamily #1}}
 \newcommand{\sfit}[1]{\textit{\sffamily #1}}
 \newcommand{\W}{\sfbf{W}}
-\newcommand{\ziel}[1]{{\fontsize{9.5}{11} \sffamily /#1/}}
+\newcommand{\ziel}[1]{{\fontsize{9.5}{11}\textsf{/#1/}}}
 \newcommand{\ziellabel}{Z}
 \newcommand{\muss}{\renewcommand{\labelenumi}{\textbf{\ziel{\ziellabel\numprint{\theenumi}0}}}}
 \newcommand{\wunsch}{\renewcommand{\labelenumi}{\textbf{\ziel{\ziellabel\numprint{\theenumi}0W}}}}
+\newcommand{\JoglEarth}{\raisebox{-1.3mm}{\includegraphics[scale=0.33]{Logo-Text.eps}} }
+\newcommand{\textref}[1]{\mbox{\raisebox{0.1ex}{\small$\rightarrow$ }\textit{#1}}}
 
   
 
@@ -137,7 +141,7 @@ Mit diesen Grundprinzipien soll eine 3D-Desktopanwendung basierend auf den Daten
 
 \chapter{Produkteinsatz}
 \section{Anwendungsbereich}
-Die Desktopanwendung „Jogl Earth“ soll eine interaktive, dreidimensionale Ansicht der Welt auf Basis der freien Daten des OpenStreetMap-Projekt bieten. \\
+Die Desktopanwendung \JoglEarth soll eine interaktive, dreidimensionale Ansicht der Welt auf Basis der freien Daten des OpenStreetMap-Projekt bieten. \\
 
 Die grafische Benutzeroberfläche zeigt dafür eine Weltkugel, die frei gedreht und gezoomt werden kann. Die Steuerung erfolgt hierbei mit Tastatur und Maus. Die Oberflächentextur kann hierbei aus verschiedenen Typen wie Satellitenbildern der NASA oder Kartendaten des OpenStreetMap-Projekts gewählt werden. 
 So besteht die Möglichkeit bis zu Straßenkarten zu zoomen und auch Städte oder andere Orte mit Hilfe einer Suchfunktion zu finden. \\
@@ -159,12 +163,12 @@ Veränderungen vorgenommen. Es erfolgt keine Wartung.
 \end{itemize} 
 
 \section{Sicherheit, Datenschutz}
-Die Anwendung wahrt per Design die Sicherheit des Systems und schützt die Privatsphäre des Nutzers, da
+Die Anwendung wahrt die Sicherheit des Systems und schützt die Privatsphäre des Nutzers.
 \begin{itemize}
-\item weder zur Bedienung, noch zum Beschaffen der Kartendaten eine Authentifikation erforderlich ist
-\item keine Persönlichen Daten des Anwenders über das Netz übertragen werden
-\item nie ein aus dem Netz nachgeladener Code ausgeführt wird
-\item die Anwendung keine Serverfunktionalität bietet
+\item Es ist weder zur Bedienung, noch zum Beschaffen der Kartendaten eine Authentifikation erforderlich 
+\item Es werden keine Persönlichen Daten des Anwenders über das Netz übertragen werden
+\item Es wird kein Code aus dem Netz nachgeladen und ausgeführt
+\item Das Programm hat keine (unter Umständen angreifbare) Serverfunktionalität
 \end{itemize}
 
 
@@ -608,25 +612,25 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 
 
 \section*{Funktionalität}
-\begin{indents}
+\begin{details}
 \item \sfbf{Web Mining:} Automatische Extraktion von Daten aus dem Internet. Bei Jogl Earth findet das Web Mining bei der Suchfunktion Anwendung. Um die Benutzeroberfläche übersichtlich zu halten, ist nur eine einfache Suche nach Wortteilen möglich, die nicht weiter eingegrenzt wird. Es wird weiter vorausgesetzt, dass sich die Overpass-Server genau wie in der Spezifikation verhalten; eine Fehlerkorrektur wird nicht versucht.
 
 \item \textbf{Interoperabilität:} Die Anwendung soll mit OpenStreetMap, der Overpass-API und ähnlichen Diensten interagieren um das Kartenmaterial mit Zusatzinformationen grafisch zu unterstützen. Da dies Kernbestandteil ist, wird Wert auf die Qualität der Interoperabilität gelegt.
-\end{indents}
+\end{details}
 
 
 \section*{Zuverlässigkeit}
-\begin{indents}
+\begin{details}
 \item \sfbf{Stabilität:} Die Lauffähigkeit des Programms soll nicht unterbrochen bzw. beeinträchtigt werden. Programmabstürze und Fehlverhalten führt sehr schnell zu Unzufriedenheit beim Benutzer, weswegen der Stabilität hohe Priorität zukommt.
 
 \item \sfbf{Fehlertoleranz:} Das Programm soll trotz fehlerhafter Eingaben seitens des Anwenders seine Funktionsweise aufrechterhalten. Dies ist ein wichtiger Punkt, da falsche Behandlung von unsinnigen Eingaben zu Fehlverhalten führt (Siehe Stabilität).
 
 \item \sfbf{Wiederherstellbarkeit:} Bei Neustart nach unsachgemäßer Beendigung des Programms, z.B. durch einen Systemabsturz, verhält sich das Programm wie bei einem normalen Start. Es wird kein Versuch unternommen, die Sitzung wiederherzustellen, da der Zustand keine Informationen enthält, die für den Benutzer kritisch sind.
-\end{indents}
+\end{details}
 
 
 \section*{Benutzbarkeit}
-\begin{indents}
+\begin{details}
 \item \sfbf{Bedienbarkeit:} Die Oberfläche soll intuitiv bedienbar sein. Dies ist auch deshalb von Bedeutung, da Kinder zur Zielgruppe gehören.
 
 \item \sfbf{Erlernbarkeit:} Die Bedienung der Oberfläche soll einfach verstanden werden. Dies deckt sich mit der Anforderung nach intuitiver Bedienbarkeit.
@@ -634,168 +638,185 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \item \sfbf{Grafische Gestaltung:} Die Oberfläche soll optisch ansprechend wirken. Dabei wird auch auf Einfachheit geachtet, was der Erlernbarkeit dient.
 
 \item \sfbf{Verständlichkeit:} Die Oberfläche soll selbsterklärend sein. Dieses Ziel ist leicht erreichbar, da der Funktionsumfang gut strukturiert ist.
-\end{indents}
+\end{details}
 
 
 \section*{Effizienz}
-\begin{indents}
+\begin{details}
 \item \sfbf{Bildqualität:} Die Satellitenbilder und Kartendaten sollen in bestmöglicher Qualität dargestellt werden, außerdem sollen Bildänderungen flüssig erfolgen. Dies ist für die Sichtbarkeit von Kartendetails und die Bedienbarkeit unabdinglich.
 
 \item \sfbf{Laufzeit:} Trotz bestmöglicher Bildqualität sollen die Wartezeiten zum Laden der Daten gering gehalten werden. Die Zielsetzung ist es, dabei heutige Standards zu erreichen.
 
 \item \sfbf{Speichermanagement:} Die Kachel-Daten werden im Dateisystem und im Arbeitsspeicher effizient gepuffert. Effizientes Speichermanagement wirkt sich unmittelbar auf die Ladezeiten aus, weswegen es höchste Aufmerksamkeit genießt.
-\end{indents}
+\end{details}
 
 
 \section*{Anpassfähigkeit}
-\begin{indents}
+\begin{details}
 \item \sfbf{Code-Qualität:} Der Quellcode des Programms soll leicht verständlich gehalten werden. Dies ist für die Teamarbeit unerlässlich.
 
 \item \sfbf{Modifizierbarkeit:} Zusätzliche Änderungen bzw. Anpassungen des Codes sollen einfach umsetzbar sein. Da die Software nach Beendigung des Projekts nicht weiterentwickelt wird, spielt dies eine untergeordnete Rolle.
-\end{indents}
+\end{details}
 
 
 \section*{Portierbarkeit}
-\begin{indents}
+\begin{details}
 \item \sfbf{Erweiterbarkeit:} Zusätzliche Funktionalitäten sollen in den Code integrierbar sein. Hier gilt das selbe wie für die Modifizierbarkeit.
 
 \item \sfbf{Konformität:} Vorgegebene Konventionen sollen eingehalten werden. 
-\end{indents}
+\end{details}
 
 
 \section*{Dokumentation}
-Ein gutes Softwareprodukt zeichnet sich unter Anderem durch die Qualität des Benutzerhandbuchs, der Quelltextdokumentation, der einzelnen Phasendokumente aus. Sie sollen gut strukturiert, leicht verständlich und fachlich kompetent gehalten sein. 
+\begin{details}
+\item \sfbf{Dokumentation:} Ein gutes Softwareprodukt zeichnet sich unter Anderem durch die Qualität des Benutzerhandbuchs, der Quelltextdokumentation, der einzelnen Phasendokumente aus. Sie sollen gut strukturiert, leicht verständlich und fachlich kompetent gehalten sein. 
+\end{details}
 
 
 
 
 \chapter{Globale Testszenarien und Testfälle}
 
-\setlength{\parindent}{0pt}
 \renewcommand{\ziellabel}{T}
-\muss 
 
-\sfbf{Ausgangspunkt:} Nackte Grundinstallation \\
-\sfbf{Test:} Szenario - Anwendungsstart \\
-\sfbf{Voraussetzung:} keine
+\begin{details}[2pt]
+\item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
+\item \sfbf{Test:} Szenario - Anwendungsstart 
+\item \sfbf{Voraussetzung:} keine
+\end{details}
+\vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm]
-\item Das Programm wird gestartet. Es öffnet sich die GUI in Standardgröße (1024x768 Pixeln) (siehe \textbf{/F010/}).
-\item Die Einstellungsleiste der GUI ist geöffnet (siehe \textbf{/F030/}).
-\item Die GUI startet in Standardsprache Deutsch (siehe \textbf{/F040/}).
+\item Das Programm wird gestartet. Es öffnet sich die GUI in Standardgröße (1024x768 Pixeln) (siehe \ziel{F010}).
+\item Die Einstellungsleiste der GUI ist geöffnet (siehe \ziel{F030}).
+\item Die GUI startet in Standardsprache Deutsch (siehe \ziel{F040}).
 \wunsch
-\item Die GUI startet im Sonnensystemmodus. Erneute Auswahl des Sonnensystemmodus darf nicht mehr möglich sein. Die Auswahl des Kartentyps, Höhenprofil und 3D-Modelle muss entfallen (gemäß Abbildung 5.1) (siehe \textbf{/F100W/}, \textbf{/F130W/}).
+\item Die GUI startet im Sonnensystemmodus. Erneute Auswahl des Sonnensystemmodus darf nicht mehr möglich sein. Die Auswahl des Kartentyps, Höhenprofil und 3D-Modelle muss entfallen (gemäß Abbildung 5.1) (siehe \ziel{F100W}, \ziel{F130W}).
 \muss
-\item Sollte der (\W) Sonnensystemmodus nicht realisiert werden, startet die GUI in der Globus-Ansicht mit Satellitenbildern. Erneute Auswahl des Ansichtsmodus Globus mit Satellitenbildern darf nicht mehr möglich sein (siehe \textbf{/F090/}, \textbf{/F110/}).
+\item Sollte der (\W) Sonnensystemmodus nicht realisiert werden, startet die GUI in der Globus-Ansicht mit Satellitenbildern. Erneute Auswahl des Ansichtsmodus Globus mit Satellitenbildern darf nicht mehr möglich sein (siehe \ziel{F090}, \ziel{F110}).
 \end{enumerate}
 
 \vspace{1.0cm}
-\sfbf{Ausgangspunkt:} Nackte Grundinstallation \\
-\sfbf{Test:} Funktionalität GUI inklusive der gelieferten Texturen \\
-\sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
+\begin{details}[2pt]
+\item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
+\item \sfbf{Test:} Funktionalität GUI inklusive der gelieferten Texturen 
+\item \sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
+\end{details}
+\vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
-\item Änderung der Sprache auf Englisch - die Anzeigesprache ändert sich - Rücksetzen der Sprache auf Deutsch (siehe \textbf{/F040/}).
-\item Maßstabsanzeige betrachten und Skalierung notieren (siehe \textbf{/F080/}).
-\item Zoomlevel - Augangspunkt notieren, dann Zoomlevel erhöhen und Maßstabsänderung kontrollieren (siehe \textbf{/F050/}, \textbf{/F080/}).
-\item Maximales und Minimales Zoomlevel einstellen - Ansicht passt sich an (siehe \textbf{/F210/}).
-\item Zoomlevel verringern und Maßstabsänderung kontrollieren (siehe \textbf{/F050/}, \textbf{/F080/}).
-\item Zoomlevel wieder rücksetzen auf Ausgangspunkt (siehe \textbf{/F050/}).
-\item Maßstabsanzeige vergleichen mit vorheriger Skalierung (siehe \textbf{/F080/}).
+\item Änderung der Sprache auf Englisch - die Anzeigesprache ändert sich - Rücksetzen der Sprache auf Deutsch (siehe \ziel{F040}).
+\item Maßstabsanzeige betrachten und Skalierung notieren (siehe \ziel{F080}).
+\item Zoomlevel - Augangspunkt notieren, dann Zoomlevel erhöhen und Maßstabsänderung kontrollieren (siehe \ziel{F050}, \ziel{F080}).
+\item Maximales und Minimales Zoomlevel einstellen - Ansicht passt sich an (siehe \ziel{F210}).
+\item Zoomlevel verringern und Maßstabsänderung kontrollieren (siehe \ziel{F050}, \ziel{F080}).
+\item Zoomlevel wieder rücksetzen auf Ausgangspunkt (siehe \ziel{F050}).
+\item Maßstabsanzeige vergleichen mit vorheriger Skalierung (siehe \ziel{F080}).
 \wunsch
-\item Höhenprofile einschalten und anschließend wieder ausschalten (siehe \textbf{/F120W/}).
-\item 3D-Modelle für Häuse/Bäume einschalten und anschließend wieder ausschalten (siehe \textbf{/F120W/}, \textbf{/F230W/}).
-\item Grafikeinstellung - Antialiasing einschalten und anschließend wieder ausschalten (siehe \textbf{/F150W/}).
-\item Grafikeinstellung - Texturfilterung einschalten und anschließend wieder ausschalten (siehe \textbf{/F150W/}).
+\item Höhenprofile einschalten und anschließend wieder ausschalten (siehe \ziel{F120W}).
+\item 3D-Modelle für Häuse/Bäume einschalten und anschließend wieder ausschalten (siehe \ziel{F120W}, \ziel{F230W}).
+\item Grafikeinstellung - Antialiasing einschalten und anschließend wieder ausschalten (siehe \ziel{F150W}).
+\item Grafikeinstellung - Texturfilterung einschalten und anschließend wieder ausschalten (siehe \ziel{F150W}).
 \muss
-\item Steuerung mittels Maus: Erde über die Pole drehen über X-Achse. Erde dreht sich konsistent - Pole dürfen sich jedoch nur $+/- 90^\circ$ drehen lassen - Pole wieder zurück drehen (siehe \textbf{/F160/}, \textbf{/F180/}, \textbf{/F210/}).
-\item Steuerung mittels Maus: Erde über die Pole drehen über Y-Achse. Erde dreht sich konsistent - Pole dürfen sich jedoch nur $+/- 90^\circ$ drehen lassen - Pole wieder zurück drehen (siehe \textbf{/F160/}, \textbf{/F180/}, \textbf{/F210/}).
-\item Steuerung mittels Tastatur: Erde über die Pole drehen über X-Achse. Erde dreht sich konsistent - Pole dürfen sich jedoch nur $+/- 90^\circ$ drehen lassen - Pole wieder zurück drehen (siehe \textbf{/F160/}, \textbf{/F180/}, \textbf{/F210/}).
-\item Steuerung mittels Tastatur: Erde über die Pole drehen über Y-Achse. Erde dreht sich konsistent - Pole dürfen sich jedoch nur $+/- 90^\circ$ drehen lassen - Pole wieder zurück drehen (siehe \textbf{/F160/}, \textbf{/F180/}, \textbf{/F210/}).
-\item Eingabe von gültigen Längen- oder Breitengraden. Der Globus richtet sich entsprechend aus und zentriert den Punkt (siehe \textbf{/F070/}).
-\item Eingabe von ungültigen Längen- oder Breitengraden. Die Ansicht verändert sich nicht (siehe \textbf{/F070/}).
-\item Ausblenden der Seitenleiste (siehe \textbf{/F030/}).
-\item Einblenden der Seitenleiste (siehe \textbf{/F030/}).
+\item Steuerung mittels Maus: Erde über die Pole drehen über X-Achse. Erde dreht sich konsistent - Pole dürfen sich jedoch nur $+/- 90^\circ$ drehen lassen - Pole wieder zurück drehen (siehe \ziel{F160}, \ziel{F180}, \ziel{F210}).
+\item Steuerung mittels Maus: Erde über die Pole drehen über Y-Achse. Erde dreht sich konsistent - Pole dürfen sich jedoch nur $+/- 90^\circ$ drehen lassen - Pole wieder zurück drehen (siehe \ziel{F160}, \ziel{F180}, \ziel{F210}).
+\item Steuerung mittels Tastatur: Erde über die Pole drehen über X-Achse. Erde dreht sich konsistent - Pole dürfen sich jedoch nur $+/- 90^\circ$ drehen lassen - Pole wieder zurück drehen (siehe \ziel{F160}, \ziel{F180}, \ziel{F210}).
+\item Steuerung mittels Tastatur: Erde über die Pole drehen über Y-Achse. Erde dreht sich konsistent - Pole dürfen sich jedoch nur $+/- 90^\circ$ drehen lassen - Pole wieder zurück drehen (siehe \ziel{F160}, \ziel{F180}, \ziel{F210}).
+\item Eingabe von gültigen Längen- oder Breitengraden. Der Globus richtet sich entsprechend aus und zentriert den Punkt (siehe \ziel{F070}).
+\item Eingabe von ungültigen Längen- oder Breitengraden. Die Ansicht verändert sich nicht (siehe \ziel{F070}).
+\item Ausblenden der Seitenleiste (siehe \ziel{F030}).
+\item Einblenden der Seitenleiste (siehe \ziel{F030}).
 \wunsch
-\item Auswahl der Kinder-Weltkarte - Ansicht ändert sich entsprechend. Erneute Auswahl des Globus mit Kinder-Weltkarte darf nicht mehr möglich sein (siehe \textbf{/F100W/}).
-\item Sternenhimmel als Hintergrundbild einschalten und anschließend wieder ausschalten (siehe \textbf{/F140W/}).
+\item Auswahl der Kinder-Weltkarte - Ansicht ändert sich entsprechend. Erneute Auswahl des Globus mit Kinder-Weltkarte darf nicht mehr möglich sein (siehe \ziel{F100W}).
+\item Sternenhimmel als Hintergrundbild einschalten und anschließend wieder ausschalten (siehe \ziel{F140W}).
 \muss
-\item Globus kippen und wieder Rücksetzen (siehe \textbf{/F180/}).
-\item Verkleinern des Fensters - Minimalgröße (800x600 Pixel) darf nicht unterschritten werden (siehe \textbf{/F010/}).
-\item Schließen der Anwendung mit Strg + Q ohne Rückmeldung (siehe \textbf{/F020/}).
+\item Globus kippen und wieder Rücksetzen (siehe \ziel{F180}).
+\item Verkleinern des Fensters - Minimalgröße (800x600 Pixel) darf nicht unterschritten werden (siehe \ziel{F010}).
+\item Schließen der Anwendung mit Strg + Q ohne Rückmeldung (siehe \ziel{F020}).
 \end{enumerate}
 
 \vspace{1.0cm}
-\sfbf{Ausgangspunkt:} Nackte Grundinstallation \\
-\sfbf{Test:} Laden der Kartendaten von OpenStreetMap und NASA \\
-\sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
+\begin{details}[2pt]
+\item \sfbf{Ausgangspunkt:} Nackte Grundinstallation \\
+\item \sfbf{Test:} Laden der Kartendaten von OpenStreetMap und NASA \\
+\item \sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
+\end{details}
+\vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
-\item Laden der Kartenkacheln testen (siehe \textbf{/F250/}, \textbf{/F260/}, \textbf{/F270/}, \textbf{/F290/}, \textbf{/F300/}).
+\item Laden der Kartenkacheln testen (siehe \ziel{F250}, \ziel{F260}, \ziel{F270}, \ziel{F290}, \ziel{F300}).
 \wunsch
-\item Kontrollieren, ob Platzhaltertextur während des Ladens der Kartenkacheln erscheint (siehe \textbf{/F310W/}).
-\item Die Kacheln der direkten Randbereiche außerhalb der Ansicht werden geladen (siehe \textbf{/F320W/}).
-\item Ist die Textur einer Kachel noch nicht geladen, wird zuerst versucht sie aus dem Cache im Arbeitsspeicher, dann aus dem Cache im Dateisystem zu laden (siehe \textbf{/F330W/}).
+\item Kontrollieren, ob Platzhaltertextur während des Ladens der Kartenkacheln erscheint (siehe \ziel{F310W}).
+\item Die Kacheln der direkten Randbereiche außerhalb der Ansicht werden geladen (siehe \ziel{F320W}).
+\item Ist die Textur einer Kachel noch nicht geladen, wird zuerst versucht sie aus dem Cache im Arbeitsspeicher, dann aus dem Cache im Dateisystem zu laden (siehe \ziel{F330W}).
 \muss
-\item Ladebalken für Fortschritt beobachten (siehe \textbf{/F060/}).
-\item Wenn Ladebalken 100\% erreicht hat, wird die Kachel direkt angezeigt (siehe \textbf{/F060/}, \textbf{/F280/}).
-\item Drücken des Schließen-Buttons beendet die Anwendung ohne Rückmeldung. Die Einstellungen der Kartendaten müssen hier gespeichert werden (siehe \textbf{/F020/}).
+\item Ladebalken für Fortschritt beobachten (siehe \ziel{F060}).
+\item Wenn Ladebalken 100\% erreicht hat, wird die Kachel direkt angezeigt (siehe \ziel{F060}, \ziel{F280}).
+\item Drücken des Schließen-Buttons beendet die Anwendung ohne Rückmeldung. Die Einstellungen der Kartendaten müssen hier gespeichert werden (siehe \ziel{F020}).
 \end{enumerate}
 
 \vspace{1.0cm}
-\sfbf{Ausgangspunkt:} Geladene Kartendaten \\
-\sfbf{Test:} Ansichtseinstellungen bei Karten \\
-\sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
+\begin{details}[2pt]
+\item \sfbf{Ausgangspunkt:} Geladene Kartendaten 
+\item \sfbf{Test:} Ansichtseinstellungen bei Karten 
+\item \sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
+\end{details}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
-\item Auswahl der Ansicht Karte mit Kartentyp OpenStreetMap (Straßenkarte) (siehe \textbf{/F090/}, \textbf{/F110/}).
+\item Auswahl der Ansicht Karte mit Kartentyp OpenStreetMap (Straßenkarte) (siehe \ziel{F090}, \ziel{F110}).
 \wunsch
-\item Höhenprofile einschalten und anschließend wieder ausschalten (siehe \textbf{/F120W/}).
-\item 3D-Modelle für Häuse/Bäume einschalten und anschließend wieder ausschalten (siehe \textbf{/F120W/}, \textbf{/F230W/}).
-\item Grafikeinstellung - Antialiasing einschalten und anschließend wieder ausschalten (siehe \textbf{/F150W/}).
-\item Grafikeinstellung - Texturfilterung einschalten und anschließend wieder ausschalten (siehe \textbf{/F150W/}).
+\item Höhenprofile einschalten und anschließend wieder ausschalten (siehe \ziel{F120W}).
+\item 3D-Modelle für Häuse/Bäume einschalten und anschließend wieder ausschalten (siehe \ziel{F120W}, \ziel{F230W}).
+\item Grafikeinstellung - Antialiasing einschalten und anschließend wieder ausschalten (siehe \ziel{F150W}).
+\item Grafikeinstellung - Texturfilterung einschalten und anschließend wieder ausschalten (siehe \ziel{F150W}).
 \muss
-\item Verschieben der Karten: Ansicht nach links/rechts/oben/unten verändern (siehe \textbf{/F170/}).
-\item Kippen des Kartenausschnitts und wieder Rücksetzen (siehe \textbf{/F170/}).
-\item Schließen der Anwendung mit Strg + Q ohne Rückmeldung (siehe \textbf{/F020/}).
+\item Verschieben der Karten: Ansicht nach links/rechts/oben/unten verändern (siehe \ziel{F170}).
+\item Kippen des Kartenausschnitts und wieder Rücksetzen (siehe \ziel{F170}).
+\item Schließen der Anwendung mit Strg + Q ohne Rückmeldung (siehe \ziel{F020}).
 \end{enumerate}
 
 
 \vspace{1.0cm}
-\sfbf{Ausgangspunkt:} Geladene Kartendaten \\
-\sfbf{Test:} Punkte markieren, POIs \\
-\sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
+\begin{details}[2pt]
+\item \sfbf{Ausgangspunkt:} Geladene Kartendaten 
+\item \sfbf{Test:} Punkte markieren, POIs 
+\item \sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
+\end{details}
+\vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
-\item Auswahl der Ansicht Karte mit Kartentyp OpenStreetMap (Straßenkarte) (siehe \textbf{/F090/}, \textbf{/F110/}).
-\item Im Detailfenster müssen Informationen zum zentrierten Punkt, wie Längen- und Breitengrad angezeigt werden (siehe \textbf{/F200/}, \textbf{/F380/})
+\item Auswahl der Ansicht Karte mit Kartentyp OpenStreetMap (Straßenkarte) (siehe \ziel{F090}, \ziel{F110}).
+\item Im Detailfenster müssen Informationen zum zentrierten Punkt, wie Längen- und Breitengrad angezeigt werden (siehe \ziel{F200}, \ziel{F380})
 \wunsch
-\item Suche mehrerer Orte/ Punkte auf Karten mittels Suchfunktion. Suchergebnisse müssen angezeigt werden (siehe \textbf{/F370W/}).
-\item Button Punkt markieren klicken und Punkt auf der Karte markieren. Der markierte Punkt wird nun im Kartenfenster zentriert (siehe \textbf{/F190W/}, \textbf{/F230W/}).
-\item Im Detailfenster müssen Informationen zum markierten Punkt, wie Längen- und Breitengrad angezeigt werden (siehe \textbf{/F200/}).
-\item Markierung des Punkts aus-/einblenden (siehe \textbf{/F360W/}).
-\item Markierten Punkt in der Liste speichern. Name und Bezeichnung eintragen (siehe \textbf{/F360W/}, \textbf{/F390W/}, \textbf{/F400W/}).
-\item Button Punkt markieren klicken und zweiten Punkt auf der Karte markieren. Der markierte Punkt wird nun im Kartenfenster zentriert (siehe \textbf{/F190W/}, \textbf{/F230W/}).
-\item Im Detailfenster müssen Informationen zum neuen markierten Punkt, wie Längen- und Breitengrad angezeigt werden (siehe \textbf{/F200/}).
-\item Markierten Punkt in der Liste speichern. Name und Bezeichnung eintragen (siehe \textbf{/F360W/}, \textbf{/F390W/}, \textbf{/F400W/}).
-\item Button Punkt markieren klicken und dritten Punkt auf der Karte markieren. Der markierte Punkt wird nun im Kartenfenster zentriert (siehe \textbf{/F190W/}, \textbf{/F230W/}).
-\item Markierten Punkt in der Liste speichern. Name und Bezeichnung eintragen (siehe \textbf{/F360W/}, \textbf{/F390W/}, \textbf{/F400W/}).
-\item Gespeicherten Punkt '2' aus der Liste löschen ohne Rückmeldung (siehe \textbf{/F360W/}, \textbf{/F390W/}, \textbf{/F400W/}).
-\item Markierten Punkt '1' und Punkt '3' in der Liste speichern (siehe \textbf{/F360W/}, \textbf{/F390W/}, \textbf{/F400W/}).
+\item Suche mehrerer Orte/ Punkte auf Karten mittels Suchfunktion. Suchergebnisse müssen angezeigt werden (siehe \ziel{F370W}).
+\item Button Punkt markieren klicken und Punkt auf der Karte markieren. Der markierte Punkt wird nun im Kartenfenster zentriert (siehe \ziel{F190W}, \ziel{F230W}).
+\item Im Detailfenster müssen Informationen zum markierten Punkt, wie Längen- und Breitengrad angezeigt werden (siehe \ziel{F200}).
+\item Markierung des Punkts aus-/einblenden (siehe \ziel{F360W}).
+\item Markierten Punkt in der Liste speichern. Name und Bezeichnung eintragen (siehe \ziel{F360W}, \ziel{F390W}, \ziel{F400W}).
+\item Button Punkt markieren klicken und zweiten Punkt auf der Karte markieren. Der markierte Punkt wird nun im Kartenfenster zentriert (siehe \ziel{F190W}, \ziel{F230W}).
+\item Im Detailfenster müssen Informationen zum neuen markierten Punkt, wie Längen- und Breitengrad angezeigt werden (siehe \ziel{F200}).
+\item Markierten Punkt in der Liste speichern. Name und Bezeichnung eintragen (siehe \ziel{F360W}, \ziel{F390W}, \ziel{F400W}).
+\item Button Punkt markieren klicken und dritten Punkt auf der Karte markieren. Der markierte Punkt wird nun im Kartenfenster zentriert (siehe \ziel{F190W}, \ziel{F230W}).
+\item Markierten Punkt in der Liste speichern. Name und Bezeichnung eintragen (siehe \ziel{F360W}, \ziel{F390W}, \ziel{F400W}).
+\item Gespeicherten Punkt '2' aus der Liste löschen ohne Rückmeldung (siehe \ziel{F360W}, \ziel{F390W}, \ziel{F400W}).
+\item Markierten Punkt '1' und Punkt '3' in der Liste speichern (siehe \ziel{F360W}, \ziel{F390W}, \ziel{F400W}).
 \muss
-\item Anzeige von Overlays, wie Städtenamen anwählen (siehe \textbf{/F220/}, \textbf{/F350/}).
-\item Anzeige von POIs, wie Tankstellen anwählen (siehe \textbf{/F220/}, \textbf{/F350/}).
-\item Alle Overlays anwählen - Testen ob Lesbarkeit der Beschriftungen und der Symbole gegeben ist. Anschließend alle Overlays abwählen (siehe \textbf{/F220/}, \textbf{/F240/}).
-\item 3D-Modelle zuschalten - Testen ob Lesbarkeit der Beschriftungen und der Symbole gegeben ist (siehe \textbf{/F240/}).
-\item  Schließen der Anwendung mit Strg + Q ohne Rückmeldung. Die Einstellungen der Kartendaten und der markierten Punkte müssen hier gespeichert werden (siehe \textbf{/F020/}).
+\item Anzeige von Overlays, wie Städtenamen anwählen (siehe \ziel{F220}, \ziel{F350}).
+\item Anzeige von POIs, wie Tankstellen anwählen (siehe \ziel{F220}, \ziel{F350}).
+\item Alle Overlays anwählen - Testen ob Lesbarkeit der Beschriftungen und der Symbole gegeben ist. Anschließend alle Overlays abwählen (siehe \ziel{F220}, \ziel{F240}).
+\item 3D-Modelle zuschalten - Testen ob Lesbarkeit der Beschriftungen und der Symbole gegeben ist (siehe \ziel{F240}).
+\item  Schließen der Anwendung mit Strg + Q ohne Rückmeldung. Die Einstellungen der Kartendaten und der markierten Punkte müssen hier gespeichert werden (siehe \ziel{F020}).
 \end{enumerate}
 
 \vspace{1.0cm}
-\sfbf{Ausgangspunkt:} Liste der markierten Punkte und die Ansichtseinstellungen werden übernommen \\
-\sfbf{Test:} Settings Speicherung \\
-\sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen, Veränderung der Settings-Datei (z.B. markierte Punkte setzen)
+\begin{details}[2pt]
+\item \sfbf{Ausgangspunkt:} Liste der markierten Punkte und die Ansichtseinstellungen werden übernommen
+\item \sfbf{Test:} Settings Speicherung
+\item \sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen, Veränderung der Settings-Datei (z.B. markierte Punkte setzen)
+\end{details}
+\vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
 \wunsch
-\item Kontrolle ob die Settings-Einstellungen übernommen wurden. (siehe \textbf{/F390W/}, \textbf{/F400W/})
-\item Kontrolle ob die beiden markierten Punkte noch in der Liste vorhanden sind (siehe \textbf{/F360W/}, \textbf{/F390W/}, \textbf{/F400W/}).
-\item Cache-Größen mehrmals verändern (siehe \textbf{/F330W/}).
+\item Kontrolle ob die Settings-Einstellungen übernommen wurden. (siehe \ziel{F390W}, \ziel{F400W})
+\item Kontrolle ob die beiden markierten Punkte noch in der Liste vorhanden sind (siehe \ziel{F360W}, \ziel{F390W}, \ziel{F400W}).
+\item Cache-Größen mehrmals verändern (siehe \ziel{F330W}).
 \muss
-\item Drücken des Schließen-Buttons beendet die Anwendung ohne Rückmeldung. (siehe \textbf{/F020/})
+\item Drücken des Schließen-Buttons beendet die Anwendung ohne Rückmeldung. (siehe \ziel{F020})
 \end{enumerate}
 
 
@@ -823,16 +844,25 @@ Auch wenn die Hardwareanforderungen bereits gegeben sind, sei hier einmal die Au
 
 \vspace{0.5cm}
 
-\begin{tabular}{l|c|c|c}
-\textsf{\textbf{Entwickler}} & \textsf{\textbf{Prozessor}} & \textsf{\textbf{RAM}} & \textsf{\textbf{Grafik}} \\
-Fabian Knorr & AMD PhenomII X4 840 @3,2GHz & 8 GB & ATi Radeon HD 6850 \\
-Fabian Knorr & AMD Athlon Neo X2 L335 @1,6GHz & 4 GB & ATi Radeon HD 3200 \\
-Gabriele Haas & Intel Core i3 550 @3,2GHz & 4 GB & Intel HD Graphics (i3) \\
-Christof Blauberger & AMD A6-3420M & 8 GB & ATi Radeon HD 6520/7470M \\
-Constantin Wenger & Intel i7-3770K @3.50GHz & 24GB & Nvidia GTX 770 4GB \\
-Thomas Eder & AMD A4-3400 & 8 GB & Nvidia GTX 260 \\
-Sebastian Reichl & AMD PhenomII X6 1100T @3,4Ghz & 8 GB & ATI Radeon HD 6950 \\
-Sebastian Reichl & Intel Core i5-4200U @ 2,29 Ghz & 4 GB & Intel HD Graphics \\
+\begin{tabular}{|l|c|c|c|}
+\hline
+\rule[-1ex]{0pt}{4ex}\textsf{\textbf{Entwickler}} & \textsf{\textbf{Prozessor}} & \textsf{\textbf{RAM}} & \textsf{\textbf{Grafik}} \\
+\hline
+\hline
+\rule[-1ex]{0pt}{4ex}\multirow{2}{*}{Fabian Knorr} & AMD PhenomII X4 840 @3,2GHz & 8 GB & ATi Radeon HD 6850 \\
+\rule[-1ex]{0pt}{2ex} & AMD Athlon Neo X2 L335 @1,6GHz & 4 GB & ATi Radeon HD 3200 \\
+\hline
+\rule[-1ex]{0pt}{4ex}Gabriele Haas & Intel Core i3 550 @3,2GHz & 4 GB & Intel HD Graphics (i3) \\
+\hline
+\rule[-1ex]{0pt}{4ex}Christof Blauberger & AMD A6-3420M & 8 GB & ATi Radeon HD 6520/7470M \\
+\hline
+\rule[-1ex]{0pt}{4ex}Constantin Wenger & Intel i7-3770K @3.50GHz & 24GB & Nvidia GTX 770 4GB \\
+\hline
+\rule[-1ex]{0pt}{4ex}Thomas Eder & AMD A4-3400 & 8 GB & Nvidia GTX 260 \\
+\hline
+\rule[-1ex]{0pt}{4ex}\multirow{2}{*}{Sebastian Reichl} & AMD PhenomII X6 1100T @3,4Ghz & 8 GB & ATI Radeon HD 6950 \\
+\rule[-1ex]{0pt}{2ex}& Intel Core i5-4200U @ 2,29 Ghz & 4 GB & Intel HD Graphics \\
+\hline
 \end{tabular}
 
 \vspace{0.5cm}
@@ -845,35 +875,35 @@ Sebastian Reichl & Intel Core i5-4200U @ 2,29 Ghz & 4 GB & Intel HD Graphics \\
 \newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}
 \setlength{\extrarowheight}{3mm}
 \begin{longtabu}{L{0.35} R{1.65}}
-Anisotropes Filtern & Methode um den Schärfeeindruck von perspektivisch deformierten Texturen zu erhalten\\
-Antialiasing & Methode zur Kantenglättung in Grafiken\\
+Anisotropes Filtern & Methode um den Schärfeeindruck von perspektivisch verzerrten \textref{Texturen} zu erhalten\\
+Antialiasing & Methode zur Kantenglättung beim \textref{Rendern}\\
 API & Application Programming Interface, englische Bezeichnung für Anwendungsschnittstelle\\
 Auflösung & Umgangssprachliches Maß für die Bildgröße einer Grafik gegeben durch die Gesamtzahl der Bildpunkte in Zeile und Spalte (A x B)\\
 (Bild-) Kachel & Stück eines großen Bildes das aus Gründen der Schnelligkeit in kleinere Stücke geteilt wurde\\
-BSD-Lizenz & (Berkeley Software Distribution) Gruppe von Lizenzen aus dem \textbf{Open-Source}-Bereich.\\
-Cache & (\textbf{Pufferspeicher}) Schneller Speicher der hilft Zugriffe auf einen anderen langsamen Speicher zu verhindern. In ihm werden Kopien der Daten gespeichert\\
-Client & Gegenstelle in einem Netzwerk, die einen Dienst z.b. eines \textbf{Servers} nutzt, hier die Benutzung von Kartendaten\\
+BSD-Lizenz & (Berkeley Software Distribution) Gruppe von Lizenzen aus dem \textref{Open-Source}-Bereich.\\
+Cache & (\textref{Pufferspeicher}) Schneller Speicher der hilft Zugriffe auf einen anderen langsamen Speicher zu verhindern. In ihm werden Kopien der Daten gespeichert\\
+Client & Gegenstelle in einem Netzwerk, die einen Dienst z.b. eines \textref{Servers} nutzt, hier die Benutzung von Kartendaten\\
 Detailfenster & Zeigt alle Details zu einem markierten Punkt [Streichen?]\\
-EclEmma & Erweiterung für \textbf{Eclipse} zum Messen der \textbf{Testabdeckung}\\
-Eclipse & Software-Plattform und Integrierte Entwicklungsumgebung für (u.a.) \textbf{Java}\\
+EclEmma & Erweiterung für \textref{Eclipse} zum Messen der \textref{Testabdeckung}\\
+Eclipse & Software-Plattform und Integrierte Entwicklungsumgebung für (u.a.) \textref{Java}\\
 Farbtiefe & Die Differenzierung aller Helligkeits- und Farbwerte von Grafiken\\
 Fenstermanager & Programm, das in Systemen mit Fenstern die Aufgabe hat  den Anwenderprogrammen Funktionen wie minimieren und schließen anzubieten\\
 Framework & Programmgerüst in der Softwaretechnik. Auch bezeichnet als Ordnungsrahmen\\
 Git & Verteiltes Versionsverwaltungssystem\\
 GUI& (Graphical User Interface) Grafische Benutzeroberfläche\\
-HTTP & (Hypertext Transfer Protocol) ein \textbf{Protokoll} zur Übertragung von Daten über ein Netzwerk\\
-Java & Programmiersprache, siehe auch: \textbf{JRE}\\
-Javadoc & Dokumentation von Klassen und Methoden in \textbf{Java}\\
-JDK & (\textbf{Java} Development Kit) von \textbf{Java}-Entwicklern benutztes \textbf{Software Development Kit}\\
-JOGL & (Java OpenGL) Softwarebibliothek, die die \textbf{OpenGL}-API in \textbf{Java} zur Verfügung stellt\\
+HTTP & (Hypertext Transfer Protocol) ein \textref{Protokoll} zur Übertragung von Daten über ein Netzwerk\\
+Java & Programmiersprache, siehe auch: \textref{JRE}\\
+Javadoc & Dokumentation von Klassen und Methoden in \textref{Java}\\
+JDK & (Java Development Kit) von \textref{Java}-Entwicklern benutztes \textref{Software Development Kit}\\
+JOGL & (Java Bindings for OpenGL) Softwarebibliothek, die die \textref{OpenGL}-API in \textref{Java} zur Verfügung stellt\\
 JPG & Verlustreiches Bildformat, d.h. irrelevante Informationen im Bild  gehen verloren\\
-JRE & (\textbf{Java} Runtime Environment) Laufzeitumgebung der \textbf{Java} Technik mit der Programme weitgehend \textbf{plattformunabhängig} ausgeführt werden\\
-J-Unit & \textbf{Framework} zum testen von \textbf{Java}-Programmen. Besonders geeignet für automatisierte \textbf{Unit-Tests}\\
-{\LaTeX} & Freies Textsatzprogramm für wissenschaftliche Arbeiten\\
-Linux & (in der Regel) freies Betriebssystem\\
+JRE & (\textref{Java} Runtime Environment) Laufzeitumgebung der \textref{Java} Technik mit der Programme weitgehend \textref{plattformunabhängig} ausgeführt werden\\
+JUnit & \textref{Framework} zum testen von \textref{Java}-Programmen. Besonders geeignet für automatisierte \textref{Unit-Tests}\\
+Latex & (\LaTeX) Freies Textsatzprogramm für wissenschaftliche Arbeiten\\
+Linux & Freies Betriebssystem\\
 NASA & (National Aeronautics and Space Administration) Zivile US-Bundesbehörde für Luft- und Raumfahrt\\
-OpenGL & \textbf{API} zur Generierung von 2D- und 3D-Computergrafik\\
-Open-Source & (quelloffen) Werke deren Lizenzbestimmungen besagen, dass der \textbf{Quelltext} frei zugänglich ist\\
+OpenGL & \textref{API} zur Generierung von 2D- und 3D-Computergrafik\\
+Open-Source & (quelloffen) Werke deren Lizenzbestimmungen besagen, dass der \textref{Quelltext} frei zugänglich ist\\
 OpenStreetMap & Projekt, das freies Kartenmaterial im Internet anbietet\\
 Overlay & Text- oder Symboleinblendungen auf den Karten bzw. der Weltkugel\\
 Plattform"-unabhängigkeit & Das Programm kann auf mehreren Betriebssystemen ausgeführt werden ohne Anpassungen zu erfordern\\
@@ -884,13 +914,13 @@ Quelltext & In einer vom Menschen lesbaren Programmiersprache geschriebener Text
 RAM & (Random Access Memory) Arbeitsspeicher\\
 Rendern & Erzeugen eines Bildes aus Rohdaten, hier aus einem räumlichen Modell\\
 Server & Gegenstelle im Netzwerk, die einen Dienst zur Verfügung stellt, hier Lieferung des Kartenmaterials\\
-SDK & (\textbf{Software Development Kit}) Sammlung von Werkzeugen und Anwendungen um eine Software zu erstellen\\
+SDK & (\textref{Software Development Kit}) Sammlung von Werkzeugen und Anwendungen um eine Software zu erstellen\\
 Testabdeckung & Gibt an welche Codeabschnitte von den Tests abgedeckt sind\\
-Textur & Zweidimensionale (Oberflächen-) Grafik im Kontext von \textbf{Rendern}\\
+Textur & Zweidimensionale (Oberflächen-) Grafik im Kontext von \textref{Rendern}\\
 Unit-Test & (Modultest) In der Softwareentwicklung angewendete Art von Tests um einzelne Module auf korrekte Funktionalität zu prüfen\\
-Windows & Betriebssystem der Firma Microsoft\\
-XML & (Extensible Markup Language) Sprache zur Darstellung von hierarchisch strukturierter Daten. Wird unter anderem für den \textbf{plattformunabhängigen} Austausch von Daten verwendet\\
-Zoomlevel & Angabe zur \textbf{Auflösung} der \textbf{(Bild-) Kacheln} in der Ansicht\\
+Windows & Kommerzielles Betriebssystem der Firma Microsoft\\
+XML & (Extensible Markup Language) Sprache zur Darstellung von hierarchisch strukturierter Daten. Wird unter anderem für den \textref{plattformunabhängigen} Austausch von Daten verwendet\\
+Zoomlevel & Angabe zur \textref{Auflösung} der \textref{(Bild-) Kacheln} in der Ansicht\\
 \end{longtabu}
 
 
