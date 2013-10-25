@@ -873,53 +873,56 @@ Auch wenn die Hardwareanforderungen bereits gegeben sind, sei hier einmal die Au
 \section{Glossar}
 \newcolumntype{L}[1]{>{\sffamily\bfseries\hsize=#1\hsize\raggedright\arraybackslash}X}
 \newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}
-\setlength{\extrarowheight}{3mm}
+\setlength{\extrarowheight}{4mm}
 \begin{longtabu}{L{0.35} R{1.65}}
-Anisotropes Filtern & Methode um den Schärfeeindruck von perspektivisch verzerrten \textref{Texturen} zu erhalten\\
+Anisotropes Filtern & Methode um den Schärfeeindruck von perspektivisch verzerrten \textref{Texturen} zu verbessern\\
 Antialiasing & Methode zur Kantenglättung beim \textref{Rendern}\\
-API & Application Programming Interface, englische Bezeichnung für Anwendungsschnittstelle\\
-Auflösung & Umgangssprachliches Maß für die Bildgröße einer Grafik gegeben durch die Gesamtzahl der Bildpunkte in Zeile und Spalte (A x B)\\
-(Bild-) Kachel & Stück eines großen Bildes das aus Gründen der Schnelligkeit in kleinere Stücke geteilt wurde\\
-BSD-Lizenz & (Berkeley Software Distribution) Gruppe von Lizenzen aus dem \textref{Open-Source}-Bereich.\\
-Cache & (\textref{Pufferspeicher}) Schneller Speicher der hilft Zugriffe auf einen anderen langsamen Speicher zu verhindern. In ihm werden Kopien der Daten gespeichert\\
-Client & Gegenstelle in einem Netzwerk, die einen Dienst z.b. eines \textref{Servers} nutzt, hier die Benutzung von Kartendaten\\
-Detailfenster & Zeigt alle Details zu einem markierten Punkt [Streichen?]\\
+API & (Application Programming Interface) Programmierschnittstelle zu einer Programmbibliothek oder einem Dienst\\
+Bildauflösung & Breite und Höhe einer Grafik in Pixel, umgangssprachlich auch deren Produkt (,,Megapixel``) \\
+Bildkachel & Element einer rasterförmigen Zerteilung eines (für den Anwendungszweck zu großen) Bildes\\
+BSD-Lizenz & (Berkeley Software Distribution-Lizenz) Gruppe von Lizenzen aus dem \textref{Open-Source}-Bereich.\\
+Cache & \textref{Pufferspeicher}\\
+Client & (Netzwerktechnik) Knoten eines Netzwerks, die den Dienst eines \textref{Servers} nutzt. Für gewöhnlich eine Anwendung auf Benutzerseite.\\
 EclEmma & Erweiterung für \textref{Eclipse} zum Messen der \textref{Testabdeckung}\\
 Eclipse & Software-Plattform und Integrierte Entwicklungsumgebung für (u.a.) \textref{Java}\\
-Farbtiefe & Die Differenzierung aller Helligkeits- und Farbwerte von Grafiken\\
-Fenstermanager & Programm, das in Systemen mit Fenstern die Aufgabe hat  den Anwenderprogrammen Funktionen wie minimieren und schließen anzubieten\\
-Framework & Programmgerüst in der Softwaretechnik. Auch bezeichnet als Ordnungsrahmen\\
-Git & Verteiltes Versionsverwaltungssystem\\
+Farbtiefe & Die Auflösung der Farbe in Grafiken. Wird für gewöhnlich in $n$ Bit angegeben, was bedeutet, dass $2^n$ Farbwerte dargestellt werden können.\\
+Fenstermanager & Komponente einer grafischen Oberfläche, die u.A. das Verschieben, Maximieren von Fenstern ermöglicht.\\
+Framework & (auch \textit{Ordnungsrahmen}) Programmgerüst (,,Unterbau``) in der Softwaretechnik \\
+Git & Verteiltes \textref{Versionsverwaltung}ssystem\\
 GUI& (Graphical User Interface) Grafische Benutzeroberfläche\\
-HTTP & (Hypertext Transfer Protocol) ein \textref{Protokoll} zur Übertragung von Daten über ein Netzwerk\\
-Java & Programmiersprache, siehe auch: \textref{JRE}\\
+HTTP & (Hypertext Transfer Protocol) ein \textref{Protokoll} zur Übertragung von Webinhalten von \textref{Server} zu \textref{Client}. Kann neben Text auch Grafiken und andere Daten übertragen.\\
+Java & Programmiersprache (\textref{JRE})\\
 Javadoc & Dokumentation von Klassen und Methoden in \textref{Java}\\
 JDK & (Java Development Kit) von \textref{Java}-Entwicklern benutztes \textref{Software Development Kit}\\
 JOGL & (Java Bindings for OpenGL) Softwarebibliothek, die die \textref{OpenGL}-API in \textref{Java} zur Verfügung stellt\\
-JPG & Verlustreiches Bildformat, d.h. irrelevante Informationen im Bild  gehen verloren\\
+JPG & Verlustbehaftetes Format zur Speicherung von Bilddaten. Erreicht für Fotografien bessere Kompressionsraten als \textref{PNG}, verursacht aber bei bestimmten Grafiken sichtbare Bildfehler.\\
 JRE & (\textref{Java} Runtime Environment) Laufzeitumgebung der \textref{Java} Technik mit der Programme weitgehend \textref{plattformunabhängig} ausgeführt werden\\
 JUnit & \textref{Framework} zum testen von \textref{Java}-Programmen. Besonders geeignet für automatisierte \textref{Unit-Tests}\\
+Kachel & \textref{Bildkachel}\\
 Latex & (\LaTeX) Freies Textsatzprogramm für wissenschaftliche Arbeiten\\
 Linux & Freies Betriebssystem\\
+Modultest & In der Softwareentwicklung angewendete Art von Tests, um einzelne Softwareodule auf korrektes Verhalten und Fehlerfreiheit zu prüfen\\
 NASA & (National Aeronautics and Space Administration) Zivile US-Bundesbehörde für Luft- und Raumfahrt\\
-OpenGL & \textref{API} zur Generierung von 2D- und 3D-Computergrafik\\
+OpenGL & \textref{API} zur schnellen Generierung ansprechender 2D- und 3D-Computergrafik\\
 Open-Source & (quelloffen) Werke deren Lizenzbestimmungen besagen, dass der \textref{Quelltext} frei zugänglich ist\\
 OpenStreetMap & Projekt, das freies Kartenmaterial im Internet anbietet\\
 Overlay & Text- oder Symboleinblendungen auf den Karten bzw. der Weltkugel\\
-Plattform"-unabhängigkeit & Das Programm kann auf mehreren Betriebssystemen ausgeführt werden ohne Anpassungen zu erfordern\\
-PNG & (Portable Network Graphics) Verlustfreies Bildformat, d.h. bei der Reduktion der Daten gehen keine Informationen verloren\\
-POI & (Point Of Interest) POIs sind Orte auf der Weltkarte, die eine spezielle Bedeutung haben, wie Tankstellen, Banken, Tierparks oder Sehenswürdigkeiten.\\
-Protokoll & Vereinbarung nach der die Datenübertragung zwischen zwei oder mehr Parteien erfolgt\\
-Quelltext & In einer vom Menschen lesbaren Programmiersprache geschriebener Text\\
+Plattform"-unabhängigkeit & Ein plattform"-unabhängiges Programm kann auf verschiedenen Betriebssystemen  und/oder verschiedener Hardware ausgeführt werden, ohne Anpassungen zu erfordern\\
+PNG & (Portable Network Graphics) Verlustfreies Format zur Speicherung von Bilddaten. Verlustfrei bedeutet, dass bei der Kompression und späterer Dekompression keine Bildfehler auftreten.\\
+POI & (Point of Interest) POIs sind Orte auf der Weltkarte, die eine spezielle Bedeutung haben, wie Tankstellen, Banken, Tierparks oder Sehenswürdigkeiten.\\
+Protokoll & (Netzwerktechnik) Vereinbarung über den Ablauf der Datenübertragung zwischen Netzwerkknoten (meist \textref{Server} und \textref{Client})\\
+Pufferspeicher & Kleinerer, schneller Zwischenspeicher der hilft, Zugriffe ein langsameres Medium zu beschleunigen. Dazu wird eine \textit{Verdrängungsstrategie} implementiert, die aus statistischen Daten abzuleiten versucht, welche Daten in nächster Zeit abgerufen werden. Diese werden dann so lange wie möglich vorgehalten.\\
+Quelltext & Ein Programm oder Programmteil, das in einer menschenlesbaren Programmiersprache vorliegt\\
 RAM & (Random Access Memory) Arbeitsspeicher\\
-Rendern & Erzeugen eines Bildes aus Rohdaten, hier aus einem räumlichen Modell\\
-Server & Gegenstelle im Netzwerk, die einen Dienst zur Verfügung stellt, hier Lieferung des Kartenmaterials\\
+Rendern & Erzeugen eines (zweidimensionalen) Bildes aus Rohdaten, hier aus einem räumlichen Modell\\
+Server & Gegenstelle im Netzwerk, die einen Dienst zur Verfügung stellt, hier u.A. Lieferung des Kartenmaterials\\
 SDK & (\textref{Software Development Kit}) Sammlung von Werkzeugen und Anwendungen um eine Software zu erstellen\\
-Testabdeckung & Gibt an welche Codeabschnitte von den Tests abgedeckt sind\\
+Testabdeckung & Gibt an welche, Codeabschnitte von globalen Testszenarien und \textref{Modultests} erfasst werden \\
 Textur & Zweidimensionale (Oberflächen-) Grafik im Kontext von \textref{Rendern}\\
-Unit-Test & (Modultest) In der Softwareentwicklung angewendete Art von Tests um einzelne Module auf korrekte Funktionalität zu prüfen\\
+Unit-Test & \textref{Modultest}\\
+Versions"-verwaltung & Software, die das einfache gemeinsame Arbeiten und Verfolgen von Änderungen an \textref{Quelltext} ermöglicht.\\
 Windows & Kommerzielles Betriebssystem der Firma Microsoft\\
-XML & (Extensible Markup Language) Sprache zur Darstellung von hierarchisch strukturierter Daten. Wird unter anderem für den \textref{plattformunabhängigen} Austausch von Daten verwendet\\
+XML & (Extensible Markup Language) Sprache zur Darstellung hierarchisch strukturierter Daten. Wird unter anderem für den \textref{plattformunabhängigen} Austausch von Daten verwendet\\
 Zoomlevel & Angabe zur \textref{Auflösung} der \textref{(Bild-) Kacheln} in der Ansicht\\
 \end{longtabu}
 
