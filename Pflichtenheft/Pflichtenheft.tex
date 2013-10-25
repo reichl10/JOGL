@@ -41,7 +41,7 @@
 \newcommand{\ziellabel}{Z}
 \newcommand{\muss}{\renewcommand{\labelenumi}{\textbf{\ziel{\ziellabel\numprint{\theenumi}0}}}}
 \newcommand{\wunsch}{\renewcommand{\labelenumi}{\textbf{\ziel{\ziellabel\numprint{\theenumi}0W}}}}
-\newcommand{\JoglEarth}{\raisebox{-1.3mm}{\includegraphics[scale=0.33]{Logo-Text.eps}} }
+\newcommand{\JoglEarth}{\raisebox{-1.2mm}{\includegraphics[scale=0.33]{Logo-Text.eps}} }
 \newcommand{\textref}[1]{\mbox{\raisebox{0.1ex}{\small$\rightarrow$ }\textit{#1}}}
 
   
@@ -330,14 +330,9 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 \section{Steuerung der Kartenansicht}
 
-\subsection{Mausbelegung}
 \vspace{3mm}
-\begin{center}
+\subsection*{Mausbelegung}
 \begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{9cm}|}
-\hline 
-
-\rule[-1ex]{0pt}{4ex} \sffamily\textbf{Tastenbelegung} &\rule[-1ex]{0pt}{4ex} \sffamily\textbf{Bedeutung} \\ 
-\hline
 \hline
 \includegraphics[scale=1.0]{KeyImages/mouseDrag_left.eps} & Drehen der Erdkugel / Verschieben der Karte \\ 
 \hline 
@@ -348,19 +343,12 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \includegraphics[scale=1.0]{KeyImages/mouse_scrollen.eps} & Zoomen der Ansicht \\
 \hline
 \end{tabular} 
-\end{center}
-
 
 
 
 \vspace{5mm}
-\subsection{Tastaturbelegung}
-\vspace{3mm}
-\begin{center}
+\subsection*{Tastaturbelegung}
 \begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{9cm}|}
-\hline 
-\sffamily \rule[-1ex]{0pt}{4ex} \textbf{Tastenbelegung} & \sffamily \rule[-1ex]{0pt}{4ex} \textbf{Bedeutung} \\
-\hline 
 \hline
 \rule[-1ex]{0pt}{7ex}\includegraphics[scale=0.08]{KeyImages/key_arrow_up.eps}& \multirow{3}{*}{Drehen der Erdkugel, Verschieben der Karten}\\
 \includegraphics[scale=0.08] {KeyImages/key_arrow_left.eps} \includegraphics[scale=0.08]{KeyImages/key_arrow_down.eps} \includegraphics[scale=0.08]{KeyImages/key_arrow_right.eps} &  \\
@@ -369,10 +357,9 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \hline
 \rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{KeyImages/key_Plus.eps}  \includegraphics[scale=0.08]{KeyImages/key_Minus.eps} & Zoomen der Ansicht \\
 \hline
-\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{KeyImages/key_Strg.eps} \rule[-1ex]{0pt}{7ex} \textbf{+} \includegraphics[scale=0.08]{KeyImages/key_Q.eps} & Beenden der Anwendung und Schließen der GUI \\ 
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{KeyImages/key_Strg.eps} \rule[-1ex]{0pt}{7ex} \raisebox{1em}{\textbf{+}} \includegraphics[scale=0.08]{KeyImages/key_Q.eps} & Beenden der Anwendung und Schließen der GUI \\ 
 \hline
 \end{tabular} 
-\end{center}
 
 
 
@@ -537,7 +524,7 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \begin{enumerate}[leftmargin=2.2cm]
 \item Die Benutzeroberfläche soll grafisch ansprechend, gut strukturiert und intuitiv verständlich gehalten sein.
 \wunsch
-\item Um auch Kinder zu motivieren, Jogl Earth zu verwenden, wird eine altersgemäße Kinder-Weltkarte mit ausgeliefert.
+\item Um auch Kinder zu motivieren, \JoglEarth zu verwenden, wird eine altersgemäße Kinder-Weltkarte mit ausgeliefert.
 \muss
 \item Die Oberfläche wird in den Sprachen Englisch und Deutsch angeboten.
 \item Die gesamte GUI ist komfortabel mit Maus und Tastatur steuerbar.
@@ -613,7 +600,7 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 
 \section*{Funktionalität}
 \begin{details}
-\item \sfbf{Web Mining:} Automatische Extraktion von Daten aus dem Internet. Bei Jogl Earth findet das Web Mining bei der Suchfunktion Anwendung. Um die Benutzeroberfläche übersichtlich zu halten, ist nur eine einfache Suche nach Wortteilen möglich, die nicht weiter eingegrenzt wird. Es wird weiter vorausgesetzt, dass sich die Overpass-Server genau wie in der Spezifikation verhalten; eine Fehlerkorrektur wird nicht versucht.
+\item \sfbf{Web Mining:} Automatische Extraktion von Daten aus dem Internet. Bei \JoglEarth findet das Web Mining bei der Suchfunktion Anwendung. Um die Benutzeroberfläche übersichtlich zu halten, ist nur eine einfache Suche nach Wortteilen möglich, die nicht weiter eingegrenzt wird. Es wird weiter vorausgesetzt, dass sich die Overpass-Server genau wie in der Spezifikation verhalten; eine Fehlerkorrektur wird nicht versucht.
 
 \item \textbf{Interoperabilität:} Die Anwendung soll mit OpenStreetMap, der Overpass-API und ähnlichen Diensten interagieren um das Kartenmaterial mit Zusatzinformationen grafisch zu unterstützen. Da dies Kernbestandteil ist, wird Wert auf die Qualität der Interoperabilität gelegt.
 \end{details}
@@ -838,7 +825,7 @@ Abgesehen vom Betriebssystem und Anwendungen wie Texteditoren ist die verwendete
 \item Bugtracking: Mit Github
 \end{itemize}
 
-
+\vspace{5mm}
 \section{Hardware}
 Auch wenn die Hardwareanforderungen bereits gegeben sind, sei hier einmal die Ausstattung der Entwickler aufgeführt um die genauen Testbedingungen zu formulieren.
 
@@ -895,7 +882,7 @@ Java & Programmiersprache (\textref{JRE})\\
 Javadoc & Dokumentation von Klassen und Methoden in \textref{Java}\\
 JDK & (Java Development Kit) von \textref{Java}-Entwicklern benutztes \textref{Software Development Kit}\\
 JOGL & (Java Bindings for OpenGL) Softwarebibliothek, die die \textref{OpenGL}-API in \textref{Java} zur Verfügung stellt\\
-JPG & Verlustbehaftetes Format zur Speicherung von Bilddaten. Erreicht für Fotografien bessere Kompressionsraten als \textref{PNG}, verursacht aber bei bestimmten Grafiken sichtbare Bildfehler.\\
+JPEG & (von Joint Photographic Experts Group) Verlustbehaftetes Format zur Speicherung von Bilddaten. Erreicht für Fotografien bessere Kompressionsraten als \textref{PNG}, verursacht aber bei bestimmten Grafiken sichtbare Bildfehler.\\
 JRE & (\textref{Java} Runtime Environment) Laufzeitumgebung der \textref{Java} Technik mit der Programme weitgehend \textref{plattformunabhängig} ausgeführt werden\\
 JUnit & \textref{Framework} zum testen von \textref{Java}-Programmen. Besonders geeignet für automatisierte \textref{Unit-Tests}\\
 Kachel & \textref{Bildkachel}\\
@@ -906,7 +893,7 @@ NASA & (National Aeronautics and Space Administration) Zivile US-Bundesbehörde 
 OpenGL & \textref{API} zur schnellen Generierung ansprechender 2D- und 3D-Computergrafik\\
 Open-Source & (quelloffen) Werke deren Lizenzbestimmungen besagen, dass der \textref{Quelltext} frei zugänglich ist\\
 OpenStreetMap & Projekt, das freies Kartenmaterial im Internet anbietet\\
-Overlay & Text- oder Symboleinblendungen auf den Karten bzw. der Weltkugel\\
+Overlay & Text- oder Symboleinblendungen auf der Karte oder dem Globus\\
 Plattform"-unabhängigkeit & Ein plattform"-unabhängiges Programm kann auf verschiedenen Betriebssystemen  und/oder verschiedener Hardware ausgeführt werden, ohne Anpassungen zu erfordern\\
 PNG & (Portable Network Graphics) Verlustfreies Format zur Speicherung von Bilddaten. Verlustfrei bedeutet, dass bei der Kompression und späterer Dekompression keine Bildfehler auftreten.\\
 POI & (Point of Interest) POIs sind Orte auf der Weltkarte, die eine spezielle Bedeutung haben, wie Tankstellen, Banken, Tierparks oder Sehenswürdigkeiten.\\
