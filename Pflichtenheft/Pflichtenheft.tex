@@ -11,8 +11,10 @@
 \usepackage{enumitem}
 \usepackage{url}
 \usepackage{numprint}
-\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{tabu}
 \usepackage{multirow}
+\usepackage{caption}
 \usepackage{array}
 
 \makeatletter
@@ -25,6 +27,19 @@
   \def\item{\hangindent=5mm \hangafter1}}{%
   \par\ignorespaces} 
   
+\captionsetup[figure]{labelfont={sf,bf},textfont={sf}}
+
+\deffootnotemark{[\thefootnotemark]}
+\deffootnote{1.5em}{1em}{[\thefootnotemark] }
+
+\newcommand{\sfbf}[1]{\textbf{\sffamily #1}}
+\newcommand{\sfit}[1]{\textit{\sffamily #1}}
+\newcommand{\W}{\sfbf{W}}
+\newcommand{\ziel}[1]{{\fontsize{9.5}{11} \sffamily /#1/}}
+\newcommand{\ziellabel}{Z}
+\newcommand{\muss}{\renewcommand{\labelenumi}{\textbf{\ziel{\ziellabel\numprint{\theenumi}0}}}}
+\newcommand{\wunsch}{\renewcommand{\labelenumi}{\textbf{\ziel{\ziellabel\numprint{\theenumi}0W}}}}
+
   
 
 \begin{document}
@@ -156,11 +171,11 @@ Die Anwendung wahrt per Design die Sicherheit des Systems und schützt die Priva
 \section{Lizenzen}
 Wird das Produkt veröffentlicht, so müssen die Lizenzen der verwendeten Bibliotheken und Datenquellen berücksichtigt werden:
 \begin{itemize}
-\item Teile der JOGL-Bibliothek sind unter mehreren Versionen der BSD-Lizenz, der SGI Free Software License und der Apache-Lizenz, der Ubuntu Font License und mehreren proprietären Lizenzen veröffentlicht. Details dazu finden sich bei [\footnote{\url{https://jogamp.org/git/?p=jogl.git;a=blob;f=LICENSE.txt}}]
-\item OpenStreetMap ist „OpenData“ im Sinne der Open Data Commons Open Database Lizenz (ODbL). Die Kartografie der Kartenkacheln stehen unter der Linzenz  Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen 2.0 (CC BY-SA). Weitere Infos, wie auch eine Vorgabe zum Hinweisen auf der Urheberschaft des OSM-Projekts finden sich bei [\footnote{\url{http://www.openstretmap.org/copyright}}].
+\item Teile der JOGL-Bibliothek sind unter mehreren Versionen der BSD-Lizenz, der SGI Free Software License und der Apache-Lizenz, der Ubuntu Font License und mehreren proprietären Lizenzen veröffentlicht. Details dazu finden sich bei  \footnote{\url{https://jogamp.org/git/?p=jogl.git;a=blob;f=LICENSE.txt}}.
+\item OpenStreetMap ist „OpenData“ im Sinne der Open Data Commons Open Database Lizenz (ODbL). Die Kartografie der Kartenkacheln stehen unter der Linzenz  Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen 2.0 (CC BY-SA). Weitere Infos, wie auch eine Vorgabe zum Hinweisen auf der Urheberschaft des OSM-Projekts finden sich bei \footnote{\url{http://www.openstretmap.org/copyright}}.
 \item Die Daten der Overpass API stehen ebenfalls unter der ODbL.
-\item Die Satellitenbilder der NASA sind frei verfügbar und stehen unter der Lizenz, die sich bei [\footnote{\url{http://www.nasa.gov/audience/formedia/features/MP_Photo_Guidelines.html}}] findet.
-\item JGoodies Forms steht unter der BSD-Lizenz[\footnote{\url{http://opensource.org/licenses/bsd-license.html}}].
+\item Die Satellitenbilder der NASA sind frei verfügbar und stehen unter der Lizenz, die sich bei \footnote{\url{http://www.nasa.gov/audience/formedia/features/MP_Photo_Guidelines.html}} findet.
+\item JGoodies Forms steht unter der BSD-Lizenz bei \footnote{\url{http://opensource.org/licenses/bsd-license.html}}.
 \end{itemize}
 
 
@@ -200,35 +215,35 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 \section{Musskriterien}
 \begin{itemize}
-\item Intuitiv bedienbare, grafisch ansprechende GUI mit einklappbarer Seitenleiste und Sprachunterstützung für Englisch und Deutsch (siehe \textbf{/F010/}, \textbf{/F020/}, \textbf{/F030/}, \textbf{/F040/})
-\item Bedienung mit Maus und Tastatur (siehe \textbf{/F160/})
-\item Anzeige der momentanen und der möglichen Zoomstufen (siehe \textbf{/F050/})
-\item Sinnvolle Beschränkung der Zoomstufen und Beweglichkeit (siehe \textbf{/F210/})
-\item Ladebalken für im Hintergrund geladene Kartendaten (siehe \textbf{/F060/})
-\item Felder zur Anzeige und zur Änderung des Längen- und Breitengrads (siehe \textbf{/F070/})
-\item Anzeige des momentanen Kartenmaßstabs (siehe \textbf{/F080/})
-\item Ansichtsmodus wechselbar zwischen 3D-Globus und flache Kartenansicht (siehe \textbf{/F090/})
-\item Kartenmaterial wechselbar zwischen Satellitenbildern und OpenStreetMap (siehe \textbf{/F110/})
-\item Drehen, Kippen, Zoomen der Ansichten (siehe \textbf{/F170/}, \textbf{/F180/})
-\item Text- und Symboloverlays für Städte und POIs, Anzeige der Details dazu im Detailfenster (ohne Markierung und Speicherfunktion) (siehe \textbf{/F200/}, \textbf{/F220/}, \textbf{/F350/}, \textbf{/F380/})
-\item Beschränkung der Anzahl gleichzeitig geladener Overpass-Einträge (siehe \textbf{/F240/})
-\item Effizientes Laden der Kartendaten (siehe \textbf{/F250/}, \textbf{/F260/}, \textbf{/F270/}, \textbf{/F280/}, \textbf{/F290/}, \textbf{/F300/}, \textbf{/F330W/})
+\item Intuitiv bedienbare, grafisch ansprechende GUI mit einklappbarer Seitenleiste und Sprachunterstützung für Englisch und Deutsch (siehe \ziel{F010}, \ziel{F020}, \ziel{F030}, \ziel{F040})
+\item Bedienung mit Maus und Tastatur (siehe \ziel{F160})
+\item Anzeige der momentanen und der möglichen Zoomstufen (siehe \ziel{F050})
+\item Sinnvolle Beschränkung der Zoomstufen und Beweglichkeit (siehe \ziel{F210})
+\item Ladebalken für im Hintergrund geladene Kartendaten (siehe \ziel{F060})
+\item Felder zur Anzeige und zur Änderung des Längen- und Breitengrads (siehe \ziel{F070})
+\item Anzeige des momentanen Kartenmaßstabs (siehe \ziel{F080})
+\item Ansichtsmodus wechselbar zwischen 3D-Globus und flache Kartenansicht (siehe \ziel{F090})
+\item Kartenmaterial wechselbar zwischen Satellitenbildern und OpenStreetMap (siehe \ziel{F110})
+\item Drehen, Kippen, Zoomen der Ansichten (siehe \ziel{F170}, \ziel{F180})
+\item Text- und Symboloverlays für Städte und POIs, Anzeige der Details dazu im Detailfenster (ohne Markierung und Speicherfunktion) (siehe \ziel{F200}, \ziel{F220}, \ziel{F350}, \ziel{F380})
+\item Beschränkung der Anzahl gleichzeitig geladener Overpass-Einträge (siehe \ziel{F240})
+\item Effizientes Laden der Kartendaten (siehe \ziel{F250}, \ziel{F260}, \ziel{F270}, \ziel{F280}, \ziel{F290}, \ziel{F300}, \ziel{F330W})
 \end{itemize}
 
 \section{Wunschkriterien}
 \begin{itemize}
-\item Kinder-Weltkarte (siehe \textbf{/F100W/})
-\item Sonnensystem-Modellansicht als weiteren Ansichtsmodus (siehe \textbf{/F100W/}, \textbf{/F130W/})
-\item Sternenhimmel als Hintergrund (siehe \textbf{/F140W/})
-\item Ansichtseinstellungen können gespeichert werden (siehe \textbf{/F400W/})
-\item 3D-Höhenprofil (siehe \textbf{/F120W/})
-\item 3D-Modelle für Häuser/Bäume (siehe \textbf{/F120W/}, \textbf{/F230W/})
-\item Punkte markieren mit Notiz und Speicherfunktion (siehe \textbf{/F190W/}, \textbf{/F230W/}, \textbf{/F360W/}, \textbf{/F390W/}, \textbf{/F400W/})
-\item Suchfunktion für Overpass-Einträge, Lokal/Global (siehe \textbf{/F370W/})
-\item Nur rendern wenn nötig (bei Bildänderung) (siehe \textbf{/F340W/})
-\item Grafikeinstellungen wie Antialiasing oder Texturfilterung (siehe \textbf{/F150W/})
-\item Platzhaltertextur für nicht verfügbare Kacheln (siehe \textbf{/F310W/})
-\item Vorausladen von Kartendaten an den Rändern der Anzeige (siehe \textbf{/F320W/})
+\item Kinder-Weltkarte (siehe \ziel{F100W})
+\item Sonnensystem-Modellansicht als weiteren Ansichtsmodus (siehe \ziel{F100W}, \ziel{F130W})
+\item Sternenhimmel als Hintergrund (siehe \ziel{F140W})
+\item Ansichtseinstellungen können gespeichert werden (siehe \ziel{F400W})
+\item 3D-Höhenprofil (siehe \ziel{F120W})
+\item 3D-Modelle für Häuser/Bäume (siehe \ziel{F120W}, \ziel{F230W})
+\item Punkte markieren mit Notiz und Speicherfunktion (siehe \ziel{F190W}, \ziel{F230W}, \ziel{F360W}, \ziel{F390W}, \ziel{F400W})
+\item Suchfunktion für Overpass-Einträge, Lokal/Global (siehe \ziel{F370W})
+\item Nur rendern wenn nötig (bei Bildänderung) (siehe \ziel{F340W})
+\item Grafikeinstellungen wie Antialiasing oder Texturfilterung (siehe \ziel{F150W})
+\item Platzhaltertextur für nicht verfügbare Kacheln (siehe \ziel{F310W})
+\item Vorausladen von Kartendaten an den Rändern der Anzeige (siehe \ziel{F320W})
 \end{itemize}
 
 \section{Abgrenzungskriterien}
@@ -338,7 +353,7 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \subsection{Tastaturbelegung}
 \vspace{3mm}
 \begin{center}
-\begin{tabular}{|>{\centering \arraybackslash}m{4cm}|m{8cm}|}
+\begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{9cm}|}
 \hline 
 \sffamily \rule[-1ex]{0pt}{4ex} \textbf{Tastenbelegung} & \sffamily \rule[-1ex]{0pt}{4ex} \textbf{Bedeutung} \\
 \hline 
@@ -379,16 +394,13 @@ Das \textbf{Datenmodell} ist dafür zuständig, Berechnungen und Anfragen bezüg
 \chapter{Produktfunktionen}
 
 \nplpadding{2}
-\newcommand{\muss}{\renewcommand{\labelenumi}{\textbf{/F\numprint{\theenumi}0/}}}
-\newcommand{\wunsch}{\renewcommand{\labelenumi}{\textbf{/F\numprint{\theenumi}0W/}}}
 \muss
+\renewcommand{\ziellabel}{F}
 
-
-\newcommand{\W}{\textbf{W}}
-Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskriterien.
+Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskriterien.
 
 \section{Fensterverhalten}
-\begin{enumerate}[leftmargin=2.5cm]
+\begin{enumerate}[leftmargin=2.2cm]
 \item Das Programmfenster startet mit einer Größe von 1024x768 Pixeln. Die Größe ist mit 800x600 Pixeln nach unten, aber nicht nach oben beschränkt und kann vom Benutzer durch Vergrößern bzw. Verkleinern der GUI geändert werden.
 \item Über den Fenstermanager (die Schließen-Funktion des Fensters) oder mit einem Tastenkürzel wird die Anwendung ohne Rückfrage beendet.
 \item Die Einstellungsleiste am linken Rand der GUI ist einklappbar.
@@ -396,7 +408,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \end{enumerate}
 
 \section{GUI-Elemente zur Navigation}
-\begin{enumerate}[leftmargin=2.5cm,resume]
+\begin{enumerate}[leftmargin=2.2cm,resume]
 \item Das Zoomlevel kann über einen Schieber angezeigt und geändert werden.
 \item Ein Ladebalken zeigt den Fortschritt der im Hintergrund geladenen Kartendaten an.
 \item Der Längen- und Breitengrad des Punktes in der Bildschirmmitte wird über Eingabefelder angezeigt, und können geändert werden.
@@ -404,7 +416,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 \end{enumerate}
 
 \section{Ansichtseinstellungen}
-\begin{enumerate}[leftmargin=2.5cm,resume]
+\begin{enumerate}[leftmargin=2.2cm,resume]
 \item Es kann zwischen 3D- (Globus) und 2D-Ansichten (Aufsicht) gewählt werden.
 \wunsch
 \item Zusätzliche Ansichten bieten der Sonnensystemmodus und die Kinder-Weltkarte.
@@ -419,7 +431,7 @@ Bäumen zuschaltbar.
 \end{enumerate}
 
 \section{Kartenansicht}
-\begin{enumerate}[leftmargin=2.5cm,resume]
+\begin{enumerate}[leftmargin=2.2cm,resume]
 \item Die Kartenansicht kann interaktiv mit Maus und Tastatur bedient werden.
 \item Im 2D-Kartenmodus kann die Ansicht nach links/rechts und oben/unten verschoben sowie (perspektivisch) gekippt werden. 
 \item Im 3D-Kartenmodus kann die Ansicht um die Erdachse sowie in Richtung der Pole gedreht; ab einem gewissen Zoomlevel am Kameraursprung gekippt werden.
@@ -430,7 +442,7 @@ Bäumen zuschaltbar.
 \end{enumerate}
 
 \section{Kartendarstellung}
-\begin{enumerate}[leftmargin=2.5cm,resume]
+\begin{enumerate}[leftmargin=2.2cm,resume]
 \item In 3D-Darstellung kann die Ansicht nicht über die Pole hinweg gedreht werden, sodass die Pole im Fenster immer nach oben oder unten zeigen. Weiters wird das Zoomlevel beschränkt.
 \item Overlays wie Städtenamen oder Symbole für Tankstellen werden als zweidimensionale Objekte an die Stelle der Anzeigefläche projiziert, an der der markierte Punkt auf dem Bildschirm erscheint.
 \wunsch
@@ -440,7 +452,7 @@ Bäumen zuschaltbar.
 \end{enumerate}
 
 \section{Laden der Kartendaten}
-\begin{enumerate}[resume,leftmargin=2.5cm]
+\begin{enumerate}[resume,leftmargin=2.2cm]
 \item Das Laden von Kacheln geschieht über HTTP.
 \item Welche Kacheln geladen werden müssen, wird  aus den sichtbaren Kartenabschnitten und dem momentanen Zoomlevel bestimmt.
 \item Es werden nur die benötigen Karten für den jeweiligen Ausschnitt geladen.
@@ -457,7 +469,7 @@ Bäumen zuschaltbar.
 
 
 \section{Orte}
-\begin{enumerate}[leftmargin=2.5cm,resume]
+\begin{enumerate}[leftmargin=2.2cm,resume]
 \item Städtenamen, Points of Interest und andere Informationen können unter einer Vielzahl an Overlays an- und abgewählt werden.
 \wunsch
 \item Eigene Punkte können auf der Karte markiert, die Markierungen ein-/ausgeblendet, in einer Liste verwaltet und wieder entfernt werden. 
@@ -465,7 +477,7 @@ Bäumen zuschaltbar.
 \end{enumerate}
 
 \section{Detailfenster}
-\begin{enumerate}[leftmargin=2.5cm,resume]
+\begin{enumerate}[leftmargin=2.2cm,resume]
 \item Das Detailfenster bietet die Möglichkeit nähere Informationen zu einem Punkt auf der Karte zu erhalten, wie zugehörigem Längen- und Breitengrad.
 \wunsch
 \item Der momentan in der Kartenansicht gewählte Punkt kann markiert,  gespeichert und falls bereits eine Markierung besteht wieder entfernt werden.
@@ -476,11 +488,10 @@ Bäumen zuschaltbar.
 
 \chapter{Produktdaten}
 
-\renewcommand{\muss}{\renewcommand{\labelenumi}{\textbf{/D\numprint{\theenumi}0/}}}
-\renewcommand{\wunsch}{\renewcommand{\labelenumi}{\textbf{/D\numprint{\theenumi}0W/}}}
+\renewcommand{\ziellabel}{D}
 \muss
 
-Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskriterien.\\
+Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskriterien.\\
 
 \vspace{5mm}
 
@@ -514,13 +525,12 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 
 \chapter{Produktleistungen}
 
-\renewcommand{\muss}{\renewcommand{\labelenumi}{\textbf{/L\numprint{\theenumi}0/}}}
-\renewcommand{\wunsch}{\renewcommand{\labelenumi}{\textbf{/L\numprint{\theenumi}0W/}}}
+\renewcommand{\ziellabel}{L}
 \muss
 
-Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskriterien.
+Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskriterien.
 
-\begin{enumerate}[leftmargin=2.5cm]
+\begin{enumerate}[leftmargin=2.2cm]
 \item Die Benutzeroberfläche soll grafisch ansprechend, gut strukturiert und intuitiv verständlich gehalten sein.
 \wunsch
 \item Um auch Kinder zu motivieren, Jogl Earth zu verwenden, wird eine altersgemäße Kinder-Weltkarte mit ausgeliefert.
@@ -599,7 +609,7 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 
 \section*{Funktionalität}
 \begin{indents}
-\item \textbf{Web Mining:} Automatische Extraktion von Daten aus dem Internet. Bei Jogl Earth findet das Web Mining bei der Suchfunktion Anwendung. Um die Benutzeroberfläche übersichtlich zu halten, ist nur eine einfache Suche nach Wortteilen möglich, die nicht weiter eingegrenzt wird. Es wird weiter vorausgesetzt, dass sich die Overpass-Server genau wie in der Spezifikation verhalten; eine Fehlerkorrektur wird nicht versucht.
+\item \sfbf{Web Mining:} Automatische Extraktion von Daten aus dem Internet. Bei Jogl Earth findet das Web Mining bei der Suchfunktion Anwendung. Um die Benutzeroberfläche übersichtlich zu halten, ist nur eine einfache Suche nach Wortteilen möglich, die nicht weiter eingegrenzt wird. Es wird weiter vorausgesetzt, dass sich die Overpass-Server genau wie in der Spezifikation verhalten; eine Fehlerkorrektur wird nicht versucht.
 
 \item \textbf{Interoperabilität:} Die Anwendung soll mit OpenStreetMap, der Overpass-API und ähnlichen Diensten interagieren um das Kartenmaterial mit Zusatzinformationen grafisch zu unterstützen. Da dies Kernbestandteil ist, wird Wert auf die Qualität der Interoperabilität gelegt.
 \end{indents}
@@ -607,49 +617,49 @@ Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskrite
 
 \section*{Zuverlässigkeit}
 \begin{indents}
-\item \textbf{Stabilität:} Die Lauffähigkeit des Programms soll nicht unterbrochen bzw. beeinträchtigt werden. Programmabstürze und Fehlverhalten führt sehr schnell zu Unzufriedenheit beim Benutzer, weswegen der Stabilität hohe Priorität zukommt.
+\item \sfbf{Stabilität:} Die Lauffähigkeit des Programms soll nicht unterbrochen bzw. beeinträchtigt werden. Programmabstürze und Fehlverhalten führt sehr schnell zu Unzufriedenheit beim Benutzer, weswegen der Stabilität hohe Priorität zukommt.
 
-\item \textbf{Fehlertoleranz:} Das Programm soll trotz fehlerhafter Eingaben seitens des Anwenders seine Funktionsweise aufrechterhalten. Dies ist ein wichtiger Punkt, da falsche Behandlung von unsinnigen Eingaben zu Fehlverhalten führt (Siehe Stabilität).
+\item \sfbf{Fehlertoleranz:} Das Programm soll trotz fehlerhafter Eingaben seitens des Anwenders seine Funktionsweise aufrechterhalten. Dies ist ein wichtiger Punkt, da falsche Behandlung von unsinnigen Eingaben zu Fehlverhalten führt (Siehe Stabilität).
 
-\item \textbf{Wiederherstellbarkeit:} Bei Neustart nach unsachgemäßer Beendigung des Programms, z.B. durch einen Systemabsturz, verhält sich das Programm wie bei einem normalen Start. Es wird kein Versuch unternommen, die Sitzung wiederherzustellen, da der Zustand keine Informationen enthält, die für den Benutzer kritisch sind.
+\item \sfbf{Wiederherstellbarkeit:} Bei Neustart nach unsachgemäßer Beendigung des Programms, z.B. durch einen Systemabsturz, verhält sich das Programm wie bei einem normalen Start. Es wird kein Versuch unternommen, die Sitzung wiederherzustellen, da der Zustand keine Informationen enthält, die für den Benutzer kritisch sind.
 \end{indents}
 
 
 \section*{Benutzbarkeit}
 \begin{indents}
-\item \textbf{Bedienbarkeit:} Die Oberfläche soll intuitiv bedienbar sein. Dies ist auch deshalb von Bedeutung, da Kinder zur Zielgruppe gehören.
+\item \sfbf{Bedienbarkeit:} Die Oberfläche soll intuitiv bedienbar sein. Dies ist auch deshalb von Bedeutung, da Kinder zur Zielgruppe gehören.
 
-\item \textbf{Erlernbarkeit:} Die Bedienung der Oberfläche soll einfach verstanden werden. Dies deckt sich mit der Anforderung nach intuitiver Bedienbarkeit.
+\item \sfbf{Erlernbarkeit:} Die Bedienung der Oberfläche soll einfach verstanden werden. Dies deckt sich mit der Anforderung nach intuitiver Bedienbarkeit.
 
-\item \textbf{Grafische Gestaltung:} Die Oberfläche soll optisch ansprechend wirken. Dabei wird auch auf Einfachheit geachtet, was der Erlernbarkeit dient.
+\item \sfbf{Grafische Gestaltung:} Die Oberfläche soll optisch ansprechend wirken. Dabei wird auch auf Einfachheit geachtet, was der Erlernbarkeit dient.
 
-\item \textbf{Verständlichkeit:} Die Oberfläche soll selbsterklärend sein. Dieses Ziel ist leicht erreichbar, da der Funktionsumfang gut strukturiert ist.
+\item \sfbf{Verständlichkeit:} Die Oberfläche soll selbsterklärend sein. Dieses Ziel ist leicht erreichbar, da der Funktionsumfang gut strukturiert ist.
 \end{indents}
 
 
 \section*{Effizienz}
 \begin{indents}
-\item \textbf{Bildqualität:} Die Satellitenbilder und Kartendaten sollen in bestmöglicher Qualität dargestellt werden, außerdem sollen Bildänderungen flüssig erfolgen. Dies ist für die Sichtbarkeit von Kartendetails und die Bedienbarkeit unabdinglich.
+\item \sfbf{Bildqualität:} Die Satellitenbilder und Kartendaten sollen in bestmöglicher Qualität dargestellt werden, außerdem sollen Bildänderungen flüssig erfolgen. Dies ist für die Sichtbarkeit von Kartendetails und die Bedienbarkeit unabdinglich.
 
-\item \textbf{Laufzeit:} Trotz bestmöglicher Bildqualität sollen die Wartezeiten zum Laden der Daten gering gehalten werden. Die Zielsetzung ist es, dabei heutige Standards zu erreichen.
+\item \sfbf{Laufzeit:} Trotz bestmöglicher Bildqualität sollen die Wartezeiten zum Laden der Daten gering gehalten werden. Die Zielsetzung ist es, dabei heutige Standards zu erreichen.
 
-\item \textbf{Speichermanagement:} Die Kachel-Daten werden im Dateisystem und im Arbeitsspeicher effizient gepuffert. Effizientes Speichermanagement wirkt sich unmittelbar auf die Ladezeiten aus, weswegen es höchste Aufmerksamkeit genießt.
+\item \sfbf{Speichermanagement:} Die Kachel-Daten werden im Dateisystem und im Arbeitsspeicher effizient gepuffert. Effizientes Speichermanagement wirkt sich unmittelbar auf die Ladezeiten aus, weswegen es höchste Aufmerksamkeit genießt.
 \end{indents}
 
 
 \section*{Anpassfähigkeit}
 \begin{indents}
-\item \textbf{Code-Qualität:} Der Quellcode des Programms soll leicht verständlich gehalten werden. Dies ist für die Teamarbeit unerlässlich.
+\item \sfbf{Code-Qualität:} Der Quellcode des Programms soll leicht verständlich gehalten werden. Dies ist für die Teamarbeit unerlässlich.
 
-\item \textbf{Modifizierbarkeit:} Zusätzliche Änderungen bzw. Anpassungen des Codes sollen einfach umsetzbar sein. Da die Software nach Beendigung des Projekts nicht weiterentwickelt wird, spielt dies eine untergeordnete Rolle.
+\item \sfbf{Modifizierbarkeit:} Zusätzliche Änderungen bzw. Anpassungen des Codes sollen einfach umsetzbar sein. Da die Software nach Beendigung des Projekts nicht weiterentwickelt wird, spielt dies eine untergeordnete Rolle.
 \end{indents}
 
 
 \section*{Portierbarkeit}
 \begin{indents}
-\item \textbf{Erweiterbarkeit:} Zusätzliche Funktionalitäten sollen in den Code integrierbar sein. Hier gilt das selbe wie für die Modifizierbarkeit.
+\item \sfbf{Erweiterbarkeit:} Zusätzliche Funktionalitäten sollen in den Code integrierbar sein. Hier gilt das selbe wie für die Modifizierbarkeit.
 
-\item \textbf{Konformität:} Vorgegebene Konventionen sollen eingehalten werden. 
+\item \sfbf{Konformität:} Vorgegebene Konventionen sollen eingehalten werden. 
 \end{indents}
 
 
@@ -661,14 +671,14 @@ Ein gutes Softwareprodukt zeichnet sich unter Anderem durch die Qualität des Be
 
 \chapter{Globale Testszenarien und Testfälle}
 
-\renewcommand{\muss}{\renewcommand{\labelenumi}{\textbf{/T\numprint{\theenumi}0/}}}
-\renewcommand{\wunsch}{\renewcommand{\labelenumi}{\textbf{/T\numprint{\theenumi}0W/}}}
+\setlength{\parindent}{0pt}
+\renewcommand{\ziellabel}{T}
 \muss 
 
-Ausgangspunkt: Nackte Grundinstallation \\
-Test: Szenario - Anwendungsstart \\
-Voraussetzung: keine
-\begin{enumerate}[leftmargin = 2.5cm]
+\sfbf{Ausgangspunkt:} Nackte Grundinstallation \\
+\sfbf{Test:} Szenario - Anwendungsstart \\
+\sfbf{Voraussetzung:} keine
+\begin{enumerate}[leftmargin = 2.2cm]
 \item Das Programm wird gestartet. Es öffnet sich die GUI in Standardgröße (1024x768 Pixeln) (siehe \textbf{/F010/}).
 \item Die Einstellungsleiste der GUI ist geöffnet (siehe \textbf{/F030/}).
 \item Die GUI startet in Standardsprache Deutsch (siehe \textbf{/F040/}).
@@ -679,10 +689,10 @@ Voraussetzung: keine
 \end{enumerate}
 
 \vspace{1.0cm}
-Ausgangspunkt: Nackte Grundinstallation \\
-Test: Funktionalität GUI inklusive der gelieferten Texturen \\
-Voraussetzung: Szenario - Anwendungsstart ausführen
-\begin{enumerate}[leftmargin = 2.5cm, resume]
+\sfbf{Ausgangspunkt:} Nackte Grundinstallation \\
+\sfbf{Test:} Funktionalität GUI inklusive der gelieferten Texturen \\
+\sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
+\begin{enumerate}[leftmargin = 2.2cm, resume]
 \item Änderung der Sprache auf Englisch - die Anzeigesprache ändert sich - Rücksetzen der Sprache auf Deutsch (siehe \textbf{/F040/}).
 \item Maßstabsanzeige betrachten und Skalierung notieren (siehe \textbf{/F080/}).
 \item Zoomlevel - Augangspunkt notieren, dann Zoomlevel erhöhen und Maßstabsänderung kontrollieren (siehe \textbf{/F050/}, \textbf{/F080/}).
@@ -714,10 +724,10 @@ Voraussetzung: Szenario - Anwendungsstart ausführen
 \end{enumerate}
 
 \vspace{1.0cm}
-Ausgangspunkt: Nackte Grundinstallation \\
-Test: Laden der Kartendaten von OpenStreetMap und NASA \\
-Voraussetzung: Szenario - Anwendungsstart ausführen
-\begin{enumerate}[leftmargin = 2.5cm, resume]
+\sfbf{Ausgangspunkt:} Nackte Grundinstallation \\
+\sfbf{Test:} Laden der Kartendaten von OpenStreetMap und NASA \\
+\sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
+\begin{enumerate}[leftmargin = 2.2cm, resume]
 \item Laden der Kartenkacheln testen (siehe \textbf{/F250/}, \textbf{/F260/}, \textbf{/F270/}, \textbf{/F290/}, \textbf{/F300/}).
 \wunsch
 \item Kontrollieren, ob Platzhaltertextur während des Ladens der Kartenkacheln erscheint (siehe \textbf{/F310W/}).
@@ -730,10 +740,10 @@ Voraussetzung: Szenario - Anwendungsstart ausführen
 \end{enumerate}
 
 \vspace{1.0cm}
-Ausgangspunkt: Geladene Kartendaten \\
-Test: Ansichtseinstellungen bei Karten \\
-Voraussetzung: Szenario - Anwendungsstart ausführen
-\begin{enumerate}[leftmargin = 2.5cm, resume]
+\sfbf{Ausgangspunkt:} Geladene Kartendaten \\
+\sfbf{Test:} Ansichtseinstellungen bei Karten \\
+\sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
+\begin{enumerate}[leftmargin = 2.2cm, resume]
 \item Auswahl der Ansicht Karte mit Kartentyp OpenStreetMap (Straßenkarte) (siehe \textbf{/F090/}, \textbf{/F110/}).
 \wunsch
 \item Höhenprofile einschalten und anschließend wieder ausschalten (siehe \textbf{/F120W/}).
@@ -748,10 +758,10 @@ Voraussetzung: Szenario - Anwendungsstart ausführen
 
 
 \vspace{1.0cm}
-Ausgangspunkt: Geladene Kartendaten \\
-Test: Punkte markieren, POIs \\
-Voraussetzung: Szenario - Anwendungsstart ausführen
-\begin{enumerate}[leftmargin = 2.5cm, resume]
+\sfbf{Ausgangspunkt:} Geladene Kartendaten \\
+\sfbf{Test:} Punkte markieren, POIs \\
+\sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
+\begin{enumerate}[leftmargin = 2.2cm, resume]
 \item Auswahl der Ansicht Karte mit Kartentyp OpenStreetMap (Straßenkarte) (siehe \textbf{/F090/}, \textbf{/F110/}).
 \item Im Detailfenster müssen Informationen zum zentrierten Punkt, wie Längen- und Breitengrad angezeigt werden (siehe \textbf{/F200/}, \textbf{/F380/})
 \wunsch
@@ -776,10 +786,10 @@ Voraussetzung: Szenario - Anwendungsstart ausführen
 \end{enumerate}
 
 \vspace{1.0cm}
-Ausgangspunkt: Liste der markierten Punkte und die Ansichtseinstellungen werden übernommen \\
-Test: Settings Speicherung \\
-Voraussetzung: Szenario - Anwendungsstart ausführen, Veränderung der Settings-Datei (z.B. markierte Punkte setzen)
-\begin{enumerate}[leftmargin = 2.5cm, resume]
+\sfbf{Ausgangspunkt:} Liste der markierten Punkte und die Ansichtseinstellungen werden übernommen \\
+\sfbf{Test:} Settings Speicherung \\
+\sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen, Veränderung der Settings-Datei (z.B. markierte Punkte setzen)
+\begin{enumerate}[leftmargin = 2.2cm, resume]
 \wunsch
 \item Kontrolle ob die Settings-Einstellungen übernommen wurden. (siehe \textbf{/F390W/}, \textbf{/F400W/})
 \item Kontrolle ob die beiden markierten Punkte noch in der Liste vorhanden sind (siehe \textbf{/F360W/}, \textbf{/F390W/}, \textbf{/F400W/}).
@@ -834,7 +844,7 @@ Sebastian Reichl & Intel Core i5-4200U @ 2,29 Ghz & 4 GB & Intel HD Graphics \\
 \newcolumntype{L}[1]{>{\sffamily\bfseries\hsize=#1\hsize\raggedright\arraybackslash}X}
 \newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}
 \setlength{\extrarowheight}{3mm}
-\begin{tabularx}{\textwidth}{L{0.35} R{1.65}}
+\begin{longtabu}{L{0.35} R{1.65}}
 Anisotropes Filtern & Methode um den Schärfeeindruck von perspektivisch deformierten Texturen zu erhalten\\
 Antialiasing & Methode zur Kantenglättung in Grafiken\\
 API & Application Programming Interface, englische Bezeichnung für Anwendungsschnittstelle\\
@@ -852,12 +862,6 @@ Framework & Programmgerüst in der Softwaretechnik. Auch bezeichnet als Ordnungs
 Git & Verteiltes Versionsverwaltungssystem\\
 GUI& (Graphical User Interface) Grafische Benutzeroberfläche\\
 HTTP & (Hypertext Transfer Protocol) ein \textbf{Protokoll} zur Übertragung von Daten über ein Netzwerk\\
-\end{tabularx}
-
-\newcolumntype{L}[1]{>{\sffamily\bfseries\hsize=#1\hsize\raggedright\arraybackslash}X}
-\newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}
-\setlength{\extrarowheight}{3mm}
-\begin{tabularx}{\textwidth}{L{0.35} R{1.65}}
 Java & Programmiersprache, siehe auch: \textbf{JRE}\\
 Javadoc & Dokumentation von Klassen und Methoden in \textbf{Java}\\
 JDK & (\textbf{Java} Development Kit) von \textbf{Java}-Entwicklern benutztes \textbf{Software Development Kit}\\
@@ -881,20 +885,13 @@ RAM & (Random Access Memory) Arbeitsspeicher\\
 Rendern & Erzeugen eines Bildes aus Rohdaten, hier aus einem räumlichen Modell\\
 Server & Gegenstelle im Netzwerk, die einen Dienst zur Verfügung stellt, hier Lieferung des Kartenmaterials\\
 SDK & (\textbf{Software Development Kit}) Sammlung von Werkzeugen und Anwendungen um eine Software zu erstellen\\
-\end{tabularx}
-
-
-\newcolumntype{L}[1]{>{\sffamily\bfseries\hsize=#1\hsize\raggedright\arraybackslash}X}
-\newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}
-\setlength{\extrarowheight}{3mm}
-\begin{tabularx}{\textwidth}{L{0.35} R{1.65}}
 Testabdeckung & Gibt an welche Codeabschnitte von den Tests abgedeckt sind\\
 Textur & Zweidimensionale (Oberflächen-) Grafik im Kontext von \textbf{Rendern}\\
 Unit-Test & (Modultest) In der Softwareentwicklung angewendete Art von Tests um einzelne Module auf korrekte Funktionalität zu prüfen\\
 Windows & Betriebssystem der Firma Microsoft\\
 XML & (Extensible Markup Language) Sprache zur Darstellung von hierarchisch strukturierter Daten. Wird unter anderem für den \textbf{plattformunabhängigen} Austausch von Daten verwendet\\
 Zoomlevel & Angabe zur \textbf{Auflösung} der \textbf{(Bild-) Kacheln} in der Ansicht\\
-\end{tabularx}
+\end{longtabu}
 
 
 \end {document}
