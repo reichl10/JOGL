@@ -22,11 +22,6 @@
 \patchcmd{\@makechapterhead}{\vspace*{50\p@}}{\vspace*{-20\p@}}{}{}
 \patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{\vspace*{-20\p@}}{}{}
 \makeatother
-
-\newenvironment{details}[1][6pt]{%
-  \parskip#1 \parindent6mm \raggedright%
-  \def\item{\par\ignorespaces\hangindent=5mm \hangafter1}}{%
-  \par\ignorespaces} 
   
 \captionsetup[figure]{labelfont={sf,bf},textfont={sf}}
 \deffootnotemark{[\thefootnotemark]}
@@ -44,6 +39,10 @@
 \newcommand{\JoglEarth}{\raisebox{-1.2mm}{\includegraphics[scale=0.33]{Logo-Text.eps}} }
 \newcommand{\textref}[1]{\mbox{\raisebox{0.1ex}{\small$\rightarrow$ }\textit{#1}}}
 
+\newenvironment{details}[1][6pt]{%
+  \parskip#1 \parindent6mm \raggedright%
+  \def\item{\par\ignorespaces\hangindent=5mm \hangafter1}}{%
+  \par\ignorespaces} 
   
 
 \begin{document}
@@ -109,8 +108,13 @@ Version: 1.0
 \end{center}
 
 
-
+\pagebreak
 \rmfamily
+% Abstand zwischen Überschrift und TOC verringern
+\makeatletter
+\patchcmd{\DOTIS}{\vskip 40\p@}{\vskip -10\p@} 
+\makeatother
+
 \tableofcontents
 
 
