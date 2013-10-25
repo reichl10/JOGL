@@ -314,14 +314,15 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \subsection{Mausbelegung}
 \vspace{3mm}
 \begin{center}
-\begin{tabular}{|>{\centering \arraybackslash}m{4cm}|m{8cm}|}
+\begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{9cm}|}
 \hline 
-\textbf{Tastenbelegung} & \textbf{Bedeutung} \\ 
+
+\rule[-1ex]{0pt}{4ex} \sffamily\textbf{Tastenbelegung} &\rule[-1ex]{0pt}{4ex} \sffamily\textbf{Bedeutung} \\ 
 \hline
 \hline
-\includegraphics[scale=1.0]{KeyImages/mouseDrag_left.eps} & Drehen der Erdkugel, Verschieben der Karten \\ 
+\includegraphics[scale=1.0]{KeyImages/mouseDrag_left.eps} & Drehen der Erdkugel / Verschieben der Karte \\ 
 \hline 
-\includegraphics[scale=1.0]{KeyImages/mouseDoubleClick_left.eps} & Punkt markieren und zentrieren des Punkts im Kartenfenster \\
+\includegraphics[scale=1.0]{KeyImages/mouseDoubleClick_left.eps} & Punkt markieren und im Kartenfenster zentrieren \\
 \hline
 \includegraphics[scale=1.0]{KeyImages/mouseDrag_right.eps} & Kippen der Karte \\
 \hline
@@ -339,17 +340,17 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \begin{center}
 \begin{tabular}{|>{\centering \arraybackslash}m{4cm}|m{8cm}|}
 \hline 
-\rule[-1ex]{0pt}{4ex} \textbf{Tastenbelegung} & \textbf{Bedeutung} \\ 
+\sffamily \rule[-1ex]{0pt}{4ex} \textbf{Tastenbelegung} & \sffamily \rule[-1ex]{0pt}{4ex} \textbf{Bedeutung} \\
 \hline 
 \hline
-\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.1]{KeyImages/key_arrow_up.eps} & \multirow{2}{*}{Drehen der Erdkugel, Verschieben der Karten}\\
-\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.1] {KeyImages/key_arrow_left.eps}\includegraphics[scale=0.1]{KeyImages/key_arrow_down.eps}\includegraphics[scale=0.1]{KeyImages/key_arrow_right.eps} &  \\
+\rule[-1ex]{0pt}{7ex}\includegraphics[scale=0.08]{KeyImages/key_arrow_up.eps}& \multirow{3}{*}{Drehen der Erdkugel, Verschieben der Karten}\\
+\includegraphics[scale=0.08] {KeyImages/key_arrow_left.eps} \includegraphics[scale=0.08]{KeyImages/key_arrow_down.eps} \includegraphics[scale=0.08]{KeyImages/key_arrow_right.eps} &  \\
 \hline
-\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.1]{KeyImages/key_Bild_Auf.eps}  \includegraphics[scale=0.1]{KeyImages/key_Bild_Ab.eps} & Kippen der Karte \\
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{KeyImages/key_Bild_Auf.eps}  \includegraphics[scale=0.08]{KeyImages/key_Bild_Ab.eps} & Kippen der Karte \\
 \hline
-\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.1]{KeyImages/key_Plus.eps}  \includegraphics[scale=0.1]{KeyImages/key_Minus.eps} & Zoomen der Ansicht \\
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{KeyImages/key_Plus.eps}  \includegraphics[scale=0.08]{KeyImages/key_Minus.eps} & Zoomen der Ansicht \\
 \hline
-\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.1]{KeyImages/key_Strg.eps} \textbf{+} \includegraphics[scale=0.1]{KeyImages/key_Q.eps} & Beenden der Anwendung und Schließen der GUI \\ 
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{KeyImages/key_Strg.eps} \rule[-1ex]{0pt}{7ex} \textbf{+} \includegraphics[scale=0.08]{KeyImages/key_Q.eps} & Beenden der Anwendung und Schließen der GUI \\ 
 \hline
 \end{tabular} 
 \end{center}
@@ -359,43 +360,20 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 \chapter{Systemarchitektur}
 Die Systemarchitektur folgt dem Model-View-Controller-Pattern.
-\vspace{1cm}
+\vspace{3mm}
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.6]{ModelViewController.eps}
-\caption{Die Systemarchitektur}
+\caption{Konzept der Systemarchitektur (Abriss)}
 \end{figure}
-\pagebreak
-\subsection*{Controller}
-Die \textbf{Programmsteuerung} übernimmt die Verarbeitung der Benutzereingaben und legt die \textbf{Kameraposition} sowie etwaige \textbf{Ansichtseinstellungen} fest.
-\subsection*{View}
-Die \textbf{Benutzeroberfläche} dient als Schnittstelle zwischen Anwender und Programm. Sie kann wie folgt unterteilt werden:\\
+\subsubsection*{Controller}
+Die \textbf{Programmsteuerung} übernimmt die Verarbeitung der Ein- und Ausgaben und steuert die Ansicht.
+ Sie ist für die Umsetzung der Nutzerbefehle und gespeicherter Einstellungen verantwortlich.
+\subsubsection*{View}
+Die \textbf{Benutzeroberfläche} dient als Schnittstelle zwischen Anwender und Programm. Sie erzeugt eine visuelle Darstellung aus den Befehlen der Programmsteuerung und den Daten des Modells. Eingaben wie Tastendrücke oder das Anwählen eines GUI-Elements leitet sie an die Steuerung weiter.
 
-Die \textbf{Kartenansicht} ist die Hauptkomponente der Anwendung. Sie stellt den Ausgewählten Kartenabschnitt dar und nimmt Benutzereingaben zur Kamerasteuerung und Wahl einzelner Punkte auf der Karte entgegen.
-
-
-
-Die \textbf{Seitenleiste} dient der Auswahl von Orten, Beeinflussung der Ansicht, sowie Änderung der Programmeinstellungen.
-
-
-
-\subsection*{Model}
-Das \textbf{Datenmodell} ist dafür zuständig, alle Berechnungen und Anfragen bezüglich der Karte oder des Globus zu beantworten.
-
-Es führt \textbf{Sichtbarkeitsberechnungen} auf Basis der momentanen Kameraeinstellungen durch, um die benötigten Kartenabschnitte zu bestimmen.
-Auch beschafft es mittels des \textbf{OverpassAPI-Clients} die vom View anfragten Overlay-Daten.
-
-\begin{itemize}
-\item Sichtbarkeitsberechnungen
-\item OverpassAPI-Client
-\item Benutzermarkierungen
-\item \begin{itemize}
-\item Kartencache
-\item OpenStreetMap-Client
-\item NASA-Karten-Client
-\end{itemize}
-\end{itemize}
-\vspace{1cm}(Ausformulieren!)
+\subsubsection*{Model}
+Das \textbf{Datenmodell} ist dafür zuständig, Berechnungen und Anfragen bezüglich der Karte oder des Globus zu beantworten. Es bestimmt die Sichtbarkeit von Kartenabschnitten und beschafft Karten-, Markierungs- sowie ortsspezifische Daten.
 
 
 \chapter{Produktfunktionen}
@@ -406,7 +384,7 @@ Auch beschafft es mittels des \textbf{OverpassAPI-Clients} die vom View anfragte
 \muss
 
 
-\newcommand{\W}{\textbf{W }}
+\newcommand{\W}{\textbf{W}}
 Wunschkriterien werden mit \W  gekennzeichnet, alle verbleibenden sind Musskriterien.
 
 \section{Fensterverhalten}
