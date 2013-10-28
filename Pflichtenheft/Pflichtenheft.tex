@@ -154,13 +154,6 @@ Primäre Zielgruppe des Systems sind Privatanwender, die eine andere Art der Kar
 
 Auch soll die Anwendung wissbegierige Kinder ansprechen. Voraussetzung ist lediglich der geübte Umgang mit der Maus und/ oder Tastatur.
 
-\section{Betriebsbedingungen}
-\begin{itemize}
-\item Bestehende dauerhafte Internetverbindung zum Laden des Kartenmaterials.
-\item Nach der Abschlusspräsentation werden keine weiteren 
-Veränderungen vorgenommen. Es erfolgt keine Wartung.
-\end{itemize} 
-
 \section{Sicherheit, Datenschutz}
 Die Anwendung wahrt die Sicherheit des Systems und schützt die Privatsphäre des Nutzers.
 \begin{itemize}
@@ -175,8 +168,8 @@ Die Anwendung wahrt die Sicherheit des Systems und schützt die Privatsphäre de
 Wird das Produkt veröffentlicht, so müssen die Lizenzen der verwendeten Bibliotheken und Datenquellen berücksichtigt werden:
 \begin{itemize}
 \item Teile der JOGL-Bibliothek sind unter mehreren Versionen der BSD-Lizenz, der SGI Free Software License und der Apache-Lizenz, der Ubuntu Font License und mehreren proprietären Lizenzen veröffentlicht. Details dazu finden sich bei  \footnote{\url{https://jogamp.org/git/?p=jogl.git;a=blob;f=LICENSE.txt}}.
-\item OpenStreetMap ist „OpenData“ im Sinne der Open Data Commons Open Database Lizenz (ODbL). Die Kartografie der Kartenkacheln stehen unter der Linzenz  Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen 2.0 (CC BY-SA). Weitere Infos, wie auch eine Vorgabe zum Hinweisen auf der Urheberschaft des OSM-Projekts finden sich bei \footnote{\url{http://www.openstretmap.org/copyright}}.
-\item Die Daten der Overpass API stehen ebenfalls unter der ODbL.
+\item OpenStreetMap ist „OpenData“ im Sinne der Open Database Lizenz (ODbL). Die Kartenkacheln stehen unter der Lizenz Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen 2.0 (CC BY-SA). Weitere Infos, wie auch eine Vorgabe zum Hinweisen auf der Urheberschaft des OSM-Projekts finden sich bei \footnote{\url{http://www.openstretmap.org/copyright}}.
+\item Die Daten der Overpass API sowie Nominatim stehen ebenfalls unter der ODbL.
 \item Die Satellitenbilder der NASA sind frei verfügbar und stehen unter der Lizenz, die sich bei \footnote{\url{http://www.nasa.gov/audience/formedia/features/MP_Photo_Guidelines.html}} findet.
 \item JGoodies Forms steht unter der BSD-Lizenz bei \footnote{\url{http://opensource.org/licenses/bsd-license.html}}.
 \end{itemize}
@@ -223,8 +216,8 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Anzeige der momentanen und der möglichen Zoomstufen (siehe \ziel{F050})
 \item Sinnvolle Beschränkung der Zoomstufen und Beweglichkeit (siehe \ziel{F210})
 \item Ladebalken für im Hintergrund geladene Kartendaten (siehe \ziel{F060})
+\item Platzhaltertextur für nicht verfügbare Kacheln (siehe \ziel{F310W})
 \item Felder zur Anzeige und zur Änderung des Längen- und Breitengrads (siehe \ziel{F070})
-\item Anzeige des momentanen Kartenmaßstabs (siehe \ziel{F080})
 \item Ansichtsmodus wechselbar zwischen 3D-Globus und flache Kartenansicht (siehe \ziel{F090})
 \item Kartenmaterial wechselbar zwischen Satellitenbildern und OpenStreetMap (siehe \ziel{F110})
 \item Drehen, Kippen, Zoomen der Ansichten (siehe \ziel{F170}, \ziel{F180})
@@ -238,6 +231,7 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Kinder-Weltkarte (siehe \ziel{F100W})
 \item Sonnensystem-Modellansicht als weiteren Ansichtsmodus (siehe \ziel{F100W}, \ziel{F130W})
 \item Sternenhimmel als Hintergrund (siehe \ziel{F140W})
+\item Anzeige des momentanen Kartenmaßstabs (siehe \ziel{F080})
 \item Ansichtseinstellungen können gespeichert werden (siehe \ziel{F400W})
 \item 3D-Höhenprofil (siehe \ziel{F120W})
 \item 3D-Modelle für Häuser/Bäume (siehe \ziel{F120W}, \ziel{F230W})
@@ -245,7 +239,6 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Suchfunktion für Overpass-Einträge, Lokal/Global (siehe \ziel{F370W})
 \item Nur rendern wenn nötig (bei Bildänderung) (siehe \ziel{F340W})
 \item Grafikeinstellungen wie Antialiasing oder Texturfilterung (siehe \ziel{F150W})
-\item Platzhaltertextur für nicht verfügbare Kacheln (siehe \ziel{F310W})
 \item Vorausladen von Kartendaten an den Rändern der Anzeige (siehe \ziel{F320W})
 \end{itemize}
 
@@ -391,88 +384,103 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 
 \section{Fensterverhalten}
 \begin{enumerate}[leftmargin=2.2cm]
-\item Das Programmfenster startet mit einer Größe von 1024x768 Pixeln. Die Größe ist mit 800x600 Pixeln nach unten, aber nicht nach oben beschränkt und kann vom Benutzer durch Vergrößern bzw. Verkleinern der GUI geändert werden.
-\item Über den Fenstermanager (die Schließen-Funktion des Fensters) oder mit einem Tastenkürzel wird die Anwendung ohne Rückfrage beendet.
+\item Das Programmfenster hat beim Start eine Standardgröße von 1024x768 Pixeln. 
+\item Die Größe ist mit 800x600 Pixeln nach unten, aber nicht nach oben beschränkt. 
+\item Die Fenstergröße kann vom Benutzer durch Vergrößern bzw. Verkleinern der GUI geändert werden.
+\item Beim Schließen des Fensters wird die Anwendung ohne Rückfrage beendet.
 \item Die Einstellungsleiste am linken Rand der GUI ist einklappbar.
 \item Auswahlmöglichkeit der Sprache: Englisch oder Deutsch
+\item Die Änderung der Sprache erfolgt ohne Neustart der GUI.
 \end{enumerate}
 
 \section{GUI-Elemente zur Navigation}
 \begin{enumerate}[leftmargin=2.2cm,resume]
-\item Das Zoomlevel kann über einen Schieber angezeigt und geändert werden.
+\item Das Zoomlevel kann geändert werden.
 \item Ein Ladebalken zeigt den Fortschritt der im Hintergrund geladenen Kartendaten an.
-\item Der Längen- und Breitengrad des Punktes in der Bildschirmmitte wird über Eingabefelder angezeigt, und können geändert werden.
-\item Der Maßstab des Punktes unter dem Anzeigemittelpunkt wird in einem Feld angezeigt.
+\item Der Längen- und Breitengrad des Punktes in der Bildschirmmitte wird berechnet.
+\item Der Längen- und Breitengrad des Punktes in der Bildschirmmitte kann geändert werden.
+\textbf{\item Benutzerhandbuch und Aboutbox
+}\wunsch
+\item Der Maßstab des Punktes unter dem Anzeigemittelpunkt wird berechnet.
 \end{enumerate}
 
 \section{Ansichtseinstellungen}
 \begin{enumerate}[leftmargin=2.2cm,resume]
-\item Es kann zwischen 3D- (Globus) und 2D-Ansichten (Aufsicht) gewählt werden.
+\item Der Ansichtsmodus kann gewechselt werden (z.B. 3D und 2D).
+\item Es besteht eine Auswahl an verschiedenen Kartentypen (z.B. Satellitenbilder und Straßenkarten).
 \wunsch
-\item Zusätzliche Ansichten bieten der Sonnensystemmodus und die Kinder-Weltkarte.
-\muss
-\item Es besteht eine Auswahl aus verschiedenen Kartentypen; wie Satellitenbildern und Straßenkarten.
-\wunsch
-\item Es sind Höhenprofile, sowie 3D-Ansichten von Häusern und 
-Bäumen zuschaltbar.
-\item Im Sonnensystemmodus werden zusätzliche Himmelskörper wie Sonne und Mond sichtbar, dafür ist die Zoommöglichkeit stark begrenzt und die Auswahlmöglichkeiten in der GUI sind stark eingeschränkt.
+\textbf{\item Es sind Höhenprofile zuschaltbar.
+\item 3D-Ansichten (z.B. Bäume, Häuser) sind zuschaltbar.}
+\item Im Sonnensystemmodus sind die Auswahlmöglichkeiten in der GUI stark eingeschränkt.
 \item Ein Sternenhimmel als Hintergrundbild soll zuschaltbar sein.
-\item Grafikeinstellungen wie Antialiasing oder Texturfilterung
+\item Grafikoptionen (wie Antialiasing oder Texturfilterung) sind einstellbar.
 \end{enumerate}
 
 \section{Kartenansicht}
 \begin{enumerate}[leftmargin=2.2cm,resume]
-\item Die Kartenansicht kann interaktiv mit Maus und Tastatur bedient werden.
-\item Im 2D-Kartenmodus kann die Ansicht nach links/rechts und oben/unten verschoben sowie (perspektivisch) gekippt werden. 
-\item Im 3D-Kartenmodus kann die Ansicht um die Erdachse sowie in Richtung der Pole gedreht; ab einem gewissen Zoomlevel am Kameraursprung gekippt werden.
+\item Karten im 2D-Modus können verschoben werden.
+\item Die Karten sind kippbar.
+\item Im 3D-Kartenmodus kann die Erde gedreht werden.
+\item Die Erde kann nicht über die Pole gedreht werden.
+\item Im 3D-Modus kann abhängig vom Zoomlevel das Kippen beschränkt werden.
+\item Das Zoomlevel ist so beschränkt, dass nicht durch die Textur hindurch gezoomt werden kann.
 \wunsch
-\item Im 2D-Kartenmodus kann der Benutzer Punkte markieren und speichern.
+\item Im 2D-Kartenmodus kann der Benutzer Punkte markieren.
+\item Zur Markierung kann eine Notiz hinzugefügt werden.
+\item Markierte Punkte können unter einem Namen gespeichert werden.
 \muss
-\item Im Detailfenster werden Informationen zum markierten Punkt angezeigt. Bei POIs sind das Adresse sowie Beschreibung; bei anderen Punkten genauer Längen- und Breitengrad.
+\item Im Detailfenster werden Informationen zum markierten Punkt angezeigt (z.B. Adresse oder Längen- und Breitengrad).
 \end{enumerate}
 
 \section{Kartendarstellung}
 \begin{enumerate}[leftmargin=2.2cm,resume]
-\item In 3D-Darstellung kann die Ansicht nicht über die Pole hinweg gedreht werden, sodass die Pole im Fenster immer nach oben oder unten zeigen. Weiters wird das Zoomlevel beschränkt.
-\item Overlays wie Städtenamen oder Symbole für Tankstellen werden als zweidimensionale Objekte an die Stelle der Anzeigefläche projiziert, an der der markierte Punkt auf dem Bildschirm erscheint.
+\item Overlays (wie Städtenamen oder Symbole für Tankstellen) werden als zweidimensionale Objekte an die Stelle der Anzeigefläche projiziert, an den Koordinaten des markierten Punktes auf dem Bildschirm erscheint.
 \wunsch
-\item Dreidimensionale Objekte wie Häusermodelle, Bäume, oder  Markierungen von Punkten werden direkt in die Szene eingefügt.
+\item Dreidimensionale Objekte (wie Häusermodelle, Bäume, oder  Markierungen von Punkten) werden berechnet.
 \muss
-\item Die Menge der Angezeigten Overlays und 3D-Modelle wird beschränkt, sodass die Leistung wie auch die Lesbarkeit von Beschriftungen akzeptabel bleibt.
-\end{enumerate}
+\textbf{\item Die Menge der angezeigten Overlays und 3D-Modelle wird beschränkt (z.B. durch ein festes Limit).
+}\end{enumerate}
 
 \section{Laden der Kartendaten}
 \begin{enumerate}[resume,leftmargin=2.2cm]
-\item Das Laden von Kacheln geschieht über HTTP.
 \item Welche Kacheln geladen werden müssen, wird  aus den sichtbaren Kartenabschnitten und dem momentanen Zoomlevel bestimmt.
 \item Es werden nur die benötigen Karten für den jeweiligen Ausschnitt geladen.
-\item Ist die Textur einer Kachel bereits geladen, wird sie direkt angezeigt.
-\item Ist sie lokal nicht vorhanden, wird sie über einen passenden Kachelserver nachgeladen und dem Cache hinzugefügt.
-\item Das Laden von Kacheldaten erfolgt im Hintergrund, während die Ansicht weiter gerendert werden kann.
+\item Es wird überprüft ob die Kachel bereits im Arbeitsspeicher-Cache vorhanden ist.
 \wunsch
-\item Ist eine Textur noch nicht geladen oder nicht verfügbar, wird sie zwischenzeitlich durch eine Platzhaltertextur ersetzt.
-\item Es werden zusätzliche Kacheln der direkten Randbereiche außerhalb der Ansicht geladen.
-\item Ist die Textur einer Kachel noch nicht geladen wird zuerst versucht sie aus dem Cache im Arbeitsspeicher, dann aus dem Cache im Dateisystem zu laden. Die Cachegröße kann jeweils vom Benutzer angepasst werden.
-\item Rendervorgänge sollen nur bei Bildänderungen gestartet werden
-\end{enumerate}
+\item Dann wird überprüft ob die Kachel bereits im Dateisystem-Cache vorhanden ist.
+\muss
+\item Ist sie lokal nicht vorhanden, wird sie über einen passenden Kachelserver nachgeladen.
+\item Neu heruntergeladene Kacheln werden zum Cache hinzugefügt.
+\item Das Laden von Kacheldaten erfolgt im Hintergrund.
+\item Eine Platzhaltertextur wird angezeigt solange die Kachel noch nicht geladen ist.
+\wunsch
+\item Es werden zusätzliche Kacheln der direkten Randbereiche außerhalb der Ansicht geladen. 
+\item Die jeweiligen Cachegrößen können eingestellt werden.
+\textbf{\item Rendervorgänge sollen nur bei Bildänderungen gestartet werden.
+}\end{enumerate}
 
 
 
 \section{Orte}
 \begin{enumerate}[leftmargin=2.2cm,resume]
-\item Städtenamen, Points of Interest und andere Informationen können unter einer Vielzahl an Overlays an- und abgewählt werden.
+\item Overlays  (z.B. Städtename, Points of Interest) können an- und abgewählt werden.
 \wunsch
-\item Eigene Punkte können auf der Karte markiert, die Markierungen ein-/ausgeblendet, in einer Liste verwaltet und wieder entfernt werden. 
-\item Orte und POIs können mittels einer Suchfunktion aufgefunden, angezeigt und den markierten Punkten hinzugefügt werden. Es kann dabei entweder im momentanen Kartenausschnitt oder global gesucht werden.
-\end{enumerate}
+\item Eigene Markierungen können ein-/ausgeblendet werden.
+\item Die gespeicherten Markierungen können entfernt werden. 
+\item Orte und POIs können mittels einer Suchfunktion aufgefunden werden
+\item Die Suchergebnisse werden angezeigt. 
+\item Suchergebnisse können zu den markierten Punkten hinzugefügt werden.
+\item Die Suche kann entweder im momentanen Kartenausschnitt oder global durchgeführt werden.
+\textbf{\item  Zahl der angezeigten Suchergebnisse beschränken
+}\end{enumerate}
 
 \section{Detailfenster}
 \begin{enumerate}[leftmargin=2.2cm,resume]
-\item Das Detailfenster bietet die Möglichkeit nähere Informationen zu einem Punkt auf der Karte zu erhalten, wie zugehörigem Längen- und Breitengrad.
+\item \textbf{Das Detailfenster bietet die Möglichkeit nähere Informationen zu einem Punkt auf der Karte zu erhalten, wie zugehörigem Längen- und Breitengrad.}
 \wunsch
-\item Der momentan in der Kartenansicht gewählte Punkt kann markiert,  gespeichert und falls bereits eine Markierung besteht wieder entfernt werden.
-\item POI's sowie gewisse Einstellungen werden in einer Datei gespeichert, die bei Programmstart geladen wird.
-\end{enumerate}
+\textbf{\item Der momentan in der Kartenansicht gewählte Punkt kann markiert,  gespeichert und falls bereits eine Markierung besteht wieder entfernt werden.
+\textbf{}\item POIs sowie gewisse Einstellungen werden in einer Datei gespeichert, die bei Programmstart geladen wird.
+}\end{enumerate}
 
 
 
@@ -490,7 +498,6 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \item Es werden alle benötigten Bibliotheken mitgeliefert, das sind im einzelnen: 
 \begin{itemize}
 \item JOGL mit allen betriebssystemabhängigen Bibliotheken
-\item die Apache HTTP Client Library
 \item die Forms-Bibliothek von JGoodies.
 \end{itemize}
 \wunsch
@@ -531,12 +538,12 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \item Die Bewegung der Kamera und das Anpassen des Zoomlevels wird beschränkt, damit keine Darstellungsfehler wie das Durchdringen der Kartenebene auftreten.
 \item Die Menge der angezeigten Overlays und 3D-Modelle wird beschränkt, sodass die Leistung wie auch die Lesbarkeit von Beschriftungen gegeben ist.
 \item Eine weitere Option für den Benutzer soll das Markieren von Punkten bzw. Orten in den Karten darstellen. Diese sollen gespeichert und mit Namen und Notizen versehen werden können.
-\item Zudem soll eine Suchfunktion den Nutzer unterstützen, die POIs oder Städte/ Orte unkompliziert aufzufinden.
+\item Zudem soll eine Suchfunktion den Nutzer unterstützen, die POIs oder Städte/ Orte unkompliziert aufzufinden. Dies geschieht unabhängig von der Sprache des eingetippten Suchbegriffs.
 \item Kartendaten werden effizient zwischengespeichert, um sowohl unnötiges Nachladen als auch den Speicherverbrauch zu minimieren.
 \item Hintergrundvorgänge des Programms wie das Nachladen von Kartendaten unterbrechen den Rendervorgang nicht.
 \item Ein Ladebalken verdeutlicht den Status der im Hintergrund geladenen Kartenkacheln.
-\wunsch
 \item Nicht verfügbare Kartenausschnitte sollen durch eine Platzhaltertextur ersetzt werden.
+\wunsch
 \item Rendervorgänge sollen nur bei Bildänderungen gestartet werden und minimieren somit den Energieverbrauch.
 \item Die Anwendung ist intuitiv mit der Toucheingabe auf Windows 8 bedienbar.
 \item Die Grafikeinstellungen lassen sich anpassen, sodass die Leistung auch auf älterer Hardware akzeptabel ist.
@@ -886,6 +893,7 @@ Latex & (\LaTeX) Freies Textsatzprogramm für wissenschaftliche Arbeiten\\
 Linux & Freies Betriebssystem\\
 Modultest & In der Softwareentwicklung angewendete Art von Tests, um einzelne Softwareodule auf korrektes Verhalten und Fehlerfreiheit zu prüfen\\
 NASA & (National Aeronautics and Space Administration) Zivile US-Bundesbehörde für Luft- und Raumfahrt\\
+Nominatim & API zur Lokalisierung von Orten bei Suchanfragen. \\
 OpenGL & \textref{API} zur schnellen Generierung ansprechender 2D- und 3D-Computergrafik\\
 Open-Source & (quelloffen) Werke deren Lizenzbestimmungen besagen, dass der \textref{Quelltext} frei zugänglich ist\\
 OpenStreetMap & Projekt, das freies Kartenmaterial im Internet anbietet\\
