@@ -79,10 +79,10 @@
 \textbf{{\huge OpenStreetMap: Die Welt in 3D}}
 
 \vspace{1.5 cm}
-25.10.2013
+31.10.2013
 
 \vspace{0.5 cm}
-Version: 1.0
+Version: 1.1
 
 \vspace{1.5 cm}
 {\Large Projektbetreuer: Peter Barth}
@@ -144,7 +144,7 @@ Basierend auf diesen Grundprinzipien wird in diesem Pflichenheft das Konzept der
 \section{Anwendungsbereich}
 \JoglEarth soll eine dreidimensionale Ansicht der Welt sowie eine ebene Kartenansicht bieten. Beides erfolgt auf Basis des OpenStreetMap-Projekts und Satellitendaten der NASA. \\
 
-Die grafische Benutzeroberfläche zeigt dafür im dreidimensionalen Modus eine Weltkugel, die frei gedreht und gezoomt werden kann, und im zweidimensionalen einen Ausschnitt der Weltkarte. Die Steuerung erfolgt mit Tastatur und Maus; Die Karte kann aus verschiedenen Kategorien wie Satellitenbildern oder Straßenkarten gewählt werden.\\
+Die grafische Benutzeroberfläche zeigt dafür im dreidimensionalen Modus eine Weltkugel, die frei gedreht und gezoomt werden kann, und im zweidimensionalen einen Ausschnitt der Weltkarte. Die Karte kann aus verschiedenen Kategorien wie Satellitenbildern oder Straßenkarten gewählt werden. Die Steuerung erfolgt mit Tastatur und Maus. \\
 
 Mit einer Suchfunktion kann im Umkreis oder global nach Orten gesucht werden. Punkte besonderen Interesses wie Tankstellen oder Banken können über dem Kartenbild eingeblendet werden.
 
@@ -158,7 +158,7 @@ Auch soll die Anwendung wissbegierige Kinder ansprechen. Voraussetzung ist ledig
 Die Anwendung wahrt von vorne herein die Sicherheit des Systems und schützt die Privatsphäre des Nutzers. Da sie keine sicherheitskritischen Daten verarbeiten muss, ist dies implizit gegeben und stellt keine besondere Anforderung an den Entwurf dar.
 \begin{itemize}
 \item Es ist weder zur Bedienung, noch zum Beschaffen der Kartendaten eine Authentifikation erforderlich 
-\item Es werden keine Persönlichen Daten des Anwenders über das Netz übertragen werden
+\item Es werden keine persönlichen Daten des Anwenders über das Netz übertragen
 \item Es wird kein Code aus dem Netz nachgeladen und ausgeführt
 \item Das Programm hat keine (unter Umständen angreifbare) Serverfunktionalität
 \end{itemize}
@@ -168,8 +168,8 @@ Die Anwendung wahrt von vorne herein die Sicherheit des Systems und schützt die
 Wird das Produkt veröffentlicht, so müssen die Lizenzen der verwendeten Bibliotheken und Datenquellen berücksichtigt werden:
 \begin{itemize}
 \item Die Teile der JOGL-Bibliothek sind unter mehreren Versionen der BSD-Lizenz, der SGI Free Software License und der Apache-Lizenz, der Ubuntu Font License und mehreren proprietären Lizenzen veröffentlicht. Details dazu finden sich bei  \footnote{\url{https://jogamp.org/git/?p=jogl.git;a=blob;f=LICENSE.txt}}.
-\item OpenStreetMap ist „OpenData“ im Sinne der Open Database Lizenz (ODbL). Die Kartografie der Kartenkacheln stehen unter der Linzenz  Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen 2.0 (CC BY-SA). Weitere Infos, wie auch eine Vorgabe zum Hinweisen auf der Urheberschaft des OSM-Projekts finden sich bei \footnote{\url{http://www.openstretmap.org/copyright}}.
-\item Die Daten der Overpass API sowie Nominatem stehen ebenfalls unter der ODbL.
+\item OpenStreetMap ist „OpenData“ im Sinne der Open Database Lizenz (ODbL). Die Kartenkacheln stehen unter der Linzenz  Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen" 2.0 (CC BY-SA). Weitere Infos, wie auch eine Vorgabe zum Hinweisen auf der Urheberschaft des OSM-Projekts finden sich bei \footnote{\url{http://www.openstretmap.org/copyright}}.
+\item Die Daten der Overpass API sowie Nominatim stehen ebenfalls unter der ODbL.
 \item Die Satellitenbilder der NASA sind für die Zwecke des Projekts frei verfügbar und stehen unter der Lizenz, die sich bei \footnote{\url{http://www.nasa.gov/audience/formedia/features/MP_Photo_Guidelines.html}} findet.
 \item Die Verwendete GUI-Bibliothek JGoodies Forms steht unter der BSD-Lizenz bei \footnote{\url{http://opensource.org/licenses/bsd-license.html}}.
 \end{itemize}
@@ -236,9 +236,9 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Dreidimensionales Höhenprofil auf Globus- und Kartenoberfläche (siehe \ziel{F120W})
 \item Funktion zum Markieren und Speichern von Punkten (siehe \ziel{F190W}, \ziel{F230W}, \ziel{F360W}, \ziel{F390W}, \ziel{F400W})
 \item Lokale und Globale Suchfunktion (siehe \ziel{F370W})
-\item Aussetzen des Renderns bis zur Bildänderung) (siehe \ziel{F340W})
+\item Aussetzen des Renderns bis zur Bildänderung (siehe \ziel{F340W})
 \item Zusätzliche Grafikeinstellungen wie Antialiasing oder Texturfilterung (siehe \ziel{F150W})
-\item Vorausladen von Kartendaten an den Rändern der Anzeige und die für die nächsten Zoomstufen (siehe \ziel{F320W})
+\item Vorausladen von Kartendaten an den Rändern der Anzeige und die der nächsten Zoomstufen (siehe \ziel{F320W})
 \end{itemize}
 
 \section{Abgrenzungskriterien}
@@ -248,7 +248,7 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Keine dynamischen Flüsse oder andere Animationen
 \item Keine Routenplanung
 \item Keine Unterstützung für andere als die angegebenen Eingabegeräte
-\item Keine Authentifizierung um Zugriff auf vom Benutzer gespeicherte Markierungen zu erhalten.
+\item Keine Authentifizierung um Zugriff auf vom Benutzer gespeicherte Markierungen zu erhalten
 \end{itemize}
 
 
@@ -463,9 +463,6 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \end{enumerate}
 
 
-\section{
-
-
 \section{Orte}
 \begin{enumerate}[leftmargin=2.2cm,resume]
 \item Aktivieren und Deaktivieren eines Overlays
@@ -501,9 +498,9 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \item Sprache
 \item Antialiasing und Texturfilter
 \item die verfügbaren und momentan gewählten Kartenserver
-\item Eingestellte Puffergrößen
+\item eingestellte Puffergrößen
 \item der zuletzt ausgewählte Ansichtsmodus, die gewählte Karte, Overlays und Ansichtsoptionen wie 3D-Modelle
-\item Markierte Punkte mit Name und Notiz
+\item markierte Punkte mit Name und Notiz
 \end{itemize}
 \muss
 \item Mitgelieferte Texturen wie beispielsweise die Kinder-Weltkarte oder Symbole für POIs liegen im Ordner \texttt{textures}.
@@ -523,7 +520,7 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskriterien.
 
 \begin{enumerate}[leftmargin=2.2cm]
-\item Die Benutzeroberfläche soll grafisch ansprechend, gut strukturiert und intuitiv verständlich gehalten sein.
+\item Die Benutzeroberfläche ist grafisch ansprechend, gut strukturiert und intuitiv verständlich gehalten.
 \wunsch
 \item Um auch Kinder zu motivieren, \JoglEarth zu verwenden, wird eine altersgemäße Kinder-Weltkarte mit ausgeliefert.
 \muss
@@ -542,7 +539,7 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \item Rendervorgänge sollen nur bei Bildänderungen gestartet werden und minimieren somit den Energieverbrauch.
 \item Die Anwendung ist intuitiv mit der Toucheingabe auf Windows 8 bedienbar.
 \item Die Grafikeinstellungen lassen sich anpassen, sodass die Leistung auch auf älterer Hardware akzeptabel ist.
-\item Mit zusätzlichen Darstellungsmöglichkeiten, wie 3D-Höhenprofile, 3D-Modelle für Häuser bzw. Bäume, einer Sonnensystem-Modellansicht, einem wählbaren Sternenhimmel als Hintergrundmotiv werden die Ansichten optisch aufgewertet.
+\item Mit zusätzlichen Darstellungsmöglichkeiten, wie 3D-Höhenprofile, eine Sonnensystem-Modellansicht und einem Sternenhimmel als Hintergrundmotiv werden die Ansichten optisch aufgewertet.
 \end{enumerate}
 
 
@@ -611,7 +608,7 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \begin{details}
 \item \sfbf{Stabilität:} Die Lauffähigkeit des Programms soll nicht unterbrochen bzw. beeinträchtigt werden. Programmabstürze und Fehlverhalten führt sehr schnell zu Unzufriedenheit beim Benutzer, weswegen der Stabilität hohe Priorität zukommt.
 
-\item \sfbf{Fehlertoleranz:} Das Programm soll trotz fehlerhafter Eingaben seitens des Anwenders seine Funktionsweise aufrechterhalten. Dies ist ein wichtiger Punkt, da falsche Behandlung von unsinnigen Eingaben zu Fehlverhalten führt (Siehe Stabilität).
+\item \sfbf{Fehlertoleranz:} Das Programm soll trotz fehlerhafter Eingaben seitens des Anwenders seine Funktionsweise aufrechterhalten. Dies ist ein wichtiger Punkt, da falsche Behandlung von unsinnigen Eingaben zu Fehlverhalten führt (siehe Stabilität).
 
 \item \sfbf{Wiederherstellbarkeit:} Bei Neustart nach unsachgemäßer Beendigung des Programms, z.B. durch einen Systemabsturz, verhält sich das Programm wie bei einem normalen Start. Es wird kein Versuch unternommen, die Sitzung wiederherzustellen, da der Zustand keine Informationen enthält, die für den Benutzer kritisch sind.
 \end{details}
@@ -818,12 +815,12 @@ Abgesehen vom Betriebssystem und Anwendungen wie Texteditoren ist die verwendete
 \item Framework: Java 7 (JDK)
 \item Unit Tests: JUnit
 \item Messtool zur Testabdeckung: EclEmma
-\item Grafik- und Bildbearbeitung: Inkscape, GIMP, Microsoft Visio
+\item Bugtracking: Mit Github
+\item Grafik- und Bildbearbeitung: Inkscape, GIMP
 \item Textsatz: \LaTeX
 \item Versionsverwaltung: Git mit Repository bei GitHub
-\item Visualisierung: IBM Software Rational Architect
+\item Visualisierung: IBM Software Rational Architect, Microsoft Visio
 \item Teamkommunikation: E-Mail
-\item Bugtracking: Mit Github
 \end{itemize}
 
 \vspace{5mm}
