@@ -224,17 +224,16 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Text- und Symboloverlays für Städte und POIs, Anzeige der Details dazu im Detailfenster (ohne Markierung und Speicherfunktion) (siehe \ziel{F200}, \ziel{F220}, \ziel{F350}, \ziel{F380})
 \item Beschränkung der Anzahl gleichzeitig geladener Overpass-Einträge zur Ressourcenschonung (siehe \ziel{F240})
 \item Effizientes Laden der Kartendaten durch Caching (siehe \ziel{F250}, \ziel{F260}, \ziel{F270}, \ziel{F280}, \ziel{F290}, \ziel{F300}, \ziel{F330W})
+\item Sternenhimmel als Hintergrund (siehe \ziel{F140W})
 \end{itemize}
 
 \section{Wunschkriterien}
 \begin{itemize}
 \item Kinder-Weltkarte als zusätzliche Kartenoption (siehe \ziel{F100W})
 \item Sonnensystem-Modellansicht als weiteren Ansichtsmodus (siehe \ziel{F100W}, \ziel{F130W})
-\item Sternenhimmel als Hintergrund (siehe \ziel{F140W})
 \item Anzeige des momentanen Kartenmaßstabs (siehe \ziel{F080})
 \item Speicherung der Ansichtseinstellungen (siehe \ziel{F400W})
 \item Dreidimensionales Höhenprofil auf Globus- und Kartenoberfläche (siehe \ziel{F120W})
-\item Zuschaltbare 3D-Modelle für Häuser/Bäume auf der Karte (siehe \ziel{F120W}, \ziel{F230W})
 \item Funktion zum Markieren und Speichern von Punkten (siehe \ziel{F190W}, \ziel{F230W}, \ziel{F360W}, \ziel{F390W}, \ziel{F400W})
 \item Lokale und Globale Suchfunktion (siehe \ziel{F370W})
 \item Aussetzen des Renderns bis zur Bildänderung) (siehe \ziel{F340W})
@@ -384,103 +383,100 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 
 \section{Fensterverhalten}
 \begin{enumerate}[leftmargin=2.2cm]
-\item Das Programmfenster hat beim Start eine Standardgröße von 1024x768 Pixeln. 
-\item Die Größe ist mit 800x600 Pixeln nach unten, aber nicht nach oben beschränkt. 
-\item Die Fenstergröße kann vom Benutzer durch Vergrößern bzw. Verkleinern der GUI geändert werden.
-\item Beim Schließen des Fensters wird die Anwendung ohne Rückfrage beendet.\item Die Einstellungsleiste am linken Rand der GUI ist einklappbar.
-\item Auswahlmöglichkeit der Sprache: Englisch oder Deutsch
-\item Die Änderung der Sprache erfolgt ohne Neustart der GUI.
+\item Ändern der Programmfenstergröße 
+\item Schließen des Fensters und damit beenden des Programms
+\item Ein- und Ausklappen der Seitenleiste
+\item Sprachwechsel ohne Neustart
 \end{enumerate}
 
 \section{GUI-Elemente zur Navigation}
 \begin{enumerate}[leftmargin=2.2cm,resume]
-\item Das Zoomlevel kann geändert werden.
-\item Ein Ladebalken zeigt den Fortschritt der im Hintergrund geladenen Kartendaten an.
-\item Der Längen- und Breitengrad des Punktes in der Bildschirmmitte wird berechnet.
-\item Der Längen- und Breitengrad des Punktes in der Bildschirmmitte kann geändert werden.
-\textbf{\item Benutzerhandbuch und Aboutbox}
+\item Ändern des Zoomlevels
+\item Aktualisieren der Fortschrittsanzeige für im Hintergrund geladene Daten
+\item Anzeige des Längen- und Breitengrades des zentrieren Punktes.
+\item Anpassen der Kameraposition durch Änderung des Längen- und Breitengrades
+\item Anzeige des Benutzerhandbuchs
+\item Anzeige eines Infofensters (\textit{,,About Box``})
+\end{enumerate}
+
+\section{Räumliche Berechnungen}
+\begin{enumerate}[leftmargin=2.2cm,resume]
+\item Erzeugung der ebenen Globusoberfläche
+\item Erzeugung der Globusoberfläche aus einer Heightmap
+\item Erzeugung der flachen Kartenebene
+\item Erzeugung der Kartenoberfläche aus einer Heightmap
+\item Berechnung des Längen- und Breitengrades unter einem Bildschirmpunkt
+\item Berechnung des Maßstab des Punktes unter dem Anzeigemittelpunkt
+\item Bestimmung der nötigen Kachelauflösung aus der Kameraposition
+\item Entscheidung der Sichtbarkeit von Kacheln aus der Kameraposition
 \wunsch
-\item Der Maßstab des Punktes unter dem Anzeigemittelpunkt wird berechnet.
 \end{enumerate}
 
 \section{Ansichtseinstellungen}
 \begin{enumerate}[leftmargin=2.2cm,resume]
-\item Der Ansichtsmodus kann gewechselt werden (z.B. 3D und 2D).
-\item Es besteht eine Auswahl an verschiedenen Kartentypen (z.B. Satellitenbilder und Straßenkarten).
+\item Ändern des Ansichtsmodus
+\item Ändern des Kartentyps
 \wunsch
-\textbf{\item Es sind Höhenprofile zuschaltbar.
-\item 3D-Ansichten (z.B. Bäume, Häuser) sind zuschaltbar.}
-\item Im Sonnensystemmodus sind die Auswahlmöglichkeiten in der GUI stark eingeschränkt.
-\item Ein Sternenhimmel als Hintergrundbild soll zuschaltbar sein.
+\item Zu- oder Abschalten des Höhenprofils
 \item Grafikoptionen (wie Antialiasing oder Texturfilterung) sind einstellbar.
 \end{enumerate}
 
-\section{Kartenansicht}
+\section{Ansichtsfenster}
 \begin{enumerate}[leftmargin=2.2cm,resume]
-\item Karten im 2D-Modus können verschoben werden.
-\item Die Karten sind kippbar.
-\item Im 3D-Kartenmodus kann die Erde gedreht werden.
-\item Die Erde kann nicht über die Pole gedreht werden.
-\item Im 3D-Modus kann abhängig vom Zoomlevel das Kippen beschränkt werden.
-\item Das Zoomlevel ist so beschränkt, dass nicht durch die Textur hindurch gezoomt werden kann.
-\wunsch
-\item Im 2D-Kartenmodus kann der Benutzer Punkte markieren.
-\item Zur Markierung kann eine Notiz hinzugefügt werden.
-\item Markierte Punkte können unter einem Namen gespeichert werden.
-\muss
-\item Im Detailfenster werden Informationen zum markierten Punkt angezeigt (z.B. Adresse oder Längen- und Breitengrad).
+\item Anzeige von Overlays als zweidimensionale Objekte
+\item Darstellung des Sternenhimmels als Hintergrund
 \end{enumerate}
 
-\section{Kartendarstellung}
+\subsection{Kartenansicht}
 \begin{enumerate}[leftmargin=2.2cm,resume]
-\item Overlays (wie Städtenamen oder Symbole für Tankstellen) werden als zweidimensionale Objekte an die Stelle der Anzeigefläche projiziert, an den Koordinaten des markierten Punktes auf dem Bildschirm erscheint.
-\wunsch
-\item Dreidimensionale Objekte (wie Häusermodelle, Bäume, oder  Markierungen von Punkten) werden berechnet.
-\muss
-\textbf{\item Die Menge der angezeigten Overlays und 3D-Modelle wird beschränkt (z.B. durch ein festes Limit).}
+\item Verschieben der Karte 
+\item Kippen der Kamera relativ zu ihrer Position mit der Einschränkung, dass der Bildmittelpunkt immer auf die Karte zeigen muss
+\item Verschieben der Kamera senkrecht zur Kartenebene (Zoomen) mit einer oberen und unteren Grenze
 \end{enumerate}
 
-\section{Laden der Kartendaten}
+\subsection{Globusansicht}
+\begin{enumerate}[leftmargin=2.2cm,resume]
+\item Drehen der Erde um ihre Achse
+\item Drehen der Erde in Richtung der Pole, aber nicht über sie hinaus
+\item Kippen der Kamera relativ zu ihrer Position mit der Einschränkung, dass der Bildmittelpunkt immer auf den Globus zeigen muss
+\item Verschieben der Kamera senkrecht zur Globusoberfläche (Zoomen) mit einer oberen und unteren Grenze
+\end{enumerate}
+
+\section{Ortsfunktionen}
+\begin{enumerate}[leftmargin=2.2cm,resume]
+\item Auswahl einer begrenzten Teilmenge aus der Menge alle anzuzeigender Overlays
+\wunsch
+\item Markieren des Punkts am Bildmittelpunkt mit Name und Notiz
+\item Entfernen eines markierten Punkts
+\muss
+\end{enumerate}
+
+\section{Laden von Daten}
 \begin{enumerate}[resume,leftmargin=2.2cm]
-\item Welche Kacheln geladen werden müssen, wird  aus den sichtbaren Kartenabschnitten und dem momentanen Zoomlevel bestimmt.
-\item Es werden nur die benötigen Karten für den jeweiligen Ausschnitt geladen.
-\item Es wird überprüft ob die Kachel bereits im Arbeitsspeicher-Cache vorhanden ist.
-\wunsch
-\item Dann wird überprüft ob die Kachel bereits im Dateisystem-Cache vorhanden ist.
-\muss
-\item Ist sie lokal nicht vorhanden, wird sie über einen passenden Kachelserver nachgeladen.
-\item Neu heruntergeladene Kacheln werden zum Cache hinzugefügt.
-\item Das Laden von Kacheldaten erfolgt im Hintergrund.
-\item Eine Platzhaltertextur wird angezeigt solange die Kachel noch nicht geladen ist.
-\wunsch
-\item Es werden zusätzliche Kacheln der direkten Randbereiche außerhalb der Ansicht geladen. 
-\item Die jeweiligen Cachegrößen können eingestellt werden.
-\textbf{\item Rendervorgänge sollen nur bei Bildänderungen gestartet werden.}
+\item Hinzufügen eines Datums zu einem Cache
+\item Entfernen eines Datums aus einem vollen Cache mittels einer Verdrängungsstrategie
+\item Leeren des Caches
+\item Ändern der zulässigen Größe eines Caches
+\item Laden von Kacheln- oder Höhendaten im Hintergrund
+\item Auffinden von Informationen über einen Punkt, der als Längen- und Breitengrad gegeben ist
+\item Auffinden von Orten über ihren Namen
 \end{enumerate}
 
+
+\section{
 
 
 \section{Orte}
 \begin{enumerate}[leftmargin=2.2cm,resume]
-\item Overlays  (z.B. Städtename, Points of Interest) können an- und abgewählt werden.
+\item Aktivieren und Deaktivieren eines Overlays
 \wunsch
-\item Eigene Markierungen können ein-/ausgeblendet werden.
-\item Die gespeicherten Markierungen können entfernt werden. 
-\item Orte und POIs können mittels einer Suchfunktion aufgefunden werden
-\item Die Suchergebnisse werden angezeigt. 
-\item Suchergebnisse können zu den markierten Punkten hinzugefügt werden.
-\item Die Suche kann entweder im momentanen Kartenausschnitt oder global durchgeführt werden.
-\textbf{\item  Zahl der angezeigten Suchergebnisse beschränken}
+\item Anzeige von bestehenden Markierungen
+\item Anzeigen und Ausblenden einer Markierung
+\item Entfernen einer Markierung
+\item Lokale Suche nach einem Ort im sichtbaren Kartenbereich
+\item Globale Suche nach einem Ort
+\item Anzeige von Suchergebnissen
 \end{enumerate}
-
-\section{Detailfenster}
-\begin{enumerate}[leftmargin=2.2cm,resume]
-\item \textbf{Das Detailfenster bietet die Möglichkeit nähere Informationen zu einem Punkt auf der Karte zu erhalten, wie zugehörigem Längen- und Breitengrad.}
-\wunsch
-\textbf{\item Der momentan in der Kartenansicht gewählte Punkt kann markiert,  gespeichert und falls bereits eine Markierung besteht wieder entfernt werden.}
-\item POIs sowie gewisse Einstellungen werden in einer Datei gespeichert, die bei Programmstart geladen wird.
-\end{enumerate}
-
 
 
 \chapter{Produktdaten}
