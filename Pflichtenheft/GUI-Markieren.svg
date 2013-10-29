@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="281.46875"
-   height="173.40625"
+   width="281.44772"
+   height="211.89534"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -25,8 +25,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.0000001"
-     inkscape:cx="155.448"
-     inkscape:cy="86.703125"
+     inkscape:cx="165.58209"
+     inkscape:cy="108.6002"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -49,7 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -57,21 +57,21 @@
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-18.46875,-233.75)">
+     transform="translate(-18.479603,-233.75843)">
     <rect
-       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:1.66136885;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect2985"
-       width="271.37909"
-       height="150.96455"
-       x="23.307585"
-       y="252.30853" />
+       width="271.21771"
+       height="185.30319"
+       x="23.388269"
+       y="254.38922" />
     <rect
-       y="234.50842"
-       x="19.229603"
-       height="171.89536"
-       width="279.94772"
+       y="234.58763"
+       x="19.308805"
+       height="210.23694"
+       width="279.78931"
        id="rect3761"
-       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+       style="fill:none;stroke:#000000;stroke-width:1.65840578;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:1.40589607;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3763"
@@ -106,43 +106,43 @@
          id="tspan4781"
          sodipodi:role="line">Punkt markieren</tspan></text>
     <rect
-       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.68949866;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.68039083;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3346"
-       width="177.2438"
-       height="18.769548"
-       x="106.9406"
-       y="264.85782" />
+       width="175.2529"
+       height="18.778656"
+       x="107.68606"
+       y="300.35327" />
     <text
        sodipodi:linespacing="125%"
        id="text4779-9"
-       y="277.13647"
+       y="312.63647"
        x="32.080074"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        xml:space="preserve"><tspan
          style="font-size:9px;font-weight:normal;-inkscape-font-specification:Sans"
-         y="277.13647"
+         y="312.63647"
          x="32.080074"
          id="tspan4781-7"
          sodipodi:role="line">Name:</tspan></text>
     <path
        style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 107.90944,289.55008 175.30612,0 0,77.08272 -175.30612,0 z"
+       d="m 107.90944,325.55008 175.30612,0 0,77.08272 -175.30612,0 z"
        id="rect4137"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="32.080074"
-       y="301.13647"
+       y="337.13647"
        id="text4139"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4141"
          x="32.080074"
-         y="301.13647"
+         y="337.13647"
          style="font-size:9px;font-weight:normal;-inkscape-font-specification:Sans">Beschreibung:</tspan></text>
     <rect
-       y="374.49869"
+       y="410.49869"
        x="214.18617"
        height="19.252668"
        width="69.25267"
@@ -154,28 +154,28 @@
        width="69.25267"
        height="19.252668"
        x="138.18617"
-       y="374.49869" />
+       y="410.49869" />
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="149.58006"
-       y="387.63647"
+       y="423.63647"
        id="text4168"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4170"
          x="149.58006"
-         y="387.63647"
+         y="423.63647"
          style="font-size:9px;font-weight:normal;-inkscape-font-specification:Sans">Abbrechen</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text4172"
-       y="387.13647"
+       y="423.13647"
        x="243.08006"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        xml:space="preserve"><tspan
          style="font-size:9px;font-weight:normal;-inkscape-font-specification:Sans"
-         y="387.13647"
+         y="423.13647"
          x="243.08006"
          id="tspan4174"
          sodipodi:role="line">OK</tspan></text>
@@ -183,13 +183,39 @@
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="113.08007"
-       y="277.13647"
+       y="312.63647"
        id="text3197"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3199"
          x="113.08007"
-         y="277.13647"
+         y="312.63647"
          style="font-size:9px;font-style:italic;font-weight:normal;-inkscape-font-specification:Sans Italic">Namen eingeben...</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="32.731384"
+       y="264.09952"
+       id="text3775-2"
+       sodipodi:linespacing="125%"
+       transform="scale(0.96828996,1.0327485)"><tspan
+         sodipodi:role="line"
+         id="tspan3777-3"
+         x="32.731384"
+         y="264.09952"
+         style="font-size:9px;text-align:start;text-anchor:start">Längengrad:        54° 44' 19&quot;</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:9px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="32.808685"
+       y="279.95468"
+       id="text3775-2-1"
+       sodipodi:linespacing="125%"
+       transform="scale(0.96828996,1.0327485)"><tspan
+         sodipodi:role="line"
+         id="tspan3777-3-7"
+         x="32.808685"
+         y="279.95468"
+         style="font-size:9px;text-align:start;text-anchor:start">Breitengrad:        12° 11' 44&quot;</tspan></text>
   </g>
 </svg>

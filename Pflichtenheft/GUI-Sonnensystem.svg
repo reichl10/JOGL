@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="GUI-Ansicht.svg">
+   sodipodi:docname="GUI-Sonnensystem.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7071068"
-     inkscape:cx="230.28799"
-     inkscape:cy="174.46044"
+     inkscape:zoom="2.0000001"
+     inkscape:cx="398.17591"
+     inkscape:cy="227.07004"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -120,7 +120,7 @@
        id="path3771"
        inkscape:connector-curvature="0" />
     <rect
-       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#808080;stroke:#000000;stroke-width:1.50000000000000000;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3773"
        width="38.403072"
        height="11.767752"
@@ -145,7 +145,7 @@
        height="11.767752"
        width="38.403072"
        id="rect3779"
-       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+       style="fill:#808080;stroke:#000000;stroke-width:1.50000000000000000;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <text
        transform="scale(0.96828996,1.0327485)"
        sodipodi:linespacing="125%"
@@ -160,7 +160,7 @@
          id="tspan3783"
          sodipodi:role="line">Breitengrad:</tspan></text>
     <rect
-       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:#999999;stroke:#000000;stroke-width:1.50000000000000000;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3785"
        width="39.285713"
        height="2.8571429"
@@ -172,7 +172,7 @@
        height="2.8571429"
        width="39.285713"
        id="rect3787"
-       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:1.50000000000000000;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 466.46632,578.59261 0,5.71429"
@@ -1787,63 +1787,6 @@
          x="52.719276"
          id="tspan4791-6-9"
          sodipodi:role="line">Höhenprofil</tspan></text>
-    <g
-       id="g5084"
-       transform="translate(-7.020815,19.091883)"
-       style="fill:#000000;fill-opacity:0.36923078">
-      <rect
-         style="fill:#000000;fill-opacity:0.36923078;stroke:#000000;stroke-width:1.50000000000000000;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-         id="rect5086"
-         width="11.363636"
-         height="11.363636"
-         x="41.31818"
-         y="398.68036" />
-      <path
-         style="fill:#000000;fill-opacity:0.36923078;stroke:none"
-         d="m 43.034836,404.00924 1.120873,-1.13293 2.353835,3.27295 3.923057,-5.28708 0.784612,1.00707 -4.707669,6.67178 z"
-         id="path5088"
-         inkscape:connector-curvature="0"
-         sodipodi:nodetypes="ccccccc" />
-    </g>
-    <text
-       xml:space="preserve"
-       style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="52.354145"
-       y="412.48199"
-       id="text5090"
-       sodipodi:linespacing="125%"
-       transform="scale(0.96828996,1.0327485)"><tspan
-         sodipodi:role="line"
-         id="tspan5092"
-         x="52.354145"
-         y="412.48199"
-         style="font-size:8px;text-align:start;text-anchor:start">3D-Modelle</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="32.246239"
-       y="489.61777"
-       id="text3775-2"
-       sodipodi:linespacing="125%"
-       transform="scale(0.96828996,1.0327485)"><tspan
-         sodipodi:role="line"
-         id="tspan3777-3"
-         x="32.246239"
-         y="489.61777"
-         style="font-size:8px;text-align:start;text-anchor:start">Längengrad: 54° 44' 19&quot;</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="32.32354"
-       y="501.59973"
-       id="text3775-2-1"
-       sodipodi:linespacing="125%"
-       transform="scale(0.96828996,1.0327485)"><tspan
-         sodipodi:role="line"
-         id="tspan3777-3-7"
-         x="32.32354"
-         y="501.59973"
-         style="font-size:8px;text-align:start;text-anchor:start">Breitengrad: 12° 11' 44&quot;</tspan></text>
     <rect
        y="-586.75055"
        x="-163.26994"
@@ -1856,18 +1799,18 @@
        xml:space="preserve"
        style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="32.193298"
-       y="516.06476"
+       y="490.88916"
        id="text3775-2-1-9"
        sodipodi:linespacing="125%"
        transform="scale(0.96828996,1.0327485)"><tspan
          sodipodi:role="line"
          id="tspan3777-3-7-7"
          x="32.193298"
-         y="516.06476"
+         y="490.88916"
          style="font-size:8px;text-align:start;text-anchor:start">Für diesen Ort sind keine </tspan><tspan
          sodipodi:role="line"
          x="32.193298"
-         y="526.06476"
+         y="500.88916"
          style="font-size:8px;text-align:start;text-anchor:start"
          id="tspan5194">Informationen verfügbar.</tspan></text>
     <g

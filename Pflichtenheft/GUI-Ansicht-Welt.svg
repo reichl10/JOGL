@@ -75,7 +75,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -663,52 +663,6 @@
          y="394.68021"
          style="font-size:8px;text-align:start;text-anchor:start">Höhenprofil</tspan></text>
     <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       id="rect5086"
-       width="11.363636"
-       height="11.363636"
-       x="34.297363"
-       y="417.77225" />
-    <text
-       transform="scale(0.96828996,1.0327485)"
-       sodipodi:linespacing="125%"
-       id="text5090"
-       y="412.48199"
-       x="52.354145"
-       style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       xml:space="preserve"><tspan
-         style="font-size:8px;text-align:start;text-anchor:start"
-         y="412.48199"
-         x="52.354145"
-         id="tspan5092"
-         sodipodi:role="line">3D-Modelle</tspan></text>
-    <text
-       transform="scale(0.96828996,1.0327485)"
-       sodipodi:linespacing="125%"
-       id="text3775-2"
-       y="489.61777"
-       x="32.246239"
-       style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       xml:space="preserve"><tspan
-         style="font-size:8px;text-align:start;text-anchor:start"
-         y="489.61777"
-         x="32.246239"
-         id="tspan3777-3"
-         sodipodi:role="line">Längengrad: 54° 44' 19&quot;</tspan></text>
-    <text
-       transform="scale(0.96828996,1.0327485)"
-       sodipodi:linespacing="125%"
-       id="text3775-2-1"
-       y="501.59973"
-       x="32.32354"
-       style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       xml:space="preserve"><tspan
-         style="font-size:8px;text-align:start;text-anchor:start"
-         y="501.59973"
-         x="32.32354"
-         id="tspan3777-3-7"
-         sodipodi:role="line">Breitengrad: 12° 11' 44&quot;</tspan></text>
-    <rect
        transform="scale(-1,-1)"
        style="fill:none;stroke:#000000;stroke-width:1.38718641;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3799-6-7-6"
@@ -720,18 +674,18 @@
        transform="scale(0.96828996,1.0327485)"
        sodipodi:linespacing="125%"
        id="text3775-2-1-9"
-       y="516.06476"
+       y="490.88922"
        x="32.193298"
        style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        xml:space="preserve"><tspan
          style="font-size:8px;text-align:start;text-anchor:start"
-         y="516.06476"
+         y="490.88922"
          x="32.193298"
          id="tspan3777-3-7-7"
          sodipodi:role="line">Für diesen Ort sind keine </tspan><tspan
          id="tspan5194"
          style="font-size:8px;text-align:start;text-anchor:start"
-         y="526.06476"
+         y="500.88922"
          x="32.193298"
          sodipodi:role="line">Informationen verfügbar.</tspan></text>
     <g

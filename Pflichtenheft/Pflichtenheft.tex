@@ -273,8 +273,8 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 \begin{figure}
 	\centering
-	\includegraphics[scale=0.9]{GUI-Ansicht.eps}
-	\caption{Die Benutzeroberfläche mit geöffnetem Ansichts-Tab und dargestelltem Globus}
+	\includegraphics[scale=0.9]{GUI-Ausgeblendet.eps}
+	\caption{Die Benutzeroberfläche mit ausgeblendeter Einstellungsleiste und dargestelltem Globus}
 \end{figure}
 
 \begin{figure}
@@ -293,11 +293,6 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 	\caption{Die Benutzeroberfläche mit gewählter Straßenkarte}
 \end{figure}
 
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.9]{GUI-Ausgeblendet.eps}
-	\caption{Die Benutzeroberfläche mit ausgeblendeter Einstellungsleiste}
-\end{figure}
 \begin{figure}
 	\centering
 		\begin{minipage}[c]{6cm}
@@ -347,6 +342,8 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{KeyImages/key_Bild_Auf.eps}  \includegraphics[scale=0.08]{KeyImages/key_Bild_Ab.eps} & Perspektivisches Kippen der Ansicht \\
 \hline
 \rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{KeyImages/key_Plus.eps}  \includegraphics[scale=0.08]{KeyImages/key_Minus.eps} & Zoomen der Ansicht \\
+\hline
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{KeyImages/key_0.eps} & Rücksetzen des Kippens \\ 
 \hline
 \rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{KeyImages/key_Strg.eps} \rule[-1ex]{0pt}{7ex}\raisebox{0.7em}{\textbf{+}} \includegraphics[scale=0.08]{KeyImages/key_Q.eps} & Beenden der Anwendung \\ 
 \hline
@@ -462,8 +459,6 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \item Auffinden von Orten über ihren Namen
 \end{enumerate}
 
-
-\section{
 
 
 \section{Orte}
@@ -861,10 +856,13 @@ Auch wenn die Hardwareanforderungen bereits gegeben sind, sei hier einmal die Au
 \setlength{\extrarowheight}{4mm}
 \begin{longtabu}{L{0.35} R{1.65}}
 Anisotropes Filtern & Methode um den Schärfeeindruck von perspektivisch verzerrten \textref{Texturen} zu verbessern\\
+Ansichtsfenster & Mit OpenGL gezeichneter Teil der Oberfläche, in dem die Karten- oder Globusanzeige stattfindet\\
+Ansichtsmodus & Darstellungsmodus der Karte, wie die \textref{Karten-}, die \textref{Globus-} oder \textref{Sonnensystemansicht}\\
 Antialiasing & Methode zur Kantenglättung beim \textref{Rendern}\\
 API & (Application Programming Interface) Programmierschnittstelle zu einer Programmbibliothek oder einem Dienst\\
 Bildauflösung & Breite und Höhe einer Grafik in Pixel, umgangssprachlich auch deren Produkt (,,Megapixel``) \\
 Bildkachel & Element einer rasterförmigen Zerteilung eines (für den Anwendungszweck zu großen) Bildes\\
+Bildmittelpunkt & Mittelpunkt des \textref{Ansichtsfensters}\\
 BSD-Lizenz & (Berkeley Software Distribution-Lizenz) Gruppe von Lizenzen aus dem \textref{Open-Source}-Bereich.\\
 Cache & \textref{Pufferspeicher}\\
 Client & (Netzwerktechnik) Knoten eines Netzwerks, die den Dienst eines \textref{Servers} nutzt. Für gewöhnlich eine Anwendung auf Benutzerseite.\\
@@ -874,7 +872,10 @@ Farbtiefe & Die Farbauflösung in Grafiken. Wird für gewöhnlich in $n$ Bit ang
 Fenstermanager & Komponente einer grafischen Oberfläche, die u.A. das Verschieben, Maximieren von Fenstern ermöglicht.\\
 Framework & (auch \textit{Ordnungsrahmen}) Programmgerüst (,,Unterbau``) in der Softwaretechnik \\
 Git & Verteiltes \textref{Versionsverwaltung}ssystem\\
+Globusansicht & \textref{Ansichtsmodus}, in dem das Kartenmaterial auf einen Globus projiziert wird\\
 GUI& (Graphical User Interface) Grafische Benutzeroberfläche\\
+Heightmap & Bild oder andere zweidimensionale Struktur, die die Höhe eines Geländes in einem Raster darstellt\\
+Höhenprofil & Manipulation der Globus- oder Kartenebenenoberfläche mit Hilfe einer \textref{Heightmap}, um Geländeunebenheiten wie Berge und Täler dreidimensional darzustellen.\\
 HTTP & (Hypertext Transfer Protocol) ein \textref{Protokoll} zur Übertragung von Webinhalten von \textref{Server} zu \textref{Client}. Kann neben Text auch Grafiken und andere Daten übertragen.\\
 Java & Programmiersprache (\textref{JRE})\\
 Javadoc & Dokumentation von Klassen und Methoden in \textref{Java}\\
@@ -884,12 +885,15 @@ JPEG & (von Joint Photographic Experts Group) Verlustbehaftetes Format zur Speic
 JRE & (\textref{Java} Runtime Environment) Laufzeitumgebung der \textref{Java} Technik mit der Programme weitgehend \textref{plattformunabhängig} ausgeführt werden\\
 JUnit & \textref{Framework} zum testen von \textref{Java}-Programmen. Besonders geeignet für automatisierte \textref{Unit-Tests}\\
 Kachel & \textref{Bildkachel}\\
+Kamera & Die effektive Position und Drehung des Betrachters im gerenderten, dreidimensionalen Raum\\
+Kartenansicht & \textref{Ansichtsmodus}, in dem die Karte auf die Ebene projiziert wird\\
+Kartentyp & Typ von Texturen, die als Kartenmaterial dienen. Das können beispielsweise Satellitenbilder oder Straßenkarten sein\\
 Latex & (\LaTeX) Freies Textsatzprogramm für wissenschaftliche Arbeiten\\
 Linux & Freies Betriebssystem\\
-Modultest & In der Softwareentwicklung angewendete Art von Tests, um einzelne Softwareodule auf korrektes Verhalten und Fehlerfreiheit zu prüfen\\
+Modultest & In der Softwareentwicklung angewendete Art von Tests, um einzelne Softwaremodule auf korrektes Verhalten und Fehlerfreiheit zu prüfen\\
 NASA & (National Aeronautics and Space Administration) Zivile US-Bundesbehörde für Luft- und Raumfahrt\\
-Nominatim & API zur Lokalisierung von Orten bei Suchanfragen.\\
-Onboard-Grafik & Grafikhardware, die sich auf dem Prozessorchip des Systems oder fest verlötet auf der Hauptplatine befindet. Als Gegenstück zu \textit{dedizierter} Grafikhardware bietet sie niedrige Leistung zu kleinem Preis und guter Energieeffizienz.\\
+Nominatim & API zur Lokalisierung von Orten bei Suchanfragen\\
+Onboard-Grafik & Grafikhardware, die sich auf dem Prozessorchip des Systems oder fest verlötet auf der Hauptplatine befindet. Als Gegenstück zu \textit{dedizierter} Grafikhardware bietet sie niedrige Leistung zu kleinem Preis und guter Energieeffizienz\\
 OpenGL & \textref{API} zur schnellen Generierung ansprechender 2D- und 3D-Computergrafik\\
 Open-Source & (quelloffen) Werke deren Lizenzbestimmungen besagen, dass der \textref{Quelltext} frei zugänglich ist\\
 OpenStreetMap & Projekt, das freies Kartenmaterial im Internet anbietet\\
@@ -904,6 +908,7 @@ RAM & (Random Access Memory) Arbeitsspeicher\\
 Rendern & Erzeugen eines (zweidimensionalen) Bildes aus Rohdaten, hier aus einem räumlichen Modell\\
 Server & Gegenstelle im Netzwerk, die einen Dienst zur Verfügung stellt, hier u.A. Lieferung des Kartenmaterials\\
 SDK & (\textref{Software Development Kit}) Sammlung von Werkzeugen und Anwendungen um eine Software zu erstellen\\
+Sonnensystemansicht & \textref{Ansichtsmodus}, in dem keine Karten, sondern eine Satellitendarstellung der Erde und anderer Himmelskörper möglich ist\\
 Testabdeckung & Gibt an welche, Codeabschnitte von globalen Testszenarien und \textref{Modultests} erfasst werden \\
 Textur & Zweidimensionale (Oberflächen-) Grafik im Kontext von \textref{Rendern}\\
 Unit-Test & \textref{Modultest}\\

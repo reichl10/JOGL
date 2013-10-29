@@ -65,8 +65,8 @@
      fit-margin-left="10"
      fit-margin-right="10"
      fit-margin-bottom="10"
-     inkscape:window-width="1920"
-     inkscape:window-height="1020"
+     inkscape:window-width="1366"
+     inkscape:window-height="709"
      inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1" />
@@ -300,7 +300,7 @@
          x="-158.59291"
          y="207.19191"
          style="font-size:14px"
-         id="tspan4733">  POIs und Objekte </tspan><tspan
+         id="tspan4733">  POIs, Heightmaps  </tspan><tspan
          sodipodi:role="line"
          x="-158.59291"
          y="224.69191"
@@ -358,16 +358,16 @@
        x="258.44498"
        style="font-size:40px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        xml:space="preserve"><tspan
-         id="tspan4772"
          style="font-size:14px;text-align:end;text-anchor:end"
          y="184.03506"
          x="258.44498"
-         sodipodi:role="line">Liefert</tspan><tspan
+         sodipodi:role="line"
+         id="tspan3047">Liefert Orte,</tspan><tspan
          style="font-size:14px;text-align:end;text-anchor:end"
          y="201.53506"
          x="262.90201"
          sodipodi:role="line"
-         id="tspan4781">Orte  </tspan></text>
+         id="tspan3053">Ergebnisse   </tspan></text>
     <path
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"

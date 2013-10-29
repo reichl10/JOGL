@@ -543,52 +543,6 @@
          id="tspan4791-6-9"
          sodipodi:role="line">Höhenprofil</tspan></text>
     <rect
-       y="417.77225"
-       x="34.297363"
-       height="11.363636"
-       width="11.363636"
-       id="rect5086"
-       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
-    <text
-       xml:space="preserve"
-       style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="52.354145"
-       y="412.48199"
-       id="text5090"
-       sodipodi:linespacing="125%"
-       transform="scale(0.96828996,1.0327485)"><tspan
-         sodipodi:role="line"
-         id="tspan5092"
-         x="52.354145"
-         y="412.48199"
-         style="font-size:8px;text-align:start;text-anchor:start">3D-Modelle</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="32.246239"
-       y="489.61777"
-       id="text3775-2"
-       sodipodi:linespacing="125%"
-       transform="scale(0.96828996,1.0327485)"><tspan
-         sodipodi:role="line"
-         id="tspan3777-3"
-         x="32.246239"
-         y="489.61777"
-         style="font-size:8px;text-align:start;text-anchor:start">Längengrad: 54° 44' 19&quot;</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="32.32354"
-       y="501.59973"
-       id="text3775-2-1"
-       sodipodi:linespacing="125%"
-       transform="scale(0.96828996,1.0327485)"><tspan
-         sodipodi:role="line"
-         id="tspan3777-3-7"
-         x="32.32354"
-         y="501.59973"
-         style="font-size:8px;text-align:start;text-anchor:start">Breitengrad: 12° 11' 44&quot;</tspan></text>
-    <rect
        y="-586.75055"
        x="-163.26994"
        height="26.745562"
@@ -600,18 +554,18 @@
        xml:space="preserve"
        style="font-size:36.81169128px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        x="32.193298"
-       y="516.06476"
+       y="488.95261"
        id="text3775-2-1-9"
        sodipodi:linespacing="125%"
        transform="scale(0.96828996,1.0327485)"><tspan
          sodipodi:role="line"
          id="tspan3777-3-7-7"
          x="32.193298"
-         y="516.06476"
+         y="488.95261"
          style="font-size:8px;text-align:start;text-anchor:start">Für diesen Ort sind keine </tspan><tspan
          sodipodi:role="line"
          x="32.193298"
-         y="526.06476"
+         y="498.95261"
          style="font-size:8px;text-align:start;text-anchor:start"
          id="tspan5194">Informationen verfügbar.</tspan></text>
     <g
