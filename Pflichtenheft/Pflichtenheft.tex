@@ -211,13 +211,13 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 \section{Musskriterien}
 \begin{itemize}
-\item Intuitiv bedienbare, grafisch ansprechende GUI mit einklappbarer Seitenleiste und\\ Sprachunterstützung für Englisch und Deutsch (\ziel{F010} - \ziel{F040})
-\item Bedienung mit Maus und Tastatur (\ziel{F280}, \ziel{F290})
+\item Grafisch ansprechende GUI mit einklappbarer Seitenleiste und\\ Sprachunterstützung für Englisch und Deutsch (\ziel{F010} - \ziel{F040})
+\item Mit OpenGL gerenderte Kartenansicht, die mit Maus und Tastatur intuitiv bedienbar ist (\ziel{F190}, \ziel{F200}, \ziel{F260}, \ziel{F280}, \ziel{F290}, \ziel{F540})
 \item Anzeige der momentanen und möglichen Zoomstufen (\ziel{F050}, \ziel{F060})
 \item Sinnvolle Beschränkung von Zoom und Beweglichkeit (\ziel{F410}, \ziel{F420}, \ziel{F440} - \ziel{F460})
 \item Ladebalken für im Hintergrund geladene Kartendaten (\ziel{F070})
 \item Verwendung einer Platzhaltertextur für nicht verfügbare Kacheln
-\item Felder zur Anzeige und Änderung des Längen- und Breitengrads (\ziel{F080}, \ziel{F090}, \ziel{F230})
+\item Felder zur Anzeige und Änderung des Längen- und Breitengrads (\ziel{F080}, \ziel{F090}, \ziel{F230}, \ziel{F390})
 \item Wechselmöglichkeit zwischen Globus- und flacher Kartenansicht (\ziel{F300})
 \item Wechselmöglichkeit zwischen Satellitenbildern und OpenStreetMap-Karten (\ziel{F310})
 \item Drehen, Kippen, Zoomen der Ansichten (\ziel{F400} - \ziel{F460})
@@ -234,13 +234,14 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Kinder-Weltkarte als zusätzliche Kartenoption (\ziel{F310})
 \item Sonnensystem-Modellansicht als weiteren Ansichtsmodus (\ziel{F300})
 \item Anzeige des momentanen Kartenmaßstabs (\ziel{F250W})
-\item Dreidimensionales Höhenprofil auf Globus- und Kartenoberfläche (\ziel{F210W}, \ziel{F220W})
+\item Dreidimensionales Höhenprofil auf Globus- und Kartenoberfläche (\ziel{F210W}, \ziel{F220W}, \ziel{F320W}, \ziel{F550W})
 \item Änderung des Detailgrads des 3D-Modells (siehe \ziel{F330W})
 \item Funktion zum Markieren und Speichern von Punkten (\ziel{F120W}, \ziel{F130W}, \ziel{F230}, \ziel{F370W}, \ziel{F480W}, \ziel{F490W})
+\item Anzeige von Informationen zum Bildmittelpunkt (\ziel{F560W})
 \item Lokale und Globale Suchfunktion (\ziel{F160W} - \ziel{F180W}, \ziel{F580W})
-\item Aussetzen des Renderns bis zur Bildänderung 
 \item Zusätzliche Grafikeinstellungen wie Antialiasing oder Texturfilterung (\ziel{F330W} - \ziel{F350W})
 \item Vorausladen von Kartendaten an den Rändern der Anzeige und die der nächsten Zoomstufen (\ziel{F270})
+\item Aussetzen des Renderns bis zur Bildänderung 
 \end{itemize}
 
 \section{Abgrenzungskriterien}
@@ -437,6 +438,7 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \item Ändern des Detaillevels (LOD) des 3D-Modells
 \item Ändern der Antialiasing-Einstellung
 \item Ändern des Texturfilters
+\muss
 \item Anzeige von Overlays als zweidimensionale Objekte
 \wunsch
 \item Anzeige von bestehenden Markierungen
@@ -588,7 +590,7 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \rule[-1ex]{0pt}{4ex} \hspace{10pt} Speichermanagement & • & & & \\ 
 
 \hline 
-\rule[-1ex]{0pt}{4ex} \textbf{Anpassfähigkeit} &  &  &  &  \\ 
+\rule[-1ex]{0pt}{4ex} \textbf{Anpassungsfähigkeit} &  &  &  &  \\ 
 \rule[-1ex]{0pt}{4ex} \hspace{10pt} Code-Qualität & & • & & \\ 
 \rule[-1ex]{0pt}{4ex} \hspace{10pt} Modifizierbarkeit & & & • & \\ 
 
@@ -647,7 +649,7 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \end{details}
 
 
-\section*{Anpassfähigkeit}
+\section*{Anpassungsfähigkeit}
 \begin{details}
 \item \sfbf{Code-Qualität:} Der Quellcode des Programms soll verständlich gehalten werden. Dies ist für die Teamarbeit unerlässlich.
 
@@ -681,12 +683,10 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \item \sfbf{Test:} Szenario - Anwendungsstart
 \end{details}
 \vspace{2mm}
+Starten des Programms. Es öffnet sich das Hauptfenster.
 \begin{enumerate}[leftmargin = 2.2cm]
-\item Das Programm wird gestartet. Es öffnet sich die GUI in Standardgröße (1024x768 Pixeln) (siehe \ziel{F010}).
-\item Die Einstellungsleiste der GUI ist geöffnet (siehe \ziel{F030}).
-\item Die GUI startet in Standardsprache Deutsch (siehe \ziel{F040}).
 \wunsch
-\item Die GUI startet im Sonnensystemmodus. Erneute Auswahl des Sonnensystemmodus darf nicht mehr möglich sein. Die Auswahl des Kartentyps, Höhenprofil und 3D-Modelle muss entfallen (gemäß Abbildung 5.1) (siehe \ziel{F100W}, \ziel{F130W}).
+\item Die GUI startet im Sonnensystemmodus. Die Auswahl des Kartentyps und des Höhenprofils entfällt (gemäß Abbildung 5.1). 
 \muss
 \item Sollte der (\W) Sonnensystemmodus nicht realisiert werden, startet die GUI in der Globus-Ansicht mit Satellitenbildern. Erneute Auswahl des Ansichtsmodus Globus mit Satellitenbildern darf nicht mehr möglich sein (siehe \ziel{F090}, \ziel{F110}).
 \end{enumerate}
@@ -821,7 +821,7 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \section{Software}
 Abgesehen vom Betriebssystem und Anwendungen wie Texteditoren ist die verwendete Software im Entwicklerteam einheitlich.
 \begin{itemize}
-\item Betriebssysteme: Windows 7, Windows 8, Linux, jeweils auf x86{\_}64
+\item Betriebssysteme: Windows 7, Windows 8 und Linux, jeweils auf x86{\_}64
 \item Entwicklungsumgebung: Eclipse
 \item Framework: Java 7 (JDK)
 \item Unit Tests: JUnit
@@ -856,8 +856,8 @@ Auch wenn die Hardwareanforderungen bereits gegeben sind, sei hier einmal die Au
 \hline
 \rule[-1ex]{0pt}{4ex}Thomas Eder & AMD A4-3400 & 8 GB & Nvidia GTX 260 \\
 \hline
-\rule[-1ex]{0pt}{4ex}\multirow{2}{*}{Sebastian Reichl} & AMD PhenomII X6 1100T @3,4Ghz & 8 GB & ATI Radeon HD 6950 \\
-\rule[-1ex]{0pt}{2ex}& Intel Core i5-4200U @ 2,29 Ghz & 4 GB & Intel HD Graphics \\
+\rule[-1ex]{0pt}{4ex}\multirow{2}{*}{Sebastian Reichl} & AMD PhenomII X6 1100T @3,4GHz & 8 GB & ATI Radeon HD 6950 \\
+\rule[-1ex]{0pt}{2ex}& Intel Core i5-4200U @ 2,29 GHz & 4 GB & Intel HD Graphics \\
 \hline
 \end{tabular}
 
@@ -876,7 +876,7 @@ API & (Application Programming Interface) Programmierschnittstelle zu einer Prog
 Asynchrone Operation & Eine (oftmals zeitintensive) Operation, die im Hintergrund ausgeführt wird, um weiter Benutzereingaben verarbeiten zu können\\
 Bibliothek & \textref{Programmbibliothek}\\
 Bildauflösung & Breite und Höhe einer Grafik in Pixel, umgangssprachlich auch deren Produkt (,,Megapixel``) \\
-Bildkachel & Element einer rasterförmigen Zerteilung eines (für den Anwendungszweck zu großen) Bildes\\
+Bildkachel & Element einer rasterförmigen Aufteilung eines (für den Anwendungszweck zu großen) Bildes\\
 Bildmittelpunkt & Mittelpunkt des \textref{Ansichtsfensters}\\
 BSD-Lizenz & (Berkeley Software Distribution-Lizenz) Gruppe von Lizenzen aus dem \textref{Open-Source}-Bereich\\
 Cache & \textref{Pufferspeicher}\\
@@ -887,7 +887,7 @@ Eclipse & Software-Plattform und Integrierte Entwicklungsumgebung für (u.a.) \t
 Farbtiefe & Die Farbauflösung in Grafiken. Wird für gewöhnlich in $n$ Bit angegeben, was bedeutet, dass $2^n$ Farbwerte dargestellt werden können\\
 Fenstermanager & Komponente einer grafischen Oberfläche, die u.A. das Verschieben, Maximieren von Fenstern ermöglicht\\
 FOV & \textref{Sichtbereich}\\
-Framework & (auch \textit{Ordnungsrahmen}) Programmgerüst (,,Unterbau``) in der Softwaretechnik \\
+Framework & Programmgerüst (,,Unterbau``) in der Softwaretechnik \\
 Git & Verteiltes \textref{Versionsverwaltung}ssystem\\
 Globusansicht & \textref{Ansichtsmodus}, in dem das Kartenmaterial auf einen Globus projiziert wird\\
 GUI& (Graphical User Interface) Grafische Benutzeroberfläche\\
@@ -896,7 +896,7 @@ Höhenprofil & Manipulation der Globus- oder Kartenebenenoberfläche mit Hilfe e
 HTTP & (Hypertext Transfer Protocol) ein \textref{Protokoll} zur Übertragung von Webinhalten von \textref{Server} zu \textref{Client}. Kann neben Text auch Grafiken und andere Daten übertragen\\
 JAR & (Java Archive) Datei, in der ein übersetztes \textref{Java}-Programm oder eine Java-Bibliothek, optional mit zusätzlichen Dateien ausgeliefert wird\\
 Java & Programmiersprache (\textref{JRE})\\
-Javadoc & Dokumentation von Klassen und Methoden in \textref{Java}\\
+Javadoc & Dokumentation von Klassen und Methoden im \textref{Java-Quelltext}\\
 JDK & (Java Development Kit) von \textref{Java}-Entwicklern benutztes \textref{Software Development Kit}\\
 JOGL & (Java Bindings for OpenGL) Softwarebibliothek, die die \textref{OpenGL}-API in \textref{Java} zur Verfügung stellt\\
 JPEG & (von Joint Photographic Experts Group) Verlustbehaftetes Format zur Speicherung von Bilddaten. Erreicht für Fotografien bessere Kompressionsraten als \textref{PNG}, verursacht aber bei bestimmten Grafiken sichtbare Bildfehler\\
