@@ -216,7 +216,6 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Anzeige der momentanen und möglichen Zoomstufen (\ziel{F050}, \ziel{F060})
 \item Sinnvolle Beschränkung von Zoom und Beweglichkeit (\ziel{F420}, \ziel{F430}, \ziel{F450} - \ziel{F470})
 \item Ladebalken für im Hintergrund geladene Kartendaten (\ziel{F070})
-\item Verwendung einer Platzhaltertextur für nicht verfügbare Kacheln
 \item Felder zur Anzeige und Änderung des Längen- und Breitengrads (\ziel{F080}, \ziel{F090}, \ziel{F230}, \ziel{F390})
 \item Wechselmöglichkeit zwischen Globus- und flacher Kartenansicht (\ziel{F300})
 \item Wechselmöglichkeit zwischen Satellitenbildern und OpenStreetMap-Karten (\ziel{F310})
@@ -227,6 +226,7 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Sternenhimmel als Hintergrund (\ziel{F380})
 \item Anzeige des Benutzerhandbuchs und eines Infofensters (\ziel{F100}, \ziel{F110})
 \item Speichern und Laden von Einstellungen (\ziel{F600}, \ziel{F610})
+\item Verwendung einer Platzhaltertextur für nicht verfügbare Kacheln
 \end{itemize}
 
 \section{Wunschkriterien}
@@ -466,7 +466,7 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 
 \section{Ortsfunktionen}
 \begin{enumerate}[leftmargin=2.2cm,resume]
-\item Auswahl einer begrenzten Teilmenge aus der Menge alle anzuzeigender Overlays
+\item Auswahl einer begrenzten Teilmenge aus der Menge aller anzuzeigender Overlays
 \wunsch
 \item Markieren eines Punktes mit Name und Notiz
 \item Entfernen eines markierten Punkts
@@ -698,7 +698,7 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \item Ändern der Sprache.\\Die Anzeigesprache ändert sich.\\ Rücksetzen der Sprache (\ziel{F040}).\\Die Anzeigesprache ändert sich erneut.
 \end{enumerate}
 
-
+\newpage
 \vspace{1.0cm}
 \begin{details}[2pt]
 \item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
@@ -742,6 +742,7 @@ Es ist die Erdkugel mit Satellitenbildern sichtbar (\ziel{F190}, \ziel{F300}).
 \muss
 \item Die Ansicht ist gekippt.\\Im Ansichtsfenster die Maus mit gedrückter linker Taste in alle Richtungen verschieben.\\Der Globus dreht sich, konsistent mit vorherigen Drehungen, unter dem Betrachter durch (\ziel{F280}, \ziel{F430}).
 \item Rücksetzen des Kippens mit der Taste \textit{0} (\ziel{F290}, \ziel{F450})
+\item Schließen des Fensters (\ziel{F020}).\\Programm wird beendet.
 \end{enumerate}
 
 
@@ -766,7 +767,7 @@ Es ist eine flache Kartenebene mit Satellitenbildern sichtbar (\ziel{F200}, \zie
 \item Zoomlevel wieder rücksetzen auf das Minimum (\ziel{F060}).\\ Maßstabsanzeige vergleichen mit vorheriger Skalierung ( \ziel{F250W}).
 \end{enumerate}
 
-
+\newpage
 \vspace{1.0cm}
 \begin{details}[2pt]
 \item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
@@ -785,7 +786,9 @@ Es ist eine flache Kartenebene mit Satellitenbildern sichtbar (\ziel{F200}, \zie
 \item Das Höhenprofil ist nun von der Seite betrachtbar.\\Wechsel zum Einstellungen-Tab.\\Änderung des Detaillevels (LOD) (\ziel{F330W}).\\Der Detailgrad der Höhenprofil-Darstellung ändert sich.\\Wechsel zum Ansichts-Tab.
 \muss
 \item Die Ansicht ist gekippt.\\ Im Ansichtsfenster die Pfeiltasten betätigen.\\Die Kartenebene bewegt sich konsistent mit den vorherigen Bewegungen unter dem Betrachter durch (\ziel{F290}, \ziel{F400}).
-\item Rücksetzen des Kippens mit der Taste \textit{0} (\ziel{F290}, \ziel{F420})
+\item Rücksetzen des Kippens mit der Taste \textit{0} (\ziel{F290}, \ziel{F420}).
+\item Ändern der Fenstergröße (\ziel{F010}).\\GUI Elemente richten sich neu aus. Wenn die Einstellungsleiste stark verkleinert wird, verschwinden die GUI Elemente.
+\item Schließen des Fensters (\ziel{F020}).\\Programm wird beendet.
 \end{enumerate}
 
 
@@ -793,124 +796,103 @@ Es ist eine flache Kartenebene mit Satellitenbildern sichtbar (\ziel{F200}, \zie
 \begin{details}[2pt]
 \item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
 \item \sfbf{Voraussetzung:} Szenario Kartenansicht
-\item \sfbf{Testszenario:} Navigation auf der Kartenebene
+\item \sfbf{Testszenario:} Overlays
 \end{details}
 \vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
-\item ...
-\end{enumerate}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{enumerate}[leftmargin = 2.2cm, resume]
-\item Höhenprofile einschalten und anschließend wieder ausschalten (siehe \ziel{F120W}).
-\item 3D-Modelle für Häuse/Bäume einschalten und anschließend wieder ausschalten (siehe \ziel{F120W}, \ziel{F230W}).
-\item Grafikeinstellung - Antialiasing einschalten und anschließend wieder ausschalten (siehe \ziel{F150W}).
-\item Grafikeinstellung - Texturfilterung einschalten und anschließend wieder ausschalten (siehe \ziel{F150W}).
-\muss
-\item Steuerung mittels Maus: Erde über die Pole drehen über X-Achse. Erde dreht sich konsistent - Pole dürfen sich jedoch nur $+/- 90^\circ$ drehen lassen - Pole wieder zurück drehen (siehe \ziel{F160}, \ziel{F180}, \ziel{F210}).
-\item Steuerung mittels Maus: Erde über die Pole drehen über Y-Achse. Erde dreht sich konsistent - Pole dürfen sich jedoch nur $+/- 90^\circ$ drehen lassen - Pole wieder zurück drehen (siehe \ziel{F160}, \ziel{F180}, \ziel{F210}).
-\item Steuerung mittels Tastatur: Erde über die Pole drehen über X-Achse. Erde dreht sich konsistent - Pole dürfen sich jedoch nur $+/- 90^\circ$ drehen lassen - Pole wieder zurück drehen (siehe \ziel{F160}, \ziel{F180}, \ziel{F210}).
-\item Steuerung mittels Tastatur: Erde über die Pole drehen über Y-Achse. Erde dreht sich konsistent - Pole dürfen sich jedoch nur $+/- 90^\circ$ drehen lassen - Pole wieder zurück drehen (siehe \ziel{F160}, \ziel{F180}, \ziel{F210}).
-\item Eingabe von gültigen Längen- oder Breitengraden. Der Globus richtet sich entsprechend aus und zentriert den Punkt (siehe \ziel{F070}).
-\item Eingabe von ungültigen Längen- oder Breitengraden. Die Ansicht verändert sich nicht (siehe \ziel{F070}).
-\item Ausblenden der Seitenleiste (siehe \ziel{F030}).
-\item Einblenden der Seitenleiste (siehe \ziel{F030}).
+\item Wechsel zum Orte-Tab.\\Anzeigen verschiedener Overlays (\ziel{F140}).
+\item Die entsprechenden Overlays werden eingeblendet (\ziel{F360}).
+\item Aktivieren aller Overlays (\ziel{F150}).
+\item Prüfen anhand mehrerer Großstädte, die Menge der angezeigten Overlays (\ziel{F570}).\\Ändern des Zoomlevels auf 70-80\% (\ziel{F060}).
+\item Die Anzahl der Labels bleibt in einem angemessenen Rahmen, sodass Beschriftungen lesbar bleiben und die Menge der POIs nicht überwältigend wirkt (\ziel{F470}).
+\item Doppelklick auf ein beliebiges angezeigtes Symbol.\\Der POI wird im Ansichtsfenster zentriert (\ziel{F240}, \ziel{F390}).
 \wunsch
-\item Auswahl der Kinder-Weltkarte - Ansicht ändert sich entsprechend. Erneute Auswahl des Globus mit Kinder-Weltkarte darf nicht mehr möglich sein (siehe \ziel{F100W}).
-\item Sternenhimmel als Hintergrundbild einschalten und anschließend wieder ausschalten (siehe \ziel{F140W}).
+\item Prüfen ob im Detailfenster die Informationen zum zentrierten Punkt erscheinen (\ziel{F560W}).
 \muss
-\item Globus kippen und wieder Rücksetzen (siehe \ziel{F180}).
-\item Verkleinern des Fensters - Minimalgröße (800x600 Pixel) darf nicht unterschritten werden (siehe \ziel{F010}).
-\item Schließen der Anwendung mit Strg + Q ohne Rückmeldung (siehe \ziel{F020}).
-\end{enumerate}
-
-\vspace{1.0cm}
-\begin{details}[2pt]
-\item \sfbf{Ausgangspunkt:} Nackte Grundinstallation \\
-\item \sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
-\item \sfbf{Test:} Laden der Kartendaten von OpenStreetMap und NASA \\
-\end{details}
-\vspace{2mm}
-\begin{enumerate}[leftmargin = 2.2cm, resume]
-\item Laden der Kartenkacheln testen (siehe \ziel{F250}, \ziel{F260}, \ziel{F270}, \ziel{F290}, \ziel{F300}).
-\wunsch
-\item Kontrollieren, ob Platzhaltertextur während des Ladens der Kartenkacheln erscheint (siehe \ziel{F310W}).
-\item Die Kacheln der direkten Randbereiche außerhalb der Ansicht werden geladen (siehe \ziel{F320W}).
-\item Ist die Textur einer Kachel noch nicht geladen, wird zuerst versucht sie aus dem Cache im Arbeitsspeicher, dann aus dem Cache im Dateisystem zu laden (siehe \ziel{F330W}).
-\muss
-\item Ladebalken für Fortschritt beobachten (siehe \ziel{F060}).
-\item Wenn Ladebalken 100\% erreicht hat, wird die Kachel direkt angezeigt (siehe \ziel{F060}, \ziel{F280}).
-\item Drücken des Schließen-Buttons beendet die Anwendung ohne Rückmeldung. Die Einstellungen der Kartendaten müssen hier gespeichert werden (siehe \ziel{F020}).
-\end{enumerate}
-
-\vspace{1.0cm}
-\begin{details}[2pt]
-\item \sfbf{Ausgangspunkt:} Geladene Kartendaten 
-\item \sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
-\item \sfbf{Test:} Ansichtseinstellungen bei Karten
-\end{details}
-\begin{enumerate}[leftmargin = 2.2cm, resume]
-\item Auswahl der Ansicht Karte mit Kartentyp OpenStreetMap (Straßenkarte) (siehe \ziel{F090}, \ziel{F110}).
-\wunsch
-\item Höhenprofile einschalten und anschließend wieder ausschalten (siehe \ziel{F120W}).
-\item 3D-Modelle für Häuse/Bäume einschalten und anschließend wieder ausschalten (siehe \ziel{F120W}, \ziel{F230W}).
-\item Grafikeinstellung - Antialiasing einschalten und anschließend wieder ausschalten (siehe \ziel{F150W}).
-\item Grafikeinstellung - Texturfilterung einschalten und anschließend wieder ausschalten (siehe \ziel{F150W}).
-\muss
-\item Verschieben der Karten: Ansicht nach links/rechts/oben/unten verändern (siehe \ziel{F170}).
-\item Kippen des Kartenausschnitts und wieder Rücksetzen (siehe \ziel{F170}).
-\item Schließen der Anwendung mit Strg + Q ohne Rückmeldung (siehe \ziel{F020}).
+\item Deaktivieren aller Overlays, außer Städte- und Ländernamen (\ziel{F150}).
 \end{enumerate}
 
 
 \vspace{1.0cm}
 \begin{details}[2pt]
-\item \sfbf{Ausgangspunkt:} Geladene Kartendaten 
-\item \sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
-\item \sfbf{Test:} Punkte markieren, POIs 
+\item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
+\item \sfbf{Voraussetzung:} Szenario Kartenansicht
+\item \sfbf{Testszenario:} lokale Suche
 \end{details}
 \vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
-\item Auswahl der Ansicht Karte mit Kartentyp OpenStreetMap (Straßenkarte) (siehe \ziel{F090}, \ziel{F110}).
-\item Im Detailfenster müssen Informationen zum zentrierten Punkt, wie Längen- und Breitengrad angezeigt werden (siehe \ziel{F200}, \ziel{F380})
+\item Eingabe des Längengrades: 48 und des Breitengrades: 13 in der Benutzeroberfläche (\ziel{F090}, \ziel{F390}).\\Ändern des Zoomlevels auf 40-50\% (\ziel{F060}).\\Der Kartenausschnitt im Umkreis von \textit{Salzburg - Österreich} erscheint.
 \wunsch
-\item Suche mehrerer Orte/ Punkte auf Karten mittels Suchfunktion. Suchergebnisse müssen angezeigt werden (siehe \ziel{F370W}).
-\item Button Punkt markieren klicken und Punkt auf der Karte markieren. Der markierte Punkt wird nun im Kartenfenster zentriert (siehe \ziel{F190W}, \ziel{F230W}).
-\item Im Detailfenster müssen Informationen zum markierten Punkt, wie Längen- und Breitengrad angezeigt werden (siehe \ziel{F200}).
-\item Markierung des Punkts aus-/einblenden (siehe \ziel{F360W}).
-\item Markierten Punkt in der Liste speichern. Name und Bezeichnung eintragen (siehe \ziel{F360W}, \ziel{F390W}, \ziel{F400W}).
-\item Button Punkt markieren klicken und zweiten Punkt auf der Karte markieren. Der markierte Punkt wird nun im Kartenfenster zentriert (siehe \ziel{F190W}, \ziel{F230W}).
-\item Im Detailfenster müssen Informationen zum neuen markierten Punkt, wie Längen- und Breitengrad angezeigt werden (siehe \ziel{F200}).
-\item Markierten Punkt in der Liste speichern. Name und Bezeichnung eintragen (siehe \ziel{F360W}, \ziel{F390W}, \ziel{F400W}).
-\item Button Punkt markieren klicken und dritten Punkt auf der Karte markieren. Der markierte Punkt wird nun im Kartenfenster zentriert (siehe \ziel{F190W}, \ziel{F230W}).
-\item Markierten Punkt in der Liste speichern. Name und Bezeichnung eintragen (siehe \ziel{F360W}, \ziel{F390W}, \ziel{F400W}).
-\item Gespeicherten Punkt '2' aus der Liste löschen ohne Rückmeldung (siehe \ziel{F360W}, \ziel{F390W}, \ziel{F400W}).
-\item Markierten Punkt '1' und Punkt '3' in der Liste speichern (siehe \ziel{F360W}, \ziel{F390W}, \ziel{F400W}).
-\muss
-\item Anzeige von Overlays, wie Städtenamen anwählen (siehe \ziel{F220}, \ziel{F350}).
-\item Anzeige von POIs, wie Tankstellen anwählen (siehe \ziel{F220}, \ziel{F350}).
-\item Alle Overlays anwählen - Testen ob Lesbarkeit der Beschriftungen und der Symbole gegeben ist. Anschließend alle Overlays abwählen (siehe \ziel{F220}, \ziel{F240}).
-\item 3D-Modelle zuschalten - Testen ob Lesbarkeit der Beschriftungen und der Symbole gegeben ist (siehe \ziel{F240}).
-\item  Schließen der Anwendung mit Strg + Q ohne Rückmeldung. Die Einstellungen der Kartendaten und der markierten Punkte müssen hier gespeichert werden (siehe \ziel{F020}).
+\item Wechsel zum Orte-Tab.\\Auswahl der Option \textit{in der Umgebung} suchen.\\Eingabe des Suchbegriffs \textit{Laufen} (\ziel{F160W}).
+\item Der Suchbegriff erscheint im Feld der Suchergebnisse (\ziel{F180W}).
+\item Klick auf das erste Suchergebnis.\\Zentrieren des Orts im Ansichtsfenster (\ziel{F240}, \ziel{F390}).
 \end{enumerate}
+
 
 \vspace{1.0cm}
 \begin{details}[2pt]
-\item \sfbf{Ausgangspunkt:} Liste der markierten Punkte und die Ansichtseinstellungen werden übernommen
-\item \sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen, Veränderung der Settings-Datei (z.B. markierte Punkte setzen)
-\item \sfbf{Test:} Settings Speicherung
+\item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
+\item \sfbf{Voraussetzung:} Szenario Globusansicht
+\item \sfbf{Testszenario:} globale Suche
 \end{details}
 \vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
 \wunsch
-\item Kontrolle ob die Settings-Einstellungen übernommen wurden. (siehe \ziel{F390W}, \ziel{F400W})
-\item Kontrolle ob die beiden markierten Punkte noch in der Liste vorhanden sind (siehe \ziel{F360W}, \ziel{F390W}, \ziel{F400W}).
-\item Cache-Größen mehrmals verändern (siehe \ziel{F330W}).
-\muss
-\item Drücken des Schließen-Buttons beendet die Anwendung ohne Rückmeldung. (siehe \ziel{F020})
+\item Ändern des Zoomlevels auf 25-40\% (\ziel{F060}).\\Wechsel zum Orte-Tab.\\Auswahl der Suchoption \textit{Global}.\\Eingabe des Suchbegriffs \textit{Passau} (\ziel{F170W}).
+\item Der Suchbegriff erscheint im Feld der Suchergebnisse (\ziel{F180W}).
+\item Klick auf ein beliebiges Suchergebnis.\\Zentrieren des Orts im Ansichtsfenster (\ziel{F240}, \ziel{F390}).
+\item Eingabe des Suchbegriffs \textit{Ingolstadt} (\ziel{F170W}, \ziel{F580W}).
+\item Der Suchbegriff erscheint im Feld der Suchergebnisse (\ziel{F180W}).
+\end{enumerate}
+
+\newpage
+\vspace{1.0cm}
+\begin{details}[2pt]
+\item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
+\item \sfbf{Voraussetzung:} Szenario Kartenansicht
+\item \sfbf{Testszenario:} Punkte markieren
+\end{details}
+\vspace{2mm}
+\begin{enumerate}[leftmargin = 2.2cm, resume]
+\wunsch
+\item Wiederholung des Testfalls \ziel{T570}.\\Aktivieren der Overlays \textit{Städtenamen} (\ziel{F150}).
+\item Doppelklick auf die Stadt Salzburg.\\Zentrieren der Stadt im Ansichtsfenster (\ziel{F240}, \ziel{F390}).\\Klick auf den Button \textit{Punkt markieren}.\\Der Dialog (gemäß Abbildung 5.7) öffnet sich (\ziel{F480W}).\\Eintragen von Name und Notiz zur Stadt.\\Klick auf OK.\\Der Dialog schließt sich.
+\item Wechsel zum Orte-Tab.\\Anzeige der gespeicherten Markierungen (\ziel{F120W}).\\Die Markierungen sind standardmäßig aktiviert.\\Kontrolle, ob der markierte Punkt im Kartenausschnitt angezeigt wird (\ziel{F370W}).\\Notieren der Koordinaten des Punkts.
+\item Deaktivieren des soeben markierten Punkts (\ziel{F130W}) \\Die Markierung wird ausgeblendet.
+\item Markierung eines weiteren Punkts durch Wiederholung von \ziel{T660W} - \ziel{680W} mit anderem Ort.
+\item Auswählen einer der soeben gesetzten Markierungen (\ziel{F120W}).
+\item Deaktivieren aller Markierungen (\ziel{F130W}).
+\item Klick auf den Button \textit{Markierung entfernen}.\\Die Markierung wird aus der Liste gelöscht (\ziel{F490W}).
+\item Schließen des Fensters (\ziel{F020}).\\Einstellungen und markierte Punkte werden gespeichert (\ziel{F590}).\\Programm wird beendet.
+\end{enumerate}
+
+
+\vspace{1.0cm}
+\begin{details}[2pt]
+\item \sfbf{Ausgangspunkt:} Szenario Punkte markieren wurde erfolgreich ausgeführt
+\item \sfbf{Voraussetzung:} Szenario Kartenansicht
+\item \sfbf{Testszenario:} Kontrolle der Einstellungen nach Neustart
+\end{details}
+\vspace{2mm}
+\begin{enumerate}[leftmargin = 2.2cm, resume]
+\item Starten des Programms.\\Es öffnet sich das Hauptfenster in der Systemsprache oder (ersatzweise) Englisch (\ziel{F040}). Der Ansichts-Tab befindet sich im Vordergrund.
+\item Laden der Einstellungen (\ziel{F600}).\\Einstellungen werden übernommen.
+\item Wechseln in den Orte-Tab.\\Kontrolle ob die gespeicherten, markierten Punkte vorhanden und deaktiviert sind (\ziel{F120W}).
+\item Aktivieren eines gespeicherten Punkts (\ziel{F130W}).\\Zentrieren des Punkts im Ansichtsfenster (\ziel{F240}, \ziel{F390}).\\Vergleich der Koordinaten auf Übereinstimmung mit den zuvor Notierten.
+\end{enumerate}
+
+
+\vspace{1.0cm}
+\begin{details}[2pt]
+\item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
+\item \sfbf{Voraussetzung:} Szenario Anwendungsstart
+\item \sfbf{Testszenario:} Diverses, offene Punkte
+\end{details}
+\vspace{2mm}
+\begin{enumerate}[leftmargin = 2.2cm, resume]
+\item Eingabe von ungültigen Längen- und/ oder Breitengraden.\\ Ansicht wird nicht geändert.
+\item Auswahl des Kartentyps \textit{Kinder-Weltkarte} (\ziel{F310}).\\Der Globus mit der Kinder-Weltkarte wird angezeigt.
+\item F500 - F530 müssen noch formuliert werden!
 \end{enumerate}
 
 
@@ -1019,7 +1001,7 @@ Overlay & Text- oder Symboleinblendungen auf der Karte oder dem Globus\\
 Plattform"-unabhängigkeit & Ein plattform"-unabhängiges Programm kann auf verschiedenen Betriebssystemen  und/oder verschiedener Hardware ausgeführt werden, ohne Anpassungen zu erfordern\\
 PNG & (Portable Network Graphics) Verlustfreies Format zur Speicherung von Bilddaten. Verlustfrei bedeutet, dass bei der Kompression und späterer Dekompression keine Bildfehler auftreten\\
 POI & (Point of Interest) POIs sind Orte auf der Weltkarte, die eine spezielle Bedeutung haben, wie Tankstellen, Banken, Tierparks oder Sehenswürdigkeiten\\
-Programmbibliothek & Eine Sammlung von Unterprogrammen die nicht eigenständig lauffähig ist, aber dem benutzenden Programm eine Menge an Funktionen zur Verfügung stellt\\
+Programm"-bibliothek & Eine Sammlung von Unterprogrammen die nicht eigenständig lauffähig ist, aber dem benutzenden Programm eine Menge an Funktionen zur Verfügung stellt\\
 Protokoll & (Netzwerktechnik) Vereinbarung über den Ablauf der Datenübertragung zwischen Netzwerkknoten (meist \textref{Server} und \textref{Client})\\
 Pufferspeicher & Kleinerer, schneller Zwischenspeicher der hilft, Zugriffe ein langsameres Medium zu beschleunigen. Dazu wird eine \textit{Verdrängungsstrategie} implementiert, die aus statistischen Daten abzuleiten versucht, welche Daten in nächster Zeit abgerufen werden. Diese werden dann so lange wie möglich vorgehalten\\
 Quelltext & Ein Programm oder Programmteil, das in einer menschenlesbaren Programmiersprache vorliegt\\
