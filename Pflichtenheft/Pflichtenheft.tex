@@ -497,8 +497,6 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 
 Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskriterien.\\
 
-\vspace{5mm}
-
 \begin{enumerate}[leftmargin=2cm]
 \item Vom Programm angelegte Dateien werden im \textit{Datenverzeichnis}, einem Unterordner des Benutzerverzeichnisses, gespeichert. Unter Windows ist das \texttt{\%LOCALAPPDATA\%}, auf allen anderen Systemen \texttt{\textasciitilde/.joglearth/}
 \item Es werden alle benötigten Bibliotheken mitgeliefert, diese sind im einzelnen: 
@@ -506,7 +504,7 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \item JOGL mit allen betriebssystemabhängigen Bibliotheken
 \item die Forms-Bibliothek von JGoodies
 \end{itemize}
-\item Einstellungen werden in der Datei \texttt{settings} im Datenverzeichnis gespeichert. Zu den darin gespeicherten Daten gehören:
+\item Einstellungen werden in der Datei \texttt{settings.xml} im Datenverzeichnis gespeichert. Zu den darin gespeicherten Daten gehören:
 \begin{itemize}
 \item die gewählte Sprache
 \item die Antialiasing-Einstellung (\W)
@@ -514,10 +512,10 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \item das eingestellte Detaillevel (\W)
 \item ob das Höhenprofil aktiviert wurde (\W)
 \item eingestellte Puffergrößen
-\item markierte Punkte mit Name und Notiz(\W)
+\item markierte Punkte mit Name und Notiz (\W)
 \end{itemize}
-\item Mitgelieferte Daten, wie beispielsweise die Kinder-Weltkarte, sind direkt in der JAR-Datei enthalten und werden daraus gelesen
 \item Zwischengespeicherte Textur- und SRTM-(\W) Kacheln werden im Unterordner \texttt{cache} des Datenverzeichnisses abgelegt. Dabei erhält jede Kombination aus Server- und Kartentyp einen eigenen Unterordner
+\item Mitgelieferte Daten, wie beispielsweise die Kinder-Weltkarte, sind direkt in der JAR-Datei enthalten und werden daraus gelesen
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[scale=0.3]{Kinder-Weltkarte.jpg}
