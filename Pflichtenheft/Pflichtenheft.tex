@@ -316,6 +316,18 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 	\caption{Das Dialogfenster zum Anlegen einer neuen Markierung}
 \end{figure}
 
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{GUI-Handbuch.png}
+	\caption{Das Handbuch in einem handelsüblichen PDF-Betrachter}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.9]{GUI-About.eps}
+	\caption{Das Informationsfenster}
+\end{figure}
+
 \clearpage
 \pagebreak
 
@@ -520,6 +532,7 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \end{itemize}
 \item Zwischengespeicherte Textur- und SRTM-(\W) Kacheln werden im Unterordner \texttt{cache} des Datenverzeichnisses abgelegt. Dabei erhält jede Kombination aus Server- und Kartentyp einen eigenen Unterordner
 \item Mitgelieferte Daten, wie beispielsweise die Kinder-Weltkarte, sind direkt in der JAR-Datei enthalten und werden daraus gelesen
+\vspace{0.5cm}
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[scale=0.3]{Kinder-Weltkarte.jpg}
@@ -817,7 +830,7 @@ Es ist eine flache Kartenebene mit Satellitenbildern sichtbar (\ziel{F200}, \zie
 \begin{details}[2pt]
 \item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
 \item \sfbf{Voraussetzung:} Szenario Kartenansicht
-\item \sfbf{Testszenario:} lokale Suche
+\item \sfbf{Testszenario:} Lokale Suche
 \end{details}
 \vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
@@ -833,7 +846,7 @@ Es ist eine flache Kartenebene mit Satellitenbildern sichtbar (\ziel{F200}, \zie
 \begin{details}[2pt]
 \item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
 \item \sfbf{Voraussetzung:} Szenario Globusansicht
-\item \sfbf{Testszenario:} globale Suche
+\item \sfbf{Testszenario:} Globale Suche
 \end{details}
 \vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
@@ -886,13 +899,17 @@ Es ist eine flache Kartenebene mit Satellitenbildern sichtbar (\ziel{F200}, \zie
 \begin{details}[2pt]
 \item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
 \item \sfbf{Voraussetzung:} Szenario Anwendungsstart
-\item \sfbf{Testszenario:} Diverses, offene Punkte
+\item \sfbf{Testszenario:} Caching, Diverses
 \end{details}
 \vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
 \item Eingabe von ungültigen Längen- und/ oder Breitengraden.\\ Ansicht wird nicht geändert.
 \item Auswahl des Kartentyps \textit{Kinder-Weltkarte} (\ziel{F310}).\\Der Globus mit der Kinder-Weltkarte wird angezeigt.
-\item F500 - F530 müssen noch formuliert werden!
+\item Auswahl des Kartentyps OpenStreetMap.\\Beobachten der Größe des Ordners \texttt{cache} im Datenverzeichnis mit einem geeigneten Dateimanager, währenddessen Betrachten verschiedener Teile der Karte in verschiedenen Zoomstufen.\\Der Cache-Ordner füllt sich (\ziel{F510}).
+\item Wechsel zum Einstellungen-Tab, sobald die Ordnergröße 1 MB überschritten hat. Heruntersetzen des Dateisystem-Caches auf 1 MB.\\Die Größe des Cache-Ordners verringert sich auf 1 MB. (\ziel{F540}).
+\item Betrachten verschiedener Teile der Karte in verschiedenen Zoomstufen. Die Größe des Cache-Ordners überschreitet 1 MB nicht, trotzdem ist die Ladezeit kürzlich betrachteter Kartenteile merklich verkürzt (\ziel{F520}).
+\item Drücken der Tastenkombination Strg+Q.\\Das Programm schließt sich (\ziel{F020}).
+\item Der Cache-Ordner ist nun leer (\ziel{F530}).
 \end{enumerate}
 
 
