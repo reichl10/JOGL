@@ -481,27 +481,32 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 
 Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskriterien.\\
 
+Die Einstellungen und Markierten Punkte so wie der Cache werden unter Windows in \url{AppData\Local\.JoglEarth} des ausführenden Benutzers und unter Linux relativ zum Heimverzeichnis des ausführenden Benutzers unter \texttt{.JoglEarth} abgelegt. Bei anderen Systemen wird das Ausführungsverzeichnis als Basispfad verwendet.
 \vspace{5mm}
 
 \begin{enumerate}[leftmargin=2cm]
-\item Alle Daten des Programms werden im Verzeichnis der JAR-Datei (oder falls extra angegeben in einem Unterordner) abgelegt.
 \item Es werden alle benötigten Bibliotheken mitgeliefert, das sind im einzelnen: 
 \begin{itemize}
 \item JOGL mit allen betriebssystemabhängigen Bibliotheken
 \item die Forms-Bibliothek von JGoodies.
 \end{itemize}
-\wunsch
-\item Einstellungen werden in einer Datei \texttt{settings} gespeichert, die mit den Vorgabeeinstellungen dem Programm beiliegt. Zu den gespeicherten Daten gehören:
+\muss
+\item Einstellungen werden in einer Datei \texttt{settings.xml} gespeichert. Zu den gespeicherten Daten gehören:
 \begin{itemize}
 \item Sprache
 \item Antialiasing und Texturfilter
 \item die verfügbaren und momentan gewählten Kartenserver
 \item eingestellte Puffergrößen
-\item der zuletzt ausgewählte Ansichtsmodus, die gewählte Karte, Overlays und Ansichtsoptionen wie 3D-Modelle
-\item markierte Punkte mit Name und Notiz
+\item der zuletzt ausgewählte Ansichtsmodus, die gewählte Karte, Overlays und Ansichtsoptionen
 \end{itemize}
 \muss
-\item Mitgelieferte Texturen wie beispielsweise die Kinder-Weltkarte oder Symbole für POIs liegen im Ordner \texttt{textures}.
+\item Markierte Punkte werden in einer Datei \texttt{places.xml} gespeichert. Dazu gehören:
+\begin{itemize}
+\item Name
+\item Notiz
+\item An- oder Abgewählt
+\end{itemize}
+\item Mitgelieferte Texturen wie beispielsweise die Kinder-Weltkarte oder Symbole für POIs liegen im Ordner \texttt{textures} innerhalb der ausgelieferten \texttt{.jar} Datei.
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[scale=0.3]{Kinder-Weltkarte.jpg}
