@@ -212,21 +212,21 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \section{Musskriterien}
 \begin{itemize}
 \item Grafisch ansprechende GUI mit einklappbarer Seitenleiste und\\ Sprachunterstützung für Englisch und Deutsch (\ziel{F010} - \ziel{F040})
-\item Mit OpenGL gerenderte Kartenansicht, die mit Maus und Tastatur intuitiv bedienbar ist (\ziel{F190}, \ziel{F200}, \ziel{F260}, \ziel{F280}, \ziel{F290}, \ziel{F540})
+\item Mit OpenGL gerenderte Kartenansicht, die mit Maus und Tastatur intuitiv bedienbar ist (\ziel{F190}, \ziel{F200}, \ziel{F260}, \ziel{F280}, \ziel{F290}, \ziel{F550})
 \item Anzeige der momentanen und möglichen Zoomstufen (\ziel{F050}, \ziel{F060})
-\item Sinnvolle Beschränkung von Zoom und Beweglichkeit (\ziel{F410}, \ziel{F420}, \ziel{F440} - \ziel{F460})
+\item Sinnvolle Beschränkung von Zoom und Beweglichkeit (\ziel{F420}, \ziel{F430}, \ziel{F450} - \ziel{F470})
 \item Ladebalken für im Hintergrund geladene Kartendaten (\ziel{F070})
 \item Verwendung einer Platzhaltertextur für nicht verfügbare Kacheln
 \item Felder zur Anzeige und Änderung des Längen- und Breitengrads (\ziel{F080}, \ziel{F090}, \ziel{F230}, \ziel{F390})
 \item Wechselmöglichkeit zwischen Globus- und flacher Kartenansicht (\ziel{F300})
 \item Wechselmöglichkeit zwischen Satellitenbildern und OpenStreetMap-Karten (\ziel{F310})
-\item Drehen, Kippen, Zoomen der Ansichten (\ziel{F400} - \ziel{F460})
-\item Text- und Symboloverlays für Städte und POIs, Anzeige der Details dazu im Detailfenster\\(ohne Markierung und Speicherfunktion)(\ziel{F140}, \ziel{F150}, \ziel{F240}, \ziel{F360}, \ziel{F470}, \ziel{570})
-\item Beschränkung der Anzahl gleichzeitig geladener Overpass-Einträge zur Ressourcenschonung \\(siehe \ziel{F470})
-\item Effizientes, asynchrones Laden von Daten durch Caching (\ziel{F500} - \ziel{F530}, \ziel{F610})
+\item Drehen, Kippen, Zoomen der Ansichten (\ziel{F410} - \ziel{F470})
+\item Text- und Symboloverlays für Städte und POIs, Anzeige der Details dazu im Detailfenster\\(ohne Markierung und Speicherfunktion)(\ziel{F140}, \ziel{F150}, \ziel{F240}, \ziel{F360}, \ziel{F480}, \ziel{580})
+\item Beschränkung der Anzahl gleichzeitig geladener Overpass-Einträge zur Ressourcenschonung \\(siehe \ziel{F480})
+\item Effizientes, asynchrones Laden von Daten durch Caching (\ziel{F510} - \ziel{F540}, \ziel{F620})
 \item Sternenhimmel als Hintergrund (\ziel{F380})
 \item Anzeige des Benutzerhandbuchs und eines Infofensters (\ziel{F100}, \ziel{F110})
-\item Speichern und Laden von Einstellungen (\ziel{F590}, \ziel{F600})
+\item Speichern und Laden von Einstellungen (\ziel{F600}, \ziel{F610})
 \end{itemize}
 
 \section{Wunschkriterien}
@@ -234,11 +234,11 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Kinder-Weltkarte als zusätzliche Kartenoption (\ziel{F310})
 \item Sonnensystem-Modellansicht als weiteren Ansichtsmodus (\ziel{F300})
 \item Anzeige des momentanen Kartenmaßstabs (\ziel{F250W})
-\item Dreidimensionales Höhenprofil auf Globus- und Kartenoberfläche (\ziel{F210W}, \ziel{F220W}, \ziel{F320W}, \ziel{F550W})
+\item Dreidimensionales Höhenprofil auf Globus- und Kartenoberfläche (\ziel{F210W}, \ziel{F220W}, \ziel{F320W}, \ziel{F560W})
 \item Änderung des Detailgrads des 3D-Modells (siehe \ziel{F330W})
-\item Funktion zum Markieren und Speichern von Punkten (\ziel{F120W}, \ziel{F130W}, \ziel{F230}, \ziel{F370W}, \ziel{F480W}, \ziel{F490W})
-\item Anzeige von Informationen zum Bildmittelpunkt (\ziel{F560W})
-\item Lokale und Globale Suchfunktion (\ziel{F160W} - \ziel{F180W}, \ziel{F580W})
+\item Funktion zum Markieren und Speichern von Punkten (\ziel{F120W}, \ziel{F130W}, \ziel{F230}, \ziel{F370W}, \ziel{F490W}, \ziel{F500W})
+\item Anzeige von Informationen zum Bildmittelpunkt (\ziel{F570W})
+\item Lokale und Globale Suchfunktion (\ziel{F160W} - \ziel{F180W}, \ziel{F590W})
 \item Zusätzliche Grafikeinstellungen wie Antialiasing oder Texturfilterung (\ziel{F330W} - \ziel{F350W})
 \item Vorausladen von Kartendaten an den Rändern der Anzeige und die der nächsten Zoomstufen (\ziel{F270})
 \item Aussetzen des Renderns bis zur Bildänderung 
@@ -253,6 +253,7 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Keine Routenplanung
 \item Keine Unterstützung für andere als die angegebenen Eingabegeräte
 \item Keine Authentifizierung um Zugriff auf vom Benutzer gespeicherte Markierungen zu erhalten
+\item Keine Kollisionserkennung bei Höhenprofilen
 \end{itemize}
 
 
@@ -445,6 +446,7 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \muss
 \item Darstellung des Sternenhimmels als Hintergrund
 \item Zentrieren eines Punktes im Ansichtsfenster, der als Längen- und Breitengrad gegeben ist
+\item Rendern des 3D-Modells im Ansichtsfenster
 \end{enumerate}
 
 \subsection*{Kartenansicht}
@@ -488,7 +490,7 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \muss
 \item Speichern von Einstellungen und Markierungen (\W) in eine Datei
 \item Laden von Einstellungen und Markierungen (\W) aus einer Datei
-\item Asynchrones Ausführen der Datenoperationen \ziel{F540} - \ziel{F580W}
+\item Asynchrones Ausführen der Datenoperationen \ziel{F550} - \ziel{F590W}
 \end{enumerate}
 
 
@@ -680,33 +682,129 @@ Wunschkriterien werden mit {\W } gekennzeichnet, alle verbleibenden sind Musskri
 \begin{details}[2pt]
 \item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
 \item \sfbf{Voraussetzung:} keine
-\item \sfbf{Test:} Szenario - Anwendungsstart
+\item \sfbf{Testszenario:} Anwendungsstart
 \end{details}
 \vspace{2mm}
-Starten des Programms. Es öffnet sich das Hauptfenster.
 \begin{enumerate}[leftmargin = 2.2cm]
+\item Starten des Programms.\\Es öffnet sich das Hauptfenster in der Systemsprache oder (ersatzweise) Englisch (\ziel{F040}). Der Ansichts-Tab befindet sich im Vordergrund.
 \wunsch
-\item Die GUI startet im Sonnensystemmodus. Die Auswahl des Kartentyps und des Höhenprofils entfällt (gemäß Abbildung 5.1). 
+\item Die GUI startet im Sonnensystemmodus. Die Auswahl des Kartentyps und des Höhenprofils, die Anzeigen für Längen-, Breitengrad, Maßstab (\W) und Zoomlevel entfällt (gemäß Abbildung 5.1).
 \muss
-\item Sollte der (\W) Sonnensystemmodus nicht realisiert werden, startet die GUI in der Globus-Ansicht mit Satellitenbildern. Erneute Auswahl des Ansichtsmodus Globus mit Satellitenbildern darf nicht mehr möglich sein (siehe \ziel{F090}, \ziel{F110}).
+\item Der Hintergrund zeigt einen Sternenhimmel (\ziel{F380}).
+\item Sollte der Sonnensystemmodus (\W) nicht realisiert werden, startet die GUI in der Globus-Ansicht mit Satellitenbildern. (\ziel{F300}).
+\item Klick auf den Rand der Seitenleiste (vgl. Abbildung 5.1).\\ Die Seitenleiste wird ausgeblendet; der Rand ist zum wiedereinblenden anklickbar (\ziel{F030})\\Klick auf den Rand der Seitenleiste.\\Die Seitenleiste wird wieder eingeblendet (\ziel{F030}).
+\item Klick auf den Einstellungen-Tab.\\Klick auf die Handbuchschaltfläche.\\Das Handbuch öffnet sich in einem neuen Fenster (\ziel{F100}).\\Schließen des Handbuchfensters.\\ Das Handbuchfenster schließt sich.
+\item Klick auf die Infoschaltfläche.\\Das Infofenster öffnet sich (\ziel{F110}).\\Schließen des Infofensters.
+\item Ändern der Sprache.\\Die Anzeigesprache ändert sich.\\ Rücksetzen der Sprache (\ziel{F040}).\\Die Anzeigesprache ändert sich erneut.
 \end{enumerate}
+
 
 \vspace{1.0cm}
 \begin{details}[2pt]
 \item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
-\item \sfbf{Voraussetzung:} Szenario - Anwendungsstart ausführen
-\item \sfbf{Test:} Funktionalität GUI inklusive der gelieferten Texturen 
+\item \sfbf{Voraussetzung:} Szenario Anwendungsstart
+\item \sfbf{Testszenario:} Globusansicht
 \end{details}
 \vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
-\item Änderung der Sprache auf Englisch - die Anzeigesprache ändert sich - Rücksetzen der Sprache auf Deutsch (siehe \ziel{F040}).
-\item Maßstabsanzeige betrachten und Skalierung notieren (siehe \ziel{F080}).
-\item Zoomlevel - Augangspunkt notieren, dann Zoomlevel erhöhen und Maßstabsänderung kontrollieren (siehe \ziel{F050}, \ziel{F080}).
-\item Maximales und Minimales Zoomlevel einstellen - Ansicht passt sich an (siehe \ziel{F210}).
-\item Zoomlevel verringern und Maßstabsänderung kontrollieren (siehe \ziel{F050}, \ziel{F080}).
-\item Zoomlevel wieder rücksetzen auf Ausgangspunkt (siehe \ziel{F050}).
-\item Maßstabsanzeige vergleichen mit vorheriger Skalierung (siehe \ziel{F080}).
+\item Wechsel zum Ansicht-Tab.\\
+Auswahl der Globusansicht, falls der Sonnensystemmodus (\W) aktiv ist.\\Der Ansichtsmodus ändert sich entsprechend (\W).\\
+Es ist die Erdkugel mit Satellitenbildern sichtbar (\ziel{F190}, \ziel{F300}).
+\item Ändern des Kartentyps zu OpenStreetMap-Straßenkarten.\\Der Kartentyp ändert sich ensprechend (\ziel{F310}).
+\item Das Zoomlevel ist auf der niedrigsten Einstellung (\ziel{F050})
+\item Momentanen Maßstab und Koordinaten (Längen-/Breitengrad) notieren (\ziel{F080}, \ziel{F250W}).\\Ändern des Zoomlevels auf 50\% (\ziel{F060}).\item Der Maßstab ändert sich entsprechend (\ziel{F250W}).
+\item Die Koordinaten des Mittelpunkts (der angezeigte Längen- und Breitengrad) bleibt gleich (\ziel{F080}, \ziel{F230}, \ziel{F460}).
+\item Die Globusoberfläche zeigt eine Platzhaltertextur, die Stück für Stück durch nachgeladene Kartenkacheln ersetzt wird (\ziel{F260}, \ziel{F270}, \ziel{F540}).
+\item Der Ladefortschritt wird in der Statusleiste angezeigt (\ziel{F070}). \item Die Oberfläche bleibt während des Ladevorgangs bedienbar (\ziel{F610}).
+\item Zoomlevel wieder rücksetzen auf das Minimum (\ziel{F060}).\\ Maßstabsanzeige vergleichen mit vorheriger Skalierung ( \ziel{F250W}).
+\end{enumerate}
+
+
+\vspace{1.0cm}
+\begin{details}[2pt]
+\item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
+\item \sfbf{Voraussetzung:} Szenario Globusansicht
+\item \sfbf{Testszenario:} Navigation auf dem Globus
+\end{details}
+\vspace{2mm}
+\begin{enumerate}[leftmargin = 2.2cm, resume]
+\item Im Ansichtsfenster die Maus mit gedrückter linker Taste nach links und rechts verschieben.\\Der Globus dreht sich um die Erdachse in Bewegungsrichtung der Maus (\ziel{F280}, \ziel{F430}).
+\item Im Ansichtsfenster die Maus mit gedrückter linker Taste nach oben und unten verschieben.\\Der Globus dreht sich in Bewegungsrichtung der Maus in Richtung Nord- oder Südpol, aber nicht über die Pole hinaus (\ziel{F440})
+\item Im Ansichtsfenster die Maus mit gedrückter linker Taste nach links und rechts verschieben.\\Der Globus dreht sich weiterhin um die Erd- und nicht um eine andere Achse (\ziel{F280}, \ziel{F430}).
+\item Hineinzoomen auf 80-90\%.\\ Das Zoomlevel ändert sich entsprechend (\ziel{F060}).\\ Warten, bis die Kartenkacheln geladen sind.
 \wunsch
+\item Aktivieren des Höhenprofils. (\ziel{F320W}).\\ Nach einer eventuellen Ladezeit wird die Globusoberfläche den SRTM-Höhendaten entsprechend nach oben oder unten versetzt angezeigt (\ziel{F210W}, \ziel{F550W}).
+\muss
+\item Im Ansichtsfenster die Maus mit gedrückter rechter Taste nach oben, unten, links und rechts bewegen.\\Die Ansicht wird am Kameraursprung entsprechend der Bewegungen gekippt (\ziel{F450})
+\wunsch
+\item Das Höhenprofil ist von der Seite betrachtbar.\\Wechsel zum Einstellungen-Tab.\\Verändern der Antialiasing-Einstellung (\ziel{F340W}).\\Ist Antialiasing auf dem System verfügbar, werden Objektkanten bei Aktivierung geglättet.
+\item Ändern der Texturfilter-Einstellungen (\ziel{F350W}).\\Ist ein Texturfilter (z.B. anisotrope Filterung) auf dem System verfügbar, erscheinen perspektivisch verzerrte Oberflächen schärfer.
+\muss
+\item Die Ansicht ist gekippt.\\Im Ansichtsfenster die Maus mit gedrückter linker Taste in alle Richtungen verschieben.\\Der Globus dreht sich, konsistent mit vorherigen Drehungen, unter dem Betrachter durch (\ziel{F280}, \ziel{F430}).
+\item Rücksetzen des Kippens mit der Taste \textit{0} (\ziel{F290}, \ziel{F450})
+\end{enumerate}
+
+
+
+\vspace{1.0cm}
+\begin{details}[2pt]
+\item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
+\item \sfbf{Voraussetzung:} Szenario Anwendungsstart
+\item \sfbf{Testszenario:} Kartenansicht
+\end{details}
+\vspace{2mm}
+\begin{enumerate}[leftmargin = 2.2cm, resume]
+\item Wechsel zum Ansicht-Tab.\\
+Auswahl der Kartenansicht.\\Der Ansichtsmodus ändert sich entsprechend.\\
+Es ist eine flache Kartenebene mit Satellitenbildern sichtbar (\ziel{F200}, \ziel{F300}).
+\item Ändern des Kartentyps zu OpenStreetMap-Straßenkarten.\\Der Kartentyp ändert sich ensprechend (\ziel{F310}).
+\item Das Zoomlevel ist auf der niedrigsten Einstellung (\ziel{F050})
+\item Momentanen Maßstab und Koordinaten (Längen-/Breitengrad) notieren (\ziel{F080}, \ziel{F250W}).\\Ändern des Zoomlevels auf 50\% (\ziel{F060}).\item Der Maßstab ändert sich entsprechend (\ziel{F250W}).
+\item Die Koordinaten des Mittelpunkts (der angezeigte Längen- und Breitengrad) bleibt gleich (\ziel{F080}, \ziel{F230}, \ziel{F420}).
+\item Die Kartenebene zeigt eine Platzhaltertextur, die Stück für Stück durch nachgeladene Kartenkacheln ersetzt wird (\ziel{F260}, \ziel{F270}, \ziel{F540}).
+\item Der Ladefortschritt wird in der Statusleiste angezeigt (\ziel{F070}). \item Die Oberfläche bleibt während des Ladevorgangs bedienbar (\ziel{F610}).
+\item Zoomlevel wieder rücksetzen auf das Minimum (\ziel{F060}).\\ Maßstabsanzeige vergleichen mit vorheriger Skalierung ( \ziel{F250W}).
+\end{enumerate}
+
+
+\vspace{1.0cm}
+\begin{details}[2pt]
+\item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
+\item \sfbf{Voraussetzung:} Szenario Kartenansicht
+\item \sfbf{Testszenario:} Navigation auf der Kartenebene
+\end{details}
+\vspace{2mm}
+\begin{enumerate}[leftmargin = 2.2cm, resume]
+\item Im Ansichtsfenster abwechselnd die linke, rechte, obere und untere Pfeiltaste drücken.\\Der Karte verschiebt sich in die entsprechenden Richtungen (\ziel{F290}, \ziel{F400}).
+\item Hineinzoomen auf 80-90\%.\\ Das Zoomlevel ändert sich entsprechend (\ziel{F060}).\\ Warten, bis die Kartenkacheln geladen sind.
+\wunsch
+\item Aktivieren des Höhenprofils. (\ziel{F320W}).\\ Nach einer eventuellen Ladezeit wird die Kartenebene den SRTM-Höhendaten entsprechend nach oben oder unten versetzt angezeigt (\ziel{F220W}, \ziel{F550W}).
+\muss
+\item Im Ansichtsfenster die Tasten Bild Auf, Bild Ab, Pos1 und Ende drücken.\\Die Ansicht wird am Kameraursprung entsprechend der Tastenbelegung in Kapitel 5.2 gekippt (\ziel{F410})
+\wunsch
+\item Das Höhenprofil ist nun von der Seite betrachtbar.\\Wechsel zum Einstellungen-Tab.\\Änderung des Detaillevels (LOD) (\ziel{F330W}).\\Der Detailgrad der Höhenprofil-Darstellung ändert sich.\\Wechsel zum Ansichts-Tab.
+\muss
+\item Die Ansicht ist gekippt.\\ Im Ansichtsfenster die Pfeiltasten betätigen.\\Die Kartenebene bewegt sich konsistent mit den vorherigen Bewegungen unter dem Betrachter durch (\ziel{F290}, \ziel{F400}).
+\item Rücksetzen des Kippens mit der Taste \textit{0} (\ziel{F290}, \ziel{F420})
+\end{enumerate}
+
+
+\vspace{1.0cm}
+\begin{details}[2pt]
+\item \sfbf{Ausgangspunkt:} Nackte Grundinstallation 
+\item \sfbf{Voraussetzung:} Szenario Kartenansicht
+\item \sfbf{Testszenario:} Navigation auf der Kartenebene
+\end{details}
+\vspace{2mm}
+\begin{enumerate}[leftmargin = 2.2cm, resume]
+\item ...
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{enumerate}[leftmargin = 2.2cm, resume]
 \item Höhenprofile einschalten und anschließend wieder ausschalten (siehe \ziel{F120W}).
 \item 3D-Modelle für Häuse/Bäume einschalten und anschließend wieder ausschalten (siehe \ziel{F120W}, \ziel{F230W}).
 \item Grafikeinstellung - Antialiasing einschalten und anschließend wieder ausschalten (siehe \ziel{F150W}).
