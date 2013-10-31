@@ -212,7 +212,7 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \section{Musskriterien}
 \begin{itemize}
 \item Grafisch ansprechende GUI mit einklappbarer Seitenleiste und\\ Sprachunterstützung für Englisch und Deutsch (\ziel{F010} - \ziel{F040})
-\item Mit OpenGL gerenderte Kartenansicht, die mit Maus und Tastatur intuitiv bedienbar ist (\ziel{F190}, \ziel{F200}, \ziel{F260}, \ziel{F280}, \ziel{F290}, \ziel{F550})
+\item Mit OpenGL gerenderte Kartenansicht, die mit Maus und Tastatur intuitiv bedienbar ist (\ziel{F190}, \ziel{F200}, \ziel{F260}, \ziel{F280}, \ziel{F290}, \ziel{F400}, \ziel{F550})
 \item Anzeige der momentanen und möglichen Zoomstufen (\ziel{F050}, \ziel{F060})
 \item Sinnvolle Beschränkung von Zoom und Beweglichkeit (\ziel{F420}, \ziel{F430}, \ziel{F450} - \ziel{F470})
 \item Ladebalken für im Hintergrund geladene Kartendaten (\ziel{F070})
@@ -220,13 +220,14 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Wechselmöglichkeit zwischen Globus- und flacher Kartenansicht (\ziel{F300})
 \item Wechselmöglichkeit zwischen Satellitenbildern und OpenStreetMap-Karten (\ziel{F310})
 \item Drehen, Kippen, Zoomen der Ansichten (\ziel{F410} - \ziel{F470})
-\item Text- und Symboloverlays für Städte und POIs, Anzeige der Details dazu im Detailfenster\\(ohne Markierung und Speicherfunktion)(\ziel{F140}, \ziel{F150}, \ziel{F240}, \ziel{F360}, \ziel{F480}, \ziel{580})
+\item Text- und Symboloverlays für Städte und POIs, Anzeige der Details dazu im Detailfenster\\(ohne Markierung und Speicherfunktion)(\ziel{F140}, \ziel{F150}, \ziel{F240}, \ziel{F360}, \ziel{F480}, \ziel{F580})
 \item Beschränkung der Anzahl gleichzeitig geladener Overpass-Einträge zur Ressourcenschonung \\(siehe \ziel{F480})
 \item Effizientes, asynchrones Laden von Daten durch Caching (\ziel{F510} - \ziel{F540}, \ziel{F620})
 \item Sternenhimmel als Hintergrund (\ziel{F380})
 \item Anzeige des Benutzerhandbuchs und eines Infofensters (\ziel{F100}, \ziel{F110})
 \item Speichern und Laden von Einstellungen (\ziel{F600}, \ziel{F610})
-\item Verwendung einer Platzhaltertextur für nicht verfügbare Kacheln
+\item Verwendung einer Platzhaltertextur für nicht verfügbare Kacheln (\ziel{F550})
+\item Bestimmung der sichtbaren Kacheln aus Kameraposition, -orientierung und Sichtfeld (FOV) (\ziel{F270})
 \end{itemize}
 
 \section{Wunschkriterien}
@@ -235,7 +236,7 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \item Sonnensystem-Modellansicht als weiteren Ansichtsmodus (\ziel{F300})
 \item Anzeige des momentanen Kartenmaßstabs (\ziel{F250W})
 \item Dreidimensionales Höhenprofil auf Globus- und Kartenoberfläche (\ziel{F210W}, \ziel{F220W}, \ziel{F320W}, \ziel{F560W})
-\item Änderung des Detailgrads des 3D-Modells (siehe \ziel{F330W})
+\item Änderung des Detailgrads des 3D-Modells (\ziel{F330W})
 \item Funktion zum Markieren und Speichern von Punkten (\ziel{F120W}, \ziel{F130W}, \ziel{F230}, \ziel{F370W}, \ziel{F490W}, \ziel{F500W})
 \item Anzeige von Informationen zum Bildmittelpunkt (\ziel{F570W})
 \item Lokale und Globale Suchfunktion (\ziel{F160W} - \ziel{F180W}, \ziel{F590W})
@@ -726,9 +727,9 @@ Es ist die Erdkugel mit Satellitenbildern sichtbar (\ziel{F190}, \ziel{F300}).
 \item Ändern des Kartentyps zu OpenStreetMap-Straßenkarten.\\Der Kartentyp ändert sich ensprechend (\ziel{F310}).
 \item Das Zoomlevel ist auf der niedrigsten Einstellung (\ziel{F050}).
 \item Momentanen Maßstab und Koordinaten (Längen-/Breitengrad) notieren (\ziel{F080}, \ziel{F250W}).\\Ändern des Zoomlevels auf 50\% (\ziel{F060}).\item Der Maßstab ändert sich entsprechend (\ziel{F250W}).
-\item Die Koordinaten des Mittelpunkts (der angezeigte Längen- und Breitengrad) bleiben gleich (\ziel{F080}, \ziel{F230}, \ziel{F460}).
-\item Die Globusoberfläche zeigt eine Platzhaltertextur, die Stück für Stück durch nachgeladene Kartenkacheln ersetzt wird (\ziel{F260}, \ziel{F270}, \ziel{F540}).
-\item Der Ladefortschritt wird in der Statusleiste angezeigt (\ziel{F070}). \item Die Oberfläche bleibt während des Ladevorgangs bedienbar (\ziel{F610}).
+\item Die Koordinaten des Mittelpunkts (der angezeigte Längen- und Breitengrad) bleiben gleich (\ziel{F080}, \ziel{F230}, \ziel{F470}).
+\item Die Globusoberfläche zeigt eine Platzhaltertextur, die Stück für Stück durch nachgeladene Kartenkacheln ersetzt wird (\ziel{F260}, \ziel{F270}, \ziel{F550}).
+\item Der Ladefortschritt wird in der Statusleiste angezeigt (\ziel{F070}). \item Die Oberfläche bleibt während des Ladevorgangs bedienbar (\ziel{F620}).
 \item Zoomlevel wieder rücksetzen auf das Minimum (\ziel{F060}).\\ Maßstabsanzeige vergleichen mit vorheriger Skalierung ( \ziel{F250W}).
 \end{enumerate}
 
@@ -741,20 +742,20 @@ Es ist die Erdkugel mit Satellitenbildern sichtbar (\ziel{F190}, \ziel{F300}).
 \end{details}
 \vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
-\item Im Ansichtsfenster die Maus mit gedrückter linker Taste nach links und rechts verschieben.\\Der Globus dreht sich um die Erdachse in Bewegungsrichtung der Maus (\ziel{F280}, \ziel{F430}).
-\item Im Ansichtsfenster die Maus mit gedrückter linker Taste nach oben und unten verschieben.\\Der Globus dreht sich in Bewegungsrichtung der Maus in Richtung Nord- oder Südpol, aber nicht über die Pole hinaus (\ziel{F440}).
-\item Im Ansichtsfenster die Maus mit gedrückter linker Taste nach links und rechts verschieben.\\Der Globus dreht sich weiterhin um die Erd- und nicht um eine andere Achse (\ziel{F280}, \ziel{F430}).
-\item Hineinzoomen auf 80-90\%.\\ Das Zoomlevel ändert sich entsprechend (\ziel{F060}).\\ Warten, bis die Kartenkacheln geladen sind.
+\item Im Ansichtsfenster die Maus mit gedrückter linker Taste nach links und rechts verschieben.\\Der Globus dreht sich um die Erdachse in Bewegungsrichtung der Maus (\ziel{F280}, \ziel{F440}).
+\item Im Ansichtsfenster die Maus mit gedrückter linker Taste nach oben und unten verschieben.\\Der Globus dreht sich in Bewegungsrichtung der Maus in Richtung Nord- oder Südpol, aber nicht über die Pole hinaus (\ziel{F450}).
+\item Im Ansichtsfenster die Maus mit gedrückter linker Taste nach links und rechts verschieben.\\Der Globus dreht sich weiterhin um die Erd- und nicht um eine andere Achse (\ziel{F280}, \ziel{F440}).
+\item Hineinzoomen auf 80-90\%.\\Das Zoomlevel ändert sich entsprechend (\ziel{F060}, \ziel{F470}).\\Warten, bis die Kartenkacheln geladen sind.
 \wunsch
-\item Aktivieren des Höhenprofils (\ziel{F320W}).\\ Nach einer eventuellen Ladezeit wird die Globusoberfläche den SRTM-Höhendaten entsprechend nach oben oder unten versetzt angezeigt (\ziel{F210W}, \ziel{F550W}).
+\item Aktivieren des Höhenprofils (\ziel{F320W}).\\Nach einer eventuellen Ladezeit wird die Globusoberfläche den SRTM-Höhendaten entsprechend nach oben oder unten versetzt angezeigt (\ziel{F210W}, \ziel{F560W}).
 \muss
-\item Im Ansichtsfenster die Maus mit gedrückter rechter Taste nach oben, unten, links und rechts bewegen.\\Die Ansicht wird am Kameraursprung entsprechend der Bewegungen gekippt (\ziel{F450}).
+\item Im Ansichtsfenster die Maus mit gedrückter rechter Taste nach oben, unten, links und rechts bewegen.\\Die Ansicht wird am Kameraursprung entsprechend der Bewegungen gekippt (\ziel{F460}).
 \wunsch
 \item Das Höhenprofil ist von der Seite betrachtbar.\\Wechsel zum Einstellungen-Tab.\\Verändern der Antialiasing-Einstellung (\ziel{F340W}).\\Ist Antialiasing auf dem System verfügbar, werden Objektkanten bei Aktivierung geglättet.
 \item Ändern der Texturfilter-Einstellungen (\ziel{F350W}).\\Ist ein Texturfilter (z.B. anisotrope Filterung) auf dem System verfügbar, erscheinen perspektivisch verzerrte Oberflächen schärfer.
 \muss
-\item Die Ansicht ist gekippt.\\Im Ansichtsfenster die Maus mit gedrückter linker Taste in alle Richtungen verschieben.\\Der Globus dreht sich, konsistent mit vorherigen Drehungen, unter dem Betrachter durch (\ziel{F280}, \ziel{F430}).
-\item Rücksetzen des Kippens mit der Taste \textit{0} (\ziel{F290}, \ziel{F450}).
+\item Die Ansicht ist gekippt.\\Im Ansichtsfenster die Maus mit gedrückter linker Taste in alle Richtungen verschieben.\\Der Globus dreht sich, konsistent mit vorherigen Drehungen, unter dem Betrachter durch (\ziel{F280}, \ziel{F440}).
+\item Rücksetzen des Kippens mit der Taste \textit{0} (\ziel{F290}, \ziel{F460}).
 \item Schließen des Fensters (\ziel{F020}).\\Programm wird beendet.
 \end{enumerate}
 
@@ -772,11 +773,11 @@ Es ist die Erdkugel mit Satellitenbildern sichtbar (\ziel{F190}, \ziel{F300}).
 Auswahl der Kartenansicht.\\Der Ansichtsmodus ändert sich entsprechend.\\
 Es ist eine flache Kartenebene mit Satellitenbildern sichtbar (\ziel{F200}, \ziel{F300}).
 \item Ändern des Kartentyps zu OpenStreetMap-Straßenkarten.\\Der Kartentyp ändert sich ensprechend (\ziel{F310}).
-\item Das Zoomlevel ist auf der niedrigsten Einstellung (\ziel{F050})
+\item Das Zoomlevel ist auf der niedrigsten Einstellung (\ziel{F050}).
 \item Momentanen Maßstab und Koordinaten (Längen-/Breitengrad) notieren (\ziel{F080}, \ziel{F250W}).\\Ändern des Zoomlevels auf 50\% (\ziel{F060}).\item Der Maßstab ändert sich entsprechend (\ziel{F250W}).
-\item Die Koordinaten des Mittelpunkts (der angezeigte Längen- und Breitengrad) bleibt gleich (\ziel{F080}, \ziel{F230}, \ziel{F420}).
-\item Die Kartenebene zeigt eine Platzhaltertextur, die Stück für Stück durch nachgeladene Kartenkacheln ersetzt wird (\ziel{F260}, \ziel{F270}, \ziel{F540}).
-\item Der Ladefortschritt wird in der Statusleiste angezeigt (\ziel{F070}). \item Die Oberfläche bleibt während des Ladevorgangs bedienbar (\ziel{F610}).
+\item Die Koordinaten des Mittelpunkts (der angezeigte Längen- und Breitengrad) bleibt gleich (\ziel{F080}, \ziel{F230}, \ziel{F430}).
+\item Die Kartenebene zeigt eine Platzhaltertextur, die Stück für Stück durch nachgeladene Kartenkacheln ersetzt wird (\ziel{F260}, \ziel{F270}, \ziel{F550}).
+\item Der Ladefortschritt wird in der Statusleiste angezeigt (\ziel{F070}). \item Die Oberfläche bleibt während des Ladevorgangs bedienbar (\ziel{F620}).
 \item Zoomlevel wieder rücksetzen auf das Minimum (\ziel{F060}).\\ Maßstabsanzeige vergleichen mit vorheriger Skalierung ( \ziel{F250W}).
 \end{enumerate}
 
@@ -789,18 +790,18 @@ Es ist eine flache Kartenebene mit Satellitenbildern sichtbar (\ziel{F200}, \zie
 \end{details}
 \vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
-\item Im Ansichtsfenster abwechselnd die linke, rechte, obere und untere Pfeiltaste drücken.\\Der Karte verschiebt sich in die entsprechenden Richtungen (\ziel{F290}, \ziel{F400}).
-\item Hineinzoomen auf 80-90\%.\\ Das Zoomlevel ändert sich entsprechend (\ziel{F060}).\\ Warten, bis die Kartenkacheln geladen sind.
+\item Im Ansichtsfenster abwechselnd die linke, rechte, obere und untere Pfeiltaste drücken.\\Der Karte verschiebt sich in die entsprechenden Richtungen (\ziel{F290}, \ziel{F400}, \ziel{F410}).
+\item Hineinzoomen auf 80-90\%.\\ Das Zoomlevel ändert sich entsprechend (\ziel{F060}).\\ Warten, bis die Kartenkacheln geladen sind (\ziel{F550}).
 \wunsch
-\item Aktivieren des Höhenprofils. (\ziel{F320W}).\\ Nach einer eventuellen Ladezeit wird die Kartenebene den SRTM-Höhendaten entsprechend nach oben oder unten versetzt angezeigt (\ziel{F220W}, \ziel{F550W}).
+\item Aktivieren des Höhenprofils (\ziel{F320W}).\\ Nach einer eventuellen Ladezeit wird die Kartenebene den SRTM-Höhendaten entsprechend nach oben oder unten versetzt angezeigt (\ziel{F220W}, \ziel{F560W}).
 \muss
-\item Im Ansichtsfenster die Tasten Bild Auf, Bild Ab, Pos1 und Ende drücken.\\Die Ansicht wird am Kameraursprung entsprechend der Tastenbelegung in Kapitel 5.2 gekippt (\ziel{F410})
+\item Im Ansichtsfenster die Tasten \textit{Bild Auf}, \textit{Bild Ab}, \textit{Pos1} und \textit{Ende} drücken.\\Die Ansicht wird am Kameraursprung entsprechend der Tastenbelegung in Kapitel 5.2 gekippt (\ziel{F420})
 \wunsch
 \item Das Höhenprofil ist nun von der Seite betrachtbar.\\Wechsel zum Einstellungen-Tab.\\Änderung des Detaillevels (LOD) (\ziel{F330W}).\\Der Detailgrad der Höhenprofil-Darstellung ändert sich.\\Wechsel zum Ansichts-Tab.
 \muss
-\item Die Ansicht ist gekippt.\\ Im Ansichtsfenster die Pfeiltasten betätigen.\\Die Kartenebene bewegt sich konsistent mit den vorherigen Bewegungen unter dem Betrachter durch (\ziel{F290}, \ziel{F400}).
+\item Die Ansicht ist gekippt.\\ Im Ansichtsfenster die Pfeiltasten betätigen.\\Die Kartenebene bewegt sich konsistent mit den vorherigen Bewegungen unter dem Betrachter durch (\ziel{F290}, \ziel{F400}, \ziel{F410}).
 \item Rücksetzen des Kippens mit der Taste \textit{0} (\ziel{F290}, \ziel{F420}).
-\item Ändern der Fenstergröße (\ziel{F010}).\\GUI Elemente richten sich neu aus. Wenn die Einstellungsleiste stark verkleinert wird, verschwinden die GUI Elemente.
+\item Ändern der Fenstergröße (\ziel{F010}).\\Die GUI-Elemente richten sich neu aus.\\Das Fenster kann nicht unter eine bestimmte Minimalgröße verkleinert werden, sodass alle Bedienelemente jederzeit sichtbar sind.
 \item Schließen des Fensters (\ziel{F020}).\\Programm wird beendet.
 \end{enumerate}
 
@@ -816,11 +817,11 @@ Es ist eine flache Kartenebene mit Satellitenbildern sichtbar (\ziel{F200}, \zie
 \item Wechsel zum Orte-Tab.\\Anzeigen verschiedener Overlays (\ziel{F140}).
 \item Die entsprechenden Overlays werden eingeblendet (\ziel{F360}).
 \item Aktivieren aller Overlays (\ziel{F150}).
-\item Prüfen anhand mehrerer Großstädte, die Menge der angezeigten Overlays (\ziel{F570}).\\Ändern des Zoomlevels auf 70-80\% (\ziel{F060}).
-\item Die Anzahl der Labels bleibt in einem angemessenen Rahmen, sodass Beschriftungen lesbar bleiben und die Menge der POIs nicht überwältigend wirkt (\ziel{F470}).
-\item Doppelklick auf ein beliebiges angezeigtes Symbol.\\Der POI wird im Ansichtsfenster zentriert (\ziel{F240}, \ziel{F390}).
+\item Anhand mehrerer Großstädte die Lesbarkeit einer hohen Menge an Overlays prüfen (\ziel{F580}).\\Ändern des Zoomlevels auf 70-80\% (\ziel{F060}).
+\item Die Anzahl der Labels bleibt in einem angemessenen Rahmen, sodass Beschriftungen lesbar bleiben und die Menge der POIs nicht überwältigend wirkt (\ziel{F480}).
+\item Doppelklick auf einen ausgezeichneten POI.\\Der POI wird im Ansichtsfenster zentriert (\ziel{F240}, \ziel{F390}).
 \wunsch
-\item Prüfen ob im Detailfenster die Informationen zum zentrierten Punkt erscheinen (\ziel{F560W}).
+\item Prüfen, ob im Detailfenster die Informationen zum zentrierten Punkt erscheinen (\ziel{F570W}).
 \muss
 \item Deaktivieren aller Overlays, außer Städte- und Ländernamen (\ziel{F150}).
 \end{enumerate}
@@ -834,7 +835,7 @@ Es ist eine flache Kartenebene mit Satellitenbildern sichtbar (\ziel{F200}, \zie
 \end{details}
 \vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
-\item Eingabe des Längengrades: 48 und des Breitengrades: 13 in der Benutzeroberfläche (\ziel{F090}, \ziel{F390}).\\Ändern des Zoomlevels auf 40-50\% (\ziel{F060}).\\Der Kartenausschnitt im Umkreis von \textit{Salzburg - Österreich} erscheint.
+\item Eingabe des Längengrades \textit{48} und des Breitengrades \textit{13} in der Benutzeroberfläche (\ziel{F090}, \ziel{F390}).\\Ändern des Zoomlevels auf 40-50\% (\ziel{F060}).\\Der Kartenausschnitt im Umkreis von \textit{Salzburg - Österreich} erscheint.
 \wunsch
 \item Wechsel zum Orte-Tab.\\Auswahl der Option \textit{in der Umgebung} suchen.\\Eingabe des Suchbegriffs \textit{Laufen} (\ziel{F160W}).
 \item Der Suchbegriff erscheint im Feld der Suchergebnisse (\ziel{F180W}).
@@ -854,7 +855,7 @@ Es ist eine flache Kartenebene mit Satellitenbildern sichtbar (\ziel{F200}, \zie
 \item Ändern des Zoomlevels auf 25-40\% (\ziel{F060}).\\Wechsel zum Orte-Tab.\\Auswahl der Suchoption \textit{Global}.\\Eingabe des Suchbegriffs \textit{Passau} (\ziel{F170W}).
 \item Der Suchbegriff erscheint im Feld der Suchergebnisse (\ziel{F180W}).
 \item Klick auf ein beliebiges Suchergebnis.\\Zentrieren des Orts im Ansichtsfenster (\ziel{F240}, \ziel{F390}).
-\item Eingabe des Suchbegriffs \textit{Ingolstadt} (\ziel{F170W}, \ziel{F580W}).
+\item Eingabe des Suchbegriffs \textit{Ingolstadt} (\ziel{F170W}, \ziel{F590W}).
 \item Der Suchbegriff erscheint im Feld der Suchergebnisse (\ziel{F180W}).
 \end{enumerate}
 
@@ -869,14 +870,14 @@ Es ist eine flache Kartenebene mit Satellitenbildern sichtbar (\ziel{F200}, \zie
 \begin{enumerate}[leftmargin = 2.2cm, resume]
 \wunsch
 \item Wiederholung des Testfalls \ziel{T570}.\\Aktivieren der Overlays \textit{Städtenamen} (\ziel{F150}).
-\item Doppelklick auf die Stadt Salzburg.\\Zentrieren der Stadt im Ansichtsfenster (\ziel{F240}, \ziel{F390}).\\Klick auf den Button \textit{Punkt markieren}.\\Der Dialog (gemäß Abbildung 5.7) öffnet sich (\ziel{F480W}).\\Eintragen von Name und Notiz zur Stadt.\\Klick auf OK.\\Der Dialog schließt sich.
+\item Doppelklick auf die Stadt Salzburg.\\Zentrieren der Stadt im Ansichtsfenster (\ziel{F240}, \ziel{F390}).\\Klick auf den Button \textit{Punkt markieren}.\\Der Dialog (gemäß Abbildung 5.7) öffnet sich (\ziel{F490W}).\\Eintragen von Name und Notiz zur Stadt.\\Klick auf OK.\\Der Dialog schließt sich.
 \item Wechsel zum Orte-Tab.\\Anzeige der gespeicherten Markierungen (\ziel{F120W}).\\Die Markierungen sind standardmäßig aktiviert.\\Kontrolle, ob der markierte Punkt im Kartenausschnitt angezeigt wird (\ziel{F370W}).\\Notieren der Koordinaten des Punkts.
-\item Deaktivieren des soeben markierten Punkts (\ziel{F130W}) \\Die Markierung wird ausgeblendet.
-\item Markierung eines weiteren Punkts durch Wiederholung von \ziel{T660W} - \ziel{680W} mit anderem Ort.
-\item Auswählen einer der soeben gesetzten Markierungen (\ziel{F120W}).
-\item Deaktivieren aller Markierungen (\ziel{F130W}).
-\item Klick auf den Button \textit{Markierung entfernen}.\\Die Markierung wird aus der Liste gelöscht (\ziel{F490W}).
-\item Schließen des Fensters (\ziel{F020}).\\Einstellungen und markierte Punkte werden gespeichert (\ziel{F590}).\\Programm wird beendet.
+\item Deaktivieren des soeben markierten Punkts (\ziel{F130W}). \\Die Markierung wird ausgeblendet.
+\item Markierung eines weiteren Punkts durch Wiederholung von \ziel{T660W} - \ziel{T680W} mit einem anderem Ort.
+\item Auswählen einer der soeben gesetzten Markierungen (\ziel{F120W}).\\Die Markierung erscheint.
+\item Deaktivieren aller Markierungen (\ziel{F130W}).\\Alle sichtbaren Markierungen verschwinden.
+\item Klick auf den Button \textit{Markierung entfernen}.\\Die Markierung wird aus der Liste gelöscht (\ziel{F500W}).
+\item Schließen des Fensters (\ziel{F020}).\\Einstellungen und markierte Punkte werden gespeichert (\ziel{F600}).\\Programm wird beendet.
 \end{enumerate}
 
 
@@ -889,7 +890,7 @@ Es ist eine flache Kartenebene mit Satellitenbildern sichtbar (\ziel{F200}, \zie
 \vspace{2mm}
 \begin{enumerate}[leftmargin = 2.2cm, resume]
 \item Starten des Programms.\\Es öffnet sich das Hauptfenster in der Systemsprache oder (ersatzweise) Englisch (\ziel{F040}). Der Ansichts-Tab befindet sich im Vordergrund.
-\item Laden der Einstellungen (\ziel{F600}).\\Einstellungen werden übernommen.
+\item Die Einstellungen der letzten Sitzung werden übernommen (\ziel{F610}).
 \item Wechseln in den Orte-Tab.\\Kontrolle ob die gespeicherten, markierten Punkte vorhanden und deaktiviert sind (\ziel{F120W}).
 \item Aktivieren eines gespeicherten Punkts (\ziel{F130W}).\\Zentrieren des Punkts im Ansichtsfenster (\ziel{F240}, \ziel{F390}).\\Vergleich der Koordinaten auf Übereinstimmung mit den zuvor Notierten.
 \end{enumerate}
@@ -906,9 +907,9 @@ Es ist eine flache Kartenebene mit Satellitenbildern sichtbar (\ziel{F200}, \zie
 \item Eingabe von ungültigen Längen- und/ oder Breitengraden.\\ Ansicht wird nicht geändert.
 \item Auswahl des Kartentyps \textit{Kinder-Weltkarte} (\ziel{F310}).\\Der Globus mit der Kinder-Weltkarte wird angezeigt.
 \item Auswahl des Kartentyps OpenStreetMap.\\Beobachten der Größe des Ordners \texttt{cache} im Datenverzeichnis mit einem geeigneten Dateimanager, währenddessen Betrachten verschiedener Teile der Karte in verschiedenen Zoomstufen.\\Der Cache-Ordner füllt sich (\ziel{F510}).
-\item Wechsel zum Einstellungen-Tab, sobald die Ordnergröße 1 MB überschritten hat. Heruntersetzen des Dateisystem-Caches auf 1 MB.\\Die Größe des Cache-Ordners verringert sich auf 1 MB. (\ziel{F540}).
-\item Betrachten verschiedener Teile der Karte in verschiedenen Zoomstufen. Die Größe des Cache-Ordners überschreitet 1 MB nicht, trotzdem ist die Ladezeit kürzlich betrachteter Kartenteile merklich verkürzt (\ziel{F520}).
-\item Drücken der Tastenkombination Strg+Q.\\Das Programm schließt sich (\ziel{F020}).
+\item Wechsel zum Einstellungen-Tab, sobald die Ordnergröße 1 MB überschritten hat.\\Heruntersetzen des Dateisystem-Caches auf 1 MB.\\Die Größe des Cache-Ordners verringert sich auf 1 MB. (\ziel{F540}).
+\item Betrachten verschiedener Teile der Karte in verschiedenen Zoomstufen.\\ Die Größe des Cache-Ordners überschreitet 1 MB nicht, trotzdem ist die Ladezeit kürzlich betrachteter Kartenteile merklich verkürzt (\ziel{F520}).
+\item Drücken der Tastenkombination \textit{Strg}+\textit{Q}.\\Das Programm schließt sich (\ziel{F020}).
 \item Der Cache-Ordner ist nun leer (\ziel{F530}).
 \end{enumerate}
 
@@ -967,7 +968,7 @@ Auch wenn die Hardwareanforderungen bereits gegeben sind, sei hier einmal die Au
 \begin{longtabu}{L{0.35} R{1.65}}
 Anisotropes Filtern & Methode um den Schärfeeindruck von perspektivisch verzerrten \textref{Texturen} zu verbessern\\
 Ansichtsfenster & Mit OpenGL gezeichneter Teil der Oberfläche, in dem die Karten- oder Globusanzeige stattfindet\\
-Ansichtsmodus & Darstellungsmodus der Karte, wie die \textref{Karten-}, die \textref{Globus-} oder \textref{Sonnensystemansicht}\\
+Ansichtsmodus & Darstellungsmodus der Karte, wie die \textref{Karten-}, die \textref{Globus-} oder die \textref{Sonnensystemansicht}\\
 Antialiasing & Methode zur Kantenglättung beim \textref{Rendern}\\
 API & (Application Programming Interface) Programmierschnittstelle zu einer Programmbibliothek oder einem Dienst\\
 Asynchrone Operation & Eine (oftmals zeitintensive) Operation, die im Hintergrund ausgeführt wird, um weiter Benutzereingaben verarbeiten zu können\\
@@ -980,10 +981,10 @@ Cache & \textref{Pufferspeicher}\\
 Client & (Netzwerktechnik) Knoten eines Netzwerks, die den Dienst eines \textref{Servers} nutzt. Für gewöhnlich eine Anwendung auf Benutzerseite\\
 Detaillevel & Auflösung der räumlichen Unterteilungen des 3D-Modells. Ein höherer Wert löst das Höhenprofil detaillierter auf, dafür steigt die benötigte Renderleistung\\
 EclEmma & Erweiterung für \textref{Eclipse} zum Messen der \textref{Testabdeckung}\\
-Eclipse & Software-Plattform und Integrierte Entwicklungsumgebung für (u.a.) \textref{Java}\\
+Eclipse & Software-Plattform und integrierte Entwicklungsumgebung für (u.a.) \textref{Java}\\
 Farbtiefe & Die Farbauflösung in Grafiken. Wird für gewöhnlich in $n$ Bit angegeben, was bedeutet, dass $2^n$ Farbwerte dargestellt werden können\\
 Fenstermanager & Komponente einer grafischen Oberfläche, die u.A. das Verschieben, Maximieren von Fenstern ermöglicht\\
-FOV & \textref{Sichtbereich}\\
+FOV & (Field of View) \textref{Sichtbereich}\\
 Framework & Programmgerüst (,,Unterbau``) in der Softwaretechnik \\
 Git & Verteiltes \textref{Versionsverwaltung}ssystem\\
 Globusansicht & \textref{Ansichtsmodus}, in dem das Kartenmaterial auf einen Globus projiziert wird\\
@@ -1012,7 +1013,7 @@ NASA & (National Aeronautics and Space Administration) Zivile US-Bundesbehörde 
 Nominatim & API zur Lokalisierung von Orten bei Suchanfragen\\
 Onboard-Grafik & Grafikhardware, die sich auf dem Prozessorchip des Systems oder fest verlötet auf der Hauptplatine befindet. Als Gegenstück zu \textit{dedizierter} Grafikhardware bietet sie niedrige Leistung zu kleinem Preis und guter Energieeffizienz\\
 OpenGL & \textref{API} zur schnellen Generierung ansprechender 2D- und 3D-Computergrafik\\
-Open-Source & (quelloffen) Werke deren Lizenzbestimmungen besagen, dass der \textref{Quelltext} frei zugänglich ist\\
+Open-Source & Software, deren Lizenzbestimmungen besagt, dass der \textref{Quelltext} frei verwendbar ist\\
 OpenStreetMap & Projekt, das freies Kartenmaterial im Internet anbietet\\
 Overlay & Text- oder Symboleinblendungen auf der Karte oder dem Globus\\
 Plattform"-unabhängigkeit & Ein plattform"-unabhängiges Programm kann auf verschiedenen Betriebssystemen  und/oder verschiedener Hardware ausgeführt werden, ohne Anpassungen zu erfordern\\
@@ -1020,20 +1021,21 @@ PNG & (Portable Network Graphics) Verlustfreies Format zur Speicherung von Bildd
 POI & (Point of Interest) POIs sind Orte auf der Weltkarte, die eine spezielle Bedeutung haben, wie Tankstellen, Banken, Tierparks oder Sehenswürdigkeiten\\
 Programm"-bibliothek & Eine Sammlung von Unterprogrammen die nicht eigenständig lauffähig ist, aber dem benutzenden Programm eine Menge an Funktionen zur Verfügung stellt\\
 Protokoll & (Netzwerktechnik) Vereinbarung über den Ablauf der Datenübertragung zwischen Netzwerkknoten (meist \textref{Server} und \textref{Client})\\
-Pufferspeicher & Kleinerer, schneller Zwischenspeicher der hilft, Zugriffe ein langsameres Medium zu beschleunigen. Dazu wird eine \textit{Verdrängungsstrategie} implementiert, die aus statistischen Daten abzuleiten versucht, welche Daten in nächster Zeit abgerufen werden. Diese werden dann so lange wie möglich vorgehalten\\
-Quelltext & Ein Programm oder Programmteil, das in einer menschenlesbaren Programmiersprache vorliegt\\
+Pufferspeicher & Kleiner, schneller Zwischenspeicher der hilft, Zugriffe auf ein langsameres Medium zu beschleunigen. Dazu wird eine \textit{Verdrängungsstrategie} implementiert, die aus statistischen Daten abzuleiten versucht, welche Daten in nächster Zeit abgerufen werden. Diese werden dann so lange wie möglich vorgehalten\\
+Quelltext & Ein Programm oder Programmteil, das in einer von Menschen lesbaren Programmiersprache vorliegt\\
 RAM & (Random Access Memory) Arbeitsspeicher\\
 Rendern & Erzeugen eines (zweidimensionalen) Bildes aus Rohdaten, hier aus einem räumlichen Modell\\
 Server & Gegenstelle im Netzwerk, die einen Dienst zur Verfügung stellt, hier u.A. Lieferung des Kartenmaterials\\
 SDK & (\textref{Software Development Kit}) Sammlung von Werkzeugen und Anwendungen um eine Software zu erstellen\\
-Sichtbereich & (Field of View, FOV) Differenz zwischen dem maximal und minimal sichtbaren Winkel, der durch den linken und rechten Rand des \textref{Ansichtsfensters} begrenzt ist\\
+Sichtbereich & (auch \textit{Field of View}, \textit{FOV}) Differenz zwischen dem maximal und minimal sichtbaren Winkel, der durch den linken und rechten Rand des \textref{Ansichtsfensters} begrenzt ist\\
 Sonnensystem"-ansicht & \textref{Ansichtsmodus}, in dem keine Karten, sondern eine Satellitendarstellung der Erde und anderer Himmelskörper möglich ist\\
 SRTM-Daten & (Shuttle Radar Topography Mission) Höhendaten der Erdoberfläche, die vom Space Shuttle Endeavour gemessen wurden\\
 Testabdeckung & Gibt an welche, Codeabschnitte von globalen Testszenarien und \textref{Modultests} erfasst werden \\
 Textur & Zweidimensionale (Oberflächen-) Grafik im Kontext von \textref{Rendern}\\
 Unit-Test & \textref{Modultest}\\
-Versions"-verwaltung & Software, die das einfache gemeinsame Arbeiten und Verfolgen von Änderungen an \textref{Quelltext} ermöglicht.\\
-Windows & Kommerzielles Betriebssystem der Firma Microsoft\\
+Verdrängungs"-strategie & \textref{Pufferspeicher}\\
+Versions"-verwaltung & Software, die ein gemeinsames Arbeiten und Verfolgen von Änderungen an Dateien und insbesondere \textref{Quelltext} ermöglicht.\\
+Windows & Kommerzielles Betriebssystem von Microsoft\\
 x86\_64 & Prozessorarchitektur für 64-Bit-Rechner, die sich heute in den meisten verkauften Desktopsystemen findet. Entworfen von AMD, später von Intel übernommen, ist sie auch unter dem namen \textit{AMD64}, \textit{EM64T} oder \textit{Intel 64} bekannt\\
 XML & (Extensible Markup Language) Sprache zur Darstellung hierarchisch strukturierter Daten. Wird unter anderem für den \textref{plattformunabhängigen} Austausch von Daten verwendet\\
 Zoomlevel & Angabe zur \textref{Auflösung} der \textref{(Bild-) Kacheln} in der Ansicht\\
