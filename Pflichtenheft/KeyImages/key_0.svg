@@ -15,7 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="key_Q.svg"
+   sodipodi:docname="key_0.svg"
    inkscape:export-filename="/home/fabio/key.png"
    inkscape:export-xdpi="90.225594"
    inkscape:export-ydpi="90.225594"
@@ -327,7 +327,7 @@
        xml:space="preserve"
        id="flowRoot3031"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       transform="translate(128.45506,204.64862)"><flowRegion
+       transform="matrix(1.4301917,0,0,1.4301917,56.505304,147.29377)"><flowRegion
          id="flowRegion3033"><rect
            id="rect3035"
            width="210"
