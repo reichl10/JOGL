@@ -2,23 +2,5 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/blauberg/workspace/libjogl/jogl-all.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://jogamp.org/deployment/jogamp-next/javadoc/jogl/javadoc/"/>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/blauberg/workspace/libjogl"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/blauberg/workspace/libjogl/gluegen-rt.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://jogamp.org/deployment/jogamp-next/javadoc/gluegen/javadoc/"/>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/blauberg/workspace/libjogl"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/home/blauberg/Dokumente/SEP/JoglEarth/Entwurf/jgoodies-forms-1.7.1/jgoodies-forms-1.7.1.jar" sourcepath="/home/blauberg/Dokumente/SEP/JoglEarth/Entwurf/jgoodies-forms-1.7.1/jgoodies-forms-1.7.1-sources.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/home/blauberg/Dokumente/SEP/JoglEarth/Entwurf/jgoodies-forms-1.7.1/jgoodies-forms-1.7.1-javadoc.jar!/"/>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/blauberg/Dokumente/SEP/JoglEarth/Entwurf/jgoodies-forms-1.7.1"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
