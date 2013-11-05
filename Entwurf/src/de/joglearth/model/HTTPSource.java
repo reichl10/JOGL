@@ -2,8 +2,15 @@ package de.joglearth.model;
 
 public class HTTPSource<Key, Value> extends Source<Key, Value> {
 
+	// Die Server, die der Reihe nach nach Daten gefragt werden sollen.
+	// Können entwerder einfache URLs a la "domain.tld/folder/to/data/" sein,
+	// oder ein Format-String a la "domain.tld/data/%s/%s", der dann mit einer 
+	// überschriebenen getURL-Methode aufgelöst wird.
+	
+	// Verwaltung? Sollen uU. unerreichbare Server markiert werden?
 	private String[] servers;
 	
+	// Owner: Wie bei Source
 	public HTTPSource(RequestListener<Key, Value> owner, String[] servers) {
 		super(owner);
 		this.servers = servers;

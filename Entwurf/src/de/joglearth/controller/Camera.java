@@ -3,15 +3,15 @@ package de.joglearth.controller;
 import de.joglearth.model.Point;
 import de.joglearth.model.Tile;
 
-public class Camera {
+public abstract class Camera {
 	
-	private float longitude;
-	private float latitude;
-	private float distance;
-	private float tiltX;
-	private float tiltY;
-	private float aspectRatio;
-	private float fov;
+	protected float longitude;
+	protected float latitude;
+	protected float distance;
+	protected float tiltX;
+	protected float tiltY;
+	protected float aspectRatio;
+	protected float fov;
 	
 	public Camera(){
 	}
@@ -43,7 +43,7 @@ public class Camera {
 		this.tiltY += y;
 	}
 	
-	public void rotate(float longitude, float latitude) {
+	public void move(float longitude, float latitude) {
 		this.longitude += longitude;
 		this.latitude += latitude;		
 	}
@@ -52,17 +52,24 @@ public class Camera {
 		return false;
 	}
 	
-	// Gibt Point zurück, falls Punkt sichtbar, sonst null 
-	public Point getWindowPosition(float longitude, float latitude) {
-		return null;
-	}
 	
-	public Point getCoordinates(float screenX, float screenY) {
-		return null;
-	}
+	// Gibt Point zurück, falls Punkt sichtbar, sonst null.
+	// x- und y-Koordinaten des Points sind zwischen 0 und 1, was die 
+	// Bildschirmposition festlegt.
+	public abstract Point getWindowPosition(float longitude, float latitude);
 	
-	public Tile[] getVisibleTiles() {
-		return null;
-	}
+	
+	// Die koordinaten screen{X,Y} sind zwischen 0 und 1.
+	// Gibt Längen- und Breitengrad zurück, falls unter dem Punkt
+	// die Kugel/Ebene liegt, sonst null.
+	public abstract Point getCoordinates(float screenX, float screenY);
+	
+	// Gibt die sichtbaren Kacheln zurück.
+	// Kachelgrößen und Position können von der Kamera aus dem sichtbaren 
+	// Kugelteil bestimmt werden.
+	public abstract Tile[] getVisibleTiles();
+	
+	// Berechnet die Darstellungsmatrix aus den Attributen
+	public abstract Matrix4 getProjectionMatrix();
 	
 }

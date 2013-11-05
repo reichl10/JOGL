@@ -1,6 +1,7 @@
 package de.joglearth.model;
 
 
+// Speichert eine Kachel über ihre Längen- und Breitengradgrenzen.
 public class Tile {
 	
 	public float longFrom, longTo, latFrom, latTo;

@@ -1,9 +1,20 @@
 package de.joglearth.model;
 
+
+// Cache-Reference-Typ ist Integer, da die interne Speicherung wohl
+// mit Arrays oder HashMap<Integer, Value> funktioniert
 public class MemoryCache<Key, Value> extends Cache<Key, Value, Integer> {
 	
-	private Source<Key, Value> secondary, source;
+	// Sekundärer Cache, wird bei Fehlen eines Datums u.U. zuerst gefragt.
+	// Darf null sein.
+	private Source<Key, Value> secondary;
+	
+	// Datenquelle, z.B. HTTPSource. 
+	private Source<Key, Value> source;
 
+	
+	// Owner ist das Objekt, das bei einem asynchron geladenen Datensatz 
+	// benachrichtigt wird. Darf null sein.
 	public MemoryCache(RequestListener<Key, Value> owner, 
 			Source<Key, Value> secondary, 
 			Source<Key, Value> source) {
@@ -11,9 +22,9 @@ public class MemoryCache<Key, Value> extends Cache<Key, Value, Integer> {
 		this.secondary = secondary;
 		this.source = source;
 	}
-	
+
 	public void requestCompleted(Key k, Value v) {
-		//put data into memory cache
+		// Daten in den eigenen Cache einfügen
 		super.requestCompleted(k, v);
 	}
 	
@@ -24,7 +35,6 @@ public class MemoryCache<Key, Value> extends Cache<Key, Value, Integer> {
 
 	@Override
 	protected Integer addEntry(Value v) {
-		// TODO Automatisch erstellter Methoden-Stub
 		return null;
 	}	
 
