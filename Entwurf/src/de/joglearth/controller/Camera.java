@@ -2,18 +2,33 @@ package de.joglearth.controller;
 
 import de.joglearth.model.Point;
 import de.joglearth.model.Tile;
+import de.joglearth.model.UpdateListener;
 
-public abstract class Camera {
+/*
+ * getDisplayedArea() zwecks overpass & nominatim & renderer(abfrage derzeitiger ausschnitt)
+ */
+public class Camera {
 	
-	protected float longitude;
-	protected float latitude;
-	protected float distance;
-	protected float tiltX;
-	protected float tiltY;
-	protected float aspectRatio;
-	protected float fov;
+	private float longitude;
+	private float latitude;
+	private float distance;
+	private float tiltX;
+	private float tiltY;
+	private float aspectRatio;
+	private float fov;
+	private Type type;
 	
-	public Camera(){
+	public enum Type {
+		PLANE,
+		SPHERE
+	}
+	
+	public Camera(Type t) {
+		
+	}
+	
+	public void setType (Type t) {
+		this.type = t;
 	}
 	
 	public void setPosition(float longitude, float latitude) {
@@ -56,20 +71,28 @@ public abstract class Camera {
 	// Gibt Point zurück, falls Punkt sichtbar, sonst null.
 	// x- und y-Koordinaten des Points sind zwischen 0 und 1, was die 
 	// Bildschirmposition festlegt.
-	public abstract Point getWindowPosition(float longitude, float latitude);
+	public Point getWindowPosition(float longitude, float latitude) {
+		return null;
+	}
 	
 	
 	// Die koordinaten screen{X,Y} sind zwischen 0 und 1.
 	// Gibt Längen- und Breitengrad zurück, falls unter dem Punkt
 	// die Kugel/Ebene liegt, sonst null.
-	public abstract Point getCoordinates(float screenX, float screenY);
+	public Point getCoordinates(float screenX, float screenY) {
+		return null;
+	}
 	
 	// Gibt die sichtbaren Kacheln zurück.
 	// Kachelgrößen und Position können von der Kamera aus dem sichtbaren 
 	// Kugelteil bestimmt werden.
-	public abstract Tile[] getVisibleTiles();
+	public Tile[] getVisibleTiles() {
+		return null;
+	}
 	
 	// Berechnet die Darstellungsmatrix aus den Attributen
-	public abstract Matrix4 getProjectionMatrix();
+	public Matrix4 getProjectionMatrix() {
+		return null;
+	}
 	
 }

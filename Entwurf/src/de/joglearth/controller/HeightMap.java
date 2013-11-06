@@ -4,10 +4,18 @@ import de.joglearth.model.FileSystemCache;
 import de.joglearth.model.HTTPSource;
 import de.joglearth.model.MemoryCache;
 import de.joglearth.model.RequestListener;
+import de.joglearth.model.UpdateProvider;
 import de.joglearth.view.Renderer;
 
 
-public class HeightMap {
+public class HeightMap extends UpdateProvider {
+
+	public HeightMap() {		
+		FileSystemCache<TileCoordinates, byte[]> fsCache = null;
+		HTTPSource<TileCoordinates, byte[]> source = null;
+		cache = new MemoryCache<TileCoordinates, byte[]>(new TileListener(),
+				fsCache, source);
+	}
 	
 	// Gerundete Koordinaten in 2-Bogensekunden, zur SRTM-Indizierung.
 	// Evtl. Format in Wirklichkeit anders.
@@ -21,30 +29,20 @@ public class HeightMap {
 		
 		@Override
 		public void requestCompleted(TileCoordinates k, byte[] v) {
-			renderer.post();
+			postUpdate();
 		}
 	}
 
-	// Der Renderer, der Benachrichtigungen wegen.
-	private Renderer renderer;
-
-	// Der (primÃ¤re) Cache. KÃ¼mmert sich um den sekundÃ¤ren Plattencache und 
-	// das Laden Ã¼ber HTTP (siehe Konstruktor von HeightMap)
+	// Der (primäre) Cache. Kümmert sich um den sekundären Plattencache und 
+	// das Laden über HTTP (siehe Konstruktor von HeightMap)
 	private MemoryCache<TileCoordinates, byte[]> cache;
 	
 	
-	public HeightMap(Renderer r) {		
-		FileSystemCache<TileCoordinates, byte[]> fsCache = null;
-		HTTPSource<TileCoordinates, byte[]> source = null;
-		cache = new MemoryCache<TileCoordinates, byte[]>(new TileListener(), fsCache, source);
-		renderer = r;
-	}
-	
-	// Versucht die HÃ¶he an einem Punkt zu bestimmen, gibt 0 zurÃ¼ck, wenn die HÃ¶hendaten 
+	// Versucht die Höhe an einem Punkt zu bestimmen, gibt 0 zurück, wenn die Höhendaten 
 	// nicht im Cache sind.
 	public float height(float longitude, float latitude) {
-		/*lÃ¤ngen- breitengrad auf bogensekunden runden, tileCoordinate bestimmen
-		 * kachel vom cache anfordern, hÃ¶henwert interpolieren(bestimmen).
+		/*längen- breitengrad auf bogensekunden runden, tileCoordinate bestimmen
+		 * kachel vom cache anfordern, höhenwert interpolieren(bestimmen).
 		 */
 		return 0;
 	}

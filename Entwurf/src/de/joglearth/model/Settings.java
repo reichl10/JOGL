@@ -1,8 +1,6 @@
 package de.joglearth.model;
 
-import java.util.ArrayList;
-
-public class Settings {
+public class Settings extends UpdateProvider {
 	
 	private String language;
 	private boolean textureFilter;
@@ -11,7 +9,7 @@ public class Settings {
 	private boolean antialiasing;
 	private int ramCache;
 	private int hddCache;
-	private ArrayList<String> markedPoints;
+	private Location[] userTags;
 	
 	public void load() {
 		
@@ -21,4 +19,15 @@ public class Settings {
 		
 	}
 
+	public void addUserTag(Location location) {
+		
+	}
+	
+	public void removeUserTag(int index) {
+		
+	}
+
+	public Location[] getUserTags() {
+		return userTags;
+	}
 }
