@@ -294,7 +294,7 @@
         <children xmi:type="notation:ListCompartment" xmi:id="_8iHQ9EcTEeOsEt3vS63TkA" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
         <children xmi:type="notation:ListCompartment" xmi:id="_8iHQ9UcTEeOsEt3vS63TkA" type="ANNOTATED_OPERATION_COMPARTMENT"/>
         <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=HTTPSource%5Bjcu%5Ename=HTTPSource.java%5Bjpack%5Ename=de.joglearth.model%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D$uml.Class"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8iHQ7UcTEeOsEt3vS63TkA" x="6350" y="32131"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8iHQ7UcTEeOsEt3vS63TkA" x="6350" y="32131" height="3629"/>
       </children>
       <children xmi:type="umlnotation:UMLShape" xmi:id="_8iHQ9kcTEeOsEt3vS63TkA" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
         <children xmi:type="notation:DecorationNode" xmi:id="_8iHQ-EcTEeOsEt3vS63TkA" type="ImageCompartment">
@@ -319,13 +319,13 @@
         <children xmi:type="notation:BasicDecorationNode" xmi:id="_8iHRB0cTEeOsEt3vS63TkA" type="Parent"/>
         <children xmi:type="notation:ListCompartment" xmi:id="_8iHRCEcTEeOsEt3vS63TkA" visible="false" type="ANNOTATION_COMPARTMENT"/>
         <children xmi:type="notation:ListCompartment" xmi:id="_8iHRCUcTEeOsEt3vS63TkA" type="ANNOTATED_ATTRIBUTE_COMPARTMENT">
-          <layoutConstraint xmi:type="notation:Ratio" xmi:id="_OUJq8EcbEeOsEt3vS63TkA" value="-0.6557911908646004"/>
+          <layoutConstraint xmi:type="notation:Ratio" xmi:id="_OUJq8EcbEeOsEt3vS63TkA" value="0.21636810677906568"/>
         </children>
         <children xmi:type="notation:ListCompartment" xmi:id="_8iHRCkcTEeOsEt3vS63TkA" type="ANNOTATED_OPERATION_COMPARTMENT">
-          <layoutConstraint xmi:type="notation:Ratio" xmi:id="_OUJq8UcbEeOsEt3vS63TkA" value="1.6557911908646004"/>
+          <layoutConstraint xmi:type="notation:Ratio" xmi:id="_OUJq8UcbEeOsEt3vS63TkA" value="0.7836318932209343"/>
         </children>
         <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=FileSystemCache%5Bjcu%5Ename=FileSystemCache.java%5Bjpack%5Ename=de.joglearth.model%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D$uml.Class"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8iHRAkcTEeOsEt3vS63TkA" x="12700" y="26543"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8iHRAkcTEeOsEt3vS63TkA" x="12700" y="26543" height="4516"/>
       </children>
       <children xmi:type="umlnotation:UMLShape" xmi:id="_8iHRC0cTEeOsEt3vS63TkA" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
         <children xmi:type="notation:DecorationNode" xmi:id="_8iHRDUcTEeOsEt3vS63TkA" type="ImageCompartment">
@@ -374,10 +374,14 @@
         <children xmi:type="notation:BasicDecorationNode" xmi:id="_9VX580cTEeOsEt3vS63TkA" type="Name"/>
         <children xmi:type="notation:BasicDecorationNode" xmi:id="_9VX59EcTEeOsEt3vS63TkA" type="Parent"/>
         <children xmi:type="notation:ListCompartment" xmi:id="_9VX59UcTEeOsEt3vS63TkA" visible="false" type="ANNOTATION_COMPARTMENT"/>
-        <children xmi:type="notation:ListCompartment" xmi:id="_9VX59kcTEeOsEt3vS63TkA" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
-        <children xmi:type="notation:ListCompartment" xmi:id="_9VX590cTEeOsEt3vS63TkA" type="ANNOTATED_OPERATION_COMPARTMENT"/>
+        <children xmi:type="notation:ListCompartment" xmi:id="_9VX59kcTEeOsEt3vS63TkA" type="ANNOTATED_ATTRIBUTE_COMPARTMENT">
+          <layoutConstraint xmi:type="notation:Ratio" xmi:id="_v2_BEEceEeOh-bQ8rJGxFw" value="0.15649027589326098"/>
+        </children>
+        <children xmi:type="notation:ListCompartment" xmi:id="_9VX590cTEeOsEt3vS63TkA" type="ANNOTATED_OPERATION_COMPARTMENT">
+          <layoutConstraint xmi:type="notation:Ratio" xmi:id="_v2_BEUceEeOh-bQ8rJGxFw" value="0.8435097241067391"/>
+        </children>
         <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=ViewEventListener%5Bjcu%5Ename=ViewEventListener.java%5Bjpack%5Ename=de.joglearth.view%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D$uml.Class"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9VX570cTEeOsEt3vS63TkA" x="26924" y="14986"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9VX570cTEeOsEt3vS63TkA" x="26924" y="14986" height="5392"/>
       </children>
       <children xmi:type="umlnotation:UMLShape" xmi:id="_9VX6AkcTEeOsEt3vS63TkA" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
         <children xmi:type="notation:DecorationNode" xmi:id="_9VX6BEcTEeOsEt3vS63TkA" type="ImageCompartment">
