@@ -145,19 +145,38 @@ Um dem heutigen Standard hoher Softwarequalität sicherzustellen, fließen im ge
 \chapter{Beschreibung der Enumerations}
 
 \chapter{Designpatterns}
-\section{Model-View-Controller (MVC) Pattern}
-\section{Observer Pattern}
 \section{Adapter Pattern}
-\section{Singleton Pattern}
-\section{Multiton Pattern}
-\section{Decorator Pattern}
-\section{Iterator Pattern}
-\section{Mediator Pattern}
-Vermittler
+Das \textit{Adapter Pattern} ist ein Strukturmuster. \\
+Es dient zur Übersetzung einer Schnittstelle in eine andere. \\ Dieses Pattern findet Anwendung bei den \textit{Mouse- und Key"-listenern}, welche in der Benutzeroberfläche implementiert werden. \\ Ziel ist es den Quellcode übersichtlich zu halten. Aus diesem Grund werden nur die benötigten Methoden der Listener überschrieben. Alle nicht erforderlichen Methoden werden ignoriert.
+
 \section{Chain of Responsibility Pattern}
-Kette von Zuständigkeiten (Cache)
+Das \textit{Chain of Responsibility Pattern} (bzw. Zuständigkeitskette) ist ein Verhaltensmuster. \\
+Hierbei werden mehrere Objekte hintereinander verkettet um gemeinsam eine eingehende Anfrage bearbeiten zu können. Dafür wird eine Anfrage entlang der Kette durchgereicht, bis ein Objekt die Anfrage beantworten kann. \\ Es findet Anwendung beim Speichermanagement. Eine Anfrage für eine benötigte Ressource wird immer an den \textit{memoryCache} gestellt. Die Anfrage wird entsprechend der Kette (siehe Abbildung) durchgereicht bis sie bearbeitet werden kann. \\ Ziel ist  die Entkopplung des Auslösers einer Anfrage mit seinem Empfänger.
+
 \section{Data Transfer Object}
-Mehrere Daten werden gebündelt als ein Objekt übertragen.
+Das \textit{Data Transfer Object} ist ein Muster für objektrelationale Abbildung. \\
+Hierbei werden mehrere Daten gebündelt als ein Objekt übertragen. \\ Es findet Anwendung bei Suchergebnissen und der Anfrage nach POIs. Alle Datensätze werden dann gebündelt übergeben und nicht jede Information seperat. \\ Ziel ist es die Daten zu strukturieren bzw. vollständig gruppierte Information zu einer Anfrage zu erhalten.
+
+\section{Iterator Pattern}
+Das \textit{Iterator Pattern} ist ein Verhaltensmuster. \\ Hierbei wird die verwendete Datenstruktur elementweise durchlaufen, ohne deren interne Anordnung preiszugeben.\\ Es findet Anwendung ... \\ Ziel ist es die eingesetzten Datenstrukturen effizient zu durchsuchen.
+
+\section{Mediator Pattern}
+Das \textit{Mediator Pattern} ist ein Verhaltensmuster. \\ Hierbei fungiert der Vermittler als Kommunikationsschnittstelle zwischen Objekten in einem komplexen System. \\ Es findet mehrfache Anwendung im gesamten Programm, wie beispielsweise beim Speichermanagement, beim Rendering, usw. \\ Ziel ist lockere Kopplung. Es sollen nicht alle Objekt voneinander Kenntnis besitzen.
+
+\section{Model-View-Controller (MVC) Pattern}
+Das \textit{Model-View-Controller Pattern} ist ein Architekturmuster. \\
+
+
+
+\section{Multiton Pattern}
+Das \textit{Multiton Pattern} ist ein Erzeugungsmuster. \\ Hierbei wird sichergestellt, dass mehrere Instanzen eines Objekts existieren dürfen. Eine eindeutige Zuordnung wird geregelt durch Vergabe eines Schlüssels. \\ Es findet Anwendung bei den \textit{RequestListenern} ???? \\ Ziel ist parallele Anfragestellung und -beantwortung.
+
+\section{Observer Pattern}
+Das \textit{Observer Pattern} ist ein Verhaltensmuster. \\ Hierbei wird eine Info bei durchgeführten Änderungen am Objekt an alle abhängigen Komponenten weitergegeben. \\ Es findet Anwendung ... jede Menge Observer \\ Ziel ist lose Kopplung und zudem werden die abhängigen Objekte automatisch über Änderungen in Kenntnis gesetzt.
+
+\section{Singleton Pattern}
+Das \textit{Singleton Pattern} ist ein Erzeugungsmuster. \\ Hierbei wird sichergestellt, dass genau eine einzige Instanz eines Objekts existiert. \\ Es findet Anwendung bei der Benutzeroberfläche, von der nur eine Instanz existieren darf. \\ Ziel ist eine sichergestellte Zugriffskontrolle auf das Objekt. 
+
 
 
 
