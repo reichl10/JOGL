@@ -5,17 +5,9 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
 
-import de.joglearth.model.FileSystemCache;
-import de.joglearth.model.HTTPSource;
-import de.joglearth.model.LocationManager;
-import de.joglearth.model.MemoryCache;
-import de.joglearth.model.Nominatim;
-import de.joglearth.model.RequestListener;
-import de.joglearth.model.Tile;
-import de.joglearth.model.UpdateListener;
-import de.joglearth.controller.Camera;
-import de.joglearth.controller.HeightMap;
-import de.joglearth.controller.TileType;
+import de.joglearth.model.*;
+import de.joglearth.view.*;
+import de.joglearth.controller.*;
 
 public class Renderer implements Runnable, UpdateListener {
 	private GLCanvas canv;

@@ -1,8 +1,8 @@
 package de.joglearth.controller;
 
-import de.joglearth.model.Point;
-import de.joglearth.model.Tile;
-import de.joglearth.model.UpdateListener;
+import de.joglearth.model.*;
+import de.joglearth.view.*;
+import de.joglearth.controller.*;
 
 /*
  * getDisplayedArea() zwecks overpass & nominatim & renderer(abfrage derzeitiger ausschnitt)

@@ -1,7 +1,8 @@
 package de.joglearth.view;
 
-import de.joglearth.controller.Camera;
-import de.joglearth.model.UpdateProvider;
+import de.joglearth.model.*;
+import de.joglearth.view.*;
+import de.joglearth.controller.*;
 
 public class GUIEventListener extends UpdateProvider {
 

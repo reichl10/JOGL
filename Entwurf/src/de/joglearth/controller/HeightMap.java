@@ -1,12 +1,8 @@
 package de.joglearth.controller;
 
-import de.joglearth.model.FileSystemCache;
-import de.joglearth.model.HTTPSource;
-import de.joglearth.model.MemoryCache;
-import de.joglearth.model.RequestListener;
-import de.joglearth.model.UpdateProvider;
-import de.joglearth.view.Renderer;
-
+import de.joglearth.model.*;
+import de.joglearth.view.*;
+import de.joglearth.controller.*;
 
 public class HeightMap extends UpdateProvider {
 

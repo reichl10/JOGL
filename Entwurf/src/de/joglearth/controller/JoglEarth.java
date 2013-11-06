@@ -1,9 +1,8 @@
 package de.joglearth.controller;
 
-import de.joglearth.model.LocationManager;
-import de.joglearth.model.Settings;
-import de.joglearth.view.GUI;
-import de.joglearth.view.Renderer;
+import de.joglearth.model.*;
+import de.joglearth.view.*;
+import de.joglearth.controller.*;
 
 public class JoglEarth {
 

@@ -1,12 +1,11 @@
 package de.joglearth.view;
 
+import de.joglearth.model.*;
+import de.joglearth.view.*;
+import de.joglearth.controller.*;
+
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.JFrame;
-
-import de.joglearth.controller.Camera;
-import de.joglearth.model.LocationManager;
-import de.joglearth.model.Settings;
-import de.joglearth.model.UpdateListener;
 
 public class GUI extends JFrame implements UpdateListener {
 	/**

@@ -6,8 +6,9 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-import de.joglearth.controller.Camera;
-import de.joglearth.model.UpdateProvider;
+import de.joglearth.model.*;
+import de.joglearth.view.*;
+import de.joglearth.controller.*;
 
 public class ViewEventListener extends UpdateProvider implements
 		MouseWheelListener, MouseListener, MouseMotionListener {
