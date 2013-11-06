@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="57" version="2.0">
+<workbench progressCount="18" version="2.0">
 <workbenchAdvisor/>
 <window height="742" maximized="true" width="1024" x="0" y="26">
 <fastViewData fastViewLocation="1024">
@@ -23,13 +23,15 @@
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="172" y="26"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="756" y="26"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="ModelerDiagramEditor" itemType="typeToolBarContribution" x="1053" y="26"/>
 <coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
-<coolItem id="com.ibm.support.feedback.errorreports.ui.crashReportToolbar" itemType="typeToolBarContribution" x="202" y="23"/>
-<coolItem id="com.ibm.cic.licensing.common.ui.controlContribution" itemType="typeToolBarContribution" x="145" y="26"/>
+<coolItem id="com.ibm.support.feedback.errorreports.ui.crashReportToolbar" itemType="typeToolBarContribution" x="202" y="26"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="UserSeparator" itemType="typeSeparator"/>
+<coolItem id="com.ibm.cic.licensing.common.ui.controlContribution" itemType="typeToolBarContribution" x="145" y="26"/>
 </coolbarLayout>
 <page aggregateWorkingSetId="Aggregate for window 1383729930868" focus="true" label="Arbeitsbereich - Java">
 <editors>
@@ -38,13 +40,22 @@
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HeightMap.java" partName="HeightMap.java" path="/home/trion/Uni/SEP/Git/Entwurf/src/de/joglearth/controller/HeightMap.java" title="HeightMap.java" tooltip="Entwurf/src/de/joglearth/controller/HeightMap.java" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HeightMap.java" partName="HeightMap.java" path="/home/trion/Uni/SEP/Git/Entwurf/src/de/joglearth/controller/HeightMap.java" title="HeightMap.java" tooltip="Entwurf/src/de/joglearth/controller/HeightMap.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Entwurf/src/de/joglearth/controller/HeightMap.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="327" selectionTopPixel="0"/>
+</editor>
+<editor id="com.ibm.xtools.modeler.ui.editors.internal.ModelEditor" name="JoglEarth.emx" partName="JoglEarth.emx" path="/home/trion/Uni/SEP/Git/Entwurf/src/de/joglearth/JoglEarth.emx" title="JoglEarth.emx" tooltip="Entwurf/src/de/joglearth/JoglEarth.emx" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Entwurf/src/de/joglearth/JoglEarth.emx"/>
+</editor>
+<editor id="com.ibm.xtools.modeler.ui.editors.internal.ModelEditor" name="JoglDiagramm.emx" partName="JoglDiagramm.emx" path="/home/trion/Uni/SEP/Git/Entwurf/src/de/joglearth/JoglDiagramm.emx" title="JoglDiagramm.emx" tooltip="Entwurf/src/de/joglearth/JoglDiagramm.emx" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/Entwurf/src/de/joglearth/JoglDiagramm.emx"/>
 </editor>
 </editors>
 <views>
@@ -89,16 +100,10 @@
 <view id="org.eclipse.ui.navigator.ProjectExplorer" partName="Projektexplorer">
 <viewState CommonNavigator.LINKING_ENABLED="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0"/>
 </view>
-<view id="org.eclipse.ui.internal.introview" partName="Willkommen">
-<viewState>
-<presentation currentPage="overview" restore="true"/>
-<standbyPart/>
-</viewState>
-</view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Fehler">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Fehler">
 <expanded>
-<category IMemento.internal.id="Fehler"/>
+<category IMemento.internal.id="Fehler (2 Elemente)"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="63" org.eclipse.ui.ide.markerType="222" org.eclipse.ui.ide.pathField="123" org.eclipse.ui.ide.resourceField="93" org.eclipse.ui.ide.severityAndDescriptionField="509"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -114,7 +119,7 @@
 <view id="com.ibm.xtools.mde.guidance" partName="MDD-Anleitung"/>
 <view id="com.ibm.ccl.erf.ui.views.reportexplorer" partName="Berichtsexplorer"/>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.PackageExplorer" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="ModelerDiagramEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="com.ibm.xtools.rmp.ui.internal.perspective.ModelingPerspective" id="com.ibm.xtools.modeler.internal.ui.perspectives.ModelingPerspective" label="Modellierung"/>
 <alwaysOnActionSet id="com.ibm.rational.welcome.core.helpSearchActionSet"/>
@@ -170,47 +175,32 @@
 <view id="org.eclipse.ui.views.ContentOutline"/>
 <view id="org.eclipse.ui.views.PropertySheet"/>
 <view id="org.eclipse.ui.internal.introview"/>
-<fastViews>
-<view id="com.ibm.ccl.erf.ui.views.reportexplorer" ratio="0.25"/>
+<fastViews>&#x0A;<view id="com.ibm.ccl.erf.ui.views.reportexplorer" ratio="0.25"/>
 <view id="com.ibm.xtools.mde.guidance" ratio="0.3"/>
 </fastViews>
 <fastViewBars/>
-<layout>
-<mainWindow>
-<info folder="true" part="projectExplorerArea">
-<folder activePageID="org.eclipse.ui.navigator.ProjectExplorer" appearance="2" expanded="2">
-<page content="org.eclipse.ui.navigator.ProjectExplorer" label="Projektexplorer"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="projectExplorerArea">&#x0A;<folder activePageID="org.eclipse.ui.navigator.ProjectExplorer" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.navigator.ProjectExplorer" label="Projektexplorer"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@97a7657f" ratio="0.7495049" ratioLeft="757" ratioRight="253" relationship="2" relative="projectExplorerArea">
-<folder activePageID="org.eclipse.ui.internal.introview" appearance="2" expanded="1">
-<page content="org.eclipse.ui.internal.introview" label="Willkommen"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@97a7657f" ratio="0.7495049" ratioLeft="757" ratioRight="253" relationship="2" relative="projectExplorerArea">&#x0A;<folder activePageID="org.eclipse.ui.internal.introview" appearance="2" expanded="1">&#x0A;<page content="org.eclipse.ui.internal.introview" label="Willkommen"/>
 <page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.25940594" ratioLeft="262" ratioRight="748" relationship="2" relative="projectExplorerArea"/>
-<info folder="true" part="underEditorArea" ratio="0.6597444" ratioLeft="413" ratioRight="213" relationship="4" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.views.PropertySheet" appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.PropertySheet" label="Eigenschaften"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<info folder="true" part="underEditorArea" ratio="0.6597444" ratioLeft="413" ratioRight="213" relationship="4" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.PropertySheet" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.PropertySheet" label="Eigenschaften"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="underProjectExplorerArea" ratio="0.6597444" ratioLeft="413" ratioRight="213" relationship="4" relative="projectExplorerArea">
-<folder activePageID="com.ibm.xtools.rmp.ui.diagram.layers.LayersView" appearance="2" expanded="2">
-<page content="com.ibm.xtools.rmp.ui.diagram.layers.LayersView" label="Ebenen"/>
+<info folder="true" part="underProjectExplorerArea" ratio="0.6597444" ratioLeft="413" ratioRight="213" relationship="4" relative="projectExplorerArea">&#x0A;<folder activePageID="com.ibm.xtools.rmp.ui.diagram.layers.LayersView" appearance="2" expanded="2">&#x0A;<page content="com.ibm.xtools.rmp.ui.diagram.layers.LayersView" label="Ebenen"/>
 <page content="org.eclipse.ui.views.ContentOutline" label="Gliederung"/>
 <page content="com.ibm.xtools.modeler.ui.internal.ui.views.InheritanceExplorer" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
 <part id="1"/>
 </presentation>
 </folder>
@@ -243,6 +233,7 @@
 <alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
 <alwaysOnActionSet id="org.eclipse.jdt.junit.JUnitActionSet"/>
 <alwaysOnActionSet id="org.eclipse.m2m.qvt.oml.runtime.actions"/>
+<alwaysOnActionSet id="com.ibm.cic.licensing.common.ui.toolbar.actionSet"/>
 <show_view_action id="org.eclipse.jdt.ui.PackageExplorer"/>
 <show_view_action id="org.eclipse.jdt.ui.TypeHierarchy"/>
 <show_view_action id="org.eclipse.jdt.ui.SourceView"/>
@@ -348,14 +339,7 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory>
-<editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Entwurf/src/de/joglearth/controller/HeightMap.java"/>
-</editors>
-<item active="true" historyLabel="HeightMap.java" index="0">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-</navigationHistory>
+<navigationHistory/>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
@@ -372,6 +356,12 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.ibm.xtools.modeler.ui.editors.internal.ModelEditor" name="JoglDiagramm.emx" tooltip="Entwurf/Verschiedene Modelle/JoglDiagramm.emx">
+<persistable path="/Entwurf/Verschiedene Modelle/JoglDiagramm.emx"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.ibm.xtools.modeler.ui.editors.internal.ModelEditor" name="JoglEarth.emx" tooltip="Entwurf/src/de/joglearth/JoglEarth.emx">
+<persistable path="/Entwurf/src/de/joglearth/JoglEarth.emx"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HeightMap.java" tooltip="Entwurf/src/de/joglearth/controller/HeightMap.java">
 <persistable path="/Entwurf/src/de/joglearth/controller/HeightMap.java"/>
 </file>

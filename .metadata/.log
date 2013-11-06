@@ -150,3 +150,530 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64 -product com.ibm.rationa
 
 !ENTRY org.eclipse.osgi 2 1 2013-11-06 10:25:30.276
 !MESSAGE NLS unused message: NewFolderDialog_progress in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+!SESSION 2013-11-06 20:46:53.383 -----------------------------------------------
+eclipse.buildId=unknown
+java.fullversion=JRE 1.7.0 IBM J9 2.6 Linux amd64-64 Compressed References 20120322_106209 (JIT enabled, AOT enabled)
+J9VM - R26_Java726_SR1_20120322_1720_B106209
+JIT  - r11_20120322_22976
+GC   - R26_Java726_SR1_20120322_1720_B106209_CMPRSS
+J9CL - 20120322_106209
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
+Framework arguments:  -product com.ibm.rational.rsa.product.v80.ide
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product com.ibm.rational.rsa.product.v80.ide
+
+!ENTRY org.eclipse.ui 2 0 2013-11-06 20:46:55.422
+!MESSAGE Warnings while parsing the action sets from the 'org.eclipse.ui.actionSets' extension point
+!SUBENTRY 1 org.eclipse.ui 2 0 2013-11-06 20:46:55.422
+!MESSAGE invalid keybinding: Cannot bind to an incomplete key sequence: plug-in='com.ibm.xtools.rmp.ui.search', id='AUTOGEN:::rmpSearchActionSet/com.ibm.xtools.rmp.ui.search.internal.modelingReferencesInWorkspace'
+
+!ENTRY org.eclipse.ui 2 0 2013-11-06 20:46:55.485
+!MESSAGE Warnings while parsing the object contributions from the 'org.eclipse.ui.popupMenus' extension point
+!SUBENTRY 1 org.eclipse.ui 2 0 2013-11-06 20:46:55.485
+!MESSAGE invalid keybinding: Cannot bind to an incomplete key sequence: plug-in='com.ibm.xtools.rmp.ui.search', id='AUTOGEN:::com.ibm.xtools.rmp.ui.search.internal.ReferencesObjectContribution/com.ibm.xtools.rmp.ui.search.internal.referencesInWorkspace'
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.281
+!MESSAGE NLS unused message: JavaElementInfoPage_source in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.282
+!MESSAGE NLS unused message: JavaElementInfoPage_nameLabel in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.282
+!MESSAGE NLS unused message: JavaEditorPreferencePage_link_tooltip in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.282
+!MESSAGE NLS unused message: CodeAssistAdvancedConfigurationBlock_parameterNameFromAttachedJavadoc_timeout_ms in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.283
+!MESSAGE NLS unused message: JavaElementInfoPage_not_present in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.283
+!MESSAGE NLS unused message: JavaElementInfoPage_variable in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.284
+!MESSAGE NLS unused message: JavaElementInfoPage_project in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.284
+!MESSAGE NLS unused message: SmartTypingConfigurationBlock_tabs_title in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.284
+!MESSAGE NLS unused message: JavaElementInfoPage_package in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.284
+!MESSAGE NLS unused message: JavaElementInfoPage_binary in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.285
+!MESSAGE NLS unused message: JavaElementInfoPage_package_contents in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.285
+!MESSAGE NLS unused message: PropertiesFileEditorPreferencePage_link_tooltip in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.285
+!MESSAGE NLS unused message: CodeAssistConfigurationBlock_restricted_link in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.286
+!MESSAGE NLS unused message: CodeAssistConfigurationBlock_hideDiscouraged_label in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.286
+!MESSAGE NLS unused message: JavaElementInfoPage_resource_path in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.286
+!MESSAGE NLS unused message: JavaElementInfoPage_library in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.286
+!MESSAGE NLS unused message: JavaCategoryPropertyPage_text in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.287
+!MESSAGE NLS unused message: JavaElementInfoPage_location in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.287
+!MESSAGE NLS unused message: JavaElementInfoPage_variable_path in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.287
+!MESSAGE NLS unused message: CodeAssistConfigurationBlock_hideForbidden_label in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.288
+!MESSAGE NLS unused message: MarkOccurrencesConfigurationBlock_link_tooltip in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.288
+!MESSAGE NLS unused message: JavaElementInfoPage_classpath_entry_kind in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.305
+!MESSAGE NLS unused message: OpenTypeHierarchyUtil_selectionDialog_message in: org.eclipse.jdt.internal.ui.JavaUIMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.305
+!MESSAGE NLS unused message: OpenTypeHierarchyUtil_selectionDialog_title in: org.eclipse.jdt.internal.ui.JavaUIMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.750
+!MESSAGE NLS unused message: OpenTypeHierarchyAction_messages_no_java_resources in: org.eclipse.jdt.internal.ui.actions.ActionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.750
+!MESSAGE NLS unused message: OpenTypeHierarchyAction_messages_unknown_import_decl in: org.eclipse.jdt.internal.ui.actions.ActionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.751
+!MESSAGE NLS unused message: OpenTypeHierarchyAction_messages_no_types in: org.eclipse.jdt.internal.ui.actions.ActionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.751
+!MESSAGE NLS unused message: OpenTypeHierarchyAction_messages_no_java_element in: org.eclipse.jdt.internal.ui.actions.ActionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.758
+!MESSAGE NLS unused message: CallHierarchyViewPart_callsFromMembers_3 in: org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.758
+!MESSAGE NLS unused message: SearchScopeActionGroup_hierarchy_tooltip in: org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.758
+!MESSAGE NLS unused message: SearchScopeActionGroup_hierarchy_text in: org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.758
+!MESSAGE NLS unused message: CallHierarchyViewPart_callsToMembers_3 in: org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:56.759
+!MESSAGE NLS unused message: HistoryAction_inputElements_3 in: org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:57.030
+!MESSAGE NLS unused message: LinkFolderDialog_directory_message in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:57.031
+!MESSAGE NLS unused message: NewFolderDialog_internalError in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:57.032
+!MESSAGE NLS unused message: LinkFolderDialog_createIn in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:57.033
+!MESSAGE NLS unused message: LinkFolderDialog_title in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:57.033
+!MESSAGE NLS unused message: NewFolderDialog_errorTitle in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:57.033
+!MESSAGE NLS unused message: LinkFolderDialog_folderNameGroup_label in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:57.034
+!MESSAGE NLS unused message: NewFolderDialog_folderNameEmpty in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:46:57.035
+!MESSAGE NLS unused message: NewFolderDialog_progress in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:47:34.512
+!MESSAGE NLS unused message: ModifierCorrectionSubProcessor_changemodifiertodefault_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:47:34.513
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_50_compliance_changeworkspace_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:47:34.513
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_no_50jre_message in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:47:34.514
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_50_compliance_changeproject_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:47:34.514
+!MESSAGE NLS unused message: SuppressWarningsSubProcessor_suppress_warnings_initializer_label in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:47:34.514
+!MESSAGE NLS unused message: LocalCorrectionsSubProcessor_surroundwith_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:47:34.514
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_50_project_compliance_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:47:34.514
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_no_50jre_title in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:47:34.515
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_50_workspace_compliance_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+!SESSION 2013-11-06 20:52:08.522 -----------------------------------------------
+eclipse.buildId=unknown
+java.fullversion=JRE 1.7.0 IBM J9 2.6 Linux amd64-64 Compressed References 20120322_106209 (JIT enabled, AOT enabled)
+J9VM - R26_Java726_SR1_20120322_1720_B106209
+JIT  - r11_20120322_22976
+GC   - R26_Java726_SR1_20120322_1720_B106209_CMPRSS
+J9CL - 20120322_106209
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
+Framework arguments:  -product com.ibm.rational.rsa.product.v80.ide
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product com.ibm.rational.rsa.product.v80.ide
+
+!ENTRY org.eclipse.ui 2 0 2013-11-06 20:52:11.660
+!MESSAGE Warnings while parsing the action sets from the 'org.eclipse.ui.actionSets' extension point
+!SUBENTRY 1 org.eclipse.ui 2 0 2013-11-06 20:52:11.660
+!MESSAGE invalid keybinding: Cannot bind to an incomplete key sequence: plug-in='com.ibm.xtools.rmp.ui.search', id='AUTOGEN:::rmpSearchActionSet/com.ibm.xtools.rmp.ui.search.internal.modelingReferencesInWorkspace'
+
+!ENTRY org.eclipse.ui 2 0 2013-11-06 20:52:11.697
+!MESSAGE Warnings while parsing the object contributions from the 'org.eclipse.ui.popupMenus' extension point
+!SUBENTRY 1 org.eclipse.ui 2 0 2013-11-06 20:52:11.697
+!MESSAGE invalid keybinding: Cannot bind to an incomplete key sequence: plug-in='com.ibm.xtools.rmp.ui.search', id='AUTOGEN:::com.ibm.xtools.rmp.ui.search.internal.ReferencesObjectContribution/com.ibm.xtools.rmp.ui.search.internal.referencesInWorkspace'
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.518
+!MESSAGE NLS unused message: JavaElementInfoPage_source in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.518
+!MESSAGE NLS unused message: JavaElementInfoPage_nameLabel in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.518
+!MESSAGE NLS unused message: JavaEditorPreferencePage_link_tooltip in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.518
+!MESSAGE NLS unused message: CodeAssistAdvancedConfigurationBlock_parameterNameFromAttachedJavadoc_timeout_ms in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.519
+!MESSAGE NLS unused message: JavaElementInfoPage_not_present in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.520
+!MESSAGE NLS unused message: JavaElementInfoPage_variable in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.520
+!MESSAGE NLS unused message: JavaElementInfoPage_project in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.521
+!MESSAGE NLS unused message: SmartTypingConfigurationBlock_tabs_title in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.521
+!MESSAGE NLS unused message: JavaElementInfoPage_package in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.521
+!MESSAGE NLS unused message: JavaElementInfoPage_binary in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.521
+!MESSAGE NLS unused message: JavaElementInfoPage_package_contents in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.522
+!MESSAGE NLS unused message: PropertiesFileEditorPreferencePage_link_tooltip in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.522
+!MESSAGE NLS unused message: CodeAssistConfigurationBlock_restricted_link in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.522
+!MESSAGE NLS unused message: CodeAssistConfigurationBlock_hideDiscouraged_label in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.523
+!MESSAGE NLS unused message: JavaElementInfoPage_resource_path in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.523
+!MESSAGE NLS unused message: JavaElementInfoPage_library in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.523
+!MESSAGE NLS unused message: JavaCategoryPropertyPage_text in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.524
+!MESSAGE NLS unused message: JavaElementInfoPage_location in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.524
+!MESSAGE NLS unused message: JavaElementInfoPage_variable_path in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.524
+!MESSAGE NLS unused message: CodeAssistConfigurationBlock_hideForbidden_label in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.525
+!MESSAGE NLS unused message: MarkOccurrencesConfigurationBlock_link_tooltip in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.525
+!MESSAGE NLS unused message: JavaElementInfoPage_classpath_entry_kind in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.541
+!MESSAGE NLS unused message: OpenTypeHierarchyUtil_selectionDialog_message in: org.eclipse.jdt.internal.ui.JavaUIMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:12.542
+!MESSAGE NLS unused message: OpenTypeHierarchyUtil_selectionDialog_title in: org.eclipse.jdt.internal.ui.JavaUIMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.026
+!MESSAGE NLS unused message: OpenTypeHierarchyAction_messages_no_java_resources in: org.eclipse.jdt.internal.ui.actions.ActionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.026
+!MESSAGE NLS unused message: OpenTypeHierarchyAction_messages_unknown_import_decl in: org.eclipse.jdt.internal.ui.actions.ActionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.027
+!MESSAGE NLS unused message: OpenTypeHierarchyAction_messages_no_types in: org.eclipse.jdt.internal.ui.actions.ActionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.028
+!MESSAGE NLS unused message: OpenTypeHierarchyAction_messages_no_java_element in: org.eclipse.jdt.internal.ui.actions.ActionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.034
+!MESSAGE NLS unused message: CallHierarchyViewPart_callsFromMembers_3 in: org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.034
+!MESSAGE NLS unused message: SearchScopeActionGroup_hierarchy_tooltip in: org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.034
+!MESSAGE NLS unused message: SearchScopeActionGroup_hierarchy_text in: org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.034
+!MESSAGE NLS unused message: CallHierarchyViewPart_callsToMembers_3 in: org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.035
+!MESSAGE NLS unused message: HistoryAction_inputElements_3 in: org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.272
+!MESSAGE NLS unused message: LinkFolderDialog_directory_message in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.273
+!MESSAGE NLS unused message: NewFolderDialog_internalError in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.274
+!MESSAGE NLS unused message: LinkFolderDialog_createIn in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.275
+!MESSAGE NLS unused message: LinkFolderDialog_title in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.275
+!MESSAGE NLS unused message: NewFolderDialog_errorTitle in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.275
+!MESSAGE NLS unused message: LinkFolderDialog_folderNameGroup_label in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.276
+!MESSAGE NLS unused message: NewFolderDialog_folderNameEmpty in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 20:52:13.276
+!MESSAGE NLS unused message: NewFolderDialog_progress in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.gmf.runtime.common.core 4 5 2013-11-06 20:52:45.181
+!MESSAGE Ignoring provider com.ibm.xtools.rest.ui.providers.RESTEditPartProvider since it threw an exception or error in the provides() method
+!STACK 0
+java.lang.NullPointerException
+	at com.ibm.xtools.common.ui.reduction.util.EditingCapabilitiesUtil.getEditingCapabilities(Unknown Source)
+	at com.ibm.xtools.common.ui.reduction.util.EditingCapabilitiesUtil.getDisabledEditingCapabilities(Unknown Source)
+	at com.ibm.xtools.common.ui.reduction.util.EditingCapabilitiesUtil.getEditingCapabilities(Unknown Source)
+	at com.ibm.xtools.common.ui.reduction.util.EditingCapabilitiesUtil.getEnabledActivityIds(Unknown Source)
+	at com.ibm.xtools.rest.ui.utils.RESTUtil.checkForAppliedCapability(Unknown Source)
+	at com.ibm.xtools.rest.ui.providers.RESTEditPartProvider.provides(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.services.editpart.EditPartService$ProviderDescriptor.provides(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.service.Service.safeProvides(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.service.ExecutionStrategy$1.getUncachedProviders(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.service.Service.getProviders(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.service.ExecutionStrategy$1.execute(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.service.Service.execute(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.services.editpart.EditPartService.execute(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.services.editpart.EditPartService.createGraphicEditPart(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.services.editpart.EditPartService$1.run(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLTransactionalEditingDomain.runExclusive(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain.runExclusive(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.services.editpart.EditPartService.createEditPart(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractEditPart.createChild(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractEditPart.refreshChildren(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractEditPart.refresh(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractGraphicalEditPart.refresh(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart.access$3(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart$3.run(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLTransactionalEditingDomain.runExclusive(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain.runExclusive(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart.refresh(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractEditPart.addNotify(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractGraphicalEditPart.addNotify(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractEditPart.addChild(Unknown Source)
+	at org.eclipse.gef.editparts.SimpleRootEditPart.setContents(Unknown Source)
+	at org.eclipse.gef.ui.parts.AbstractEditPartViewer.setContents(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.parts.DiagramGraphicalViewer.setContents(Unknown Source)
+	at org.eclipse.gef.ui.parts.AbstractEditPartViewer.setContents(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor.initializeGraphicalViewerContents(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor.initializeGraphicalViewer(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorWithFlyOutPalette.initializeGraphicalViewer(Unknown Source)
+	at com.ibm.xtools.rmp.ui.diagram.parts.DiagramEditorWithFeedback.initializeGraphicalViewer(Unknown Source)
+	at com.ibm.xtools.modeler.ui.editors.internal.ModelerDiagramEditor.initializeGraphicalViewer(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor.createGraphicalViewer(Unknown Source)
+	at org.eclipse.gef.ui.parts.GraphicalEditor.createPartControl(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor.createPartControl(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorWithFlyOutPalette.createPartControl(Unknown Source)
+	at org.eclipse.ui.internal.EditorReference.createPartHelper(Unknown Source)
+	at org.eclipse.ui.internal.EditorReference.createPart(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPartReference.getPart(Unknown Source)
+	at org.eclipse.ui.internal.EditorReference.getEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.busyOpenEditorBatched(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.busyOpenEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.access$11(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage$10.run(Unknown Source)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.gmf.runtime.common.ui.services.editor.AbstractEditorProvider.openEditor(Unknown Source)
+	at org.eclipse.gmf.runtime.common.ui.services.editor.OpenEditorOperation.execute(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.service.ExecutionStrategy$1.execute(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.service.Service.execute(Unknown Source)
+	at org.eclipse.gmf.runtime.common.ui.services.editor.EditorService.execute(Unknown Source)
+	at org.eclipse.gmf.runtime.common.ui.services.editor.EditorService.openEditor(Unknown Source)
+	at com.ibm.xtools.uml.ui.diagram.internal.commands.OpenDiagramCommand$2.run(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain$3.run(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLTransactionalEditingDomain.runExclusive(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain.runExclusive(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain.runAsRead(Unknown Source)
+	at com.ibm.xtools.uml.ui.diagram.internal.commands.OpenDiagramCommand.doExecuteWithResult(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.command.AbstractCommand.execute(Unknown Source)
+	at com.ibm.xtools.modeler.ui.editors.internal.ModelEditor.openDiagram(Unknown Source)
+	at com.ibm.xtools.modeler.ui.editors.internal.ModelEditor$8.run(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain$3.run(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLTransactionalEditingDomain.runExclusive(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain.runExclusive(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain.runAsRead(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.util.OperationUtil.runAsRead(Unknown Source)
+	at com.ibm.xtools.modeler.ui.editors.internal.ModelEditor.openMainDiagram(Unknown Source)
+	at com.ibm.xtools.modeler.ui.editors.internal.ModelEditor$3.run(Unknown Source)
+	at org.eclipse.swt.widgets.RunnableLock.run(Unknown Source)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Unknown Source)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Unknown Source)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.runUI(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.access$4(Unknown Source)
+	at org.eclipse.ui.internal.Workbench$7.run(Unknown Source)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Unknown Source)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(Unknown Source)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(Unknown Source)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(Unknown Source)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(Unknown Source)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(Unknown Source)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(Unknown Source)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.basicRun(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.run(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.main(Unknown Source)
+
+!ENTRY org.eclipse.gmf.runtime.common.core 4 5 2013-11-06 20:52:45.288
+!MESSAGE Ignoring provider com.ibm.xtools.rest.ui.providers.RESTEditPolicyProvider since it threw an exception or error in the provides() method
+!STACK 0
+java.lang.NullPointerException
+	at com.ibm.xtools.common.ui.reduction.util.EditingCapabilitiesUtil.getEditingCapabilities(Unknown Source)
+	at com.ibm.xtools.common.ui.reduction.util.EditingCapabilitiesUtil.getDisabledEditingCapabilities(Unknown Source)
+	at com.ibm.xtools.common.ui.reduction.util.EditingCapabilitiesUtil.getEditingCapabilities(Unknown Source)
+	at com.ibm.xtools.common.ui.reduction.util.EditingCapabilitiesUtil.getEnabledActivityIds(Unknown Source)
+	at com.ibm.xtools.rest.ui.utils.RESTUtil.checkForAppliedCapability(Unknown Source)
+	at com.ibm.xtools.rest.ui.providers.RESTEditPolicyProvider.provides(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.internal.services.editpolicy.EditPolicyService$ProviderDescriptor.provides(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.service.Service.safeProvides(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.service.ExecutionStrategy.getUncachedProviders(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.service.Service.getProviders(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.service.ExecutionStrategy$4.execute(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.service.Service.execute(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.internal.services.editpolicy.EditPolicyService.execute(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.internal.services.editpolicy.EditPolicyService.createEditPolicies(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart.createEditPolicies(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractEditPart.addNotify(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractGraphicalEditPart.addNotify(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractEditPart.addChild(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart.addChild(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractEditPart.refreshChildren(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractEditPart.refresh(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractGraphicalEditPart.refresh(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart.access$3(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart$3.run(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLTransactionalEditingDomain.runExclusive(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain.runExclusive(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart.refresh(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractEditPart.addNotify(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractGraphicalEditPart.addNotify(Unknown Source)
+	at org.eclipse.gef.editparts.AbstractEditPart.addChild(Unknown Source)
+	at org.eclipse.gef.editparts.SimpleRootEditPart.setContents(Unknown Source)
+	at org.eclipse.gef.ui.parts.AbstractEditPartViewer.setContents(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.parts.DiagramGraphicalViewer.setContents(Unknown Source)
+	at org.eclipse.gef.ui.parts.AbstractEditPartViewer.setContents(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor.initializeGraphicalViewerContents(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor.initializeGraphicalViewer(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorWithFlyOutPalette.initializeGraphicalViewer(Unknown Source)
+	at com.ibm.xtools.rmp.ui.diagram.parts.DiagramEditorWithFeedback.initializeGraphicalViewer(Unknown Source)
+	at com.ibm.xtools.modeler.ui.editors.internal.ModelerDiagramEditor.initializeGraphicalViewer(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor.createGraphicalViewer(Unknown Source)
+	at org.eclipse.gef.ui.parts.GraphicalEditor.createPartControl(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor.createPartControl(Unknown Source)
+	at org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditorWithFlyOutPalette.createPartControl(Unknown Source)
+	at org.eclipse.ui.internal.EditorReference.createPartHelper(Unknown Source)
+	at org.eclipse.ui.internal.EditorReference.createPart(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPartReference.getPart(Unknown Source)
+	at org.eclipse.ui.internal.EditorReference.getEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.busyOpenEditorBatched(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.busyOpenEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.access$11(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage$10.run(Unknown Source)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.ui.internal.WorkbenchPage.openEditor(Unknown Source)
+	at org.eclipse.gmf.runtime.common.ui.services.editor.AbstractEditorProvider.openEditor(Unknown Source)
+	at org.eclipse.gmf.runtime.common.ui.services.editor.OpenEditorOperation.execute(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.service.ExecutionStrategy$1.execute(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.service.Service.execute(Unknown Source)
+	at org.eclipse.gmf.runtime.common.ui.services.editor.EditorService.execute(Unknown Source)
+	at org.eclipse.gmf.runtime.common.ui.services.editor.EditorService.openEditor(Unknown Source)
+	at com.ibm.xtools.uml.ui.diagram.internal.commands.OpenDiagramCommand$2.run(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain$3.run(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLTransactionalEditingDomain.runExclusive(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain.runExclusive(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain.runAsRead(Unknown Source)
+	at com.ibm.xtools.uml.ui.diagram.internal.commands.OpenDiagramCommand.doExecuteWithResult(Unknown Source)
+	at org.eclipse.gmf.runtime.common.core.command.AbstractCommand.execute(Unknown Source)
+	at com.ibm.xtools.modeler.ui.editors.internal.ModelEditor.openDiagram(Unknown Source)
+	at com.ibm.xtools.modeler.ui.editors.internal.ModelEditor$8.run(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain$3.run(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLTransactionalEditingDomain.runExclusive(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain.runExclusive(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain.runAsRead(Unknown Source)
+	at org.eclipse.gmf.runtime.emf.core.util.OperationUtil.runAsRead(Unknown Source)
+	at com.ibm.xtools.modeler.ui.editors.internal.ModelEditor.openMainDiagram(Unknown Source)
+	at com.ibm.xtools.modeler.ui.editors.internal.ModelEditor$3.run(Unknown Source)
+	at org.eclipse.swt.widgets.RunnableLock.run(Unknown Source)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Unknown Source)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Unknown Source)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.runUI(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.access$4(Unknown Source)
+	at org.eclipse.ui.internal.Workbench$7.run(Unknown Source)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Unknown Source)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Unknown Source)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(Unknown Source)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(Unknown Source)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(Unknown Source)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(Unknown Source)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(Unknown Source)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(Unknown Source)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.basicRun(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.run(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.main(Unknown Source)
