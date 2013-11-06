@@ -1,0 +1,152 @@
+!SESSION 2013-11-06 10:22:22.183 -----------------------------------------------
+eclipse.buildId=unknown
+java.fullversion=JRE 1.7.0 IBM J9 2.6 Linux amd64-64 Compressed References 20120322_106209 (JIT enabled, AOT enabled)
+J9VM - R26_Java726_SR1_20120322_1720_B106209
+JIT  - r11_20120322_22976
+GC   - R26_Java726_SR1_20120322_1720_B106209_CMPRSS
+J9CL - 20120322_106209
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
+Framework arguments:  -product com.ibm.rational.rsa.product.v80.ide
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product com.ibm.rational.rsa.product.v80.ide
+
+!ENTRY org.eclipse.ui 2 0 2013-11-06 10:24:16.307
+!MESSAGE Warnings while parsing the action sets from the 'org.eclipse.ui.actionSets' extension point
+!SUBENTRY 1 org.eclipse.ui 2 0 2013-11-06 10:24:16.307
+!MESSAGE invalid keybinding: Cannot bind to an incomplete key sequence: plug-in='com.ibm.xtools.rmp.ui.search', id='AUTOGEN:::rmpSearchActionSet/com.ibm.xtools.rmp.ui.search.internal.modelingReferencesInWorkspace'
+
+!ENTRY org.eclipse.ui 2 0 2013-11-06 10:24:16.410
+!MESSAGE Warnings while parsing the object contributions from the 'org.eclipse.ui.popupMenus' extension point
+!SUBENTRY 1 org.eclipse.ui 2 0 2013-11-06 10:24:16.410
+!MESSAGE invalid keybinding: Cannot bind to an incomplete key sequence: plug-in='com.ibm.xtools.rmp.ui.search', id='AUTOGEN:::com.ibm.xtools.rmp.ui.search.internal.ReferencesObjectContribution/com.ibm.xtools.rmp.ui.search.internal.referencesInWorkspace'
+
+!ENTRY org.eclipse.ui 4 4 2013-11-06 10:24:18.299
+!MESSAGE Unable to find Action Set: com.ibm.xtools.pluglets.ui.actionSet
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.324
+!MESSAGE NLS unused message: JavaElementInfoPage_source in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.324
+!MESSAGE NLS unused message: JavaElementInfoPage_nameLabel in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.324
+!MESSAGE NLS unused message: JavaEditorPreferencePage_link_tooltip in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.324
+!MESSAGE NLS unused message: CodeAssistAdvancedConfigurationBlock_parameterNameFromAttachedJavadoc_timeout_ms in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.325
+!MESSAGE NLS unused message: JavaElementInfoPage_not_present in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.325
+!MESSAGE NLS unused message: JavaElementInfoPage_variable in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.326
+!MESSAGE NLS unused message: JavaElementInfoPage_project in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.326
+!MESSAGE NLS unused message: SmartTypingConfigurationBlock_tabs_title in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.326
+!MESSAGE NLS unused message: JavaElementInfoPage_package in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.326
+!MESSAGE NLS unused message: JavaElementInfoPage_binary in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.327
+!MESSAGE NLS unused message: JavaElementInfoPage_package_contents in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.327
+!MESSAGE NLS unused message: PropertiesFileEditorPreferencePage_link_tooltip in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.327
+!MESSAGE NLS unused message: CodeAssistConfigurationBlock_restricted_link in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.328
+!MESSAGE NLS unused message: CodeAssistConfigurationBlock_hideDiscouraged_label in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.328
+!MESSAGE NLS unused message: JavaElementInfoPage_resource_path in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.328
+!MESSAGE NLS unused message: JavaElementInfoPage_library in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.328
+!MESSAGE NLS unused message: JavaCategoryPropertyPage_text in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.329
+!MESSAGE NLS unused message: JavaElementInfoPage_location in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.329
+!MESSAGE NLS unused message: JavaElementInfoPage_variable_path in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.329
+!MESSAGE NLS unused message: CodeAssistConfigurationBlock_hideForbidden_label in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.330
+!MESSAGE NLS unused message: MarkOccurrencesConfigurationBlock_link_tooltip in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.330
+!MESSAGE NLS unused message: JavaElementInfoPage_classpath_entry_kind in: org.eclipse.jdt.internal.ui.preferences.PreferencesMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.413
+!MESSAGE NLS unused message: NewLinesTabPage_annotations_group_members in: org.eclipse.jdt.internal.ui.preferences.formatter.FormatterMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.414
+!MESSAGE NLS unused message: WhiteSpaceTabPage_try in: org.eclipse.jdt.internal.ui.preferences.formatter.FormatterMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.510
+!MESSAGE NLS unused message: OpenTypeHierarchyUtil_selectionDialog_message in: org.eclipse.jdt.internal.ui.JavaUIMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:20.511
+!MESSAGE NLS unused message: OpenTypeHierarchyUtil_selectionDialog_title in: org.eclipse.jdt.internal.ui.JavaUIMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:26.283
+!MESSAGE NLS unused message: OpenTypeHierarchyAction_messages_no_java_resources in: org.eclipse.jdt.internal.ui.actions.ActionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:26.283
+!MESSAGE NLS unused message: OpenTypeHierarchyAction_messages_unknown_import_decl in: org.eclipse.jdt.internal.ui.actions.ActionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:26.284
+!MESSAGE NLS unused message: OpenTypeHierarchyAction_messages_no_types in: org.eclipse.jdt.internal.ui.actions.ActionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:24:26.285
+!MESSAGE NLS unused message: OpenTypeHierarchyAction_messages_no_java_element in: org.eclipse.jdt.internal.ui.actions.ActionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:25:30.047
+!MESSAGE NLS unused message: CallHierarchyViewPart_callsFromMembers_3 in: org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:25:30.048
+!MESSAGE NLS unused message: SearchScopeActionGroup_hierarchy_tooltip in: org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:25:30.048
+!MESSAGE NLS unused message: SearchScopeActionGroup_hierarchy_text in: org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:25:30.048
+!MESSAGE NLS unused message: CallHierarchyViewPart_callsToMembers_3 in: org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:25:30.049
+!MESSAGE NLS unused message: HistoryAction_inputElements_3 in: org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:25:30.271
+!MESSAGE NLS unused message: LinkFolderDialog_directory_message in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:25:30.272
+!MESSAGE NLS unused message: NewFolderDialog_internalError in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:25:30.273
+!MESSAGE NLS unused message: LinkFolderDialog_createIn in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:25:30.274
+!MESSAGE NLS unused message: LinkFolderDialog_title in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:25:30.274
+!MESSAGE NLS unused message: NewFolderDialog_errorTitle in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:25:30.275
+!MESSAGE NLS unused message: LinkFolderDialog_folderNameGroup_label in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:25:30.276
+!MESSAGE NLS unused message: NewFolderDialog_folderNameEmpty in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
+
+!ENTRY org.eclipse.osgi 2 1 2013-11-06 10:25:30.276
+!MESSAGE NLS unused message: NewFolderDialog_progress in: org.eclipse.jdt.internal.ui.wizards.NewWizardMessages
