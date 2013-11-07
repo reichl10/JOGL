@@ -23,7 +23,24 @@ public class HTTPSource<Key, Value> extends Source<Key, Value> {
 
 	@Override
 	public Value requestObject(Key k) {
-		// TODO Automatisch erstellter Methoden-Stub
+		// TODO Automatisch erstellter Methoden-StubS
 		return null;
 	}
+
+	public void getWork() {
+			return;
+		}
+	public class TileLoader implements Runnable{
+		private Key key;
+		TileLoader(Key k) {
+			key = k;
+		}
+		@Override
+		public void run() {
+			// TODO: load sth
+		}
+	}
+	public void tileLoaded() {
+			return;
+		}
 }

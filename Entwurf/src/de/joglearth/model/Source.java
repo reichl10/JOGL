@@ -1,10 +1,14 @@
 package de.joglearth.model;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 public abstract class Source<Key, Value> implements RequestListener<Key, Value> {
 	
 	// Wird benachrichtigt, sobald ein Datum eintrifft. Evtl nicht in diese Klasse?
 	protected RequestListener<Key, Value> owner;
+	protected ExecutorService executor;
 	
 	@Override
 	public void requestCompleted(Key k, Value v) {
@@ -13,6 +17,10 @@ public abstract class Source<Key, Value> implements RequestListener<Key, Value> 
 	
 	public Source(RequestListener<Key, Value> owner) {
 		this.owner = owner;
+	}
+	
+	public boolean queryObject(Key k) {
+		return false;
 	}
 	
 	// Versucht ein Objekt zu laden. Wenn es lokal verfügbar ist, 
