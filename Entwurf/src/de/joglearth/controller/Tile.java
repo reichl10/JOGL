@@ -1,7 +1,11 @@
 package de.joglearth.controller;
 
+import de.joglearth.model.*;
+import de.joglearth.view.*;
+import de.joglearth.controller.*;
 
-// Speichert eine Kachel über ihre Längen- und Breitengradgrenzen.
+
+// Speichert eine Kachel ï¿½ber ihre Lï¿½ngen- und Breitengradgrenzen.
 public class Tile {
 	
 	public float longFrom, longTo, latFrom, latTo;

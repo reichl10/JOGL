@@ -4,7 +4,7 @@ package de.joglearth.model;
 // Key: Identifiziert Cache-Objekt, z.B. Kachelkoordinaten
 // Value: Gecachter Typ
 // Reference: Referenziert die tatsächlichen Daten, zB. Array-Index oder java.io.File
-public abstract class Cache<Key, Value, Reference> extends Source<Key, Value>
+public abstract class Cache<Key, Value> extends Source<Key, Value>
 		implements RequestListener<Key, Value> {
 	
 	
@@ -36,17 +36,17 @@ public abstract class Cache<Key, Value, Reference> extends Source<Key, Value>
 	// Wird von MemoryCache, FileSystemCache implementiert, die Implementierung gibt eine 
 	// Referenz auf den Datensatz zurück, bei MemoryCaches Array-Indizes, 
 	// bei Dateisystem-Caches Dateinamen, etc.
-	protected abstract Reference addEntry(Value v);
+	protected abstract void addEntry(Key k, Value v);
 	
 	
 	// Entfernt einen vorhandenen Datensatz. Wird von MemoryCache, FileSystemCache implementiert.
-	protected abstract void removeEntry(Reference r);
+	protected abstract void removeEntry(Key k);
 	
 	
 	// Gibt den Speicherplatz in Bytes zurück, den ein existierender Datensatz auf dem 
 	// Medium belegt. 
 	// Wird von MemoryCache, FileSystemCache implementiert
-	protected abstract int getEntrySize(Reference r);
+	protected abstract int getEntrySize(Key k);
 	
 }
 

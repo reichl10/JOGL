@@ -15,6 +15,7 @@
 \usepackage{multirow}
 \usepackage{caption}
 \usepackage{array}
+\usepackage{listings}
 \usepackage{amssymb}
 
 
@@ -29,6 +30,7 @@
 \deffootnote{1.5em}{1em}{[\thefootnotemark] }
 \setlength{\parindent}{0pt}
 \renewcommand{\labelitemi}{ \raisebox{0.3ex}{\small$\blacktriangleright$} }
+\lstset{language=Java}
 
 \newcommand{\sfbf}[1]{\textbf{\sffamily #1}}
 \newcommand{\sfit}[1]{\textit{\sffamily #1}}
@@ -135,35 +137,159 @@ Die Priorisierung der im Pflichtenheft angeführten Qualitätsbestimmungen besag
 Um dem heutigen Standard hoher Softwarequalität sicherzustellen, fließen im gesamten Entwurfsprozess die gesetzten Gütekriterien und Qualitätsmerkmale ein. 
 
 \chapter{UML-Klassendiragramme}
-\begin{figure}[ht]
-\begin{center}
-	\includegraphics[scale=0.5]{JoglDiagramm_Controller.eps}
-	\caption{Controller}
-\end{center}
-\end{figure}
 
-\begin{figure}[ht]
-\begin{center}
-	\includegraphics[scale=0.5]{JoglDiagramm_View.eps}
-	\caption{View}
-\end{center}
-\end{figure}
-
-\begin{figure}[ht]
-\begin{center}
+\section{Package Model}
+\begin{figure}[!htb]
 	\includegraphics[scale=0.5]{JoglDiagramm_Model.eps}
-	\caption{Model}
-\end{center}
+\vspace{2.0 cm}
 \end{figure}
 
+\section{Package View}
+\begin{figure}[!htb]
+	\includegraphics[scale=0.7]{JoglDiagramm_View.eps}
+\vspace{2.0 cm}
+\end{figure}
+
+\section{Package Controller}
+\begin{figure}[!htb]
+	\includegraphics[scale=0.5]{JoglDiagramm_Controller.eps}
+\vspace{2.0 cm}
+\end{figure}
 
 \chapter{Klassenbeschreibung}
 
+\section{Package Model}
+
+\subsection*{Source}
+\begin{lstlisting}
+abstract class Source<Key, Value>
+implements RequestListener<Key, Value>
+\end{lstlisting}
+Ist in der Lage, über einen \texttt{Key} identifizierte Objekte asynchron zu beschaffen.
+\\
+
+
+\subsection*{Cache}
+\begin{lstlisting}
+abstract class Cache<Key, Value, Reference> 
+extends Source<Key, Value>
+implements RequestListener<Key, Value>
+\end{lstlisting}
+Bildet die Basis für einen Cache und implementiert eine Verdrängungsstrategie. Die Speicherung der Daten liegt bei der erbenden Klasse.
+\\
+
+\subsection*{MemoryCache}
+\begin{lstlisting}
+class MemoryCache<Key, Value>
+extends Cache<Key, Value, Integer>
+\end{lstlisting}
+Der \textit{MemoryCache} verwaltet einen Zwischenspeicher im RAM. Zudem besitzt er Kenntnis über einen sekundären Cache (beispielsweise einen \textit{FileSystemCache}) und eine Datenquelle, die bei Bedarf angefragt werden können.
+\\
+
+\subsection*{FileSystemCache}
+\begin{lstlisting}
+class FileSystemCache<Key, Value>
+extends Cache<Key, Value, String>
+\end{lstlisting}
+Der \textit{FileSystemCache} speichert Daten im Dateisystem zwischen.
+\\
+
+\subsection*{HTTPSource}
+Die \textit{HTTPSource} lädt Binärdaten von festgelegten HTTP-Servern.
+
+\subsection*{NominatimSource}
+Alle Methoden werden von der Oberklasse \textit{Source} geerbt. Alle Suchanfragen werden von dieser Klasse durchgeführt und die Antworten werden zur Weiterverarbeitung aufbereitet.
+
+\subsection*{OverpassSource}
+Alle Methoden werden von der Oberklasse \textit{Source} geerbt. Die anzuzeigenden POIs werden von dieser Klasse angefragt und die Antworten werden zur Weiterverarbeitung aufbereitet.
+
+\subsection*{NominatimQuery}
+??
+
+\subsection*{OverpassQuery}
+??
+
+\subsection*{Settings}
+Die Klasse lädt und speichert alle erforderlichen Einstellungen sowie die vom Benutzer markierten Punkte aus der Datei \texttt{Settings}.
+Desweiteren werden die Einstellungen gekapselt und anderen Klassen zugänglich gemacht.
+
+
+\section{Package View}
+\subsection*{GUI}
+Die Klasse \textit{GUI} erbt von JFrame und stellt die gesamte grafische Bedienoberfläche dar. Pro Sitzung darf lediglich eine Instanz der \textit{GUI} existieren.
+
+\subsection*{GUIEventListener}
+??
+
+\subsection*{ViewEventListener}
+??
+
+\subsection*{Renderer}
+??
+
+
+\section{Package Controller}
+\subsection*{Camera}
+
+
+\subsection*{HeightMap}
+
+
+\subsection*{UpdateProvider}
+
+
+\subsection*{Location}
+
+
+\subsection*{LocationManager}
+
+
+\subsection*{Tile}
+
+
+\subsection*{Point}
+
+
+\subsection*{Matrix4}
+
+
+\subsection*{JoglEarth}
+Die Klasse stellt die \textit{Main} Methode bereit.
+
+
 \chapter{Sequenzdiagramme}
+
+
+
 
 \chapter{Beschreibung der Interfaces}
 
+\section{Package Model}
+
+\subsection*{RequestListener}
+
+\section{Package View}
+
+\section{Package Controller}
+
+\subsection*{UpdateListener}
+
+
+
+
 \chapter{Beschreibung der Enumerations}
+
+\section{Package Model}
+
+\subsection*{NominatimQuery.Type}
+
+\section{Package View}
+
+\section{Package Controller}
+
+\subsection*{TileType}
+\subsection*{PoiType}
+\subsection*{Camera.Type}
 
 \chapter{Designpatterns}
 \section{Adapter Pattern}
@@ -181,11 +307,18 @@ Hierbei werden mehrere Daten gebündelt als ein Objekt übertragen. \\ Es findet
 \section{Iterator Pattern}
 Das \textit{Iterator Pattern} ist ein Verhaltensmuster. \\ Hierbei wird die verwendete Datenstruktur elementweise durchlaufen, ohne deren interne Anordnung preiszugeben.\\ Es findet Anwendung ... \\ Ziel ist es die eingesetzten Datenstrukturen effizient zu durchsuchen.
 
+\newpage
 \section{Mediator Pattern}
 Das \textit{Mediator Pattern} ist ein Verhaltensmuster. \\ Hierbei fungiert der Vermittler als Kommunikationsschnittstelle zwischen Objekten in einem komplexen System. \\ Es findet mehrfache Anwendung im gesamten Programm, wie beispielsweise beim Speichermanagement, beim Rendering, usw. \\ Ziel ist lockere Kopplung. Es sollen nicht alle Objekt voneinander Kenntnis besitzen.
 
 \section{Model-View-Controller (MVC) Pattern}
 Das \textit{Model-View-Controller Pattern} ist ein Architekturmuster. \\
+\begin{figure}[ht]
+\begin{centering}
+\includegraphics[scale=0.5]{ModelViewController.eps}
+\caption{Das Model-View-Controller Pattern}
+\end{centering}
+\end{figure}
 
 
 
@@ -203,34 +336,50 @@ Das \textit{Singleton Pattern} ist ein Erzeugungsmuster. \\ Hierbei wird sicherg
 
 \chapter{Qualitätsmerkmale}
 \section{Entwurfsqualität}
-Bei der Qualität des Entwurfs beziehen wir uns auf Robert Cecil Martins Merkmalsdefinitionen \footnote{Robert Cecil Martin (2002). Agile Software Development: Principles, Patterns and Practices. Pearson Education.} die im Folgenden erläutert werden. 
+Bei der Qualität des Entwurfs beziehen wir uns auf \textit{Robert Cecil Martins} Merkmalsdefinitionen \footnote{Robert Cecil Martin (2002). Agile Software Development: Principles, Patterns and Practices. Pearson Education.} die im Folgenden erläutert werden.
 
 \subsection*{Anzahl an Klassen und Interfaces}
+Die Anzahl aller Klassen inklusive abstrakter Klassen (sowie Interfaces) im gesamten Paket. Es dient als aussagekräftiger Indikator für die Erweiterbarkeit eines Pakets.
+
 \subsection*{Afferente Kopplung}
+Die Abhängigkeit anderer Pakete von einem Paket ist ein Maß für dessen Verantwortlichkeiten und dessen Einfluss.
+
 \subsection*{Efferente Kopplung}
+Die Abhängigkeit eines Pakets von anderen Paketen ist ein Maß für die Unselbstständigkeit dieses Pakets.
+
 \subsection*{Abstraktheit}
-\subsection*{Instabilität}
-\subsection*{Abstand zur Hauptlinie}
-\subsection*{Package Dependency Cycles}     Package dependency cycles are reported along with the hierarchical paths of packages participating in package dependency cycles.
+Der Anteil abstrakter Klassen (sowie Interfaces) an allen Klassen im Paket ist ein Indikator für die Abstraktheit eines Pakets.
+
+\subsection*{Stabilität}
+Das Verhältnis von afferenter Kopplung zur gesamten Kopplung gibt Auskunft über die Resilienz gegenüber Änderungen eines Pakets.
+
+\subsection*{Balance von Abstraktion und Abhängigkeit}
+Der Abstraktionsgrad der Klassen sollte in etwa deren Unabhängigkeit von anderen Klassen entsprechen. Bei Erfüllung der Anforderung spricht man von optimaler Balance.
+
+\subsection*{Kohäsion}
+Als Ergänzung zu Martin's Definitionen, welche sich nur auf das Zusammenspiel zwischen den Paketen bezieht, wird zudem die Kohäsion berücksichtigt.\\
+
+Kohäsion ist der Versuch, zusammenhängende Programmstrukturen in einer Klasse zusammenzuführen, um z.B. nachträgliche Änderungen auf lokale Anpassungen des Codes zu beschränken.
 
 
 \section{Gütekriterien nach ISO/IEC 9126}
 \subsection*{Funktionalität}
-\subsection*{Zuverlässigkeit}
-\subsection*{Benutzbarkeit}
-\subsection*{Effizienz}
-\subsection*{Ökonomie}
-\subsection*{Änderbarkeit}
-\subsection*{Übertragbarkeit}
+Funktionalität beinhaltet Angemessenheit, Richtigkeit, Interoperabilität, Ordnungsmäßigkeit und Sicherheit.
 
-\chapter*{Anhang}
-\addcontentsline{toc}{chapter}{Anhang}
-\section*{Vollständiges Klassendiagramm}
-\begin{figure}[!htb]
-\begin{center}
-	\includegraphics[scale=0.28]{JoglDiagramm_Main.eps}
-	\caption{Das vollständige Klassendiagramm}
-\end{center}
-\end{figure}
+\subsection*{Zuverlässigkeit}
+Eine Menge von Merkmalen, die sich auf die Fähigkeit einer Software/eines Systems beziehen, ihr/sein Leistungsniveau unter festgelegten Bedingungen über einen festgelegten Zeitraum oder über eine festgelegte Anzahl von Transaktionen zu bewahren. [ISO 9126]
+
+\subsection*{Benutzbarkeit}
+Die Fähigkeit eines Softwareprodukts, unter spezifizierten Bedingungen für einen Benutzer verständlich, erlernbar, anwendbar und attraktiv zu sein. [ISO 9126]
+
+\subsection*{Effizienz}
+(1) Die Fähigkeit eines Softwareprodukts, unter festgelegten Bedingungen eine angemessene Leistung zu erbringen, bezogen auf den Umfang der eingesetzten Betriebsmittel. [ISO 9126]
+
+\subsection*{Änderbarkeit}
+Mit Änderbarkeit bezeichnet man den Aufwand, der zur Durchführung bestimmter Änderungen notwendig ist. Änderungen können Korrekturen, Verbesserungen oder Anpassungen an Änderungen der Umgebung, der Anforderungen und der funktionalen Spezifikation einschließen. [ISO 9126]
+
+\subsection*{Portabilität}
+Portabilität oder Übertragbarkeit ist die Eignung einer Software, von einer Umgebung in eine andere übertragen zu werden. Diese Umgebung kann die organisatorische Umgebung, Hardware- oder Software-Umgebung einschließen. [ISO 9126]
+
 
 \end {document}

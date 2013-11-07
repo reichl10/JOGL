@@ -9,27 +9,30 @@ import de.joglearth.model.*;
 import de.joglearth.view.*;
 import de.joglearth.controller.*;
 
-public class Renderer implements Runnable, UpdateListener {
-	private GLCanvas canv;
+
+public class Renderer implements RequestListener<Tile, Integer>, Runnable,
+		UpdateListener {
+
 	private GL2 gl;
 	private boolean quit = false;
 	private boolean running;
 	private boolean posted;
 	private HeightMap height;
 	private LocationManager locationManager;
+	private TextureCache textureCache;
 	private Camera camera;
-
+	
 	public Renderer(GLCanvas canv, HeightMap height,
 			LocationManager locationManager, Camera camera) {
-		this.canv = canv;
 		this.locationManager = locationManager;
 		this.camera = camera;
-		gl = (GL2) canv.getGL();
+		this.gl = canv.getGL().getGL2();
 		canv.addGLEventListener(new RendererEventListener());
 		FileSystemCache<TileKey, byte[]> fsCache = null;
-		HTTPSource<TileKey, byte[]> source = null;
+		OSMTileSource<TileKey, byte[]> source = null;
 		memCache = new MemoryCache<TileKey, byte[]>(new CacheListener(), fsCache,
 				source);
+		textureCache = new TextureCache(this, gl);
 		this.height = height;
 	}
 	
@@ -78,13 +81,13 @@ public class Renderer implements Runnable, UpdateListener {
 	}
 
 	// Beginnt mit einer konstanten FPS-Zahl zu rendern, zB. 60.
-	// Asynchron, kehrt sofort zurück.
+	// Asynchron, kehrt sofort zurï¿½ck.
 	public synchronized void start() {
 		running = true;
 	}
 	
-	// Beendet eine Renderschleife, die mit start() angestoßen wurde.
-	// U.U. wird trotzdem noch ein Frame gerendert, falls währenddessen
+	// Beendet eine Renderschleife, die mit start() angestoï¿½en wurde.
+	// U.U. wird trotzdem noch ein Frame gerendert, falls wï¿½hrenddessen
 	// post() aufgerufen wurde.
 	public synchronized void stop() {
 		running = false;
@@ -142,4 +145,9 @@ public class Renderer implements Runnable, UpdateListener {
 			
 		}	
 	}
+
+	@Override
+	public void requestCompleted(Tile k, Integer v) {		
+	}
+	
 }
