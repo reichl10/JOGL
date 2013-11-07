@@ -15,6 +15,7 @@
 \usepackage{multirow}
 \usepackage{caption}
 \usepackage{array}
+\usepackage{listings}
 \usepackage{amssymb}
 
 
@@ -29,6 +30,7 @@
 \deffootnote{1.5em}{1em}{[\thefootnotemark] }
 \setlength{\parindent}{0pt}
 \renewcommand{\labelitemi}{ \raisebox{0.3ex}{\small$\blacktriangleright$} }
+\lstset{language=Java}
 
 \newcommand{\sfbf}[1]{\textbf{\sffamily #1}}
 \newcommand{\sfit}[1]{\textit{\sffamily #1}}
@@ -159,19 +161,41 @@ Um dem heutigen Standard hoher Softwarequalität sicherzustellen, fließen im ge
 \section{Package Model}
 
 \subsection*{Source}
-Abstrakte Oberklasse ??
+\begin{lstlisting}
+abstract class Source<Key, Value>
+implements RequestListener<Key, Value>
+\end{lstlisting}
+Ist in der Lage, über einen \texttt{Key} identifizierte Objekte asynchron zu beschaffen.
+\\
+
 
 \subsection*{Cache}
-Die abstrakte Oberklasse \textit{Cache} erbt von \textit{Source} und bildet die Basis für einen Cache.
+\begin{lstlisting}
+abstract class Cache<Key, Value, Reference> 
+extends Source<Key, Value>
+implements RequestListener<Key, Value>
+\end{lstlisting}
+Bildet die Basis für einen Cache und implementiert eine Verdrängungsstrategie. Die Speicherung der Daten liegt bei der erbenden Klasse.
+\\
 
 \subsection*{MemoryCache}
-Alle Methoden werden von der Oberklasse \textit{Cache} geerbt. Der \textit{MemoryCache} verwaltet einen Zwischenspeicher im RAM. Zudem besitzt er Kenntnis über einen sekundären Cache und eine Datenquelle, die bei Bedarf angefragt werden können.
+\begin{lstlisting}
+class MemoryCache<Key, Value>
+extends Cache<Key, Value, Integer>
+\end{lstlisting}
+Der \textit{MemoryCache} verwaltet einen Zwischenspeicher im RAM. Zudem besitzt er Kenntnis über einen sekundären Cache (beispielsweise einen \textit{FileSystemCache}) und eine Datenquelle, die bei Bedarf angefragt werden können.
+\\
 
 \subsection*{FileSystemCache}
-Alle Methoden werden von der Oberklasse \textit{Cache} geerbt. Der \textit{FileSystemCache} verwaltet die auf der Festplatte zwischengespeicherten Daten.
+\begin{lstlisting}
+class FileSystemCache<Key, Value>
+extends Cache<Key, Value, String>
+\end{lstlisting}
+Der \textit{FileSystemCache} speichert Daten im Dateisystem zwischen.
+\\
 
 \subsection*{HTTPSource}
-Alle Methoden werden von der Oberklasse \textit{Source} geerbt. Die Klasse lädt Kartenkacheln von den festgelegten Servern.
+Die \textit{HTTPSource} lädt Binärdaten von festgelegten HTTP-Servern.
 
 \subsection*{NominatimSource}
 Alle Methoden werden von der Oberklasse \textit{Source} geerbt. Alle Suchanfragen werden von dieser Klasse durchgeführt und die Antworten werden zur Weiterverarbeitung aufbereitet.
@@ -289,6 +313,12 @@ Das \textit{Mediator Pattern} ist ein Verhaltensmuster. \\ Hierbei fungiert der 
 
 \section{Model-View-Controller (MVC) Pattern}
 Das \textit{Model-View-Controller Pattern} ist ein Architekturmuster. \\
+\begin{figure}[ht]
+\begin{centering}
+\includegraphics[scale=0.5]{ModelViewController.eps}
+\caption{Das Model-View-Controller Pattern}
+\end{centering}
+\end{figure}
 
 
 

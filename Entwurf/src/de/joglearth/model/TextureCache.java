@@ -7,26 +7,30 @@ import de.joglearth.view.*;
 import de.joglearth.controller.*;
 
 
-public class TextureCache extends Cache<Tile, Integer, Integer> {
+public class TextureCache extends Cache<Tile, Integer> {
 
 	private GL2 gl;
 	
-	public TextureCache(RequestListener<Tile, Integer> owner, GL2 gl) {
+	// Datenquelle, z.B. HTTPSource. 
+	private Source<Tile, byte[]> imageSource;
+	
+	public TextureCache(RequestListener<Tile, Integer> owner, 
+			Source<Tile, byte[]> imageSource, GL2 gl) {
 		super(owner);
 		this.gl = gl;
+		this.imageSource = imageSource;
 	}
 
 	@Override
-	protected Integer addEntry(Integer v) {
-		return null;
+	protected void addEntry(Tile k, Integer v) {
 	}
 
 	@Override
-	protected void removeEntry(Integer r) {
+	protected void removeEntry(Tile k) {
 	}
 
 	@Override
-	protected int getEntrySize(Integer r) {
+	protected int getEntrySize(Tile k) {
 		return 0;
 	}
 

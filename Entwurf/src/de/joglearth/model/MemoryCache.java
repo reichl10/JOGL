@@ -1,9 +1,12 @@
 package de.joglearth.model;
 
+import de.joglearth.model.*;
+import de.joglearth.view.*;
+import de.joglearth.controller.*;
 
 // Cache-Reference-Typ ist Integer, da die interne Speicherung wohl
 // mit Arrays oder HashMap<Integer, Value> funktioniert
-public class MemoryCache<Key, Value> extends Cache<Key, Value, Integer> {
+public class MemoryCache<Key, Value> extends Cache<Key, Value> {
 	
 	// Sekundärer Cache, wird bei Fehlen eines Datums u.U. zuerst gefragt.
 	// Darf null sein.
@@ -34,17 +37,16 @@ public class MemoryCache<Key, Value> extends Cache<Key, Value, Integer> {
 	}
 
 	@Override
-	protected Integer addEntry(Value v) {
-		return null;
+	protected void addEntry(Key k, Value v) {
 	}	
 
 	@Override
-	protected void removeEntry(Integer r) {
+	protected void removeEntry(Key k) {
 		
 	}
 
 	@Override
-	protected int getEntrySize(Integer r) {
+	protected int getEntrySize(Key k) {
 		return 0;
 	}
 

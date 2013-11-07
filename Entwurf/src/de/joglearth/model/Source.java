@@ -29,4 +29,15 @@ public abstract class Source<Key, Value> implements RequestListener<Key, Value> 
 	// wird owner.requestCompleted aufgerufen.
 	public abstract Value requestObject(Key k);
 	
+	public class TileLoader implements Runnable{
+		private Key key;
+		TileLoader(Key k) {
+			key = k;
+		}
+		@Override
+		public void run() {
+			// TODO: load sth
+		}
+	}
+
 }

@@ -8,7 +8,7 @@ public class HeightMap extends UpdateProvider {
 
 	public HeightMap() {		
 		FileSystemCache<TileCoordinates, byte[]> fsCache = null;
-		HTTPSource<TileCoordinates, byte[]> source = null;
+		OSMTileSource<TileCoordinates, byte[]> source = null;
 		cache = new MemoryCache<TileCoordinates, byte[]>(new TileListener(),
 				fsCache, source);
 	}
@@ -29,16 +29,16 @@ public class HeightMap extends UpdateProvider {
 		}
 	}
 
-	// Der (primäre) Cache. Kümmert sich um den sekundären Plattencache und 
-	// das Laden über HTTP (siehe Konstruktor von HeightMap)
+	// Der (primï¿½re) Cache. Kï¿½mmert sich um den sekundï¿½ren Plattencache und 
+	// das Laden ï¿½ber HTTP (siehe Konstruktor von HeightMap)
 	private MemoryCache<TileCoordinates, byte[]> cache;
 	
 	
-	// Versucht die Höhe an einem Punkt zu bestimmen, gibt 0 zurück, wenn die Höhendaten 
+	// Versucht die Hï¿½he an einem Punkt zu bestimmen, gibt 0 zurï¿½ck, wenn die Hï¿½hendaten 
 	// nicht im Cache sind.
 	public float height(float longitude, float latitude) {
-		/*längen- breitengrad auf bogensekunden runden, tileCoordinate bestimmen
-		 * kachel vom cache anfordern, höhenwert interpolieren(bestimmen).
+		/*lï¿½ngen- breitengrad auf bogensekunden runden, tileCoordinate bestimmen
+		 * kachel vom cache anfordern, hï¿½henwert interpolieren(bestimmen).
 		 */
 		return 0;
 	}

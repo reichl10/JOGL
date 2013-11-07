@@ -29,7 +29,7 @@ public class Renderer implements RequestListener<Tile, Integer>, Runnable,
 		this.gl = canv.getGL().getGL2();
 		canv.addGLEventListener(new RendererEventListener());
 		FileSystemCache<TileKey, byte[]> fsCache = null;
-		HTTPSource<TileKey, byte[]> source = null;
+		OSMTileSource<TileKey, byte[]> source = null;
 		memCache = new MemoryCache<TileKey, byte[]>(new CacheListener(), fsCache,
 				source);
 		textureCache = new TextureCache(this, gl);
