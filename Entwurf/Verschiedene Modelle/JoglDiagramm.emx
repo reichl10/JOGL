@@ -83,7 +83,7 @@
         <children xmi:type="notation:ListCompartment" xmi:id="_7cE2EkcTEeOsEt3vS63TkA" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
         <children xmi:type="notation:ListCompartment" xmi:id="_7cE2E0cTEeOsEt3vS63TkA" type="ANNOTATED_OPERATION_COMPARTMENT"/>
         <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Matrix4%5Bjcu%5Ename=Matrix4.java%5Bjpack%5Ename=de.joglearth.controller%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D$uml.Class"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7cE2C0cTEeOsEt3vS63TkA" x="15494" y="17018"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7cE2C0cTEeOsEt3vS63TkA" x="22352" y="9906"/>
       </children>
       <children xmi:type="umlnotation:UMLClassifierShape" xmi:id="_7cE2FEcTEeOsEt3vS63TkA" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label" useClassifierShape="true">
         <children xmi:type="notation:DecorationNode" xmi:id="_7cE2FkcTEeOsEt3vS63TkA" type="ImageCompartment">
@@ -429,6 +429,72 @@
         <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth.model%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D$uml.Package"/>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hnN7QUcUEeOsEt3vS63TkA" x="18796" y="40640" width="4483" height="2365"/>
       </children>
+      <children xmi:type="umlnotation:UMLShape" xmi:id="_xfJE4EfSEeO2gM-SOAwBog" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+        <children xmi:type="notation:DecorationNode" xmi:id="_xfzMMEfSEeO2gM-SOAwBog" type="ImageCompartment">
+          <layoutConstraint xmi:type="notation:Size" xmi:id="_xfzMMUfSEeO2gM-SOAwBog" width="1320" height="1320"/>
+        </children>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_xfzzQEfSEeO2gM-SOAwBog" type="Stereotype"/>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_xf0aUEfSEeO2gM-SOAwBog" type="Name"/>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_xf1BYEfSEeO2gM-SOAwBog" type="Parent"/>
+        <children xmi:type="notation:ListCompartment" xmi:id="_xf1BYUfSEeO2gM-SOAwBog" visible="false" type="ANNOTATION_COMPARTMENT"/>
+        <children xmi:type="notation:ListCompartment" xmi:id="_xf22kEfSEeO2gM-SOAwBog" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
+        <children xmi:type="notation:ListCompartment" xmi:id="_xf4rwEfSEeO2gM-SOAwBog" type="ANNOTATED_OPERATION_COMPARTMENT"/>
+        <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Vector3%5Bjcu%5Ename=Vector3.java%5Bjpack%5Ename=de.joglearth.controller%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D$uml.Class"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_xfJE4UfSEeO2gM-SOAwBog" x="-2413" y="7112"/>
+      </children>
+      <children xmi:type="umlnotation:UMLShape" xmi:id="_yZZtsEfSEeO2gM-SOAwBog" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+        <children xmi:type="notation:DecorationNode" xmi:id="_yZbi4EfSEeO2gM-SOAwBog" type="ImageCompartment">
+          <layoutConstraint xmi:type="notation:Size" xmi:id="_yZbi4UfSEeO2gM-SOAwBog" width="1320" height="1320"/>
+        </children>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_yZcJ8EfSEeO2gM-SOAwBog" type="Stereotype"/>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_yZcJ8UfSEeO2gM-SOAwBog" type="Name"/>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_yZcxAEfSEeO2gM-SOAwBog" type="Parent"/>
+        <children xmi:type="notation:ListCompartment" xmi:id="_yZcxAUfSEeO2gM-SOAwBog" visible="false" type="ANNOTATION_COMPARTMENT"/>
+        <children xmi:type="notation:ListCompartment" xmi:id="_yZemMEfSEeO2gM-SOAwBog" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
+        <children xmi:type="notation:ListCompartment" xmi:id="_yZfNQEfSEeO2gM-SOAwBog" type="ANNOTATED_OPERATION_COMPARTMENT"/>
+        <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Vector4%5Bjcu%5Ename=Vector4.java%5Bjpack%5Ename=de.joglearth.controller%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D$uml.Class"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yZZtsUfSEeO2gM-SOAwBog" x="-2413" y="14478"/>
+      </children>
+      <children xmi:type="umlnotation:UMLShape" xmi:id="_FyxWIEfTEeO2gM-SOAwBog" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+        <children xmi:type="notation:DecorationNode" xmi:id="_FyykQEfTEeO2gM-SOAwBog" type="ImageCompartment">
+          <layoutConstraint xmi:type="notation:Size" xmi:id="_FyykQUfTEeO2gM-SOAwBog" width="1320" height="1320"/>
+        </children>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_FyzLUEfTEeO2gM-SOAwBog" type="Stereotype"/>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_FyzLUUfTEeO2gM-SOAwBog" type="Name"/>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_Fy0ZcEfTEeO2gM-SOAwBog" type="Parent"/>
+        <children xmi:type="notation:ListCompartment" xmi:id="_Fy1AgEfTEeO2gM-SOAwBog" visible="false" type="ANNOTATION_COMPARTMENT"/>
+        <children xmi:type="notation:ListCompartment" xmi:id="_Fy2OoEfTEeO2gM-SOAwBog" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
+        <children xmi:type="notation:ListCompartment" xmi:id="_Fy21sEfTEeO2gM-SOAwBog" type="ANNOTATED_OPERATION_COMPARTMENT"/>
+        <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=PlaneTessellator%5Bjcu%5Ename=PlaneTessellator.java%5Bjpack%5Ename=de.joglearth.view%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D$uml.Class"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FyxWIUfTEeO2gM-SOAwBog" x="41021" y="9398"/>
+      </children>
+      <children xmi:type="umlnotation:UMLClassifierShape" xmi:id="_HYjoMEfTEeO2gM-SOAwBog" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label" useClassifierShape="true">
+        <children xmi:type="notation:DecorationNode" xmi:id="_HYk2UEfTEeO2gM-SOAwBog" type="ImageCompartment">
+          <layoutConstraint xmi:type="notation:Size" xmi:id="_HYk2UUfTEeO2gM-SOAwBog" width="530" height="530"/>
+        </children>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_HYldYEfTEeO2gM-SOAwBog" type="Stereotype"/>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_HYldYUfTEeO2gM-SOAwBog" type="Kind"/>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_HYmEcEfTEeO2gM-SOAwBog" type="Name"/>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_HYmEcUfTEeO2gM-SOAwBog" type="Parent"/>
+        <children xmi:type="notation:SemanticListCompartment" xmi:id="_HYnSkEfTEeO2gM-SOAwBog" type="AttributeCompartment"/>
+        <children xmi:type="notation:SemanticListCompartment" xmi:id="_HYn5oEfTEeO2gM-SOAwBog" type="OperationCompartment"/>
+        <children xmi:type="notation:SemanticListCompartment" xmi:id="_HYogsEfTEeO2gM-SOAwBog" visible="false" type="SignalCompartment"/>
+        <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=Tessellator%5Bjcu%5Ename=Tessellator.java%5Bjpack%5Ename=de.joglearth.view%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D$uml.Interface"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HYjoMUfTEeO2gM-SOAwBog" x="41839" y="2159"/>
+      </children>
+      <children xmi:type="umlnotation:UMLShape" xmi:id="_H3dxwEfTEeO2gM-SOAwBog" fontName="Segoe UI" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+        <children xmi:type="notation:DecorationNode" xmi:id="_H3eY0EfTEeO2gM-SOAwBog" type="ImageCompartment">
+          <layoutConstraint xmi:type="notation:Size" xmi:id="_H3eY0UfTEeO2gM-SOAwBog" width="1320" height="1320"/>
+        </children>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_H3eY0kfTEeO2gM-SOAwBog" type="Stereotype"/>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_H3eY00fTEeO2gM-SOAwBog" type="Name"/>
+        <children xmi:type="notation:BasicDecorationNode" xmi:id="_H3eY1EfTEeO2gM-SOAwBog" type="Parent"/>
+        <children xmi:type="notation:ListCompartment" xmi:id="_H3e_4EfTEeO2gM-SOAwBog" visible="false" type="ANNOTATION_COMPARTMENT"/>
+        <children xmi:type="notation:ListCompartment" xmi:id="_H3fm8EfTEeO2gM-SOAwBog" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
+        <children xmi:type="notation:ListCompartment" xmi:id="_H3gOAEfTEeO2gM-SOAwBog" type="ANNOTATED_OPERATION_COMPARTMENT"/>
+        <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=SphereTessellator%5Bjcu%5Ename=SphereTessellator.java%5Bjpack%5Ename=de.joglearth.view%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D$uml.Class"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_H3dxwUfTEeO2gM-SOAwBog" x="43688" y="6985"/>
+      </children>
       <edges xmi:type="umlnotation:UMLConnector" xmi:id="_H7s_VEcUEeOsEt3vS63TkA" type="OwnedElement" source="_7cOnFUcTEeOsEt3vS63TkA" target="_7cE19UcTEeOsEt3vS63TkA" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
         <element xsi:nil="true"/>
         <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_H7s_VUcUEeOsEt3vS63TkA" points="[31, 84, 422, -5727]$[31, 591, 422, -5220]$[-359, 591, 32, -5220]$[-359, 5811, 32, 0]"/>
@@ -562,7 +628,7 @@
       </edges>
       <edges xmi:type="umlnotation:UMLConnector" xmi:id="_gRrrsEcUEeOsEt3vS63TkA" type="OwnedElement" source="_gRO_wEcUEeOsEt3vS63TkA" target="_7b7E4EcTEeOsEt3vS63TkA" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
         <element xsi:nil="true"/>
-        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gRrrsUcUEeOsEt3vS63TkA" points="[-256, -486, 5970, -2202]$[-6374, -486, -148, -2202]$[-6374, 1716, -148, 0]"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gRrrsUcUEeOsEt3vS63TkA" points="[-256, -557, 7240, -1800]$[-7009, -557, 487, -1800]$[-7009, 1243, 487, 0]"/>
         <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_iHZ3NEcUEeOsEt3vS63TkA" id="(0.06670397253129347,0.960698689956333)"/>
         <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_iHZ3NUcUEeOsEt3vS63TkA" id="(0.5,0.0)"/>
       </edges>
@@ -586,7 +652,7 @@
       </edges>
       <edges xmi:type="umlnotation:UMLConnector" xmi:id="_gRrruEcUEeOsEt3vS63TkA" type="OwnedElement" source="_gRO_wEcUEeOsEt3vS63TkA" target="_7cE2CkcTEeOsEt3vS63TkA" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
         <element xsi:nil="true"/>
-        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gRrruUcUEeOsEt3vS63TkA" points="[40, 116, -835, -13700]$[40, 7593, -835, -6223]$[675, 7593, -200, -6223]$[675, 13816, -200, 0]"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gRrruUcUEeOsEt3vS63TkA" points="[1433, -1067, -6479, -7771]$[3193, -1067, -4719, -7771]$[3193, 1878, -4719, -4826]$[2072, 1878, -5840, -4826]$[2072, 4418, -5840, -2286]$[7912, 4418, 0, -2286]$[7912, 6704, 0, 0]"/>
         <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_iHZ3PEcUEeOsEt3vS63TkA" id="(0.6000402034075104,0.960698689956333)"/>
         <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_iHZ3PUcUEeOsEt3vS63TkA" id="(0.5000034861668898,2.464755289357529E-15)"/>
       </edges>
@@ -622,13 +688,13 @@
       </edges>
       <edges xmi:type="umlnotation:UMLConnector" xmi:id="_gRrrxEcUEeOsEt3vS63TkA" type="OwnedElement" source="_gRO_wEcUEeOsEt3vS63TkA" target="_7cOnH0cTEeOsEt3vS63TkA" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
         <element xsi:nil="true"/>
-        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gRrrxUcUEeOsEt3vS63TkA" points="[-727, -1248, 16543, -1821]$[-17343, -1248, -73, -1821]$[-17343, 573, -73, 0]"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gRrrxUcUEeOsEt3vS63TkA" points="[-727, -916, 10701, -1270]$[-11428, -916, 0, -1270]$[-11428, 354, 0, 0]"/>
         <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_iHZ3SEcUEeOsEt3vS63TkA" id="(0.2000380302503477,0.960698689956333)"/>
         <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_iHZ3SUcUEeOsEt3vS63TkA" id="(0.5000034861668898,0.0)"/>
       </edges>
       <edges xmi:type="umlnotation:UMLConnector" xmi:id="_gRrrxkcUEeOsEt3vS63TkA" type="OwnedElement" source="_gRO_wEcUEeOsEt3vS63TkA" target="_7cXw0kcTEeOsEt3vS63TkA" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
         <element xsi:nil="true"/>
-        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gRrrx0cUEeOsEt3vS63TkA" points="[884, 116, 2590, -15605]$[884, 6426, 2590, -9295]$[-979, 6426, 727, -9295]$[-979, 15721, 727, 0]"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gRrrx0cUEeOsEt3vS63TkA" points="[904, 116, 2610, -15605]$[904, 6426, 2610, -9295]$[-979, 6426, 727, -9295]$[-979, 15721, 727, 0]"/>
         <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_iHZ3SkcUEeOsEt3vS63TkA" id="(0.1333710013908206,0.960698689956333)"/>
         <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_iHZ3S0cUEeOsEt3vS63TkA" id="(0.2859261153248925,0.0)"/>
       </edges>
@@ -640,7 +706,7 @@
       </edges>
       <edges xmi:type="umlnotation:UMLConnector" xmi:id="_gyw_gkcUEeOsEt3vS63TkA" type="OwnedElement" source="_gyeEkEcUEeOsEt3vS63TkA" target="_9VX55EcTEeOsEt3vS63TkA" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
         <element xsi:nil="true"/>
-        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gyw_g0cUEeOsEt3vS63TkA" points="[377, -658, -12945, -3898]$[13334, -658, 12, -3898]$[13334, 3240, 12, 0]"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gyw_g0cUEeOsEt3vS63TkA" points="[441, -286, -3165, -1397]$[3639, -286, 33, -1397]$[3639, 1111, 33, 0]"/>
         <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_iHZ3UkcUEeOsEt3vS63TkA" id="(0.8751445767649074,0.9606986899563327)"/>
         <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_iHjoMEcUEeOsEt3vS63TkA" id="(0.5000239690489081,1.8489422682921899E-16)"/>
       </edges>
@@ -756,7 +822,7 @@
           <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sVdxS0cVEeOsEt3vS63TkA" y="-186"/>
         </children>
         <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=Renderer%5Bjcu%5Ename=Renderer.java%5Bjpack%5Ename=de.joglearth.view%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=UpdateListener%5Bjcu%5Ename=UpdateListener.java%5Bjpack%5Ename=de.joglearth.controller%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_sVdxSUcVEeOsEt3vS63TkA" points="[-2739, -3650, 14077, 213]$[-9132, -3650, 7684, 213]$[-9132, -3720, 7684, 143]$[-15399, -3720, 1417, 143]"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_sVdxSUcVEeOsEt3vS63TkA" points="[-2739, -3720, 14077, 143]$[-15399, -3720, 1417, 143]"/>
       </edges>
       <edges xmi:type="umlnotation:UMLConnector" xmi:id="_sVdxTkcVEeOsEt3vS63TkA" source="_9VX6AkcTEeOsEt3vS63TkA" target="_7cE2FEcTEeOsEt3vS63TkA" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
         <children xmi:type="notation:DecorationNode" xmi:id="_sVdxUEcVEeOsEt3vS63TkA" type="NameLabel">
@@ -766,6 +832,104 @@
         </children>
         <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=GUI%5Bjcu%5Ename=GUI.java%5Bjpack%5Ename=de.joglearth.view%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=UpdateListener%5Bjcu%5Ename=UpdateListener.java%5Bjpack%5Ename=de.joglearth.controller%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
         <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_sVdxT0cVEeOsEt3vS63TkA" points="[-2770, -2173, 6076, 2499]$[-8020, -2173, 826, 2499]$[-8020, -3911, 826, 761]"/>
+      </edges>
+      <edges xmi:type="umlnotation:UMLConnector" xmi:id="_xnP4AEfSEeO2gM-SOAwBog" source="_7cE2CkcTEeOsEt3vS63TkA" target="_xfJE4EfSEeO2gM-SOAwBog" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+        <children xmi:type="notation:DecorationNode" xmi:id="_xnRGIEfSEeO2gM-SOAwBog" type="KindLabel">
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_xnRGIkfSEeO2gM-SOAwBog" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_xnRtMEfSEeO2gM-SOAwBog" type="Kind"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_xnRGI0fSEeO2gM-SOAwBog" type="Name"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_xnRGIUfSEeO2gM-SOAwBog" y="-186"/>
+        </children>
+        <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Matrix4%5Bjcu%5Ename=Matrix4.java%5Bjpack%5Ename=de.joglearth.controller%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Vector3%5Bjcu%5Ename=Vector3.java%5Bjpack%5Ename=de.joglearth.controller%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D$uml.Usage"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_xnP4AUfSEeO2gM-SOAwBog" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      </edges>
+      <edges xmi:type="umlnotation:UMLConnector" xmi:id="_xnRtMUfSEeO2gM-SOAwBog" type="OwnedElement" source="_gRO_wEcUEeOsEt3vS63TkA" target="_xfJE4EfSEeO2gM-SOAwBog" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+        <element xsi:nil="true"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_xnRtMkfSEeO2gM-SOAwBog" points="[-1787, -210, 14629, -8301]$[-16371, -210, 45, -8301]$[-16371, 5019, 45, -3072]"/>
+      </edges>
+      <edges xmi:type="umlnotation:UMLConnector" xmi:id="_ycqdEEfSEeO2gM-SOAwBog" source="_7cE2CkcTEeOsEt3vS63TkA" target="_yZZtsEfSEeO2gM-SOAwBog" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+        <children xmi:type="notation:DecorationNode" xmi:id="_ycrEIEfSEeO2gM-SOAwBog" type="KindLabel">
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_ycrrMEfSEeO2gM-SOAwBog" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_ycrrMkfSEeO2gM-SOAwBog" type="Kind"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_ycrrMUfSEeO2gM-SOAwBog" type="Name"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ycrEIUfSEeO2gM-SOAwBog" y="-186"/>
+        </children>
+        <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Matrix4%5Bjcu%5Ename=Matrix4.java%5Bjpack%5Ename=de.joglearth.controller%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Vector4%5Bjcu%5Ename=Vector4.java%5Bjpack%5Ename=de.joglearth.controller%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D$uml.Usage"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ycqdEUfSEeO2gM-SOAwBog" points="[31, 4276, 24923, 2110]$[31, 8276, 24923, 6110]$[-24861, 8276, 31, 6110]$[-24861, 4036, 31, 1870]"/>
+      </edges>
+      <edges xmi:type="umlnotation:UMLConnector" xmi:id="_ycrrM0fSEeO2gM-SOAwBog" type="OwnedElement" source="_gRO_wEcUEeOsEt3vS63TkA" target="_yZZtsEfSEeO2gM-SOAwBog" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+        <element xsi:nil="true"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ycrrNEfSEeO2gM-SOAwBog" points="[-1787, 42, 14840, -14212]$[-14742, 42, 1885, -14212]$[-14742, 14268, 1885, 14]$[-15486, 14268, 1141, 14]"/>
+      </edges>
+      <edges xmi:type="umlnotation:UMLConnector" xmi:id="_ycs5UEfSEeO2gM-SOAwBog" source="_yZZtsEfSEeO2gM-SOAwBog" target="_xfJE4EfSEeO2gM-SOAwBog" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+        <children xmi:type="notation:DecorationNode" xmi:id="_yctgYEfSEeO2gM-SOAwBog" type="KindLabel">
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_yctgYkfSEeO2gM-SOAwBog" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_ycuugEfSEeO2gM-SOAwBog" type="Kind"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_yctgY0fSEeO2gM-SOAwBog" type="Name"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yctgYUfSEeO2gM-SOAwBog" y="-186"/>
+        </children>
+        <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Vector4%5Bjcu%5Ename=Vector4.java%5Bjpack%5Ename=de.joglearth.controller%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Vector3%5Bjcu%5Ename=Vector3.java%5Bjpack%5Ename=de.joglearth.controller%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D$uml.Usage"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ycs5UUfSEeO2gM-SOAwBog" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      </edges>
+      <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F190EEfTEeO2gM-SOAwBog" type="OwnedElement" source="_gyeEkEcUEeOsEt3vS63TkA" target="_FyxWIEfTEeO2gM-SOAwBog" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+        <element xsi:nil="true"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F190EUfTEeO2gM-SOAwBog" points="[1703, 362, -8488, -7788]$[8457, 362, -1734, -7788]$[8457, 7369, -1734, -781]"/>
+      </edges>
+      <edges xmi:type="umlnotation:UMLConnector" xmi:id="_F1-bIEfTEeO2gM-SOAwBog" source="_FyxWIEfTEeO2gM-SOAwBog" target="_7cE14UcTEeOsEt3vS63TkA" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+        <children xmi:type="notation:DecorationNode" xmi:id="_F1_CMEfTEeO2gM-SOAwBog" type="KindLabel">
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_F1_CMkfTEeO2gM-SOAwBog" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_F1_pQUfTEeO2gM-SOAwBog" type="Kind"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_F1_pQEfTEeO2gM-SOAwBog" type="Name"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F1_CMUfTEeO2gM-SOAwBog" y="-186"/>
+        </children>
+        <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=PlaneTessellator%5Bjcu%5Ename=PlaneTessellator.java%5Bjpack%5Ename=de.joglearth.view%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Tile%5Bjcu%5Ename=Tile.java%5Bjpack%5Ename=de.joglearth.controller%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D$uml.Usage"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F1-bIUfTEeO2gM-SOAwBog" points="[32, 782, 23114, -5948]$[32, 12935, 23114, 6205]$[-23937, 12935, -855, 6205]$[-23937, 8399, -855, 1669]"/>
+      </edges>
+      <edges xmi:type="umlnotation:UMLConnector" xmi:id="_HZFMoEfTEeO2gM-SOAwBog" type="OwnedElement" source="_gyeEkEcUEeOsEt3vS63TkA" target="_HYjoMEfTEeO2gM-SOAwBog" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+        <element xsi:nil="true"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_HZFMoUfTEeO2gM-SOAwBog" points="[1703, 3, -8757, -887]$[10491, 3, 31, -887]$[10491, 130, 31, -760]"/>
+      </edges>
+      <edges xmi:type="umlnotation:UMLConnector" xmi:id="_HZGawEfTEeO2gM-SOAwBog" source="_FyxWIEfTEeO2gM-SOAwBog" target="_HYjoMEfTEeO2gM-SOAwBog" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+        <children xmi:type="notation:DecorationNode" xmi:id="_HZHB0EfTEeO2gM-SOAwBog" type="NameLabel">
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_HZHB0kfTEeO2gM-SOAwBog" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_HZHo4EfTEeO2gM-SOAwBog" type="Name"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HZHB0UfTEeO2gM-SOAwBog" y="-186"/>
+        </children>
+        <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=PlaneTessellator%5Bjcu%5Ename=PlaneTessellator.java%5Bjpack%5Ename=de.joglearth.view%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Tessellator%5Bjcu%5Ename=Tessellator.java%5Bjpack%5Ename=de.joglearth.view%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_HZGawUfTEeO2gM-SOAwBog" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      </edges>
+      <edges xmi:type="umlnotation:UMLConnector" xmi:id="_HZHo4UfTEeO2gM-SOAwBog" source="_HYjoMEfTEeO2gM-SOAwBog" target="_7cE14UcTEeOsEt3vS63TkA" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+        <children xmi:type="notation:DecorationNode" xmi:id="_HZIP8EfTEeO2gM-SOAwBog" type="KindLabel">
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_HZIP8kfTEeO2gM-SOAwBog" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_HZIP9EfTEeO2gM-SOAwBog" type="Kind"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_HZIP80fTEeO2gM-SOAwBog" type="Name"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HZIP8UfTEeO2gM-SOAwBog" y="-186"/>
+        </children>
+        <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=Tessellator%5Bjcu%5Ename=Tessellator.java%5Bjpack%5Ename=de.joglearth.view%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Tile%5Bjcu%5Ename=Tile.java%5Bjpack%5Ename=de.joglearth.controller%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D$uml.Usage"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_HZHo4kfTEeO2gM-SOAwBog" points="[-1417, 42, 21934, -13948]$[-2616, 42, 20735, -13948]$[-2616, 18925, 20735, 4935]$[-23320, 18925, 31, 4935]$[-23320, 15659, 31, 1669]"/>
+      </edges>
+      <edges xmi:type="umlnotation:UMLConnector" xmi:id="_H6nMYEfTEeO2gM-SOAwBog" type="OwnedElement" source="_gyeEkEcUEeOsEt3vS63TkA" target="_H3dxwEfTEeO2gM-SOAwBog" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+        <element xsi:nil="true"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_H6nMYUfTEeO2gM-SOAwBog" points="[1703, -400, -11155, -6137]$[13791, -400, 933, -6137]$[13791, 4956, 933, -781]"/>
+      </edges>
+      <edges xmi:type="umlnotation:UMLConnector" xmi:id="_H6nzcEfTEeO2gM-SOAwBog" source="_H3dxwEfTEeO2gM-SOAwBog" target="_7cE14UcTEeOsEt3vS63TkA" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+        <children xmi:type="notation:DecorationNode" xmi:id="_H6oagEfTEeO2gM-SOAwBog" type="KindLabel">
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_H6pBkEfTEeO2gM-SOAwBog" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_H6pBkkfTEeO2gM-SOAwBog" type="Kind"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_H6pBkUfTEeO2gM-SOAwBog" type="Name"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_H6oagUfTEeO2gM-SOAwBog" y="-186"/>
+        </children>
+        <element xmi:type="uml:Usage" href="mmi:///#jdep%5Bjsrctype%5Ename=SphereTessellator%5Bjcu%5Ename=SphereTessellator.java%5Bjpack%5Ename=de.joglearth.view%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Tile%5Bjcu%5Ename=Tile.java%5Bjpack%5Ename=de.joglearth.controller%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D$uml.Usage"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_H6nzcUfTEeO2gM-SOAwBog" points="[32, 782, 25781, -8361]$[32, 16364, 25781, 7221]$[-27007, 16364, -1258, 7221]$[-27007, 10812, -1258, 1669]"/>
+      </edges>
+      <edges xmi:type="umlnotation:UMLConnector" xmi:id="_H6pBk0fTEeO2gM-SOAwBog" source="_H3dxwEfTEeO2gM-SOAwBog" target="_HYjoMEfTEeO2gM-SOAwBog" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+        <children xmi:type="notation:DecorationNode" xmi:id="_H6pooEfTEeO2gM-SOAwBog" type="NameLabel">
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_H6pookfTEeO2gM-SOAwBog" type="Stereotype"/>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_H6poo0fTEeO2gM-SOAwBog" type="Name"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_H6pooUfTEeO2gM-SOAwBog" y="-186"/>
+        </children>
+        <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=SphereTessellator%5Bjcu%5Ename=SphereTessellator.java%5Bjpack%5Ename=de.joglearth.view%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Tessellator%5Bjcu%5Ename=Tessellator.java%5Bjpack%5Ename=de.joglearth.view%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=RSA%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
+        <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_H6pBlEfTEeO2gM-SOAwBog" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
       </edges>
     </contents>
   </eAnnotations>
