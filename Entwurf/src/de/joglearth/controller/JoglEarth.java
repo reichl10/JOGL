@@ -4,7 +4,7 @@ import de.joglearth.model.*;
 import de.joglearth.view.*;
 import de.joglearth.controller.*;
 
-public class JoglEarth {
+public final class JoglEarth {
 
 	/**
 	 * @param args

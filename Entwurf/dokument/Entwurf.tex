@@ -160,6 +160,13 @@ Um dem heutigen Standard hoher Softwarequalität sicherzustellen, fließen im ge
 
 \section{Package Model}
 
+
+\subsection*{HTTPUtils}
+\begin{lstlisting}
+final class HTTPUtils
+\end{lstlisting}
+Stellt statische Funktionen für einfache GET- und POST- Abfragen via HTTP zur Verfügung.\\
+
 \subsection*{Source}
 \begin{lstlisting}
 abstract class Source<Key, Value>
@@ -171,17 +178,25 @@ Ist in der Lage, über einen \texttt{Key} identifizierte Objekte asynchron zu be
 
 \subsection*{Cache}
 \begin{lstlisting}
-abstract class Cache<Key, Value, Reference> 
+abstract class Cache<Key, Value> 
 extends Source<Key, Value>
 implements RequestListener<Key, Value>
 \end{lstlisting}
 Bildet die Basis für einen Cache und implementiert eine Verdrängungsstrategie. Die Speicherung der Daten liegt bei der erbenden Klasse.
 \\
 
+\subsection*{TextureCache}
+\begin{lstlisting}
+class TextureCache<Key>
+extends Cache<Key, Integer>
+\end{lstlisting}
+Der \textit{TextureCache} verwaltet in OpenGL geladene Texturen mittels der in der \textit{Cache}-Klasse definierten Verdrängungsstrategie. Er lädt fehlende Texturen aus einer Quelle, wie beispielsweise einem \textit{MemoryCache} für PNG-Dateien, nach, bereitet sie auf und übergibt sie an OpenGL. 
+\\
+
 \subsection*{MemoryCache}
 \begin{lstlisting}
 class MemoryCache<Key, Value>
-extends Cache<Key, Value, Integer>
+extends Cache<Key, Value>
 \end{lstlisting}
 Der \textit{MemoryCache} verwaltet einen Zwischenspeicher im RAM. Zudem besitzt er Kenntnis über einen sekundären Cache (beispielsweise einen \textit{FileSystemCache}) und eine Datenquelle, die bei Bedarf angefragt werden können.
 \\
@@ -189,76 +204,230 @@ Der \textit{MemoryCache} verwaltet einen Zwischenspeicher im RAM. Zudem besitzt 
 \subsection*{FileSystemCache}
 \begin{lstlisting}
 class FileSystemCache<Key, Value>
-extends Cache<Key, Value, String>
+extends Cache<Key, Value>
 \end{lstlisting}
 Der \textit{FileSystemCache} speichert Daten im Dateisystem zwischen.
 \\
 
-\subsection*{HTTPSource}
-Die \textit{HTTPSource} lädt Binärdaten von festgelegten HTTP-Servern.
+\subsection*{OSMTileSource}
+\begin{lstlisting}
+class OSMTileSource
+extends Source<Tile, byte[]>
+\end{lstlisting}
+Die \textit{OSMTileSource} lädt anhand von Koordinaten (u.U. komprimierte) Kacheltexturen per HTTP von OpenStreetMap-Servern. Dabei macht sie von \textit{HTTPUtils} Gebrauch.\\
+
+\subsection*{SRTMTileSource}
+\begin{lstlisting}
+class SRTMTileSource extends
+Source<Tile, byte[]>
+\end{lstlisting}
+Die \textit{OSMTileSource} lädt anhand von Indizes Höhenprofil-Kacheln von NASA-SRTM-Servern. Dabei macht sie von \textit{HTTPUtils} Gebrauch.\\
 
 \subsection*{NominatimSource}
-Alle Methoden werden von der Oberklasse \textit{Source} geerbt. Alle Suchanfragen werden von dieser Klasse durchgeführt und die Antworten werden zur Weiterverarbeitung aufbereitet.
+\begin{lstlisting}
+class NominatimSource
+extends Source<NominatimQuery, Location[]>
+\end{lstlisting}
+\textit{NominatimSource} beschafft Antworten auf Suchanfragen nach Orten und Punktinformationen (\textit{NominatemQuery}) und bereitet sie für den \textit{LocationManager} auf. Dabei greift sie auf \textit{HTTPUtils} zu.\\
 
 \subsection*{OverpassSource}
-Alle Methoden werden von der Oberklasse \textit{Source} geerbt. Die anzuzeigenden POIs werden von dieser Klasse angefragt und die Antworten werden zur Weiterverarbeitung aufbereitet.
+\begin{lstlisting}
+class OverpassSource
+extends Source<OverpassQuery, Location[]>
+\end{lstlisting}
+\textit{OverpassSource} beschafft die Details lokaler POIs und Städtenamen (\textit{OverpassQuery}) und bereitet sie für die Verwaltung durch den \textit{LocationManager} vor.\\
 
 \subsection*{NominatimQuery}
-??
+\begin{lstlisting}
+class NominatimQuery
+\end{lstlisting}
+Drückt eine Suchanfrage an Nominatim aus. Dies kann die Suche nach Details zu einem bestimmten Punkt oder nach einem Ort sein.\\
 
 \subsection*{OverpassQuery}
-??
+\begin{lstlisting}
+class OverpassQuery
+\end{lstlisting}
+Drückt eine Suchanfrage an die OverpassAPI aus. Eine solche Suche liefert für gewöhnlich POIs und Städtenamen im Sichtfeld zurück, die Anfrage enthält dazu die zu durchsuchende Umgebung.\\
 
 \subsection*{Settings}
-Die Klasse lädt und speichert alle erforderlichen Einstellungen sowie die vom Benutzer markierten Punkte aus der Datei \texttt{Settings}.
-Desweiteren werden die Einstellungen gekapselt und anderen Klassen zugänglich gemacht.
+\begin{lstlisting}
+class Settings 
+extends UpdateProvider
+\end{lstlisting}
+Verwaltet alle erforderlichen Einstellungen sowie die vom Benutzer markierten Punkte aus der Datei \texttt{settings.xml}. Die Einstellungen werden gekapselt und anderen Klassen zugänglich gemacht, außerdem können sich andere Klassen als Beobachter (\textit{Observer}) registrieren um über Einstellungsänderungen benachrichtigt zu werden.\\
+
 
 
 \section{Package View}
 \subsection*{GUI}
-Die Klasse \textit{GUI} erbt von JFrame und stellt die gesamte grafische Bedienoberfläche dar. Pro Sitzung darf lediglich eine Instanz der \textit{GUI} existieren.
+\begin{lstlisting}
+class GUI 
+extends JFrame 
+implements UpdateListener
+\end{lstlisting}
+Die Klasse \textit{GUI} erbt von JFrame und stellt die gesamte grafische Bedienoberfläche dar. Pro Sitzung darf lediglich eine Instanz der \textit{GUI} existieren.\\
 
 \subsection*{GUIEventListener}
-??
+\begin{lstlisting}
+class GUIEventListener
+extends UpdateProvider
+\end{lstlisting}
+Reagiert auf Ereignisse der Swing-Elemente der GUI; d.h. auf alle Benutzereingaben die außerhalb des Ansichtsfensters stattfinden. Verändert unter Umständen Werte von \textit{Settings} oder gibt Ereignisse an den Renderer oder andere Komponenten über den \textit{UpdateListener}-Mechanismus weiter.\\
 
 \subsection*{ViewEventListener}
-??
+\begin{lstlisting}
+class ViewEventListener
+extends UpdateProvider 
+implements MouseWheelListener, MouseListener, MouseMotionListener
+\end{lstlisting}
+Reagiert auf Benutzereingaben im Ansichtsfenster wie Tastendrücke, Scrollen und Ziehen mit der Maus. Die Klasse benachrichtigt andere Komponenten, wie die \textit{Camera}, über Veränderungen der Ansicht. \\
 
 \subsection*{Renderer}
-??
+\begin{lstlisting}
+class Renderer
+implements RequestListener<Tile, Integer>, Runnable, UpdateListener
+\end{lstlisting}
+Ist für das Zeichnen einzelner Frames und die zeitliche Steuerung während Animationen verantwortlich. Sie rendert entweder Einzelbilder als Reaktion auf eine Aktualisierung über den \textit{UpdateListener}-Mechanismus, oder eine kontinuierliche Bildfolge während Animationsvorgängen.\\
+
+\subsection*{Mesh}
+\begin{lstlisting}
+class Mesh
+\end{lstlisting}
+Speichert Rohdaten eines 3D-Modells wie seine Vertices, Normalen, und Texturkoordinaten. Kann vom \textit{Renderer} an OpenGL übergeben werden.\\
+
+\subsection*{Tessellator}
+\begin{lstlisting}
+interface Tessellator
+\end{lstlisting}
+Bietet eine gemeinsame Schnittstelle für das Erzeugen von Kartenkacheln verschiedener Kartenansichten.\\
+
+\subsection*{PlaneTessellator}
+\begin{lstlisting}
+class PlaneTessellator
+implements Tessellator
+\end{lstlisting}
+Generiert Kartenkacheln in der Ebene.\\
+
+\subsection*{SphereTessellator}
+\begin{lstlisting}
+class SphereTessellator
+implements Tessellator
+\end{lstlisting}
+Generiert Kartenkacheln auf der Kugeloberfläche.\\
+
+
 
 
 \section{Package Controller}
 \subsection*{Camera}
+\begin{lstlisting}
+class Camera
+\end{lstlisting}
+Berechnet die Projektionsmatrix für den Rendervorgang, bestimmt die Sichtbarkeit von 3D-Objekten im Ansichtsfenster und rechnet zwischen Bildschirm- und Raumkoordinaten um.\\
 
 
 \subsection*{HeightMap}
+\begin{lstlisting}
+class HeightMap
+extends UpdateProvide
+\end{lstlisting}
+Interpoliert Höheninformationen für Punkte der Karte aus SRTM-Höhendaten. Wird von \textit{Tessellator}en verwendet, um Kartenoberflächen mit Höhenprofil zu generieren.\\
+
+
+
+\subsection*{UpdateListener}
+\begin{lstlisting}
+interface UpdateListener
+\end{lstlisting}
+Interface für Objekte, die Nachrichten über den \textit{UpdateListener}-Mechanismus entgegennehmen können.\\
 
 
 \subsection*{UpdateProvider}
+\begin{lstlisting}
+class UpdateProvider
+\end{lstlisting}
+Basisklasse für Objekte, die über den \textit{UpdateListener}-Mechanismus Nachrichten verteilen.\\
+
 
 
 \subsection*{Location}
+\begin{lstlisting}
+class Location
+\end{lstlisting}
+Speichert Länden- und Breitengradkoordinaten mit Details zu einem Punkt ab. Wird vom \textit{LocationManager} benutzt, um alle Arten von Punkten auf der Karte zu verwalten. \\
+
 
 
 \subsection*{LocationManager}
+\begin{lstlisting}
+class LocationManager
+extends UpdateProvider
+implements UpdateListener
+\end{lstlisting}
+Verwaltet die Sichtbarkeit von besonderen Punkten im Ansichtsfenster und der GUI. Er besorgt außerdem Suchergebnisse über den \textit{NominatimCache} und Benutzermarkierungen aus den \textit{Settings}.\\
+
 
 
 \subsection*{Tile}
+\begin{lstlisting}
+class Tile
+\end{lstlisting}
+Speichert Längen- und Breitengradgrenzen sowie das Zoomlevel, über das sich eine Kartenkachel nach dem OpenStreetMap-Format identifizieren lässt.\\
 
 
 \subsection*{Point}
+\begin{lstlisting}
+class Point
+\end{lstlisting}
+Beschreibt einen zweidimensionalen reellen Vektor.\\
 
 
 \subsection*{Matrix4}
+\begin{lstlisting}
+class Matrix4
+implements Cloneable
+\end{lstlisting}
+Hält eine 4x4-Matrix, die Operationen zum Rotieren, Verschieben und Skalieren, sowie eine Funktion zum transformieren eines 4-dimensionalen Vektors anbietet. Die Klasse wird zum Bestimmen der Projektionsmatrix in der Kamera und der Sichtbarkeit von Objekten verwendet.\\
+
+
+
+\subsection*{Vector3}
+\begin{lstlisting}
+class Vector3
+implements Cloneable
+\end{lstlisting}
+Ein 3-dimensionaler Vektor. Repräsentiert üblicherweise Raumkoordinaten.\\
+
+
+\subsection*{Vector4}
+\begin{lstlisting}
+class Vector4
+\end{lstlisting}
+Ein 4-dimensionaler Vektor für homogene Koordinaten. Instanzen dieser Klasse werden benötigt, wenn zwischen 3D-Perspektiven umgerechnet werden soll.\\
+
 
 
 \subsection*{JoglEarth}
-Die Klasse stellt die \textit{Main} Methode bereit.
+\begin{lstlisting}
+final class JoglEarth
+\end{lstlisting}
+Diese Klasse stellt die \textit{Main} Methode bereit.\\
+
+
 
 
 \chapter{Sequenzdiagramme}
 
+\section{Laden einer lokal noch nicht vorhandenen Kachel}
+In diesem Sequenzdiagramm wird dargestellt, wie die Anfrage nach einer Texturkachel über die verschiedenen Cacheebenen propagiert und schließlich asynchron beantwortet wird.\\
+
+
+\begin{figure}
+\begin{centering}
+\includegraphics[scale=0.57,angle=90,origin=c]{Ablaufdiagramm.eps}
+\caption{Laden einer lokal noch nicht vorhandenen Kachel}
+\end{centering}
+\end{figure}
 
 
 
