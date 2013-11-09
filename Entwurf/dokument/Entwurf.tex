@@ -119,7 +119,7 @@ Version: 1.0
 
 Dieses Dokument stellt den Entwurf von \JoglEarth und der einzelnen Klassen mit deren Interaktion vor.
 Die geforderten Funktionalitäten aus dem Pflichtenheft sind abgebildet.
-\textbf{Abweichungen zum Pflichtenheft hier begründen}
+%\textbf{Abweichungen zum Pflichtenheft hier begründen}
 \\
 
 Im Zuge der Erstellung dieses Dokuments erfolgte die Planung aller Komponenten mit deren zugehörigen Funktionen. Um das Programm im ganzen zu erfassen finden verschiedene Darstellungsarten Anwendung. \\
@@ -155,6 +155,38 @@ Um dem heutigen Standard hoher Softwarequalität sicherzustellen, fließen im ge
 	\includegraphics[scale=0.5]{JoglDiagramm_Controller.eps}
 \vspace{2.0 cm}
 \end{figure}
+
+
+
+\chapter{Beschreibung der Interfaces}
+
+\section{Package Model}
+
+\subsection*{RequestListener}
+\begin{lstlisting}
+interface RequestListener<Key, Value>
+\end{lstlisting}
+Nimmt eine asynchrone Antwort einer \textit{Source} entgegen.\\
+
+\vspace{5mm}
+\section{Package View}
+
+\subsection*{Tessellator}
+\begin{lstlisting}
+interface Tessellator
+\end{lstlisting}
+Bietet eine gemeinsame Schnittstelle für das Erzeugen von Kartenkacheln verschiedener Kartenansichten.\\
+
+\vspace{5mm}
+\section{Package Controller}
+
+\subsection*{UpdateListener}
+\begin{lstlisting}
+interface UpdateListener
+\end{lstlisting}
+Interface für Objekte, die Nachrichten über den \textit{UpdateListener}-Mechanismus entgegennehmen können.\\
+
+
 
 \chapter{Klassenbeschreibung}
 
@@ -200,6 +232,8 @@ extends Cache<Key, Value>
 \end{lstlisting}
 Der \textit{MemoryCache} verwaltet einen Zwischenspeicher im RAM. Zudem besitzt er Kenntnis über einen sekundären Cache (beispielsweise einen \textit{FileSystemCache}) und eine Datenquelle, die bei Bedarf angefragt werden können.
 \\
+
+\newpage
 
 \subsection*{FileSystemCache}
 \begin{lstlisting}
@@ -249,6 +283,8 @@ class OverpassQuery
 \end{lstlisting}
 Drückt eine Suchanfrage an die OverpassAPI aus. Eine solche Suche liefert für gewöhnlich POIs und Städtenamen im Sichtfeld zurück, die Anfrage enthält dazu die zu durchsuchende Umgebung.\\
 
+\newpage
+
 \subsection*{Settings}
 \begin{lstlisting}
 class Settings 
@@ -295,11 +331,7 @@ class Mesh
 \end{lstlisting}
 Speichert Rohdaten eines 3D-Modells wie seine Vertices, Normalen, und Texturkoordinaten. Kann vom \textit{Renderer} an OpenGL übergeben werden.\\
 
-\subsection*{Tessellator}
-\begin{lstlisting}
-interface Tessellator
-\end{lstlisting}
-Bietet eine gemeinsame Schnittstelle für das Erzeugen von Kartenkacheln verschiedener Kartenansichten.\\
+\newpage
 
 \subsection*{PlaneTessellator}
 \begin{lstlisting}
@@ -334,14 +366,6 @@ extends UpdateProvide
 Interpoliert Höheninformationen für Punkte der Karte aus SRTM-Höhendaten. Wird von \textit{Tessellator}en verwendet, um Kartenoberflächen mit Höhenprofil zu generieren.\\
 
 
-
-\subsection*{UpdateListener}
-\begin{lstlisting}
-interface UpdateListener
-\end{lstlisting}
-Interface für Objekte, die Nachrichten über den \textit{UpdateListener}-Mechanismus entgegennehmen können.\\
-
-
 \subsection*{UpdateProvider}
 \begin{lstlisting}
 class UpdateProvider
@@ -357,7 +381,6 @@ class Location
 Speichert Länden- und Breitengradkoordinaten mit Details zu einem Punkt ab. Wird vom \textit{LocationManager} benutzt, um alle Arten von Punkten auf der Karte zu verwalten. \\
 
 
-
 \subsection*{LocationManager}
 \begin{lstlisting}
 class LocationManager
@@ -366,7 +389,7 @@ implements UpdateListener
 \end{lstlisting}
 Verwaltet die Sichtbarkeit von besonderen Punkten im Ansichtsfenster und der GUI. Er besorgt außerdem Suchergebnisse über den \textit{NominatimCache} und Benutzermarkierungen aus den \textit{Settings}.\\
 
-
+\newpage
 
 \subsection*{Tile}
 \begin{lstlisting}
@@ -413,8 +436,42 @@ final class JoglEarth
 \end{lstlisting}
 Diese Klasse stellt die \textit{Main} Methode bereit.\\
 
+\chapter{Beschreibung der Enumerations}
+
+\section{Package Model}
+
+\subsection*{NominatimQuery.Type}
+\begin{tabular}{|c|l|}
+\hline
+\textit{GLOBAL} & Globale Suche nach Punkten \\
+\hline
+\textit{LOCAL} & Suche nach Punkten im Sichtbereich \\
+\hline
+\textit{POINT} & Alle verfügbaren Informationen zu einem bestimmten Punkt \\
+\hline
+\end{tabular}
+
+\vspace{5mm}
+\section{Package View}
+
+In diesem Package sind vorerst keine Enumerations vorgesehen.\\
 
 
+\vspace{5mm}
+\section{Package Controller}
+
+\subsection*{TileType}
+Unterscheidung der verschiedenen Kartenmaterialien.
+\subsection*{PoiType}
+Unterscheidung beispielsweise der Städtenamen von markierten Punkten.
+\subsection*{Camera.Type}
+\begin{tabular}{|c|l|}
+\hline
+\textit{PLANE} & Kamera bewegt sich in der Kartenebene \\
+\hline
+\textit{SPHERE} & Kamera rotiert um den Globus \\
+\hline
+\end{tabular}
 
 \chapter{Sequenzdiagramme}
 
@@ -431,34 +488,6 @@ In diesem Sequenzdiagramm wird dargestellt, wie die Anfrage nach einer Texturkac
 
 
 
-\chapter{Beschreibung der Interfaces}
-
-\section{Package Model}
-
-\subsection*{RequestListener}
-
-\section{Package View}
-
-\section{Package Controller}
-
-\subsection*{UpdateListener}
-
-
-
-
-\chapter{Beschreibung der Enumerations}
-
-\section{Package Model}
-
-\subsection*{NominatimQuery.Type}
-
-\section{Package View}
-
-\section{Package Controller}
-
-\subsection*{TileType}
-\subsection*{PoiType}
-\subsection*{Camera.Type}
 
 \chapter{Designpatterns}
 \section{Adapter Pattern}
@@ -474,7 +503,8 @@ Das \textit{Data Transfer Object} ist ein Muster für objektrelationale Abbildun
 Hierbei werden mehrere Daten gebündelt als ein Objekt übertragen. \\ Es findet Anwendung bei Suchergebnissen und der Anfrage nach POIs. Alle Datensätze werden dann gebündelt übergeben und nicht jede Information seperat. \\ Ziel ist es die Daten zu strukturieren bzw. vollständig gruppierte Information zu einer Anfrage zu erhalten.
 
 \section{Iterator Pattern}
-Das \textit{Iterator Pattern} ist ein Verhaltensmuster. \\ Hierbei wird die verwendete Datenstruktur elementweise durchlaufen, ohne deren interne Anordnung preiszugeben.\\ Es findet Anwendung ... \\ Ziel ist es die eingesetzten Datenstrukturen effizient zu durchsuchen.
+Das \textit{Iterator Pattern} ist ein Verhaltensmuster. \\ Hierbei wird die verwendete Datenstruktur elementweise durchlaufen, ohne deren interne Anordnung preiszugeben.\\ %Es findet Anwendung ... \\
+Ziel ist es die eingesetzten Datenstrukturen effizient zu durchsuchen.
 
 \newpage
 \section{Mediator Pattern}
@@ -492,10 +522,13 @@ Das \textit{Model-View-Controller Pattern} ist ein Architekturmuster. \\
 
 
 \section{Multiton Pattern}
-Das \textit{Multiton Pattern} ist ein Erzeugungsmuster. \\ Hierbei wird sichergestellt, dass mehrere Instanzen eines Objekts existieren dürfen. Eine eindeutige Zuordnung wird geregelt durch Vergabe eines Schlüssels. \\ Es findet Anwendung bei den \textit{RequestListenern} ???? \\ Ziel ist parallele Anfragestellung und -beantwortung.
+Das \textit{Multiton Pattern} ist ein Erzeugungsmuster. \\ Hierbei wird sichergestellt, dass mehrere Instanzen eines Objekts existieren dürfen. Eine eindeutige Zuordnung wird geregelt durch Vergabe eines Schlüssels. \\ 
+% Es findet Anwendung bei den \textit{RequestListenern} ???? \\ 
+Ziel ist parallele Anfragestellung und -beantwortung.
 
 \section{Observer Pattern}
-Das \textit{Observer Pattern} ist ein Verhaltensmuster. \\ Hierbei wird eine Info bei durchgeführten Änderungen am Objekt an alle abhängigen Komponenten weitergegeben. \\ Es findet Anwendung ... jede Menge Observer \\ Ziel ist lose Kopplung und zudem werden die abhängigen Objekte automatisch über Änderungen in Kenntnis gesetzt.
+Das \textit{Observer Pattern} ist ein Verhaltensmuster. \\ Hierbei wird eine Info bei durchgeführten Änderungen am Objekt an alle abhängigen Komponenten weitergegeben. \\ % Es findet Anwendung ... jede Menge Observer \\ 
+Ziel ist lose Kopplung und zudem werden die abhängigen Objekte automatisch über Änderungen in Kenntnis gesetzt.
 
 \section{Singleton Pattern}
 Das \textit{Singleton Pattern} ist ein Erzeugungsmuster. \\ Hierbei wird sichergestellt, dass genau eine einzige Instanz eines Objekts existiert. \\ Es findet Anwendung bei der Benutzeroberfläche, von der nur eine Instanz existieren darf. \\ Ziel ist eine sichergestellte Zugriffskontrolle auf das Objekt. 
