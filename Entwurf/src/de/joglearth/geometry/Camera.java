@@ -14,8 +14,6 @@ public class Camera {
 	private float distance;
 	private float tiltX;
 	private float tiltY;
-	private float aspectRatio;
-	private float fov;
 	private Type type;
 	
 	public enum Type {

@@ -15,7 +15,6 @@ public final class JoglEarth {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Settings settings = Settings.getInstance();
 		Camera camera = new Camera(Camera.Type.SPHERE);
 		LocationManager lm = new LocationManager(settings);
 		GUI gui = new GUI(lm, settings, camera);

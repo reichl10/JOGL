@@ -6,7 +6,8 @@ import de.joglearth.ui.*;
 
 // Cache-Reference-Typ ist Integer, da die interne Speicherung wohl
 // mit Arrays oder HashMap<Integer, Value> funktioniert
-public class MemoryCache<Key, Value> extends Cache<Key, Value> {
+public class MemoryCache<Key, Value extends Cacheable>
+extends Cache<Key, Value> {
 	
 	// Sekundärer Cache, wird bei Fehlen eines Datums u.U. zuerst gefragt.
 	// Darf null sein.
@@ -32,7 +33,7 @@ public class MemoryCache<Key, Value> extends Cache<Key, Value> {
 	}
 	
 	@Override
-	public Value requestObject(Key k) {
+	public SourceResponse<Value> requestObject(Key k) {
 		return null;
 	}
 
@@ -44,10 +45,4 @@ public class MemoryCache<Key, Value> extends Cache<Key, Value> {
 	protected void removeEntry(Key k) {
 		
 	}
-
-	@Override
-	protected int getEntrySize(Key k) {
-		return 0;
-	}
-
 }

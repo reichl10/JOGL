@@ -2,14 +2,15 @@ package de.joglearth.caching;
 
 import de.joglearth.source.RequestListener;
 import de.joglearth.source.Source;
+import de.joglearth.source.SourceResponse;
 
 
 // Key: Identifiziert Cache-Objekt, z.B. Kachelkoordinaten
 // Value: Gecachter Typ
 // Reference: Referenziert die tatsächlichen Daten, zB. Array-Index oder java.io.File
-public abstract class Cache<Key, Value> extends Source<Key, Value>
-		implements RequestListener<Key, Value> {
-	
+public abstract class Cache<Key, Value extends Cacheable>
+extends Source<Key, Value>
+implements RequestListener<Key, Value> {
 	
 	// Owner ist das Objekt, das bei einem asynchron geladenen Datensatz 
 	// benachrichtigt wird. Darf null sein.
@@ -26,7 +27,7 @@ public abstract class Cache<Key, Value> extends Source<Key, Value>
 	// Versucht (asynchron) ein Objekt zu entnehmen. Kann u.U. nach Beschaffen 
 	// des Objekts zu einem Aufruf von putObject führen.
 	@Override
-	public Value requestObject(Key k) {
+	public SourceResponse<Value> requestObject(Key k) {
 		return null;
 	}
 	
@@ -44,12 +45,6 @@ public abstract class Cache<Key, Value> extends Source<Key, Value>
 	
 	// Entfernt einen vorhandenen Datensatz. Wird von MemoryCache, FileSystemCache implementiert.
 	protected abstract void removeEntry(Key k);
-	
-	
-	// Gibt den Speicherplatz in Bytes zurück, den ein existierender Datensatz auf dem 
-	// Medium belegt. 
-	// Wird von MemoryCache, FileSystemCache implementiert
-	protected abstract int getEntrySize(Key k);
 	
 }
 
