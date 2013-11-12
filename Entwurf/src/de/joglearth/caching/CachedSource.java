@@ -7,6 +7,10 @@ import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 
 
+/**
+ * @uml.annotations 
+ *    uml_dependency="mmi:///#jsrctype^name=Cache[jcu^name=Cache.java[jpack^name=de.joglearth.caching[jsrcroot^srcfolder=src[project^id=Entwurf]]]]$uml.Interface"
+ */
 public class CachedSource<Key, Value> implements Source<Key, Value> {
 	private ArrayList<Cache<Key, Value>> caches;
 	private Source<Key, Value> source;

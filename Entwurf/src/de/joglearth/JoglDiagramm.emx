@@ -15,7 +15,7 @@
           <children xmi:type="notation:BasicDecorationNode" xmi:id="_qxCbYEuGEeONd9aBGC8l2g" type="Parent"/>
           <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_qxDCcEuGEeONd9aBGC8l2g" type="PackageContents" collapsed="true" canonical="false"/>
           <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qwwHgEuGEeONd9aBGC8l2g" x="143748" y="57024"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qwwHgEuGEeONd9aBGC8l2g" x="37092" y="28776"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_rV6DAEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_rV74MEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -28,7 +28,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_rWAwsEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_rWCl4EuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=JoglEarth%5Bjcu%5Ename=JoglEarth.java%5Bjpack%5Ename=de.joglearth%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rV6DAUuGEeONd9aBGC8l2g" x="143880" y="60984"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rV6DAUuGEeONd9aBGC8l2g" x="37224" y="32736"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tAgjoUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tAhKsEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -45,7 +45,7 @@
             <layoutConstraint xmi:type="notation:Ratio" xmi:id="_D4lTUEuiEeO_7tvJFlO5OQ" value="0.7859554355165429"/>
           </children>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=TextureCache%5Bjcu%5Ename=TextureCache.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tAgjokuGEeONd9aBGC8l2g" x="130812" y="51744"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tAgjokuGEeONd9aBGC8l2g" x="29436" y="32076"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tAkOAEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tAk1EEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -58,7 +58,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tAnRUEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tAn4YEuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=FileSystemCache%5Bjcu%5Ename=FileSystemCache.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tAkOAUuGEeONd9aBGC8l2g" x="136620" y="64284"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tAkOAUuGEeONd9aBGC8l2g" x="28908" y="35904"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tAn4YUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tAofcEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -71,7 +71,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tAqUoEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tAq7sEuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=LocationManager%5Bjcu%5Ename=LocationManager.java%5Bjpack%5Ename=de.joglearth.surface%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tAn4YkuGEeONd9aBGC8l2g" x="37752" y="6732"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tAn4YkuGEeONd9aBGC8l2g" x="19932" y="8580"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tAq7sUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tAriwEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -84,7 +84,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tAtX8EuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tAtX8UuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=CachedSource%5Bjcu%5Ename=CachedSource.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tAq7skuGEeONd9aBGC8l2g" x="122628" y="64020"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tAq7skuGEeONd9aBGC8l2g" x="21912" y="31284"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tAt_AEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tAumEEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -97,7 +97,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tAv0MEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tAv0MUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=PlaneGeometry%5Bjcu%5Ename=PlaneGeometry.java%5Bjpack%5Ename=de.joglearth.geometry%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tAt_AUuGEeONd9aBGC8l2g" x="113124" y="8976"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tAt_AUuGEeONd9aBGC8l2g" x="-9504" y="34320"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tAwbQEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tAxCUEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -111,7 +111,7 @@
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tAyQcUuGEeONd9aBGC8l2g" visible="false" type="AttributeCompartment"/>
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tAy3gEuGEeONd9aBGC8l2g" visible="false" type="OperationCompartment"/>
           <element xmi:type="uml:Enumeration" href="mmi:///#jsrctype%5Ename=Type%5Bjsrctype%5Ename=NominatimQuery%5Bjcu%5Ename=NominatimQuery.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.Enumeration"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tAwbQUuGEeONd9aBGC8l2g" x="83292" y="65208"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tAwbQUuGEeONd9aBGC8l2g" x="132" y="36036"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tAy3gUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tAzekEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -124,7 +124,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tA1TwEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tA1TwUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=OverpassSource%5Bjcu%5Ename=OverpassSource.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tAy3gkuGEeONd9aBGC8l2g" x="109560" y="65472"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tAy3gkuGEeONd9aBGC8l2g" x="4620" y="28380"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tA160EuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tA2h4EuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -137,7 +137,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tA4XEEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tA4-IEuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Renderer%5Bjcu%5Ename=Renderer.java%5Bjpack%5Ename=de.joglearth.rendering%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tA160UuGEeONd9aBGC8l2g" x="-12540" y="4620"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tA160UuGEeONd9aBGC8l2g" x="-30360" y="6468"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tA4-IUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tA6MQEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -150,7 +150,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tA8BcEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tA8BcUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=HeightMapManager%5Bjcu%5Ename=HeightMapManager.java%5Bjpack%5Ename=de.joglearth.surface%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tA4-IkuGEeONd9aBGC8l2g" x="32472" y="13332"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tA4-IkuGEeONd9aBGC8l2g" x="14652" y="15180"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tA8BckuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tA9PkEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -164,7 +164,7 @@
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tA92okuGEeONd9aBGC8l2g" visible="false" type="AttributeCompartment"/>
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tA-dsEuGEeONd9aBGC8l2g" visible="false" type="OperationCompartment"/>
           <element xmi:type="uml:Enumeration" href="mmi:///#jsrctype%5Ename=LocationType%5Bjcu%5Ename=LocationType.java%5Bjpack%5Ename=de.joglearth.surface%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Enumeration"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tA8ogEuGEeONd9aBGC8l2g" x="33000" y="10560"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tA8ogEuGEeONd9aBGC8l2g" x="15180" y="12408"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tA-dsUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tA_EwEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -177,7 +177,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tBA58EuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tBA58UuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=SurfaceNotifier%5Bjcu%5Ename=SurfaceNotifier.java%5Bjpack%5Ename=de.joglearth.surface%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tA-dskuGEeONd9aBGC8l2g" x="26268" y="10824"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tA-dskuGEeONd9aBGC8l2g" x="8448" y="12672"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBA58kuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBCIEEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -188,7 +188,7 @@
           <children xmi:type="notation:BasicDecorationNode" xmi:id="_tBCvIUuGEeONd9aBGC8l2g" type="Parent"/>
           <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_tBCvIkuGEeONd9aBGC8l2g" type="PackageContents" collapsed="true" canonical="false"/>
           <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBA580uGEeONd9aBGC8l2g" x="72864" y="40128"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBA580uGEeONd9aBGC8l2g" x="13596" y="23496"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBCvI0uGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBDWMEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -201,7 +201,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tBFLYEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tBFycEuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=OSMTileSource%5Bjcu%5Ename=OSMTileSource.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBCvJEuGEeONd9aBGC8l2g" x="116688" y="64680"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBCvJEuGEeONd9aBGC8l2g" x="4752" y="39204"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBFycUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBGZgEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -214,7 +214,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tBIOsEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tBI1wEuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Settings%5Bjcu%5Ename=Settings.java%5Bjpack%5Ename=de.joglearth.settings%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBFyckuGEeONd9aBGC8l2g" x="54648" y="8316"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBFyckuGEeONd9aBGC8l2g" x="34584" y="7260"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBI1wUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBJc0EuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -227,7 +227,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tBL5EEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tBL5EUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=CachedBinarySource%5Bjcu%5Ename=CachedBinarySource.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBI1wkuGEeONd9aBGC8l2g" x="123552" y="51876"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBI1wkuGEeONd9aBGC8l2g" x="22440" y="37488"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBQxkUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBRYoEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -240,7 +240,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tBTN0EuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tBTN0UuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=GUIEventListener%5Bjcu%5Ename=GUIEventListener.java%5Bjpack%5Ename=de.joglearth.ui%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBQxkkuGEeONd9aBGC8l2g" x="16104" y="11352"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBQxkkuGEeONd9aBGC8l2g" x="-1716" y="13200"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBT04EuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBUb8EuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -253,7 +253,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tBVqEEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tBVqEUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=SphereTessellator%5Bjcu%5Ename=SphereTessellator.java%5Bjpack%5Ename=de.joglearth.rendering%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBT04UuGEeONd9aBGC8l2g" x="-132" y="10956"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBT04UuGEeONd9aBGC8l2g" x="-17952" y="12804"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBWRIEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBW4MEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -264,7 +264,7 @@
           <children xmi:type="notation:BasicDecorationNode" xmi:id="_tBW4NEuGEeONd9aBGC8l2g" type="Parent"/>
           <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_tBXfQEuGEeONd9aBGC8l2g" type="PackageContents" collapsed="true" canonical="false"/>
           <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth.settings%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBWRIUuGEeONd9aBGC8l2g" x="58344" y="924"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBWRIUuGEeONd9aBGC8l2g" x="32076" y="3564"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBXfQUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBYGUEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -277,7 +277,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tBZUcEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tBZ7gEuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=TextureManager%5Bjcu%5Ename=TextureManager.java%5Bjpack%5Ename=de.joglearth.surface%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBXfQkuGEeONd9aBGC8l2g" x="26796" y="5808"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBXfQkuGEeONd9aBGC8l2g" x="8976" y="7656"/>
         </children>
         <children xmi:type="umlnotation:UMLClassifierShape" xmi:id="_tBZ7gUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label" useClassifierShape="true">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBaikEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -291,7 +291,7 @@
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tBbwsUuGEeONd9aBGC8l2g" type="OperationCompartment"/>
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tBcXwEuGEeONd9aBGC8l2g" visible="false" type="SignalCompartment"/>
           <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=Tessellator%5Bjcu%5Ename=Tessellator.java%5Bjpack%5Ename=de.joglearth.rendering%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Interface"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBZ7gkuGEeONd9aBGC8l2g" x="528" y="5412"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBZ7gkuGEeONd9aBGC8l2g" x="-17292" y="7260"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBcXwUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBc-0EuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -302,7 +302,7 @@
           <children xmi:type="notation:BasicDecorationNode" xmi:id="_tBdl4UuGEeONd9aBGC8l2g" type="Parent"/>
           <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_tBdl4kuGEeONd9aBGC8l2g" type="PackageContents" collapsed="true" canonical="false"/>
           <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth.surface%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBcXwkuGEeONd9aBGC8l2g" x="31548" y="1532"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBcXwkuGEeONd9aBGC8l2g" x="13728" y="3380"/>
         </children>
         <children xmi:type="umlnotation:UMLClassifierShape" xmi:id="_tBdl40uGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label" useClassifierShape="true">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBeM8EuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -316,7 +316,7 @@
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tBfbEEuGEeONd9aBGC8l2g" type="OperationCompartment"/>
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tBfbEUuGEeONd9aBGC8l2g" visible="false" type="SignalCompartment"/>
           <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=Source%5Bjcu%5Ename=Source.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Interface"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBdl5EuGEeONd9aBGC8l2g" x="111540" y="77088"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBdl5EuGEeONd9aBGC8l2g" x="12936" y="31152" width="4883" height="3524"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBfbEkuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBgCIEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -329,7 +329,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tBh3UEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tBh3UUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=MemoryCache%5Bjcu%5Ename=MemoryCache.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBfbE0uGEeONd9aBGC8l2g" x="128832" y="64284"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBfbE0uGEeONd9aBGC8l2g" x="28908" y="26400"/>
         </children>
         <children xmi:type="umlnotation:UMLClassifierShape" xmi:id="_tBjFcEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label" useClassifierShape="true">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBjsgEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -342,8 +342,8 @@
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tBkTkkuGEeONd9aBGC8l2g" type="AttributeCompartment"/>
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tBkTk0uGEeONd9aBGC8l2g" type="OperationCompartment"/>
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tBk6oEuGEeONd9aBGC8l2g" visible="false" type="SignalCompartment"/>
-          <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=SettingsContract%5Bjcu%5Ename=SettingsContract.java%5Bjpack%5Ename=de.joglearth.settings%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Interface"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBjFcUuGEeONd9aBGC8l2g" x="59796" y="8580"/>
+          <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=SettingsContract%5Bjcu%5Ename=SettingsContract.java%5Bjpack%5Ename=de.joglearth.settings%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBjFcUuGEeONd9aBGC8l2g" x="29040" y="7524"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBk6oUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBlhsEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -354,7 +354,7 @@
           <children xmi:type="notation:BasicDecorationNode" xmi:id="_tBmIwkuGEeONd9aBGC8l2g" type="Parent"/>
           <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_tBmIw0uGEeONd9aBGC8l2g" type="PackageContents" collapsed="true" canonical="false"/>
           <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth.geometry%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBk6okuGEeONd9aBGC8l2g" x="102300" y="-396" width="7457" height="2508"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBk6okuGEeONd9aBGC8l2g" x="-20328" y="22968" width="7457" height="2508"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBmv0EuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBmv0kuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -367,7 +367,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tBolAEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tBolAUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Tile%5Bjcu%5Ename=Tile.java%5Bjpack%5Ename=de.joglearth.geometry%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBmv0UuGEeONd9aBGC8l2g" x="94512" y="12408"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBmv0UuGEeONd9aBGC8l2g" x="-28116" y="35772"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBpMEEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBpzIEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -380,7 +380,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tBrBQEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tBrBQUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=NominatimQuery%5Bjcu%5Ename=NominatimQuery.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBpMEUuGEeONd9aBGC8l2g" x="82500" y="51348"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBpMEUuGEeONd9aBGC8l2g" x="-924" y="31152"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBroUEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBroUkuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -393,7 +393,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tBuEkEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tBuEkUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Vector3%5Bjcu%5Ename=Vector3.java%5Bjpack%5Ename=de.joglearth.geometry%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBroUUuGEeONd9aBGC8l2g" x="99264" y="4356"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBroUUuGEeONd9aBGC8l2g" x="-23364" y="27720"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBuEkkuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBuroEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -407,7 +407,7 @@
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tBv5wUuGEeONd9aBGC8l2g" visible="false" type="AttributeCompartment"/>
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tBv5wkuGEeONd9aBGC8l2g" visible="false" type="OperationCompartment"/>
           <element xmi:type="uml:Enumeration" href="mmi:///#jsrctype%5Ename=SourceResponseType%5Bjcu%5Ename=SourceResponseType.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Enumeration"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBuEk0uGEeONd9aBGC8l2g" x="63888" y="51876"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBuEk0uGEeONd9aBGC8l2g" x="12672" y="40524"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBv5w0uGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBwg0EuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -420,7 +420,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tByWAEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tByWAUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=PlaneTessellator%5Bjcu%5Ename=PlaneTessellator.java%5Bjpack%5Ename=de.joglearth.rendering%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBv5xEuGEeONd9aBGC8l2g" x="-264" y="8184"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBv5xEuGEeONd9aBGC8l2g" x="-18084" y="10032"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBy9EEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tBzkIEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -433,7 +433,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tB0yQEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tB1ZUEuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=SphereGeometry%5Bjcu%5Ename=SphereGeometry.java%5Bjpack%5Ename=de.joglearth.geometry%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBy9EUuGEeONd9aBGC8l2g" x="113256" y="13200"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBy9EUuGEeONd9aBGC8l2g" x="-9372" y="38808"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tB1ZUUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tB2AYEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -444,7 +444,7 @@
           <children xmi:type="notation:BasicDecorationNode" xmi:id="_tB2ncEuGEeONd9aBGC8l2g" type="Parent"/>
           <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_tB2ncUuGEeONd9aBGC8l2g" type="PackageContents" collapsed="true" canonical="false"/>
           <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tB1ZUkuGEeONd9aBGC8l2g" x="128040" y="40128"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tB1ZUkuGEeONd9aBGC8l2g" x="26136" y="23628"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tB2nckuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tB3OgEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -457,7 +457,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tB5DsEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tB5DsUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Mesh%5Bjcu%5Ename=Mesh.java%5Bjpack%5Ename=de.joglearth.rendering%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tB2nc0uGEeONd9aBGC8l2g" x="-5544" y="5412"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tB2nc0uGEeONd9aBGC8l2g" x="-23364" y="7260"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tB5qwEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tB6R0EuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -470,7 +470,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tB7f8EuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tB7f8UuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=HTTPUtils%5Bjcu%5Ename=HTTPUtils.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tB5qwUuGEeONd9aBGC8l2g" x="70224" y="51876"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tB5qwUuGEeONd9aBGC8l2g" x="5676" y="24156"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tB8HAEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tB8uEEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -484,7 +484,7 @@
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tB9VI0uGEeONd9aBGC8l2g" visible="false" type="AttributeCompartment"/>
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tB98MEuGEeONd9aBGC8l2g" visible="false" type="OperationCompartment"/>
           <element xmi:type="uml:Enumeration" href="mmi:///#jsrctype%5Ename=OSMTileType%5Bjcu%5Ename=OSMTileType.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Enumeration"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tB8HAUuGEeONd9aBGC8l2g" x="52668" y="52008"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tB8HAUuGEeONd9aBGC8l2g" x="132" y="39864"/>
         </children>
         <children xmi:type="umlnotation:UMLClassifierShape" xmi:id="_tB98MUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label" useClassifierShape="true">
           <children xmi:type="notation:DecorationNode" xmi:id="_tB-jQEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -498,7 +498,7 @@
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tB_xYEuGEeONd9aBGC8l2g" type="OperationCompartment"/>
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tB_xYUuGEeONd9aBGC8l2g" visible="false" type="SignalCompartment"/>
           <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=SettingsListener%5Bjcu%5Ename=SettingsListener.java%5Bjpack%5Ename=de.joglearth.settings%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Interface"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tB98MkuGEeONd9aBGC8l2g" x="55704" y="18480"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tB98MkuGEeONd9aBGC8l2g" x="29568" y="13332"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tB_xYkuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCAYcEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -511,7 +511,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tCCNoEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tCCNoUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Vector4%5Bjcu%5Ename=Vector4.java%5Bjpack%5Ename=de.joglearth.geometry%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tB_xY0uGEeONd9aBGC8l2g" x="99396" y="12672"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tB_xY0uGEeONd9aBGC8l2g" x="-23232" y="36036"/>
         </children>
         <children xmi:type="umlnotation:UMLClassifierShape" xmi:id="_tCCNokuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label" useClassifierShape="true">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCC0sEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -525,7 +525,7 @@
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tCEC0EuGEeONd9aBGC8l2g" type="OperationCompartment"/>
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tCEC0UuGEeONd9aBGC8l2g" visible="false" type="SignalCompartment"/>
           <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=Cache%5Bjcu%5Ename=Cache.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Interface"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCCNo0uGEeONd9aBGC8l2g" x="131208" y="70884"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCCNo0uGEeONd9aBGC8l2g" x="22836" y="26664"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tCEC0kuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCEp4EuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -538,7 +538,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tCGfEEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tCGfEUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Location%5Bjcu%5Ename=Location.java%5Bjpack%5Ename=de.joglearth.surface%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCEC00uGEeONd9aBGC8l2g" x="32736" y="5808"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCEC00uGEeONd9aBGC8l2g" x="14916" y="7656"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tCGfEkuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCHGIEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -549,7 +549,7 @@
           <children xmi:type="notation:BasicDecorationNode" xmi:id="_tCHtMkuGEeONd9aBGC8l2g" type="Parent"/>
           <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_tCHtM0uGEeONd9aBGC8l2g" type="PackageContents" collapsed="true" canonical="false"/>
           <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth.rendering%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCGfE0uGEeONd9aBGC8l2g" x="-2640" y="1320"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCGfE0uGEeONd9aBGC8l2g" x="-20460" y="3168"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tCHtNEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCIUQEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -562,7 +562,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tCMlsEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tCMlsUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Matrix4%5Bjcu%5Ename=Matrix4.java%5Bjpack%5Ename=de.joglearth.geometry%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCHtNUuGEeONd9aBGC8l2g" x="103488" y="5676"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCHtNUuGEeONd9aBGC8l2g" x="-19140" y="29040"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tCMlskuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCNMwEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -575,7 +575,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tCPB8EuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tCPB8UuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=ScreenCoordinates%5Bjcu%5Ename=ScreenCoordinates.java%5Bjpack%5Ename=de.joglearth.geometry%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCMls0uGEeONd9aBGC8l2g" x="94116" y="8580"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCMls0uGEeONd9aBGC8l2g" x="-28512" y="31944"/>
         </children>
         <children xmi:type="umlnotation:UMLClassifierShape" xmi:id="_tCPpAEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label" useClassifierShape="true">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCQQEEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -589,7 +589,7 @@
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tCReMkuGEeONd9aBGC8l2g" type="OperationCompartment"/>
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tCSFQEuGEeONd9aBGC8l2g" visible="false" type="SignalCompartment"/>
           <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=SourceListener%5Bjcu%5Ename=SourceListener.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Interface"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCPpAUuGEeONd9aBGC8l2g" x="38148" y="29304"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCPpAUuGEeONd9aBGC8l2g" x="13728" y="27324"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tCSFQUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCSsUEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -602,7 +602,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tCUhgEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tCUhgUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=ViewEventListener%5Bjcu%5Ename=ViewEventListener.java%5Bjpack%5Ename=de.joglearth.ui%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCSFQkuGEeONd9aBGC8l2g" x="15180" y="4488"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCSFQkuGEeONd9aBGC8l2g" x="-2640" y="6336"/>
         </children>
         <children xmi:type="umlnotation:UMLClassifierShape" xmi:id="_tCUhgkuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label" useClassifierShape="true">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCVIkEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -616,7 +616,7 @@
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tCWWsUuGEeONd9aBGC8l2g" type="OperationCompartment"/>
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tCWWskuGEeONd9aBGC8l2g" visible="false" type="SignalCompartment"/>
           <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=Geometry%5Bjcu%5Ename=Geometry.java%5Bjpack%5Ename=de.joglearth.geometry%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Interface"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCUhg0uGEeONd9aBGC8l2g" x="113784" y="4092"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCUhg0uGEeONd9aBGC8l2g" x="-8844" y="29700"/>
         </children>
         <children xmi:type="umlnotation:UMLClassifierShape" xmi:id="_tCW9wEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label" useClassifierShape="true">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCXk0EuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -630,7 +630,7 @@
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tCYL40uGEeONd9aBGC8l2g" type="OperationCompartment"/>
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tCYy8EuGEeONd9aBGC8l2g" visible="false" type="SignalCompartment"/>
           <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=SurfaceListener%5Bjcu%5Ename=SurfaceListener.java%5Bjpack%5Ename=de.joglearth.surface%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Interface"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCW9wUuGEeONd9aBGC8l2g" x="27060" y="15408"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCW9wUuGEeONd9aBGC8l2g" x="9240" y="17256"/>
         </children>
         <children xmi:type="umlnotation:UMLClassifierShape" xmi:id="_tCYy8UuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label" useClassifierShape="true">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCZaAEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -644,7 +644,7 @@
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tCaoIEuGEeONd9aBGC8l2g" type="OperationCompartment"/>
           <children xmi:type="notation:SemanticListCompartment" xmi:id="_tCaoIUuGEeONd9aBGC8l2g" visible="false" type="SignalCompartment"/>
           <element xmi:type="uml:Interface" href="mmi:///#jsrctype%5Ename=CameraListener%5Bjcu%5Ename=CameraListener.java%5Bjpack%5Ename=de.joglearth.geometry%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Interface"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCYy8kuGEeONd9aBGC8l2g" x="108108" y="16236"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCYy8kuGEeONd9aBGC8l2g" x="-8316" y="25740"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tCaoIkuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCbPMEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -657,7 +657,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tCdEYEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tCdEYUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=SRTMTileSource%5Bjcu%5Ename=SRTMTileSource.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCaoI0uGEeONd9aBGC8l2g" x="88440" y="64944"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCaoI0uGEeONd9aBGC8l2g" x="4620" y="35244"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tCdrcEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCdrckuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -670,7 +670,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tCfgoEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tCgHsEuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=GUI%5Bjcu%5Ename=GUI.java%5Bjpack%5Ename=de.joglearth.ui%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCdrcUuGEeONd9aBGC8l2g" x="8316" y="4488"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCdrcUuGEeONd9aBGC8l2g" x="-9504" y="6336"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tCgHsUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCguwEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -683,7 +683,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tCh84EuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tCij8EuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=OverpassQuery%5Bjcu%5Ename=OverpassQuery.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCgHskuGEeONd9aBGC8l2g" x="57816" y="51876"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCgHskuGEeONd9aBGC8l2g" x="-528" y="28116"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tCij8UuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCjLAEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -696,7 +696,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tClAMEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tClAMUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=NominatimSource%5Bjcu%5Ename=NominatimSource.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCij8kuGEeONd9aBGC8l2g" x="95436" y="65208"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCij8kuGEeONd9aBGC8l2g" x="4620" y="31812"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tClAMkuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tClnQEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -707,7 +707,7 @@
           <children xmi:type="notation:BasicDecorationNode" xmi:id="_tCmOUkuGEeONd9aBGC8l2g" type="Parent"/>
           <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_tCmOU0uGEeONd9aBGC8l2g" type="PackageContents" collapsed="true" canonical="false"/>
           <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth.ui%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tClAM0uGEeONd9aBGC8l2g" x="16104" y="1320"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tClAM0uGEeONd9aBGC8l2g" x="-1716" y="3168"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tCm1YEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCnccEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -720,7 +720,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tCoqkEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tCoqkUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=SourceResponse%5Bjcu%5Ename=SourceResponse.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCm1YUuGEeONd9aBGC8l2g" x="74844" y="51612"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCm1YUuGEeONd9aBGC8l2g" x="12144" y="36168"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tCpRoEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCp4sEuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -733,7 +733,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tCrG0EuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tCrG0UuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=TextureSource%5Bjcu%5Ename=TextureSource.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCpRoUuGEeONd9aBGC8l2g" x="102564" y="65208"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCpRoUuGEeONd9aBGC8l2g" x="4752" y="43692"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tCrt4EuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCsU8EuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -746,7 +746,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tCuKIEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tCuKIUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Camera%5Bjcu%5Ename=Camera.java%5Bjpack%5Ename=de.joglearth.geometry%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCrt4UuGEeONd9aBGC8l2g" x="107184" y="3828"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCrt4UuGEeONd9aBGC8l2g" x="-15444" y="27192"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tCuxMEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
           <children xmi:type="notation:DecorationNode" xmi:id="_tCuxMkuGEeONd9aBGC8l2g" type="ImageCompartment">
@@ -759,7 +759,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tCwmYEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tCwmYUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
           <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=GeoCoordinates%5Bjcu%5Ename=GeoCoordinates.java%5Bjpack%5Ename=de.joglearth.geometry%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCuxMUuGEeONd9aBGC8l2g" x="94380" y="4620"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tCuxMUuGEeONd9aBGC8l2g" x="-28248" y="27984"/>
         </children>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MUot4EuHEeONd9aBGC8l2g" source="_tAgjoUuGEeONd9aBGC8l2g" target="_tBfbEkuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
           <children xmi:type="notation:DecorationNode" xmi:id="_MUpU8EuHEeONd9aBGC8l2g" type="NameLabel">
@@ -768,7 +768,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MUpU8UuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:Generalization" href="mmi:///#jgen%5Bjsrctype%5Ename=TextureCache%5Bjcu%5Ename=TextureCache.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=MemoryCache%5Bjcu%5Ename=MemoryCache.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.Generalization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUot4UuHEeONd9aBGC8l2g" points="[39, 101, 518, -10912]$[39, 5723, 518, -5290]$[-426, 5723, 53, -5290]$[-426, 9423, 53, -1590]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUot4UuHEeONd9aBGC8l2g" points="[122, -2329, -817, 4855]$[122, -3804, -817, 3380]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9XmQEuHEeONd9aBGC8l2g" id="(0.5002130994280687,0.958579881656804)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9XmQUuHEeONd9aBGC8l2g" id="(0.682845744680851,0.0)"/>
         </edges>
@@ -779,7 +779,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MUqjEUuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=OSMTileSource%5Bjcu%5Ename=OSMTileSource.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Source%5Bjcu%5Ename=Source.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUp8A0uHEeONd9aBGC8l2g" points="[40, 102, 5781, -9824]$[40, 6989, 5781, -2937]$[-5695, 6989, 46, -2937]$[-5695, 9105, 46, -821]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUp8A0uHEeONd9aBGC8l2g" points="[2432, -2802, -6021, 7707]$[3794, -2802, -4659, 7707]$[3794, -8729, -4659, 1780]$[5752, -8729, -2701, 1780]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9RfoEuHEeONd9aBGC8l2g" id="(0.5001959842201092,0.969870875179339)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9RfoUuHEeONd9aBGC8l2g" id="(0.578125,0.0)"/>
         </edges>
@@ -790,7 +790,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MUrxMUuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=OverpassSource%5Bjcu%5Ename=OverpassSource.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Source%5Bjcu%5Ename=Source.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUrKIkuHEeONd9aBGC8l2g" points="[40, 100, -909, -10630]$[40, 7793, -909, -2937]$[986, 7793, 37, -2937]$[986, 9909, 37, -821]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUrKIkuHEeONd9aBGC8l2g" points="[2432, -1164, -5612, -3088]$[4014, -1164, -4030, -3088]$[4014, 2276, -4030, 352]$[5884, 2276, -2160, 352]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9StwUuHEeONd9aBGC8l2g" id="(0.5001959842201092,0.9439701173959445)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9TU0EuHEeONd9aBGC8l2g" id="(0.46252866972477064,0.0)"/>
         </edges>
@@ -801,7 +801,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MUs_UUuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=CachedSource%5Bjcu%5Ename=CachedSource.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Source%5Bjcu%5Ename=Source.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUsYQUuHEeONd9aBGC8l2g" points="[41, 81, 11145, -9997]$[41, 8199, 11145, -1879]$[-11040, 8199, 64, -1879]$[-11040, 9257, 64, -821]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUsYQUuHEeONd9aBGC8l2g" points="[-2497, -1033, 5195, 2052]$[-6801, -1033, 891, 2052]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9Ui8EuHEeONd9aBGC8l2g" id="(0.5135481994740037,0.7661616161616153)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9Ui8UuHEeONd9aBGC8l2g" id="(0.8093176605504587,0.0)"/>
         </edges>
@@ -812,7 +812,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MUtmY0uHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:Generalization" href="mmi:///#jgen%5Bjsrctype%5Ename=Cache%5Bjcu%5Ename=Cache.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Source%5Bjcu%5Ename=Source.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.Generalization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUtmYUuHEeONd9aBGC8l2g" points="[105, 461, 18664, -4392]$[105, 3503, 18664, -1350]$[-18486, 3503, 73, -1350]$[-18486, 4032, 73, -821]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUtmYUuHEeONd9aBGC8l2g" points="[-1771, -745, 5579, -3952]$[-4182, -745, 3168, -3952]$[-4182, 3841, 3168, 634]$[-6999, 3841, 351, 634]"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9ZbcEuHEeONd9aBGC8l2g" id="(0.924913990825688,0.0)"/>
         </edges>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MUuNckuHEeONd9aBGC8l2g" source="_tCpRoEuGEeONd9aBGC8l2g" target="_tBdl40uGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
@@ -822,7 +822,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MUvbkUuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=TextureSource%5Bjcu%5Ename=TextureSource.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Source%5Bjcu%5Ename=Source.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUuNc0uHEeONd9aBGC8l2g" points="[40, 101, -7600, -10299]$[40, 7992, -7600, -2408]$[7667, 7992, 27, -2408]$[7667, 9579, 27, -821]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUuNc0uHEeONd9aBGC8l2g" points="[2432, -1817, -4940, 12231]$[4323, -1817, -3049, 12231]$[4323, -11738, -3049, 2310]$[5752, -11738, -1620, 2310]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9ds4EuHEeONd9aBGC8l2g" id="(0.5001959842201092,0.9585798816568033)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9eT8EuHEeONd9aBGC8l2g" id="(0.34693233944954127,0.0)"/>
         </edges>
@@ -833,7 +833,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MUxQwUuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=NominatimSource%5Bjcu%5Ename=NominatimSource.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Source%5Bjcu%5Ename=Source.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUwCoUuHEeONd9aBGC8l2g" points="[40, 101, -14290, -10392]$[40, 8614, -14290, -1879]$[14348, 8614, 18, -1879]$[14348, 9672, 18, -821]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUwCoUuHEeONd9aBGC8l2g" points="[2432, -1789, -4532, 193]$[3246, -1789, -3718, 193]$[3246, -1260, -3718, 722]$[5884, -1260, -1080, 722]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9fiEEuHEeONd9aBGC8l2g" id="(0.5001959842201092,0.9553001277139193)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9fiEUuHEeONd9aBGC8l2g" id="(0.23133600917431194,0.0)"/>
         </edges>
@@ -844,87 +844,27 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MUye4UuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=SRTMTileSource%5Bjcu%5Ename=SRTMTileSource.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Source%5Bjcu%5Ename=Source.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUx30kuHEeONd9aBGC8l2g" points="[40, 102, -20980, -10062]$[40, 8814, -20980, -1350]$[21029, 8814, 9, -1350]$[21029, 9343, 9, -821]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUx30kuHEeONd9aBGC8l2g" points="[2432, -2309, -3992, 3765]$[3397, -2309, -3027, 3765]$[3397, -4823, -3027, 1251]$[5884, -4823, -540, 1251]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9gwMUuHEeONd9aBGC8l2g" id="(0.5001959842201092,0.9651162790697675)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9hXQEuHEeONd9aBGC8l2g" id="(0.11573967889908257,0.0)"/>
         </edges>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MUzF8UuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBA58kuGEeONd9aBGC8l2g" target="_tCPpAEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
           <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUzF8kuHEeONd9aBGC8l2g" points="[6, 101, 262379, -30252]$[6, 709, 262379, -29644]$[-20972, 709, 241401, -29644]$[-20972, 27522, 241401, -2831]$[-262311, 27522, 62, -2831]$[-262311, 29532, 62, -821]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUzF8kuHEeONd9aBGC8l2g" points="[1993, 101, -643, -2855]$[1993, 2956, -643, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9PqcEuHEeONd9aBGC8l2g" id="(0.07149236480805318,0.9578216764548853)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9QRgEuHEeONd9aBGC8l2g" id="(0.7774311309030635,0.0)"/>
         </edges>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MUztAEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBA58kuGEeONd9aBGC8l2g" target="_tBdl40uGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
           <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUztAUuHEeONd9aBGC8l2g" points="[74, 101, -37477, -35963]$[74, 709, -37477, -35355]$[45963, 709, 8412, -35355]$[45963, 33656, 8412, -2408]$[37606, 33656, 55, -2408]$[37606, 35243, 55, -821]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9QRgUuHEeONd9aBGC8l2g" id="(0.9286389745026619,0.9578216764548853)"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MUztAUuHEeONd9aBGC8l2g" points="[-627, 1453, -1672, -6683]$[-627, 3196, -1672, -4940]$[-1844, 3196, -2889, -4940]$[-1844, 8136, -2889, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9QRgUuHEeONd9aBGC8l2g" id="(0.44017932193891846,0.19327282434596904)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9Q4kEuHEeONd9aBGC8l2g" id="(0.6937213302752293,0.0)"/>
-        </edges>
-        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MU0UEEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBA58kuGEeONd9aBGC8l2g" target="_tBpMEEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
-          <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MU0UEUuHEeONd9aBGC8l2g" points="[39, 101, -10049, -9445]$[39, 3883, -10049, -5663]$[10128, 3883, 40, -5663]$[10128, 9546, 40, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9ilYEuHEeONd9aBGC8l2g" id="(0.5000612916783412,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9ilYUuHEeONd9aBGC8l2g" id="(0.5002106436181779,-5.513759937998959E-16)"/>
-        </edges>
-        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MU1iMEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBA58kuGEeONd9aBGC8l2g" target="_tCm1YEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
-          <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MU1iMUuHEeONd9aBGC8l2g" points="[34, 101, -3094, -10026]$[34, 4412, -3094, -5715]$[3168, 4412, 40, -5715]$[3168, 9383, 40, -744]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9kakEuHEeONd9aBGC8l2g" id="(0.4286389745026618,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9kakUuHEeONd9aBGC8l2g" id="(0.5122968692618328,0.0)"/>
         </edges>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MU2JQEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBA58kuGEeONd9aBGC8l2g" target="_tB5qwEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
           <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MU2JQUuHEeONd9aBGC8l2g" points="[28, 101, 2802, -9920]$[28, 2825, 2802, -7196]$[-2734, 2825, 40, -7196]$[-2734, 10021, 40, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MU2JQUuHEeONd9aBGC8l2g" points="[-1272, -670, 6692, 363]$[-6762, -670, 1202, 363]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9lBoEuHEeONd9aBGC8l2g" id="(0.3572079013729173,0.9578216764548853)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9lBoUuHEeONd9aBGC8l2g" id="(0.5003901530406766,0.0)"/>
-        </edges>
-        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MU2wUEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBA58kuGEeONd9aBGC8l2g" target="_tBuEkkuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
-          <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MU2wUUuHEeONd9aBGC8l2g" points="[22, 101, 7971, -9906]$[22, 2296, 7971, -7711]$[-7910, 2296, 39, -7711]$[-7910, 10007, 39, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9losEuHEeONd9aBGC8l2g" id="(0.2857768282432054,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9mPwEuHEeONd9aBGC8l2g" id="(0.5002349054316056,0.0)"/>
-        </edges>
-        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MU3-cEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBA58kuGEeONd9aBGC8l2g" target="_tCpRoEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
-          <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MU3-cUuHEeONd9aBGC8l2g" points="[56, 101, -29496, -23234]$[56, 2296, -29496, -21039]$[29592, 2296, 40, -21039]$[29592, 23335, 40, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9e7AEuHEeONd9aBGC8l2g" id="(0.7143457551134609,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9e7AUuHEeONd9aBGC8l2g" id="(0.5001959842201092,0.0)"/>
-        </edges>
-        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MU4lgEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBA58kuGEeONd9aBGC8l2g" target="_tCij8UuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
-          <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MU4lgUuHEeONd9aBGC8l2g" points="[51, 101, -22692, -23327]$[51, 2825, -22692, -20603]$[22783, 2825, 40, -20603]$[22783, 23428, 40, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9gJIEuHEeONd9aBGC8l2g" id="(0.6429234379377977,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9gwMEuHEeONd9aBGC8l2g" id="(0.5001959842201092,-1.5487351243472597E-15)"/>
-        </edges>
-        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MU5MkEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBA58kuGEeONd9aBGC8l2g" target="_tCgHsUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
-          <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MU5MkUuHEeONd9aBGC8l2g" points="[17, 101, 13882, -9920]$[17, 1767, 13882, -8254]$[-13826, 1767, 39, -8254]$[-13826, 10021, 39, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9mPwUuHEeONd9aBGC8l2g" id="(0.21435451106752593,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9m20EuHEeONd9aBGC8l2g" id="(0.5002443869828456,0.0)"/>
-        </edges>
-        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MU6asEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBA58kuGEeONd9aBGC8l2g" target="_tBCvI0uGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
-          <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MU6asUuHEeONd9aBGC8l2g" points="[68, 101, -43104, -22759]$[68, 1238, -43104, -21622]$[43212, 1238, 40, -21622]$[43212, 22860, 40, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9SGsEuHEeONd9aBGC8l2g" id="(0.8572079013729336,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9StwEuHEeONd9aBGC8l2g" id="(0.5001959842201092,0.0)"/>
-        </edges>
-        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MU7o0EuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBA58kuGEeONd9aBGC8l2g" target="_tCaoIkuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
-          <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MU7o0UuHEeONd9aBGC8l2g" points="[45, 101, -15888, -22996]$[45, 3354, -15888, -19743]$[15973, 3354, 40, -19743]$[15973, 23097, 40, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9h-UEuHEeONd9aBGC8l2g" id="(0.5714923648080695,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9h-UUuHEeONd9aBGC8l2g" id="(0.5001959842201092,0.0)"/>
-        </edges>
-        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MU828EuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBA58kuGEeONd9aBGC8l2g" target="_tAy3gUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
-          <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MU828UuHEeONd9aBGC8l2g" points="[62, 101, -36300, -23564]$[62, 1767, -36300, -21898]$[36402, 1767, 40, -21898]$[36402, 23665, 40, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9T74EuHEeONd9aBGC8l2g" id="(0.7857768282432054,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9T74UuHEeONd9aBGC8l2g" id="(0.5001959842201092,0.0)"/>
-        </edges>
-        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MU-FEEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBA58kuGEeONd9aBGC8l2g" target="_tB8HAEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
-          <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MU-FEUuHEeONd9aBGC8l2g" points="[12, 101, 19237, -10117]$[12, 1238, 19237, -8980]$[-19185, 1238, 40, -8980]$[-19185, 10218, 40, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9nd4EuHEeONd9aBGC8l2g" id="(0.14292343793779771,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9nd4UuHEeONd9aBGC8l2g" id="(0.5003215233985867,-9.30429362427548E-16)"/>
         </edges>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MU_TMEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tClAMkuGEeONd9aBGC8l2g" target="_tCdrcEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
           <element xsi:nil="true"/>
@@ -1020,7 +960,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MVMHgEuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=GUI%5Bjcu%5Ename=GUI.java%5Bjpack%5Ename=de.joglearth.ui%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=CameraListener%5Bjcu%5Ename=CameraListener.java%5Bjpack%5Ename=de.joglearth.geometry%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVLgcUuHEeONd9aBGC8l2g" points="[1250, 104, -98681, -4146]$[1250, 2488, -98681, -1762]$[30013, 2488, -69918, -1762]$[30013, 6985, -69918, 2735]$[99931, 6985, 0, 2735]$[99931, 5967, 0, 1717]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVLgcUuHEeONd9aBGC8l2g" points="[1614, 104, 23, -11274]$[1614, 11378, 23, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9p6IEuHEeONd9aBGC8l2g" id="(0.25,0.9872495446265938)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9p6IUuHEeONd9aBGC8l2g" id="(0.5001497477931904,-1.996695283804453E-15)"/>
         </edges>
@@ -1031,7 +971,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MVMukUuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=Renderer%5Bjcu%5Ename=Renderer.java%5Bjpack%5Ename=de.joglearth.rendering%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=CameraListener%5Bjcu%5Ename=CameraListener.java%5Bjpack%5Ename=de.joglearth.geometry%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVMHhEuHEeONd9aBGC8l2g" points="[1948, 46, -115513, 202]$[28053, 46, -89408, 202]$[28053, 992, -89408, 1148]$[116489, 992, -972, 1148]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVMHhEuHEeONd9aBGC8l2g" points="[-2010, 105, -21131, -6867]$[-2010, 3509, -21131, -3463]$[19086, 3509, -35, -3463]$[19086, 6972, -35, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9osAEuHEeONd9aBGC8l2g" id="(0.6666666666666666,0.9916067146282974)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9pTEEuHEeONd9aBGC8l2g" id="(0.25014974779319044,-1.996695283804453E-15)"/>
         </edges>
@@ -1042,7 +982,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MVNVo0uHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=FileSystemCache%5Bjcu%5Ename=FileSystemCache.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Cache%5Bjcu%5Ename=Cache.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVNVoUuHEeONd9aBGC8l2g" points="[40, 92, 5403, -3652]$[40, 1336, 5403, -2408]$[-5301, 1336, 62, -2408]$[-5301, 2923, 62, -821]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVNVoUuHEeONd9aBGC8l2g" points="[-2776, -1385, 3319, 10797]$[-3596, -1385, 2499, 10797]$[-3596, -10650, 2499, 1532]$[-5306, -10650, 789, 1532]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9aCgEuHEeONd9aBGC8l2g" id="(0.5121783506092017,0.8729797979797971)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9aCgUuHEeONd9aBGC8l2g" id="(0.7774699668599834,0.0)"/>
         </edges>
@@ -1053,7 +993,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MVPx4UuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=Renderer%5Bjcu%5Ename=Renderer.java%5Bjpack%5Ename=de.joglearth.rendering%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=SourceListener%5Bjcu%5Ename=SourceListener.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVPK0UuHEeONd9aBGC8l2g" points="[40, 105, -49281, -13007]$[40, 3384, -49281, -9728]$[4200, 3384, -45121, -9728]$[4200, 10281, -45121, -2831]$[49362, 10281, 41, -2831]$[49362, 12291, 41, -821]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVPK0UuHEeONd9aBGC8l2g" points="[-38, 105, -43040, -9272]$[-38, 2716, -43040, -6661]$[46303, 2716, 3301, -6661]$[46303, 9965, 3301, 588]$[44709, 9965, 1707, 588]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9oE8EuHEeONd9aBGC8l2g" id="(0.5,0.9916067146282974)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9oE8UuHEeONd9aBGC8l2g" id="(0.5183176263463112,0.0)"/>
         </edges>
@@ -1064,7 +1004,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MVRnEUuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=Renderer%5Bjcu%5Ename=Renderer.java%5Bjpack%5Ename=de.joglearth.rendering%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=SettingsListener%5Bjcu%5Ename=SettingsListener.java%5Bjpack%5Ename=de.joglearth.settings%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVQY8kuHEeONd9aBGC8l2g" points="[66, 105, -58146, -6345]$[66, 2326, -58146, -4124]$[58227, 2326, 15, -4124]$[58227, 6450, 15, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVQY8kuHEeONd9aBGC8l2g" points="[-650, 105, -56375, 5541]$[-650, 1790, -56375, 7226]$[57412, 1790, 1687, 7226]$[57412, -3719, 1687, 1717]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9rIQEuHEeONd9aBGC8l2g" id="(0.8333333333333334,0.9916067146282974)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9rvUEuHEeONd9aBGC8l2g" id="(0.20003575095335877,-1.996695283804453E-15)"/>
         </edges>
@@ -1075,7 +1015,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MVTcQEuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=MemoryCache%5Bjcu%5Ename=MemoryCache.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Cache%5Bjcu%5Ename=Cache.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVSOIUuHEeONd9aBGC8l2g" points="[106, 869, -1427, -4101]$[106, 2562, -1427, -2408]$[1573, 2562, 40, -2408]$[1573, 4149, 40, -821]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVSOIUuHEeONd9aBGC8l2g" points="[-2710, -846, 3708, 580]$[-4712, -846, 1706, 580]"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9Y0YEuHEeONd9aBGC8l2g" id="(0.5183564623032312,0.0)"/>
         </edges>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MVUDUEuHEeONd9aBGC8l2g" source="_tBT04EuGEeONd9aBGC8l2g" target="_tBZ7gUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
@@ -1097,21 +1037,21 @@
         </edges>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MVWfkEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBWRIEuGEeONd9aBGC8l2g" target="_tBFycUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
           <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVWfkUuHEeONd9aBGC8l2g" points="[59, 101, -4349, -5552]$[59, 709, -4349, -4944]$[4447, 709, 39, -4944]$[4447, 5653, 39, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9s9cEuHEeONd9aBGC8l2g" id="(0.7500922323584652,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9tkgEuHEeONd9aBGC8l2g" id="(0.5000033393887521,-8.204733439539272E-17)"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVWfkUuHEeONd9aBGC8l2g" points="[59, 101, -2070, -1862]$[59, 1285, -2070, -678]$[2168, 1285, 39, -678]$[2168, 1963, 39, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9s9cEuHEeONd9aBGC8l2g" id="(0.7500943285484284,0.9578216764548849)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9tkgEuHEeONd9aBGC8l2g" id="(0.49999999999999845,-1.883011804912895E-16)"/>
         </edges>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MVXGoEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBWRIEuGEeONd9aBGC8l2g" target="_tBjFcEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
           <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVXGoUuHEeONd9aBGC8l2g" points="[39, 101, 1348, -9761]$[39, 1238, 1348, -8624]$[-1269, 1238, 40, -8624]$[-1269, 9862, 40, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9tkgUuHEeONd9aBGC8l2g" id="(0.5000922323584652,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9uLkEuHEeONd9aBGC8l2g" id="(0.5000036035516605,0.0)"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVXGoUuHEeONd9aBGC8l2g" points="[-938, -757, 882, -3024]$[-1738, -757, 82, -3024]$[-1738, 2267, 82, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9tkgUuHEeONd9aBGC8l2g" id="(0.25009432854842845,0.9578216764548849)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9uLkEuHEeONd9aBGC8l2g" id="(0.49999999999999833,0.0)"/>
         </edges>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MVYUwEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBWRIEuGEeONd9aBGC8l2g" target="_tB98MUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
           <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVYUwUuHEeONd9aBGC8l2g" points="[542, -1600, 8030, -12975]$[11587, -1600, 19075, -12975]$[11587, -3910, 19075, -15285]$[-8603, -3910, -1115, -15285]$[-8603, 10916, -1115, -459]$[-20314, 10916, -12826, -459]$[-20314, 10146, -12826, -1229]$[-7488, 10146, 0, -1229]$[-7488, 11375, 0, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9sWYEuHEeONd9aBGC8l2g" id="(0.2500922323584652,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9sWYUuHEeONd9aBGC8l2g" id="(0.8000330008800235,-1.996695283804453E-15)"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVYUwUuHEeONd9aBGC8l2g" points="[-4, 101, 2663, -7974]$[-4, 8838, 2663, 763]$[-1002, 8838, 1665, 763]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9sWYEuHEeONd9aBGC8l2g" id="(0.5000943285484304,0.9578216764548849)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9sWYUuHEeONd9aBGC8l2g" id="(0.4999999999999957,-9.983476419022264E-16)"/>
         </edges>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MVb_IEuHEeONd9aBGC8l2g" source="_tBI1wUuGEeONd9aBGC8l2g" target="_tAq7sUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
           <children xmi:type="notation:DecorationNode" xmi:id="_MVcmMEuHEeONd9aBGC8l2g" type="NameLabel">
@@ -1120,7 +1060,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MVcmMUuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:Generalization" href="mmi:///#jgen%5Bjsrctype%5Ename=CachedBinarySource%5Bjcu%5Ename=CachedBinarySource.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=CachedSource%5Bjcu%5Ename=CachedSource.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.Generalization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVb_IUuHEeONd9aBGC8l2g" points="[106, 487, -343, -11204]$[106, 6638, -343, -5053]$[503, 6638, 54, -5053]$[503, 10101, 54, -1590]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVb_IUuHEeONd9aBGC8l2g" points="[-1203, -884, -2023, 5781]$[-1203, -2810, -2023, 3855]"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9VxEEuHEeONd9aBGC8l2g" id="(0.6846613898442124,0.0)"/>
         </edges>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MVd0UEuHEeONd9aBGC8l2g" source="_tCdrcEuGEeONd9aBGC8l2g" target="_tB98MUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
@@ -1130,7 +1070,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MVebYUuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=GUI%5Bjcu%5Ename=GUI.java%5Bjpack%5Ename=de.joglearth.ui%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=SettingsListener%5Bjcu%5Ename=SettingsListener.java%5Bjpack%5Ename=de.joglearth.settings%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVd0UUuHEeONd9aBGC8l2g" points="[-3274, 104, -51994, -5070]$[-3274, 1227, -51994, -3947]$[3846, 1227, -44874, -3947]$[3846, 5821, -44874, 647]$[47388, 5821, -1332, 647]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVd0UUuHEeONd9aBGC8l2g" points="[-554, 104, -36338, 1134]$[-554, 5270, -36338, 6300]$[35496, 5270, -288, 6300]$[35496, 687, -288, 1717]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9qhMEuHEeONd9aBGC8l2g" id="(0.7499999999999988,0.9872495446265938)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9qhMUuHEeONd9aBGC8l2g" id="(0.400034834262247,-1.996695283804453E-15)"/>
         </edges>
@@ -1141,7 +1081,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MVgQkUuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=GUI%5Bjcu%5Ename=GUI.java%5Bjpack%5Ename=de.joglearth.ui%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=SurfaceListener%5Bjcu%5Ename=SurfaceListener.java%5Bjpack%5Ename=de.joglearth.surface%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVfpgUuHEeONd9aBGC8l2g" points="[2179, 104, -17868, -282]$[2179, 1826, -17868, 1440]$[19228, 1826, -819, 1440]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVfpgUuHEeONd9aBGC8l2g" points="[2044, 104, -14439, -2790]$[2044, 3943, -14439, 1049]$[15664, 3943, -819, 1049]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N905QEuHEeONd9aBGC8l2g" id="(0.5,0.9872495446265938)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N91gUEuHEeONd9aBGC8l2g" id="(0.25017692193086793,-1.996695283804453E-15)"/>
         </edges>
@@ -1163,7 +1103,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MViFwUuHEeONd9aBGC8l2g" y="-186"/>
           </children>
           <element xmi:type="uml:InterfaceRealization" href="mmi:///#jimpl%5Bjsrctype%5Ename=LocationManager%5Bjcu%5Ename=LocationManager.java%5Bjpack%5Ename=de.joglearth.surface%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=SettingsListener%5Bjcu%5Ename=SettingsListener.java%5Bjpack%5Ename=de.joglearth.settings%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.InterfaceRealization"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVhes0uHEeONd9aBGC8l2g" points="[39, 104, 18979, -7770]$[39, 2163, 18979, -5711]$[-18893, 2163, 47, -5711]$[-18893, 7874, 47, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVhes0uHEeONd9aBGC8l2g" points="[2776, -3640, -6082, 1059]$[6860, -3640, -1998, 1059]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9uyoEuHEeONd9aBGC8l2g" id="(0.500002774817972,0.9891304347826086)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9uyoUuHEeONd9aBGC8l2g" id="(0.6000339175711352,-1.996695283804453E-15)"/>
         </edges>
@@ -1173,39 +1113,15 @@
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N6xlQEuHEeONd9aBGC8l2g" id="(0.5000000000000002,0.9578216764548853)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N6yMUEuHEeONd9aBGC8l2g" id="(0.5000000000000002,-2.4266133985403636E-16)"/>
         </edges>
-        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MVjT4EuHEeONd9aBGC8l2g" type="OwnedElement" source="_tB1ZUUuGEeONd9aBGC8l2g" target="_tAgjoUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
-          <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVjT4UuHEeONd9aBGC8l2g" points="[56, 101, -2265, -9827]$[56, 1238, -2265, -8690]$[2360, 1238, 39, -8690]$[2360, 9928, 39, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9W_MEuHEeONd9aBGC8l2g" id="(0.7143339637935536,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9W_MUuHEeONd9aBGC8l2g" id="(0.5002130994280687,0.0)"/>
-        </edges>
-        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MVj68EuHEeONd9aBGC8l2g" type="OwnedElement" source="_tB1ZUUuGEeONd9aBGC8l2g" target="_tBfbEkuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
-          <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVj68UuHEeONd9aBGC8l2g" points="[46, 101, -463, -23169]$[46, 17980, -463, -5290]$[536, 17980, 27, -5290]$[536, 21680, 27, -1590]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9cewEuHEeONd9aBGC8l2g" id="(0.571484058362589,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9cewUuHEeONd9aBGC8l2g" id="(0.34151095653755226,0.0)"/>
-        </edges>
-        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MVlJEEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tB1ZUUuGEeONd9aBGC8l2g" target="_tBI1wUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
-          <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVlJEUuHEeONd9aBGC8l2g" points="[22, 101, 3525, -10357]$[22, 1238, 3525, -9220]$[-3463, 1238, 40, -9220]$[-3463, 9714, 40, -744]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9VxEUuHEeONd9aBGC8l2g" id="(0.28576736017292625,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9WYIEuHEeONd9aBGC8l2g" id="(0.5165600272007913,0.0)"/>
-        </edges>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MVlwIEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tB1ZUUuGEeONd9aBGC8l2g" target="_tAq7sUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
           <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVlwIUuHEeONd9aBGC8l2g" points="[11, 101, 4278, -22932]$[11, 709, 4278, -22324]$[-5567, 709, -1300, -22324]$[-5567, 17980, -1300, -5053]$[-4240, 17980, 27, -5053]$[-4240, 21443, 27, -1590]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVlwIUuHEeONd9aBGC8l2g" points="[3130, -379, 6206, -7163]$[8711, -379, 11787, -7163]$[8711, 15708, 11787, 8924]$[773, 15708, 3849, 8924]$[773, 8697, 3849, 1913]$[123, 8697, 3199, 1913]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9dF0EuHEeONd9aBGC8l2g" id="(0.14291745474196163,0.9578216764548853)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9dF0UuHEeONd9aBGC8l2g" id="(0.3424286870321549,0.0)"/>
         </edges>
-        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MVmXMEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tB1ZUUuGEeONd9aBGC8l2g" target="_tAkOAEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
-          <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVmXMUuHEeONd9aBGC8l2g" points="[68, 101, -8079, -22720]$[68, 709, -8079, -22112]$[8187, 709, 40, -22112]$[8187, 22077, 40, -744]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9apkEuHEeONd9aBGC8l2g" id="(0.8571923128884086,0.9578216764548853)"/>
-          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9bQoEuHEeONd9aBGC8l2g" id="(0.5121783506092017,0.0)"/>
-        </edges>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MVm-QEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tB1ZUUuGEeONd9aBGC8l2g" target="_tCCNokuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
           <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVm-QUuHEeONd9aBGC8l2g" points="[34, 101, -2467, -29829]$[34, 1767, -2467, -28163]$[-1353, 1767, -3854, -28163]$[-1353, 28051, -3854, -1879]$[2521, 28051, 20, -1879]$[2521, 29109, 20, -821]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVm-QUuHEeONd9aBGC8l2g" points="[-1578, -603, 2356, -2767]$[-4231, -603, -297, -2767]$[-4231, 2164, -297, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9bQoUuHEeONd9aBGC8l2g" id="(0.42862570926776544,0.9578216764548853)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9b3sEuHEeONd9aBGC8l2g" id="(0.2592429577464789,0.0)"/>
         </edges>
@@ -1247,7 +1163,7 @@
         </edges>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MVuTAEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBk6oUuGEeONd9aBGC8l2g" target="_tCUhgkuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
           <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVuTAUuHEeONd9aBGC8l2g" points="[1871, -1270, -6770, -3593]$[8252, -1270, -389, -3593]$[8252, 2187, -389, -136]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVuTAUuHEeONd9aBGC8l2g" points="[1871, -597, -6506, -5164]$[5123, -597, -3254, -5164]$[5123, 5976, -3254, 1409]$[5951, 5976, -2426, 1409]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9-qQEuHEeONd9aBGC8l2g" id="(0.7500512165910237,0.9578216764548853)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9-qQUuHEeONd9aBGC8l2g" id="(0.5920517117548479,0.04561630540278227)"/>
         </edges>
@@ -1271,7 +1187,7 @@
         </edges>
         <edges xmi:type="umlnotation:UMLConnector" xmi:id="_MWIisEuHEeONd9aBGC8l2g" type="OwnedElement" source="_tBk6oUuGEeONd9aBGC8l2g" target="_tCYy8UuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
           <element xsi:nil="true"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MWJJwEuHEeONd9aBGC8l2g" points="[6789, -609, -1319, -14940]$[9682, -609, 1574, -14940]$[9682, 15417, 1574, 1086]$[9079, 15417, 971, 1086]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MWJJwEuHEeONd9aBGC8l2g" points="[6789, -1418, -7523, -1889]$[10729, -1418, -3583, -1889]$[10729, 990, -3583, 519]$[11397, 990, -2915, 519]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N95KsEuHEeONd9aBGC8l2g" id="(0.08338454992435704,0.9578216764548853)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N95KsUuHEeONd9aBGC8l2g" id="(0.7501497477931904,-1.996695283804453E-15)"/>
         </edges>
@@ -1289,6 +1205,60 @@
           </children>
           <element xmi:type="uml:Dependency" href="mmi:///#MixModelRelationVizRefHandler%5EElement_Name=Entwurf::de.joglearth.surface::Location:Entwurf::de.joglearth.surface::LocationType:1:com.ibm.xtools.uml.dependency%5ERelationType=com.ibm.xtools.uml.dependency%5ESource_langKind=Class%5ETarget_langKind=Enumeration%5Bjsrctype%5Ename=Location%5Bjcu%5Ename=Location.java%5Bjpack%5Ename=de.joglearth.surface%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=LocationType%5Bjcu%5Ename=LocationType.java%5Bjpack%5Ename=de.joglearth.surface%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.Dependency"/>
           <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_STtDoUujEeO_7tvJFlO5OQ" points="[4, 82, 23, -142]$[4, 187, 23, -37]"/>
+        </edges>
+        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_fke5AEuqEeOLHK5W8HHwlQ" source="_tCm1YEuGEeONd9aBGC8l2g" target="_tBuEkkuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+          <children xmi:type="notation:DecorationNode" xmi:id="_fkguMEuqEeOLHK5W8HHwlQ" type="NameLabel">
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="_fkhVQEuqEeOLHK5W8HHwlQ" type="Stereotype"/>
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="_fkhVQUuqEeOLHK5W8HHwlQ" type="Name"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_fkguMUuqEeOLHK5W8HHwlQ" y="-186"/>
+          </children>
+          <element xmi:type="uml:Dependency" href="mmi:///#MixModelRelationVizRefHandler%5EElement_Name=Entwurf::de.joglearth.source::SourceResponse:Entwurf::de.joglearth.source::SourceResponseType:1:com.ibm.xtools.uml.dependency%5ERelationType=com.ibm.xtools.uml.dependency%5ESource_langKind=Class%5ETarget_langKind=Enumeration%5Bjsrctype%5Ename=SourceResponse%5Bjcu%5Ename=SourceResponse.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=SourceResponseType%5Bjcu%5Ename=SourceResponseType.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.Dependency"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_fke5AUuqEeOLHK5W8HHwlQ" points="[-8, 35, -20, -94]$[-46, 132, -58, 3]"/>
+        </edges>
+        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_q6CcAEuqEeOLHK5W8HHwlQ" source="_tBdl40uGEeONd9aBGC8l2g" target="_tCm1YEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+          <children xmi:type="notation:DecorationNode" xmi:id="_q6DDEEuqEeOLHK5W8HHwlQ" type="NameLabel">
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="_q6DqIEuqEeOLHK5W8HHwlQ" type="Stereotype"/>
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="_q6DqIUuqEeOLHK5W8HHwlQ" type="Name"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_q6DDEUuqEeOLHK5W8HHwlQ" y="-186"/>
+          </children>
+          <element xmi:type="uml:Dependency" href="mmi:///#MixModelRelationVizRefHandler%5EElement_Name=Entwurf::de.joglearth.source::Source:Entwurf::de.joglearth.source::SourceResponse:1:com.ibm.xtools.uml.dependency%5ERelationType=com.ibm.xtools.uml.dependency%5ESource_langKind=Interface%5ETarget_langKind=Class%5Bjsrctype%5Ename=Source%5Bjcu%5Ename=Source.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=SourceResponse%5Bjcu%5Ename=SourceResponse.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.Dependency"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_q6CcAUuqEeOLHK5W8HHwlQ" points="[-3, 16, -9, -77]$[-45, 90, -51, -3]"/>
+        </edges>
+        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_vLkioEuqEeOLHK5W8HHwlQ" source="_tAy3gUuGEeONd9aBGC8l2g" target="_tCgHsUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+          <children xmi:type="notation:DecorationNode" xmi:id="_vLlJsEuqEeOLHK5W8HHwlQ" type="NameLabel">
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="_vLlJskuqEeOLHK5W8HHwlQ" type="Stereotype"/>
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="_vLlwwEuqEeOLHK5W8HHwlQ" type="Name"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_vLlJsUuqEeOLHK5W8HHwlQ" y="-186"/>
+          </children>
+          <element xmi:type="uml:Dependency" href="mmi:///#MixModelRelationVizRefHandler%5EElement_Name=Entwurf::de.joglearth.source::OverpassSource:Entwurf::de.joglearth.source::OverpassQuery:1:com.ibm.xtools.uml.dependency%5ERelationType=com.ibm.xtools.uml.dependency%5ESource_langKind=Class%5ETarget_langKind=Class%5Bjsrctype%5Ename=OverpassSource%5Bjcu%5Ename=OverpassSource.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=OverpassQuery%5Bjcu%5Ename=OverpassQuery.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.Dependency"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_vLkioUuqEeOLHK5W8HHwlQ" points="[-8, 17, -8, -72]$[-8, 68, -8, -21]"/>
+        </edges>
+        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_zthq4EuqEeOLHK5W8HHwlQ" source="_tCij8UuGEeONd9aBGC8l2g" target="_tBpMEEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+          <children xmi:type="notation:DecorationNode" xmi:id="_zthq4kuqEeOLHK5W8HHwlQ" type="NameLabel">
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="_ztiR8EuqEeOLHK5W8HHwlQ" type="Stereotype"/>
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="_ztiR8UuqEeOLHK5W8HHwlQ" type="Name"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zthq40uqEeOLHK5W8HHwlQ" y="-186"/>
+          </children>
+          <element xmi:type="uml:Dependency" href="mmi:///#MixModelRelationVizRefHandler%5EElement_Name=Entwurf::de.joglearth.source::NominatimSource:Entwurf::de.joglearth.source::NominatimQuery:1:com.ibm.xtools.uml.dependency%5ERelationType=com.ibm.xtools.uml.dependency%5ESource_langKind=Class%5ETarget_langKind=Class%5Bjsrctype%5Ename=NominatimSource%5Bjcu%5Ename=NominatimSource.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=NominatimQuery%5Bjcu%5Ename=NominatimQuery.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.Dependency"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_zthq4UuqEeOLHK5W8HHwlQ" points="[-8, 21, -12, -73]$[-15, 64, -19, -30]"/>
+        </edges>
+        <edges xmi:type="umlnotation:UMLConnector" xmi:id="_QBCj0EurEeOLHK5W8HHwlQ" source="_tBCvI0uGEeONd9aBGC8l2g" target="_tB8HAEuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+          <children xmi:type="notation:DecorationNode" xmi:id="_QBDx8EurEeOLHK5W8HHwlQ" type="NameLabel">
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="_QBDx8kurEeOLHK5W8HHwlQ" type="Stereotype"/>
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="_QBDx80urEeOLHK5W8HHwlQ" type="Name"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QBDx8UurEeOLHK5W8HHwlQ" y="-186"/>
+          </children>
+          <element xmi:type="uml:Dependency" href="mmi:///#MixModelRelationVizRefHandler%5EElement_Name=Entwurf::de.joglearth.source::OSMTileSource:Entwurf::de.joglearth.source::OSMTileType:1:com.ibm.xtools.uml.dependency%5ERelationType=com.ibm.xtools.uml.dependency%5ESource_langKind=Class%5ETarget_langKind=Enumeration%5Bjsrctype%5Ename=OSMTileSource%5Bjcu%5Ename=OSMTileSource.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=OSMTileType%5Bjcu%5Ename=OSMTileType.java%5Bjpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.Dependency"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_QBCj0UurEeOLHK5W8HHwlQ" points="[-46, -7, 77, -5]$[-124, -19, -1, -17]"/>
+        </edges>
+        <edges xmi:type="umlnotation:UMLConnector" xmi:id="__0BbQEutEeOLHK5W8HHwlQ" source="_tAq7sUuGEeONd9aBGC8l2g" target="_tCCNokuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+          <children xmi:type="notation:DecorationNode" xmi:id="__0CCUEutEeOLHK5W8HHwlQ" type="NameLabel">
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="__0CCUkutEeOLHK5W8HHwlQ" type="Stereotype"/>
+            <children xmi:type="notation:BasicDecorationNode" xmi:id="__0CpYEutEeOLHK5W8HHwlQ" type="Name"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="__0CCUUutEeOLHK5W8HHwlQ" y="-186"/>
+          </children>
+          <element xmi:type="uml:Dependency" href="mmi:///#MixModelRelationVizRefHandler%5EElement_Name=Entwurf::de.joglearth.caching::CachedSource:Entwurf::de.joglearth.caching::Cache:1:com.ibm.xtools.uml.dependency%5ERelationType=com.ibm.xtools.uml.dependency%5ESource_langKind=Class%5ETarget_langKind=Interface%5Bjsrctype%5Ename=CachedSource%5Bjcu%5Ename=CachedSource.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=Cache%5Bjcu%5Ename=Cache.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.Dependency"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="__0BbQUutEeOLHK5W8HHwlQ" points="[-1945, -1927, -2208, 3339]$[-1945, -5213, -2208, 53]$[-1508, -5213, -1771, 53]"/>
         </edges>
       </contents>
     </eAnnotations>

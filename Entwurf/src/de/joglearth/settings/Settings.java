@@ -6,8 +6,6 @@ import javax.tools.JavaFileManager.Location;
 public class Settings {	
 	private static Settings instance = null;
 	
-	private String path;	
-    		
     public static Settings getInstance() {
 		if (instance == null)
 			instance = new Settings();

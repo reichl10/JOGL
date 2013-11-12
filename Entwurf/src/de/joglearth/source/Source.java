@@ -2,6 +2,10 @@ package de.joglearth.source;
 
 import de.joglearth.geometry.Tile;
 
+/**
+ * @uml.annotations 
+ *    uml_dependency="mmi:///#jsrctype^name=SourceResponse[jcu^name=SourceResponse.java[jpack^name=de.joglearth.source[jsrcroot^srcfolder=src[project^id=Entwurf]]]]$uml.Class"
+ */
 public interface Source<Key, Value> {
 	
 	// Versucht ein Objekt zu laden. Wenn es lokal verfügbar ist, 
