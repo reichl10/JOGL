@@ -4,11 +4,12 @@ import de.joglearth.caching.FileSystemCache;
 import de.joglearth.caching.MemoryCache;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Tile;
+import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SRTMTileSource;
 
 
-public class HeightMapManager {
+public class HeightMapManager implements SettingsListener{
 
 	// Der (prim�re) Cache. K�mmert sich um den sekund�ren Plattencache und 
 	// das Laden �ber HTTP (siehe Konstruktor von HeightMap)
@@ -38,5 +39,11 @@ public class HeightMapManager {
 	
 	public void removeSurfaceListener(SurfaceListener l) {
 		notifier.removeSurfaceListener(l);
+	}
+
+	@Override
+	public void settingsChanged(String key, Object valOld, Object valNew) {
+		// TODO Automatisch erstellter Methoden-Stub
+		
 	}
 }

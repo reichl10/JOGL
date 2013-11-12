@@ -1,6 +1,6 @@
 package de.joglearth.geometry;
 
-public class Vector4 {
+public class Vector4 implements Cloneable{
 	
 	public float x, y, z, w; 
     
