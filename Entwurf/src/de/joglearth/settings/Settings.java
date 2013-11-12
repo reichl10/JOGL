@@ -7,20 +7,11 @@ public class Settings {
 	private static Settings instance = null;
 	
 	private String path;	
-
-    private Settings(String path) {
-    	this.path = path;
-    	// Einstellungen aus Datei laden
-    }
-    
+    		
     public static Settings getInstance() {
 		if (instance == null)
-			instance = new Settings("");
+			instance = new Settings();
 		return instance;
-    }
-
-    public void save() {
-    	
     }
 
     public void addSettingsListener(String property, SettingsListener listener) {
