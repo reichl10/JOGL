@@ -1,9 +1,5 @@
 package de.joglearth.rendering;
 
-import de.joglearth.rendering.*;
-import de.joglearth.source.*;
-import de.joglearth.ui.*;
-
 
 public class Mesh {
 	private float[] vertices, normals, texCoords;

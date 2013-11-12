@@ -18,7 +18,7 @@ public class SphereGeometry implements Geometry {
 	}
 
 	@Override
-	public Point getSurfaceCoordinates(Vector3 viewVector) {
+	public ScreenCoordinates getSurfaceCoordinates(Vector3 viewVector) {
 		// TODO Automatisch erstellter Methoden-Stub
 		return null;
 	}

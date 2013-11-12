@@ -1,12 +1,7 @@
 package de.joglearth.geometry;
 
-import de.joglearth.rendering.*;
-import de.joglearth.source.*;
-import de.joglearth.ui.*;
-
-
-// Speichert eine Kachel �ber ihre L�ngen- und Breitengradgrenzen.
-public class Tile {
+// Speichert eine Kachel über ihre Längen- und Breitengradgrenzen.
+public class Tile implements Cloneable {
 	
 	public float longFrom, longTo, latFrom, latTo;
 	public int zoomLevel;

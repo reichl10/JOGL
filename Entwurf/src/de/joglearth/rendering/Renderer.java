@@ -149,5 +149,11 @@ public class Renderer implements SourceListener<Tile, Integer>, Runnable, Camera
 		// TODO Automatisch erstellter Methoden-Stub
 		
 	}
+
+	@Override
+	public void cameraViewChanged() {
+		// TODO Automatisch erstellter Methoden-Stub
+		
+	}
 	
 }

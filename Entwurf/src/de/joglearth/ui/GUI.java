@@ -51,4 +51,10 @@ public class GUI extends JFrame implements SurfaceListener, CameraListener, Sett
 		// TODO Automatisch erstellter Methoden-Stub
 		
 	}
+
+	@Override
+	public void cameraViewChanged() {
+		// TODO Automatisch erstellter Methoden-Stub
+		
+	}
 }

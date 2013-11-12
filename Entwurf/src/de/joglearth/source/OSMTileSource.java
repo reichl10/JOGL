@@ -31,7 +31,7 @@ public class OSMTileSource implements Source<Tile, byte[]> {
 		return null;
 	}
 
-	public void setTileType(TileType t) {
+	public void setTileType(OSMTileType t) {
 
 	}
 

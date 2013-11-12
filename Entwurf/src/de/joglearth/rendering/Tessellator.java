@@ -7,5 +7,5 @@ import de.joglearth.ui.*;
 
 
 public interface Tessellator {
-	Mesh tessellate(Tile tile, int subdivisions);
+	Mesh tessellateTile(Tile tile, int subdivisions);
 }

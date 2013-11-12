@@ -1,11 +1,17 @@
 package de.joglearth.settings;
 
+import javax.tools.JavaFileManager.Location;
 
-public class Settings {
-	
+
+public class Settings {	
 	private static Settings instance = null;
+	
+	private String path;	
 
-    private Settings(String path) {}
+    private Settings(String path) {
+    	this.path = path;
+    	// Einstellungen aus Datei laden
+    }
     
     public static Settings getInstance() {
 		if (instance == null)
@@ -13,129 +19,73 @@ public class Settings {
 		return instance;
     }
 
-    public void putInteger() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
     public void save() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
+    	
     }
 
-    public void load() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
-    public void addListener() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
-    public void removeListener() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
-    public void putDouble() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
-    public void putFloat() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
-    public void getBoolean() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
-    public void putLong() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
-    public void putPlace() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
-    public void getString() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
-    public void getLong() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
-    public void putBoolean() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
-    public void getFloat() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
-    public void getDouble() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
-    public void putString() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
-    public void getInteger() {
-        // begin-user-code
-        // TODO Automatisch erstellter Methoden-Stub
-
-        // end-user-code
-    }
-
-    public void getPlaces() {
+    public void addSettingsListener(String property, SettingsListener listener) {
 
     }
 
-    public void addSettingsListener(String key, SettingsListener listener) {}
+    public void removeSettingsListener(String property, SettingsListener listener) {
 
+    }
+
+    public void putInteger(String property, int value) {
+    	
+    }
+
+    public void putDouble(String property, double value) {
+    	
+    }
+
+    public void putFloat(String property, float value) {
+
+    }
+
+    public void putLong(String property, long value) {
+
+    }
+
+    public void putLocation(String property, Location value) {
+
+    }
+
+    public void putBoolean(String property, boolean value) {
+    	
+    }
+    
+    public void putString(String property, String value) {
+
+    }
+    
+    public boolean getBoolean(String property) {
+    	return false;
+    }
+
+    public String getString(String property) {
+    	return null;
+    }
+
+    public long getLong() {
+    	return 0L;
+    }
+
+    public float getFloat(String property) {
+    	return 0;
+    }
+
+    public double getDouble(String property) {
+    	return 0;
+    }
+
+
+    public int getInteger(String property) {
+    	return 0;
+    }
+
+    public Location[] getLocations(String property) {
+    	return null;
+    }
+    
 }

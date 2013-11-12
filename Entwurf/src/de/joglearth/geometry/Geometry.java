@@ -17,7 +17,7 @@ public interface Geometry {
 	// Die koordinaten screen{X,Y} sind zwischen 0 und 1.
 	// Gibt Längen- und Breitengrad zurück, falls unter dem Punkt
 	// die Kugel/Ebene liegt, sonst null.
-	public Point getSurfaceCoordinates(Vector3 viewVector);
+	public ScreenCoordinates getSurfaceCoordinates(Vector3 viewVector);
 	
 	
 	// Berechnet die Darstellungsmatrix aus den Attributen

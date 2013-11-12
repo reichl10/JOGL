@@ -8,8 +8,7 @@ import de.joglearth.geometry.Vector3;
  */
 public class Camera {
 	
-	private float longitude;
-	private float latitude;
+	private GeoCoordinates position;
 	private float distance;
 	private float tiltX;
 	private float tiltY;
@@ -32,9 +31,8 @@ public class Camera {
 		this.geometry = g;
 	}
 	
-	public void setPosition(float longitude, float latitude) {
-		this.longitude = longitude;
-		this.latitude = latitude;
+	public void setPosition(GeoCoordinates coords) {
+		this.position = coords;
 		updateProjectionMatrix();
 	}
 	
@@ -66,8 +64,8 @@ public class Camera {
 	}
 	
 	public void move(float longitude, float latitude) {
-		this.longitude += longitude;
-		this.latitude += latitude;		
+		this.position.longitude += longitude;
+		this.position.latitude += latitude;		
 		updateProjectionMatrix();
 	}
 	
@@ -87,7 +85,7 @@ public class Camera {
 	// Gibt Point zurück, falls Punkt sichtbar, sonst null.
 	// x- und y-Koordinaten des Points sind zwischen 0 und 1, was die 
 	// Bildschirmposition festlegt.
-	public Point getWindowPosition(float longitude, float latitude) {
+	public ScreenCoordinates getWindowPosition(float longitude, float latitude) {
 		return null;
 	}
 	
@@ -95,7 +93,7 @@ public class Camera {
 	// Die koordinaten screen{X,Y} sind zwischen 0 und 1.
 	// Gibt Längen- und Breitengrad zurück, falls unter dem Punkt
 	// die Kugel/Ebene liegt, sonst null.
-	public Point getCoordinates(float screenX, float screenY) {
+	public ScreenCoordinates getCoordinates(float screenX, float screenY) {
 		return null;
 	}
 	

@@ -2,7 +2,7 @@ package de.joglearth.surface;
 
 
 import de.joglearth.caching.MemoryCache;
-import de.joglearth.geometry.Point;
+import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.Tile;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsListener;
@@ -49,7 +49,7 @@ public class LocationManager implements SettingsListener {
 
 	}
 
-	public Location getDetails(Point coordinates) {
+	public Location getDetails(ScreenCoordinates coordinates) {
 		return null;
 	}
 
@@ -60,6 +60,11 @@ public class LocationManager implements SettingsListener {
 	}
 
 	public void addSurfaceListener(SurfaceListener l) {
-		
+		notifier.addSurfaceListener(l);
 	}
+	
+	public void removeSurfaceListener(SurfaceListener l) {
+		notifier.removeSurfaceListener(l);
+	}
+	
 }
