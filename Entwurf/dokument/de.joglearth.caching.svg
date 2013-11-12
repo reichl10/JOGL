@@ -15,7 +15,7 @@
    id="svg36773"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="Neues Dokument 23">
+   sodipodi:docname="de.joglearth.caching.svg">
   <defs
      id="defs36775">
     <clipPath
@@ -4464,7 +4464,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.8"
      inkscape:cx="225.03122"
-     inkscape:cy="199.03125"
+     inkscape:cy="349.03125"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -4485,7 +4485,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -4706,7 +4706,7 @@
        id="text4013"
        style="font-size:11px;fill:#000000;stroke:none;font-family:Droid Sans">«Override» dropObject ( )</text>
     <line
-       transform="translate(-1920.4206,-534.13782)"
+       transform="translate(-1920.4206,-531.63782)"
        clip-path="url(#clipPath30-1)"
        x1="2270"
        x2="2437"
