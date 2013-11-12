@@ -29,7 +29,7 @@ public class CachedSource<Key, Value> implements Source<Key, Value> {
 		return null;
 	}
 	
-	// ObjektgrÃ¶ÃŸe in Einheiten. Hier: Objekte.
+	// Objektgröße in Einheiten. Hier: Objekte.
 	protected int getObjectSize(Value v) {
 		return 1;
 	}
