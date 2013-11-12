@@ -8,8 +8,8 @@ import javax.media.opengl.awt.GLCanvas;
 import de.joglearth.caching.FileSystemCache;
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
-import de.joglearth.geometry.HeightMap;
 import de.joglearth.geometry.Tile;
+import de.joglearth.surface.HeightMapManager;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.OSMTileSource;
@@ -22,13 +22,13 @@ public class Renderer implements SourceListener<Tile, Integer>, Runnable, Camera
 	private boolean quit = false;
 	private boolean running;
 	private boolean posted;
-	private HeightMap height;
+	private HeightMapManager height;
 	private LocationManager locationManager;
 	//private TextureCache textureCache;
 	private OSMTileSource tileSource;
 	private Camera camera;
 	
-	public Renderer(GLCanvas canv, HeightMap height,
+	public Renderer(GLCanvas canv, HeightMapManager height,
 			LocationManager locationManager, Camera camera) {
 		this.locationManager = locationManager;
 		this.camera = camera;

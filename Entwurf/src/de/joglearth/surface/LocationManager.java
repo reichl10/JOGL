@@ -20,6 +20,7 @@ public class LocationManager implements SettingsListener {
 	private NominatimQuery lastSearch;
 	private boolean[] selectedResults, selectedUserTags, selectedPOIs;
 	private Settings settings;
+	private SurfaceNotifier notifier;
 
 	public LocationManager() {
 		this.settings = Settings.getInstance();
@@ -52,26 +53,13 @@ public class LocationManager implements SettingsListener {
 		return null;
 	}
 
-	private class NominatimListener implements
-			SourceListener<NominatimListener, Location[]> {
-
-		@Override
-		public void requestCompleted(NominatimListener n, Location[] l) {
-		}
-	}
-
-	private class OverpassListener implements
-			SourceListener<OverpassListener, Location[]> {
-
-		@Override
-		public void requestCompleted(OverpassListener o, Location[] l) {
-		}
-	}
-
-
 
 	@Override
 	public void settingsChanged(String key, Object valOld, Object valNew) {
+	
+	}
+
+	public void addSurfaceListener(SurfaceListener l) {
 		
 	}
 }

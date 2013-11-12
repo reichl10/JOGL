@@ -1,31 +1,26 @@
-package de.joglearth.geometry;
+package de.joglearth.surface;
 
 import de.joglearth.caching.FileSystemCache;
 import de.joglearth.caching.MemoryCache;
+import de.joglearth.geometry.Tile;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SRTMTileSource;
 
 
-public class HeightMap {
+public class HeightMapManager {
 
 	// Der (prim�re) Cache. K�mmert sich um den sekund�ren Plattencache und 
 	// das Laden �ber HTTP (siehe Konstruktor von HeightMap)
 	private MemoryCache<Tile, byte[]> cache;
+	
+	private SurfaceNotifier notifier;
+	
 
-	public HeightMap() {		
+	public HeightMapManager() {		
 		FileSystemCache<Tile> fsCache = null;
 		SRTMTileSource source = null;
 		cache = new MemoryCache<Tile, byte[]>();
 	}
-	
-	private class TileListener implements SourceListener<Tile, byte[]> {
-		
-		@Override
-		public void requestCompleted(Tile k, byte[] v) {
-			
-		}
-	}
-	
 	
 	// Versucht die H�he an einem Punkt zu bestimmen, gibt 0 zur�ck, wenn die H�hendaten 
 	// nicht im Cache sind.
@@ -34,5 +29,9 @@ public class HeightMap {
 		 * kachel vom cache anfordern, h�henwert interpolieren(bestimmen).
 		 */
 		return 0;
+	}
+	
+	public void addSurfaceListener(SurfaceListener l) {
+		
 	}
 }
