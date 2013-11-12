@@ -5,42 +5,36 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
 
-import de.joglearth.UpdateListener;
 import de.joglearth.caching.FileSystemCache;
-import de.joglearth.caching.MemoryCache;
-import de.joglearth.caching.TextureCache;
 import de.joglearth.geometry.Camera;
-import de.joglearth.geometry.HeightMap;
+import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.Tile;
-import de.joglearth.location.LocationManager;
-import de.joglearth.rendering.*;
-import de.joglearth.source.*;
-import de.joglearth.ui.*;
+import de.joglearth.surface.HeightMapManager;
+import de.joglearth.surface.LocationManager;
+import de.joglearth.settings.SettingsListener;
+import de.joglearth.source.OSMTileSource;
+import de.joglearth.source.SourceListener;
 
 
-public class Renderer implements RequestListener<Tile, Integer>, Runnable,
-		UpdateListener {
+public class Renderer implements SourceListener<Tile, Integer>, Runnable, CameraListener, SettingsListener {
 
 	private GL2 gl;
 	private boolean quit = false;
 	private boolean running;
 	private boolean posted;
-	private HeightMap height;
+	private HeightMapManager height;
 	private LocationManager locationManager;
-	private TextureCache textureCache;
+	//private TextureCache textureCache;
 	private OSMTileSource tileSource;
 	private Camera camera;
 	
-	public Renderer(GLCanvas canv, HeightMap height,
+	public Renderer(GLCanvas canv, HeightMapManager height,
 			LocationManager locationManager, Camera camera) {
 		this.locationManager = locationManager;
 		this.camera = camera;
 		this.gl = canv.getGL().getGL2();
 		canv.addGLEventListener(new RendererEventListener());
 		FileSystemCache<Tile> fsCache = null;
-		MemoryCache<Tile, byte[]> memCache
-			= new MemoryCache<Tile, byte[]>(new CacheListener(), fsCache, tileSource);
-		textureCache = new TextureCache(this, memCache, gl);
 		this.height = height;
 	}
 	
@@ -52,7 +46,7 @@ public class Renderer implements RequestListener<Tile, Integer>, Runnable,
 		this.camera = camera;
 	}
 	
-	private class CacheListener implements RequestListener<Tile, byte[]> {
+	private class CacheListener implements SourceListener<Tile, byte[]> {
 
 		@Override
 		public void requestCompleted(Tile k, byte[] v) {
@@ -148,6 +142,18 @@ public class Renderer implements RequestListener<Tile, Integer>, Runnable,
 
 	@Override
 	public void requestCompleted(Tile k, Integer v) {		
+	}
+
+	@Override
+	public void settingsChanged(String key, Object valOld, Object valNew) {
+		// TODO Automatisch erstellter Methoden-Stub
+		
+	}
+
+	@Override
+	public void cameraViewChanged() {
+		// TODO Automatisch erstellter Methoden-Stub
+		
 	}
 	
 }

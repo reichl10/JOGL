@@ -1,17 +1,19 @@
 package de.joglearth.source;
 
-import de.joglearth.location.Location;
+import de.joglearth.geometry.Tile;
+import de.joglearth.surface.Location;
 import de.joglearth.rendering.*;
 import de.joglearth.source.*;
 import de.joglearth.ui.*;
 
-public class OverpassSource extends Source<OverpassQuery, Location[]> {
-	public OverpassSource(RequestListener<OverpassQuery, Location[]> owner) {
-		super(owner);
-	}
+public class OverpassSource implements Source<OverpassQuery, Location[]> {
 
 	@Override
-	public Location[] requestObject(OverpassQuery q) {
+	public SourceResponse<Location[]> requestObject(OverpassQuery key,
+			SourceListener<OverpassQuery, Location[]> sender) {
+		// TODO Automatisch erstellter Methoden-Stub
 		return null;
 	}
+
+
 }

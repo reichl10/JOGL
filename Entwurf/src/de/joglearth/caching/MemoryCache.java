@@ -1,48 +1,41 @@
 package de.joglearth.caching;
 
+import java.util.HashMap;
+
+import de.joglearth.geometry.Tile;
 import de.joglearth.rendering.*;
 import de.joglearth.source.*;
 import de.joglearth.ui.*;
 
 // Cache-Reference-Typ ist Integer, da die interne Speicherung wohl
 // mit Arrays oder HashMap<Integer, Value> funktioniert
-public class MemoryCache<Key, Value extends Cacheable>
-extends Cache<Key, Value> {
-	
-	// Sekundärer Cache, wird bei Fehlen eines Datums u.U. zuerst gefragt.
-	// Darf null sein.
-	private Source<Key, Value> secondary;
-	
-	// Datenquelle, z.B. HTTPSource. 
-	private Source<Key, Value> source;
+public class MemoryCache<Key, Value> 
+		implements Cache<Key, Value> {
 
-	
-	// Owner ist das Objekt, das bei einem asynchron geladenen Datensatz 
-	// benachrichtigt wird. Darf null sein.
-	public MemoryCache(RequestListener<Key, Value> owner, 
-			Source<Key, Value> secondary, 
-			Source<Key, Value> source) {
-		super(owner);
-		this.secondary = secondary;
-		this.source = source;
-	}
+	private HashMap<Key, Value> storage = new HashMap<Key, Value>();
 
-	public void requestCompleted(Key k, Value v) {
-		// Daten in den eigenen Cache einfügen
-		super.requestCompleted(k, v);
-	}
-	
 	@Override
-	public SourceResponse<Value> requestObject(Key k) {
-		return null;
+	public SourceResponse<Value> requestObject(Key key,
+			SourceListener<Key, Value> sender) {
+		Value object = storage.get(key);
+		SourceResponseType responseType = object != null 
+				? SourceResponseType.SYNCHRONOUS :  SourceResponseType.MISSING;
+		return new SourceResponse<Value>(responseType, object);
 	}
 
 	@Override
-	protected void addEntry(Key k, Value v) {
-	}	
+	public void putObject(Key key, Value value) {
+		storage.put(key, value);
+	}
 
 	@Override
-	protected void removeEntry(Key k) {
-		
+	public void dropObject(Key key) {
+		storage.remove(key);
 	}
+
+	@Override
+	public Iterable<Key> getExistingObjects() {
+		return storage.keySet();
+	}
+
 }

@@ -1,10 +1,7 @@
 package de.joglearth.source;
 
-import de.joglearth.geometry.Point;
+import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.Tile;
-import de.joglearth.rendering.*;
-import de.joglearth.source.*;
-import de.joglearth.ui.*;
 
 
 public class NominatimQuery {
@@ -16,6 +13,6 @@ public class NominatimQuery {
 	
 	public Type type;
 	public Tile area;
-	public Point point;
+	public ScreenCoordinates point;
 	public String query;
 }
