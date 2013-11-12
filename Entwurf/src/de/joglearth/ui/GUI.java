@@ -1,17 +1,19 @@
 package de.joglearth.ui;
 
-import de.joglearth.UpdateListener;
+
 import de.joglearth.geometry.Camera;
-import de.joglearth.location.LocationManager;
-import de.joglearth.rendering.*;
+import de.joglearth.geometry.CameraListener;
+import de.joglearth.geometry.Tile;
+import de.joglearth.surface.SurfaceListener;
+import de.joglearth.surface.LocationManager;
 import de.joglearth.settings.Settings;
-import de.joglearth.source.*;
-import de.joglearth.ui.*;
+import de.joglearth.settings.SettingsListener;
 
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.JFrame;
 
-public class GUI extends JFrame implements UpdateListener {
+
+public class GUI extends JFrame implements SurfaceListener, CameraListener, SettingsListener {
 	/**
 	 * makes the compiler happy
 	 */
@@ -27,26 +29,26 @@ public class GUI extends JFrame implements UpdateListener {
 	private GUIEventListener guiEventListener;
 	private Camera camera;
 	
-	public GUI(LocationManager locationManager, Settings settings,
-			Camera camera) {
+	public GUI(LocationManager locationManager, Camera camera) {
 		this.locationManager = locationManager;
-		locationManager.addUpdateListener(this);
-		this.settings = settings;
+		this.settings = Settings.getInstance();
 		this.viewEventListener = new ViewEventListener(camera);
 		this.guiEventListener = new GUIEventListener(camera);
-	}
-
-	public void addUpdateListener(UpdateListener listener) {
-		viewEventListener.addUpdateListener(listener);
-		guiEventListener.addUpdateListener(listener);
 	}
 	
 	public GLCanvas getGLCanvas() {
 		return null;
 	}
-	
+
 	@Override
-	public void post() {
+	public void settingsChanged(String key, Object valOld, Object valNew) {
+		// TODO Automatisch erstellter Methoden-Stub
+		
+	}
+
+	@Override
+	public void surfaceChanged(Tile tile) {
+		// TODO Automatisch erstellter Methoden-Stub
 		
 	}
 }

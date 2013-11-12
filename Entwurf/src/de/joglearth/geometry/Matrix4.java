@@ -1,4 +1,4 @@
-package de.joglearth.rendering;
+package de.joglearth.geometry;
 
 
 public class Matrix4 implements Cloneable {

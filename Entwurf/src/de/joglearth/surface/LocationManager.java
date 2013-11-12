@@ -1,17 +1,19 @@
-package de.joglearth.location;
+package de.joglearth.surface;
 
 
-import de.joglearth.UpdateListener;
-import de.joglearth.UpdateProvider;
 import de.joglearth.caching.MemoryCache;
 import de.joglearth.geometry.Point;
 import de.joglearth.geometry.Tile;
-import de.joglearth.rendering.*;
 import de.joglearth.settings.Settings;
-import de.joglearth.source.*;
-import de.joglearth.ui.*;
+import de.joglearth.settings.SettingsListener;
+import de.joglearth.source.NominatimQuery;
+import de.joglearth.source.NominatimSource;
+import de.joglearth.source.OverpassQuery;
+import de.joglearth.source.OverpassSource;
+import de.joglearth.source.SourceListener;
 
-public class LocationManager extends UpdateProvider implements UpdateListener {
+
+public class LocationManager implements SettingsListener {
 	
 	private MemoryCache<NominatimQuery, Location[]> nominatimCache;
 	private MemoryCache<OverpassQuery, Location[]> overpassCache;
@@ -19,28 +21,23 @@ public class LocationManager extends UpdateProvider implements UpdateListener {
 	private boolean[] selectedResults, selectedUserTags, selectedPOIs;
 	private Settings settings;
 
-	public LocationManager(Settings settings) {
-		this.settings = settings;
+	public LocationManager() {
+		this.settings = Settings.getInstance();
 		OverpassSource overpass = null;
 		NominatimSource nominatim = null;
-		overpassCache = new MemoryCache<OverpassQuery, Location[]>(null, null,
-				overpass);
-		nominatimCache = new MemoryCache<NominatimQuery, Location[]>(null,
-				null, nominatim);
+		overpassCache = new MemoryCache<OverpassQuery, Location[]>();
+		nominatimCache = new MemoryCache<NominatimQuery, Location[]>();
 	}
 
 	
 
 	public void enableResult(int index, boolean enable) {
-		postUpdate();
 	}
 
 	public void enableUserTag(int index, boolean enable) {
-		postUpdate();
 	}
 
-	public void enablePOI(PoiType type, boolean enable) {
-		postUpdate();
+	public void enablePOI(LocationType type, boolean enable) {
 	}
 
 	public void search(String query) {
@@ -56,26 +53,25 @@ public class LocationManager extends UpdateProvider implements UpdateListener {
 	}
 
 	private class NominatimListener implements
-			RequestListener<NominatimListener, Location[]> {
+			SourceListener<NominatimListener, Location[]> {
 
 		@Override
 		public void requestCompleted(NominatimListener n, Location[] l) {
-			postUpdate();
 		}
 	}
 
 	private class OverpassListener implements
-			RequestListener<OverpassListener, Location[]> {
+			SourceListener<OverpassListener, Location[]> {
 
 		@Override
 		public void requestCompleted(OverpassListener o, Location[] l) {
-			postUpdate();
 		}
 	}
 
-	//settings haben sich ge�ndert, selectedUserTags anpassen?
+
+
 	@Override
-	public void post() {
+	public void settingsChanged(String key, Object valOld, Object valNew) {
 		
 	}
 }

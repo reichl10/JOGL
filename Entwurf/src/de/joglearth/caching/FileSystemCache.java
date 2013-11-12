@@ -1,40 +1,38 @@
 package de.joglearth.caching;
 
-import de.joglearth.source.RequestListener;
+import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 
-
 // Reference-Typ ist String, ein Dateiname.
-public class FileSystemCache<Key>
-extends Cache<Key, CacheableBuffer> {
+public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
-	// Der Ordner, in dem die Cache-Dateien liegen sollen. 
-	// Evtl. bessere möglichkeit als String, irgendeine Directory-Klasse?!
 	private String folder;
-	
 
-	// Owner ist das Objekt, das bei einem asynchron geladenen Datensatz 
-	// benachrichtigt wird. Darf null sein.
-	public FileSystemCache(RequestListener<Key, CacheableBuffer> owner, String folder) {
-		super(owner);
+	public FileSystemCache(String folder) {
 		this.folder = folder;
 	}
-	
+
 	@Override
-	public SourceResponse<CacheableBuffer> requestObject(Key k) {
+	public SourceResponse<byte[]> requestObject(Key key,
+			SourceListener<Key, byte[]> sender) {
+		// Datei wenn mögl. asynchron laden
 		return null;
 	}
 
 	@Override
-	protected void addEntry(Key k, CacheableBuffer v) {
-		// Datei erstellen
+	public void putObject(Key k, byte[] v) {
+		// Datei schreiben
 	}
 
 	@Override
-	protected void removeEntry(Key k) {
+	public void dropObject(Key k) {
 		// Datei löschen
 	}
 
+	@Override
+	public Iterable<Key> getExistingObjects() {
+		// Ordner durchsuchen, Dateien auflisten, Keys generieren, zurückgeben
+		return null;
+	}
 
-	
 }

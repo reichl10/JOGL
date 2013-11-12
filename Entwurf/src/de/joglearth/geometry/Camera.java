@@ -1,8 +1,7 @@
 package de.joglearth.geometry;
 
-import de.joglearth.rendering.*;
-import de.joglearth.source.*;
-import de.joglearth.ui.*;
+import de.joglearth.geometry.Matrix4;
+import de.joglearth.geometry.Vector3;
 
 /*
  * getDisplayedArea() zwecks overpass & nominatim & renderer(abfrage derzeitiger ausschnitt)
@@ -14,52 +13,71 @@ public class Camera {
 	private float distance;
 	private float tiltX;
 	private float tiltY;
-	private Type type;
+	private Matrix4 clipMatrix, projectionMatrix;
+	private Geometry geometry;
 	
-	public enum Type {
-		PLANE,
-		SPHERE
+	private void updateProjectionMatrix() {
+		Matrix4 cameraMatrix = new Matrix4();
+		cameraMatrix.rotateX(tiltX);
+		cameraMatrix.rotateY(tiltY);
+		projectionMatrix = cameraMatrix.inverse();
+		projectionMatrix.mult(clipMatrix);
 	}
 	
-	public Camera(Type t) {
-		
+	public Camera() {
+		setPerspective((float) Math.PI/2, 1, 0.1f, 1000);
 	}
 	
-	public void setType (Type t) {
-		this.type = t;
+	public void setGeometry(Geometry g) {
+		this.geometry = g;
 	}
 	
 	public void setPosition(float longitude, float latitude) {
 		this.longitude = longitude;
 		this.latitude = latitude;
+		updateProjectionMatrix();
 	}
 	
 	public void setDistance(float distance) {
 		this.distance = distance;
+		updateProjectionMatrix();
 	}
-	
-	public void setFOV(float fov) {
-		this.fov = fov;
-	}
-	
-	public void setAspectRatio(float aspectRatio) {
-		this.aspectRatio = aspectRatio;
+		
+	public void setPerspective(float fov, float aspectRatio, float near,
+			float far) {
+		float f = 1.f / (float) Math.tan(fov*0.5f);
+		float[] d = { f * aspectRatio,   0,			          0,  0, 
+				      0,               f, 	            	      0,  0,
+				      0,                 0,       (far+near)/(far-near),  1,
+				      0,                 0, (2.f*near*far) / (near-far),  0 };
+		clipMatrix = new Matrix4(d);
 	}
 	
 	public void resetTilt() {
 		tiltX = 0;
 		tiltY = 0;
+		updateProjectionMatrix();
 	}
 	
 	public void tilt(float x, float y) {
 		this.tiltX += x;
 		this.tiltY += y;
+		updateProjectionMatrix();
 	}
 	
 	public void move(float longitude, float latitude) {
 		this.longitude += longitude;
 		this.latitude += latitude;		
+		updateProjectionMatrix();
 	}
+	
+	
+	private boolean isPointVisisble(Vector3 point) {
+		// Sichtbar, wenn: Transformierter Vektor in [0, 1] x [0, 1] x [0, inf]
+		// und, falls Kugel, z <= Abstand zu (0, 0, 0) [?!]
+		return false;
+	}
+	
 	
 	public boolean isPointVisible(float longitude, float latitude) {
 		return false;
@@ -90,7 +108,8 @@ public class Camera {
 	
 	// Berechnet die Darstellungsmatrix aus den Attributen
 	public Matrix4 getProjectionMatrix() {
-		return null;
+		return projectionMatrix;
 	}
 	
 }
+
