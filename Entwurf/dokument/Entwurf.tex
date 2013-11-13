@@ -81,10 +81,10 @@
 \textbf{{\huge OpenStreetMap: Die Welt in 3D}}
 
 \vspace{1.5 cm}
-08.11.2013
+15.11.2013
 
 \vspace{0.5 cm}
-Version: 1.0
+Version: 1.1
 
 \vspace{1.5 cm}
 {\Large Projektbetreuer: Peter Barth}
@@ -238,14 +238,14 @@ Bildet die Basis für einen Cache und implementiert eine Verdrängungsstrategie.
 \begin{lstlisting}
 interface Geometry
 \end{lstlisting}
-Lorem ipsum\\
+Abstrahiert die Sichtbarkeitsberechnungen verschiedener Modelle, wie eines Globus oder einer Kartenebene.\\
 
 \vspace{5mm}
 \subsection*{CameraListener}
 \begin{lstlisting}
 interface CameraListener
 \end{lstlisting}
-Lorem ipsum\\
+Nimmt Events entgegen die beim Ändern der Kamera-Ansichten entstehen.\\
 
 
 \vspace{5mm}
@@ -263,7 +263,7 @@ Bietet eine gemeinsame Schnittstelle für das Erzeugen von Kartenkacheln verschi
 \begin{lstlisting}
 interface SettingsListener
 \end{lstlisting}
-Lorem ipsum\\
+Eine Implementierung des \textit{SettingsListeners} kann über eine Änderung der \textit{Settings} benachrichtigt werden.\\
 
 
 \vspace{5mm}
@@ -279,7 +279,7 @@ Ist in der Lage, über einen \texttt{Key} identifizierte Objekte asynchron zu be
 \begin{lstlisting}
 interface SourceListener<Key, Value>
 \end{lstlisting}
-Lorem ipsum\\
+Eine Implementierung des Interfaces kann asynchrone Antworten einer \textit{Source} entgegen nehmen.\\
 
 
 \vspace{5mm}
@@ -288,7 +288,7 @@ Lorem ipsum\\
 \begin{lstlisting}
 interface SurfaceListener
 \end{lstlisting}
-Lorem ipsum\\
+Eine Implementierung des Interfaces kann über Änderung der Darstellung einzelner Kartenkacheln benachrichtigt werden.\\
 
 
 
@@ -341,9 +341,6 @@ class TextureCache
 extends MemoryCache<Tile, Integer>
 \end{lstlisting}
 Der \textit{TextureCache} verwaltet die bereits geladene Texturen.\\
-
- 
-%% Der \textit{TextureCache} verwaltet in OpenGL geladene Texturen mittels der in der \textit{Cache}-Klasse definierten Verdrängungsstrategie. Er lädt fehlende Texturen aus einer Quelle, wie beispielsweise einem \textit{MemoryCache} für PNG-Dateien, nach, bereitet sie auf und übergibt sie an OpenGL.\\
 
 
 
@@ -446,7 +443,6 @@ class Renderer
 implements SourceListener<Tile, Integer>, Runnable, CameraListener, SettingsListener
 \end{lstlisting}
 Ist für das Zeichnen einzelner Frames und die zeitliche Steuerung während Animationen verantwortlich. Rendert entweder Einzelbilder als Reaktion auf eine Aktualisierung über den \textit{SourceListener}, \textit{CameraListener} oder \textit{SettingsListener} oder eine kontinuierliche Bildfolge während Animationsvorgängen.\\
-%\textit{SurfaceListener} nötig?
 
 \vspace{5mm}
 \subsection*{SphereTessellator}
@@ -467,6 +463,7 @@ class Settings
 \end{lstlisting}
 Verwaltet alle erforderlichen Einstellungen sowie die vom Benutzer markierten Punkte aus der Datei \texttt{settings.xml}. Die Einstellungen werden gekapselt und anderen Klassen zugänglich gemacht, außerdem können sich andere Klassen als Beobachter (\textit{Observer}) registrieren um über Einstellungsänderungen benachrichtigt zu werden.\\
 
+\vspace{5mm}
 \subsection*{SettingsContract}
 \begin{lstlisting}
 final class SettingsContract
@@ -546,8 +543,6 @@ Lädt die Texturen in OpenGL.\\
 
 
 
-
-
 \vspace{5mm}
 \section{Surface}
 \subsection*{HeightMapManager}
@@ -579,7 +574,7 @@ Verwaltet die Sichtbarkeit von besonderen Punkten im Ansichtsfenster und der GUI
 class SurfaceNotifier
 implements SurfaceListener
 \end{lstlisting}
-Lorem ipsum\\
+Verteilt Events an verschiedene \textit{SurfaceListener}.\\
 
 \vspace{5mm}
 \subsection*{TextureManager}
@@ -619,44 +614,33 @@ Reagiert auf Benutzereingaben im Ansichtsfenster wie Tastendrücke, Scrollen und
 
 
 
-
-
 \chapter{Beschreibung der Enumerations}
 \section{Source}
 
 \subsection*{NominatimQuery.Type}
-\begin{tabular}{|c|l|}
-\hline
+\begin{tabular}{p{4cm} p{11cm}}
 \textit{GLOBAL} & Globale Suche nach Punkten \\
-\hline
 \textit{LOCAL} & Suche nach Punkten im Sichtbereich \\
-\hline
 \textit{POINT} & Alle verfügbaren Informationen zu einem bestimmten Punkt \\
-\hline
+\end{tabular}
+
+\vspace{5mm}
+\subsection*{OSMTileType}
+Stellt eine Unterscheidung der verschiedenen Kartenmaterialien dar.
+
+\vspace{5mm}
+\subsection*{SourceResponseType}
+\begin{tabular}{p{4cm} p{11cm}}
+\textit{ASYNCHRONOUS} & Das Ergebnis der Anfrage der \textit{SourceResponse} wird asynchron über \textit{requestCompleted} rückgemeldet\\
+\textit{MISSING} & Die \textit{Source} ist nicht in der Lage das angeforderte Objekt zu beschaffen\\
+\textit{SYNCHRONOUS} & Das Ergebnis der Anfrage ist lokal in einem \textit{Cache} verfügbar und wird unmittelbar rückgeliefert \\
 \end{tabular}
 
 
-
-
-\subsection*{OSMTileType}
-z.B. 	day  |  night
-Unterscheidung der verschiedenen Kartenmaterialien.
-
-
-\subsection*{SourceResponseType}
-asynchronous  | missing | synchronous
-
-
-
+\vspace{5mm}
 \section{Surface}
 \subsection*{LocationType}
-POIs usw.
-Unterscheidung beispielsweise der Städtenamen von markierten Punkten.
-
-
-
-
-
+Stellt die unterschiedlichen Typen von Overlays wie POIs, Städtenamen oder markierte Punkte dar.
 
 
 
@@ -683,22 +667,22 @@ Es dient zur Übersetzung einer Schnittstelle in eine andere. \\ Dieses Pattern 
 
 \section{Chain of Responsibility Pattern}
 Das \textit{Chain of Responsibility Pattern} (bzw. Zuständigkeitskette) ist ein Verhaltensmuster. \\
-Hierbei werden mehrere Objekte hintereinander verkettet um gemeinsam eine eingehende Anfrage bearbeiten zu können. Dafür wird eine Anfrage entlang der Kette durchgereicht, bis ein Objekt die Anfrage beantworten kann. \\ Es findet Anwendung beim Speichermanagement. Eine Anfrage für eine benötigte Ressource wird immer an den \textit{memoryCache} gestellt. Die Anfrage wird entsprechend der Kette (siehe Abbildung) durchgereicht bis sie bearbeitet werden kann. \\ Ziel ist  die Entkopplung des Auslösers einer Anfrage mit seinem Empfänger.
+Hierbei werden mehrere Objekte hintereinander verkettet um gemeinsam eine eingehende Anfrage bearbeiten zu können. Dafür wird eine Anfrage entlang der Kette durchgereicht, bis ein Objekt die Anfrage beantworten kann. \\ Es findet Anwendung beim Speichermanagement. Eine Anfrage für eine benötigte Ressource wird immer an die \textit{CachedSource} gestellt. Die Anfrage wird entsprechend der Kette (siehe Sequenzdiagramm) durchgereicht bis sie bearbeitet werden kann. \\ Ziel ist die Entkopplung des Auslösers einer Anfrage mit seinem Empfänger.
 
 \section{Data Transfer Object}
-Das \textit{Data Transfer Object} ist ein Muster für objektrelationale Abbildung. \\
+Das \textit{Data Transfer Object} ist ein Muster für eine objektrelationale Abbildung. \\
 Hierbei werden mehrere Daten gebündelt als ein Objekt übertragen. \\ Es findet Anwendung bei Suchergebnissen und der Anfrage nach POIs. Alle Datensätze werden dann gebündelt übergeben und nicht jede Information seperat. \\ Ziel ist es die Daten zu strukturieren bzw. vollständig gruppierte Information zu einer Anfrage zu erhalten.
 
 \section{Iterator Pattern}
-Das \textit{Iterator Pattern} ist ein Verhaltensmuster. \\ Hierbei wird die verwendete Datenstruktur elementweise durchlaufen, ohne deren interne Anordnung preiszugeben.\\ %Es findet Anwendung ... \\
+Das \textit{Iterator Pattern} ist ein Verhaltensmuster.\\ Hierbei wird die verwendete Datenstruktur elementweise durchlaufen, ohne deren interne Anordnung preiszugeben.\\ Es findet Anwendung bei der Verdrängungsstrategie. Es werden die verschiedenen Caches elementweise durchlaufen um die entsprechenden Einträge zu verdrängen.\\
 Ziel ist es die eingesetzten Datenstrukturen effizient zu durchsuchen.
 
 \newpage
 \section{Mediator Pattern}
-Das \textit{Mediator Pattern} ist ein Verhaltensmuster. \\ Hierbei fungiert der Vermittler als Kommunikationsschnittstelle zwischen Objekten in einem komplexen System. \\ Es findet mehrfache Anwendung im gesamten Programm, wie beispielsweise beim Speichermanagement, beim Rendering, usw. \\ Ziel ist lockere Kopplung. Es sollen nicht alle Objekt voneinander Kenntnis besitzen.
+Das \textit{Mediator Pattern} ist ein Verhaltensmuster. \\ Hierbei fungiert der Vermittler als Kommunikationsschnittstelle zwischen Objekten in einem komplexen System.\\ Es findet mehrfache Anwendung im gesamten Programm, wie beispielsweise beim Speichermanagement, beim Rendering, usw. \\ Ziel ist lockere Kopplung. Es sollen nicht alle Objekt voneinander Kenntnis besitzen.
 
 \section{Model-View-Controller (MVC) Pattern}
-Das \textit{Model-View-Controller Pattern} ist ein Architekturmuster. \\
+Das \textit{Model-View-Controller Pattern} ist ein Architekturmuster.\\ Die zugrundeliegende Architektur des Programms wurde anhand des MVC-Patterns strukturiert.\\
 \begin{figure}[ht]
 \begin{centering}
 \includegraphics[scale=0.5]{ModelViewController.eps}
@@ -707,18 +691,12 @@ Das \textit{Model-View-Controller Pattern} ist ein Architekturmuster. \\
 \end{figure}
 
 
-
-\section{Multiton Pattern}
-Das \textit{Multiton Pattern} ist ein Erzeugungsmuster. \\ Hierbei wird sichergestellt, dass mehrere Instanzen eines Objekts existieren dürfen. Eine eindeutige Zuordnung wird geregelt durch Vergabe eines Schlüssels. \\ 
-% Es findet Anwendung bei den \textit{RequestListenern} ???? \\ 
-Ziel ist parallele Anfragestellung und -beantwortung.
-
 \section{Observer Pattern}
-Das \textit{Observer Pattern} ist ein Verhaltensmuster. \\ Hierbei wird eine Info bei durchgeführten Änderungen am Objekt an alle abhängigen Komponenten weitergegeben. \\ % Es findet Anwendung ... jede Menge Observer \\ 
+Das \textit{Observer Pattern} ist ein Verhaltensmuster. \\ Hierbei wird eine Info bei durchgeführten Änderungen am Objekt an alle abhängigen Komponenten weitergegeben. \\ Es findet beispielsweise Anwendung beim \textit{SettingsListener}, \textit{CameraListener}, \textit{SurfaceListener} usw. \\ 
 Ziel ist lose Kopplung und zudem werden die abhängigen Objekte automatisch über Änderungen in Kenntnis gesetzt.
 
 \section{Singleton Pattern}
-Das \textit{Singleton Pattern} ist ein Erzeugungsmuster. \\ Hierbei wird sichergestellt, dass genau eine einzige Instanz eines Objekts existiert. \\ Es findet Anwendung bei der Benutzeroberfläche, von der nur eine Instanz existieren darf. \\ Ziel ist eine sichergestellte Zugriffskontrolle auf das Objekt. 
+Das \textit{Singleton Pattern} ist ein Erzeugungsmuster. \\ Hierbei wird sichergestellt, dass genau eine einzige Instanz eines Objekts existiert. \\ Es findet Anwendung bei den \textit{Settings}, von der nur eine Instanz existieren darf. \\ Ziel ist eine sichergestellte Zugriffskontrolle auf das Objekt.
 
 
 
