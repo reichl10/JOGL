@@ -139,6 +139,7 @@ Um dem heutigen Standard hoher Softwarequalität sicherzustellen, fließen im ge
 \chapter{UML-Klassendiagramme}
 
 \section{Packages}
+Folgende Abbildung zeigt einen Überblick über die gesamten Packages.\\
 
 \begin{figure}[!htb]
 \begin{center}
@@ -148,7 +149,11 @@ Um dem heutigen Standard hoher Softwarequalität sicherzustellen, fließen im ge
 
 \section{Interfaces, Klassen und Enumerations}
 
+In diesem Abschnitt werden die Packages im Detail erklärt.
+
 \subsection*{de.joglearth}
+
+
 
 \subsection*{de.joglearth.settings}
 
@@ -233,7 +238,7 @@ Um dem heutigen Standard hoher Softwarequalität sicherzustellen, fließen im ge
 
 \chapter{Beschreibung der Interfaces}
 
-\section{Caching}
+\section{de.joglearth.caching}
 \subsection*{Cache}
 \begin{lstlisting}
 interface Cache<Key, Value>
@@ -243,7 +248,7 @@ Bildet die Basis für einen Cache und implementiert eine Verdrängungsstrategie.
 
 
 \vspace{5mm}
-\section{Geometry}
+\section{de.joglearth.geometry}
 \subsection*{Geometry}
 \begin{lstlisting}
 interface Geometry
@@ -259,7 +264,7 @@ Nimmt Events entgegen die beim Ändern der Kamera-Ansichten entstehen.\\
 
 
 \vspace{5mm}
-\section{Rendering}
+\section{de.joglearth.rendering}
 \subsection*{Tessellator}
 \begin{lstlisting}
 interface Tessellator
@@ -268,7 +273,7 @@ Bietet eine gemeinsame Schnittstelle für das Erzeugen von Kartenkacheln verschi
 
 
 \vspace{5mm}
-\section{Settings}
+\section{de.joglearth.settings}
 \subsection*{SettingsListener}
 \begin{lstlisting}
 interface SettingsListener
@@ -277,7 +282,7 @@ Eine Implementierung des \textit{SettingsListeners} kann über eine Änderung de
 
 
 \vspace{5mm}
-\section{Source}
+\section{de.joglearth.source}
 \subsection*{Source}
 \begin{lstlisting}
 interface Source<Key, Value>
@@ -293,7 +298,7 @@ Eine Implementierung des Interfaces kann asynchrone Antworten einer \textit{Sour
 
 
 \vspace{5mm}
-\section{Surface}
+\section{de.joglearth.surface}
 \subsection*{SurfaceListener}
 \begin{lstlisting}
 interface SurfaceListener
@@ -311,14 +316,14 @@ Eine Implementierung des Interfaces nimmt asynchrone Antworten des LocationManag
 
 
 \chapter{Klassenbeschreibung}
-\section{JoglEarth}
+\section{de.joglearth}
 \begin{lstlisting}
 final class JoglEarth
 \end{lstlisting}
 Die Klasse \textit{JoglEarth} implementiert die Main-Methode zum Starten des Programms.\\
 
 \vspace{5mm}
-\section{Caching}
+\section{de.joglearth.caching}
 \subsection*{CacheBinarySource}
 \begin{lstlisting}
 class CacheBinarySource<Key>
@@ -361,7 +366,7 @@ Der \textit{TextureCache} verwaltet die bereits geladene Texturen.\\
 
 
 \vspace{5mm}
-\section{Geometry}
+\section{de.joglearth.geometry}
 \subsection*{Camera}
 \begin{lstlisting}
 class Camera
@@ -437,7 +442,7 @@ Ein 4-dimensionaler Vektor für homogene Koordinaten. Instanzen dieser Klasse we
 
 
 \vspace{5mm}
-\section{Rendering}
+\section{de.joglearth.rendering}
 \subsection*{Mesh}
 \begin{lstlisting}
 class Mesh
@@ -472,7 +477,7 @@ Generiert Kartenkacheln auf der Kugeloberfläche.\\
 
 
 \vspace{5mm}
-\section{Settings}
+\section{de.joglearth.settings}
 \subsection*{Settings}
 \begin{lstlisting}
 class Settings
@@ -489,7 +494,7 @@ Speichern und laden von Settings. Verwaltet die IDs der verschiedenen Settings.\
 
 
 \vspace{5mm}
-\section{Source}
+\section{de.joglearth.source}
 \subsection*{HTTPUtils}
 \begin{lstlisting}
 final class HTTPUtils
@@ -560,7 +565,7 @@ Lädt die Texturen in OpenGL.\\
 
 
 \vspace{5mm}
-\section{Surface}
+\section{de.joglearth.surface}
 \subsection*{HeightMapManager}
 \begin{lstlisting}
 class HeightMapManager
@@ -595,7 +600,7 @@ Bearbeitet Texturanfrage vom \textit{Renderer}. Lädt die Texturen aus einer \te
 
 
 \vspace{5mm}
-\section{UI}
+\section{de.joglearth.ui}
 \subsection*{GUI}
 \begin{lstlisting}
 class GUI
@@ -623,7 +628,7 @@ Reagiert auf Benutzereingaben im Ansichtsfenster wie Tastendrücke, Scrollen und
 
 
 \chapter{Beschreibung der Enumerations}
-\section{Source}
+\section{de.joglearth.source}
 
 \subsection*{NominatimQuery.Type}
 \begin{tabular}{p{4cm} p{11cm}}
@@ -646,7 +651,7 @@ Stellt eine Unterscheidung der verschiedenen Kartenmaterialien dar.
 
 
 \vspace{5mm}
-\section{Surface}
+\section{de.joglearth.surface}
 \subsection*{LocationType}
 Stellt die unterschiedlichen Typen von Overlays wie POIs, Städtenamen oder markierte Punkte dar.
 
