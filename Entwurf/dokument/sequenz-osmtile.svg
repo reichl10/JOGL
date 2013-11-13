@@ -10,8 +10,8 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1986.9803"
-   height="977.20502"
+   width="1986.7975"
+   height="952.57446"
    id="svg3644"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -155,12 +155,12 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="287.13002"
-     inkscape:cy="465.3566"
+     inkscape:cx="1013.5907"
+     inkscape:cy="440.64132"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1366"
+     inkscape:window-width="1024"
      inkscape:window-height="715"
      inkscape:window-x="0"
      inkscape:window-y="26"
@@ -168,7 +168,7 @@
      fit-margin-top="5"
      fit-margin-left="5"
      fit-margin-right="5"
-     fit-margin-bottom="5" />
+     fit-margin-bottom="20" />
   <metadata
      id="metadata3649">
     <rdf:RDF>
@@ -185,7 +185,7 @@
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(233.49019,-1833.9672)">
+     transform="translate(233.39877,-1833.8825)">
     <g
        id="g3818">
       <rect

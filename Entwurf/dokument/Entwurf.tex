@@ -30,6 +30,7 @@
 \deffootnote{1.5em}{1em}{[\thefootnotemark] }
 \setlength{\parindent}{0pt}
 \renewcommand{\labelitemi}{ \raisebox{0.3ex}{\small$\blacktriangleright$} }
+\renewcommand{\labelitemii}{ \raisebox{0.3ex}{\small$\triangleright$} }
 \lstset{language=Java}
 
 \newcommand{\sfbf}[1]{\textbf{\sffamily #1}}
@@ -139,7 +140,7 @@ Um dem heutigen Standard hoher Softwarequalität sicherzustellen, fließen im ge
 \chapter{UML-Klassendiagramme}
 
 \section{Packages}
-Folgende Abbildung zeigt einen Überblick über die gesamten Packages.\\
+Folgende Abbildung gibt einen Überblick über die gesamten Packages.\\
 
 \begin{figure}[!htb]
 \begin{center}
@@ -147,16 +148,26 @@ Folgende Abbildung zeigt einen Überblick über die gesamten Packages.\\
 \end{center}
 \end{figure}
 
+\begin{itemize}
+\item \textbf{\sffamily de.joglearth} ist der Container für alle anderen Packages und enthält die Hauptklasse \textit{JoglEarth}.
+\begin{itemize}
+\item \textbf{\sffamily de.joglearth.caching} stellt die Caching-Funktionalität bereit.
+\item \textbf{\sffamily de.joglearth.geometry} beinhaltet Klassen für die geometrischen Ansichts- und Sichtbarkeitsberechnungen sowie die mathematische Beschreibung der Darstellungsmodelle.
+\item \textbf{\sffamily de.joglearth.rendering} enthält Klassen zur Umsetzung des mathematischen Modells in eine 3D-Darstellung mit OpenGL.
+\item \textbf{\sffamily de.joglearth.settings} ist für die Verwaltung von Benutzereinstellungen und Benachrichtigung bei deren Änderung zuständig.
+\item \textbf{\sffamily de.joglearth.source} beinhaltet Klassen zum synchronen und asynchronen Zugriff auf externe Daten.
+\item \textbf{\sffamily de.joglearth.surface} enthält Komponenten zur Verwaltung von Objekten und Eigenschaften der Erdoberfläche wie dem Kartenmaterial, dem Höhenprofil und der Overlays.
+\item \textbf{\sffamily de.joglearth.ui} fasst Klassen der grafischen Benutzeroberfläche zusammen.
+\end{itemize}
+\end{itemize}
+
+\newpage
+
 \section{Interfaces, Klassen und Enumerations}
 
-In diesem Abschnitt werden die Packages im Detail erklärt.
+Im Folgenden werden UML-Diagramme für die Elemente der einzelnen Packages gezeigt.
 
-\subsection*{de.joglearth}
-
-
-
-\subsection*{de.joglearth.settings}
-
+\vspace{5mm}
 
 \begin{figure}[!htb]
 	\centering
@@ -169,76 +180,60 @@ In diesem Abschnitt werden die Packages im Detail erklärt.
         \centering
 			\includegraphics[scale=0.55]{de_joglearth_settings.eps}
         \end{minipage}
+        \caption{Packages de.joglearth und de.joglearth.settings}
 \end{figure}
 
-\newpage
-
-\subsection*{de.joglearth.caching}
+\vspace{5mm}
 
 \begin{figure}[!htb]
 \begin{center}
 	\includegraphics[scale=0.55]{de_joglearth_caching.eps}
 \end{center}
+\caption{Das Package de.joglearth.caching}
 \end{figure}
 
-\newpage
-
-\subsection*{de.joglearth.geometry}
 
 \begin{figure}[!htb]
 \begin{center}
 	\includegraphics[scale=0.55]{de_joglearth_geometry.eps}
 \end{center}
+\caption{Das Package de.joglearth.geometry}
 \end{figure}
-
-\newpage
-
-\subsection*{de.joglearth.rendering}
-
-\begin{figure}[!htb]
-\begin{center}
-	\includegraphics[scale=0.55]{de_joglearth_rendering.eps}
-\end{center}
-\end{figure}
-
-\newpage
-
-
-
-\subsection*{de.joglearth.source}
-
-\begin{figure}[!htb]
-\begin{center}
-	\includegraphics[scale=0.55]{de_joglearth_source.eps}
-\end{center}
-\end{figure}
-
-\newpage
-
-\subsection*{de.joglearth.surface}
-
-\begin{figure}[!htb]
-\begin{center}
-	\includegraphics[scale=0.55]{de_joglearth_surface.eps}
-\end{center}
-\end{figure}
-
-
-\subsection*{de.joglearth.ui}
 
 \begin{figure}[!htb]
 \begin{center}
 	\includegraphics[scale=0.55]{de_joglearth_ui.eps}
 \end{center}
+\caption{Das Package de.joglearth.ui}
+\end{figure}
+
+\begin{figure}[!htb]
+\begin{center}
+	\includegraphics[scale=0.55]{de_joglearth_rendering.eps}
+\end{center}
+\caption{Das Package de.joglearth.rendering}
+\end{figure}
+
+\begin{figure}[!htb]
+\begin{center}
+	\includegraphics[scale=0.55]{de_joglearth_surface.eps}
+\end{center}
+\caption{Das Package de.joglearth.surface}
 \end{figure}
 
 
-\newpage
+\begin{figure}[!htb]
+\begin{center}
+	\includegraphics[scale=0.55]{de_joglearth_source.eps}
+\end{center}
+\caption{Das Package de.joglearth.source}
+\end{figure}
+
 
 
 \chapter{Beschreibung der Interfaces}
 
-\section{de.joglearth.caching}
+\section{Package de.joglearth.caching}
 \subsection*{Cache}
 \begin{lstlisting}
 interface Cache<Key, Value>
@@ -248,7 +243,7 @@ Bildet die Basis für einen Cache und implementiert eine Verdrängungsstrategie.
 
 
 \vspace{5mm}
-\section{de.joglearth.geometry}
+\section{Package de.joglearth.geometry}
 \subsection*{Geometry}
 \begin{lstlisting}
 interface Geometry
@@ -264,7 +259,7 @@ Nimmt Events entgegen die beim Ändern der Kamera-Ansichten entstehen.\\
 
 
 \vspace{5mm}
-\section{de.joglearth.rendering}
+\section{Package de.joglearth.rendering}
 \subsection*{Tessellator}
 \begin{lstlisting}
 interface Tessellator
@@ -273,7 +268,7 @@ Bietet eine gemeinsame Schnittstelle für das Erzeugen von Kartenkacheln verschi
 
 
 \vspace{5mm}
-\section{de.joglearth.settings}
+\section{Package de.joglearth.settings}
 \subsection*{SettingsListener}
 \begin{lstlisting}
 interface SettingsListener
@@ -282,7 +277,7 @@ Eine Implementierung des \textit{SettingsListeners} kann über eine Änderung de
 
 
 \vspace{5mm}
-\section{de.joglearth.source}
+\section{Package de.joglearth.source}
 \subsection*{Source}
 \begin{lstlisting}
 interface Source<Key, Value>
@@ -298,7 +293,7 @@ Eine Implementierung des Interfaces kann asynchrone Antworten einer \textit{Sour
 
 
 \vspace{5mm}
-\section{de.joglearth.surface}
+\section{Package de.joglearth.surface}
 \subsection*{SurfaceListener}
 \begin{lstlisting}
 interface SurfaceListener
@@ -316,14 +311,14 @@ Eine Implementierung des Interfaces nimmt asynchrone Antworten des LocationManag
 
 
 \chapter{Klassenbeschreibung}
-\section{de.joglearth}
+\section{Package de.joglearth}
 \begin{lstlisting}
 final class JoglEarth
 \end{lstlisting}
 Die Klasse \textit{JoglEarth} implementiert die Main-Methode zum Starten des Programms.\\
 
 \vspace{5mm}
-\section{de.joglearth.caching}
+\section{Package de.joglearth.caching}
 \subsection*{CacheBinarySource}
 \begin{lstlisting}
 class CacheBinarySource<Key>
@@ -366,7 +361,7 @@ Der \textit{TextureCache} verwaltet die bereits geladene Texturen.\\
 
 
 \vspace{5mm}
-\section{de.joglearth.geometry}
+\section{Package de.joglearth.geometry}
 \subsection*{Camera}
 \begin{lstlisting}
 class Camera
@@ -442,7 +437,7 @@ Ein 4-dimensionaler Vektor für homogene Koordinaten. Instanzen dieser Klasse we
 
 
 \vspace{5mm}
-\section{de.joglearth.rendering}
+\section{Package de.joglearth.rendering}
 \subsection*{Mesh}
 \begin{lstlisting}
 class Mesh
@@ -461,7 +456,8 @@ Generiert Kartenkacheln in der Ebene.\\
 \subsection*{Renderer}
 \begin{lstlisting}
 class Renderer
-implements SourceListener<Tile, Integer>, Runnable, CameraListener, SettingsListener
+implements SourceListener<Tile, Integer>, Runnable, CameraListener,
+           SettingsListener
 \end{lstlisting}
 Ist für das Zeichnen einzelner Frames und die zeitliche Steuerung während Animationen verantwortlich. Rendert entweder Einzelbilder als Reaktion auf eine Aktualisierung über den \textit{SourceListener}, \textit{CameraListener} oder \textit{SettingsListener} oder eine kontinuierliche Bildfolge während Animationsvorgängen.\\
 
@@ -477,7 +473,7 @@ Generiert Kartenkacheln auf der Kugeloberfläche.\\
 
 
 \vspace{5mm}
-\section{de.joglearth.settings}
+\section{Package de.joglearth.settings}
 \subsection*{Settings}
 \begin{lstlisting}
 class Settings
@@ -565,7 +561,7 @@ Lädt die Texturen in OpenGL.\\
 
 
 \vspace{5mm}
-\section{de.joglearth.surface}
+\section{Package de.joglearth.surface}
 \subsection*{HeightMapManager}
 \begin{lstlisting}
 class HeightMapManager
@@ -600,7 +596,7 @@ Bearbeitet Texturanfrage vom \textit{Renderer}. Lädt die Texturen aus einer \te
 
 
 \vspace{5mm}
-\section{de.joglearth.ui}
+\section{Package de.joglearth.ui}
 \subsection*{GUI}
 \begin{lstlisting}
 class GUI
@@ -628,7 +624,7 @@ Reagiert auf Benutzereingaben im Ansichtsfenster wie Tastendrücke, Scrollen und
 
 
 \chapter{Beschreibung der Enumerations}
-\section{de.joglearth.source}
+\section{Package de.joglearth.source}
 
 \subsection*{NominatimQuery.Type}
 \begin{tabular}{p{4cm} p{11cm}}
@@ -651,24 +647,54 @@ Stellt eine Unterscheidung der verschiedenen Kartenmaterialien dar.
 
 
 \vspace{5mm}
-\section{de.joglearth.surface}
+\section{Package de.joglearth.surface}
 \subsection*{LocationType}
 Stellt die unterschiedlichen Typen von Overlays wie POIs, Städtenamen oder markierte Punkte dar.
 
 
 
 \chapter{Sequenzdiagramme}
+\section{Lokale Suche nach einem Begriff}
+Dieses Sequenzdiagramm zeigt, wie eine lokale Suche nach einem Begriff vom \textit{LocationManager} entgegengenommen und über die \textit{NominatimSource} beantwortet wird.\\[3mm]
+Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 9.1).
+
+\vspace*{5mm}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.28]{sequenz-search.eps}
+\caption{Lokale Suche nach einem Begriff}
+\end{center}
+\end{figure}
+
+\newpage
+
 
 \section{Laden einer lokal noch nicht vorhandenen Kachel}
 In diesem Sequenzdiagramm wird dargestellt, wie die Anfrage nach einer Texturkachel über die verschiedenen Cacheebenen propagiert und schließlich asynchron beantwortet wird.\\[3mm]
-Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 8.1).
+Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 9.2).
 
-\vspace{5mm}
+
+\vspace*{5mm}
 \begin{figure}[h]
-\begin{centering}
+\begin{center}
 \includegraphics[scale=0.28]{sequenz-osmtile.eps}
 \caption{Laden einer lokal noch nicht vorhandenen Kachel}
-\end{centering}
+\end{center}
+\end{figure}
+
+
+\newpage
+
+\section{Aktivieren des Höhenprofils; Nachladen benötigter SRTM-Daten}
+Im diesem Sequenzdiagramm wird sichtbar, wie nach Aktivierung des Höhenprofils über den \textit{HeightMapManager} SRTM-Daten nachgeladen werden.
+Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 9.3).
+
+\vspace*{5mm}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.28]{sequenz-height.eps}
+\caption{Aktivieren des Höhenprofils; Nachladen benötigter SRTM-Daten}
+\end{center}
 \end{figure}
 
 
@@ -695,7 +721,7 @@ Es dient zur Übersetzung einer Schnittstelle in eine andere. \\ Dieses Pattern 
 
 \subsection{Chain of Responsibility Pattern}
 Das \textit{Chain of Responsibility Pattern} (bzw. Zuständigkeitskette) ist ein Verhaltensmuster. \\
-Hierbei werden mehrere Objekte hintereinander verkettet um gemeinsam eine eingehende Anfrage bearbeiten zu können. Dafür wird eine Anfrage entlang der Kette durchgereicht, bis ein Objekt die Anfrage beantworten kann. \\ Es findet Anwendung beim Speichermanagement. Eine Anfrage für eine benötigte Ressource wird immer an die \textit{CachedSource} gestellt. Die Anfrage wird entsprechend der Kette (\textref Sequenzdiagramm 6.1) durchgereicht bis sie bearbeitet werden kann. \\ Ziel ist die Entkopplung des Auslösers einer Anfrage mit seinem Empfänger.
+Hierbei werden mehrere Objekte hintereinander verkettet um gemeinsam eine eingehende Anfrage bearbeiten zu können. Dafür wird eine Anfrage entlang der Kette durchgereicht, bis ein Objekt die Anfrage beantworten kann. \\ Es findet Anwendung beim Speichermanagement. Eine Anfrage für eine benötigte Ressource wird immer an die \textit{CachedSource} gestellt. Die Anfrage wird entsprechend der Kette (\textref Sequenzdiagramm 6.2) durchgereicht bis sie bearbeitet werden kann. \\ Ziel ist die Entkopplung des Auslösers einer Anfrage mit seinem Empfänger.
 
 \subsection{Data Transfer Object}
 Das \textit{Data Transfer Object} ist ein Muster für eine objektrelationale Abbildung. \\
@@ -768,18 +794,35 @@ Mit Änderbarkeit bezeichnet man den Aufwand, der zur Durchführung bestimmter �
 \subsection*{Portabilität}
 Portabilität oder Übertragbarkeit ist die Eignung einer Software, von einer Umgebung in eine andere übertragen zu werden. Diese Umgebung kann die organisatorische Umgebung, Hardware- oder Software-Umgebung einschließen. [ISO 9126]
 
+\newpage
+\pagestyle{empty}
 
+\newgeometry{top=30mm, left=25mm, right=25mm, bottom=20mm}
 
 \chapter{Anhang}
-\pagebreak
+\centering
+\thispagestyle{empty}
+\includegraphics[scale=0.45,angle=90,origin=c]{sequenz-search.eps}
+\hspace{5mm}
+\begin{rotate}{90}
+\textbf{Abbildung 9.1:} Lokale Suche nach einem Begriff
+\end{rotate}
+
 \newgeometry{top=20mm, left=25mm, right=25mm, bottom=20mm}
 \thispagestyle{empty}
-\begin{centering}
-\includegraphics[scale=0.46,angle=90,origin=c]{sequenz-osmtile.eps}
+\includegraphics[scale=0.45,angle=90,origin=c]{sequenz-osmtile.eps}
+\hspace{5mm}
 \begin{rotate}{90}
-\textbf{Abbildung 9.1:} Laden einer lokal noch nicht vorhandenen Kachel
+\textbf{Abbildung 9.2:} Laden einer lokal noch nicht vorhandenen Kachel
 \end{rotate}
-\end{centering}
+
+\thispagestyle{empty}
+\includegraphics[scale=0.45,angle=90,origin=c]{sequenz-height.eps}
+\hspace{5mm}
+\begin{rotate}{90}
+\textbf{Abbildung 9.3:} Aktivieren des Höhenprofils; Laden benötigter SRTM-Daten
+\end{rotate}
+
 \restoregeometry
 
 \end {document}
