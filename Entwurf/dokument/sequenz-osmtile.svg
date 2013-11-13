@@ -10,8 +10,8 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="2016.7975"
-   height="1005.8809"
+   width="1986.9803"
+   height="977.20502"
    id="svg3644"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -155,8 +155,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="722.26205"
-     inkscape:cy="478.94782"
+     inkscape:cx="287.13002"
+     inkscape:cy="465.3566"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -165,10 +165,10 @@
      inkscape:window-x="0"
      inkscape:window-y="26"
      inkscape:window-maximized="1"
-     fit-margin-top="20"
-     fit-margin-left="20"
-     fit-margin-right="20"
-     fit-margin-bottom="20" />
+     fit-margin-top="5"
+     fit-margin-left="5"
+     fit-margin-right="5"
+     fit-margin-bottom="5" />
   <metadata
      id="metadata3649">
     <rdf:RDF>
@@ -185,7 +185,7 @@
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(248.39877,-1818.8825)">
+     transform="translate(233.49019,-1833.9672)">
     <g
        id="g3818">
       <rect
@@ -745,10 +745,10 @@
     <g
        id="g3873-9"
        transform="matrix(0.9441832,0,0,2.9223235,-551.94264,1578.6248)"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.72241868;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.72241867;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:0.72241868;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          id="rect260"
          height="149"
          width="13"
@@ -763,10 +763,10 @@
          width="13"
          height="149"
          id="rect3825-0"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.72241868;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.72241867;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.72241868;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.72241867;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect262"
          height="149"
          width="13"
@@ -775,7 +775,7 @@
          x="449" />
     </g>
     <g
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.82415145;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.82415146;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
        transform="matrix(0.96162218,0,0,2.2046719,-379.88655,1666.0174)"
        id="g4092">
       <rect
@@ -785,10 +785,10 @@
          width="13"
          height="149"
          id="rect4094"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:0.82415145;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          transform="translate(0,6)" />
       <rect
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.82415145;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.82415146;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect4096"
          height="149"
          width="13"
@@ -803,16 +803,16 @@
          width="13"
          height="149"
          id="rect4098"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.82415145;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.82415146;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          transform="translate(0,6)" />
     </g>
     <g
        id="g4100"
        transform="matrix(0.96538564,0,0,2.0646872,-181.60088,1691.1112)"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.84997019;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.84997016;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:0.84997019;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          id="rect4102"
          height="149"
          width="13"
@@ -827,10 +827,10 @@
          width="13"
          height="149"
          id="rect4104"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.84997019;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.84997016;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.84997019;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.84997016;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect4106"
          height="149"
          width="13"
@@ -839,7 +839,7 @@
          x="449" />
     </g>
     <g
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.12068293;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.12068295;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
        transform="matrix(1.0349615,0,0,0.30937614,-13.31001,1890.2153)"
        id="g4108">
       <rect
@@ -849,10 +849,10 @@
          width="13"
          height="149"
          id="rect4110"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:2.12068293;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          transform="translate(0,6)" />
       <rect
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068293;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068295;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect4112"
          height="149"
          width="13"
@@ -867,16 +867,16 @@
          width="13"
          height="149"
          id="rect4114"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068293;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068295;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          transform="translate(0,6)" />
     </g>
     <g
        id="g4116"
        transform="matrix(0.9816618,0,0,1.5247952,210.98657,1819.3151)"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.98083181;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.9808318;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:0.98083181;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          id="rect4118"
          height="149"
          width="13"
@@ -891,10 +891,10 @@
          width="13"
          height="149"
          id="rect4120"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.98083181;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.9808318;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.98083181;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.9808318;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect4122"
          height="149"
          width="13"
@@ -1139,7 +1139,7 @@
          id="tspan6415"
          style="font-style:italic;-inkscape-font-specification:Segoe UI Italic">placeholderTexture</tspan></text>
     <g
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.01960199;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.01960194;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
        transform="matrix(0.98471822,0,0,1.4066601,409.58841,1842.0478)"
        id="g6435">
       <rect
@@ -1149,10 +1149,10 @@
          width="13"
          height="149"
          id="rect6437"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:1.01960199;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          transform="translate(0,6)" />
       <rect
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.01960199;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.01960194;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect6439"
          height="149"
          width="13"
@@ -1167,16 +1167,16 @@
          width="13"
          height="149"
          id="rect6441"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.01960199;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.01960194;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          transform="translate(0,6)" />
     </g>
     <g
        id="g6443"
        transform="matrix(1.0349615,0,0,0.30937614,586.68999,1970.2153)"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.12068293;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.12068295;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:2.12068293;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          id="rect6445"
          height="149"
          width="13"
@@ -1191,10 +1191,10 @@
          width="13"
          height="149"
          id="rect6447"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068293;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068295;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068293;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068295;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect6449"
          height="149"
          width="13"
@@ -1203,7 +1203,7 @@
          x="449" />
     </g>
     <g
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.12068293;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.12068295;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
        transform="matrix(1.0349615,0,0,0.30937614,766.68999,2030.2153)"
        id="g6451">
       <rect
@@ -1213,10 +1213,10 @@
          width="13"
          height="149"
          id="rect6453"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:2.12068293;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          transform="translate(0,6)" />
       <rect
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068293;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068295;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect6455"
          height="149"
          width="13"
@@ -1231,7 +1231,7 @@
          width="13"
          height="149"
          id="rect6457"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068293;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068295;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          transform="translate(0,6)" />
     </g>
     <g
@@ -1414,10 +1414,10 @@
     <g
        id="g6513"
        transform="matrix(1.0349615,0,0,0.30937614,966.69,2110.2153)"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.12068293;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.12068295;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:2.12068293;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          id="rect6515"
          height="149"
          width="13"
@@ -1432,10 +1432,10 @@
          width="13"
          height="149"
          id="rect6517"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068293;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068295;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068293;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068295;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect6519"
          height="149"
          width="13"
@@ -1490,7 +1490,7 @@
        y1="252"
        y2="252"
        id="line6537"
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:0.86052485;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:2.58157454,2.58157454;stroke-dashoffset:0;font-family:Segoe UI"
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:0.86052483;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:2.58157454, 2.58157454;stroke-dashoffset:0;font-family:Segoe UI"
        transform="matrix(1.9434316,0,0,1.0006136,544.12446,1936.2066)" />
     <text
        transform="translate(622.41372,1704.9245)"
@@ -1513,7 +1513,7 @@
          width="13"
          height="149"
          id="rect6545"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:0.72053617;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          transform="translate(0,6)" />
       <rect
          style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.72053617;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
@@ -1535,7 +1535,7 @@
          transform="translate(0,6)" />
     </g>
     <g
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.89330549;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.89330554;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
        transform="matrix(1.0294534,0,0,0.39022439,1191.2008,2125.5214)"
        id="g6559">
       <rect
@@ -1545,10 +1545,10 @@
          width="13"
          height="149"
          id="rect6561"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:1.89330549;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          transform="translate(0,6)" />
       <rect
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.89330549;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.89330554;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect6563"
          height="149"
          width="13"
@@ -1563,7 +1563,7 @@
          width="13"
          height="149"
          id="rect6565"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.89330549;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.89330554;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          transform="translate(0,6)" />
     </g>
     <g
@@ -1657,7 +1657,7 @@
        style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.79879624;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:0.79879624;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          id="rect6597"
          height="149"
          width="13"
@@ -1684,7 +1684,7 @@
          x="449" />
     </g>
     <g
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.41458859;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.41458869;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
        transform="matrix(1.0411362,0,0,0.23722948,583.87932,2252.2547)"
        id="g6603">
       <rect
@@ -1694,10 +1694,10 @@
          width="13"
          height="149"
          id="rect6605"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:2.41458859;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          transform="translate(0,6)" />
       <rect
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.41458859;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.41458869;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect6607"
          height="149"
          width="13"
@@ -1712,24 +1712,24 @@
          width="13"
          height="149"
          id="rect6609"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.41458859;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.41458869;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          transform="translate(0,6)" />
     </g>
     <g
        transform="matrix(0.77307737,0,0,0.91562751,1088.6842,2183.9047)"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.42629825;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.42629826;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
        id="g6611">
       <polygon
          clip-path="url(#clipPath43)"
          points="442,98 455,103 442,108 "
          id="polygon6613"
-         style="font-size:13px;fill:#808080;stroke:none;font-family:Segoe UI;stroke-width:1.44868395;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#808080;stroke:none;font-family:Segoe UI"
          transform="matrix(0.96770574,0,0,1.0016825,-489.94024,0.3727144)" />
       <polygon
          clip-path="url(#clipPath43)"
          points="455,103 442,108 442,98 "
          id="polygon6615"
-         style="font-size:13px;fill:none;stroke:#808080;stroke-width:1.44868395;stroke-linecap:butt;font-family:Segoe UI;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:none;stroke:#808080;stroke-width:1.44868398;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          transform="matrix(0.96770574,0,0,1.0016825,-489.94024,0.37271466)" />
     </g>
     <line
@@ -1799,7 +1799,7 @@
        style="font-size:13px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Segoe UI"
        transform="translate(-1.58628,1898.3531)">loadTexture()</text>
     <g
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.95189012;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.95189011;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
        transform="matrix(0.97884874,0,0,1.6235784,212.2703,2152.6671)"
        id="g6657">
       <rect
@@ -1809,10 +1809,10 @@
          width="13"
          height="149"
          id="rect6659"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:0.95189012;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          transform="translate(0,6)" />
       <rect
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.95189012;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.95189011;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect6661"
          height="149"
          width="13"
@@ -1827,16 +1827,16 @@
          width="13"
          height="149"
          id="rect6663"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.95189012;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.95189011;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          transform="translate(0,6)" />
     </g>
     <g
        id="g6665"
        transform="matrix(1.0366101,0,0,0.30250925,195.94653,2314.9537)"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.14291132;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.14291143;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:2.14291132;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          id="rect6667"
          height="149"
          width="13"
@@ -1851,10 +1851,10 @@
          width="13"
          height="149"
          id="rect6669"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.14291132;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.14291143;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.14291132;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.14291143;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect6671"
          height="149"
          width="13"
@@ -1907,10 +1907,10 @@
     <g
        id="g6698"
        transform="matrix(1.0455144,0,0,0.18153479,-18.120519,2427.9499)"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.75445894;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.7544589;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:2.75445894;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          id="rect6700"
          height="149"
          width="13"
@@ -1925,10 +1925,10 @@
          width="13"
          height="149"
          id="rect6702"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.75445894;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.7544589;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.75445894;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.7544589;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect6704"
          height="149"
          width="13"
@@ -1983,15 +1983,15 @@
        y1="252"
        y2="252"
        id="line6718"
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.53279622;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.59838865,4.59838865;stroke-dashoffset:0;font-family:Segoe UI"
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.53279626;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.59838865, 4.59838865;stroke-dashoffset:0;font-family:Segoe UI"
        transform="matrix(0.61252984,0,0,1.0006136,171.40787,2220.9209)" />
     <g
        id="g6724"
        transform="matrix(1.0007883,0,0,0.98828384,-197.72827,2301.1312)"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.20661658;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.20661652;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:1.20661658;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          id="rect6726"
          height="149"
          width="13"
@@ -2006,10 +2006,10 @@
          width="13"
          height="149"
          id="rect6728"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.20661658;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.20661652;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.20661658;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.20661652;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect6730"
          height="149"
          width="13"
@@ -2052,7 +2052,7 @@
        style="font-size:13px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Segoe UI"
        transform="translate(-579.58628,2006.3531)">requestCompleted()</text>
     <g
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.98463838;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.98463833;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
        transform="matrix(1.0330122,0,0,0.35391117,-412.41318,2451.427)"
        id="g6752">
       <rect
@@ -2062,10 +2062,10 @@
          width="13"
          height="149"
          id="rect6754"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:1.98463838;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          transform="translate(0,6)" />
       <rect
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.98463838;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.98463833;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect6756"
          height="149"
          width="13"
@@ -2080,7 +2080,7 @@
          width="13"
          height="149"
          id="rect6758"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.98463838;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.98463833;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          transform="translate(0,6)" />
     </g>
     <g
@@ -2125,7 +2125,7 @@
        transform="matrix(0.74811141,0,0,0.91716805,-290.1124,2434.4835)" />
     <line
        transform="matrix(-0.67786863,0,0,1.0006136,156.31397,2276.9209)"
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.45705276;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.37115827,4.37115827;stroke-dashoffset:0;font-family:Segoe UI"
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.45705271;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.37115827, 4.37115827;stroke-dashoffset:0;font-family:Segoe UI"
        id="line6772"
        y2="252"
        y1="252"
@@ -2133,7 +2133,7 @@
        x1="455"
        clip-path="url(#clipPath31-4)" />
     <g
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.5901798;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.59017968;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
        transform="matrix(1.0453608,0,0,0.20532246,-638.03627,2477.396)"
        id="g6774">
       <rect
@@ -2143,10 +2143,10 @@
          width="13"
          height="149"
          id="rect6776"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:2.5901798;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          transform="translate(0,6)" />
       <rect
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.5901798;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.59017968;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect6778"
          height="149"
          width="13"
@@ -2161,11 +2161,11 @@
          width="13"
          height="149"
          id="rect6780"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.5901798;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.59017968;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          transform="translate(0,6)" />
     </g>
     <g
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.95024197;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.95024198;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog"
        transform="matrix(0.97780915,0,0,1.6309475,-567.26175,2339.8723)"
        id="g6782">
       <rect
@@ -2175,10 +2175,10 @@
          width="13"
          height="149"
          id="rect6784"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:0.95024197;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          transform="translate(0,6)" />
       <rect
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.95024197;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.95024198;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect6786"
          height="149"
          width="13"
@@ -2193,7 +2193,7 @@
          width="13"
          height="149"
          id="rect6788"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.95024197;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:0.95024198;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          transform="translate(0,6)" />
     </g>
     <polygon
@@ -2209,7 +2209,7 @@
        y1="252"
        y2="252"
        id="line6792"
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.52623234;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.57869703,4.57869703;stroke-dashoffset:0;font-family:Segoe UI"
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.52623236;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.57869703, 4.57869703;stroke-dashoffset:0;font-family:Segoe UI"
        transform="matrix(-0.61780979,0,0,1.0006136,346.10185,2288.9209)" />
     <polygon
        clip-path="url(#clipPath43)"
@@ -2219,7 +2219,7 @@
        transform="matrix(0.74811141,0,0,0.91716805,309.16338,2459.7692)" />
     <line
        transform="matrix(-1.3117407,0,0,1.0006136,863.33562,2302.2066)"
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.04742768;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:3.14228305,3.14228305;stroke-dashoffset:0;font-family:Segoe UI"
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.04742765;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:3.14228305, 3.14228305;stroke-dashoffset:0;font-family:Segoe UI"
        id="line6796"
        y2="252"
        y1="252"
@@ -2249,7 +2249,7 @@
        transform="matrix(0.74811141,0,0,0.91716805,1129.1634,2489.7692)" />
     <line
        transform="matrix(-2.0806251,0,0,1.0006136,1814.1348,2332.2066)"
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:0.83167018;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:2.49501053,2.49501053;stroke-dashoffset:0;font-family:Segoe UI"
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:0.83167017;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:2.49501053, 2.49501053;stroke-dashoffset:0;font-family:Segoe UI"
        id="line3297"
        y2="252"
        y1="252"
@@ -2259,10 +2259,10 @@
     <g
        id="g3299"
        transform="matrix(1.0349615,0,0,0.30937614,-13.31001,2612.2153)"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.12068293;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.12068295;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:2.12068293;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          id="rect3301"
          height="149"
          width="13"
@@ -2277,10 +2277,10 @@
          width="13"
          height="149"
          id="rect3303"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068293;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068295;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068293;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:2.12068295;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect3305"
          height="149"
          width="13"
@@ -2459,10 +2459,10 @@
     <g
        id="g3361"
        transform="matrix(1.0190277,0,0,0.59232087,-406.0385,2553.7744)"
-       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.54457761;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.5445776;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Dialog">
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI;stroke-width:1.54457761;stroke-miterlimit:10;stroke-dasharray:none"
+         style="font-size:13px;fill:#e1ebf5;stroke:none;font-family:Segoe UI"
          id="rect3363"
          height="149"
          width="13"
@@ -2477,10 +2477,10 @@
          width="13"
          height="149"
          id="rect3365"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.54457761;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.5445776;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI" />
       <rect
          transform="translate(0,6)"
-         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.54457761;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
+         style="font-size:13px;fill:none;stroke:#6da3d9;stroke-width:1.5445776;stroke-linecap:butt;stroke-miterlimit:10;stroke-dasharray:none;font-family:Segoe UI"
          id="rect3367"
          height="149"
          width="13"

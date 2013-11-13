@@ -138,82 +138,85 @@ Um dem heutigen Standard hoher Softwarequalität sicherzustellen, fließen im ge
 
 \chapter{UML-Klassendiagramme}
 
+\section{Die Paketstruktur}
 
 \begin{figure}[!htb]
 \begin{center}
-	\includegraphics[scale=1.0]{de_joglearth.eps}
+	\includegraphics[scale=0.55]{Pakete.eps}
+\end{center}
+\end{figure}
+
+\subsection*{de.joglearth}
+
+\subsection*{de.joglearth.settings}
+
+\begin{figure}[!htb]
+\begin{center}
+	\includegraphics[scale=0.55]{de_joglearth.eps}
+	\hspace{3cm}
+	\includegraphics[scale=0.55]{de_joglearth_settings.eps}
+\end{center}
+\end{figure}
+
+
+\newpage
+
+\subsection*{de.joglearth.caching}
+
+\begin{figure}[!htb]
+\begin{center}
+	\includegraphics[scale=0.55]{de_joglearth_caching.eps}
 \end{center}
 \end{figure}
 
 \newpage
 
-\section{Caching}
+\subsection*{de.joglearth.geometry}
 
 \begin{figure}[!htb]
 \begin{center}
-	\includegraphics[scale=1.0]{de_joglearth_caching.eps}
+	\includegraphics[scale=0.55]{de_joglearth_geometry.eps}
 \end{center}
 \end{figure}
 
 \newpage
 
-\section{Geometry}
+\subsection*{de.joglearth.rendering}
 
 \begin{figure}[!htb]
 \begin{center}
-	\includegraphics[scale=0.6]{de_joglearth_geometry.eps}
-\end{center}
-\end{figure}
-
-\newpage
-
-\section{Rendering}
-
-\begin{figure}[!htb]
-\begin{center}
-	\includegraphics[scale=0.75]{de_joglearth_rendering.eps}
+	\includegraphics[scale=0.55]{de_joglearth_rendering.eps}
 \end{center}
 \end{figure}
 
 \newpage
 
 
-\section{Settings}
+
+\subsection*{de.joglearth.source}
 
 \begin{figure}[!htb]
 \begin{center}
-	\includegraphics[scale=1.0]{de_joglearth_settings.eps}
+	\includegraphics[scale=0.55]{de_joglearth_source.eps}
 \end{center}
 \end{figure}
 
 \newpage
 
-
-\section{Source}
+\subsection*{de.joglearth.surface}
 
 \begin{figure}[!htb]
 \begin{center}
-	\includegraphics[scale=0.9]{de_joglearth_source.eps}
+	\includegraphics[scale=0.55]{de_joglearth_surface.eps}
 \end{center}
 \end{figure}
 
-\newpage
 
-\section{Surface}
-
-\begin{figure}[!htb]
-\begin{center}
-	\includegraphics[scale=0.9]{de_joglearth_surface.eps}
-\end{center}
-\end{figure}
-
-\newpage
-
-\section{UI}
+\subsection*{de.joglearth.ui}
 
 \begin{figure}[!htb]
 \begin{center}
-	\includegraphics[scale=1.0]{de_joglearth_ui.eps}
+	\includegraphics[scale=0.55]{de_joglearth_ui.eps}
 \end{center}
 \end{figure}
 
@@ -647,12 +650,13 @@ Stellt die unterschiedlichen Typen von Overlays wie POIs, Städtenamen oder mark
 \chapter{Sequenzdiagramme}
 
 \section{Laden einer lokal noch nicht vorhandenen Kachel}
-In diesem Sequenzdiagramm wird dargestellt, wie die Anfrage nach einer Texturkachel über die verschiedenen Cacheebenen propagiert und schließlich asynchron beantwortet wird.\\
+In diesem Sequenzdiagramm wird dargestellt, wie die Anfrage nach einer Texturkachel über die verschiedenen Cacheebenen propagiert und schließlich asynchron beantwortet wird.\\[3mm]
+Eine größere Version des Diagramms findet sich im Anhang.
 
-
-\begin{figure}
+\vspace{5mm}
+\begin{figure}[h]
 \begin{centering}
-\includegraphics[scale=0.57,angle=90,origin=c]{Ablaufdiagramm.eps}
+\includegraphics[scale=0.28]{sequenz-osmtile.eps}
 \caption{Laden einer lokal noch nicht vorhandenen Kachel}
 \end{centering}
 \end{figure}
@@ -748,5 +752,15 @@ Mit Änderbarkeit bezeichnet man den Aufwand, der zur Durchführung bestimmter �
 \subsection*{Portabilität}
 Portabilität oder Übertragbarkeit ist die Eignung einer Software, von einer Umgebung in eine andere übertragen zu werden. Diese Umgebung kann die organisatorische Umgebung, Hardware- oder Software-Umgebung einschließen. [ISO 9126]
 
+
+
+\chapter*{Anhang}
+\pagebreak
+\newgeometry{top=20mm, left=25mm, right=25mm, bottom=20mm}
+\thispagestyle{empty}
+\begin{centering}
+\includegraphics[scale=0.46,angle=90,origin=c]{sequenz-osmtile.eps}
+\end{centering}
+\restoregeometry
 
 \end {document}
