@@ -138,7 +138,7 @@ Um dem heutigen Standard hoher Softwarequalität sicherzustellen, fließen im ge
 
 \chapter{UML-Klassendiagramme}
 
-\section{Die Paketstruktur}
+\section{Packages}
 
 \begin{figure}[!htb]
 \begin{center}
@@ -146,18 +146,25 @@ Um dem heutigen Standard hoher Softwarequalität sicherzustellen, fließen im ge
 \end{center}
 \end{figure}
 
+\section{Interfaces, Klassen und Enumerations}
+
 \subsection*{de.joglearth}
 
 \subsection*{de.joglearth.settings}
 
-\begin{figure}[!htb]
-\begin{center}
-	\includegraphics[scale=0.55]{de_joglearth.eps}
-	\hspace{3cm}
-	\includegraphics[scale=0.55]{de_joglearth_settings.eps}
-\end{center}
-\end{figure}
 
+\begin{figure}[!htb]
+	\centering
+		\begin{minipage}[c]{3cm}
+        \centering
+			\includegraphics[scale=0.55]{de_joglearth.eps}
+        \end{minipage}
+        \hspace{2cm}
+        \begin{minipage}[c]{6cm}
+        \centering
+			\includegraphics[scale=0.55]{de_joglearth_settings.eps}
+        \end{minipage}
+\end{figure}
 
 \newpage
 
@@ -293,6 +300,12 @@ interface SurfaceListener
 \end{lstlisting}
 Eine Implementierung des Interfaces kann über Änderung der Darstellung einzelner Kartenkacheln benachrichtigt werden.\\
 
+\vspace{5mm}
+\subsection*{LocationListener}
+\begin{lstlisting}
+interface LocationListener
+\end{lstlisting}
+Eine Implementierung des Interfaces nimmt asynchrone Antworten des LocationManagers, wie geladene Suchergebnisse, entgegen.\\
 
 
 
@@ -572,14 +585,6 @@ implements SettingsListener
 Verwaltet die Sichtbarkeit von besonderen Punkten im Ansichtsfenster und der GUI. Er besorgt außerdem Suchergebnisse über den \textit{NominatimSource} und Benutzermarkierungen aus den \textit{Settings}.\\
 
 \vspace{5mm}
-\subsection*{SurfaceNotifier}
-\begin{lstlisting}
-class SurfaceNotifier
-implements SurfaceListener
-\end{lstlisting}
-Verteilt Events an verschiedene \textit{SurfaceListener}.\\
-
-\vspace{5mm}
 \subsection*{TextureManager}
 \begin{lstlisting}
 class TextureManager
@@ -664,28 +669,10 @@ Eine größere Version des Diagramms findet sich im Anhang.
 
 
 
-\chapter{Designpatterns}
-\section{Adapter Pattern}
-Das \textit{Adapter Pattern} ist ein Strukturmuster. \\
-Es dient zur Übersetzung einer Schnittstelle in eine andere. \\ Dieses Pattern findet Anwendung bei den \textit{Mouse- und Key"-listenern}, welche in der Benutzeroberfläche implementiert werden. \\ Ziel ist es den Quellcode übersichtlich zu halten. Aus diesem Grund werden nur die benötigten Methoden der Listener überschrieben. Alle nicht erforderlichen Methoden werden ignoriert.
+\chapter{Design Patterns}
 
-\section{Chain of Responsibility Pattern}
-Das \textit{Chain of Responsibility Pattern} (bzw. Zuständigkeitskette) ist ein Verhaltensmuster. \\
-Hierbei werden mehrere Objekte hintereinander verkettet um gemeinsam eine eingehende Anfrage bearbeiten zu können. Dafür wird eine Anfrage entlang der Kette durchgereicht, bis ein Objekt die Anfrage beantworten kann. \\ Es findet Anwendung beim Speichermanagement. Eine Anfrage für eine benötigte Ressource wird immer an die \textit{CachedSource} gestellt. Die Anfrage wird entsprechend der Kette (siehe Sequenzdiagramm) durchgereicht bis sie bearbeitet werden kann. \\ Ziel ist die Entkopplung des Auslösers einer Anfrage mit seinem Empfänger.
+\section{Systemarchitektur: Model-View-Controller}
 
-\section{Data Transfer Object}
-Das \textit{Data Transfer Object} ist ein Muster für eine objektrelationale Abbildung. \\
-Hierbei werden mehrere Daten gebündelt als ein Objekt übertragen. \\ Es findet Anwendung bei Suchergebnissen und der Anfrage nach POIs. Alle Datensätze werden dann gebündelt übergeben und nicht jede Information seperat. \\ Ziel ist es die Daten zu strukturieren bzw. vollständig gruppierte Information zu einer Anfrage zu erhalten.
-
-\section{Iterator Pattern}
-Das \textit{Iterator Pattern} ist ein Verhaltensmuster.\\ Hierbei wird die verwendete Datenstruktur elementweise durchlaufen, ohne deren interne Anordnung preiszugeben.\\ Es findet Anwendung bei der Verdrängungsstrategie. Es werden die verschiedenen Caches elementweise durchlaufen um die entsprechenden Einträge zu verdrängen.\\
-Ziel ist es die eingesetzten Datenstrukturen effizient zu durchsuchen.
-
-\newpage
-\section{Mediator Pattern}
-Das \textit{Mediator Pattern} ist ein Verhaltensmuster. \\ Hierbei fungiert der Vermittler als Kommunikationsschnittstelle zwischen Objekten in einem komplexen System.\\ Es findet mehrfache Anwendung im gesamten Programm, wie beispielsweise beim Speichermanagement, beim Rendering, usw. \\ Ziel ist lockere Kopplung. Es sollen nicht alle Objekt voneinander Kenntnis besitzen.
-
-\section{Model-View-Controller (MVC) Pattern}
 Das \textit{Model-View-Controller Pattern} ist ein Architekturmuster.\\ Die zugrundeliegende Architektur des Programms wurde anhand des MVC-Patterns strukturiert.\\
 \begin{figure}[ht]
 \begin{centering}
@@ -695,11 +682,35 @@ Das \textit{Model-View-Controller Pattern} ist ein Architekturmuster.\\ Die zugr
 \end{figure}
 
 
-\section{Observer Pattern}
+\section{Weitere verwendete Entwurfsmuster}
+
+\subsection{Adapter Pattern}
+Das \textit{Adapter Pattern} ist ein Strukturmuster. \\
+Es dient zur Übersetzung einer Schnittstelle in eine andere. \\ Dieses Pattern findet Anwendung bei den \textit{Mouse- und Key"-listenern}, welche in der Benutzeroberfläche implementiert werden. \\ Ziel ist es den Quellcode übersichtlich zu halten. Aus diesem Grund werden nur die benötigten Methoden der Listener überschrieben. Alle nicht erforderlichen Methoden werden ignoriert.
+
+\subsection{Chain of Responsibility Pattern}
+Das \textit{Chain of Responsibility Pattern} (bzw. Zuständigkeitskette) ist ein Verhaltensmuster. \\
+Hierbei werden mehrere Objekte hintereinander verkettet um gemeinsam eine eingehende Anfrage bearbeiten zu können. Dafür wird eine Anfrage entlang der Kette durchgereicht, bis ein Objekt die Anfrage beantworten kann. \\ Es findet Anwendung beim Speichermanagement. Eine Anfrage für eine benötigte Ressource wird immer an die \textit{CachedSource} gestellt. Die Anfrage wird entsprechend der Kette (siehe Sequenzdiagramm) durchgereicht bis sie bearbeitet werden kann. \\ Ziel ist die Entkopplung des Auslösers einer Anfrage mit seinem Empfänger.
+
+\subsection{Data Transfer Object}
+Das \textit{Data Transfer Object} ist ein Muster für eine objektrelationale Abbildung. \\
+Hierbei werden mehrere Daten gebündelt als ein Objekt übertragen. \\ Es findet Anwendung bei Suchergebnissen und der Anfrage nach POIs. Alle Datensätze werden dann gebündelt übergeben und nicht jede Information seperat. \\ Ziel ist es die Daten zu strukturieren bzw. vollständig gruppierte Information zu einer Anfrage zu erhalten.
+
+\subsection{Iterator Pattern}
+Das \textit{Iterator Pattern} ist ein Verhaltensmuster.\\ Hierbei wird die verwendete Datenstruktur elementweise durchlaufen, ohne deren interne Anordnung preiszugeben.\\ Es findet Anwendung bei der Verdrängungsstrategie. Es werden die verschiedenen Caches elementweise durchlaufen um die entsprechenden Einträge zu verdrängen.\\
+Ziel ist es die eingesetzten Datenstrukturen effizient zu durchsuchen.
+
+\newpage
+\subsection{Mediator Pattern}
+Das \textit{Mediator Pattern} ist ein Verhaltensmuster. \\ Hierbei fungiert der Vermittler als Kommunikationsschnittstelle zwischen Objekten in einem komplexen System.\\ Es findet mehrfache Anwendung im gesamten Programm, wie beispielsweise beim Speichermanagement, beim Rendering, usw. \\ Ziel ist lockere Kopplung. Es sollen nicht alle Objekt voneinander Kenntnis besitzen.
+
+
+
+\subsection{Observer Pattern}
 Das \textit{Observer Pattern} ist ein Verhaltensmuster. \\ Hierbei wird eine Info bei durchgeführten Änderungen am Objekt an alle abhängigen Komponenten weitergegeben. \\ Es findet beispielsweise Anwendung beim \textit{SettingsListener}, \textit{CameraListener}, \textit{SurfaceListener} usw. \\ 
 Ziel ist lose Kopplung und zudem werden die abhängigen Objekte automatisch über Änderungen in Kenntnis gesetzt.
 
-\section{Singleton Pattern}
+\subsection{Singleton Pattern}
 Das \textit{Singleton Pattern} ist ein Erzeugungsmuster. \\ Hierbei wird sichergestellt, dass genau eine einzige Instanz eines Objekts existiert. \\ Es findet Anwendung bei den \textit{Settings}, von der nur eine Instanz existieren darf. \\ Ziel ist eine sichergestellte Zugriffskontrolle auf das Objekt.
 
 

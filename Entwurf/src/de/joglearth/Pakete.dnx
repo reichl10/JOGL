@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.mmi.ui.signatures.diagram" version="7.0.0"><feature description="" name="Rational Modeling Platform (com.ibm.xtools.rmp)" url="" version="7.0.0"/></signature>?>
+<umlnotation:UMLDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmlns:umlnotation="http://www.ibm.com/xtools/1.5.3/Umlnotation" xmi:id="_k0U3MExIEeOiZZeggJmyfQ" type="Class" name="Pakete.dnx">
+  <eAnnotations xmi:id="_k0VeQExIEeOiZZeggJmyfQ" source="com.ibm.xtools.common.ui.reduction.editingCapabilities">
+    <details xmi:id="_k0VeQUxIEeOiZZeggJmyfQ" key="com.ibm.xtools.activities.javaVisualizerActivity" value="1"/>
+  </eAnnotations>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_neohUExIEeOiZZeggJmyfQ" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_ne7cQExIEeOiZZeggJmyfQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_ne7cQUxIEeOiZZeggJmyfQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_ne8DUExIEeOiZZeggJmyfQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_ne9RcExIEeOiZZeggJmyfQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_ne9RcUxIEeOiZZeggJmyfQ" type="Parent"/>
+    <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_ne94gExIEeOiZZeggJmyfQ" type="PackageContents" collapsed="true" canonical="false"/>
+    <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth.settings%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_neohUUxIEeOiZZeggJmyfQ" x="5544" y="12804"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_ne-fkExIEeOiZZeggJmyfQ" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_nfCJ8ExIEeOiZZeggJmyfQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_nfCxAExIEeOiZZeggJmyfQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfCxAUxIEeOiZZeggJmyfQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfCxAkxIEeOiZZeggJmyfQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfDYEExIEeOiZZeggJmyfQ" type="Parent"/>
+    <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_nfDYEUxIEeOiZZeggJmyfQ" type="PackageContents" collapsed="true" canonical="false"/>
+    <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth.rendering%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ne-fkUxIEeOiZZeggJmyfQ" x="3036" y="6996"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_nfDYEkxIEeOiZZeggJmyfQ" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_nfEmMExIEeOiZZeggJmyfQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_nfEmMUxIEeOiZZeggJmyfQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfFNQExIEeOiZZeggJmyfQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfFNQUxIEeOiZZeggJmyfQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfF0UExIEeOiZZeggJmyfQ" type="Parent"/>
+    <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_nfF0UUxIEeOiZZeggJmyfQ" type="PackageContents" collapsed="true" canonical="false"/>
+    <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth.ui%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nfDYE0xIEeOiZZeggJmyfQ" x="8712" y="6864"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_nfGbYExIEeOiZZeggJmyfQ" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_nfHCcExIEeOiZZeggJmyfQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_nfHCcUxIEeOiZZeggJmyfQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfHCckxIEeOiZZeggJmyfQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfHCc0xIEeOiZZeggJmyfQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfHpgExIEeOiZZeggJmyfQ" type="Parent"/>
+    <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_nfHpgUxIEeOiZZeggJmyfQ" type="PackageContents" collapsed="true" canonical="false"/>
+    <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth.surface%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nfGbYUxIEeOiZZeggJmyfQ" x="13332" y="6996"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_nfHpgkxIEeOiZZeggJmyfQ" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_nfIQkExIEeOiZZeggJmyfQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_nfIQkUxIEeOiZZeggJmyfQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfI3oExIEeOiZZeggJmyfQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfI3oUxIEeOiZZeggJmyfQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfKs0ExIEeOiZZeggJmyfQ" type="Parent"/>
+    <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_nfLT4ExIEeOiZZeggJmyfQ" type="PackageContents" collapsed="true" canonical="false"/>
+    <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth.geometry%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nfHpg0xIEeOiZZeggJmyfQ" x="15576" y="10296"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_nfL68ExIEeOiZZeggJmyfQ" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_nfNJEExIEeOiZZeggJmyfQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_nfNJEUxIEeOiZZeggJmyfQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfNwIExIEeOiZZeggJmyfQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfNwIUxIEeOiZZeggJmyfQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfNwIkxIEeOiZZeggJmyfQ" type="Parent"/>
+    <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_nfOXMExIEeOiZZeggJmyfQ" type="PackageContents" collapsed="true" canonical="false"/>
+    <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nfL68UxIEeOiZZeggJmyfQ" x="8316" y="9768" width="3621"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_nfOXMUxIEeOiZZeggJmyfQ" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_nfQMYExIEeOiZZeggJmyfQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_nfQMYUxIEeOiZZeggJmyfQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfQMYkxIEeOiZZeggJmyfQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfQzcExIEeOiZZeggJmyfQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfQzcUxIEeOiZZeggJmyfQ" type="Parent"/>
+    <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_nfRagExIEeOiZZeggJmyfQ" type="PackageContents" collapsed="true" canonical="false"/>
+    <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nfOXMkxIEeOiZZeggJmyfQ" x="1716" y="10032"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_nfT2wExIEeOiZZeggJmyfQ" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_nfWTAExIEeOiZZeggJmyfQ" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_nfWTAUxIEeOiZZeggJmyfQ" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfW6EExIEeOiZZeggJmyfQ" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfW6EUxIEeOiZZeggJmyfQ" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_nfXhIExIEeOiZZeggJmyfQ" type="Parent"/>
+    <children xmi:type="umlnotation:UMLShapeCompartment" xmi:id="_nfXhIUxIEeOiZZeggJmyfQ" type="PackageContents" collapsed="true" canonical="false"/>
+    <element xmi:type="uml:Package" href="mmi:///#jpack%5Ename=de.joglearth.source%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D$uml.Package"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nfT2wUxIEeOiZZeggJmyfQ" x="11616" y="12804"/>
+  </children>
+  <element xsi:nil="true"/>
+  <edges xmi:type="notation:Connector" xmi:id="_TI3QIExKEeOyPbArnFnIGw" type="line" source="_nfGbYExIEeOiZZeggJmyfQ" target="_nfL68ExIEeOiZZeggJmyfQ" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1">
+    <styles xmi:type="notation:ArrowStyle" xmi:id="_TI3QIUxKEeOyPbArnFnIGw"/>
+    <styles xmi:type="notation:LineTypeStyle" xmi:id="_TI3QIkxKEeOyPbArnFnIGw"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_TI3QI0xKEeOyPbArnFnIGw" points="[437, 910, 4023, -2510]$[437, 1750, 4023, -1670]$[-3911, 1750, -325, -1670]$[-3911, 2443, -325, -977]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_klLgkExLEeOyPbArnFnIGw" id="(0.9110742888704778,0.7175654030966364)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_bBOTgExKEeOyPbArnFnIGw" type="line" source="_ne-fkExIEeOiZZeggJmyfQ" target="_nfL68ExIEeOiZZeggJmyfQ" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1">
+    <styles xmi:type="notation:ArrowStyle" xmi:id="_bBOTgUxKEeOyPbArnFnIGw"/>
+    <styles xmi:type="notation:LineTypeStyle" xmi:id="_bBOTgkxKEeOyPbArnFnIGw"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_bBOTg0xKEeOyPbArnFnIGw" points="[238, 910, -4857, -2126]$[238, 1750, -4857, -1286]$[4109, 1750, -986, -1286]$[4109, 2126, -986, -910]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_baGtkExKEeOyPbArnFnIGw" type="line" source="_nfDYEkxIEeOiZZeggJmyfQ" target="_nfL68ExIEeOiZZeggJmyfQ" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1">
+    <styles xmi:type="notation:ArrowStyle" xmi:id="_baGtkUxKEeOyPbArnFnIGw"/>
+    <styles xmi:type="notation:LineTypeStyle" xmi:id="_baGtkkxKEeOyPbArnFnIGw"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_baGtk0xKEeOyPbArnFnIGw" points="[311, 910, 337, -3182]$[311, 3499, 337, -593]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_b4suEExKEeOyPbArnFnIGw" type="line" source="_nfHpgkxIEeOiZZeggJmyfQ" target="_nfL68ExIEeOiZZeggJmyfQ" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1">
+    <styles xmi:type="notation:ArrowStyle" xmi:id="_b4suEUxKEeOyPbArnFnIGw"/>
+    <styles xmi:type="notation:LineTypeStyle" xmi:id="_b4suEkxKEeOyPbArnFnIGw"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_b4suE0xKEeOyPbArnFnIGw" points="[-1969, -358, 5463, 434]$[-5636, -358, 1796, 434]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_frzzUExKEeOyPbArnFnIGw" type="line" source="_nfT2wExIEeOiZZeggJmyfQ" target="_nfL68ExIEeOiZZeggJmyfQ" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1">
+    <styles xmi:type="notation:ArrowStyle" xmi:id="_frzzUUxKEeOyPbArnFnIGw"/>
+    <styles xmi:type="notation:LineTypeStyle" xmi:id="_frzzUkxKEeOyPbArnFnIGw"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_frzzU0xKEeOyPbArnFnIGw" points="[79, -593, 3353, 3103]$[79, -1834, 3353, 1862]$[-2674, -1834, 600, 1862]$[-2674, -2786, 600, 910]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_hHnqAExKEeOyPbArnFnIGw" type="line" source="_neohUExIEeOiZZeggJmyfQ" target="_nfL68ExIEeOiZZeggJmyfQ" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1">
+    <styles xmi:type="notation:ArrowStyle" xmi:id="_hHnqAUxKEeOyPbArnFnIGw"/>
+    <styles xmi:type="notation:LineTypeStyle" xmi:id="_hHnqAkxKEeOyPbArnFnIGw"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hHnqA0xKEeOyPbArnFnIGw" points="[146, -593, -2573, 3103]$[146, -1834, -2573, 1862]$[2042, -1834, -677, 1862]$[2042, -2786, -677, 910]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_hpzKAExKEeOyPbArnFnIGw" type="line" source="_nfOXMUxIEeOiZZeggJmyfQ" target="_nfL68ExIEeOiZZeggJmyfQ" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1">
+    <styles xmi:type="notation:ArrowStyle" xmi:id="_hpzKAUxKEeOyPbArnFnIGw"/>
+    <styles xmi:type="notation:LineTypeStyle" xmi:id="_hpzKAkxKEeOyPbArnFnIGw"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hpzKA0xKEeOyPbArnFnIGw" points="[1836, -82, -4724, 710]$[4763, -82, -1797, 710]"/>
+  </edges>
+</umlnotation:UMLDiagram>
