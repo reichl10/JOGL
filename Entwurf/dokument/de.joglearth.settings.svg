@@ -15,7 +15,7 @@
    id="svg24700"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="Neues Dokument 12">
+   sodipodi:docname="de.joglearth.settings.svg">
   <defs
      id="defs24702">
     <clipPath
@@ -1436,9 +1436,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="213.26055"
-     inkscape:cy="272.77068"
+     inkscape:zoom="1"
+     inkscape:cx="327.54626"
+     inkscape:cy="523.52234"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1446,11 +1446,11 @@
      fit-margin-left="20"
      fit-margin-right="20"
      fit-margin-bottom="20"
-     inkscape:window-width="787"
-     inkscape:window-height="399"
+     inkscape:window-width="1024"
+     inkscape:window-height="527"
      inkscape:window-x="0"
-     inkscape:window-y="53"
-     inkscape:window-maximized="0" />
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata24705">
     <rdf:RDF>
@@ -1459,7 +1459,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2750,12 +2750,6 @@
        points="2368,473 2358,473 2363,463 "
        id="polygon7471"
        style="font-size:11px;fill:#ffffff;stroke:none;font-family:Droid Sans" />
-    <polygon
-       transform="translate(-2097.7293,251.13286)"
-       clip-path="url(#clipPath1082)"
-       points="2368,473 2358,473 2363,463 "
-       id="polygon7473"
-       style="font-size:11px;fill:none;stroke:#808080;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
     <line
        transform="translate(-2097.7293,251.13286)"
        clip-path="url(#clipPath1054)"
@@ -2987,21 +2981,9 @@
        style="font-size:11px;fill:#ffffff;stroke:none;font-family:Droid Sans" />
     <polygon
        transform="translate(-2097.7293,251.13286)"
-       clip-path="url(#clipPath1090)"
-       points="2319,473 2309,473 2314,463 "
-       id="polygon7569"
-       style="font-size:11px;fill:none;stroke:#808080;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
-    <polygon
-       transform="translate(-2097.7293,251.13286)"
        clip-path="url(#clipPath1093)"
        points="2264,444 2264,434 2274,439 "
        id="polygon7589"
        style="font-size:11px;fill:#ffffff;stroke:none;font-family:Droid Sans" />
-    <polygon
-       transform="translate(-2097.7293,251.13286)"
-       clip-path="url(#clipPath1093)"
-       points="2264,444 2264,434 2274,439 "
-       id="polygon7591"
-       style="font-size:11px;fill:none;stroke:#808080;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
   </g>
 </svg>
