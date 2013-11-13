@@ -12,8 +12,8 @@
 \usepackage{numprint}
 \usepackage{longtable}
 \usepackage{tabu}
-\usepackage{multirow}
 \usepackage{caption}
+ \usepackage{rotating}
 \usepackage{array}
 \usepackage{listings}
 \usepackage{amssymb}
@@ -651,7 +651,7 @@ Stellt die unterschiedlichen Typen von Overlays wie POIs, Städtenamen oder mark
 
 \section{Laden einer lokal noch nicht vorhandenen Kachel}
 In diesem Sequenzdiagramm wird dargestellt, wie die Anfrage nach einer Texturkachel über die verschiedenen Cacheebenen propagiert und schließlich asynchron beantwortet wird.\\[3mm]
-Eine größere Version des Diagramms findet sich im Anhang.
+Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 8.1).
 
 \vspace{5mm}
 \begin{figure}[h]
@@ -671,7 +671,7 @@ Es dient zur Übersetzung einer Schnittstelle in eine andere. \\ Dieses Pattern 
 
 \section{Chain of Responsibility Pattern}
 Das \textit{Chain of Responsibility Pattern} (bzw. Zuständigkeitskette) ist ein Verhaltensmuster. \\
-Hierbei werden mehrere Objekte hintereinander verkettet um gemeinsam eine eingehende Anfrage bearbeiten zu können. Dafür wird eine Anfrage entlang der Kette durchgereicht, bis ein Objekt die Anfrage beantworten kann. \\ Es findet Anwendung beim Speichermanagement. Eine Anfrage für eine benötigte Ressource wird immer an die \textit{CachedSource} gestellt. Die Anfrage wird entsprechend der Kette (siehe Sequenzdiagramm) durchgereicht bis sie bearbeitet werden kann. \\ Ziel ist die Entkopplung des Auslösers einer Anfrage mit seinem Empfänger.
+Hierbei werden mehrere Objekte hintereinander verkettet um gemeinsam eine eingehende Anfrage bearbeiten zu können. Dafür wird eine Anfrage entlang der Kette durchgereicht, bis ein Objekt die Anfrage beantworten kann. \\ Es findet Anwendung beim Speichermanagement. Eine Anfrage für eine benötigte Ressource wird immer an die \textit{CachedSource} gestellt. Die Anfrage wird entsprechend der Kette (\textref Sequenzdiagramm 6.1) durchgereicht bis sie bearbeitet werden kann. \\ Ziel ist die Entkopplung des Auslösers einer Anfrage mit seinem Empfänger.
 
 \section{Data Transfer Object}
 Das \textit{Data Transfer Object} ist ein Muster für eine objektrelationale Abbildung. \\
@@ -754,12 +754,15 @@ Portabilität oder Übertragbarkeit ist die Eignung einer Software, von einer Um
 
 
 
-\chapter*{Anhang}
+\chapter{Anhang}
 \pagebreak
 \newgeometry{top=20mm, left=25mm, right=25mm, bottom=20mm}
 \thispagestyle{empty}
 \begin{centering}
 \includegraphics[scale=0.46,angle=90,origin=c]{sequenz-osmtile.eps}
+\begin{rotate}{90}
+\textbf{Abbildung 9.1:} Laden einer lokal noch nicht vorhandenen Kachel
+\end{rotate}
 \end{centering}
 \restoregeometry
 
