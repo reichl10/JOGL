@@ -20,7 +20,7 @@ public class LocationManager implements SettingsListener {
 	private NominatimQuery lastSearch;
 	private boolean[] selectedResults, selectedUserTags, selectedPOIs;
 	private Settings settings;
-	private SurfaceNotifier notifier;
+	
 
 	public LocationManager() {
 		this.settings = Settings.getInstance();
@@ -31,7 +31,6 @@ public class LocationManager implements SettingsListener {
 	}
 
 	
-
 	public void enableResult(int index, boolean enable) {
 	}
 
@@ -60,11 +59,19 @@ public class LocationManager implements SettingsListener {
 	}
 
 	public void addSurfaceListener(SurfaceListener l) {
-		notifier.addSurfaceListener(l);
+		
 	}
 	
 	public void removeSurfaceListener(SurfaceListener l) {
-		notifier.removeSurfaceListener(l);
+
+	}
+	
+	public void addLocationListener(LocationListener l) {
+		
+	}
+	
+	public void removeLocationListener(LocationListener l) {
+		
 	}
 	
 }

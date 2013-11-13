@@ -14,7 +14,7 @@ public final class JoglEarth {
 	public static void main(String[] args) {
 		Camera camera = new Camera();
 		LocationManager lm = new LocationManager();
-		GUI gui = new GUI(lm, camera);
+		MainWindow gui = new MainWindow(lm, camera);
 		HeightMapManager height = new HeightMapManager();
 		Renderer r = new Renderer(gui.getGLCanvas(), height ,lm, camera);
 		gui.setVisible(true);

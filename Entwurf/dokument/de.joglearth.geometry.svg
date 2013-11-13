@@ -15,7 +15,7 @@
    id="svg28269"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="Neues Dokument 15">
+   sodipodi:docname="de.joglearth.geometry.svg">
   <defs
      id="defs28271">
     <clipPath
@@ -4291,7 +4291,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -8721,50 +8721,53 @@
        y2="1159"
        id="line7789"
        style="font-size:11px;fill:none;stroke:#808080;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
-    <circle
-       transform="translate(231,-557.16714)"
-       clip-path="url(#clipPath1106)"
-       r="8"
-       cx="380"
-       cy="802"
-       id="circle7791"
-       sodipodi:cx="380"
-       sodipodi:cy="802"
-       sodipodi:rx="8"
-       sodipodi:ry="8"
-       style="font-size:11px;fill:#ffffff;stroke:none;font-family:Droid Sans"
-       d="m 388,802 c 0,4.41828 -3.58172,8 -8,8 -4.41828,0 -8,-3.58172 -8,-8 0,-4.41828 3.58172,-8 8,-8 4.41828,0 8,3.58172 8,8 z" />
-    <circle
-       transform="translate(231,-557.16714)"
-       clip-path="url(#clipPath1106)"
-       r="8"
-       cx="380"
-       cy="802"
-       id="circle7793"
-       sodipodi:cx="380"
-       sodipodi:cy="802"
-       sodipodi:rx="8"
-       sodipodi:ry="8"
-       style="font-size:11px;fill:none;stroke:#808080;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans"
-       d="m 388,802 c 0,4.41828 -3.58172,8 -8,8 -4.41828,0 -8,-3.58172 -8,-8 0,-4.41828 3.58172,-8 8,-8 4.41828,0 8,3.58172 8,8 z" />
-    <line
-       transform="translate(231,-557.16714)"
-       clip-path="url(#clipPath1106)"
-       x1="376"
-       x2="384"
-       y1="802"
-       y2="802"
-       id="line7795"
-       style="font-size:11px;fill:none;stroke:#808080;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
-    <line
-       transform="translate(231,-557.16714)"
-       clip-path="url(#clipPath1106)"
-       x1="380"
-       x2="380"
-       y1="798"
-       y2="806"
-       id="line7797"
-       style="font-size:11px;fill:none;stroke:#808080;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
+    <g
+       id="g4450">
+      <circle
+         d="m 388,802 c 0,4.41828 -3.58172,8 -8,8 -4.41828,0 -8,-3.58172 -8,-8 0,-4.41828 3.58172,-8 8,-8 4.41828,0 8,3.58172 8,8 z"
+         style="font-size:11px;fill:#ffffff;stroke:none;font-family:Droid Sans"
+         sodipodi:ry="8"
+         sodipodi:rx="8"
+         sodipodi:cy="802"
+         sodipodi:cx="380"
+         id="circle7791"
+         cy="802"
+         cx="380"
+         r="8"
+         clip-path="url(#clipPath1106)"
+         transform="translate(231,-557.16714)" />
+      <circle
+         d="m 388,802 c 0,4.41828 -3.58172,8 -8,8 -4.41828,0 -8,-3.58172 -8,-8 0,-4.41828 3.58172,-8 8,-8 4.41828,0 8,3.58172 8,8 z"
+         style="font-size:11px;fill:none;stroke:#808080;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans"
+         sodipodi:ry="8"
+         sodipodi:rx="8"
+         sodipodi:cy="802"
+         sodipodi:cx="380"
+         id="circle7793"
+         cy="802"
+         cx="380"
+         r="8"
+         clip-path="url(#clipPath1106)"
+         transform="translate(231,-557.16714)" />
+      <line
+         style="font-size:11px;fill:none;stroke:#808080;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans"
+         id="line7795"
+         y2="802"
+         y1="802"
+         x2="384"
+         x1="376"
+         clip-path="url(#clipPath1106)"
+         transform="translate(231,-557.16714)" />
+      <line
+         style="font-size:11px;fill:none;stroke:#808080;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans"
+         id="line7797"
+         y2="806"
+         y1="798"
+         x2="380"
+         x1="380"
+         clip-path="url(#clipPath1106)"
+         transform="translate(231,-557.16714)" />
+    </g>
     <line
        transform="translate(231,-557.16714)"
        clip-path="url(#clipPath1054)"
