@@ -146,6 +146,14 @@
          d="m -1,-1 1635,0 0,904 -1635,0 0,-904 z"
          inkscape:connector-curvature="0" />
     </clipPath>
+    <clipPath
+       id="clipPath38-4-16"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         inkscape:connector-curvature="0"
+         id="path125-6-3"
+         d="m 684,461 165,0 0,20 -165,0 0,-20 z" />
+    </clipPath>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -154,16 +162,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="1282.5782"
-     inkscape:cy="273.79818"
+     inkscape:zoom="0.94316065"
+     inkscape:cx="1400.7759"
+     inkscape:cy="400.71036"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1024"
-     inkscape:window-height="715"
+     inkscape:window-height="527"
      inkscape:window-x="0"
-     inkscape:window-y="26"
+     inkscape:window-y="24"
      inkscape:window-maximized="1"
      fit-margin-top="5"
      fit-margin-left="5"
@@ -179,7 +187,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -409,7 +417,7 @@
        style="font-size:13px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Segoe UI">t: Tesselator</text>
     <g
        id="g3863"
-       transform="translate(1000,0)">
+       transform="matrix(1.0395524,0,0,1,1009.0373,0)">
       <rect
          style="font-size:13px;font-style:normal;font-weight:normal;fill:#e1ebf5;fill-opacity:1;stroke:none;font-family:Segoe UI"
          id="rect3865"
@@ -450,7 +458,7 @@
        clip-path="url(#clipPath9)"
        y="71"
        x="82"
-       transform="translate(732.78188,1788.6726)">h: HeightMapManager</text>
+       transform="translate(722.78188,1788.6726)">h: HeightMapManager</text>
     <g
        id="g3873"
        transform="translate(1200,0)">
@@ -524,7 +532,7 @@
          style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#6da3d9;stroke-width:1.09210002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Segoe UI" />
     </g>
     <text
-       transform="translate(962.7819,1788.6726)"
+       transform="translate(930.7819,1787.6726)"
        x="82"
        y="71"
        clip-path="url(#clipPath9)"
@@ -532,7 +540,7 @@
        id="text3891"
        style="font-size:13px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Segoe UI">cs: CachedSource</text>
     <text
-       transform="translate(1154.7819,1788.6726)"
+       transform="translate(1126.7819,1786.6726)"
        x="82"
        y="71"
        clip-path="url(#clipPath9)"
@@ -691,7 +699,7 @@
        y1="103"
        y2="103"
        id="line5718"
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.52489018;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.57467056, 4.57467056;stroke-dashoffset:0;font-family:Segoe UI" />
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.52489019;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Segoe UI" />
     <text
        transform="translate(-797.58628,1432.1439)"
        style="font-size:13px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Segoe UI"
@@ -777,7 +785,7 @@
        clip-path="url(#clipPath9)"
        y="71"
        x="82"
-       transform="translate(1354.7819,1788.6726)">fsc: FileSystemCache</text>
+       transform="translate(1324.7819,1787.6726)">fsc: FileSystemCache</text>
     <line
        clip-path="url(#clipPath10)"
        x1="171"
@@ -814,7 +822,7 @@
          clip-path="url(#clipPath43)" />
     </g>
     <line
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.52489018;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.57467056, 4.57467056;stroke-dashoffset:0;font-family:Segoe UI"
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.6379993;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Segoe UI"
        id="line4044"
        y2="103"
        y1="103"
@@ -943,7 +951,7 @@
        y1="103"
        y2="103"
        id="line4080"
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.52489018;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.57467056, 4.57467056;stroke-dashoffset:0;font-family:Segoe UI" />
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.6379993;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Segoe UI" />
     <text
        transform="translate(-355.58628,1472.1439)"
        style="font-size:13px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Segoe UI"
@@ -1025,7 +1033,7 @@
          clip-path="url(#clipPath43)" />
     </g>
     <line
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.52489018;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.57467056, 4.57467056;stroke-dashoffset:0;font-family:Segoe UI"
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.07731549;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Segoe UI"
        id="line4130"
        y2="103"
        y1="103"
@@ -1091,7 +1099,7 @@
          clip-path="url(#clipPath43)" />
     </g>
     <line
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.52489018;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.57467056, 4.57467056;stroke-dashoffset:0;font-family:Segoe UI"
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.53967401;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Segoe UI"
        id="line4148"
        y2="103"
        y1="103"
@@ -1164,7 +1172,7 @@
        y1="103"
        y2="103"
        id="line4166"
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.52489018;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.57467056, 4.57467056;stroke-dashoffset:0;font-family:Segoe UI" />
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.53967401;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Segoe UI" />
     <text
        transform="translate(232.41372,1548.1439)"
        style="font-size:13px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Segoe UI"
@@ -1191,7 +1199,7 @@
          clip-path="url(#clipPath43)" />
     </g>
     <line
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.52489018;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.57467056, 4.57467056;stroke-dashoffset:0;font-family:Segoe UI"
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.53967407;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Segoe UI"
        id="line4176"
        y2="103"
        y1="103"
@@ -1319,7 +1327,7 @@
        y1="103"
        y2="103"
        id="line4208"
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.52489018;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.57467056, 4.57467056;stroke-dashoffset:0;font-family:Segoe UI" />
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.06668047;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Segoe UI" />
     <text
        transform="translate(616.41372,1618.1439)"
        style="font-size:13px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Segoe UI"
@@ -1519,7 +1527,7 @@
          clip-path="url(#clipPath43)" />
     </g>
     <line
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.52489018;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.57467056, 4.57467056;stroke-dashoffset:0;font-family:Segoe UI"
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:4.25686242;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Segoe UI"
        id="line4290"
        y2="103"
        y1="103"
@@ -1529,7 +1537,7 @@
        transform="matrix(0.07933288,0,0,1.0016824,1430.8121,2010.0459)" />
     <line
        transform="matrix(1.3866631,0,0,1.0006136,837.3297,1940.9209)"
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.53279626;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.59838865, 4.59838865;stroke-dashoffset:0;font-family:Segoe UI"
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.01873814;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Segoe UI"
        id="line4292"
        y2="252"
        y1="252"
@@ -1610,7 +1618,7 @@
        y1="103"
        y2="103"
        id="line4314"
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.52489018;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.57467056, 4.57467056;stroke-dashoffset:0;font-family:Segoe UI" />
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.53967401;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Segoe UI" />
     <text
        transform="translate(442.41372,1748.1439)"
        style="font-size:13px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Segoe UI"
@@ -1673,7 +1681,7 @@
        y1="252"
        y2="252"
        id="line4354"
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.53279626;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.59838865, 4.59838865;stroke-dashoffset:0;font-family:Segoe UI"
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.52995982;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Segoe UI"
        transform="matrix(0.61480309,0,0,1.0006136,768.81526,2018.9209)" />
     <g
        id="g4356"
@@ -1746,7 +1754,7 @@
     </g>
     <line
        transform="matrix(2.0878773,0,0,1.0006136,-102.87376,2030.9209)"
-       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:1.53279626;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.59838865, 4.59838865;stroke-dashoffset:0;font-family:Segoe UI"
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:none;stroke:#808080;stroke-width:0.83022453;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;font-family:Segoe UI"
        id="line4384"
        y2="252"
        y1="252"
@@ -1874,5 +1882,13 @@
            inkscape:connector-curvature="0" />
       </g>
     </g>
+    <text
+       transform="matrix(0.80794557,0,0,0.6337007,893.0262,1805.8732)"
+       style="font-size:13px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Segoe UI"
+       id="text4210-0"
+       clip-path="url(#clipPath38-4-16)"
+       y="476"
+       x="685"
+       xml:space="preserve">start()</text>
   </g>
 </svg>
