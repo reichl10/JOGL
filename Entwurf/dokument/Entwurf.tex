@@ -239,7 +239,7 @@ Im Folgenden werden UML-Diagramme für die Elemente der einzelnen Packages gezei
 interface Cache<Key, Value>
 extends Source<Key, Value>
 \end{lstlisting}
-Bildet die Basis für einen Cache und implementiert eine Verdrängungsstrategie. Die Speicherung der Daten liegt bei der erbenden Klasse.\\
+Bildet die Schnittstelle für einen Cache, der Methoden zum Hinzufügen, Abfragen und Löschen von Daten bietet.\\
 
 
 \vspace{5mm}
@@ -248,14 +248,14 @@ Bildet die Basis für einen Cache und implementiert eine Verdrängungsstrategie.
 \begin{lstlisting}
 interface Geometry
 \end{lstlisting}
-Abstrahiert die Sichtbarkeitsberechnungen verschiedener Modelle, wie eines Globus oder einer Kartenebene.\\
+Abstrahiert die Sichtbarkeitsberechnungen verschiedener Oberflächenmodelle, wie eines Globus oder einer Kartenebene.\\
 
 \vspace{5mm}
 \subsection*{CameraListener}
 \begin{lstlisting}
 interface CameraListener
 \end{lstlisting}
-Nimmt Events entgegen die beim Ändern der Kamera-Ansichten entstehen.\\
+Interface für Klassen, die Events beim Ändern der Kameraeinstellungen .\\
 
 
 \vspace{5mm}
@@ -264,7 +264,7 @@ Nimmt Events entgegen die beim Ändern der Kamera-Ansichten entstehen.\\
 \begin{lstlisting}
 interface Tessellator
 \end{lstlisting}
-Bietet eine gemeinsame Schnittstelle für das Erzeugen von Kartenkacheln verschiedener Kartenansichten.\\
+Bietet eine gemeinsame Schnittstelle für das Erzeugen von dreidimensionalen Kacheln verschiedener Modelle.\\
 
 
 \vspace{5mm}
@@ -273,7 +273,7 @@ Bietet eine gemeinsame Schnittstelle für das Erzeugen von Kartenkacheln verschi
 \begin{lstlisting}
 interface SettingsListener
 \end{lstlisting}
-Eine Implementierung des \textit{SettingsListeners} kann über eine Änderung der \textit{Settings} benachrichtigt werden.\\
+Eine Implementierung des \textit{SettingsListeners} kann über Änderungen der \textit{Settings} benachrichtigt werden.\\
 
 
 \vspace{5mm}
@@ -282,14 +282,14 @@ Eine Implementierung des \textit{SettingsListeners} kann über eine Änderung de
 \begin{lstlisting}
 interface Source<Key, Value>
 \end{lstlisting}
-Ist in der Lage, über einen \texttt{Key} identifizierte Objekte asynchron zu beschaffen.\\
+Ist in der Lage, über einen \texttt{Key} identifizierte Objekte synchron oder asynchron zu beschaffen.\\
 
 \vspace{5mm}
 \subsection*{SourceListener}
 \begin{lstlisting}
 interface SourceListener<Key, Value>
 \end{lstlisting}
-Eine Implementierung des Interfaces kann asynchrone Antworten einer \textit{Source} entgegen nehmen.\\
+Eine Implementierung dies Interfaces kann asynchrone Antworten einer \textit{Source} entgegen nehmen.\\
 
 
 \vspace{5mm}
@@ -298,14 +298,14 @@ Eine Implementierung des Interfaces kann asynchrone Antworten einer \textit{Sour
 \begin{lstlisting}
 interface SurfaceListener
 \end{lstlisting}
-Eine Implementierung des Interfaces kann über Änderung der Darstellung einzelner Kartenkacheln benachrichtigt werden.\\
+Eine Implementierung dieses Interfaces kann über Änderung der Darstellung einzelner Kartenkacheln benachrichtigt werden.\\
 
 \vspace{5mm}
 \subsection*{LocationListener}
 \begin{lstlisting}
 interface LocationListener
 \end{lstlisting}
-Eine Implementierung des Interfaces nimmt asynchrone Antworten des LocationManagers, wie geladene Suchergebnisse, entgegen.\\
+Eine Implementierung dieses Interfaces nimmt asynchrone Antworten des \textit{LocationManagers}, wie geladene Suchergebnisse, entgegen.\\
 
 
 
@@ -340,7 +340,7 @@ Lädt Daten aus einer \textit{Source}, verwaltet diese in Caches und ist für de
 class FileSystemCache<Key>
 implements Cache<Key, byte[]>
 \end{lstlisting}
-Der \textit{FileSystemCache} speichert Daten im Dateisystem zwischen.\\
+Ein \textit{FileSystemCache} speichert Daten im Dateisystem zwischen.\\
 
 \vspace{5mm}
 \subsection*{MemoryCache}
@@ -348,7 +348,7 @@ Der \textit{FileSystemCache} speichert Daten im Dateisystem zwischen.\\
 class MemoryCache<Key, Value>
 implements Cache<Key, Value>
 \end{lstlisting}
-Der \textit{MemoryCache} speichert Daten im Arbeitsspeicher zwischen.\\
+Ein \textit{MemoryCache} speichert Daten im Arbeitsspeicher ähnlich einer \textit{HashMap} zwischen.\\
 
 \newpage
 \vspace{5mm}
@@ -357,8 +357,7 @@ Der \textit{MemoryCache} speichert Daten im Arbeitsspeicher zwischen.\\
 class TextureCache
 extends MemoryCache<Tile, Integer>
 \end{lstlisting}
-Der \textit{TextureCache} verwaltet die bereits geladene Texturen.\\
-
+Ein \textit{TextureCache} verwaltet in OpenGL geladene Texturen.
 
 
 \vspace{5mm}
@@ -376,7 +375,7 @@ Enthält eine Methode zum Setzen einer \textit{Geometry} für die Unterscheidung
 class GeoCoordinates
 implements Cloneable
 \end{lstlisting}
-Speichert Längen- und Breitengrad von einem Punkt.\\
+Speichert Längen- und Breitengrad eines Punktes auf der Erdoberfläche.\\
 
 \vspace{5mm}
 \subsection*{Matrix4}
@@ -384,7 +383,7 @@ Speichert Längen- und Breitengrad von einem Punkt.\\
 class Matrix4
 implements Cloneable
 \end{lstlisting}
-Hält eine 4x4-Matrix, die Operationen zum Rotieren, Verschieben und Skalieren, sowie eine Funktion zum transformieren eines 4-dimensionalen Vektors anbietet. Die Klasse wird zum Bestimmen der Projektionsmatrix in der Kamera und der Sichtbarkeit von Objekten verwendet.\\
+Hält eine 4x4-Matrix, die Operationen zum Rotieren, Verschieben und Skalieren, sowie eine Funktion zum transformieren eines dreidimensionalen Vektors anbietet. Sie wird zum von der Kamera intern zum Bestimmen der Projektionsmatrix und der Sichtbarkeit von Objekten verwendet.\\
 
 \vspace{5mm}
 \subsection*{PlaneGeometry}
@@ -400,7 +399,7 @@ Implementiert das \textit{Geometry}-Interface für räumliche Berechnungen auf e
 class ScreenCoordinates
 implements Cloneable
 \end{lstlisting}
-Stellt den Punkt anhand der Bildschirmkoordinaten dar.\\
+Stellt einen Punkt auf der Bildschirmebene in relativen Koodrinaten zwischen 0 und 1 dar.\\
 
 \newpage
 \vspace{5mm}
@@ -445,7 +444,7 @@ Ein 4-dimensionaler Vektor für homogene Koordinaten. Instanzen dieser Klasse we
 \begin{lstlisting}
 class Mesh
 \end{lstlisting}
-Speichert Rohdaten eines 3D-Modells wie seine Vertices, Normalen, und Texturkoordinaten. Kann vom \textit{Renderer} an OpenGL übergeben werden.\\
+Speichert Rohdaten eines 3D-Modells wie seine Vertices, Normalen, und Texturkoordinaten. Meshes werden unter Anderem von Tessellatoren generiert und vom \textit{Renderer} an OpenGL übergeben.\\
 
 \vspace{5mm}
 \subsection*{PlaneTessellator}
@@ -453,7 +452,7 @@ Speichert Rohdaten eines 3D-Modells wie seine Vertices, Normalen, und Texturkoor
 class PlaneTessellator
 implements Tessellator
 \end{lstlisting}
-Generiert Kartenkacheln in der Ebene.\\
+Generiert Kachelmeshes in der Ebene.\\
 
 \newpage
 \vspace{5mm}
@@ -471,7 +470,7 @@ Enthält neben der start()-Methode eine weitere Methode post() mit der er zum ei
 class SphereTessellator
 implements Tessellator
 \end{lstlisting}
-Generiert Kartenkacheln auf der Kugeloberfläche.\\
+Generiert Kachelmeshes auf der Globusoberfläche.\\
 
 
 
