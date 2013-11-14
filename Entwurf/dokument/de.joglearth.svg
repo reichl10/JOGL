@@ -10,53 +10,53 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="137.53125"
-   height="261.53125"
-   id="svg41053"
+   width="107.53125"
+   height="231.53125"
+   id="svg31037"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="Neues Dokument 27">
+   sodipodi:docname="Neues Dokument 12">
   <defs
-     id="defs41055">
+     id="defs31039">
     <clipPath
-       id="clipPath1094"
+       id="clipPath1093"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path3828"
-         d="m 2598,1048 21,0 0,21 -21,0 0,-21 z" />
+         id="path3825"
+         d="m 2598,1043 21,0 0,21 -21,0 0,-21 z" />
     </clipPath>
     <clipPath
-       id="clipPath40874"
+       id="clipPath30858"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40876"
-         d="m 2598,1048 21,0 0,21 -21,0 0,-21 z" />
+         id="path30860"
+         d="m 2598,1043 21,0 0,21 -21,0 0,-21 z" />
     </clipPath>
     <clipPath
-       id="clipPath40878"
+       id="clipPath30862"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40880"
-         d="m 2598,1048 21,0 0,21 -21,0 0,-21 z" />
+         id="path30864"
+         d="m 2598,1043 21,0 0,21 -21,0 0,-21 z" />
     </clipPath>
     <clipPath
-       id="clipPath40882"
+       id="clipPath30866"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40884"
-         d="m 2598,1048 21,0 0,21 -21,0 0,-21 z" />
+         id="path30868"
+         d="m 2598,1043 21,0 0,21 -21,0 0,-21 z" />
     </clipPath>
     <clipPath
-       id="clipPath1054"
+       id="clipPath1055"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path3708"
-         d="m -1,-1 2668,0 0,1654 -2668,0 0,-1654 z" />
+         id="path3711"
+         d="m -1,-1 2668,0 0,1649 -2668,0 0,-1649 z" />
     </clipPath>
     <clipPath
        id="clipPath8"
@@ -64,7 +64,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path570"
-         d="m 2563,1131 95,0 0,74 -95,0 0,-74 z" />
+         d="m 2563,1126 95,0 0,74 -95,0 0,-74 z" />
     </clipPath>
     <clipPath
        id="clipPath17"
@@ -72,31 +72,31 @@
       <path
          inkscape:connector-curvature="0"
          id="path597"
-         d="m 2652,1131 7,0 0,70 -7,0 0,-70 z" />
+         d="m 2652,1126 7,0 0,70 -7,0 0,-70 z" />
     </clipPath>
     <clipPath
-       id="clipPath40892"
+       id="clipPath30876"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40894"
-         d="m 2652,1131 7,0 0,70 -7,0 0,-70 z" />
+         id="path30878"
+         d="m 2652,1126 7,0 0,70 -7,0 0,-70 z" />
     </clipPath>
     <clipPath
-       id="clipPath40896"
+       id="clipPath30880"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40898"
-         d="m 2652,1131 7,0 0,70 -7,0 0,-70 z" />
+         id="path30882"
+         d="m 2652,1126 7,0 0,70 -7,0 0,-70 z" />
     </clipPath>
     <clipPath
-       id="clipPath40900"
+       id="clipPath30884"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40902"
-         d="m 2652,1131 7,0 0,70 -7,0 0,-70 z" />
+         id="path30886"
+         d="m 2652,1126 7,0 0,70 -7,0 0,-70 z" />
     </clipPath>
     <clipPath
        id="clipPath16"
@@ -104,31 +104,31 @@
       <path
          inkscape:connector-curvature="0"
          id="path594"
-         d="m 2563,1197 95,0 0,7 -95,0 0,-7 z" />
+         d="m 2563,1192 95,0 0,7 -95,0 0,-7 z" />
     </clipPath>
     <clipPath
-       id="clipPath40906"
+       id="clipPath30890"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40908"
-         d="m 2563,1197 95,0 0,7 -95,0 0,-7 z" />
+         id="path30892"
+         d="m 2563,1192 95,0 0,7 -95,0 0,-7 z" />
     </clipPath>
     <clipPath
-       id="clipPath40910"
+       id="clipPath30894"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40912"
-         d="m 2563,1197 95,0 0,7 -95,0 0,-7 z" />
+         id="path30896"
+         d="m 2563,1192 95,0 0,7 -95,0 0,-7 z" />
     </clipPath>
     <clipPath
-       id="clipPath40914"
+       id="clipPath30898"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40916"
-         d="m 2563,1197 95,0 0,7 -95,0 0,-7 z" />
+         id="path30900"
+         d="m 2563,1192 95,0 0,7 -95,0 0,-7 z" />
     </clipPath>
     <clipPath
        id="clipPath15"
@@ -136,7 +136,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path591"
-         d="m 2564,1178 90,0 0,22 -90,0 0,-22 z" />
+         d="m 2564,1173 90,0 0,22 -90,0 0,-22 z" />
     </clipPath>
     <clipPath
        id="clipPath14"
@@ -144,15 +144,15 @@
       <path
          inkscape:connector-curvature="0"
          id="path588"
-         d="m 2596,1180 39,0 0,16 -39,0 0,-16 z" />
+         d="m 2596,1175 39,0 0,16 -39,0 0,-16 z" />
     </clipPath>
     <clipPath
-       id="clipPath40922"
+       id="clipPath30906"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40924"
-         d="m 2596,1180 39,0 0,16 -39,0 0,-16 z" />
+         id="path30908"
+         d="m 2596,1175 39,0 0,16 -39,0 0,-16 z" />
     </clipPath>
     <clipPath
        id="clipPath13"
@@ -160,7 +160,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path585"
-         d="m 2577,1180 58,0 0,19 -58,0 0,-19 z" />
+         d="m 2577,1175 58,0 0,19 -58,0 0,-19 z" />
     </clipPath>
     <clipPath
        id="clipPath12"
@@ -168,7 +168,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path582"
-         d="m 2564,1166 90,0 0,15 -90,0 0,-15 z" />
+         d="m 2564,1161 90,0 0,15 -90,0 0,-15 z" />
     </clipPath>
     <clipPath
        id="clipPath11"
@@ -176,7 +176,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path579"
-         d="m 2592,1148 52,0 0,16 -52,0 0,-16 z" />
+         d="m 2592,1143 52,0 0,16 -52,0 0,-16 z" />
     </clipPath>
     <clipPath
        id="clipPath10"
@@ -184,7 +184,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path576"
-         d="m 2574,1148 70,0 0,18 -70,0 0,-18 z" />
+         d="m 2574,1143 70,0 0,18 -70,0 0,-18 z" />
     </clipPath>
     <clipPath
        id="clipPath9"
@@ -192,7 +192,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path573"
-         d="m 2574,1135 69,0 0,16 -69,0 0,-16 z" />
+         d="m 2574,1130 69,0 0,16 -69,0 0,-16 z" />
     </clipPath>
     <linearGradient
        spreadMethod="pad"
@@ -200,9 +200,9 @@
        id="linearGradient3"
        xlink:actuate="onLoad"
        xlink:type="simple"
-       y2="1168"
+       y2="1163"
        gradientUnits="userSpaceOnUse"
-       y1="1133"
+       y1="1128"
        x2="2565"
        x1="2565">
       <stop
@@ -217,12 +217,12 @@
          stop-opacity="1" />
     </linearGradient>
     <clipPath
-       id="clipPath40939"
+       id="clipPath30923"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40941"
-         d="m 2563,1131 95,0 0,74 -95,0 0,-74 z" />
+         id="path30925"
+         d="m 2563,1126 95,0 0,74 -95,0 0,-74 z" />
     </clipPath>
     <linearGradient
        spreadMethod="pad"
@@ -230,9 +230,9 @@
        id="linearGradient2"
        xlink:actuate="onLoad"
        xlink:type="simple"
-       y2="1199"
+       y2="1194"
        gradientUnits="userSpaceOnUse"
-       y1="1185"
+       y1="1180"
        x2="2565"
        x1="2565">
       <stop
@@ -247,20 +247,20 @@
          stop-opacity="1" />
     </linearGradient>
     <clipPath
-       id="clipPath40946"
+       id="clipPath30930"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40948"
-         d="m 2563,1131 95,0 0,74 -95,0 0,-74 z" />
+         id="path30932"
+         d="m 2563,1126 95,0 0,74 -95,0 0,-74 z" />
     </clipPath>
     <clipPath
-       id="clipPath40950"
+       id="clipPath30934"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40952"
-         d="m 2563,1131 95,0 0,74 -95,0 0,-74 z" />
+         id="path30936"
+         d="m 2563,1126 95,0 0,74 -95,0 0,-74 z" />
     </clipPath>
     <clipPath
        id="clipPath1"
@@ -268,7 +268,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path549"
-         d="m 2558,981 98,0 0,74 -98,0 0,-74 z" />
+         d="m 2558,976 98,0 0,74 -98,0 0,-74 z" />
     </clipPath>
     <clipPath
        id="clipPath7"
@@ -276,31 +276,31 @@
       <path
          inkscape:connector-curvature="0"
          id="path567"
-         d="m 2650,993 7,0 0,58 -7,0 0,-58 z" />
+         d="m 2650,988 7,0 0,58 -7,0 0,-58 z" />
     </clipPath>
     <clipPath
-       id="clipPath40958"
+       id="clipPath30942"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40960"
-         d="m 2650,993 7,0 0,58 -7,0 0,-58 z" />
+         id="path30944"
+         d="m 2650,988 7,0 0,58 -7,0 0,-58 z" />
     </clipPath>
     <clipPath
-       id="clipPath40962"
+       id="clipPath30946"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40964"
-         d="m 2650,993 7,0 0,58 -7,0 0,-58 z" />
+         id="path30948"
+         d="m 2650,988 7,0 0,58 -7,0 0,-58 z" />
     </clipPath>
     <clipPath
-       id="clipPath40966"
+       id="clipPath30950"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40968"
-         d="m 2650,993 7,0 0,58 -7,0 0,-58 z" />
+         id="path30952"
+         d="m 2650,988 7,0 0,58 -7,0 0,-58 z" />
     </clipPath>
     <clipPath
        id="clipPath6"
@@ -308,31 +308,31 @@
       <path
          inkscape:connector-curvature="0"
          id="path564"
-         d="m 2558,1047 98,0 0,7 -98,0 0,-7 z" />
+         d="m 2558,1042 98,0 0,7 -98,0 0,-7 z" />
     </clipPath>
     <clipPath
-       id="clipPath40972"
+       id="clipPath30956"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40974"
-         d="m 2558,1047 98,0 0,7 -98,0 0,-7 z" />
+         id="path30958"
+         d="m 2558,1042 98,0 0,7 -98,0 0,-7 z" />
     </clipPath>
     <clipPath
-       id="clipPath40976"
+       id="clipPath30960"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40978"
-         d="m 2558,1047 98,0 0,7 -98,0 0,-7 z" />
+         id="path30962"
+         d="m 2558,1042 98,0 0,7 -98,0 0,-7 z" />
     </clipPath>
     <clipPath
-       id="clipPath40980"
+       id="clipPath30964"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40982"
-         d="m 2558,1047 98,0 0,7 -98,0 0,-7 z" />
+         id="path30966"
+         d="m 2558,1042 98,0 0,7 -98,0 0,-7 z" />
     </clipPath>
     <clipPath
        id="clipPath5"
@@ -340,7 +340,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path561"
-         d="m 2562,1032 87,0 0,15 -87,0 0,-15 z" />
+         d="m 2562,1027 87,0 0,15 -87,0 0,-15 z" />
     </clipPath>
     <clipPath
        id="clipPath4"
@@ -348,7 +348,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path558"
-         d="m 2581,1010 68,0 0,16 -68,0 0,-16 z" />
+         d="m 2581,1005 68,0 0,16 -68,0 0,-16 z" />
     </clipPath>
     <clipPath
        id="clipPath3"
@@ -356,7 +356,7 @@
       <path
          inkscape:connector-curvature="0"
          id="path555"
-         d="m 2562,1010 87,0 0,19 -87,0 0,-19 z" />
+         d="m 2562,1005 87,0 0,19 -87,0 0,-19 z" />
     </clipPath>
     <clipPath
        id="clipPath2"
@@ -364,23 +364,23 @@
       <path
          inkscape:connector-curvature="0"
          id="path552"
-         d="m 2573,997 65,0 0,16 -65,0 0,-16 z" />
+         d="m 2573,992 65,0 0,16 -65,0 0,-16 z" />
     </clipPath>
     <clipPath
-       id="clipPath40992"
+       id="clipPath30976"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40994"
-         d="m 2558,981 98,0 0,74 -98,0 0,-74 z" />
+         id="path30978"
+         d="m 2558,976 98,0 0,74 -98,0 0,-74 z" />
     </clipPath>
     <clipPath
-       id="clipPath40996"
+       id="clipPath30980"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path40998"
-         d="m 2558,981 98,0 0,74 -98,0 0,-74 z" />
+         id="path30982"
+         d="m 2558,976 98,0 0,74 -98,0 0,-74 z" />
     </clipPath>
     <linearGradient
        spreadMethod="pad"
@@ -388,9 +388,9 @@
        id="linearGradient1"
        xlink:actuate="onLoad"
        xlink:type="simple"
-       y2="1049"
+       y2="1044"
        gradientUnits="userSpaceOnUse"
-       y1="1035"
+       y1="1030"
        x2="2560"
        x1="2560">
       <stop
@@ -405,20 +405,20 @@
          stop-opacity="1" />
     </linearGradient>
     <clipPath
-       id="clipPath41003"
+       id="clipPath30987"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path41005"
-         d="m 2558,981 98,0 0,74 -98,0 0,-74 z" />
+         id="path30989"
+         d="m 2558,976 98,0 0,74 -98,0 0,-74 z" />
     </clipPath>
     <clipPath
-       id="clipPath41007"
+       id="clipPath30991"
        clipPathUnits="userSpaceOnUse">
       <path
          inkscape:connector-curvature="0"
-         id="path41009"
-         d="m 2558,981 98,0 0,74 -98,0 0,-74 z" />
+         id="path30993"
+         d="m 2558,976 98,0 0,74 -98,0 0,-74 z" />
     </clipPath>
   </defs>
   <sodipodi:namedview
@@ -429,22 +429,22 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35"
-     inkscape:cx="68.76055"
-     inkscape:cy="130.77068"
+     inkscape:cx="-393.38224"
+     inkscape:cy="50.056387"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     fit-margin-top="20"
-     fit-margin-left="20"
-     fit-margin-right="20"
-     inkscape:window-width="787"
-     inkscape:window-height="399"
+     fit-margin-top="5"
+     fit-margin-bottom="5"
+     fit-margin-left="5"
+     fit-margin-right="5"
+     inkscape:window-width="1024"
+     inkscape:window-height="715"
      inkscape:window-x="0"
-     inkscape:window-y="53"
-     inkscape:window-maximized="0"
-     fit-margin-bottom="20" />
+     inkscape:window-y="26"
+     inkscape:window-maximized="1" />
   <metadata
-     id="metadata41058">
+     id="metadata31042">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -459,53 +459,53 @@
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-281.23945,-401.60161)">
+     transform="translate(-377.66795,-350.88732)">
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2560"
-       y="995"
+       y="990"
        clip-path="url(#clipPath1)"
        width="91"
        height="54"
-       id="rect3895"
+       id="rect3910"
        style="font-size:11px;fill:#ffffff;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2560"
-       y="1035"
+       y="1030"
        clip-path="url(#clipPath1)"
        width="91"
        height="14"
-       id="rect3897"
+       id="rect3912"
        style="font-size:11px;fill:url(#linearGradient1);stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2559"
-       y="982"
+       y="977"
        clip-path="url(#clipPath1)"
        width="38"
        height="13"
-       id="rect3899"
+       id="rect3914"
        style="font-size:11px;fill:#e1ebf5;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2559"
-       y="982"
+       y="977"
        clip-path="url(#clipPath1)"
        width="37"
        height="12"
-       id="rect3903"
+       id="rect3918"
        style="font-size:11px;fill:none;stroke:#6da3d9;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
     <text
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2574"
-       y="1009"
+       y="1004"
        clip-path="url(#clipPath2)"
        xml:space="preserve"
-       id="text3905"
+       id="text3920"
        style="font-size:11px;fill:#000000;stroke:none;font-family:Droid Sans">«Java-Paket»</text>
     <image
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        width="16"
        xlink:show="embed"
        xlink:type="simple"
@@ -514,147 +514,147 @@
        font-weight="bold"
        height="16"
        x="2563"
-       y="1011"
+       y="1006"
        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABq0lEQVR42mNgGPSg 0Eb8Pz55RmTO/ibD/0w//qAouHT7E4OeKh+K2D8OFgbHuvNgvSzIEkxffzFIeRQz cHExg/kvH71i4P52lkHK1Q1F7POZBQg9KCb/+w9WKKIhxcDBwcrAycsDFkcXA6nD asAfqOu/PHgN9SDCh8hif5B8yYJqwD+wE8E2AxV+eP6K4fb9FwwGaGIgdSiB+B8I Xp9awPD9zjYGThUvBlGzBIb5hZFgzTCgqigBZ399epzh3vMfDP1HXjLCvQDSLBde B6ZBwD3SkyE0xhvMTiqIA/NB2MDamEGajw2sGRwGYNsP9jKIG2szBOrogunXB/sY pMziwM4G2YweiL///kMNxO9PT6LE8/enJwgEIiIWWB5tqWTgkeYGc5pK7cA0jxQ3 w2Og+Ie3XPC4Rw7Ev3+RY+HTXQYBbV2GD08+MdR1H2KYq2rGICCnxPDlxGWGmzvP MHwFhvildaguVNUSRBjw9MFNBlk7RwZmMT6G1JwgIC3DwMTKxgAST1h+nxGUF2AB hgD3EQbIOxUxnFjUB+aAzL229g6YDRJnYEhgwNSMCgDborMxPIWtIgAAAABJRU5E rkJggg=="
        xlink:actuate="onLoad"
-       id="image3907"
+       id="image3922"
        style="font-size:11px;font-weight:bold;fill:#000000;stroke:#000000;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
     <text
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2582"
-       y="1022"
+       y="1017"
        clip-path="url(#clipPath4)"
        font-weight="bold"
        xml:space="preserve"
-       id="text3909"
+       id="text3924"
        style="font-size:11px;font-weight:bold;fill:#000000;stroke:none;font-family:Droid Sans">de.joglearth</text>
     <line
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        clip-path="url(#clipPath5)"
        x1="2563"
        x2="2647"
-       y1="1033"
-       y2="1033"
-       id="line3911"
+       y1="1028"
+       y2="1028"
+       id="line3926"
        style="font-size:11px;fill:none;stroke:#6da3d9;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2563"
-       y="998"
+       y="993"
        clip-path="url(#clipPath6)"
        width="91"
        height="55"
-       id="rect3913"
+       id="rect3928"
        style="font-size:11px;fill:#f5f5f5;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2562"
-       y="997"
+       y="992"
        clip-path="url(#clipPath6)"
        width="91"
        height="55"
-       id="rect3915"
+       id="rect3930"
        style="font-size:11px;fill:#e9e9e9;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2561"
-       y="996"
+       y="991"
        clip-path="url(#clipPath6)"
        width="91"
        height="55"
-       id="rect3917"
+       id="rect3932"
        style="font-size:11px;fill:#dddddd;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2560"
-       y="995"
+       y="990"
        clip-path="url(#clipPath6)"
        width="91"
        height="55"
-       id="rect3919"
+       id="rect3934"
        style="font-size:11px;fill:#cfcfcf;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2563"
-       y="998"
+       y="993"
        clip-path="url(#clipPath7)"
        width="91"
        height="55"
-       id="rect3921"
+       id="rect3936"
        style="font-size:11px;fill:#f5f5f5;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2562"
-       y="997"
+       y="992"
        clip-path="url(#clipPath7)"
        width="91"
        height="55"
-       id="rect3923"
+       id="rect3938"
        style="font-size:11px;fill:#e9e9e9;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2561"
-       y="996"
+       y="991"
        clip-path="url(#clipPath7)"
        width="91"
        height="55"
-       id="rect3925"
+       id="rect3940"
        style="font-size:11px;fill:#dddddd;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2560"
-       y="995"
+       y="990"
        clip-path="url(#clipPath7)"
        width="91"
        height="55"
-       id="rect3927"
+       id="rect3942"
        style="font-size:11px;fill:#cfcfcf;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2559"
-       y="994"
+       y="989"
        clip-path="url(#clipPath1)"
        width="91"
        height="54"
-       id="rect3929"
+       id="rect3944"
        style="font-size:11px;fill:none;stroke:#6da3d9;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2565"
-       y="1133"
+       y="1128"
        clip-path="url(#clipPath8)"
        width="88"
        height="66"
-       id="rect3931"
+       id="rect3946"
        style="font-size:11px;fill:#ffffff;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2565"
-       y="1185"
+       y="1180"
        clip-path="url(#clipPath8)"
        width="88"
        height="14"
-       id="rect3933"
+       id="rect3948"
        style="font-size:11px;fill:url(#linearGradient2);stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2565"
-       y="1133"
+       y="1128"
        clip-path="url(#clipPath8)"
        width="88"
        height="35"
-       id="rect3935"
+       id="rect3950"
        style="font-size:11px;fill:url(#linearGradient3);stroke:none;font-family:Droid Sans" />
     <text
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2575"
-       y="1147"
+       y="1142"
        clip-path="url(#clipPath9)"
        xml:space="preserve"
-       id="text3937"
+       id="text3952"
        style="font-size:11px;fill:#000000;stroke:none;font-family:Droid Sans">«Java-Klasse»</text>
     <image
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        width="15"
        xlink:show="embed"
        xlink:type="simple"
@@ -663,34 +663,34 @@
        font-weight="bold"
        height="15"
        x="2575"
-       y="1149"
+       y="1144"
        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAB/ElEQVR42p1TX0iT URT/7fuGuOkyFD+cQhZq+NlEJ/7bmCTmZg/ZQ4Hgo08++SJRBPoigojUe89BoFIg iGh/IFhIs/mPzEHMXA+NGkNt39xE7Lvdc8FLikh44XC55/c759z7O+daGGO46LKe drzd/MBehefx5ktQ+vw32nCv8TY6a3yWM4ONg332aGoMi1th1F+9jvueW3Dk2rk/ g5+7STyYHIW3opGN9zzm/jyRRDkOpsCl7VX461pQVqRBVRRkDg/ETmfyE068E5Xp qsGvIfj0ep5NRUDvQHO5G7YcmyBt/IjgeWgaTZU1CEZCgk9PEJXpjaWFxUjzK96p DeBmlRcmF3Lu8zskjCRcZTr6PL0CJx7xZWUS55rmxE46hbaqVgE8ff0MH7+tQHMU oUP3IZFKCpwxU4opBfudTaOhvFa+J76XQNLYFbYZj57fqqM/Rwhvr0ug5FIxTNOE 87KGiZ5hrnoaD6dGeRHjZDD1cfn7GvJzbVjYeI8uVzsGu/px1x1ASYEGJ7etRAwW 3iCrYhV82SoaACObhcOejxdLL4VQCme6r7hEYDi2hpHZJwInHvFlZZK9vdrDFqOf 0FChY2Z9Tti/S1VVxH7F0e32y0mTQ0KT461swnI0glQmAzvvsVZQKHY6k5/woe4B mdBy+mNcaLaPFxG4/dev+gtQFNStpc63JgAAAABJRU5ErkJggg=="
        xlink:actuate="onLoad"
-       id="image3939"
+       id="image3954"
        style="font-size:11px;font-weight:bold;fill:#000000;stroke:#000000;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
     <text
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2593"
-       y="1160"
+       y="1155"
        clip-path="url(#clipPath11)"
        font-weight="bold"
        xml:space="preserve"
-       id="text3941"
+       id="text3956"
        style="font-size:11px;font-weight:bold;fill:#000000;stroke:none;font-family:Droid Sans">JoglEarth</text>
     <line
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        clip-path="url(#clipPath12)"
        x1="2565"
        x2="2652"
-       y1="1167"
-       y2="1167"
-       id="line3943"
+       y1="1162"
+       y2="1162"
+       id="line3958"
        style="font-size:11px;fill:none;stroke:#6da3d9;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
     <image
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        style="font-size:11px;fill:#6da3d9;stroke:#6da3d9;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans"
        x="2578"
-       y="1181"
+       y="1176"
        clip-path="url(#clipPath13)"
        width="16"
        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABvElEQVR42mNkIBL8 B4KPe08wXHdLA/M1d81i4He2YGBiIAGANFv8vQTGMINIMgAZgAwBARZSNIGcfYJZ j3wvgDSgewGnC0q3T/g/4dROBk0RcQZ3JQOwGMh2mNNhAKsBvouL/7/6/IRhfWAI w5MvnxmOP3kCFpfvLoZ7AcQGAUZ0zYXbev8//fiYIVRDEzkSGVbfuMEgzS/L0O9V zIjhAlAcvz61gOH7nW0MnMJCDKKeRQyt+1sRqoBadMSEGBoP78ZwLTwQQZrlwuvA NAi8/fwJij8yvP30ieHB23cMUjx8mAaAbT/YyyBurM0QqKMLpl8f7GPo8+tkEGfn ZpBg52EQ5+BmuPv2AzAw9bG74PvTkyiC35+egEQbKzvDz7//GA49esLAwsrDMCeo GiPMmJNMfjbwiPxiYOMRYNCT/ccgLKfIwMj4jeHNlZMMnidPMrz+9YfBWFKDYXlU KyO2GGNh+HSXQUBbl+HDk08Mdd2HGOaqmjEIyCkxfDlxmeF3/XZGUKxfwpO4mJ4+ uMnAyCrCwCwmw5CaEwSmmYB8kDgxgEXeqYjhxKI+MEcQiK+tvQNJKEBxBoYEggYA AHgqqV90rBbvAAAAAElFTkSuQmCC"
@@ -699,166 +699,166 @@
        height="16"
        preserveAspectRatio="none"
        xlink:show="embed"
-       id="image3945" />
+       id="image3960" />
     <text
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2597"
-       y="1192"
+       y="1187"
        clip-path="url(#clipPath14)"
        xml:space="preserve"
-       id="text3947"
+       id="text3962"
        style="font-size:11px;fill:#000000;stroke:none;font-family:Droid Sans">main ( )</text>
     <line
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        clip-path="url(#clipPath14)"
        x1="2597"
        x2="2633"
-       y1="1192"
-       y2="1192"
-       id="line3949"
+       y1="1187"
+       y2="1187"
+       id="line3964"
        style="font-size:11px;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;font-family:Droid Sans" />
     <line
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        clip-path="url(#clipPath15)"
        x1="2565"
        x2="2652"
-       y1="1179"
-       y2="1179"
-       id="line3951"
+       y1="1174"
+       y2="1174"
+       id="line3966"
        style="font-size:11px;fill:none;stroke:#6da3d9;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2568"
-       y="1136"
+       y="1131"
        clip-path="url(#clipPath16)"
        width="88"
        height="67"
-       id="rect3953"
+       id="rect3968"
        style="font-size:11px;fill:#f5f5f5;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2567"
-       y="1135"
+       y="1130"
        clip-path="url(#clipPath16)"
        width="88"
        height="67"
-       id="rect3955"
+       id="rect3970"
        style="font-size:11px;fill:#e9e9e9;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2566"
-       y="1134"
+       y="1129"
        clip-path="url(#clipPath16)"
        width="88"
        height="67"
-       id="rect3957"
+       id="rect3972"
        style="font-size:11px;fill:#dddddd;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2565"
-       y="1133"
+       y="1128"
        clip-path="url(#clipPath16)"
        width="88"
        height="67"
-       id="rect3959"
+       id="rect3974"
        style="font-size:11px;fill:#cfcfcf;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2568"
-       y="1136"
+       y="1131"
        clip-path="url(#clipPath17)"
        width="88"
        height="67"
-       id="rect3961"
+       id="rect3976"
        style="font-size:11px;fill:#f5f5f5;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2567"
-       y="1135"
+       y="1130"
        clip-path="url(#clipPath17)"
        width="88"
        height="67"
-       id="rect3963"
+       id="rect3978"
        style="font-size:11px;fill:#e9e9e9;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2566"
-       y="1134"
+       y="1129"
        clip-path="url(#clipPath17)"
        width="88"
        height="67"
-       id="rect3965"
+       id="rect3980"
        style="font-size:11px;fill:#dddddd;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2565"
-       y="1133"
+       y="1128"
        clip-path="url(#clipPath17)"
        width="88"
        height="67"
-       id="rect3967"
+       id="rect3982"
        style="font-size:11px;fill:#cfcfcf;stroke:none;font-family:Droid Sans" />
     <rect
-       transform="translate(-2257.2293,-559.86714)"
+       transform="translate(-2175.8008,-620.58143)"
        x="2564"
-       y="1132"
+       y="1127"
        clip-path="url(#clipPath8)"
        width="88"
        height="66"
-       id="rect3969"
+       id="rect3984"
        style="font-size:11px;fill:none;stroke:#6da3d9;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
     <line
-       transform="translate(-2257.2293,-559.86714)"
-       clip-path="url(#clipPath1054)"
+       transform="translate(-2175.8008,-620.58143)"
+       clip-path="url(#clipPath1055)"
        x1="2608"
        x2="2608"
-       y1="1050"
-       y2="1132"
-       id="line7593"
+       y1="1045"
+       y2="1127"
+       id="line7594"
        style="font-size:11px;fill:none;stroke:#808080;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
     <circle
-       transform="translate(-2257.2293,-559.86714)"
-       clip-path="url(#clipPath1094)"
+       transform="translate(-2175.8008,-620.58143)"
+       clip-path="url(#clipPath1093)"
        r="8"
        cx="2608"
-       cy="1058"
-       id="circle7595"
+       cy="1053"
+       id="circle7596"
        sodipodi:cx="2608"
-       sodipodi:cy="1058"
+       sodipodi:cy="1053"
        sodipodi:rx="8"
        sodipodi:ry="8"
        style="font-size:11px;fill:#ffffff;stroke:none;font-family:Droid Sans"
-       d="m 2616,1058 c 0,4.4183 -3.5817,8 -8,8 -4.4183,0 -8,-3.5817 -8,-8 0,-4.4183 3.5817,-8 8,-8 4.4183,0 8,3.5817 8,8 z" />
+       d="m 2616,1053 c 0,4.4183 -3.5817,8 -8,8 -4.4183,0 -8,-3.5817 -8,-8 0,-4.4183 3.5817,-8 8,-8 4.4183,0 8,3.5817 8,8 z" />
     <circle
-       transform="translate(-2257.2293,-559.86714)"
-       clip-path="url(#clipPath1094)"
+       transform="translate(-2175.8008,-620.58143)"
+       clip-path="url(#clipPath1093)"
        r="8"
        cx="2608"
-       cy="1058"
-       id="circle7597"
+       cy="1053"
+       id="circle7598"
        sodipodi:cx="2608"
-       sodipodi:cy="1058"
+       sodipodi:cy="1053"
        sodipodi:rx="8"
        sodipodi:ry="8"
        style="font-size:11px;fill:none;stroke:#808080;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans"
-       d="m 2616,1058 c 0,4.4183 -3.5817,8 -8,8 -4.4183,0 -8,-3.5817 -8,-8 0,-4.4183 3.5817,-8 8,-8 4.4183,0 8,3.5817 8,8 z" />
+       d="m 2616,1053 c 0,4.4183 -3.5817,8 -8,8 -4.4183,0 -8,-3.5817 -8,-8 0,-4.4183 3.5817,-8 8,-8 4.4183,0 8,3.5817 8,8 z" />
     <line
-       transform="translate(-2257.2293,-559.86714)"
-       clip-path="url(#clipPath1094)"
+       transform="translate(-2175.8008,-620.58143)"
+       clip-path="url(#clipPath1093)"
        x1="2604"
        x2="2612"
-       y1="1058"
-       y2="1058"
-       id="line7599"
+       y1="1053"
+       y2="1053"
+       id="line7600"
        style="font-size:11px;fill:none;stroke:#808080;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
     <line
-       transform="translate(-2257.2293,-559.86714)"
-       clip-path="url(#clipPath1094)"
+       transform="translate(-2175.8008,-620.58143)"
+       clip-path="url(#clipPath1093)"
        x1="2608"
        x2="2608"
-       y1="1054"
-       y2="1062"
-       id="line7601"
+       y1="1049"
+       y2="1057"
+       id="line7602"
        style="font-size:11px;fill:none;stroke:#808080;stroke-width:1.08270001;stroke-linecap:butt;font-family:Droid Sans" />
   </g>
 </svg>

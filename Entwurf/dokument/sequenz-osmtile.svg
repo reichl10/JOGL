@@ -154,9 +154,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.24748737"
-     inkscape:cx="682.80211"
-     inkscape:cy="368.17416"
+     inkscape:zoom="0.69999999"
+     inkscape:cx="551.06985"
+     inkscape:cy="346.7557"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -318,7 +318,7 @@
        clip-path="url(#clipPath9)"
        y="71"
        x="82"
-       transform="translate(138.78188,1788.6726)">tcs: CachedSource</text>
+       transform="translate(128.78188,1788.6726)">trd: RequestDistributor</text>
     <g
        transform="translate(600,0)"
        id="g3843">
@@ -450,7 +450,7 @@
        clip-path="url(#clipPath9)"
        y="71"
        x="82"
-       transform="translate(740.78188,1788.6726)">ics: CachedSource</text>
+       transform="translate(726.78188,1788.6726)">ird: RequestDistributor</text>
     <g
        id="g3873"
        transform="translate(1200,0)">

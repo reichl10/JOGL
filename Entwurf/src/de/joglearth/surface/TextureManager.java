@@ -1,6 +1,6 @@
 package de.joglearth.surface;
 
-import de.joglearth.caching.CachedSource;
+import de.joglearth.caching.RequestDistributor;
 import de.joglearth.geometry.Tile;
 
 
@@ -8,7 +8,7 @@ import de.joglearth.geometry.Tile;
 public class TextureManager {
 
     private Integer                     placeholderTexture;
-    private CachedSource<Tile, Integer> source;
+    private RequestDistributor<Tile, Integer> source;
 
 
     public Integer getTexture(Tile tile) {
