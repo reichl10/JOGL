@@ -668,7 +668,7 @@ Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 9
 \end{figure}
 
 \begin{itemize}
-\item Die GUI übergibt dem \textit{LocationManager} einen Suchbegriff und die sichbaren Kacheln, die er von der Kamera erhalten hat.
+\item Die GUI übergibt dem \textit{LocationManager} einen Suchbegriff und die sichtbaren Kacheln, die er von der Kamera erhalten hat.
 \item Dieser fordert von seinem \textit{RequestDistributor} die Suchergebnisse zu dieser Anfrage an, der wegen des Fehlens des Ergebnisses in seinem \textit{MemoryCache} bei der \textit{NominatimSource} eine Anfrage startet. 
 \item Da eine Anfrage über das Internet zeitaufwändig ist, kehrt sie und damit der \textit{RequestDistributor} mit der Notiz zurück, dass eine asynchrone Antwort folgt. Die GUI erhält daher zuerst ein leeres Ergebnis.
 \item Wurde die Anfrage beantwortet, benachrichtigt die \textit{NominatimSource} den \textit{RequestDistributor}, der die Antwort in seinen \textit{MemoryCache} legt und seinerseits den \textit{LocationManager} benachrichtigt.
@@ -678,9 +678,9 @@ Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 9
 
 
 \section{Laden einer lokal noch nicht vorhandenen Kachel}
+
 In diesem Sequenzdiagramm wird dargestellt, wie die Anfrage nach einer Texturkachel über die verschiedenen Cacheebenen propagiert und schließlich asynchron beantwortet wird.\\[3mm]
 Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 9.2).
-
 
 \vspace*{5mm}
 \begin{figure}[h]
@@ -689,6 +689,18 @@ Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 9
 \caption{Laden einer lokal noch nicht vorhandenen Kachel}
 \end{center}
 \end{figure}
+
+\begin{itemize}
+\item Der \textit{Renderer} fragt den \textit{TextureManager} nach der Textur die gerendert werden soll.
+\item Dieser fordert von seinem \textit{RequestDistributor} die Suchergebnisse zu dieser Anfrage an, der wegen des Fehlens des Ergebnisses in seinem \textit{TextureCache} bei der \textit{TextureSource} eine Anfrage startet.
+\item In unserem Beispiel ist die Textur noch nicht im \textit{TextureCache} vorhanden. Deswegen leitet der \textit{RequestDistributor} die Anfrage an die \textit{TextureSource} weiter.
+\item Die \textit{TextureSource} fordert einen weiteren \textit{RequestDistributor} auf die Textur zu beschaffen.
+\item Da sich die Textur in unserem Beispiel weder im \textit{Memory-} noch im \textit{FileSystemCache} befindet, wird die Textur über die \textit{OSMTileSource} geladen, die darauf hinweist, dass die Antwort asynchron erfolgt.
+\item Diese lässt die geladene Textur vom \textit{RequestDistributor} im \textit{MemoryCache} speichern.
+\item Der \textit{RequestDistributor} benachrichtigt die \textit{TextureSource} über das erfolgte Laden der gewünschten Textur, die wiederum bei dem anderen \textit{RequestDistributor} denselben Vorgang auslöst.
+\item Danach wird der \textit{TextureManager} informiert, der dem \textit{Renderer} mitteilt, dass die gewünschte Textur nun zur Verfügung steht.
+\item Der \textit{Renderer} startet einen neuen Thread, in dem die nun verfügbare Textur synchron aus dem \textit{TextureCache} geladen wird und gerendert wird.
+\end{itemize}
 
 
 \newpage
@@ -705,9 +717,16 @@ Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 9
 \end{center}
 \end{figure}
 
+\begin{itemize}
+\item Im \textit{MainWindow} wurde die HeightMap Einstellung aktiviert, was dem \textit{Renderer} über die \textit{Settings} mitgeteilt wird, welche er beobachtet.
+\item Dieser fordert in einem neuen Thread bei der \textit{Camera} die sichtbaren Kacheln an und übergibt diese dem \textit{Tesselator}.
+\item Der \textit{Tesselator} fordert bei dem \textit{HeightMapManager} die Höhen an, die -analog zum obigem Diagramm- geladen werden.
+\item Der \textit{Renderer} wird danach aufgefordert ein neues Bild zu zeichnen, da die Höhen nun vorliegen.
+\item Dieser fordert wieder die sichtbaren Kacheln von der \textit{Camera} an, die anschließend an den \textit{Tesselator} zur Verarbeitung übergeben werden.
+\item Der \textit{Tesselator} fordert die HeightMaps vom \textit{HeightMapManager} an und generiert aus diesen Informationen ein \textit{Mesh}, das er an den \textit{Renderer} zurückgibt.
+\end{itemize}
 
-
-\section*{Semantik}
+\section*{Semantik der Diagramme}
 \begin{itemize}
 \item Senkrechte gestrichelte Linien enthalten sequentielle Aufrufe (\textit{Lebenslinien}). Gibt es zu einem Objekt oder einer Klasse mehrere solcher Linien, bedeutet dies, dass Aufrufe parallel in verschiedenen Threads ausgeführt werden.
 \item Threads werden mit der asynchronen Nachricht \texttt{start()} angestoßen. Sie können beispielsweise mit einem \textit{ExecutorService} implementiert werden, der einzelne asynchrone Aktionen ausführen kann.
