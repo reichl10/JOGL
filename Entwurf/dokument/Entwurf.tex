@@ -319,12 +319,12 @@ Die Klasse \textit{JoglEarth} implementiert die Main-Methode zum Starten des Pro
 
 \vspace{5mm}
 \section{Package de.joglearth.caching}
-\subsection*{CacheBinarySource}
+\subsection*{CachedBinarySource}
 \begin{lstlisting}
-class CacheBinarySource<Key>
+class CachedBinarySource<Key>
 extends RequestDistributor<Key, byte[]>
 \end{lstlisting}
-Erweitert den \textit{CacheSource} um die Möglichkeit den Cache nach Größe statt nach Anzahl der Einträge zu begrenzen.\\
+Erweitert den \textit{RequestDistributor} um die Möglichkeit den Cache nach Größe statt nach Anzahl der Einträge zu begrenzen.\\
 
 \vspace{5mm}
 \subsection*{RequestDistributor}
@@ -332,7 +332,7 @@ Erweitert den \textit{CacheSource} um die Möglichkeit den Cache nach Größe st
 class RequestDistributor<Key, Value>
 implements Source<Key, Value>
 \end{lstlisting}
-Lädt Daten aus einer \textit{Source} und verwaltet diese in Caches.\\
+Lädt Daten aus einer \textit{Source}, verwaltet diese in Caches und ist für deren Verdrängung verantwortlich.\\
 
 \vspace{5mm}
 \subsection*{FileSystemCache}
@@ -367,6 +367,7 @@ Der \textit{TextureCache} verwaltet die bereits geladene Texturen.\\
 class Camera
 \end{lstlisting}
 Berechnet die Projektionsmatrix für den Rendervorgang, bestimmt die Sichtbarkeit von 3D-Objekten im Ansichtsfenster und rechnet zwischen Bildschirm- und Raumkoordinaten um.\\
+Enthält eine Methode zum Setzen einer \textit{Geometry} für die Unterscheidung zwischen sphärischen und planaren Bewegungsberechnungen.\\
 
 \vspace{5mm}
 \subsection*{GeoCoordinates}
@@ -460,7 +461,7 @@ implements SourceListener<Tile, Integer>, Runnable, CameraListener,
            SettingsListener
 \end{lstlisting}
 Ist für das Zeichnen einzelner Frames und die zeitliche Steuerung während Animationen verantwortlich. Rendert entweder Einzelbilder als Reaktion auf eine Aktualisierung über den \textit{SourceListener}, \textit{CameraListener} oder \textit{SettingsListener} oder eine kontinuierliche Bildfolge während Animationsvorgängen.\\
-
+Enthält neben der start()-Methode eine weitere Methode post() mit der er zum einmaligen rendern angestoßen wird.\\
 \vspace{5mm}
 \subsection*{SphereTessellator}
 \begin{lstlisting}
@@ -624,7 +625,7 @@ Reagiert auf Benutzereingaben im Ansichtsfenster wie Tastendrücke, Scrollen und
 
 
 \chapter{Beschreibung der Enumerations}
-\section{Package de.joglearth.source}
+\section*{Package de.joglearth.source}
 
 \subsection*{NominatimQuery.Type}
 \begin{tabular}{p{4cm} p{11cm}}
@@ -647,7 +648,7 @@ Stellt eine Unterscheidung der verschiedenen Kartenmaterialien dar.
 
 
 \vspace{5mm}
-\section{Package de.joglearth.surface}
+\section*{Package de.joglearth.surface}
 \subsection*{LocationType}
 Stellt die unterschiedlichen Typen von Overlays wie POIs, Städtenamen oder markierte Punkte dar.
 
@@ -842,6 +843,7 @@ Portabilität oder Übertragbarkeit ist die Eignung einer Software, von einer Um
 \textbf{Abbildung 9.1:} Lokale Suche nach einem Begriff
 \end{rotate}
 
+\newpage
 \newgeometry{top=20mm, left=25mm, right=25mm, bottom=20mm}
 \thispagestyle{empty}
 \includegraphics[scale=0.45,angle=90,origin=c]{sequenz-osmtile.eps}
@@ -850,7 +852,9 @@ Portabilität oder Übertragbarkeit ist die Eignung einer Software, von einer Um
 \textbf{Abbildung 9.2:} Laden einer lokal noch nicht vorhandenen Kachel
 \end{rotate}
 
+\newpage
 \thispagestyle{empty}
+\vspace*{1cm}
 \includegraphics[scale=0.45,angle=90,origin=c]{sequenz-height.eps}
 \hspace{5mm}
 \begin{rotate}{90}
