@@ -167,7 +167,9 @@ Folgende Abbildung gibt einen Überblick über die gesamten Packages.\\
 
 Im Folgenden werden UML-Diagramme für die Elemente der einzelnen Packages gezeigt.
 
-\vspace{5mm}
+Eine vollständige Ansicht der Klassenstruktur findet sich im Anhang unter Abbildung 9.4.
+
+\vspace{2mm}
 
 \begin{figure}[!htb]
 	\centering
@@ -183,7 +185,7 @@ Im Folgenden werden UML-Diagramme für die Elemente der einzelnen Packages gezei
         \caption{Packages de.joglearth und de.joglearth.settings}
 \end{figure}
 
-\vspace{5mm}
+\vspace{2mm}
 
 \begin{figure}[!htb]
 \begin{center}
@@ -239,10 +241,10 @@ Im Folgenden werden UML-Diagramme für die Elemente der einzelnen Packages gezei
 interface Cache<Key, Value>
 extends Source<Key, Value>
 \end{lstlisting}
-Bildet die Schnittstelle für einen Cache, der Methoden zum Hinzufügen, Abfragen und Löschen von Daten bietet. Die Verwaltung der Größenbeschränkungen ist Sache des \textit{RequestDistributors}.\\
-\subsubsection*{Zusammenfassung der wichtigsten Methoden}
+Bildet die Schnittstelle für einen Cache, der Methoden zum Hinzufügen, Abfragen und Löschen von Daten bietet. Die Verwaltung der Größenbeschränkungen und die Implementierung der Verdrängungsstrategie ist Sache des \textit{RequestDistributors}.\\
+\subsubsection*{Methoden (Auszug)}
 \begin{itemize}
-\item \texttt{putObject()} legt ein Objekt, identifiziert über einen \textit{Key}, in den Cache. Dies kann zur Folge haben, das ein bereits existierendes Objekt mit diesem Schlüssel überschrieben wird. Eine Verdrängung findet nicht statt, diese ist Aufgabe des übergeordneten \textit{RequestDistributors}.
+\item \texttt{putObject()} legt ein Objekt, identifiziert über einen \textit{Key}, in den Cache. Dies kann zur Folge haben, das ein bereits existierendes Objekt mit diesem Schlüssel überschrieben wird. Eine Verdrängung findet niFcht statt, diese ist Aufgabe des übergeordneten \textit{RequestDistributors}.
 \item \texttt{dropObject()} entfernt ein Objekt über seinen \textit{Key} aus dem Cache.
 \item \texttt{requestObject()} fordert ein Objekt an. Die Schnittstelle entspricht der von \textit{Source}.
 \end{itemize}
@@ -254,7 +256,7 @@ Bildet die Schnittstelle für einen Cache, der Methoden zum Hinzufügen, Abfrage
 \begin{lstlisting}
 interface Geometry
 \end{lstlisting}
-Abstrahiert den Teil der Sichtbarkeits- und Positionsberechnungen, der von dem Oberflächenmodell (wie Globus oder Kartenebene) abhängt. Die Kamera besitzt ein solches Geometry-Objekt, um sich dem momentanen Ansichtsmodus entsprechend zu verhalten.\\
+Abstrahiert den Teil der Sichtbarkeits- und Positionsberechnungen, der vom gewählten Oberflächenmodell (Globus oder Kartenebene) abhängt. Die Kamera besitzt ein solches Geometry-Objekt, um sich dem Ansichtsmodus entsprechend zu verhalten.\\
 
 \vspace{5mm}
 \subsection*{CameraListener}
@@ -271,7 +273,7 @@ Interface für Klassen, die Events beim Ändern von Kameraposition und -einstell
 interface Tessellator
 \end{lstlisting}
 Bietet eine gemeinsame Schnittstelle für das Erzeugen von dreidimensionalen Kacheln verschiedener geometrischer Modelle. Sie wird vom Renderer benutzt, um den Ansichtseinstellungen gemäß ein dreidimensionales Modell zu generieren.\\
-\subsubsection*{Zusammenfassung der wichtigsten Methoden}
+\subsubsection*{Methoden (Auszug)}
 \begin{itemize}
 \item \texttt{tesselateTile()} erzeugt aus den geometrischen Angaben eines \textit{Tiles} und der Heightmap einen \textit{Mesh}, der zum Zeichnen an OpenGL übergeben werden kann.
 \end{itemize}
@@ -292,8 +294,8 @@ Eine Implementierung des \textit{SettingsListeners} kann über Änderungen der \
 \begin{lstlisting}
 interface Source<Key, Value>
 \end{lstlisting}
-Ist in der Lage, über einen \texttt{Key} identifizierte Objekte synchron oder asynchron zu beschaffen.\\
-\subsubsection*{Zusammenfassung der wichtigsten Methoden}
+Eine \textit{Source} ist eine Datenquelle, die in der Lage ist, über einen \texttt{Key} identifizierte Objekte synchron oder asynchron zu beschaffen. Sowohl die ursprünglichen HTTP-Clients als auch Caches und cacheverwaltende Klassen verhalten sich gemäß dieser Schnittstelle.\\
+\subsubsection*{Methoden (Auszug)}
 \begin{itemize}
 \item \texttt{requestObject()} führt eine Anfrage nach einem Objekt über seinen \textit{Key} durch. Die Methode gibt eine \textit{SourceResponse}-Struktur zurück, die das synchron beschaffte Objekt enthält, falls dies ohne nennenswerten Zeitverlust möglich war, oder einen Indikator dafür, dass die Antwort asynchron nachgeliefert wird bzw. nicht beschafft werden kann.
 \end{itemize}
@@ -303,7 +305,7 @@ Ist in der Lage, über einen \texttt{Key} identifizierte Objekte synchron oder a
 \begin{lstlisting}
 interface SourceListener<Key, Value>
 \end{lstlisting}
-Eine Implementierung dieses Interfaces kann asynchrone Antworten zur \textit{requestObject()}-Anfrage an eine \textit{Source} entgegen nehmen.\\
+Eine Implementierung dieses Interfaces kann asynchrone Antworten zur \textit{requestObject()}-Anfrage einer \textit{Source} entgegen nehmen.\\
 
 \pagebreak
 \section{Package de.joglearth.surface}
@@ -311,7 +313,8 @@ Eine Implementierung dieses Interfaces kann asynchrone Antworten zur \textit{req
 \begin{lstlisting}
 interface SurfaceListener
 \end{lstlisting}
-Eine Implementierung dieses Interfaces kann über Änderung der Darstellung einzelner Kartenkacheln benachrichtigt werden.\\
+Klassen, die dieses Interface implementieren, können über Änderungen in der Darstellung einzelner Kartenkacheln benachrichtigt werden.\\
+\subsubsection*{Methoden (Auszug)}
 \begin{itemize}
 \item \texttt{surfaceChanged()} ist ein Callback, dessen Aufruf anzeigt, dass sich die Oberfläche einer bestimmten Kachel auf irgendeine Weise geändert hat. Dies kann beispielsweise durch verspätetes Nachladen einer Textur oder das hinzufügen einer Benutzermarkierung geschehen.
 \end{itemize}
@@ -329,43 +332,44 @@ Eine Implementierung dieses Interfaces nimmt asynchrone Antworten des \textit{Lo
 
 \chapter{Klassenbeschreibung}
 \section{Package de.joglearth}
+\subsection*{JoglEarth}
 \begin{lstlisting}
 final class JoglEarth
 \end{lstlisting}
-Die Klasse \textit{JoglEarth} implementiert die Main-Methode zum Starten des Programms.\\
-\begin{itemize}\item\texttt{main()} Startet das Programm.
+Dies ist die Hauptklasse des Programms.\\
+\subsubsection*{Methoden (Auszug)}
+\begin{itemize}\item\texttt{main()} Startet die Anwendung.
 \end{itemize}
 
 
 \vspace{5mm}
+\section{Package de.joglearth.caching}
 \subsection*{RequestDistributor}
 \begin{lstlisting}
 class RequestDistributor<Key, Value>
 implements Source<Key, Value>
 \end{lstlisting}
 Lädt Daten aus einer \textit{Source}, verwaltet diese in Caches und ist für deren Verdrängung verantwortlich.\\
-
+Ein \textit{RequestDistributor} hat Zugriff auf genau eine ursprüngliche \textit{Source}, von der alle Datenelemente stammen, sowie auf eine beliebige Anzahl an Caches, die eine Cachehierarchie bilden.\\
+Für jeden Cache lässt sich eine Maximalgröße in \textit{Einheiten} festlegen. Für einen (reinen) \textit{RequestDistributor} ist jeder Eintrag eine Einheit groß, d.h. die Größenbeschränkung bezieht sich auf die Anzahl der Elemente.\\
+\subsubsection*{Methoden (Auszug)}
+\begin{itemize}
+\item \texttt{requestObject()} verhält sich wie \texttt{Source.requestObject()}. Anfragen werden bevorzugt über die Caches beantwortet. Ist das nicht mögilch, so werden die Daten über die \textit{Source} nachgeladen und das Ergebnis in den ersten Cache der Hierarchie gelegt. Überschreitet er seine zulässige Maximalgröße, werden bestehende Einträge (wenn möglich in den nachfolgenden Cache) verdrängt. 
+\end{itemize}
 \vspace{5mm}
-\section{Package de.joglearth.caching}
 \subsection*{BinaryRequestDistributor}
 \begin{lstlisting}
-class CachedBinarySource<Key>
+class BinaryRequestDistributor<Key>
 extends RequestDistributor<Key, byte[]>
 \end{lstlisting}
-Erweitert den \textit{RequestDistributor} um die Möglichkeit den Cache nach Größe statt nach Anzahl der Einträge zu begrenzen.\\
-\begin{itemize}
-\item \texttt{addCache()}
-\item \texttt{setSource()}
-\item \texttt{requestObject()}
-\end{itemize}
-
-\vspace{5mm}
+Erweitert den \textit{RequestDistributor} um die Möglichkeit den Cache nach Größe statt nach Anzahl der Einträge zu begrenzen. Eine \textit{Einheit} (s. \textit{RequestDistributor}) bezeichnet in dieser Klasse ein Byte im Datenobjekt.
+\pagebreak
 \subsection*{FileSystemCache}
 \begin{lstlisting}
 class FileSystemCache<Key>
 implements Cache<Key, byte[]>
 \end{lstlisting}
-Ein \textit{FileSystemCache} speichert Daten im Dateisystem zwischen.\\
+Ein \textit{FileSystemCache} speichert Daten im Dateisystem zwischen. Da Dateien Byteströme sind, kann er ausschließlich Byte-Arrays als Wertdaten aufnehmen.\\
 
 \vspace{5mm}
 \subsection*{MemoryCache}
@@ -373,7 +377,7 @@ Ein \textit{FileSystemCache} speichert Daten im Dateisystem zwischen.\\
 class MemoryCache<Key, Value>
 implements Cache<Key, Value>
 \end{lstlisting}
-Ein \textit{MemoryCache} speichert Daten im Arbeitsspeicher ähnlich einer \textit{HashMap} zwischen.\\
+Ein \textit{MemoryCache} speichert Daten im Arbeitsspeicher ähnlich einer \textit{HashMap} zwischen. Er ist für jeden Wertdatentyp geeignet.\\
 
 \vspace{5mm}
 \subsection*{TextureCache}
@@ -382,6 +386,10 @@ class TextureCache
 extends MemoryCache<Tile, Integer>
 \end{lstlisting}
 Ein \textit{TextureCache} verwaltet in OpenGL geladene Texturen.
+
+Wegen seiner Eigenschaft als Cache kann er nur bereits bestehende Texturen verwalten und diese verdrängen, was zum Löschen der Textur aus dem Grafikspeicher führt. 
+
+Da Texturen in der OpenGL-API über \textit{int}s identifiziert werden, ist der Wertdatentyp ebenfalls ein Integer.\\
 
 
 \vspace{5mm}
@@ -392,28 +400,33 @@ class Camera
 \end{lstlisting}
 Berechnet die Projektionsmatrix für den Rendervorgang, bestimmt die Sichtbarkeit von 3D-Objekten im Ansichtsfenster und rechnet zwischen Bildschirm- und Raumkoordinaten um.\\
 Enthält eine Methode zum Setzen einer \textit{Geometry} für die Unterscheidung zwischen sphärischen und planaren Bewegungsberechnungen.\\
+\subsubsection*{Methoden (Auszug)}
 \begin{itemize}
-\item \texttt{getVisibleTiles()}
-\item \texttt{getProjectionMatrix()}
+\item \texttt{getVisibleTiles()} bestimmt die Menge aller momentan sichtbaren Kacheln. Die Größe (der Winkelabstand zwischen den Kanten) wird dabei so bestimmt, dass ihre Anzahl unabhängig vom Zoomlevel und der Position in einem festgelegten Bereich liegt.
+\item \texttt{getProjectionMatrix()} berechnet die \textit{Projektionsmatrix}, die OpenGL zum Rendern des Modells übergeben wird. Durch die Tatsache, dass die Sicht bereits vollständig durch diese Struktur beschrieben wird, ermöglicht es, dass die \textit{Tesselatoren} das 3D-Modell unabhängig von der Drehung oder Verschiebung des Globus bzw. der Ebene berechnen können.
 \end{itemize}
 
-\vspace{5mm}
+\vspace{2mm}
 \subsection*{GeoCoordinates}
 \begin{lstlisting}
 class GeoCoordinates
 implements Cloneable
 \end{lstlisting}
-Speichert Längen- und Breitengrad eines Punktes auf der Erdoberfläche.\\
+Speichert Längen- und Breitengrad eines Punktes auf der Erdoberfläche.
 
-\vspace{5mm}
+\pagebreak
+
 \subsection*{Matrix4}
 \begin{lstlisting}
 class Matrix4
 implements Cloneable
 \end{lstlisting}
 Hält eine 4x4-Matrix, die Operationen zum Rotieren, Verschieben und Skalieren, sowie eine Funktion zum transformieren eines dreidimensionalen Vektors anbietet. Sie wird zum von der Kamera intern zum Bestimmen der Projektionsmatrix und der Sichtbarkeit von Objekten verwendet.\\
+\subsubsection*{Methoden (Auszug)}
 \begin{itemize}
-\item \texttt{transform()}
+\item \texttt{transform()} Transformiert einen dreidimensionalen Vektor im Modellbreich in einen vierdimensionalen homogenen Vektor im Bildbereich. Der Punkt wird dadurch von seiner ursprünglichen Position so verschoben und perspektivisch verzerrt, wie ihn der Betrachter am Kameraursprung sehen würde.
+
+Mit Hilfe dieser Methode kann unter anderem bestimmt werden, an welcher Stelle des Bildes zweidimensionale Overlays zum liegen kommen.
 \end{itemize}
 
 \vspace{5mm}
@@ -446,15 +459,17 @@ Implementiert das \textit{Geometry}-Interface für räumliche Berechnungen auf d
 class Tile 
 implements Cloneable
 \end{lstlisting}
-Speichert Längen- und Breitengradgrenzen sowie das Zoomlevel, über das sich eine Kartenkachel nach dem OpenStreetMap-Format identifizieren lässt.\\
+Speichert Längen- und Breitengradgrenzen sowie das Zoomlevel einer Kachel.
 
-\vspace{5mm}
+Darüber lassen sich Kartenkacheln von OpenStreetMap identifizieren, Bereiche für eine lokale Suche mit Nominatim vorgeben, und Anweisungen an den \textit{Tesselator} formulieren.\\
+
+\pagebreak
 \subsection*{Vector3}
 \begin{lstlisting}
 class Vector3
 implements Cloneable
 \end{lstlisting}
-Ein 3-dimensionaler Vektor. Repräsentiert üblicherweise Raumkoordinaten.\\
+Ein dreidimensionaler Vektor, der für Raumkoordinaten verwendet wird.\\
 
 \vspace{5mm}
 \subsection*{Vector4}
@@ -462,9 +477,10 @@ Ein 3-dimensionaler Vektor. Repräsentiert üblicherweise Raumkoordinaten.\\
 class Vector4
 implements Cloneable
 \end{lstlisting}
-Ein 4-dimensionaler Vektor für homogene Koordinaten. Instanzen dieser Klasse werden benötigt, wenn zwischen 3D-Perspektiven umgerechnet werden soll.\\
+Ein vierdimensionaler Vektor für homogene Koordinaten. Diese Klasse findet Verwendung, wenn zwischen Perspektiven umgerechnet werden soll (s. \texttt{Matrix4.transform()}).\\
+\subsubsection*{Methoden (Auszug)}
 \begin{itemize}
-\item \texttt{divide()}
+\item \texttt{divide()} wandelt den vier- in einen dreidimensionalen Vektor um, der perspektivisch vergrößert oder verkleinert wurde.
 \end{itemize}
 
 
@@ -477,7 +493,7 @@ Ein 4-dimensionaler Vektor für homogene Koordinaten. Instanzen dieser Klasse we
 \begin{lstlisting}
 class Mesh
 \end{lstlisting}
-Speichert Rohdaten eines 3D-Modells wie seine Vertices, Normalen, und Texturkoordinaten. Meshes werden unter Anderem von Tessellatoren generiert und vom \textit{Renderer} an OpenGL übergeben.\\
+Speichert Rohdaten eines 3D-Modells wie seine Vertices, Normalen, und Texturkoordinaten. Meshes werden von \textit{Tessellatoren} generiert und vom \textit{Renderer} an OpenGL übergeben.\\
 
 \vspace{5mm}
 \subsection*{PlaneTessellator}
@@ -485,7 +501,7 @@ Speichert Rohdaten eines 3D-Modells wie seine Vertices, Normalen, und Texturkoor
 class PlaneTessellator
 implements Tessellator
 \end{lstlisting}
-Generiert Kachelmeshes in der Ebene.\\
+Erzeugt Kachelmeshes in der Ebene.\\
 
 \vspace{5mm}
 \subsection*{Renderer}
@@ -494,8 +510,15 @@ class Renderer
 implements SourceListener<Tile, Integer>, Runnable, CameraListener,
            SettingsListener
 \end{lstlisting}
-Ist für das Zeichnen einzelner Frames und die zeitliche Steuerung während Animationen verantwortlich. Rendert entweder Einzelbilder als Reaktion auf eine Aktualisierung über den \textit{SourceListener}, \textit{CameraListener} oder \textit{SettingsListener} oder eine kontinuierliche Bildfolge während Animationsvorgängen.\\
-Enthält neben der start()-Methode eine weitere Methode post() mit der er zum einmaligen rendern angestoßen wird.\\
+Ist für das Zeichnen einzelner Frames und die zeitliche Steuerung während der Animationen verantwortlich. Er rendert entweder Einzelbilder als Reaktion auf eine Aktualisierung der Szene durch den \textit{SourceListener}, \textit{CameraListener} oder \textit{SettingsListener}, oder eine kontinuierliche Bildfolge während Animationsvorgängen.\\
+\subsubsection*{Methoden (Auszug)}
+\begin{itemize}
+\item \texttt{start()} startet einen kontinuierlichen Rendervorgang mit konstanter Bildrate.
+\item \texttt{stop()} beendet das kontinuierliche Rendern.
+\item \texttt{post()} benachrichtigt den Renderer, dass noch mindestens ein Frame gezeichnet werden muss. Mehrere dieser Aufrufe können vom Renderer zusammengefasst, oder gar ignoriert werden falls bereits eine kontinuierliche Bildaktualisierung läuft.
+\end{itemize}
+Alle drei vorgestellten Methoden arbeiten asynchron, d.h. sie stoßen den Rendervorgang in einem Hintergrundthread an.
+
 \vspace{5mm}
 \subsection*{SphereTessellator}
 \begin{lstlisting}
@@ -514,9 +537,11 @@ Generiert Kachelmeshes auf der Globusoberfläche.\\
 class Settings
 \end{lstlisting}
 Verwaltet alle erforderlichen Einstellungen sowie die vom Benutzer markierten Punkte aus der Datei \texttt{settings.xml}. Die Einstellungen werden gekapselt und anderen Klassen zugänglich gemacht, außerdem können sich andere Klassen als Beobachter (\textit{Observer}) registrieren um über Einstellungsänderungen benachrichtigt zu werden.\\
+\subsubsection*{Methoden (Beispiele)}
 \begin{itemize}
-\item \texttt{getInteger()}
-\item \texttt{putInteger()}
+\item \texttt{getInteger()} liest eine Ganzzahl, die über einen \textit{Property}-Namen identifiziert wird.
+\item \texttt{putInteger()} schreibt eine Ganzzahl.
+\item \texttt{getInstance()} gibt die globale Settings-Instanz zurück (siehe Singleton-Pattern)
 \end{itemize}
 
 \vspace{5mm}
@@ -524,24 +549,26 @@ Verwaltet alle erforderlichen Einstellungen sowie die vom Benutzer markierten Pu
 \begin{lstlisting}
 final class SettingsContract
 \end{lstlisting}
-Speichern und laden von Settings. Verwaltet die IDs der verschiedenen Settings.\\
+Enthält die möglichen \textit{Property}-Namen der Settings in dieser Anwendung und ist für das Laden und Speichern in die XML-Datei \texttt{settings.xml} verantwortlich.\\
+\subsubsection*{Methoden (Auszug)}
 \begin{itemize}
-\item \texttt{static void loadSettings()}
-\item \texttt{static void setDefaultSettings()}
+\item \texttt{loadSettings()} lädt die Settings aus der Einstellungsdatei.
+\item \texttt{setDefaultSettings()} speichert sie.
 \end{itemize}
 
 
 
-\vspace{5mm}
+\pagebreak
 \section{Package de.joglearth.source}
 \subsection*{HTTPUtils}
 \begin{lstlisting}
 final class HTTPUtils
 \end{lstlisting}
 Stellt statische Funktionen für einfache GET- und POST- Abfragen via HTTP zur Verfügung.\\
+\subsubsection*{Methoden (Auszug)}
 \begin{itemize}
-\item \texttt{static byte[] get()}
-\item \texttt{static byte[] post()}
+\item \texttt{get()} führt eine (synchrone) HTTP-GET-Anfrage auf einem Server durch.
+\item \texttt{post()} führt eine (synchrone) HTTP-POST-Anfrage durch, der zusätzliche Daten mitgegeben werden können.
 \end{itemize}
 
 \vspace{5mm}
@@ -574,7 +601,7 @@ class OverpassQuery
 \end{lstlisting}
 Drückt eine Suchanfrage an die OverpassAPI aus. Eine solche Suche liefert für gewöhnlich POIs und Städtenamen im Sichtfeld zurück. Die Anfrage enthält dazu die zu durchsuchende Umgebung.\\
 
-\vspace{5mm}
+\pagebreak
 \subsection*{OverpassSource}
 \begin{lstlisting}
 class OverpassSource
@@ -588,9 +615,10 @@ implements Source<OverpassQuery, Location[]>
 class SourceResponse<Value>
 \end{lstlisting}
 Rückgabetyp der \textit{Source} inkl. Informationen über die Art der Nachlieferung.\\
+\subsubsection*{Öffentliche Attribute (Auszug)}
 \begin{itemize}
-\item\texttt{response}
-\item\texttt{value}
+\item\texttt{response} zeigt an, ob die struktur bereits den angeforderten Wert enthält (\textit{SYNCHRONOUS}), ihn später nachliefert (\textit{ASYNCHRONOUS}), oder ihn nicht beschaffen kann (\textit{MISSING}).
+\item\texttt{value} Der angeforderte Wert, falls verfügbar. Dieses Attribut ist nur von Bedeutung, wenn \texttt{response} gleich \textit{SYNCHRONOUS} ist.
 \end{itemize}
 
 \vspace{5mm}
@@ -599,7 +627,7 @@ Rückgabetyp der \textit{Source} inkl. Informationen über die Art der Nachliefe
 class SRTMTileSource
 implements Source<Tile, byte[]>
 \end{lstlisting}
-Die \textit{SRTMTileSource} lädt anhand von Indizes Höhenprofil-Kacheln von NASA-SRTM-Servern. Dabei macht sie von \textit{HTTPUtils} Gebrauch.\\
+Die \textit{SRTMTileSource} lädt anhand von Indizes Höhenprofil-Kacheln von NASA-SRTM-Servern. Dabei macht sie von den \textit{HTTPUtils} Gebrauch.\\
 
 \vspace{5mm}
 \subsection*{TextureSource}
@@ -607,7 +635,7 @@ Die \textit{SRTMTileSource} lädt anhand von Indizes Höhenprofil-Kacheln von NA
 class TextureSource
 implements Source<Tile, Integer>
 \end{lstlisting}
-Lädt die Texturen in OpenGL.\\
+Lädt die Texturen in OpenGL und antwortet mit der zugehörigen Textur-ID. Objekte dieser Klasse besitzen eine weitere \textit{Source}, die für die Beschaffung von Bilddateien zuständig ist. \\
 
 
 
@@ -619,8 +647,9 @@ class HeightMapManager
 implements SettingsListener
 \end{lstlisting}
 Interpoliert Höheninformationen für Punkte der Karte aus SRTM-Höhendaten. Wird von \textit{Tessellator}en verwendet, um Kartenoberflächen mit dem Höhenprofil zu generieren.\\
+\subsubsection*{Methoden (Auszug)}
 \begin{itemize}
-\item\texttt{float getHeight(GeoCoordinates g)}
+\item\texttt{getHeight()} bestimmt die Höhe des übergebenen Punktes über (Normal-) Null. Die Methode versucht dabei auf SRTM-Kacheln zurückzugreifen, falls welche vorhanden sind. Ist das nicht der Fall, gibt sie einen Ersatzwert (0) zurück.
 \end{itemize}
 
 \vspace{5mm}
@@ -638,15 +667,20 @@ class LocationManager
 implements SettingsListener
 \end{lstlisting}
 Verwaltet die Sichtbarkeit von besonderen Punkten im Ansichtsfenster und der GUI. Er besorgt außerdem Suchergebnisse über den \textit{NominatimSource} und Benutzermarkierungen aus den \textit{Settings}.\\
+\subsubsection*{Methoden (Auszug)}
+\begin{itemize}
+\item \texttt{searchLocal()} führt eine Suche nach einem Begriff auf einem angegebenen Gebiet durch.
+\item \texttt{searchGlobal()} sucht global nach einem begriff.
+\end{itemize}
 
 \vspace{5mm}
 \subsection*{TextureManager}
 \begin{lstlisting}
 class TextureManager
 \end{lstlisting}
-Bearbeitet Texturanfrage vom \textit{Renderer}. Lädt die Texturen aus einem \textit{RequestDistributor} die auf einem \textit{TextureSource} und einem \textit{TextureCache} zurückgreift.\\
+Bearbeitet Texturanfrage vom \textit{Renderer}. Lädt die Texturen aus einem \textit{RequestDistributor}, der auf einen \textit{TextureSource} und einen \textit{TextureCache} zurückgreift.\\
 \begin{itemize}
-\item\texttt{int getTexture()}
+\item\texttt{getTexture()} gibt eine OpenGL-Textur-ID für eine angegebene Kachel zurück. Falls diese Textur vorhanden ist handelt es sich um eine Kartenkachel, sonst wird eine \textit{Platzhaltertextur} zurückgegeben.
 \end{itemize}
 
 
@@ -654,29 +688,28 @@ Bearbeitet Texturanfrage vom \textit{Renderer}. Lädt die Texturen aus einem \te
 
 \vspace{5mm}
 \section{Package de.joglearth.ui}
-\subsection*{GUI}
+\subsection*{MainWindow}
 \begin{lstlisting}
-class GUI
+class MainWindow
 extends JFrame
 implements SurfaceListener, CameraListener, SettingsListener
 \end{lstlisting}
-Die Klasse \textit{GUI} erbt von JFrame und stellt die gesamte grafische Bedienoberfläche dar. Pro Sitzung darf lediglich eine Instanz der \textit{GUI} existieren.\\
+Die Hauptklasse der GUI. Sie stellt alle Elemente der Benutzeroberfläche dar.
 
 \vspace{5mm}
 \subsection*{GUIEventListener}
 \begin{lstlisting}
 class GUIEventListener
 \end{lstlisting}
-Reagiert auf Ereignisse der Swing-Elemente der GUI; d.h. auf alle Benutzereingaben die außerhalb des Ansichtsfensters stattfinden. Verändert unter Umständen Werte von \textit{Settings} oder gibt Ereignisse an den Renderer oder andere Komponenten über den \textit{UpdateListener}-Mechanismus weiter.\\
+Reagiert auf Ereignisse der Swing-Elemente der GUI; d.h. auf alle Benutzereingaben die außerhalb des Ansichtsfensters stattfinden. Sie verändert unter Umständen Werte von \textit{Settings} und der Kamera.\\
 
 \vspace{5mm}
 \subsection*{ViewEventListener}
 \begin{lstlisting}
 class ViewEventListener
-implements /* zum Beispiel */ MouseWheelListener, MouseListener, MouseMotionListener
+implements MouseWheelListener, MouseListener, MouseMotionListener, ...
 \end{lstlisting}
-Reagiert auf Benutzereingaben im Ansichtsfenster wie Tastendrücke, Scrollen und Ziehen mit der Maus. Die Klasse benachrichtigt andere Komponenten, wie die \textit{Camera}, über Veränderungen der Ansicht.\\
-
+Reagiert auf Benutzereingaben im Ansichtsfenster wie Tastendrücke, Scrollen und Ziehen mit der Maus. Der Listener manipuliert die Kameraeinstellungen und stößt damit das rendern neuer Frames an.
 
 
 
@@ -684,22 +717,24 @@ Reagiert auf Benutzereingaben im Ansichtsfenster wie Tastendrücke, Scrollen und
 \section*{Package de.joglearth.source}
 
 \subsection*{NominatimQuery.Type}
+Bestimmt, welche Art von Suche ein \textit{NominatemQuery} beschreibt.\\[3mm]
 \begin{tabular}{p{4cm} p{11cm}}
-\textit{GLOBAL} & Globale Suche nach Punkten \\
-\textit{LOCAL} & Suche nach Punkten im Sichtbereich \\
-\textit{POINT} & Alle verfügbaren Informationen zu einem bestimmten Punkt \\
+\textit{GLOBAL} & Globale Suche nach Punkten. \\
+\textit{LOCAL} & Suche nach Punkten im Sichtbereich. \\
+\textit{POINT} & Alle verfügbaren Informationen zu einem bestimmten Punkt. \\
 \end{tabular}
 
 \vspace{5mm}
 \subsection*{OSMTileType}
-Stellt eine Unterscheidung der verschiedenen Kartenmaterialien dar.
+Stellt eine Unterscheidung der verschiedenen Kartentypen, wie Tages- und Nachtkarten, dar.
 
 \vspace{5mm}
 \subsection*{SourceResponseType}
+Bestimmt, um welche Art der Rückgabe es sich bei einer \textit{SourceResponse} handelt.\\[3mm]
 \begin{tabular}{p{4cm} p{11cm}}
-\textit{ASYNCHRONOUS} & Das Ergebnis der Anfrage der \textit{SourceResponse} wird asynchron über \textit{requestCompleted} rückgemeldet\\
-\textit{MISSING} & Die \textit{Source} ist nicht in der Lage das angeforderte Objekt zu beschaffen\\
-\textit{SYNCHRONOUS} & Das Ergebnis der Anfrage ist lokal in einem \textit{Cache} verfügbar und wird unmittelbar rückgeliefert \\
+\textit{ASYNCHRONOUS} & Das Ergebnis der Anfrage der \textit{SourceResponse} wird asynchron über \textit{requestCompleted} geliefert.\\
+\textit{MISSING} & Die \textit{Source} ist nicht in der Lage das angeforderte Objekt zu beschaffen.\\
+\textit{SYNCHRONOUS} & Das Ergebnis der Anfrage ist lokal vorhanden und wird in der \textit{SourceResponse} zurückgegeben.\\
 \end{tabular}
 
 
@@ -800,7 +835,7 @@ Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 9
 
 \section{Systemarchitektur: Model-View-Controller}
 
-Das \textit{Model-View-Controller Pattern} ist ein Architekturmuster.\\ Die zugrundeliegende Architektur des Programms wurde anhand des MVC-Patterns strukturiert.\\
+Das \textit{Model-View-Controller Pattern} ist das Architekturmuster, nach dem die grundlegende Architektur des Programms strukturiert wurde.\\
 \begin{figure}[ht]
 \begin{centering}
 \includegraphics[scale=0.5]{ModelViewController.eps}
@@ -808,9 +843,7 @@ Das \textit{Model-View-Controller Pattern} ist ein Architekturmuster.\\ Die zugr
 \end{centering}
 \end{figure}
 
-Es teilt die Funktionalität der Komponenten in Datenmodell (\textit{Model}), Präsentation (\textit{View}) und Steuerung (\textit{Controller}) ein. 
-
-Das Datenmodell beinhaltet die zugrundeliegende Datenverwaltung und  Berechnungsmodelle, die Präsentation ist für die Schnittstelle zum Nutzer verantwortlich, während der Controller Eingaben entgegennimmt und die View oder die Views steuert.
+Es teilt die Funktionalität der Komponenten in Datenmodell (\textit{Model}), Präsentation (\textit{View}) und Steuerung (\textit{Controller}) ein. Das Datenmodell beinhaltet dabei die zugrundeliegende Datenverwaltung und  Berechnungsmodelle, die Präsentation ist für die Schnittstelle zum Nutzer verantwortlich, und der Controller nimmt Eingaben entgegen und steuert die View bzw. Views.
 
 \newpage
 
@@ -849,28 +882,28 @@ Das \textit{Singleton Pattern} ist ein Erzeugungsmuster. \\ Hierbei wird sicherg
 
 \chapter{Qualitätsmerkmale}
 \section{Entwurfsqualität}
-Bei der Qualität des Entwurfs beziehen wir uns auf \textit{Robert Cecil Martins} Merkmalsdefinitionen \footnote{Robert Cecil Martin (2002). Agile Software Development: Principles, Patterns and Practices. Pearson Education.} die im Folgenden erläutert werden.
+Bei der Qualitätsbewertung des Entwurfs beziehen wir uns auf \textit{Robert Cecil Martins} Merkmalsdefinitionen \footnote{Robert Cecil Martin (2002). Agile Software Development: Principles, Patterns and Practices. Pearson Education.} die im Folgenden erläutert werden.
 
 \subsection*{Anzahl an Klassen und Interfaces}
-Die Anzahl aller Klassen inklusive abstrakter Klassen (sowie Interfaces) im gesamten Paket. Es dient als aussagekräftiger Indikator für die Erweiterbarkeit eines Pakets.
+Die Anzahl aller Klassen inklusive abstrakter Klassen (sowie Interfaces) im gesamten Paket. Sie dient als aussagekräftiger Indikator für die Erweiterbarkeit eines Pakets.
 
 \subsection*{Afferente Kopplung}
-Die Abhängigkeit anderer Pakete von einem Paket ist ein Maß für dessen Verantwortlichkeiten und dessen Einfluss.
+Die Abhängigkeit anderer Pakete von einem Paket ist ein Maß für dessen Verantwortlichkeiten und Einfluss.
 
 \subsection*{Efferente Kopplung}
-Die Abhängigkeit eines Pakets von anderen Paketen ist ein Maß für die Unselbstständigkeit dieses Pakets.
+Die Abhängigkeit eines Pakets von anderen Paketen ist ein Maß für seine Unselbstständigkeit.
 
 \subsection*{Abstraktheit}
-Der Anteil abstrakter Klassen (sowie Interfaces) an allen Klassen im Paket ist ein Indikator für die Abstraktheit eines Pakets.
+Der Anteil abstrakter Klassen und Interfaces an allen Klassen im Paket ist ein Indikator für den Abstraktionsgrad eines Pakets.
 
 \subsection*{Stabilität}
-Das Verhältnis von afferenter Kopplung zur gesamten Kopplung gibt Auskunft über die Resilienz gegenüber Änderungen eines Pakets.
+Das Verhältnis von afferenter Kopplung zur gesamten Kopplung gibt Auskunft über die Resilienz gegenüber Änderungen in einem Pakets.
 
 \subsection*{Balance von Abstraktion und Abhängigkeit}
 Der Abstraktionsgrad der Klassen sollte in etwa deren Unabhängigkeit von anderen Klassen entsprechen. Bei Erfüllung der Anforderung spricht man von optimaler Balance.
 
 \subsection*{Kohäsion}
-Als Ergänzung zu Martin's Definitionen, welche sich nur auf das Zusammenspiel zwischen den Paketen bezieht, wird zudem die Kohäsion berücksichtigt.\\
+Als Ergänzung zu Martins Definitionen, welche sich nur auf das Zusammenspiel zwischen den Paketen bezieht, wird zudem die Kohäsion berücksichtigt.\\
 
 Kohäsion ist der Versuch, zusammenhängende Programmstrukturen in einer Klasse zusammenzuführen, um z.B. nachträgliche Änderungen auf lokale Anpassungen des Codes zu beschränken.
 
@@ -886,7 +919,7 @@ Eine Menge von Merkmalen, die sich auf die Fähigkeit einer Software/eines Syste
 Die Fähigkeit eines Softwareprodukts, unter spezifizierten Bedingungen für einen Benutzer verständlich, erlernbar, anwendbar und attraktiv zu sein. [ISO 9126]
 
 \subsection*{Effizienz}
-(1) Die Fähigkeit eines Softwareprodukts, unter festgelegten Bedingungen eine angemessene Leistung zu erbringen, bezogen auf den Umfang der eingesetzten Betriebsmittel. [ISO 9126]
+Die Fähigkeit eines Softwareprodukts, unter festgelegten Bedingungen eine angemessene Leistung zu erbringen, bezogen auf den Umfang der eingesetzten Betriebsmittel. [ISO 9126]
 
 \subsection*{Änderbarkeit}
 Mit Änderbarkeit bezeichnet man den Aufwand, der zur Durchführung bestimmter Änderungen notwendig ist. Änderungen können Korrekturen, Verbesserungen oder Anpassungen an Änderungen der Umgebung, der Anforderungen und der funktionalen Spezifikation einschließen. [ISO 9126]
@@ -905,26 +938,35 @@ Portabilität oder Übertragbarkeit ist die Eignung einer Software, von einer Um
 \includegraphics[scale=0.45,angle=90,origin=c]{sequenz-search.eps}
 \hspace{5mm}
 \begin{rotate}{90}
-\textbf{Abbildung 9.1:} Lokale Suche nach einem Begriff
+\textbf{Abbildung 9.1:} Sequenzdiagramm: Lokale Suche nach einem Begriff
 \end{rotate}
 
 \newpage
-\newgeometry{top=20mm, left=25mm, right=25mm, bottom=20mm}
+\newgeometry{top=20mm, left=15mm, right=15mm, bottom=20mm}
 \thispagestyle{empty}
 \includegraphics[scale=0.45,angle=90,origin=c]{sequenz-osmtile.eps}
 \hspace{5mm}
 \begin{rotate}{90}
-\textbf{Abbildung 9.2:} Laden einer lokal noch nicht vorhandenen Kachel
+\textbf{Abbildung 9.2:} Sequenzdiagramm: Laden einer lokal noch nicht vorhandenen Kachel
 \end{rotate}
 
 \newpage
 \thispagestyle{empty}
 \vspace*{1cm}
-\includegraphics[scale=0.45,angle=90,origin=c]{sequenz-height.eps}
+\includegraphics[scale=0.46,angle=90,origin=c]{sequenz-height.eps}
 \hspace{5mm}
 \begin{rotate}{90}
-\textbf{Abbildung 9.3:} Aktivieren des Höhenprofils; Laden benötigter SRTM-Daten
+\textbf{Abbildung 9.3:} Sequenzdiagramm: Aktivieren des Höhenprofils; Laden benötigter SRTM-Daten
 \end{rotate}
+
+\newpage
+\thispagestyle{empty}
+\includegraphics[scale=0.34,angle=90,origin=c]{JoglDiagramm_Main.eps}
+\hspace{5mm}
+\begin{rotate}{90}
+\textbf{Abbildung 9.4:} Vollständiges Klassendiagramm
+\end{rotate}
+
 
 \restoregeometry
 
