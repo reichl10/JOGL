@@ -118,24 +118,45 @@ Version: 1.1
 
 \chapter{Einleitung}
 
-Dieses Dokument stellt den Entwurf von \JoglEarth und der einzelnen Klassen mit deren Interaktion vor.
-Die geforderten Funktionalitäten aus dem Pflichtenheft sind abgebildet.
-%\textbf{Abweichungen zum Pflichtenheft hier begründen}
-\\
+\section*{Zu diesem Dokument}
+
+Dieses Dokument stellt den Entwurf von \JoglEarth, der einzelnen Klassen und deren Interaktion vor. Dabei wurden die geforderten Funktionalitäten aus dem Pflichtenheft abgebildet.\\
 
 Im Zuge der Erstellung dieses Dokuments erfolgte die Planung aller Komponenten mit deren zugehörigen Funktionen. Um das Programm im ganzen zu erfassen finden verschiedene Darstellungsarten Anwendung. \\
 
-Als Überblick wird das Konzept des Programms zu Beginn mithilfe eines Architekturdiagramms erklärt. \\
+Als Überblick wird zu Beginn das Konzept der Anwendung mithilfe eines Architekturdiagramms erklärt. \\
 
 Der \textit{Rational Software Architect} visualisiert die Interaktionen unter den Komponenten in Form von Diagrammen. Aus den Grafiken gehen einerseits die Vererbungshierachien, andererseits die angewendeten Design Patterns hervor. \\
 
-Der innere Aufbau der Klassen, wie z.B. deren Methoden, wird anhand eines Klassendiagramms verdeutlicht. Wichtige Komponenten sind zusätzlich gesondert herausgearbeitet. \\ 
+Der innere Aufbau der Klassen, wie z.B. deren Methoden, wird anhand eines Klassendiagramms verdeutlicht. Wichtige Komponenten sind zusätzlich gesondert herausgearbeitet. \\
 
 Um komplexere Zusammenhänge zu veranschaulichen werden detaillierte Auszüge aus der Klassenstruktur entnommen und in einzelne Sequenzdiagramme umgesetzt. Diese erläutern die interne Kommunikation und geben einen Überblick, zu welchem Zeitpunkt im Programmablauf eine oder mehrere Instanzen einer Komponente existiert. \\
 
-Die Priorisierung der im Pflichtenheft angeführten Qualitätsbestimmungen besagt, dass Stabilität, Fehlertoleranz und effizientes Speichermanagement die Hauptmerkmale von \JoglEarth darstellen. Das Code Design wird den Anforderungen der Qualitätskriterien gerecht.\\  
+Die Priorisierung der im Pflichtenheft angeführten Qualitätsbestimmungen besagt, dass Stabilität, Fehlertoleranz und effizientes Speichermanagement die Hauptmerkmale von \JoglEarth darstellen. Das Code Design wird den Anforderungen der Qualitätskriterien gerecht.\\
 
-Um dem heutigen Standard hoher Softwarequalität sicherzustellen, fließen im gesamten Entwurfsprozess die gesetzten Gütekriterien und Qualitätsmerkmale ein. 
+Um dem heutigen Standard hoher Softwarequalität sicherzustellen, fließen im gesamten Entwurfsprozess die gesetzten Gütekriterien und Qualitätsmerkmale ein.
+
+\newpage
+
+\section*{Zum Aufbau der Architektur}
+
+Die Hauptaufgabe von \JoglEarth ist Laden großer Datenmengen aus dem Internet und deren Darstellung in OpenGL. Da die Anwendung jedoch gleichzeitig interaktiv bedienbar sein muss, ist es  unerlässlich hohe Lade- und Berechnungszeiten zu vermeiden. Die beiden Konzepte, die dieser Problematik begegnen, sowie weitere Design-Entscheidungen, die für das Verständnis des Programms wichtig sind, sollen hier kurz vorgestellt werden.
+
+\subsection*{On-Demand-Rendering}
+
+Statt die graphische Oberfläche kontinuierlich mit konstanter Bildrate zu rendern, wird das zeichnen eines neuen Frames bei Bedarf eventbasiert angestoßen. Solange keine Änderungen vorliegen, wird das Bild eingefroren. 
+
+Desweiteren wird bei jeder Ansichtsänderung sofort neu gezeichnet, auch wenn noch nicht alle benötigten Kacheldaten vorliegen. In diesem Falle werden einheitliche Platzhalterdaten verwendet.
+
+
+\subsection*{Datenquellen und Caching}
+
+Das synchrone oder asynchrone Laden von Daten wird über die \textit{Source}-Schnittstelle abstrahiert. Sie bietet die Möglichkeit, generisch Daten über einen Schlüssel (\textit{Key}) abzufragen.\\[3mm]
+Um unnötiges Neuladen bereits geladener Daten zu verhindern, wird außerdem ein Caching-System implementiert. Caches, die auf verschiedene Speicher zurückgreifen, werden von \textit{RequestDistributor}en verwaltet. Diese vermitteln zwischen Caches und Quellen, sind für die Verdrängung zuständig und verhalten sich selbst wie gewöhnliche Datenquellen.
+
+\subsection*{Tesselatoren}
+Da \JoglEarth mehrere verschiedene Arten der dreidimensionalen Darstellung bietet (Globus und Kartenebene), wird das erzeugen der OpenGL-Rohdaten für das 3D-Modell über das Konzept des \textit{Tesselators} abstrahiert.
+
 
 \chapter{UML-Klassendiagramme}
 
@@ -330,7 +351,7 @@ Eine Implementierung dieses Interfaces nimmt asynchrone Antworten des \textit{Lo
 
 
 
-\chapter{Klassenbeschreibung}
+\chapter{Beschreibung der Klassen}
 \section{Package de.joglearth}
 \subsection*{JoglEarth}
 \begin{lstlisting}
