@@ -267,7 +267,7 @@ extends Source<Key, Value>
 Bildet die Schnittstelle für einen Cache, der Methoden zum Hinzufügen, Abfragen und Löschen von Daten bietet. Die Verwaltung der Größenbeschränkungen und die Implementierung der Verdrängungsstrategie ist Sache des \textit{RequestDistributors}.\\
 \subsubsection*{Methoden (Auszug)}
 \begin{itemize}
-\item \texttt{putObject()} legt ein Objekt, identifiziert über einen \textit{Key}, in den Cache. Dies kann zur Folge haben, das ein bereits existierendes Objekt mit diesem Schlüssel überschrieben wird. Eine Verdrängung findet niFcht statt, diese ist Aufgabe des übergeordneten \textit{RequestDistributors}.
+\item \texttt{putObject()} legt ein Objekt, identifiziert über einen \textit{Key}, in den Cache. Dies kann zur Folge haben, das ein bereits existierendes Objekt mit diesem Schlüssel überschrieben wird. Eine Verdrängung findet nicht statt, diese ist Aufgabe des übergeordneten \textit{RequestDistributors}.
 \item \texttt{dropObject()} entfernt ein Objekt über seinen \textit{Key} aus dem Cache.
 \item \texttt{requestObject()} fordert ein Objekt an. Die Schnittstelle entspricht der von \textit{Source}.
 \end{itemize}
@@ -371,12 +371,12 @@ Dies ist die Hauptklasse des Programms.\\
 class RequestDistributor<Key, Value>
 implements Source<Key, Value>
 \end{lstlisting}
-Lädt Daten aus einer \textit{Source}, verwaltet diese in Caches und ist für deren Verdrängung verantwortlich.\\
-Ein \textit{RequestDistributor} hat Zugriff auf genau eine ursprüngliche \textit{Source}, von der alle Datenelemente stammen, sowie auf eine beliebige Anzahl an Caches, die eine Cachehierarchie bilden.\\
+Lädt Daten aus einer \textit{Source}, verwaltet diese in Caches und ist für ihre Verdrängungsstrategie verantwortlich.\\
+Ein \textit{RequestDistributor} hat Zugriff auf genau eine ursprüngliche \textit{Source}, von der alle Datenelemente stammen, sowie auf eine beliebige Anzahl an Caches, die eine Hierarchie bilden.\\
 Für jeden Cache lässt sich eine Maximalgröße in \textit{Einheiten} festlegen. Für einen (reinen) \textit{RequestDistributor} ist jeder Eintrag eine Einheit groß, d.h. die Größenbeschränkung bezieht sich auf die Anzahl der Elemente.\\
 \subsubsection*{Methoden (Auszug)}
 \begin{itemize}
-\item \texttt{requestObject()} verhält sich wie \texttt{Source.requestObject()}. Anfragen werden bevorzugt über die Caches beantwortet. Ist das nicht mögilch, so werden die Daten über die \textit{Source} nachgeladen und das Ergebnis in den ersten Cache der Hierarchie gelegt. Überschreitet er seine zulässige Maximalgröße, werden bestehende Einträge (wenn möglich in den nachfolgenden Cache) verdrängt. 
+\item \texttt{requestObject()} verhält sich wie \texttt{Source.requestObject()}. Anfragen werden bevorzugt über die Caches beantwortet. Ist das nicht mögilch, so werden die Daten über die \textit{Source} nachgeladen und das Ergebnis in den ersten Cache der Hierarchie gelegt. Überschreitet dieser seine zulässige Maximalgröße, werden bestehende Einträge (wenn möglich in den nachfolgenden Cache) verdrängt. 
 \end{itemize}
 \vspace{5mm}
 \subsection*{BinaryRequestDistributor}
@@ -421,11 +421,11 @@ Da Texturen in der OpenGL-API über \textit{int}s identifiziert werden, ist der 
 class Camera
 \end{lstlisting}
 Berechnet die Projektionsmatrix für den Rendervorgang, bestimmt die Sichtbarkeit von 3D-Objekten im Ansichtsfenster und rechnet zwischen Bildschirm- und Raumkoordinaten um.\\
-Enthält eine Methode zum Setzen einer \textit{Geometry} für die Unterscheidung zwischen sphärischen und planaren Bewegungsberechnungen.\\
+Enthält eine Methode zum Setzen einer \textit{Geometry} für ansichtsspezifische Berechnungen.\\
 \subsubsection*{Methoden (Auszug)}
 \begin{itemize}
-\item \texttt{getVisibleTiles()} bestimmt die Menge aller momentan sichtbaren Kacheln. Die Größe (der Winkelabstand zwischen den Kanten) wird dabei so bestimmt, dass ihre Anzahl unabhängig vom Zoomlevel und der Position in einem festgelegten Bereich liegt.
-\item \texttt{getProjectionMatrix()} berechnet die \textit{Projektionsmatrix}, die OpenGL zum Rendern des Modells übergeben wird. Durch die Tatsache, dass die Sicht bereits vollständig durch diese Struktur beschrieben wird, ermöglicht es, dass die \textit{Tesselatoren} das 3D-Modell unabhängig von der Drehung oder Verschiebung des Globus bzw. der Ebene berechnen können.
+\item \texttt{getVisibleTiles()} bestimmt die Menge aller momentan sichtbaren Kacheln. Die Größe (der Winkelabstand zwischen den Kanten) wird dabei so bestimmt, dass ihre Anzahl unabhängig vom Zoomlevel und der Position in einem bestimmten Bereich liegt.
+\item \texttt{getProjectionMatrix()} berechnet die \textit{Projektionsmatrix}, die OpenGL zum Rendern des Modells übergeben wird. Durch die Tatsache, dass die Sicht bereits vollständig durch diese Struktur beschrieben wird, ermöglicht es, dass die \textit{Tesselatoren} das 3D-Modell unabhängig von der Drehung oder Verschiebung des Globus bzw. der Ebene erzeugen können.
 \end{itemize}
 
 \vspace{2mm}
@@ -575,7 +575,8 @@ Enthält die möglichen \textit{Property}-Namen der Settings in dieser Anwendung
 \subsubsection*{Methoden (Auszug)}
 \begin{itemize}
 \item \texttt{loadSettings()} lädt die Settings aus der Einstellungsdatei.
-\item \texttt{setDefaultSettings()} speichert sie.
+\item \texttt{saveSettings()} lädt die Settings aus der Einstellungsdatei.
+\item \texttt{setDefaultSettings()} füllt die Settings-Instanz mit Vorgabewerten.
 \end{itemize}
 
 
@@ -692,7 +693,7 @@ Verwaltet die Sichtbarkeit von besonderen Punkten im Ansichtsfenster und der GUI
 \subsubsection*{Methoden (Auszug)}
 \begin{itemize}
 \item \texttt{searchLocal()} führt eine Suche nach einem Begriff auf einem angegebenen Gebiet durch.
-\item \texttt{searchGlobal()} sucht global nach einem begriff.
+\item \texttt{searchGlobal()} sucht global nach einem Begriff.
 \end{itemize}
 
 \vspace{5mm}
@@ -725,7 +726,8 @@ class GUIEventListener
 \end{lstlisting}
 Reagiert auf Ereignisse der Swing-Elemente der GUI; d.h. auf alle Benutzereingaben die außerhalb des Ansichtsfensters stattfinden. Sie verändert unter Umständen Werte von \textit{Settings} und der Kamera.\\
 
-\vspace{5mm}
+\pagebreak
+
 \subsection*{ViewEventListener}
 \begin{lstlisting}
 class ViewEventListener
@@ -782,7 +784,7 @@ Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 9
 \end{figure}
 
 \begin{itemize}
-\item Die GUI übergibt dem \textit{LocationManager} einen Suchbegriff und die sichtbaren Kacheln, die er von der Kamera erhalten hat.
+\item Die GUI übergibt dem \textit{LocationManager} einen Suchbegriff und die sichtbaren Kacheln, die sie von der Kamera erhalten hat.
 \item Dieser fordert von seinem \textit{RequestDistributor} die Suchergebnisse zu dieser Anfrage an, der wegen des Fehlens des Ergebnisses in seinem \textit{MemoryCache} bei der \textit{NominatimSource} eine Anfrage startet. 
 \item Da eine Anfrage über das Internet zeitaufwändig ist, kehrt sie und damit der \textit{RequestDistributor} mit der Notiz zurück, dass eine asynchrone Antwort folgt. Die GUI erhält daher zuerst ein leeres Ergebnis.
 \item Wurde die Anfrage beantwortet, benachrichtigt die \textit{NominatimSource} den \textit{RequestDistributor}, der die Antwort in seinen \textit{MemoryCache} legt und seinerseits den \textit{LocationManager} benachrichtigt.
@@ -813,8 +815,8 @@ Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 9
 \item Der \textit{TextureManager} gibt ersatzweise die Platzhaltertextur zurück.
 \item Ist das Kachelbild geladen, wird es vom Bild-\textit{RequestDistributor} in seinem \textit{MemoryCache} abgelegt.
 \item Der \textit{RequestDistributor} benachrichtigt die \textit{TextureSource} über die vorhandene Bilddatei, die jetzt die Textur in OpenGL lädt und an ihren \textit{RequestDistributor} weiterleitet.
-\item Diese informiert \textit{TextureManager}, der dem \textit{Renderer} mitteilt, dass sich die Darstellung der Kachel nun geändert hat.
-\item Der \textit{Renderer} beginnt daraufhin einen neuen Frame mit der korrekten Textur zu zeichnen.
+\item Dieser informiert den \textit{TextureManager}, der dem \textit{Renderer} mitteilt, dass sich die Darstellung der Kachel geändert hat.
+\item Der \textit{Renderer} beginnt daraufhin, einen neuen Frame mit der korrekten Textur zu zeichnen.
 \end{itemize}
 
 
@@ -840,7 +842,7 @@ Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 9
 \item Im Beispiel liegt diese Kachel zwar nicht im \textit{Memory}-, aber im \textit{FileSystemCache}. Da das Laden von der Festplatte etwas Zeit in Anspruch nehmen kann, kehrt die Methode mit der Notiz zurück, dass eine asynchrone Antwort folgt.
 \item Da die Höhenkachel im Moment nicht zur Verfügung steht, gibt der \textit{HeightMapManager} 0 (Normalnull) als Höhe für den Punkt zurück.
 \item Sobald die verspätete Antwort des \textit{FileSystemCaches} eintrifft, wird der \textit{Renderer} aufgefordert ein neues Bild zu zeichnen.
-\item Er fordert nun die selben Höhendaten an, die aber aus dem \textit{MemoryCache} des \textit{HeightMapManagers} beantwortet werden können.
+\item Er fordert nun die selben Höhendaten an, die jetzt aus dem \textit{MemoryCache} des \textit{HeightMapManagers} korrekt bestimmt werden können.
 \end{itemize}
 
 \newpage
