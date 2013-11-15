@@ -266,6 +266,7 @@ interface Tessellator
 \end{lstlisting}
 Bietet eine gemeinsame Schnittstelle für das Erzeugen von dreidimensionalen Kacheln verschiedener Modelle.\\
 
+\newpage
 
 \vspace{5mm}
 \section{Package de.joglearth.settings}
@@ -289,7 +290,7 @@ Ist in der Lage, über einen \texttt{Key} identifizierte Objekte synchron oder a
 \begin{lstlisting}
 interface SourceListener<Key, Value>
 \end{lstlisting}
-Eine Implementierung dies Interfaces kann asynchrone Antworten einer \textit{Source} entgegen nehmen.\\
+Eine Implementierung dieses Interfaces kann asynchrone Antworten einer \textit{Source} entgegen nehmen.\\
 
 
 \vspace{5mm}
@@ -383,7 +384,7 @@ Speichert Längen- und Breitengrad eines Punktes auf der Erdoberfläche.\\
 class Matrix4
 implements Cloneable
 \end{lstlisting}
-Hält eine 4x4-Matrix, die Operationen zum Rotieren, Verschieben und Skalieren, sowie eine Funktion zum transformieren eines dreidimensionalen Vektors anbietet. Sie wird zum von der Kamera intern zum Bestimmen der Projektionsmatrix und der Sichtbarkeit von Objekten verwendet.\\
+Hält eine 4x4-Matrix, die Operationen zum Rotieren, Verschieben und Skalieren, sowie eine Funktion zum transformieren eines dreidimensionalen Vektors anbietet. Sie wird von der Kamera intern zum Bestimmen der Projektionsmatrix und der Sichtbarkeit von Objekten verwendet.\\
 
 \vspace{5mm}
 \subsection*{PlaneGeometry}
@@ -594,7 +595,7 @@ Verwaltet die Sichtbarkeit von besonderen Punkten im Ansichtsfenster und der GUI
 \begin{lstlisting}
 class TextureManager
 \end{lstlisting}
-Bearbeitet Texturanfrage vom \textit{Renderer}. Lädt die Texturen aus einem \textit{RequestDistributor} die auf einem \textit{TextureSource} und einem \textit{TextureCache} zurückgreift.\\
+Bearbeitet Texturanfragen vom \textit{Renderer}. Lädt die Texturen aus einem \textit{RequestDistributor} die auf einem \textit{TextureSource} und einem \textit{TextureCache} zurückgreift.\\
 
 
 
