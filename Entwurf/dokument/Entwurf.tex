@@ -152,10 +152,12 @@ Desweiteren wird bei jeder Ansichtsänderung sofort neu gezeichnet, auch wenn no
 \subsection*{Datenquellen und Caching}
 
 Das synchrone oder asynchrone Laden von Daten wird über die \textit{Source}-Schnittstelle abstrahiert. Sie bietet die Möglichkeit, generisch Daten über einen Schlüssel (\textit{Key}) abzufragen.\\[3mm]
-Um unnötiges Neuladen bereits geladener Daten zu verhindern, wird außerdem ein Caching-System implementiert. Caches, die auf verschiedene Speicher zurückgreifen, werden von \textit{RequestDistributor}en verwaltet. Diese vermitteln zwischen Caches und Quellen, sind für die Verdrängung zuständig und verhalten sich selbst wie gewöhnliche Datenquellen.
+Um unnötiges Neuladen zu verhindern, wird außerdem ein Caching-System implementiert. Caches, die auf verschiedene Speicher zurückgreifen, werden von \textit{RequestDistributor}en verwaltet. Diese vermitteln zwischen Caches und Quellen, sind für die Verdrängung zuständig und verhalten sich selbst wie gewöhnliche Datenquellen.
 
-\subsection*{Tesselatoren}
-Da \JoglEarth mehrere verschiedene Arten der dreidimensionalen Darstellung bietet (Globus und Kartenebene), wird das erzeugen der OpenGL-Rohdaten für das 3D-Modell über das Konzept des \textit{Tesselators} abstrahiert.
+\subsection*{Geometry und Tesselatoren}
+Da \JoglEarth mehrere verschiedene Arten der dreidimensionalen Darstellung bietet (Globus und Kartenebene), wird eine weitere Abstraktionsschicht eingeführt.
+
+Räumliche Berechnungen, die vom Ansichtsmodus abhängig sind werden von Implementierungen des \textit{Geometry}-Interfaces erledigt; Das erzeugen der OpenGL-Rohdaten für das 3D-Modell geschieht über Konzept des \textit{Tesselators}.
 
 
 \chapter{UML-Klassendiagramme}
