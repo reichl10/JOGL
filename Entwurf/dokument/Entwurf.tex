@@ -239,32 +239,42 @@ Im Folgenden werden UML-Diagramme für die Elemente der einzelnen Packages gezei
 interface Cache<Key, Value>
 extends Source<Key, Value>
 \end{lstlisting}
-Bildet die Schnittstelle für einen Cache, der Methoden zum Hinzufügen, Abfragen und Löschen von Daten bietet.\\
-
-
+Bildet die Schnittstelle für einen Cache, der Methoden zum Hinzufügen, Abfragen und Löschen von Daten bietet. Die Verwaltung der Größenbeschränkungen ist Sache des \textit{RequestDistributors}.\\
+\subsubsection*{Zusammenfassung der wichtigsten Methoden}
+\begin{itemize}
+\item \texttt{putObject()} legt ein Objekt, identifiziert über einen \textit{Key}, in den Cache. Dies kann zur Folge haben, das ein bereits existierendes Objekt mit diesem Schlüssel überschrieben wird. Eine Verdrängung findet nicht statt, diese ist Aufgabe des übergeordneten \textit{RequestDistributors}.
+\item \texttt{dropObject()} entfernt ein Objekt über seinen \textit{Key} aus dem Cache.
+\item \texttt{requestObject()} fordert ein Objekt an. Die Schnittstelle entspricht der von \textit{Source}.
+\end{itemize}
 \vspace{5mm}
+
+
 \section{Package de.joglearth.geometry}
 \subsection*{Geometry}
 \begin{lstlisting}
 interface Geometry
 \end{lstlisting}
-Abstrahiert die Sichtbarkeitsberechnungen verschiedener Oberflächenmodelle, wie eines Globus oder einer Kartenebene.\\
+Abstrahiert den Teil der Sichtbarkeits- und Positionsberechnungen, der von dem Oberflächenmodell (wie Globus oder Kartenebene) abhängt. Die Kamera besitzt ein solches Geometry-Objekt, um sich dem momentanen Ansichtsmodus entsprechend zu verhalten.\\
 
 \vspace{5mm}
 \subsection*{CameraListener}
 \begin{lstlisting}
 interface CameraListener
 \end{lstlisting}
-Interface für Klassen, die Events beim Ändern der Kameraeinstellungen .\\
+Interface für Klassen, die Events beim Ändern von Kameraposition und -einstellungen entgegennehmen können.\\
 
-
+\pagebreak
 \vspace{5mm}
 \section{Package de.joglearth.rendering}
 \subsection*{Tessellator}
 \begin{lstlisting}
 interface Tessellator
 \end{lstlisting}
-Bietet eine gemeinsame Schnittstelle für das Erzeugen von dreidimensionalen Kacheln verschiedener Modelle.\\
+Bietet eine gemeinsame Schnittstelle für das Erzeugen von dreidimensionalen Kacheln verschiedener geometrischer Modelle. Sie wird vom Renderer benutzt, um den Ansichtseinstellungen gemäß ein dreidimensionales Modell zu generieren.\\
+\subsubsection*{Zusammenfassung der wichtigsten Methoden}
+\begin{itemize}
+\item \texttt{tesselateTile()} erzeugt aus den geometrischen Angaben eines \textit{Tiles} und der Heightmap einen \textit{Mesh}, der zum Zeichnen an OpenGL übergeben werden kann.
+\end{itemize}
 
 
 \vspace{5mm}
@@ -273,7 +283,7 @@ Bietet eine gemeinsame Schnittstelle für das Erzeugen von dreidimensionalen Kac
 \begin{lstlisting}
 interface SettingsListener
 \end{lstlisting}
-Eine Implementierung des \textit{SettingsListeners} kann über Änderungen der \textit{Settings} benachrichtigt werden.\\
+Eine Implementierung des \textit{SettingsListeners} kann über Änderungen der \textit{Settings} benachrichtigt werden. Das Interface ist damit intergraler Bestandteil des Settings-Mechanismus, der Benutzereinstellungen an die zuständigen Komponenten vermittelt.\\
 
 
 \vspace{5mm}
@@ -283,22 +293,29 @@ Eine Implementierung des \textit{SettingsListeners} kann über Änderungen der \
 interface Source<Key, Value>
 \end{lstlisting}
 Ist in der Lage, über einen \texttt{Key} identifizierte Objekte synchron oder asynchron zu beschaffen.\\
+\subsubsection*{Zusammenfassung der wichtigsten Methoden}
+\begin{itemize}
+\item \texttt{requestObject()} führt eine Anfrage nach einem Objekt über seinen \textit{Key} durch. Die Methode gibt eine \textit{SourceResponse}-Struktur zurück, die das synchron beschaffte Objekt enthält, falls dies ohne nennenswerten Zeitverlust möglich war, oder einen Indikator dafür, dass die Antwort asynchron nachgeliefert wird bzw. nicht beschafft werden kann.
+\end{itemize}
 
 \vspace{5mm}
 \subsection*{SourceListener}
 \begin{lstlisting}
 interface SourceListener<Key, Value>
 \end{lstlisting}
-Eine Implementierung dies Interfaces kann asynchrone Antworten einer \textit{Source} entgegen nehmen.\\
+Eine Implementierung dieses Interfaces kann asynchrone Antworten zur \textit{requestObject()}-Anfrage an eine \textit{Source} entgegen nehmen.\\
 
-
-\vspace{5mm}
+\pagebreak
 \section{Package de.joglearth.surface}
 \subsection*{SurfaceListener}
 \begin{lstlisting}
 interface SurfaceListener
 \end{lstlisting}
 Eine Implementierung dieses Interfaces kann über Änderung der Darstellung einzelner Kartenkacheln benachrichtigt werden.\\
+\begin{itemize}
+\item \texttt{surfaceChanged()} ist ein Callback, dessen Aufruf anzeigt, dass sich die Oberfläche einer bestimmten Kachel auf irgendeine Weise geändert hat. Dies kann beispielsweise durch verspätetes Nachladen einer Textur oder das hinzufügen einer Benutzermarkierung geschehen.
+\end{itemize}
+
 
 \vspace{5mm}
 \subsection*{LocationListener}
@@ -316,15 +333,9 @@ Eine Implementierung dieses Interfaces nimmt asynchrone Antworten des \textit{Lo
 final class JoglEarth
 \end{lstlisting}
 Die Klasse \textit{JoglEarth} implementiert die Main-Methode zum Starten des Programms.\\
+\begin{itemize}\item\texttt{main()} Startet das Programm.
+\end{itemize}
 
-\vspace{5mm}
-\section{Package de.joglearth.caching}
-\subsection*{CachedBinarySource}
-\begin{lstlisting}
-class CachedBinarySource<Key>
-extends RequestDistributor<Key, byte[]>
-\end{lstlisting}
-Erweitert den \textit{RequestDistributor} um die Möglichkeit den Cache nach Größe statt nach Anzahl der Einträge zu begrenzen.\\
 
 \vspace{5mm}
 \subsection*{RequestDistributor}
@@ -333,6 +344,20 @@ class RequestDistributor<Key, Value>
 implements Source<Key, Value>
 \end{lstlisting}
 Lädt Daten aus einer \textit{Source}, verwaltet diese in Caches und ist für deren Verdrängung verantwortlich.\\
+
+\vspace{5mm}
+\section{Package de.joglearth.caching}
+\subsection*{BinaryRequestDistributor}
+\begin{lstlisting}
+class CachedBinarySource<Key>
+extends RequestDistributor<Key, byte[]>
+\end{lstlisting}
+Erweitert den \textit{RequestDistributor} um die Möglichkeit den Cache nach Größe statt nach Anzahl der Einträge zu begrenzen.\\
+\begin{itemize}
+\item \texttt{addCache()}
+\item \texttt{setSource()}
+\item \texttt{requestObject()}
+\end{itemize}
 
 \vspace{5mm}
 \subsection*{FileSystemCache}
@@ -350,7 +375,6 @@ implements Cache<Key, Value>
 \end{lstlisting}
 Ein \textit{MemoryCache} speichert Daten im Arbeitsspeicher ähnlich einer \textit{HashMap} zwischen.\\
 
-\newpage
 \vspace{5mm}
 \subsection*{TextureCache}
 \begin{lstlisting}
@@ -368,6 +392,10 @@ class Camera
 \end{lstlisting}
 Berechnet die Projektionsmatrix für den Rendervorgang, bestimmt die Sichtbarkeit von 3D-Objekten im Ansichtsfenster und rechnet zwischen Bildschirm- und Raumkoordinaten um.\\
 Enthält eine Methode zum Setzen einer \textit{Geometry} für die Unterscheidung zwischen sphärischen und planaren Bewegungsberechnungen.\\
+\begin{itemize}
+\item \texttt{getVisibleTiles()}
+\item \texttt{getProjectionMatrix()}
+\end{itemize}
 
 \vspace{5mm}
 \subsection*{GeoCoordinates}
@@ -384,6 +412,9 @@ class Matrix4
 implements Cloneable
 \end{lstlisting}
 Hält eine 4x4-Matrix, die Operationen zum Rotieren, Verschieben und Skalieren, sowie eine Funktion zum transformieren eines dreidimensionalen Vektors anbietet. Sie wird zum von der Kamera intern zum Bestimmen der Projektionsmatrix und der Sichtbarkeit von Objekten verwendet.\\
+\begin{itemize}
+\item \texttt{transform()}
+\end{itemize}
 
 \vspace{5mm}
 \subsection*{PlaneGeometry}
@@ -401,7 +432,6 @@ implements Cloneable
 \end{lstlisting}
 Stellt einen Punkt auf der Bildschirmebene in relativen Koodrinaten zwischen 0 und 1 dar.\\
 
-\newpage
 \vspace{5mm}
 \subsection*{SphereGeometry}
 \begin{lstlisting}
@@ -433,6 +463,9 @@ class Vector4
 implements Cloneable
 \end{lstlisting}
 Ein 4-dimensionaler Vektor für homogene Koordinaten. Instanzen dieser Klasse werden benötigt, wenn zwischen 3D-Perspektiven umgerechnet werden soll.\\
+\begin{itemize}
+\item \texttt{divide()}
+\end{itemize}
 
 
 
@@ -454,7 +487,6 @@ implements Tessellator
 \end{lstlisting}
 Generiert Kachelmeshes in der Ebene.\\
 
-\newpage
 \vspace{5mm}
 \subsection*{Renderer}
 \begin{lstlisting}
@@ -482,6 +514,10 @@ Generiert Kachelmeshes auf der Globusoberfläche.\\
 class Settings
 \end{lstlisting}
 Verwaltet alle erforderlichen Einstellungen sowie die vom Benutzer markierten Punkte aus der Datei \texttt{settings.xml}. Die Einstellungen werden gekapselt und anderen Klassen zugänglich gemacht, außerdem können sich andere Klassen als Beobachter (\textit{Observer}) registrieren um über Einstellungsänderungen benachrichtigt zu werden.\\
+\begin{itemize}
+\item \texttt{getInteger()}
+\item \texttt{putInteger()}
+\end{itemize}
 
 \vspace{5mm}
 \subsection*{SettingsContract}
@@ -489,6 +525,10 @@ Verwaltet alle erforderlichen Einstellungen sowie die vom Benutzer markierten Pu
 final class SettingsContract
 \end{lstlisting}
 Speichern und laden von Settings. Verwaltet die IDs der verschiedenen Settings.\\
+\begin{itemize}
+\item \texttt{static void loadSettings()}
+\item \texttt{static void setDefaultSettings()}
+\end{itemize}
 
 
 
@@ -499,6 +539,10 @@ Speichern und laden von Settings. Verwaltet die IDs der verschiedenen Settings.\
 final class HTTPUtils
 \end{lstlisting}
 Stellt statische Funktionen für einfache GET- und POST- Abfragen via HTTP zur Verfügung.\\
+\begin{itemize}
+\item \texttt{static byte[] get()}
+\item \texttt{static byte[] post()}
+\end{itemize}
 
 \vspace{5mm}
 \subsection*{NominatimQuery}
@@ -544,6 +588,10 @@ implements Source<OverpassQuery, Location[]>
 class SourceResponse<Value>
 \end{lstlisting}
 Rückgabetyp der \textit{Source} inkl. Informationen über die Art der Nachlieferung.\\
+\begin{itemize}
+\item\texttt{response}
+\item\texttt{value}
+\end{itemize}
 
 \vspace{5mm}
 \subsection*{SRTMTileSource}
@@ -553,7 +601,6 @@ implements Source<Tile, byte[]>
 \end{lstlisting}
 Die \textit{SRTMTileSource} lädt anhand von Indizes Höhenprofil-Kacheln von NASA-SRTM-Servern. Dabei macht sie von \textit{HTTPUtils} Gebrauch.\\
 
-\newpage
 \vspace{5mm}
 \subsection*{TextureSource}
 \begin{lstlisting}
@@ -572,6 +619,9 @@ class HeightMapManager
 implements SettingsListener
 \end{lstlisting}
 Interpoliert Höheninformationen für Punkte der Karte aus SRTM-Höhendaten. Wird von \textit{Tessellator}en verwendet, um Kartenoberflächen mit dem Höhenprofil zu generieren.\\
+\begin{itemize}
+\item\texttt{float getHeight(GeoCoordinates g)}
+\end{itemize}
 
 \vspace{5mm}
 \subsection*{Location}
@@ -595,6 +645,9 @@ Verwaltet die Sichtbarkeit von besonderen Punkten im Ansichtsfenster und der GUI
 class TextureManager
 \end{lstlisting}
 Bearbeitet Texturanfrage vom \textit{Renderer}. Lädt die Texturen aus einem \textit{RequestDistributor} die auf einem \textit{TextureSource} und einem \textit{TextureCache} zurückgreift.\\
+\begin{itemize}
+\item\texttt{int getTexture()}
+\end{itemize}
 
 
 
@@ -695,15 +748,16 @@ Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 9
 \end{figure}
 
 \begin{itemize}
-\item Der \textit{Renderer} fragt den \textit{TextureManager} nach der Textur die gerendert werden soll.
-\item Dieser fordert von seinem \textit{RequestDistributor} die Suchergebnisse zu dieser Anfrage an, der wegen des Fehlens des Ergebnisses in seinem \textit{TextureCache} bei der \textit{TextureSource} eine Anfrage startet.
-\item In unserem Beispiel ist die Textur noch nicht im \textit{TextureCache} vorhanden. Deswegen leitet der \textit{RequestDistributor} die Anfrage an die \textit{TextureSource} weiter.
-\item Die \textit{TextureSource} fordert einen weiteren \textit{RequestDistributor} auf die Textur zu beschaffen.
-\item Da sich die Textur in unserem Beispiel weder im \textit{Memory-} noch im \textit{FileSystemCache} befindet, wird die Textur über die \textit{OSMTileSource} geladen, die darauf hinweist, dass die Antwort asynchron erfolgt.
-\item Diese lässt die geladene Textur vom \textit{RequestDistributor} im \textit{MemoryCache} speichern.
-\item Der \textit{RequestDistributor} benachrichtigt die \textit{TextureSource} über das erfolgte Laden der gewünschten Textur, die wiederum bei dem anderen \textit{RequestDistributor} denselben Vorgang auslöst.
-\item Danach wird der \textit{TextureManager} informiert, der dem \textit{Renderer} mitteilt, dass die gewünschte Textur nun zur Verfügung steht.
-\item Der \textit{Renderer} startet einen neuen Thread, in dem die nun verfügbare Textur synchron aus dem \textit{TextureCache} geladen wird und gerendert wird.
+\item Der \textit{Renderer} fragt den \textit{TextureManager} nach der Textur für eine Kachel.
+\item Dieser fordert von seinem \textit{RequestDistributor} die Ergebnisse zu dieser Anfrage an.
+\item Im Beispiel ist die Textur noch nicht im \textit{TextureCache} vorhanden. Deswegen leitet der \textit{RequestDistributor} die Anfrage an die \textit{TextureSource} weiter.
+\item Die \textit{TextureSource} fordert den \textit{RequestDistributor} für die Bilddateien auf, die Kachel zu beschaffen.
+\item Da sich die Textur in unserem Beispiel weder im \textit{Memory-} noch im \textit{FileSystemCache} befindet, wird die Textur über die \textit{OSMTileSource} geladen, die darauf hinweist, dass die Antwort asynchron erfolgt und ohne Ergebnis zurückkehrt.
+\item Der \textit{TextureManager} gibt ersatzweise die Platzhaltertextur zurück.
+\item Ist das Kachelbild geladen, wird es vom Bild-\textit{RequestDistributor} in seinem \textit{MemoryCache} abgelegt.
+\item Der \textit{RequestDistributor} benachrichtigt die \textit{TextureSource} über die vorhandene Bilddatei, die jetzt die Textur in OpenGL lädt und an ihren \textit{RequestDistributor} weiterleitet.
+\item Diese informiert \textit{TextureManager}, der dem \textit{Renderer} mitteilt, dass sich die Darstellung der Kachel nun geändert hat.
+\item Der \textit{Renderer} beginnt daraufhin einen neuen Frame mit der korrekten Textur zu zeichnen.
 \end{itemize}
 
 
@@ -722,13 +776,17 @@ Eine größere Version des Diagramms findet sich im Anhang (\textref Abbildung 9
 \end{figure}
 
 \begin{itemize}
-\item Im \textit{MainWindow} wurde die HeightMap Einstellung aktiviert, was dem \textit{Renderer} über die \textit{Settings} mitgeteilt wird, welche er beobachtet.
-\item Dieser fordert in einem neuen Thread bei der \textit{Camera} die sichtbaren Kacheln an und übergibt diese dem \textit{Tesselator}.
-\item Der \textit{Tesselator} fordert bei dem \textit{HeightMapManager} die Höhen an, die -analog zum obigem Diagramm- geladen werden.
-\item Der \textit{Renderer} wird danach aufgefordert ein neues Bild zu zeichnen, da die Höhen nun vorliegen.
-\item Dieser fordert wieder die sichtbaren Kacheln von der \textit{Camera} an, die anschließend an den \textit{Tesselator} zur Verarbeitung übergeben werden.
-\item Der \textit{Tesselator} fordert die HeightMaps vom \textit{HeightMapManager} an und generiert aus diesen Informationen ein \textit{Mesh}, das er an den \textit{Renderer} zurückgibt.
+\item Im \textit{MainWindow} wurde die Höhenprofil-Einstellung aktiviert. Dies verändert eine Eigenschaft in den \textit{Settings}, welche den \textit{Renderer} über die Änderung benachrichtigt.
+\item Dieser beginnt asynchron, eienn neuen Frame zu zeichnen, wozu er bei der \textit{Camera} die sichtbaren Kacheln anfordert und von seinem \textit{Tesselator} generieren lässt.
+\item Der \textit{Tesselator} fordert beim \textit{HeightMapManager} die Höhe der einzelnen Punkte an.
+\item Dieser versucht, die SRTM-Kachel, die die Höheninformation trägt. bei seinem SRTM-\textit{RequestDistributor} anzufordern.
+\item Im Beispiel liegt diese Kachel zwar nicht im \textit{Memory}-, aber im \textit{FileSystemCache}. Da das Laden von der Festplatte etwas Zeit in Anspruch nehmen kann, kehrt die Methode mit der Notiz zurück, dass eine asynchrone Antwort folgt.
+\item Da die Höhenkachel im Moment nicht zur Verfügung steht, gibt der \textit{HeightMapManager} 0 (Normalnull) als Höhe für den Punkt zurück.
+\item Sobald die verspätete Antwort des \textit{FileSystemCaches} eintrifft, wird der \textit{Renderer} aufgefordert ein neues Bild zu zeichnen.
+\item Er fordert nun die selben Höhendaten an, die aber aus dem \textit{MemoryCache} des \textit{HeightMapManagers} beantwortet werden können.
 \end{itemize}
+
+\newpage
 
 \section*{Semantik der Diagramme}
 \begin{itemize}
@@ -749,6 +807,10 @@ Das \textit{Model-View-Controller Pattern} ist ein Architekturmuster.\\ Die zugr
 \caption{Das Model-View-Controller Pattern}
 \end{centering}
 \end{figure}
+
+Es teilt die Funktionalität der Komponenten in Datenmodell (\textit{Model}), Präsentation (\textit{View}) und Steuerung (\textit{Controller}) ein. 
+
+Das Datenmodell beinhaltet die zugrundeliegende Datenverwaltung und  Berechnungsmodelle, die Präsentation ist für die Schnittstelle zum Nutzer verantwortlich, während der Controller Eingaben entgegennimmt und die View oder die Views steuert.
 
 \newpage
 

@@ -40,11 +40,11 @@ public class LocationManager implements SettingsListener {
 	public void enablePOI(LocationType type, boolean enable) {
 	}
 
-	public void search(String query) {
+	public void searchGlobal(String query) {
 
 	}
 
-	public void search(String query, Tile[] area) {
+	public void searchLocal(String query, Tile[] area) {
 
 	}
 

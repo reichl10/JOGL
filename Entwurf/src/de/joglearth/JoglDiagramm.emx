@@ -217,7 +217,7 @@
           <children xmi:type="notation:ListCompartment" xmi:id="_tBKq8EuGEeONd9aBGC8l2g" visible="false" type="ANNOTATION_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tBL5EEuGEeONd9aBGC8l2g" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
           <children xmi:type="notation:ListCompartment" xmi:id="_tBL5EUuGEeONd9aBGC8l2g" type="ANNOTATED_OPERATION_COMPARTMENT"/>
-          <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=CachedBinarySource%5Bjcu%5Ename=CachedBinarySource.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
+          <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=BinaryRequestDistributor%5Bjcu%5Ename=BinaryRequestDistributor.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D$uml.Class"/>
           <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tBI1wkuGEeONd9aBGC8l2g" x="22440" y="37488"/>
         </children>
         <children xmi:type="umlnotation:UMLShape" xmi:id="_tBQxkUuGEeONd9aBGC8l2g" fontName="Droid Sans" fontHeight="8" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
@@ -1058,7 +1058,7 @@
             <children xmi:type="notation:BasicDecorationNode" xmi:id="_MVdNQUuHEeONd9aBGC8l2g" type="Name"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_MVcmMUuHEeONd9aBGC8l2g" y="-186"/>
           </children>
-          <element xmi:type="uml:Generalization" href="mmi:///#jgen%5Bjsrctype%5Ename=CachedBinarySource%5Bjcu%5Ename=CachedBinarySource.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=RequestDistributor%5Bjcu%5Ename=RequestDistributor.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.Generalization"/>
+          <element xmi:type="uml:Generalization" href="mmi:///#jgen%5Bjsrctype%5Ename=BinaryRequestDistributor%5Bjcu%5Ename=BinaryRequestDistributor.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=RequestDistributor%5Bjcu%5Ename=RequestDistributor.java%5Bjpack%5Ename=de.joglearth.caching%5Bjsrcroot%5Esrcfolder=src%5Bproject%5Eid=Entwurf%5D%5D%5D%5D%5D$uml.Generalization"/>
           <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MVb_IUuHEeONd9aBGC8l2g" points="[-1203, -884, -2023, 5781]$[-1203, -2810, -2023, 3855]"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_N9VxEEuHEeONd9aBGC8l2g" id="(0.6846613898442124,0.0)"/>
         </edges>
