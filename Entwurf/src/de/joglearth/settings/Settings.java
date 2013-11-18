@@ -34,7 +34,7 @@ public final class Settings {
     }
 
     /**
-     * Add a <code>SettingsListener</code> to be called if setting with the given name is
+     * Add a <code>SettingsListener</code> to be called if the setting with the given name is
      * changed.
      * 
      * @param property
