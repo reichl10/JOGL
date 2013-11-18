@@ -16,6 +16,12 @@ public class Settings {
 
 
     /**
+     * Private Constructor to prevent creating an instance. Use
+     * {@link #getInstance() getInstance} instead.
+     */
+    private Settings() {}
+
+    /**
      * Get the instance of Settings.
      * 
      * @return the settings
