@@ -5,7 +5,7 @@ import javax.tools.JavaFileManager.Location;
 
 
 /**
- * Settings
+ * Used to store settings of JoglEarth.
  */
 public final class Settings {
 
