@@ -7,7 +7,7 @@ import javax.tools.JavaFileManager.Location;
 /**
  * Settings
  */
-public class Settings {
+public final class Settings {
 
     /**
      * Class to store settings.
