@@ -5,9 +5,9 @@ import javax.tools.JavaFileManager.Location;
 
 
 /**
- * Settings
+ * Used to store settings of JoglEarth.
  */
-public class Settings {
+public final class Settings {
 
     /**
      * Class to store settings.
@@ -34,8 +34,8 @@ public class Settings {
     }
 
     /**
-     * Add a SettingsListener to be called if setting with the given name is
-     * changed.
+     * Add a <code>SettingsListener</code> to be called if the setting with the
+     * given name is changed.
      * 
      * @param property
      *            the name of the setting
@@ -47,7 +47,8 @@ public class Settings {
     }
 
     /**
-     * Remove a SettingsListener from a setting with the given name.
+     * Unregisters the given <code>SettingsListener</code> from beeing called if
+     * the setting with the given name changes.
      * 
      * @param property
      *            the name of the setting
@@ -59,7 +60,7 @@ public class Settings {
     }
 
     /**
-     * Stores a setting of type Integer using a given name.
+     * Stores a setting of type <code>Integer</code> using a given name.
      * 
      * @param property
      *            the name of the setting
@@ -71,7 +72,7 @@ public class Settings {
     }
 
     /**
-     * Stores a setting of type Double using a given name.
+     * Stores a setting of type <code>Double</code> using a given name.
      * 
      * @param property
      *            the name of the setting
@@ -83,7 +84,7 @@ public class Settings {
     }
 
     /**
-     * Stores a setting of type Float using a given name.
+     * Stores a setting of type <code>Float</code> using a given name.
      * 
      * @param property
      *            the name of the setting
@@ -95,7 +96,7 @@ public class Settings {
     }
 
     /**
-     * Stores a setting of type Long using a given name.
+     * Stores a setting of type <code>Long</code> using a given name.
      * 
      * @param property
      *            the name of the setting
@@ -114,7 +115,7 @@ public class Settings {
     }
 
     /**
-     * Stores a setting of type Boolean using a given name.
+     * Stores a setting of type <code>Boolean</code> using a given name.
      * 
      * @param property
      *            the name of the setting
@@ -126,7 +127,7 @@ public class Settings {
     }
 
     /**
-     * Stores a setting of type String using a given name.
+     * Stores a setting of type <code>String</code> using a given name.
      * 
      * @param property
      *            the name of the setting
@@ -138,78 +139,80 @@ public class Settings {
     }
 
     /**
-     * Retrieve the setting stored, using the given key, as Boolean.
+     * Retrieve the setting stored, using the given key, as <code>Boolean</code>
+     * .
      * 
      * @param property
      *            the name of the setting
-     * @return The setting stored under the given key as Boolean or null if no
-     *         setting found with given name or the setting is no instance of
-     *         Boolean
+     * @return The setting stored under the given key as <code>Boolean</code> or
+     *         <code>null</code> if no setting found with given name or the
+     *         setting is no instance of <code>Boolean</code>
      */
     public final Boolean getBoolean(final String property) {
         return null;
     }
 
     /**
-     * Retrieve the setting stored, using the given key, as String.
+     * Retrieve the setting stored, using the given key, as <code>String</code>.
      * 
      * @param property
      *            the name of the setting
-     * @return The setting stored under the given key as String or null if no
-     *         setting found with given name or the setting is no instance of
-     *         String
+     * @return The setting stored under the given key as String or
+     *         <code>null</code> if no setting found with given name or the
+     *         setting is no instance of <code>String</code>
      */
     public final String getString(String property) {
         return null;
     }
 
     /**
-     * Retrieve the setting stored, using the given key, as Long.
+     * Retrieve the setting stored, using the given key, as <code>Long</code>.
      * 
      * @param property
      *            the name of the setting
-     * @return The setting stored under the given key as Long or null if no
-     *         setting found with given name or the setting is no instance of
-     *         Long
+     * @return The setting stored under the given key as <code>Long</code> or
+     *         <code>null</code> if no setting found with given name or the
+     *         setting is no instance of <code>Long</code>
      */
     public Long getLong(String property) {
         return null;
     }
 
     /**
-     * Retrieve the setting stored, using the given key, as Float.
+     * Retrieve the setting stored, using the given key, as <code>Float</code>.
      * 
      * @param property
      *            the name of the setting
-     * @return The setting stored under the given key as Float or null if no
-     *         setting found with given name or the setting is no instance of
-     *         Float
+     * @return The setting stored under the given key as <code>Float</code> or
+     *         <code>null</code> if no setting found with given name or the
+     *         setting is no instance of <code>Float</code>
      */
     public Float getFloat(String property) {
         return null;
     }
 
     /**
-     * Retrieve the setting stored, using the given key, as Double.
+     * Retrieve the setting stored, using the given key, as <code>Double</code>.
      * 
      * @param property
      *            the name of the setting
-     * @return The setting stored under the given key as Double or null if no
-     *         setting found with given name or the setting is no instance of
-     *         Double
+     * @return The setting stored under the given key as <code>Double</code> or
+     *         <code>null</code> if no setting found with given name or the
+     *         setting is no instance of <code>Double</code>
      */
     public Double getDouble(String property) {
         return null;
     }
 
     /**
-     * Retrieve the setting stored, using the given key, as Integer.
+     * Retrieve the setting stored, using the given key, as <code>Integer</code>
+     * .
      * 
      * @param property
      *            the name of the setting
-     * @return The setting stored under the given key as Integer or null if no
-     *         setting found with given name or the setting is no instance of
-     *         Integer
+     * @return The setting stored under the given key as <code>Integer</code> or
+     *         <code>null</code> if no setting found with given name or the
+     *         setting is no instance of <code>Integer</code>
      */
     public Integer getInteger(String property) {
         return null;
