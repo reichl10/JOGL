@@ -9,11 +9,11 @@ import de.joglearth.source.SourceListener;
 import de.joglearth.source.SRTMTileSource;
 
 
-
 public class HeightMapManager implements SettingsListener {
 
-    // Der (prim�re) Cache. K�mmert sich um den sekund�ren Plattencache und
-    // das Laden �ber HTTP (siehe Konstruktor von HeightMap)
+    // primary cache. handles the secondary (file system) cache and
+	// loading the height data using HTTP. (as defined in the constructor of heigthMap)
+    // memory cache doesn't know file system cash??
     private MemoryCache<Tile, byte[]> cache;
 
 
@@ -23,9 +23,12 @@ public class HeightMapManager implements SettingsListener {
         cache = new MemoryCache<Tile, byte[]>();
     }
 
-    // Versucht die H�he an einem Punkt zu bestimmen, gibt 0 zur�ck, wenn die
-    // H�hendaten
-    // nicht im Cache sind.
+    /**
+     * This method tries to determine the height of a point
+     * @param coords the GEOCoordinates of the point
+     * @return the height of the wanted point, 0 if the height of the point
+     *          is not yet in the cache
+     */
     public float getHeight(GeoCoordinates coords) {
         /*
          * l�ngen- breitengrad auf bogensekunden runden, tileCoordinate
@@ -35,17 +38,24 @@ public class HeightMapManager implements SettingsListener {
         return 0;
     }
 
+    /**
+     * Adds a listener that distributes a notification if the surface was changed
+     * @param l
+     */
     public void addSurfaceListener(SurfaceListener l) {
 
     }
 
+    /**
+     * Removes a listener
+     * @param l the listener that should be removed
+     */
     public void removeSurfaceListener(SurfaceListener l) {
 
     }
 
     @Override
     public void settingsChanged(String key, Object valOld, Object valNew) {
-        // TODO Automatisch erstellter Methoden-Stub
 
     }
 }
