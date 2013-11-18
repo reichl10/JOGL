@@ -34,8 +34,8 @@ public final class Settings {
     }
 
     /**
-     * Add a <code>SettingsListener</code> to be called if the setting with the given name is
-     * changed.
+     * Add a <code>SettingsListener</code> to be called if the setting with the
+     * given name is changed.
      * 
      * @param property
      *            the name of the setting
@@ -47,7 +47,8 @@ public final class Settings {
     }
 
     /**
-     * Remove a <code>SettingsListener</code> from a setting with the given name.
+     * Unregisters the given <code>SettingsListener</code> from beeing called if
+     * the setting with the given name changes.
      * 
      * @param property
      *            the name of the setting
@@ -138,13 +139,14 @@ public final class Settings {
     }
 
     /**
-     * Retrieve the setting stored, using the given key, as <code>Boolean</code>.
+     * Retrieve the setting stored, using the given key, as <code>Boolean</code>
+     * .
      * 
      * @param property
      *            the name of the setting
-     * @return The setting stored under the given key as <code>Boolean</code> or <code>null</code> if no
-     *         setting found with given name or the setting is no instance of
-     *         <code>Boolean</code>
+     * @return The setting stored under the given key as <code>Boolean</code> or
+     *         <code>null</code> if no setting found with given name or the
+     *         setting is no instance of <code>Boolean</code>
      */
     public final Boolean getBoolean(final String property) {
         return null;
@@ -155,9 +157,9 @@ public final class Settings {
      * 
      * @param property
      *            the name of the setting
-     * @return The setting stored under the given key as String or <code>null</code> if no
-     *         setting found with given name or the setting is no instance of
-     *         <code>String</code>
+     * @return The setting stored under the given key as String or
+     *         <code>null</code> if no setting found with given name or the
+     *         setting is no instance of <code>String</code>
      */
     public final String getString(String property) {
         return null;
@@ -168,9 +170,9 @@ public final class Settings {
      * 
      * @param property
      *            the name of the setting
-     * @return The setting stored under the given key as <code>Long</code> or <code>null</code> if no
-     *         setting found with given name or the setting is no instance of
-     *         <code>Long</code>
+     * @return The setting stored under the given key as <code>Long</code> or
+     *         <code>null</code> if no setting found with given name or the
+     *         setting is no instance of <code>Long</code>
      */
     public Long getLong(String property) {
         return null;
@@ -181,9 +183,9 @@ public final class Settings {
      * 
      * @param property
      *            the name of the setting
-     * @return The setting stored under the given key as <code>Float</code> or <code>null</code> if no
-     *         setting found with given name or the setting is no instance of
-     *         <code>Float</code>
+     * @return The setting stored under the given key as <code>Float</code> or
+     *         <code>null</code> if no setting found with given name or the
+     *         setting is no instance of <code>Float</code>
      */
     public Float getFloat(String property) {
         return null;
@@ -194,22 +196,23 @@ public final class Settings {
      * 
      * @param property
      *            the name of the setting
-     * @return The setting stored under the given key as <code>Double</code> or <code>null</code> if no
-     *         setting found with given name or the setting is no instance of
-     *         <code>Double</code>
+     * @return The setting stored under the given key as <code>Double</code> or
+     *         <code>null</code> if no setting found with given name or the
+     *         setting is no instance of <code>Double</code>
      */
     public Double getDouble(String property) {
         return null;
     }
 
     /**
-     * Retrieve the setting stored, using the given key, as <code>Integer</code>.
+     * Retrieve the setting stored, using the given key, as <code>Integer</code>
+     * .
      * 
      * @param property
      *            the name of the setting
-     * @return The setting stored under the given key as <code>Integer</code> or <code>null</code> if no
-     *         setting found with given name or the setting is no instance of
-     *         <code>Integer</code>
+     * @return The setting stored under the given key as <code>Integer</code> or
+     *         <code>null</code> if no setting found with given name or the
+     *         setting is no instance of <code>Integer</code>
      */
     public Integer getInteger(String property) {
         return null;
