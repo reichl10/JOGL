@@ -2,7 +2,10 @@ package de.joglearth.source;
 
 import de.joglearth.geometry.Tile;
 
-
+/**
+ * 
+ *
+ */
 public class SRTMTileSource implements Source<Tile, byte[]> {
 
 	// Die Server, die der Reihe nach nach Daten gefragt werden sollen.
@@ -14,14 +17,28 @@ public class SRTMTileSource implements Source<Tile, byte[]> {
 	private String[] servers;
 	
 	// Owner: Wie bei Source
+	/**
+	 * 
+	 * @param owner
+	 * @param servers
+	 */
 	public SRTMTileSource(SourceListener<Tile, byte[]> owner, String[] servers) {
 		this.servers = servers;
 	}
 	
+	/**
+	 * 
+	 * @param server
+	 * @param key
+	 * @return
+	 */
 	protected String getURL(String server, Tile key) {
 		return server + key.toString();
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public SourceResponse<byte[]> requestObject(Tile k, SourceListener<Tile, byte[]> sender) {
 		return null;
