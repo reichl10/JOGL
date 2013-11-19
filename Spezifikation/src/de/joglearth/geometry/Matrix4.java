@@ -1,5 +1,12 @@
 package de.joglearth.geometry;
 
+/**
+ * A class for 4x4 matrices used in rendering contexts.
+ * 
+ * Provides methods for translation, rotation and scaling of transformed vectors.
+ * @author Fabian Knorr
+ *
+ */
 public class Matrix4 implements Cloneable {
 
     /**
