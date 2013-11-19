@@ -1,6 +1,5 @@
 package de.joglearth.surface;
 
-
 import de.joglearth.caching.MemoryCache;
 import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.Tile;
@@ -13,65 +12,62 @@ import de.joglearth.source.OverpassSource;
 import de.joglearth.source.SourceListener;
 
 
+
 public class LocationManager implements SettingsListener {
-	
-	private MemoryCache<NominatimQuery, Location[]> nominatimCache;
-	private MemoryCache<OverpassQuery, Location[]> overpassCache;
-	private NominatimQuery lastSearch;
-	private boolean[] selectedResults, selectedUserTags, selectedPOIs;
-	private Settings settings;
-	
 
-	public LocationManager() {
-		this.settings = Settings.getInstance();
-		OverpassSource overpass = null;
-		NominatimSource nominatim = null;
-		overpassCache = new MemoryCache<OverpassQuery, Location[]>();
-		nominatimCache = new MemoryCache<NominatimQuery, Location[]>();
-	}
-
-	
-	public void enableResult(int index, boolean enable) {
-	}
-
-	public void enableUserTag(int index, boolean enable) {
-	}
-
-	public void enablePOI(LocationType type, boolean enable) {
-	}
-
-	public void searchGlobal(String query) {
-
-	}
-
-	public void searchLocal(String query, Tile[] area) {
-
-	}
-
-	public Location getDetails(ScreenCoordinates coordinates) {
-		return null;
-	}
+    private MemoryCache<NominatimQuery, Location[]> nominatimCache;
+    private MemoryCache<OverpassQuery, Location[]>  overpassCache;
+    private NominatimQuery                          lastSearch;
+    private boolean[]                               selectedResults, selectedUserTags,
+                                                    selectedPOIs;
+    private Settings                                settings;
 
 
-	@Override
-	public void settingsChanged(String key, Object valOld, Object valNew) {
-	
-	}
+    public LocationManager() {
+        this.settings = Settings.getInstance();
+        OverpassSource overpass = null;
+        NominatimSource nominatim = null;
+        overpassCache = new MemoryCache<OverpassQuery, Location[]>();
+        nominatimCache = new MemoryCache<NominatimQuery, Location[]>();
+    }
 
-	public void addSurfaceListener(SurfaceListener l) {
-		
-	}
-	
-	public void removeSurfaceListener(SurfaceListener l) {
+    public void enableResult(int index, boolean enable) {}
 
-	}
-	
-	public void addLocationListener(LocationListener l) {
-		
-	}
-	
-	public void removeLocationListener(LocationListener l) {
-		
-	}
-	
+    public void enableUserTag(int index, boolean enable) {}
+
+    public void enablePOI(LocationType type, boolean enable) {}
+
+    public void searchGlobal(String query) {
+
+    }
+
+    public void searchLocal(String query, Tile[] area) {
+
+    }
+
+    public Location getDetails(ScreenCoordinates coordinates) {
+        return null;
+    }
+
+    @Override
+    public void settingsChanged(String key, Object valOld, Object valNew) {
+
+    }
+
+    public void addSurfaceListener(SurfaceListener l) {
+
+    }
+
+    public void removeSurfaceListener(SurfaceListener l) {
+
+    }
+
+    public void addLocationListener(LocationListener l) {
+
+    }
+
+    public void removeLocationListener(LocationListener l) {
+
+    }
+
 }
