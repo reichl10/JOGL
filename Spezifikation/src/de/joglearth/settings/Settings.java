@@ -1,5 +1,6 @@
 package de.joglearth.settings;
 
+import java.util.Set;
 import de.joglearth.surface.Location;
 
 
@@ -223,7 +224,7 @@ public final class Settings {
     /**
      * TODO: Ask what he thought there, why there is a property;
      */
-    public Location[] getLocations(String property) {
+    public Set<Location> getLocations(final String key) {
         return null;
     }
 
