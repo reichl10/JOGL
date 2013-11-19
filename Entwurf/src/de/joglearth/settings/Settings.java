@@ -42,7 +42,7 @@ public final class Settings {
      * @param listener
      *            the listener to be called
      */
-    public void addSettingsListener(String property, SettingsListener listener) {
+    public void addSettingsListener(final String property, final SettingsListener listener) {
 
     }
 
@@ -55,7 +55,7 @@ public final class Settings {
      * @param listener
      *            the listener to remove
      */
-    public void removeSettingsListener(String property, SettingsListener listener) {
+    public void removeSettingsListener(final String property, final SettingsListener listener) {
 
     }
 
