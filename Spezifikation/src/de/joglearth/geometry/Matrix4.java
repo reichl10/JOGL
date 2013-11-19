@@ -3,14 +3,24 @@ package de.joglearth.geometry;
 
 public class Matrix4 implements Cloneable {
     
+	/**
+	 * Holds the matrix data in column-first ordering.
+	 */
     private float[] m = { 1, 0, 0, 0,
                           0, 1, 0, 0,
                           0, 0, 1, 0,
                           0, 0, 0, 1 };
 
+    /**
+     * Constructor. Initializes an identity matrix.
+     */
     public Matrix4() {        
     }
 
+    /**
+     * Creates a deep copy of the matrix.
+     * @return The copied matrix.
+     */
     public Matrix4 clone() {
     	Matrix4 c = new Matrix4();
         for (int i=0; i<16; ++i) {
@@ -19,12 +29,22 @@ public class Matrix4 implements Cloneable {
         return c;
     }
 
+    /**
+     * Creates a matrix from a float value array.
+     * @param The matrix cells in column-first ordering.
+     */
     public Matrix4(float[] init) {
         for (int i=0; i<16; ++i) {
             m[i] = init[i];
         }
     }
 
+    /**
+     * Multiplies the matrix by another matrix, given by a float value array.
+     * 
+     * Mathematical equivalent: this' := this * rhs
+     * @param rhs The matrix to multiply by.
+     */
     public void mult(float[] rhs) {
         float[] r = new float[16];
         for (int i=0; i<4; ++i)
@@ -34,15 +54,29 @@ public class Matrix4 implements Cloneable {
         m = r;
     }
     
+    /**
+     * Multiplies the matrix by another matrix.
+     * 
+     * Mathematical equivalent: this' := this * rhs
+     * @param rhs The matrix to multiply by.
+     */
     public void mult(Matrix4 rhs) {
     	mult(rhs.m);
     }
 
+    /**
+     * Adds another matrix, given by a float value array, to itself component-wise.
+     * @param rhs The matrix to add.
+     */
     public void add(float[] rhs) {
         for (int i=0; i<16; ++i)
             m[i] += rhs[i];
     }
-    
+
+    /**
+     * Adds another matrix to itself component-wise.
+     * @param rhs The matrix to add.
+     */
     public void add(Matrix4 rhs) {
     	add(rhs.m);
     }
