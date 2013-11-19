@@ -6,9 +6,10 @@ import de.joglearth.surface.Location;
 
 
 /**
- * Used to store settings of JoglEarth. A property can only have one value. If
- * put a value of an other type under the same property it replaces the old
- * value of the other type.
+ * Used to store settings of JoglEarth. A key can only have one value. If put a
+ * value of an other type under the same key it replaces the old value of the
+ * other type. For key the <code>null</code> object is not allowed. This Class
+ * is thread save.
  */
 public final class Settings {
 
@@ -40,12 +41,12 @@ public final class Settings {
      * Add a {@link de.joglearth.settings.SettingsListener SettingsListener} to
      * be called if the setting with the given name is changed.
      * 
-     * @param property
-     *            the name of the setting
+     * @param key
+     *            the key of the setting
      * @param listener
      *            the listener to be called
      */
-    public void addSettingsListener(final String property, final SettingsListener listener) {
+    public void addSettingsListener(final String key, final SettingsListener listener) {
 
     }
 
@@ -53,91 +54,96 @@ public final class Settings {
      * Unregisters the given <code>SettingsListener</code> from beeing called if
      * the setting with the given name changes.
      * 
-     * @param property
-     *            the name of the setting
+     * @param key
+     *            the key of the setting
      * @param listener
      *            the listener to remove
      */
-    public void removeSettingsListener(final String property, final SettingsListener listener) {
+    public void removeSettingsListener(final String key, final SettingsListener listener) {
 
     }
 
     /**
-     * Stores a setting of type <code>Integer</code> using a given name.
+     * Stores a setting of type <code>Integer</code> using a given key.
      * 
-     * @param property
-     *            the name of the setting
+     * @param key
+     *            the key of the setting
      * @param value
      *            the value of the setting
      */
-    public void putInteger(final String property, Integer value) {
+    public void putInteger(final String key, final Integer value) {
 
     }
 
     /**
-     * Stores a setting of type <code>Double</code> using a given name.
+     * Stores a setting of type <code>Double</code> using a given key.
      * 
-     * @param property
-     *            the name of the setting
+     * @param key
+     *            the key of the setting
      * @param value
      *            the value of the setting
      */
-    public void putDouble(final String property, Double value) {
+    public void putDouble(final String key, final Double value) {
 
     }
 
     /**
-     * Stores a setting of type <code>Float</code> using a given name.
+     * Stores a setting of type <code>Float</code> using a given key.
      * 
-     * @param property
-     *            the name of the setting
+     * @param key
+     *            the key of the setting
      * @param value
      *            the value of the setting
      */
-    public void putFloat(final String property, Float value) {
+    public void putFloat(final String key, final Float value) {
 
     }
 
     /**
-     * Stores a setting of type <code>Long</code> using a given name.
+     * Stores a setting of type <code>Long</code> using a given key.
      * 
-     * @param property
-     *            the name of the setting
+     * @param key
+     *            the key of the setting
      * @param value
      *            the value of the setting
      */
-    public void putLong(String property, Long value) {
+    public void putLong(final String key, final Long value) {
 
     }
 
     /**
-     * TODO: Ask if property can be lost here.
-     */
-    public void putLocation(final String property, Location value) {
-
-    }
-
-    /**
-     * Stores a setting of type <code>Boolean</code> using a given name.
+     * Stores a {@link Location} using a given key.
      * 
-     * @param property
-     *            the name of the setting
+     * @param key
+     *            the locations key
+     * @param value
+     *            the location to add to this key
+     */
+    public void putLocation(final String key, final Location value) {
+
+    }
+
+    /**
+     * Stores a setting of type <code>Boolean</code> using a given key.
+     * 
+     * @param key
+     *            the key of the setting
      * @param value
      *            the value of the setting
      */
-    public void putBoolean(final String property, Boolean value) {
+    public void putBoolean(final String key, final Boolean value) {
 
     }
 
     /**
-     * Stores a setting of type <code>String</code> using a given name.
+     * Stores a setting of type <code>String</code> using a given key.
      * 
-     * @param property
-     *            the name of the setting
+     * @param key
+     *            the key of the setting
      * @param value
      *            the value of the setting
      */
-    public void putString(final String property, String value) {
+    public void putString(final String key, final String value) {
 
     }
 
@@ -145,84 +151,89 @@ public final class Settings {
      * Retrieve the setting stored, using the given key, as <code>Boolean</code>
      * .
      * 
-     * @param property
-     *            the name of the setting
+     * @param key
+     *            the key of the setting
      * @return The setting stored under the given key as <code>Boolean</code> or
      *         <code>null</code> if no setting found with given name or the
      *         setting is no instance of <code>Boolean</code>
      */
-    public final Boolean getBoolean(final String property) {
+    public Boolean getBoolean(final String key) {
         return null;
     }
 
     /**
      * Retrieve the setting stored, using the given key, as <code>String</code>.
      * 
-     * @param property
-     *            the name of the setting
+     * @param key
+     *            the key of the setting
      * @return The setting stored under the given key as String or
      *         <code>null</code> if no setting found with given name or the
      *         setting is no instance of <code>String</code>
      */
-    public final String getString(String property) {
+    public String getString(final String key) {
         return null;
     }
 
     /**
      * Retrieve the setting stored, using the given key, as <code>Long</code>.
      * 
-     * @param property
-     *            the name of the setting
+     * @param key
+     *            the key of the setting
      * @return The setting stored under the given key as <code>Long</code> or
      *         <code>null</code> if no setting found with given name or the
      *         setting is no instance of <code>Long</code>
      */
-    public Long getLong(String property) {
+    public Long getLong(final String key) {
         return null;
     }
 
     /**
      * Retrieve the setting stored, using the given key, as <code>Float</code>.
      * 
-     * @param property
-     *            the name of the setting
+     * @param key
+     *            the key of the setting
      * @return The setting stored under the given key as <code>Float</code> or
      *         <code>null</code> if no setting found with given name or the
      *         setting is no instance of <code>Float</code>
      */
-    public Float getFloat(String property) {
+    public Float getFloat(final String key) {
         return null;
     }
 
     /**
      * Retrieve the setting stored, using the given key, as <code>Double</code>.
      * 
-     * @param property
-     *            the name of the setting
+     * @param key
+     *            the key of the setting
      * @return The setting stored under the given key as <code>Double</code> or
      *         <code>null</code> if no setting found with given name or the
      *         setting is no instance of <code>Double</code>
      */
-    public Double getDouble(String property) {
+    public Double getDouble(final String key) {
         return null;
     }
 
     /**
-     * Retrieve the setting stored, using the given key, as <code>Integer</code>
-     * .
+     * Retrieve the setting stored, using the given key, as <code>Integer</code>.
      * 
-     * @param property
-     *            the name of the setting
+     * @param key
+     *            the key of the setting
      * @return The setting stored under the given key as <code>Integer</code> or
      *         <code>null</code> if no setting found with given name or the
      *         setting is no instance of <code>Integer</code>
      */
-    public Integer getInteger(String property) {
+    public Integer getInteger(final String key) {
         return null;
     }
 
     /**
-     * TODO: Ask what he thought there, why there is a property;
+     * Gets the {@link Location} Objects stored using the given key.
+     * 
+     * @param key
+     *            the key to use
+     * @return a <code>Set</code> of <code>Location</code> Objects stored under
+     *         the given key or <code>null</code> if no <code>Location</code>
+     *         Object is found using this key.
      */
     public Set<Location> getLocations(final String key) {
         return null;
