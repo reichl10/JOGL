@@ -65,8 +65,7 @@ public class Matrix4 implements Cloneable {
     }
 
     /**
-     * Adds another matrix, given by a float value array, to itself
-     * component-wise.
+     * Adds another matrix, given by a float value array, to itself component-wise.
      * 
      * @param rhs The matrix to add.
      */
@@ -96,8 +95,7 @@ public class Matrix4 implements Cloneable {
     /**
      * Multiplies itself by a translation matrix.
      * 
-     * Points transformed with this matrix will thereafter be translated by the
-     * given extents.
+     * Points transformed with this matrix will thereafter be translated by the given extents.
      * 
      * @param x Translation by the X (first) coordinate.
      * @param y Translation by the Y (second) coordinate.
@@ -110,8 +108,7 @@ public class Matrix4 implements Cloneable {
     /**
      * Multiplies itself by a translation matrix.
      * 
-     * Points transformed with this matrix will thereafter be translated by the
-     * given extents.
+     * Points transformed with this matrix will thereafter be translated by the given extents.
      * 
      * @param v Translation for all three coordinates.
      */
@@ -120,11 +117,9 @@ public class Matrix4 implements Cloneable {
     }
 
     /**
-     * Multiplies itself with a rotation matrix rotating around the X (first)
-     * axis.
+     * Multiplies itself with a rotation matrix rotating around the X (first) axis.
      * 
-     * Points transformed with this matrix will thereafter be rotated by the
-     * given angle.
+     * Points transformed with this matrix will thereafter be rotated by the given angle.
      * 
      * @param rad The rotation angle, in radians.
      */
@@ -134,11 +129,9 @@ public class Matrix4 implements Cloneable {
     }
 
     /**
-     * Multiplies itself with a rotation matrix rotating around the Y (second)
-     * axis.
+     * Multiplies itself with a rotation matrix rotating around the Y (second) axis.
      * 
-     * Points transformed with this matrix will thereafter be rotated by the
-     * given angle.
+     * Points transformed with this matrix will thereafter be rotated by the given angle.
      * 
      * @param rad The rotation angle, in radians.
      */
@@ -148,11 +141,9 @@ public class Matrix4 implements Cloneable {
     }
 
     /**
-     * Multiplies itself with a rotation matrix rotating around the Z (third)
-     * axis.
+     * Multiplies itself with a rotation matrix rotating around the Z (third) axis.
      * 
-     * Points transformed with this matrix will thereafter be rotated by the
-     * given angle.
+     * Points transformed with this matrix will thereafter be rotated by the given angle.
      * 
      * @param rad The rotation angle, in radians.
      */
@@ -164,8 +155,8 @@ public class Matrix4 implements Cloneable {
     /**
      * Multiplies itself with a scale matrix.
      * 
-     * Points transformed with this matrix will thereafter be scaled relative to
-     * the point of origin.
+     * Points transformed with this matrix will thereafter be scaled relative to the point of
+     * origin.
      * 
      * @param x The scale in X direction (The first axis).
      * @param y The scale in Y direction (The second axis).
@@ -178,8 +169,8 @@ public class Matrix4 implements Cloneable {
     /**
      * Multiplies itself with a scale matrix.
      * 
-     * Points transformed with this matrix will thereafter be scaled relative to
-     * the point of origin.
+     * Points transformed with this matrix will thereafter be scaled relative to the point of
+     * origin.
      * 
      * @param v The scale in all three dimensions.
      */
@@ -286,9 +277,8 @@ public class Matrix4 implements Cloneable {
     }
 
     /**
-     * Transforms a three-dimensional vector of Cartesian coordinates into a
-     * four-dimensional vector of homogeneous coordinates by matrix-vector
-     * multiplication.
+     * Transforms a three-dimensional vector of Cartesian coordinates into a four-dimensional vector
+     * of homogeneous coordinates by matrix-vector multiplication.
      * 
      * @param v3 The vector to transform.
      * @return The transformed vector.
