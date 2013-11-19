@@ -79,7 +79,7 @@ public final class Settings {
      * @param value
      *            the value of the setting
      */
-    public void putDouble(final String property, Integer value) {
+    public void putDouble(final String property, Double value) {
 
     }
 
