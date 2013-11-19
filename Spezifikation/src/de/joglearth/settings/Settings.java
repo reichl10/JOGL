@@ -1,6 +1,6 @@
 package de.joglearth.settings;
 
-import javax.tools.JavaFileManager.Location;
+import de.joglearth.surface.Location;
 
 
 
