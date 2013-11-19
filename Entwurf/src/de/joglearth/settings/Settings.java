@@ -34,8 +34,8 @@ public final class Settings {
     }
 
     /**
-     * Add a <code>SettingsListener</code> to be called if the setting with the
-     * given name is changed.
+     * Add a {@link de.joglearth.settings.SettingsListener SettingsListener} to
+     * be called if the setting with the given name is changed.
      * 
      * @param property
      *            the name of the setting
