@@ -44,8 +44,8 @@ public final class SettingsContract {
     }
 
     /**
-     * Saves the settings defined in this contract to a file.
-     * This saves to the same files the {@link #loadSettings()} loads them from.
+     * Saves the settings defined in this contract to a file. This saves to the
+     * same files the {@link #loadSettings()} loads them from.
      */
     public static void saveSettings() {
 
