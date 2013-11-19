@@ -5,7 +5,9 @@ import de.joglearth.surface.Location;
 
 
 /**
- * Used to store settings of JoglEarth.
+ * Used to store settings of JoglEarth. A property can only have one value. If
+ * put a value of an other type under the same property it replaces the old
+ * value of the other type.
  */
 public final class Settings {
 
