@@ -34,20 +34,17 @@ public class OSMTileSource implements Source<Tile, byte[]> {
         this.servers = servers;
     }
 
-    /**
-     * Gets a String representation of the server and the OSM tile ID.
-     * 
-     * @param server OSM tile server
-     * @param key tile ID
-     * @return String representation of the server and the OSM tile ID
-     */
-    protected String getURL(String server, Tile key) {
-        return server + key.toString();
-    }
+    // /**
+    // * Gets a String representation of the server and the OSM tile ID.
+    // *
+    // * @param server OSM tile server
+    // * @param key tile ID
+    // * @return String representation of the server and the OSM tile ID
+    // */
+    // protected String getURL(String server, Tile key) {
+    // return server + key.toString();
+    // }
 
-    /**
-	 * 
-	 */
     @Override
     public SourceResponse<byte[]> requestObject(Tile k,
             SourceListener<Tile, byte[]> sender) {
@@ -61,10 +58,5 @@ public class OSMTileSource implements Source<Tile, byte[]> {
      */
     public void setTileType(OSMTileType t) {
 
-    }
-    
-
-    protected String getURL(String server, Tile key) {
-        return server + key.toString();
     }
 }
