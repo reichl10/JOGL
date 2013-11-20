@@ -2,24 +2,24 @@ package de.joglearth.source;
 
 /**
  * 
- * The class HTTPUtils provides the communication via HTTP to get the OpenStreetMap data, NASA SRTM
- * data etc. HTTPUtils offers two static methods (GET, POST) for HTTP queries.
+ * Provides the communication via HTTP to get the OpenStreetMap data, NASA SRTM data etc. HTTPUtils
+ * offers two static methods (GET, POST) for HTTP queries.
  * 
  */
 public final class HTTPUtils {
 
     /**
-     * This method is a HTTP get-request and is used for synchronous HTTP queries.
+     * Gathers information via a HTTP get-request and is used for synchronous HTTP queries.
      * 
      * @param url Address of a server
-     * @return content of the HTTP response
+     * @return Content of the HTTP response
      */
     public static byte[] get(String url) {
         return null;
     }
 
     /**
-     * This method is a HTTP post-request and is used for synchronous HTTP queries.
+     * Creates a HTTP post-request and is used for synchronous HTTP queries.
      * 
      * @param url Address of a server
      * @param request post request
