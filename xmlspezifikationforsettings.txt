@@ -18,9 +18,10 @@ The "entry" element:
   - has to have the attribute key containing the locations key used in the settings class.
  
  The "location" element:
-  - has to have the following attributes: details, type
+  - has to have the following attributes: details, type, name
     - the "details" attribute contains the value of the joglearths Location objects details field which is of Class String.
     - the "type" attribute contains the string representation of the Location objects type field which is retrieved by calling toString on the ENUM.
+    - the "name" attribute contains the string value of the name field of a Location object.
   - has to have exactly one child element of tag "geocoordinates"
     - this element has to have the following attributes: longitude, latitude
      - the values of these attributes are java float or Float converted to Strings by Float.toString;
@@ -35,11 +36,11 @@ Example XML File Content:
 <entry key="exkey5" type="Float" value="0.0"/>
 <entry key="exkey6" type="Boolean" value="true"/>
 <locations key="exkey7">
-  <location details="Some Name of Location" type="BANK">
+  <location name="Name of Location" details="Some Details" type="USERMAKRKING">
     <geocoordinates longitude="3.32" latitude="4.78" />
   </location>
-  <location details="Some Name of Location" type="BANK">
-    <geocoordinates longitude="3.32" latitude="4.78" />
+  <location name="Name of Location 2" details="Some Details" type="USERMARKING">
+    <geocoordinates longitude="3.32" latitude="4.79" />
   </location>
 </locations>
 <locations key="exjey9">
