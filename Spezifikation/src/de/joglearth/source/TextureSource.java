@@ -16,7 +16,6 @@ public class TextureSource implements Source<Tile, Integer> {
     private GL2                  gl;
     private Source<Tile, byte[]> imageSource;
 
-
     /**
 	 * 
 	 */
@@ -26,5 +25,5 @@ public class TextureSource implements Source<Tile, Integer> {
         // Textur in OpenGL laden
         return null;
     }
-
+    
 }

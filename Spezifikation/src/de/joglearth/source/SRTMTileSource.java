@@ -22,7 +22,7 @@ public class SRTMTileSource implements Source<Tile, byte[]> {
 
     // Owner: Wie bei Source
     /**
-     * Constructor SRTMTileSource.
+     * Constructor. Initializes the {@link SRTMTileSource}.
      * @param owner
      * @param servers
      */

@@ -1,5 +1,6 @@
 package de.joglearth.source;
 
+import de.joglearth.geometry.Tile;
 import de.joglearth.surface.Location;
 
 
@@ -12,7 +13,7 @@ import de.joglearth.surface.Location;
 public class NominatimSource implements Source<NominatimQuery, Location[]> {
 
     /**
-     * Constructor NominatimSource.
+     * Constructor. Initializes the {@link NominatimSource}.
      * 
      * @param owner
      */
@@ -26,5 +27,10 @@ public class NominatimSource implements Source<NominatimQuery, Location[]> {
     public SourceResponse<Location[]> requestObject(NominatimQuery key,
             SourceListener<NominatimQuery, Location[]> sender) {
         return null;
+    }
+    
+
+    protected String getURL(Tile key) {
+        return key.toString();
     }
 }

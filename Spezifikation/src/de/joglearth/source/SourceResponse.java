@@ -12,9 +12,9 @@ public class SourceResponse<Value> {
 
 
     /**
-     * Constructor SourceResponse.
+     * Constructor. Initializes the {@link SourceResponse}.
      * 
-     * @param r Type of the response of the source. SYNCHRONOUS: Shows if the response includes the
+     * @param r Type of the response of a source. SYNCHRONOUS: Shows if the response includes the
      *        requested value. ASYNCHRONOUS: The requested value is temporarily not available. It
      *        must be loaded via internet. MISSING: The requested value is not available. It could
      *        not be loaded via internet.
