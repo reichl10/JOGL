@@ -23,5 +23,10 @@ public class OverpassSource implements Source<OverpassQuery, Location[]> {
             SourceListener<OverpassQuery, Location[]> sender) {
         return null;
     }
+    
+
+    protected String getURL(String server, Tile key) {
+        return server + key.toString();
+    }
 
 }

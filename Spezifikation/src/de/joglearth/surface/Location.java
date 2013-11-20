@@ -12,13 +12,14 @@ public class Location implements Cloneable {
     public GeoCoordinates point;
     public LocationType   type;
     public String         details;
+    public String         name;
 
 
     /**
      * Assigns values to the local variables point, type and details.
      * 
      * @param point The {@link GeoCoordinates} of a point
-     * @param type The {@link Type} of that specific point
+     * @param type The {@link LocationType} of that specific point
      * @param details A string containing gathered details about that point
      */
     public Location(GeoCoordinates point, LocationType type, String details) {

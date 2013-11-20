@@ -24,7 +24,7 @@ public class OSMTileSource implements Source<Tile, byte[]> {
 
     // Owner: Wie bei Source
     /**
-     * Constructor OSMTileSource.
+     * Constructor. Initializes the {@link OSMTileSource}.
      * 
      * @param owner
      * @param servers
@@ -61,5 +61,10 @@ public class OSMTileSource implements Source<Tile, byte[]> {
      */
     public void setTileType(OSMTileType t) {
 
+    }
+    
+
+    protected String getURL(String server, Tile key) {
+        return server + key.toString();
     }
 }
