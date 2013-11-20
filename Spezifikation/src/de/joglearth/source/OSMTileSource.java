@@ -10,8 +10,6 @@ import de.joglearth.ui.*;
  * The class OSMTileSource loads tiles by their coordinates via the internet. This class uses the
  * HTTPUtils to get the tiles from the OpenStreetMap server.
  * 
- * @uml.annotations uml_dependency=
- *                  "mmi:///#jsrctype^name=OSMTileType[jcu^name=OSMTileType.java[jpack^name=de.joglearth.source[jsrcroot^srcfolder=src[project^id=Entwurf]]]]$uml.Enumeration"
  */
 public class OSMTileSource implements Source<Tile, byte[]> {
 

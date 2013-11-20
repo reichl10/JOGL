@@ -4,8 +4,6 @@ package de.joglearth.source;
  * The class SourceResponse gets the responses of a source.
  * 
  * @param <Value>
- * @uml.annotations uml_dependency=
- *                  "mmi:///#jsrctype^name=SourceResponseType[jcu^name=SourceResponseType.java[jpack^name=de.joglearth.source[jsrcroot^srcfolder=src[project^id=Entwurf]]]]$uml.Enumeration"
  */
 public class SourceResponse<Value> {
 

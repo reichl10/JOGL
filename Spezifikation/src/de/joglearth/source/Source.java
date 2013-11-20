@@ -9,8 +9,6 @@ import de.joglearth.geometry.Tile;
  * 
  * @param <Key> identifier for the objects
  * @param <Value>
- * @uml.annotations uml_dependency=
- *                  "mmi:///#jsrctype^name=SourceResponse[jcu^name=SourceResponse.java[jpack^name=de.joglearth.source[jsrcroot^srcfolder=src[project^id=Entwurf]]]]$uml.Class"
  */
 public interface Source<Key, Value> {
 
