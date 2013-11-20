@@ -37,7 +37,7 @@ public class HeightMapManager implements SettingsListener {
      * @return The height of the wanted point, <code>0</code> if the height of the point is not yet
      *         in the cache
      */
-    public float getHeight(GeoCoordinates coords) {
+    public double getHeight(GeoCoordinates coords) {
         /*
          * approximate longitude and latitude to arcsec, determine tileCoordinate, request tile
          * from cache, interpolate height value.

@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage[Bjornstrup]{fncychap}
-%\usepackage{ngerman}
+\usepackage{ngerman}
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \usepackage{etoolbox}
@@ -143,6 +143,19 @@ Version: 1.0
 \tableofcontents
 
 \chapter{Einleitung}
+Dieses Dokument stellt die Spezifikation von \JoglEarth vor. Die geforderten Funktionalitäten aus dem Pflichtenheft und dem Entwurf werden im Detail abgebildet und spezifiziert.\\
+
+Aus dem Entwurf wurde das Skelett der Klassen und Methoden übernommen. Sämtliche Klassen inklusive deren zugehörigen Methoden erhielten Parameter und JavaDocs.\\
+
+Durch einige in der Spezifikationsphase formulierten JUnit Tests soll sichergestellt werden, dass das Zusammenspiel der Klassen und der Methoden ins Detail durchdacht wurde. Mit Hilfe der einzelnen Tests kann die korrekte Ausführung von komplexen Methoden simuliert werden.\\
+
+Mathematische Berechnungen und die angewendeten Algorithmen, wie zum Beispiel die Verdrängungsstrategie des Caches bilden die mannigfaltigen Systeme in \JoglEarth .\\
+
+Die im Programm benötigten persistenten Daten werden festgelegt und soweit nötig vordefiniert. Die Übersetzungstabelle der in der GUI verwendeten Begriffe soll eine Erleichterung in der Implementierungsphase bringen.\\
+
+Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte Implementierungsphase ein Gantt-Diagramm - ein sogenannter Implementierungsplan - erstellt und soll sozusagen die nächste Phase visualisieren.\\
+
+
 
 \chapter{JavaDocs}
 
@@ -155,6 +168,8 @@ Version: 1.0
 \chapter{Persistente Daten}
 
 \section{Liste der POIs}
+Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann im Rahmen dieses Projekts nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den  Antworten der OverpassAPI vorgenommen.\\
+
 
 \vspace{1.5 cm}
 \begin{tabular}{|c|c|c|}
@@ -165,7 +180,7 @@ Version: 1.0
 \hline
 \rule[-1ex]{0pt}{4ex} NIGHTLIFE & Liefert Bars, Clubs, Diskotheken, Kinos, Casinos und Solarien &  \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  BANK & Liefert Banken und Sparkassen &  \\ 
+\rule[-1ex]{0pt}{4ex} BANK & Liefert Banken &  \\
 \hline
 \rule[-1ex]{0pt}{4ex} FOOD & Liefert Supermärkte, Bäcker, Metzger und Drogerien &  \\ 
 \hline
@@ -173,18 +188,22 @@ Version: 1.0
 \hline
 \rule[-1ex]{0pt}{4ex} ACTIVITY & Liefert Freizeitaktivitäten, Picknickplätze und Aussichtspunkte &  \\ 
 \hline
+\rule[-1ex]{0pt}{4ex} OUTDOORACTIVITY & Liefert POIs für Radfahrer und Wanderer, wie Picknickplätze und Aussichtspunkte, Bänke, Mülleimer und Fahrradläden &  \\ 
+\hline
 \rule[-1ex]{0pt}{4ex} EDUCATION & Liefert Bildungseinrichtungen &  \\ 
 \hline
 \rule[-1ex]{0pt}{4ex} HEALTH & Liefert Ärzte, Krankenhäuser, Apotheken und Drogerien &  \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} UTILS &  &  \\ 
+\rule[-1ex]{0pt}{4ex} POST & Liefert Postämter, Briefkästen und Packstationen  &  \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} HOTELS &  &  \\ 
+\rule[-1ex]{0pt}{4ex} HOTELS &  Liefert Hotels und Pensionen &  \\ 
 \hline
 \end{tabular}
 
 
 \chapter{Übersetzung der Bedienoberfläche}
+
+\subsection{Übersetzungstabelle GUI}
 \begin{tabular}{|p{7.5cm}|p{7.5cm}|}
 \hline 
 \textbf{Deutsch} & \textbf{Englisch} \\ 
@@ -270,5 +289,37 @@ Name eingeben & insert name \\
 \hline
 Beschreibung & description \\
 \hline
-\end{tabular} 
+\end{tabular}
+
+\vspace{1.5 cm}
+\subsection{Übersetzungstabelle POIs}
+\begin{tabular}{|p{7.5cm}|p{7.5cm}|}
+\hline 
+\textbf{Deutsch} & \textbf{Englisch} \\ 
+\hline
+\hline 
+Gasthäuser & RESTAURANT \\ 
+\hline
+Nachtleben & NIGHTLIFE \\ 
+\hline
+Banken und Sparkassen & BANK \\ 
+\hline
+Lebensmittelläden & FOOD \\ 
+\hline
+Einkaufsmöglichkeiten & SHOPS \\ 
+\hline
+Freizeitaktivitäten & ACTIVITY \\ 
+\hline
+Bildungseinrichtungen & EDUCATION \\
+\hline
+Gesundheit & HEALTH \\
+\hline
+Post & POST \\ 
+\hline
+\end{tabular}
+
+\chapter*{Implementierungsplan}
+
+
+
 \end{document}

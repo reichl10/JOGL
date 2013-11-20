@@ -5,11 +5,24 @@ import de.joglearth.geometry.Tile;
 
 
 /**
- * The class NominatimQuery supports a query to Nominatim. There are three Types of
- * queries: GLOBAL, LOCAL, POINT.
+ * Supports a query to Nominatim. There are three Types of queries: GLOBAL, LOCAL, POINT.
  * 
  */
 public class NominatimQuery {
+
+    public Type              type;
+    public Tile              area;
+    public ScreenCoordinates point;
+    public String            query;
+
+    /**
+     * Constructor. Assigns a value to a {@link Type}.
+     * @param type The <code>Type</code> of the query.
+     */
+    public NominatimQuery(Type type) {
+        
+    }
+
 
     /**
      * Type of the NominatimQuery. GLOBAL: Global search of points. LOCAL: The results of the query
@@ -21,10 +34,4 @@ public class NominatimQuery {
         LOCAL,
         POINT
     }
-
-
-    public Type              type;
-    public Tile              area;
-    public ScreenCoordinates point;
-    public String            query;
 }
