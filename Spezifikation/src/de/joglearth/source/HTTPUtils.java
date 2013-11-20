@@ -11,8 +11,8 @@ public final class HTTPUtils {
     /**
      * This method is a HTTP get-request and is used for synchronous HTTP queries.
      * 
-     * @param url Adress of a server
-     * @return
+     * @param url Address of a server
+     * @return content of the HTTP response
      */
     public static byte[] get(String url) {
         return null;
@@ -21,9 +21,9 @@ public final class HTTPUtils {
     /**
      * This method is a HTTP post-request and is used for synchronous HTTP queries.
      * 
-     * @param url Adress of a server
-     * @param request
-     * @return
+     * @param url Address of a server
+     * @param request post request
+     * @return content of the HTTP response
      */
     public static byte[] post(String url, String request) {
         return null;

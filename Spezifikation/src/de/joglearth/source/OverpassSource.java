@@ -12,8 +12,6 @@ import de.joglearth.ui.*;
  * to a POI or a place. The response will be prepared for the LocationManager. This class uses the
  * HTTPUtils for the search request.
  * 
- * @uml.annotations uml_dependency=
- *                  "mmi:///#jsrctype^name=OverpassQuery[jcu^name=OverpassQuery.java[jpack^name=de.joglearth.source[jsrcroot^srcfolder=src[project^id=Entwurf]]]]$uml.Class"
  */
 public class OverpassSource implements Source<OverpassQuery, Location[]> {
 
