@@ -14,10 +14,10 @@ public class Tile implements Cloneable {
      * Constructor.
      * 
      * @param detailLevel How often the globe is subdivided to reach the desired tile size.
+     * @param lonIndex The number of tiles to skip, starting from latitude 0, to reach the left
+     *        bound of the tile.
      * @param lonIndex The number of tiles to skip, starting from the north pole, to reach the
      *        desired longitude.
-     * @param latIndex The number of tiles to skip, starting from latitude 0, to reach the left
-     *        bound of the tile.
      */
     public Tile(int detailLevel, int lonIndex, int latIndex)
     {

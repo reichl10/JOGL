@@ -64,8 +64,6 @@ public class Camera {
 	}
 	
 	public void move(float longitude, float latitude) {
-		this.position.longitude += longitude;
-		this.position.latitude += latitude;		
 		updateProjectionMatrix();
 	}
 	
