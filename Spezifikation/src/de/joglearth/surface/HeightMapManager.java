@@ -11,7 +11,8 @@ import de.joglearth.source.SRTMTileSource;
 
 /**
  * Interpolates informations about the height of points displayed on the map using SRTM height data.
- * A {@link Tesselator} uses this class to generate a map surface by the {@link HeightMap}.
+ * A {@link de.joglearth.rendering.Tessellator} uses this class to generate a map surface by the
+ * {@link HeightMap}.
  */
 public class HeightMapManager implements SettingsListener {
 
@@ -33,12 +34,13 @@ public class HeightMapManager implements SettingsListener {
      * {@link GeoCoordinates} or returns default <code>0</code> if no value was found.
      * 
      * @param coords The <code>GeoCoordinates</code> of the point
-     * @return The height of the wanted point, 0 if the height of the point is not yet in the cache
+     * @return The height of the wanted point, <code>0</code> if the height of the point is not yet
+     *         in the cache
      */
     public float getHeight(GeoCoordinates coords) {
         /*
-         * l�ngen- breitengrad auf bogensekunden runden, tileCoordinate bestimmen kachel vom cache
-         * anfordern, h�henwert interpolieren(bestimmen).
+         * approximate longitude and latitude to arcsec, determine tileCoordinate, request tile
+         * from cache, interpolate height value.
          */
         return 0;
     }

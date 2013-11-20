@@ -39,29 +39,15 @@ public class LocationManager implements SettingsListener {
     }
 
     /**
-     * Changes the visibility of a search result location.
+     * Changes the visibility of a given {@link Location}.
      * 
-     * @param index The index of the search result that should be displayed
-     * @param enable Whether to enable or disable the search result
+     * @param location The <code>Location</code> that should be shown
+     * @param show Whether to show or hide the display
      */
-    public void enableResult(int index, boolean enable) {}
-
-    /**
-     * Changes the visibility of points marked by the user.
-     * 
-     * @param index The index of the point that should be displayed
-     * @param enable Whether to enable or disable the display of the point
-     */
-    public void enableUserTag(int index, boolean enable) {}
-
-    /**
-     * Changes the visibility of a <code>POI</code>.
-     * 
-     * @param type The {@link LocationType} of the <code>POI</code> that should be shown
-     * @param enable Whether to enable or disable the <code>POI</code>
-     */
-    public void enablePOI(LocationType type, boolean enable) {}
-
+    public void showLocation (Location location, boolean show) {
+        
+    }
+    
     /**
      * Searches on the whole globe/map after a query string.
      * 
@@ -82,11 +68,12 @@ public class LocationManager implements SettingsListener {
     }
 
     /**
-     * TODO return statement Gets the details of a point with given {@link ScreenCoordinates}. To
-     * achieve that it asks the {@link RequestDistributor}.
+     * Gets the details of a point with given {@link ScreenCoordinates}. To achieve that it asks the
+     * {@link RequestDistributor}.
      * 
      * @param coordinates The <code>ScreenCoordinates</code> of the point
-     * @return
+     * @return The <code>Location</code> with details that is located on the given point or a
+     *         <code>Location</code> without details if the details are not yet loaded.
      */
     public Location getDetails(ScreenCoordinates coordinates) {
         return null;
