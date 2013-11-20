@@ -31,7 +31,7 @@ Example XML File Content:
 <settings>
 <entry key="exkey1" type="Integer" value="-5634"/>
 <entry key="exkey2" type="Long" value="34332423"/>
-<entry key="exkey3" type="String" value="somerandomstring">
+<entry key="exkey3" type="String" value="somerandomstring"/>
 <entry key="exkey4" type="Double" value="0.0"/>
 <entry key="exkey5" type="Float" value="0.0"/>
 <entry key="exkey6" type="Boolean" value="true"/>
