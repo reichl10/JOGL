@@ -8,8 +8,6 @@ import de.joglearth.surface.Location;
  * places or detailed information to a point. The response will be prepared for the LocationManager.
  * This class uses the HTTPUtils for the search request.
  * 
- * @uml.annotations uml_dependency=
- *                  "mmi:///#jsrctype^name=NominatimQuery[jcu^name=NominatimQuery.java[jpack^name=de.joglearth.source[jsrcroot^srcfolder=src[project^id=Entwurf]]]]$uml.Class"
  */
 public class NominatimSource implements Source<NominatimQuery, Location[]> {
 
@@ -22,12 +20,11 @@ public class NominatimSource implements Source<NominatimQuery, Location[]> {
 
     /**
      * 
-	 * @return
-	 */
+     * @return
+     */
     @Override
     public SourceResponse<Location[]> requestObject(NominatimQuery key,
             SourceListener<NominatimQuery, Location[]> sender) {
         return null;
     }
-
 }

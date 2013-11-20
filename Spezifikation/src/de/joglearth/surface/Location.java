@@ -4,8 +4,8 @@ import de.joglearth.geometry.GeoCoordinates;
 
 
 /**
- * Saves a points longitude, latitude and details. Is used by LocationManager to administer all
- * kinds of points on a map.
+ * Saves a points longitude, latitude and details. Is used by {@link LocationManager} to administer
+ * all kinds of points on a map.
  */
 public class Location implements Cloneable {
 
@@ -17,9 +17,9 @@ public class Location implements Cloneable {
     /**
      * Assigns values to the local variables point, type and details.
      * 
-     * @param point The coordinates of a point as a tuple of longitude and latitude.
-     * @param type The type of that specific point.
-     * @param details A string containing gathered details about that point.
+     * @param point The {@link GeoCoordinates} of a point
+     * @param type The {@link Type} of that specific point
+     * @param details A string containing gathered details about that point
      */
     public Location(GeoCoordinates point, LocationType type, String details) {
         this.point = point;

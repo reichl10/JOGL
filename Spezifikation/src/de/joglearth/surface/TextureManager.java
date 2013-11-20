@@ -6,7 +6,8 @@ import de.joglearth.source.SourceListener;
 
 
 /**
- * 
+ * Executes requests for textures of the {@link Renderer}. Loads textures from a
+ * {@link RequestDistrubutor} which accesses a {@link TextureSource} and a {@link TextureCache}.
  */
 public class TextureManager {
 
@@ -15,39 +16,31 @@ public class TextureManager {
 
 
     /**
-     * Is called if a texture of a <code>Tile</code> should be loaded.
+     * Is called if a texture of a {@link Tile} should be loaded.
+     * 
      * @param tile The <code>Tile</code> that should be loaded.
      * @return Returns a loaded OpenGl identifier for the texture or if it is not yet loaded, the
-     *         method returns a place holder texture.
+     *         method returns a place holder texture
      */
     public Integer getTexture(Tile tile) {
         return placeholderTexture;
     }
 
     /**
-     * Adds a <code>SurfaceListener</code> that distributes a notification if the surface
-     * was changed.
+     * Adds a {@link SurfaceListener} that distributes a notification if the surface was changed.
      * 
-     * @param l The new listener.
+     * @param l The new listener
      */
     public void addSurfaceListener(SurfaceListener l) {
 
     }
 
     /**
-     * Removes a specific <code>SurfaceListener</code>.
+     * Removes a specific {@link SurfaceListener}.
      * 
-     * @param l The listener that should be removed.
+     * @param l The listener that should be removed
      */
     public void removeSurfaceListener(SurfaceListener l) {
 
-    }
-
-    /**
-     * TODO False packet?
-     * @return
-     */
-    public int getPendingRequests() {
-        return 0;
     }
 }
