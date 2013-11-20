@@ -12,6 +12,7 @@ public class Location implements Cloneable {
     public GeoCoordinates point;
     public LocationType   type;
     public String         details;
+    public String         name;
 
 
     /**
