@@ -3,19 +3,19 @@
   <union>
   <query type="node">
     <has-kv k="amenity" v="cafe" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="amenity" v="restaurant" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="amenity" v="fast_food" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="amenity" v="biergarten" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   </union>
   <print/>
@@ -27,23 +27,23 @@
   <union>
   <query type="node">
     <has-kv k="amenity" v="pub" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="amenity" v="nightclub" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="amenity" v="casino" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="amenity" v="solarium" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="amenity" v="cinema" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   </union>
   <print/>
@@ -55,7 +55,7 @@
   <union>
   <query type="node">
     <has-kv k="amenity" v="bank" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   </union>
   <print/>
@@ -68,27 +68,27 @@
   <union>
   <query type="node">
     <has-kv k="amenity" v="bicycle_parking" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="amenity" v="bench" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="amenity" v="waste_basket" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="tourism" v="picnic_site" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="tourism" v="viewpoint" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="shop" v="bicycle" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   </union>
   <print/>
@@ -102,7 +102,7 @@
   <union>
   <query type="node">
     <has-kv k="amenity" v="toilets" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   </union>
   <print/>
@@ -116,19 +116,19 @@
   <union>
   <query type="node">
     <has-kv k="shop" v="supermarket" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="shop" v="bakery" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="shop" v="butcher" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="shop" v="chemist" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   </union>
   <print/>
@@ -140,7 +140,7 @@
   <union>
   <query type="node">
     <has-kv k="shop" v="" />
-    <bbox-query  {{bbox}} />
+    <bbox-query  n="" s="" w="" e=""  />
   </query>
   </union>
   <print/>
@@ -152,35 +152,35 @@
   <union>
   <query type="node">
     <has-kv k="tourism" v="viewpoint" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="tourism" v="attriction" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="tourism" v="museum" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="tourism" v="zoo" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="tourism" v="theme_park" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="leisure" v="playground" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="amenity" v="ferry_terminal" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="leisure" v="sports_centre" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   </union>
   <print/>
@@ -192,15 +192,15 @@
   <union>
   <query type="node">
     <has-kv k="amenity" v="school" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="amenity" v="university" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="amenity" v="kindergarten" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   </union>
   <print/>
@@ -212,19 +212,19 @@
   <union>
   <query type="node">
     <has-kv k="amenity" v="doctors" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="amenity" v="hospital" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="shop" v="chemist" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="shop" v="pharmacy" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   </union>
   <print/>
@@ -236,15 +236,32 @@
   <union>
   <query type="node">
     <has-kv k="amenity" v="post_box" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="amenity" v="vending_machine" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   <query type="node">
     <has-kv k="shop" v="post_office" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+
+
+<!-- POI Hotels -->
+
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="tourism" v="hotel" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="tourism" v="guest_house" />
+    <bbox-query n="" s="" w="" e=""  />
   </query>
   </union>
   <print/>

@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage[Bjornstrup]{fncychap}
-%\usepackage{ngerman}
+\usepackage{ngerman}
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \usepackage{etoolbox}
@@ -172,11 +172,43 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 
 \vspace{1.5 cm}
-\begin{tabular}{|p{3cm}|p{4cm}|p{8.5cm}|}
+\begin{tabular}{|p{3cm}|p{8.5cm}|}
 \hline 
 \rule[-1ex]{0pt}{4ex} \textbf{ENUM} & \textbf{Erklärung} & \textbf{Overpass Query} \\ 
 \hline  \hline
-\rule[-1ex]{0pt}{4ex} RESTAURANT & Liefert Cafes, Restaurants und Biergärten &  
+\rule[-1ex]{0pt}{4ex} RESTAURANT & Liefert Cafes, Restaurants und Biergärten \\
+\hline
+\rule[-1ex]{0pt}{4ex} NIGHTLIFE & Liefert Bars, Clubs, Diskotheken, Kinos, Casinos und Solarien  \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} BANK & Liefert Banken \\
+\hline
+\rule[-1ex]{0pt}{4ex} TOILETS & Liefert öffentliche Toiletten \\
+\hline
+\rule[-1ex]{0pt}{4ex} FOOD & Liefert Supermärkte, Bäcker, Metzger und Drogerien \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} SHOPS & Liefert Geschäfte aller Art. \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} ACTIVITY & Liefert Freizeitaktivitäten, Picknickplätze und Aussichtspunkte \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} OUTDOORACTIVITY & Liefert POIs für Radfahrer und Wanderer, wie Picknickplätze und Aussichtspunkte, Bänke, Mülleimer und Fahrradläden \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} EDUCATION & Liefert Bildungseinrichtungen \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} HEALTH & Liefert Ärzte, Krankenhäuser, Apotheken und Drogerien \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} POST & Liefert Postämter, Briefkästen und Packstationen \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} HOTELS &  Liefert Hotels und Pensionen \\ 
+\hline
+\end{tabular}
+
+
+\vspace{1.5 cm}
+\begin{tabular}{|p{3cm}|p{8.5cm}|}
+\hline 
+\rule[-1ex]{0pt}{4ex} \textbf{ENUM} & \textbf{Erklärung} & \textbf{Overpass Query} \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} RESTAURANT &   
 \begin{lstlisting} 
 <osm-script>
   <union>
@@ -194,32 +226,263 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
   </query>
   <query type="node">
     <has-kv k="amenity" v="biergarten" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e="" />
   </query>
   </union>
   <print/>
 </osm-script>
 \end{lstlisting}\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} NIGHTLIFE & Liefert Bars, Clubs, Diskotheken, Kinos, Casinos und Solarien &  \\ 
+\rule[-1ex]{0pt}{4ex} NIGHTLIFE  & 
+\begin{lstlisting}
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="pub" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="nightclub" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="casino" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="solarium" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="cinema" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+\end{lstlisting} \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} BANK & Liefert Banken &  \\
+\rule[-1ex]{0pt}{4ex} BANK &  
+\begin{lstlisting}
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="bank" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+\end{lstlisting}\\
 \hline
-\rule[-1ex]{0pt}{4ex} FOOD & Liefert Supermärkte, Bäcker, Metzger und Drogerien &  \\ 
+\rule[-1ex]{0pt}{4ex} TOILETS  &  
+\begin{lstlisting}
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="toilets" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+\end{lstlisting}\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} SHOPS & Liefert Geschäfte aller Art. &  \\ 
+\rule[-1ex]{0pt}{4ex} FOOD  &  
+\begin{lstlisting}
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="shop" v="supermarket" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="shop" v="bakery" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="shop" v="butcher" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="shop" v="chemist" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+\end{lstlisting}\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} ACTIVITY & Liefert Freizeitaktivitäten, Picknickplätze und Aussichtspunkte &  \\ 
+\rule[-1ex]{0pt}{4ex} SHOPS & 
+\begin{lstlisting}
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="shop" v="" />
+    <bbox-query  n="" s="" w="" e=""  />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+\end{lstlisting} \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} OUTDOORACTIVITY & Liefert POIs für Radfahrer und Wanderer, wie Picknickplätze und Aussichtspunkte, Bänke, Mülleimer und Fahrradläden &  \\ 
+\rule[-1ex]{0pt}{4ex} ACTIVITY &  
+\begin{lstlisting}
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="tourism" v="viewpoint" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="tourism" v="attriction" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="tourism" v="museum" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="tourism" v="zoo" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="tourism" v="theme_park" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="leisure" v="playground" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="ferry_terminal" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="leisure" v="sports_centre" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+\end{lstlisting}\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} EDUCATION & Liefert Bildungseinrichtungen &  \\ 
+\rule[-1ex]{0pt}{4ex} OUTDOORACTIVITY &   
+\begin{lstlisting}
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="bicycle_parking" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="bench" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="waste_basket" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="tourism" v="picnic_site" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="tourism" v="viewpoint" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="shop" v="bicycle" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+\end{lstlisting}\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} HEALTH & Liefert Ärzte, Krankenhäuser, Apotheken und Drogerien &  \\ 
+\rule[-1ex]{0pt}{4ex} EDUCATION &  
+\begin{lstlisting}
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="school" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="university" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="kindergarten" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+\end{lstlisting}\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} POST & Liefert Postämter, Briefkästen und Packstationen  &  \\ 
+\rule[-1ex]{0pt}{4ex} HEALTH & 
+\begin{lstlisting}
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="doctors" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="hospital" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="shop" v="chemist" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="shop" v="pharmacy" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+\end{lstlisting} \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} HOTELS &  Liefert Hotels und Pensionen &  \\ 
+\rule[-1ex]{0pt}{4ex} POST &  
+\begin{lstlisting}
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="post_box" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="vending_machine" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="shop" v="post_office" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+\end{lstlisting}\\ 
+\hline
+\rule[-1ex]{0pt}{4ex} HOTELS & 
+\begin{lstlisting}
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="tourism" v="hotel" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  <query type="node">
+    <has-kv k="tourism" v="guest_house" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+\end{lstlisting} \\ 
 \hline
 \end{tabular}
 
