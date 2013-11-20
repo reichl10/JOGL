@@ -12,10 +12,10 @@ public interface SettingsListener {
     /**
      * Invoked if a setting this listener has be registered on is changed.
      * 
-     * @param key the key of the changed setting
-     * @param valOld the old value of the setting, can be null if there wasn't
+     * @param key The key of the changed setting
+     * @param valOld The old value of the setting, can be null if there wasn't
      *        any
-     * @param valNew the new value of the setting, can be null
+     * @param valNew The new value of the setting, can be null
      */
     void settingsChanged(String key, Object valOld, Object valNew);
 }
