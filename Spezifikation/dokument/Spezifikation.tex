@@ -143,11 +143,34 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 
 \vspace{1.5 cm}
-\begin{tabular}{|c|c|c|}
+\begin{tabular}{|p{3cm}|p{4cm}|p{8.5cm}|}
 \hline 
 \rule[-1ex]{0pt}{4ex} \textbf{ENUM} & \textbf{Erklärung} & \textbf{Overpass Query} \\ 
 \hline  \hline
-\rule[-1ex]{0pt}{4ex} RESTAURANT & Liefert Cafes, Restaurants und Biergärten &  \\ 
+\rule[-1ex]{0pt}{4ex} RESTAURANT & Liefert Cafes, Restaurants und Biergärten &  
+\begin{lstlisting} 
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="cafe" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="restaurant" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="fast_food" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="biergarten" />
+    <bbox-query {{bbox}} />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+\end{lstlisting}\\ 
 \hline
 \rule[-1ex]{0pt}{4ex} NIGHTLIFE & Liefert Bars, Clubs, Diskotheken, Kinos, Casinos und Solarien &  \\ 
 \hline

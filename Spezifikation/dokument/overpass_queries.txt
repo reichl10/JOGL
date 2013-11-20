@@ -1,0 +1,253 @@
+<!-- POI Restaurants -->
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="cafe" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="restaurant" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="fast_food" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="biergarten" />
+    <bbox-query {{bbox}} />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+
+<!-- POI Nachtleben -->
+
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="pub" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="nightclub" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="casino" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="solarium" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="cinema" />
+    <bbox-query {{bbox}} />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+
+<!-- POI Banken/Sparkassen -->
+
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="bank" />
+    <bbox-query {{bbox}} />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+
+
+<!-- POI Wander/Rad -->
+
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="bicycle_parking" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="bench" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="waste_basket" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="tourism" v="picnic_site" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="tourism" v="viewpoint" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="shop" v="bicycle" />
+    <bbox-query {{bbox}} />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+
+
+<!-- POI Toiletten -->
+
+
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="toilets" />
+    <bbox-query {{bbox}} />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+
+
+<!-- POI Lebensmittelgeschäfte -->
+
+
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="shop" v="supermarket" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="shop" v="bakery" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="shop" v="butcher" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="shop" v="chemist" />
+    <bbox-query {{bbox}} />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+
+<!-- Geschäfte -->
+
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="shop" v="" />
+    <bbox-query  {{bbox}} />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+
+<!-- POI Freizeit -->
+
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="tourism" v="viewpoint" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="tourism" v="attriction" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="tourism" v="museum" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="tourism" v="zoo" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="tourism" v="theme_park" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="leisure" v="playground" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="ferry_terminal" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="leisure" v="sports_centre" />
+    <bbox-query {{bbox}} />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+
+<!-- Bildung -->
+
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="school" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="university" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="kindergarten" />
+    <bbox-query {{bbox}} />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+
+<!-- POI Gesundheit -->
+
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="doctors" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="hospital" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="shop" v="chemist" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="shop" v="pharmacy" />
+    <bbox-query {{bbox}} />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+
+<!-- POI Post -->
+
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="amenity" v="post_box" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="amenity" v="vending_machine" />
+    <bbox-query {{bbox}} />
+  </query>
+  <query type="node">
+    <has-kv k="shop" v="post_office" />
+    <bbox-query {{bbox}} />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+
+
