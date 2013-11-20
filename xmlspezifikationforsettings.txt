@@ -45,5 +45,4 @@ Example XML File Content:
 </locations>
 <locations key="exjey9">
 </locations>
-</entry>
 </settings>
