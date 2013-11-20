@@ -1,0 +1,48 @@
+The XML File to read and write by the SettingsContract class has to follow the here listed rules.
+The XML File should use UTF-8 encoding and XML 1.0 .
+<?xml version="1.0" encoding="UTF-8"?>
+There has to be one root element "settings":
+  - This element can contain zero or more child elements of tag "entry" and zero or more child elements of tag "locations".
+  - The elements of tag "entry" and "locations" don't have to appear in a specific order.
+
+The "entry" element:
+  - is not allowed to have child elements.
+  - has to have the following attributes: key, type, value
+  - the "key" attribute can contain a string and is the key of the element. It should be unique for entry elements in this file.
+  - the "type" attribute can contain one of the following strings: Integer, Boolean, Long, Double, Float, String
+   This type defines which java standard api type the String in value has to be parsed to and wars converted to a string from by using toString().
+  - the "value" attribute contains the string representation of the value of the settings entry.
+ 
+ The "locations" element:
+  - can contain zero or more child elements of tag "location".
+  - has to have the attribute key containing the locations key used in the settings class.
+ 
+ The "location" element:
+  - has to have the following attributes: details, type, name
+    - the "details" attribute contains the value of the joglearths Location objects details field which is of Class String.
+    - the "type" attribute contains the string representation of the Location objects type field which is retrieved by calling toString on the ENUM.
+    - the "name" attribute contains the string value of the name field of a Location object.
+  - has to have exactly one child element of tag "geocoordinates"
+    - this element has to have the following attributes: longitude, latitude
+     - the values of these attributes are java float or Float converted to Strings by Float.toString;
+
+Example XML File Content:
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+<entry key="exkey1" type="Integer" value="-5634"/>
+<entry key="exkey2" type="Long" value="34332423"/>
+<entry key="exkey3" type="String" value="somerandomstring"/>
+<entry key="exkey4" type="Double" value="0.0"/>
+<entry key="exkey5" type="Float" value="0.0"/>
+<entry key="exkey6" type="Boolean" value="true"/>
+<locations key="exkey7">
+  <location name="Name of Location" details="Some Details" type="USERMAKRKING">
+    <geocoordinates longitude="3.32" latitude="4.78" />
+  </location>
+  <location name="Name of Location 2" details="Some Details" type="USERMARKING">
+    <geocoordinates longitude="3.32" latitude="4.79" />
+  </location>
+</locations>
+<locations key="exjey9">
+</locations>
+</settings>

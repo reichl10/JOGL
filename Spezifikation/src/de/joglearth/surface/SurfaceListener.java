@@ -8,11 +8,12 @@ import de.joglearth.geometry.Tile;
  */
 public interface SurfaceListener {
 
-    /**
-     * Sends a notification that the surface was changed simultaneously to a tile that was changed.
-     * This can happen if a texture is loaded too late or a user added a marker.
+    /**TODO think of other description.
+     * Sends a notification that the surface was changed
+     * simultaneously to a tile that was changed. This can happen if a texture is loaded too late or
+     * a user added a marker.
      * 
-     * @param tile A new tile that should be displayed now
+     * @param tile A new {@link Tile} that should be displayed now
      */
     void surfaceChanged(Tile tile);
 }

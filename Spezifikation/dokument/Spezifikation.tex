@@ -1,0 +1,245 @@
+\documentclass[10pt]{scrreprt}
+\usepackage[a4paper, top=30mm, left=25mm, right=25mm, bottom=30mm]{geometry}
+\usepackage[utf8]{inputenc}
+
+\usepackage[Bjornstrup]{fncychap}
+%\usepackage{ngerman}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{etoolbox}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{numprint}
+\usepackage{longtable}
+\usepackage{caption}
+ \usepackage{rotating}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{amssymb}
+
+
+\makeatletter
+\patchcmd{\@makechapterhead}{\vspace*{50\p@}}{\vspace*{-20\p@}}{}{}
+\patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{\vspace*{7\p@}}{}{}
+\patchcmd{\DOTIS}{\vskip 40\p@}{\vskip -12\p@} 
+\makeatother
+  
+\captionsetup[figure]{labelfont={sf,bf},textfont={sf}}
+\deffootnotemark{[\thefootnotemark]}
+\deffootnote{1.5em}{1em}{[\thefootnotemark] }
+\setlength{\parindent}{0pt}
+\renewcommand{\labelitemi}{ \raisebox{0.3ex}{\small$\blacktriangleright$} }
+\renewcommand{\labelitemii}{ \raisebox{0.3ex}{\small$\triangleright$} }
+\lstset{language=Java}
+
+\newcommand{\sfbf}[1]{\textbf{\sffamily #1}}
+\newcommand{\sfit}[1]{\textit{\sffamily #1}}
+\newcommand{\W}{\sfbf{W}}
+\newcommand{\ziel}[1]{{\fontsize{9.5}{11}\textsf{/#1/}}}
+\newcommand{\ziellabel}{Z}
+\newcommand{\muss}{\renewcommand{\labelenumi}{\textbf{\ziel{\ziellabel\numprint{\theenumi}0}}}}
+\newcommand{\wunsch}{\renewcommand{\labelenumi}{\textbf{\ziel{\ziellabel\numprint{\theenumi}0W}}}}
+\newcommand{\JoglEarth}{\raisebox{-1.2mm}{\includegraphics[scale=0.33]{Logo-Text.eps}} }
+\newcommand{\textref}[1]{\mbox{\raisebox{0.1ex}{\small$\rightarrow$ }\textit{#1}}}
+
+\newenvironment{details}[1][6pt]{%
+  \parskip#1 \parindent6mm \raggedright%
+  \def\item{\par\ignorespaces\hangindent=5mm \hangafter1}}{%
+  \par\ignorespaces} 
+  
+
+\begin{document}
+
+\thispagestyle{empty}
+\sffamily
+ 
+\title{Spezifikation}
+
+\begin{figure}
+\begin{flushright}
+	\includegraphics[scale=0.4]{uniLogo.eps}
+\vspace{2.0 cm}
+\end{flushright}
+\end{figure}
+
+\begin{center}
+\vspace{2.0 cm}
+{\LARGE SEP – Wintersemester 2013/14}
+
+\vspace{1.0 cm}
+\textbf{{\Huge Spezifikation}}
+
+\vspace{0.4 cm}
+\begin{figure}[!htb]
+\begin{center}
+	%\includegraphics[scale=1.0]{projektLogo.eps}
+	\includegraphics[scale=1.5]{Logo-Print.eps}
+\end{center}
+\end{figure}
+
+\vspace{0.2 cm}
+\textbf{{\huge OpenStreetMap: Die Welt in 3D}}
+
+\vspace{1.5 cm}
+22.11.2013
+
+\vspace{0.5 cm}
+Version: 1.0
+
+\vspace{1.5 cm}
+{\Large Projektbetreuer: Peter Barth}
+
+\vspace{1.5 cm}
+\begin{tabular}{|c|c|c|}
+\hline 
+\rule[-1ex]{0pt}{4ex} \textbf{Phase} & \textbf{Verantwortlicher} & \textbf{E-Mail Adresse} \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Pflichtenheft & Gabriele Haas & haasgab@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Entwurf & Thomas Eder & ederthom@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Spezifikation & Christof Blauberger & blauberg@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Implementierung & Fabian Knorr & knorrfab@fim.uni-passau.de \\ 
+\hline \hline 
+\rule[-1ex]{0pt}{4ex} Testing & Constantin Wenger & wengerco@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Präsentation & Sebastian Reichl & reichlse@fim.uni-passau.de \\ 
+\hline 
+\end{tabular}
+
+\end{center}
+
+
+\pagebreak
+\rmfamily
+\tableofcontents
+
+\chapter{Einleitung}
+
+\chapter{JavaDocs}
+
+\chapter{JUnit Tests}
+
+\chapter{Algorithmen}
+
+\chapter{Persistente Daten}
+
+\section{Liste der POIs}
+
+\vspace{1.5 cm}
+\begin{tabular}{|c|c|c|}
+\hline 
+\rule[-1ex]{0pt}{4ex} \textbf{ENUM} & \textbf{Erklärung} & \textbf{Overpass Query} \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} RESTAURANT & Liefert Cafes, Restaurants und Biergärten &  \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} NIGHTLIFE & Liefert Bars, Clubs, Diskotheken, Kinos, Casinos und Solarien &  \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  BANK & Liefert Banken und Sparkassen &  \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} FOOD & Liefert Supermärkte, Bäcker, Metzger und Drogerien &  \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} SHOPS & Liefert Geschäfte aller Art. &  \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} ACTIVITY & Liefert Freizeitaktivitäten, Picknickplätze und Aussichtspunkte &  \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} EDUCATION & Liefert Bildungseinrichtungen &  \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} HEALTH & Liefert Ärzte, Krankenhäuser, Apotheken und Drogerien &  \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} UTILS &  &  \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} HOTELS &  &  \\ 
+\hline
+\end{tabular}
+
+
+\chapter{Übersetzung der Bedienoberfläche}
+\begin{tabular}{|p{7.5cm}|p{7.5cm}|}
+\hline 
+\textbf{Deutsch} & \textbf{Englisch} \\ 
+\hline
+\hline 
+Ansicht & view \\ 
+\hline
+Ansichtsmodus & mode \\ 
+\hline
+Sonnensystem & solarsystem \\
+\hline
+Satellitenbild & satellite mode \\
+\hline
+Höhenprofil & heightmap \\
+\hline
+Für diesen Ort sind keine Informationen verfügbar & No information available to this point. \\
+\hline
+Punkt markieren & mark point\\
+\hline
+Längengrad & Longitude \\
+\hline
+Breitengrad & Latitude \\
+\hline
+km (Kilometer) & km \\
+\hline
+Globus & globe \\
+\hline
+Karte & map \\
+\hline
+Kinderweltkarte & world map for kids \\
+\hline
+Ort & place \\
+\hline
+Suche & search \\
+\hline
+Ort eingeben & insert place \\
+\hline
+in der Umgebung & surrounding \\
+\hline
+Global & global \\
+\hline
+Suchergebnisse & search results \\
+\hline
+Markierte Punkte & marked point \\
+\hline
+Angezeigte Beschriftungen & displaying labels \\
+\hline
+Markierung entfernen & remove marker \\
+\hline
+Einstellungen & settings \\
+\hline
+Sprache & language \\
+\hline
+Deutsch & german \\
+\hline
+Englisch & english \\
+\hline
+Grafikeinstellungen & graphic settings \\
+\hline
+Antialiasing & Antialiasing \\
+\hline
+Texturfilter & texture filter \\
+\hline
+Detaillevel & level of detail \\
+\hline
+an - aus & on - off \\
+\hline
+niedrig - mittel - hoch & low - medium - high\\
+\hline
+Cachegröße & cache size \\
+\hline
+Arbeitsspeicher & memory \\
+\hline
+Dateisystem & filesystem \\
+\hline
+Handbuch & manual \\
+\hline
+Info & info \\
+\hline
+Name & name \\
+\hline
+Name eingeben & insert name \\
+\hline
+Beschreibung & description \\
+\hline
+\end{tabular} 
+\end{document}

@@ -4,14 +4,11 @@ import de.joglearth.geometry.Tile;
 
 
 /**
- * 
- /** The interface Source offers methods to get objects identified by a specific key. Source gets
- * the results in a synchronous or an asynchronous way.
+ * The interface Source offers methods to get objects identified by a specific key. Source gets the
+ * results in a synchronous or an asynchronous way.
  * 
  * @param <Key> identifier for the objects
  * @param <Value>
- * @uml.annotations uml_dependency=
- *                  "mmi:///#jsrctype^name=SourceResponse[jcu^name=SourceResponse.java[jpack^name=de.joglearth.source[jsrcroot^srcfolder=src[project^id=Entwurf]]]]$uml.Class"
  */
 public interface Source<Key, Value> {
 
