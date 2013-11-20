@@ -4,20 +4,17 @@ import de.joglearth.geometry.Tile;
 
 
 /**
- * The interface Source offers methods to get objects identified by a specific key. Source gets the
- * results in a synchronous or an asynchronous way.
+ * Offers methods to get objects identified by a specific key; gets the results in a synchronous or
+ * an asynchronous way.
  * 
- * @param <Key> identifier for the objects
- * @param <Value>
+ * @param Key Identifier for the objects
+ * @param Value The type of value retrieved by the Source
  */
 public interface Source<Key, Value> {
 
-    // Versucht ein Objekt zu laden. Wenn es lokal verfügbar ist,
-    // zB. gecacht, wird es zurückgegeben. Ansonsten wird versucht, es asynchron
-    // zu laden, und es wird null zurückgegeben. Ist der asynchrone vorgang fertig,
-    // wird owner.requestCompleted aufgerufen.
     /**
-     * 
+     * Tries to load and return an object if it available locally. Otherwise it is attempted
+     * to load the object in an asynchronous way and <code>null</code> is returned.
      * @param key
      * @param sender
      * @return

@@ -9,19 +9,20 @@ import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 
 
-
 public class WriteAndLoadSettings {
+
     private static final Boolean TV_BOOLEAN = new Boolean(false);
-    private static final Double TV_DOUBLE = new Double(123.301d);
-    private static final Float TV_FLOAT = new Float(32.35f);
+    private static final Double  TV_DOUBLE  = new Double(123.301d);
+    private static final Float   TV_FLOAT   = new Float(32.35f);
     private static final Integer TV_INTEGER = new Integer(39424);
-    private static final Long TV_LONG = new Long(348324023);
-    private static final String TV_STRING = "jfsdjfisdf*+3439(&2§)(/&";
+    private static final Long    TV_LONG    = new Long(348324023);
+    private static final String  TV_STRING  = "jfsdjfisdf*+3439(&2§)(/&";
+
 
     @Before
     public void setUp() throws Exception {}
 
-    @After
+    @After 
     public void tearDown() throws Exception {}
 
     @Test
