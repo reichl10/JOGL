@@ -1,4 +1,4 @@
-The XML File to read and write by the SettingsContract class has to follow the here listed rules.
+The XML File to be read and write by the SettingsContract class has to follow the here listed rules.
 The XML File should use UTF-8 encoding and XML 1.0 .
 <?xml version="1.0" encoding="UTF-8"?>
 There has to be one root element "settings":
