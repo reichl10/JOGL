@@ -6,10 +6,15 @@ import de.joglearth.surface.LocationManager;
 import de.joglearth.rendering.*;
 import de.joglearth.ui.*;
 
+/**
+ * Utility Class that contains the main method of JoglEarth.
+ */
 public final class JoglEarth {
 
 	/**
-	 * @param args
+	 * Initializes the JoglEarth Application.
+	 * There are no valid command line arguments.
+	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) {
 		Camera camera = new Camera();
