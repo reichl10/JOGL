@@ -9,7 +9,6 @@ public class Vector3 implements Cloneable {
 
     public float x, y, z;
 
-
     /**
      * Constructor. Creates a zero vector.
      */

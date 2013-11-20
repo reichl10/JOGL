@@ -16,6 +16,33 @@
 \usepackage{array}
 \usepackage{listings}
 \usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{textcomp}
+\usepackage{calc}
+\usepackage{../doc/doxygen}
+\usepackage[table]{xcolor}
+\usepackage{hyperref}
+\hypersetup{%
+  colorlinks=true,%
+  linkcolor=blue,%
+  citecolor=blue,%
+  unicode%
+}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+\usepackage{amssymb}
+\usepackage{sectsty}
+\renewcommand{\familydefault}{\sfdefault}
+\allsectionsfont{%
+  \fontseries{bc}\selectfont%
+  \color{darkgray}%
+}
+\renewcommand{\DoxyLabelFont}{%
+  \fontseries{bc}\selectfont%
+  \color{darkgray}%
+}
 
 
 \makeatletter
@@ -131,6 +158,8 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 
 
 \chapter{JavaDocs}
+
+\input{../doc/include}
 
 \chapter{JUnit Tests}
 
