@@ -8,6 +8,7 @@
 \usepackage{epstopdf}
 \usepackage{etoolbox}
 \usepackage{enumitem}
+\usepackage{tabu}
 \usepackage{url}
 \usepackage{numprint}
 \usepackage{longtable}
@@ -221,6 +222,7 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 
 \section{Programm Icons}
 \begin{itemize}
+\item Logo und Icon
 \item Stecknadel
 \item Combobox-Icons
 \item Plus und Minus Icon des Zoombalkens
@@ -230,20 +232,35 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 \item Info
 \end{itemize}
 
-\section{Settings}
-Screenshot der vorläufigen Settings.xml
 
 \section{Kachelserver}
-Adressen der Kachelserver
+Die Tabelle gibt eine Übersicht über die in \JoglEarth verfügbaren Kachelserver. \\
+
+\begin{tabular}{|c|l|l|}
+\hline
+ENUM \textit{OSMTileType} & Server 1 & Server 2 \\
+\hline
+\hline
+OSM\_MAPNIK & http://otile1.mqcdn.com/tiles/1.0.0/osm/...png & http://otile2.mqcdn.com/tiles/1.0.0/osm/...png \\
+\hline
+CYCLING & http://a.tile.opencyclemap.org/cycle/...png & http://b.tile.opencyclemap.org/cycle/...png \\
+\hline
+SKIING & http://tiles.openpistemap.org/nocontours/...png & \\
+\hline
+SEA & http://tiles.openseamap.org/seamark/...png & \\
+\hline
+HIKING & http://tile.lonvia.de/hiking/...png & \\
+\hline
+\end{tabular}
 
 \section{Liste der POIs}
 Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann im Rahmen dieses Projekts nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den  Antworten der OverpassAPI vorgenommen.\\
 
 
 \vspace{1.5 cm}
-\begin{tabular}{|p{3cm}|p{8.5cm}|}
+\begin{tabular}{|p{5cm}|p{9cm}|}
 \hline 
-\rule[-1ex]{0pt}{4ex} \textbf{ENUM} & \textbf{Erklärung}  \textbf{Overpass Query} \\ 
+\rule[-1ex]{0pt}{4ex} ENUM LocationType & Erklärung \\ 
 \hline  \hline
 \rule[-1ex]{0pt}{4ex} RESTAURANT & Liefert Cafes, Restaurants und Biergärten \\
 \hline
@@ -273,9 +290,12 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 
 \vspace{1.5 cm}
-\begin{tabular}{|p{3cm}|p{8.5cm}|}
+%\newcolumntype{L}[1]{>{\sffamily\bfseries\hsize=#1\hsize\raggedright\arraybackslash}X}
+%\newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}
+\setlength{\extrarowheight}{4mm}
+\begin{tabular}{|p{4cm}|p{10cm}|}%{L{0.35} R{1.65}}
 \hline 
-\rule[-1ex]{0pt}{4ex} \textbf{ENUM} & \textbf{Erklärung}  \textbf{Overpass Query} \\ 
+\rule[-1ex]{0pt}{4ex} ENUM \textit{LocationType} &  Overpass Query \\ 
 \hline  \hline
 \rule[-1ex]{0pt}{4ex} RESTAURANT &   
 \begin{lstlisting} 
@@ -283,15 +303,15 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
   <union>
   <query type="node">
     <has-kv k="amenity" v="cafe" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e="" />
   </query>
   <query type="node">
     <has-kv k="amenity" v="restaurant" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e="" />
   </query>
   <query type="node">
     <has-kv k="amenity" v="fast_food" />
-    <bbox-query {{bbox}} />
+    <bbox-query n="" s="" w="" e="" />
   </query>
   <query type="node">
     <has-kv k="amenity" v="biergarten" />
