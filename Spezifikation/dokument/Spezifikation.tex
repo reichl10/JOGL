@@ -210,17 +210,15 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 \hline 
 \rule[-1ex]{0pt}{4ex} Klasse & Erläuterung \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} BinaryRequestDistributor & \\ 
+\rule[-1ex]{0pt}{4ex} RequestDistributor & Überprüfen ob anfragen in annehmbarer Zeit beantwortet werden. Prüfen das nicht mehrfache gleiche Anfragen nicht mehrfach weiter gereicht werden aber mehrfach beantwortet werden falls die Listener nicht das selbe Objekt sind. Die wird sich ändern, Klasse momentan noch nicht dokumentiert. \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} RequestDistributor & \\ 
+\rule[-1ex]{0pt}{4ex} FileSystemCache & Übersprungen da momentan nicht dokumentiert \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} FileSystemCache & \\ 
+\rule[-1ex]{0pt}{4ex} MemoryCache & checken ob eingefüge object auch wieder gefunden werden, das richtig auf null reagiert wird.\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} MemoryCache & \\ 
+\rule[-1ex]{0pt}{4ex} TextureCache & checken der dropObject methode\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} TextureCache & \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} Camera & Teile \\ 
+\rule[-1ex]{0pt}{4ex} Camera & methoden: isPointVisible, getWindowPosition, getCoordinates \\ 
 \hline
 \rule[-1ex]{0pt}{4ex} PlaneGeometry & \\ 
 \hline
@@ -228,15 +226,15 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 \hline
 \rule[-1ex]{0pt}{4ex} Settings & Threadsicherheit + Listener testen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} HTTPUtils & \\ 
+\rule[-1ex]{0pt}{4ex} HTTPUtils & alle Methoden testen ob sie richtige Ergebnisse liefern für http anfragen\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} Paket Source insgesamt & \\ 
+\rule[-1ex]{0pt}{4ex} Paket Source insgesamt & Alle Querys b sie die richtigen Querys konstruieren, Sources ob sie die richten Daten liefern für bestimmte anfragen, ob das listening auf Sources funktioniert\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} HeightMapManager & \\ 
+\rule[-1ex]{0pt}{4ex} HeightMapManager & Das er richtig auf abschalten des Höhenprofils reagiert (Settingsänderung), das er richtige Daten liefert. \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} LocationManager & \\ 
+\rule[-1ex]{0pt}{4ex} LocationManager & Daten für bestimmte Punkte testen, Listener aufrufe prüfen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} TextureManager & \\ 
+\rule[-1ex]{0pt}{4ex} TextureManager & Ob man richtige Textur bekommt, ob er Texturen findet die schon im Grafikspeicher sind \\ 
 \hline
 
 \end{tabular}
@@ -675,47 +673,47 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 \newpage
 
 \section{Settingsfile}
-The XML File to be read and write by the SettingsContract class has to follow the here listed rules.
-The XML File should use UTF-8 encoding and XML 1.0 .
+Die XML-Datei die von der \texttt{SettingsContract} Klasse muss den hier festgelegten Regeln folgen.
+Die XML-Datei muss UTF-8 encoding  und den XML 1.0 Standard benutzen.
 \texttt{<?xml version="1.0" encoding="UTF-8"?>}
-There has to be one root element \texttt{settings}
+Sie besitzt ein Wurzelelement \texttt{settings}
 \begin{itemize}
- \item element can contain zero or more child elements of tag \texttt{entry} and zero or more child elements of tag \texttt{locations}.
- \item The elements of tag \texttt{entry} and \texttt{locations} don't have to appear in a specific order.
+ \item das Element kann keines oder mehr Kindelemente des Typs \texttt{entry} und keines oder mehr des Typs \texttt{locations}.
+ \item Die Elemente des Typs \texttt{entry} und \texttt{locations} müssen nicht in einer bestimmten Reihenfolge angeordnet sein.
 \end{itemize}
 
-The \texttt{entry} element:
+Das \texttt{entry} Element:
 \begin{itemize}
- \item is not allowed to have child elements.
- \item has to have the following attributes: key, type, value
- \item the \texttt{key} attribute can contain a string and is the key of the element. It should be unique for entry elements in this file.
- \item the \texttt{type} attribute can contain one of the following strings: Integer, Boolean, Long, Double, Float, String
-  This type defines which java standard api type the String in value has to be parsed to and wars converted to a string from by using toString().
- \item the \texttt{value} attribute contains the string representation of the value of the settings entry.
+ \item besitzt keine Kindelemente
+ \item muss die folgenden Attribute besitzen: \texttt{key}, \texttt{type}, \texttt{value}
+ \item das \texttt{key} Attribut enthält einen String und ist der key des Elements. Es sollte einzigartig für \texttt{entry} Elemente in dieser Datei sein.
+ \item das \texttt{type} Attribut kann einen der folgenden Strings enthalten: Integer, Boolean, Long, Double, Float, String
+  Dieser Typ definiert zu welchen Java Standard API Typ der String im \texttt{value} Attribut geparsed werden muss, and von welchem er mit \texttt{toString} umgewandelt wurde.
+   \item das \texttt{value} Attribut enthält eine String Repräsentation des wertes dieses Eintrages.
 \end{itemize}
 
- The \texttt{locations} element:
+ Das \texttt{locations} Element:
 \begin{itemize}
- \item can contain zero or more child elements of tag \texttt{location}.
- \item has to have the attribute key containing the locations key used in the settings class.
+ \item kann keines oder mehr Elemente des Types \texttt{location} enthalten.
+ \item muss ein Attribut \texttt{key} besitzen das den Key des Locations enthält den die \texttt{Settings} Klasse benutzt.
 \end{itemize}
 
- The \texttt{location} element:
+ Das \texttt{location} Element:
 \begin{itemize}
- \item has to have the following attributes: details, type, name
+ \item muss die folgenden Attribute haben: \texttt{details}, \texttt{type}, \texttt{name}
  \begin{itemize}
-  \item the \texttt{details} attribute contains the value of the joglearths Location objects details field which is of Class String.
-  \item the \texttt{type} attribute contains the string representation of the Location objects type field which is retrieved by calling toString on the ENUM.
-  \item the \texttt{name} attribute contains the string value of the name field of a Location object.
+  \item das \texttt{details} Attribut enthält den wert des de.joglearth.surface.Location Objekts Details Attributs.
+  \item das \texttt{type} Attribut enthält die String Repräsentation des Locations Objektes Type Attributs, welche durch aufrufen von .toString auf dem Enum erzeugt wird.
+  \item das \texttt{name} Attribut enthält den String wert des name Attributs des Location Objekts.
   \end{itemize}
- \item has to have exactly one child element of tag \texttt{geocoordinates}
+ \item muss genau ein Kindelement des Typs \texttt{geocoordinates} besitzen
  \begin{itemize}
-  \item this element has to have the following attributes: longitude, latitude
-  \item the values of these attributes are java float or Float converted to Strings by Float.toString;
+  \item Diese Element muss die folgenden Attribute besitzen: \texttt{longitude}, \texttt{latitude}
+  \item die werten dieser Attribute stammen von Java double or Double zu einem String umgewandelt durch Double.toString;
  \end{itemize}
 \end{itemize}
 
-Example XML File Content:
+Inhalt einer Beispiel XML-Datei:
 \lstset{language=XML}
 \begin{lstlisting}[frame=single]
 <?xml version="1.0" encoding="UTF-8"?>
@@ -730,7 +728,7 @@ Example XML File Content:
   <location name="Name of Location" details="Some Details" type="USERMAKRKING">
     <geocoordinates longitude="3.32" latitude="4.78" />
   </location>
-  <location name="Name of Location 2" details="Some Details" type="USERMARKING">
+  <location name="Name of Location 2" details="Some Details" type="POST">
     <geocoordinates longitude="3.32" latitude="4.79" />
   </location>
 </locations>
