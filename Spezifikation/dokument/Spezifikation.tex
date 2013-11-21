@@ -384,15 +384,17 @@ Die Tabelle gibt eine Übersicht über die in \JoglEarth verfügbaren Kachelserv
 \hline
 \end{tabular}
 
+\vspace{1.5 cm}
+
 \section{Liste der POIs}
 Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann im Rahmen dieses Projekts nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den  Antworten der OverpassAPI vorgenommen.\\
 
+\vspace{5 mm}
 
-\vspace{1.5 cm}
 %\newcolumntype{L}[1]{>{\sffamily\bfseries\hsize=#1\hsize\raggedright\arraybackslash}X}
 %\newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}
 \setlength{\extrarowheight}{4mm}
-\begin{tabular}{|p{4cm}|p{10cm}|}%{L{0.35} R{1.65}}
+\begin{longtable}{|p{4cm} p{10cm}|}%{L{0.35} R{1.65}}
 \hline 
 \rule[-1ex]{0pt}{4ex} ENUM \textit{LocationType} &  Overpass Query \\ 
 \hline  \hline
@@ -673,7 +675,9 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 </osm-script>
 \end{lstlisting} \\ 
 \hline
-\end{tabular}
+\end{longtable}
+
+
 
 \section{Settingsfile}
 The XML File to be read and write by the SettingsContract class has to follow the here listed rules.
@@ -744,7 +748,7 @@ Example XML File Content:
 \chapter{Übersetzung der Bedienoberfläche}
 
 \section{Übersetzungstabelle GUI}
-\begin{tabular}{|p{7.5cm}|p{7.5cm}|}
+\begin{longtable}{|p{7.5cm}|p{7.5cm}|}
 \hline 
 \textbf{Deutsch} & \textbf{Englisch} \\ 
 \hline
@@ -829,11 +833,11 @@ Name eingeben & insert name \\
 \hline
 Beschreibung & description \\
 \hline
-\end{tabular}
+\end{longtable}
 
 \newpage
 \section{Übersetzungstabelle POIs}
-\begin{tabular}{|p{7.5cm}|p{7.5cm}|}
+\begin{longtable}{|p{7.5cm}|p{7.5cm}|}
 \hline 
 \textbf{Deutsch} & \textbf{Englisch} \\ 
 \hline
@@ -860,7 +864,7 @@ Post & post \\
 \hline
 & HOTELS \\
 \hline
-\end{tabular}
+\end{longtable}
 
 
 
