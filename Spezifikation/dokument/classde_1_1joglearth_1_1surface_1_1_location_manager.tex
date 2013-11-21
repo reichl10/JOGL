@@ -1,0 +1,192 @@
+\section{de.\-joglearth.\-surface.\-Location\-Manager Klassenreferenz}
+\label{classde_1_1joglearth_1_1surface_1_1_location_manager}\index{de.\-joglearth.\-surface.\-Location\-Manager@{de.\-joglearth.\-surface.\-Location\-Manager}}
+Klassendiagramm für de.\-joglearth.\-surface.\-Location\-Manager\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1surface_1_1_location_manager}
+\end{center}
+\end{figure}
+\subsection*{Öffentliche Methoden}
+\begin{DoxyCompactItemize}
+\item 
+{\bf Location\-Manager} ()
+\item 
+void {\bf show\-Location} ({\bf Location} location, boolean show)
+\item 
+void {\bf search\-Global} (String query)
+\item 
+void {\bf search\-Local} (String query, {\bf Tile}[$\,$] area)
+\item 
+{\bf Location} {\bf get\-Details} ({\bf Screen\-Coordinates} coordinates)
+\item 
+void {\bf settings\-Changed} (String key, Object val\-Old, Object val\-New)
+\item 
+void {\bf add\-Surface\-Listener} ({\bf Surface\-Listener} l)
+\item 
+void {\bf remove\-Surface\-Listener} ({\bf Surface\-Listener} l)
+\item 
+void {\bf add\-Location\-Listener} ({\bf Location\-Listener} l)
+\item 
+void {\bf remove\-Location\-Listener} ({\bf Location\-Listener} l)
+\end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Administers the visibility of particular points gathered from \doxyref{Overpass\-Source}{S.}{} and \doxyref{Nominatim\-Source}{S.}{}, and user marks from \doxyref{Settings}{S.}{}. 
+
+\subsection{Beschreibung der Konstruktoren und Destruktoren}
+\index{de\-::joglearth\-::surface\-::\-Location\-Manager@{de\-::joglearth\-::surface\-::\-Location\-Manager}!Location\-Manager@{Location\-Manager}}
+\index{Location\-Manager@{Location\-Manager}!de::joglearth::surface::LocationManager@{de\-::joglearth\-::surface\-::\-Location\-Manager}}
+\subsubsection[{Location\-Manager}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-surface.\-Location\-Manager.\-Location\-Manager (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_adfcd05b2a4cdbbccec1d664c8535dc00}
+Constructor. Initializes the \doxyref{Location\-Manager}{S.}{classde_1_1joglearth_1_1surface_1_1_location_manager} and its underlying caches. 
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::surface\-::\-Location\-Manager@{de\-::joglearth\-::surface\-::\-Location\-Manager}!add\-Location\-Listener@{add\-Location\-Listener}}
+\index{add\-Location\-Listener@{add\-Location\-Listener}!de::joglearth::surface::LocationManager@{de\-::joglearth\-::surface\-::\-Location\-Manager}}
+\subsubsection[{add\-Location\-Listener}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Location\-Manager.\-add\-Location\-Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Location\-Listener}}]{l}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_aaf3939f788ea9bffd8f188c429f2b796}
+Adds a new \doxyref{Location\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_location_listener} that is called when the search results are available.
+
+
+\begin{DoxyParams}{Parameter}
+{\em l} & The new {\ttfamily \doxyref{Location\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_location_listener}} \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::surface\-::\-Location\-Manager@{de\-::joglearth\-::surface\-::\-Location\-Manager}!add\-Surface\-Listener@{add\-Surface\-Listener}}
+\index{add\-Surface\-Listener@{add\-Surface\-Listener}!de::joglearth::surface::LocationManager@{de\-::joglearth\-::surface\-::\-Location\-Manager}}
+\subsubsection[{add\-Surface\-Listener}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Location\-Manager.\-add\-Surface\-Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Surface\-Listener}}]{l}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_a4fb6df51c96474cb8ab082f6d41e2a29}
+Adds a new \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_surface_listener} that is called on every change of the surface.
+
+
+\begin{DoxyParams}{Parameter}
+{\em l} & The new {\ttfamily \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_surface_listener}} \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::surface\-::\-Location\-Manager@{de\-::joglearth\-::surface\-::\-Location\-Manager}!get\-Details@{get\-Details}}
+\index{get\-Details@{get\-Details}!de::joglearth::surface::LocationManager@{de\-::joglearth\-::surface\-::\-Location\-Manager}}
+\subsubsection[{get\-Details}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Location} de.\-joglearth.\-surface.\-Location\-Manager.\-get\-Details (
+\begin{DoxyParamCaption}
+\item[{{\bf Screen\-Coordinates}}]{coordinates}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_a5a37434c3d2bfd665f9915dd9d1690c7}
+Gets the details of a point with given \doxyref{Screen\-Coordinates}{S.}{}. To achieve that it asks the \doxyref{Request\-Distributor}{S.}{}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em coordinates} & The {\ttfamily Screen\-Coordinates} of the point \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Rückgabe}
+The {\ttfamily \doxyref{Location}{S.}{classde_1_1joglearth_1_1surface_1_1_location}} with details that is located on the given point or a {\ttfamily \doxyref{Location}{S.}{classde_1_1joglearth_1_1surface_1_1_location}} without details if the details are not yet loaded. 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::surface\-::\-Location\-Manager@{de\-::joglearth\-::surface\-::\-Location\-Manager}!remove\-Location\-Listener@{remove\-Location\-Listener}}
+\index{remove\-Location\-Listener@{remove\-Location\-Listener}!de::joglearth::surface::LocationManager@{de\-::joglearth\-::surface\-::\-Location\-Manager}}
+\subsubsection[{remove\-Location\-Listener}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Location\-Manager.\-remove\-Location\-Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Location\-Listener}}]{l}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_a4e2c63aff73eb0e1d84a878d28ea4806}
+Removes a specific \doxyref{Location\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_location_listener}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em l} & The {\ttfamily \doxyref{Location\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_location_listener}} that should be removed \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::surface\-::\-Location\-Manager@{de\-::joglearth\-::surface\-::\-Location\-Manager}!remove\-Surface\-Listener@{remove\-Surface\-Listener}}
+\index{remove\-Surface\-Listener@{remove\-Surface\-Listener}!de::joglearth::surface::LocationManager@{de\-::joglearth\-::surface\-::\-Location\-Manager}}
+\subsubsection[{remove\-Surface\-Listener}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Location\-Manager.\-remove\-Surface\-Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Surface\-Listener}}]{l}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_ad789dd615685883b93701d8a443d5eab}
+Removes a specific \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_surface_listener}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em l} & The {\ttfamily \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_surface_listener}} that should be removed \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::surface\-::\-Location\-Manager@{de\-::joglearth\-::surface\-::\-Location\-Manager}!search\-Global@{search\-Global}}
+\index{search\-Global@{search\-Global}!de::joglearth::surface::LocationManager@{de\-::joglearth\-::surface\-::\-Location\-Manager}}
+\subsubsection[{search\-Global}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Location\-Manager.\-search\-Global (
+\begin{DoxyParamCaption}
+\item[{String}]{query}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_ab63d6eadbd5c39558bbac1e81409b902}
+Searches on the whole globe/map after a query string.
+
+
+\begin{DoxyParams}{Parameter}
+{\em query} & The query string \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::surface\-::\-Location\-Manager@{de\-::joglearth\-::surface\-::\-Location\-Manager}!search\-Local@{search\-Local}}
+\index{search\-Local@{search\-Local}!de::joglearth::surface::LocationManager@{de\-::joglearth\-::surface\-::\-Location\-Manager}}
+\subsubsection[{search\-Local}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Location\-Manager.\-search\-Local (
+\begin{DoxyParamCaption}
+\item[{String}]{query, }
+\item[{{\bf Tile}[$\,$]}]{area}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_abd861424864158ced5760a5d74ceddd9}
+Searches after a query string on the visible part of the map/globe.
+
+
+\begin{DoxyParams}{Parameter}
+{\em query} & The query string \\
+\hline
+{\em area} & An array of visible tiles where the search should be performed on \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::surface\-::\-Location\-Manager@{de\-::joglearth\-::surface\-::\-Location\-Manager}!settings\-Changed@{settings\-Changed}}
+\index{settings\-Changed@{settings\-Changed}!de::joglearth::surface::LocationManager@{de\-::joglearth\-::surface\-::\-Location\-Manager}}
+\subsubsection[{settings\-Changed}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Location\-Manager.\-settings\-Changed (
+\begin{DoxyParamCaption}
+\item[{String}]{key, }
+\item[{Object}]{val\-Old, }
+\item[{Object}]{val\-New}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_a5cb5a6e42aff0c82ee889c37ae72bfcc}
+Invoked if a setting this listener has be registered on is changed.
+
+
+\begin{DoxyParams}{Parameter}
+{\em key} & The key of the changed setting \\
+\hline
+{\em val\-Old} & The old value of the setting, can be null if there wasn't any \\
+\hline
+{\em val\-New} & The new value of the setting, can be null \\
+\hline
+\end{DoxyParams}
+
+
+Implementiert {\bf de.\-joglearth.\-settings.\-Settings\-Listener} \doxyref{}{S.}{interfacede_1_1joglearth_1_1settings_1_1_settings_listener_a77fca7f974574ac990a8ed54cb076aef}.
+
+\index{de\-::joglearth\-::surface\-::\-Location\-Manager@{de\-::joglearth\-::surface\-::\-Location\-Manager}!show\-Location@{show\-Location}}
+\index{show\-Location@{show\-Location}!de::joglearth::surface::LocationManager@{de\-::joglearth\-::surface\-::\-Location\-Manager}}
+\subsubsection[{show\-Location}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Location\-Manager.\-show\-Location (
+\begin{DoxyParamCaption}
+\item[{{\bf Location}}]{location, }
+\item[{boolean}]{show}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_a1e143c25e71b58c056f22dbde5b55e64}
+Changes the visibility of a given \doxyref{Location}{S.}{classde_1_1joglearth_1_1surface_1_1_location}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em location} & The {\ttfamily \doxyref{Location}{S.}{classde_1_1joglearth_1_1surface_1_1_location}} that should be shown \\
+\hline
+{\em show} & Whether to show or hide the display \\
+\hline
+\end{DoxyParams}

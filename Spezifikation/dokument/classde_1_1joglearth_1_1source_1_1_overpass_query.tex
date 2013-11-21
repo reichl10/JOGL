@@ -1,0 +1,55 @@
+\section{de.\-joglearth.\-source.\-Overpass\-Query Klassenreferenz}
+\label{classde_1_1joglearth_1_1source_1_1_overpass_query}\index{de.\-joglearth.\-source.\-Overpass\-Query@{de.\-joglearth.\-source.\-Overpass\-Query}}
+\subsection*{Öffentliche Methoden}
+\begin{DoxyCompactItemize}
+\item 
+{\bf Overpass\-Query} ({\bf Location\-Type} query)
+\item 
+{\bf Overpass\-Query} ({\bf Location\-Type} query, {\bf Tile} area)
+\end{DoxyCompactItemize}
+\subsection*{Öffentliche Attribute}
+\begin{DoxyCompactItemize}
+\item 
+{\bf Tile} {\bfseries area}\label{classde_1_1joglearth_1_1source_1_1_overpass_query_a2eff24308aa9a8099fab597b4725c00a}
+
+\item 
+{\bf Location\-Type} {\bfseries query}\label{classde_1_1joglearth_1_1source_1_1_overpass_query_aed757bbed018fe47ef03eb564d3dbfc7}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+The class \doxyref{Overpass\-Query}{S.}{classde_1_1joglearth_1_1source_1_1_overpass_query} supports a query to the Overpass\-A\-P\-I. All results, e.\-g. P\-O\-Is or city names are within the F\-O\-V. The size of the F\-O\-V (the associated tiles) must be part of the query. 
+
+\subsection{Beschreibung der Konstruktoren und Destruktoren}
+\index{de\-::joglearth\-::source\-::\-Overpass\-Query@{de\-::joglearth\-::source\-::\-Overpass\-Query}!Overpass\-Query@{Overpass\-Query}}
+\index{Overpass\-Query@{Overpass\-Query}!de::joglearth::source::OverpassQuery@{de\-::joglearth\-::source\-::\-Overpass\-Query}}
+\subsubsection[{Overpass\-Query}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-source.\-Overpass\-Query.\-Overpass\-Query (
+\begin{DoxyParamCaption}
+\item[{{\bf Location\-Type}}]{query}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1_overpass_query_a78ea279b2784bc2ca47b67ddd4ee3c8e}
+Constructor for a global query. Assigns a value to a \doxyref{Location\-Type}{S.}{}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em query} & The {\ttfamily Location\-Type} of the query \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::source\-::\-Overpass\-Query@{de\-::joglearth\-::source\-::\-Overpass\-Query}!Overpass\-Query@{Overpass\-Query}}
+\index{Overpass\-Query@{Overpass\-Query}!de::joglearth::source::OverpassQuery@{de\-::joglearth\-::source\-::\-Overpass\-Query}}
+\subsubsection[{Overpass\-Query}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-source.\-Overpass\-Query.\-Overpass\-Query (
+\begin{DoxyParamCaption}
+\item[{{\bf Location\-Type}}]{query, }
+\item[{{\bf Tile}}]{area}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1_overpass_query_a8dcc46064688bbf26075253572c3a892}
+Constructor for a query in a given area. Assigns a value to a \doxyref{Location\-Type}{S.}{} and a \doxyref{Tile}{S.}{}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em query} & The {\ttfamily Location\-Type} of the query \\
+\hline
+{\em area} & The {\ttfamily Tile} that determines where the query should be performed \\
+\hline
+\end{DoxyParams}

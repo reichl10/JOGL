@@ -1,0 +1,106 @@
+\section{de.\-joglearth.\-surface.\-Height\-Map\-Manager Klassenreferenz}
+\label{classde_1_1joglearth_1_1surface_1_1_height_map_manager}\index{de.\-joglearth.\-surface.\-Height\-Map\-Manager@{de.\-joglearth.\-surface.\-Height\-Map\-Manager}}
+Klassendiagramm für de.\-joglearth.\-surface.\-Height\-Map\-Manager\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1surface_1_1_height_map_manager}
+\end{center}
+\end{figure}
+\subsection*{Öffentliche Methoden}
+\begin{DoxyCompactItemize}
+\item 
+{\bf Height\-Map\-Manager} ()
+\item 
+double {\bf get\-Height} ({\bf Geo\-Coordinates} coords)
+\item 
+void {\bf add\-Surface\-Listener} ({\bf Surface\-Listener} l)
+\item 
+void {\bf remove\-Surface\-Listener} ({\bf Surface\-Listener} l)
+\item 
+void {\bf settings\-Changed} (String key, Object val\-Old, Object val\-New)
+\end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Interpolates informations about the height of points displayed on the map using S\-R\-T\-M height data. A \doxyref{de.\-joglearth.\-rendering.\-Tessellator}{S.}{interfacede_1_1joglearth_1_1rendering_1_1_tessellator} uses this class to generate a map surface by the \doxyref{Height\-Map}{S.}{}. 
+
+\subsection{Beschreibung der Konstruktoren und Destruktoren}
+\index{de\-::joglearth\-::surface\-::\-Height\-Map\-Manager@{de\-::joglearth\-::surface\-::\-Height\-Map\-Manager}!Height\-Map\-Manager@{Height\-Map\-Manager}}
+\index{Height\-Map\-Manager@{Height\-Map\-Manager}!de::joglearth::surface::HeightMapManager@{de\-::joglearth\-::surface\-::\-Height\-Map\-Manager}}
+\subsubsection[{Height\-Map\-Manager}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-surface.\-Height\-Map\-Manager.\-Height\-Map\-Manager (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_height_map_manager_af495c4d3c9fee6169fed416d1e6bc707}
+Constructor for \doxyref{Height\-Map\-Manager}{S.}{classde_1_1joglearth_1_1surface_1_1_height_map_manager} which knows and initializes a \doxyref{File\-System\-Cache}{S.}{}, a \doxyref{S\-R\-T\-M\-Tile\-Source}{S.}{} and a \doxyref{Memory\-Cache}{S.}{}. 
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::surface\-::\-Height\-Map\-Manager@{de\-::joglearth\-::surface\-::\-Height\-Map\-Manager}!add\-Surface\-Listener@{add\-Surface\-Listener}}
+\index{add\-Surface\-Listener@{add\-Surface\-Listener}!de::joglearth::surface::HeightMapManager@{de\-::joglearth\-::surface\-::\-Height\-Map\-Manager}}
+\subsubsection[{add\-Surface\-Listener}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Height\-Map\-Manager.\-add\-Surface\-Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Surface\-Listener}}]{l}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_height_map_manager_a6051d8f3c4b0c90570217421dbe1e789}
+Adds a \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_surface_listener} that distributes a notification if the surface was changed.
+
+
+\begin{DoxyParams}{Parameter}
+{\em l} & The new listener \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::surface\-::\-Height\-Map\-Manager@{de\-::joglearth\-::surface\-::\-Height\-Map\-Manager}!get\-Height@{get\-Height}}
+\index{get\-Height@{get\-Height}!de::joglearth::surface::HeightMapManager@{de\-::joglearth\-::surface\-::\-Height\-Map\-Manager}}
+\subsubsection[{get\-Height}]{\setlength{\rightskip}{0pt plus 5cm}double de.\-joglearth.\-surface.\-Height\-Map\-Manager.\-get\-Height (
+\begin{DoxyParamCaption}
+\item[{{\bf Geo\-Coordinates}}]{coords}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_height_map_manager_a1888ab9aa707f84d1817fac88a0ef47c}
+Tries to determine the height of a point using the S\-R\-T\-M data that contains its \doxyref{Geo\-Coordinates}{S.}{} or returns default {\ttfamily 0} if no value was found.
+
+
+\begin{DoxyParams}{Parameter}
+{\em coords} & The {\ttfamily Geo\-Coordinates} of the point \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Rückgabe}
+The height of the wanted point, {\ttfamily 0} if the height of the point is not yet in the cache 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::surface\-::\-Height\-Map\-Manager@{de\-::joglearth\-::surface\-::\-Height\-Map\-Manager}!remove\-Surface\-Listener@{remove\-Surface\-Listener}}
+\index{remove\-Surface\-Listener@{remove\-Surface\-Listener}!de::joglearth::surface::HeightMapManager@{de\-::joglearth\-::surface\-::\-Height\-Map\-Manager}}
+\subsubsection[{remove\-Surface\-Listener}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Height\-Map\-Manager.\-remove\-Surface\-Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Surface\-Listener}}]{l}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_height_map_manager_a1491cc2c85d4d75dce6dff0001dab378}
+Removes a specific \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_surface_listener}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em l} & The listener that should be removed \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::surface\-::\-Height\-Map\-Manager@{de\-::joglearth\-::surface\-::\-Height\-Map\-Manager}!settings\-Changed@{settings\-Changed}}
+\index{settings\-Changed@{settings\-Changed}!de::joglearth::surface::HeightMapManager@{de\-::joglearth\-::surface\-::\-Height\-Map\-Manager}}
+\subsubsection[{settings\-Changed}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Height\-Map\-Manager.\-settings\-Changed (
+\begin{DoxyParamCaption}
+\item[{String}]{key, }
+\item[{Object}]{val\-Old, }
+\item[{Object}]{val\-New}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_height_map_manager_ae732b1d485cb410bbb1de7e2c41dda60}
+Invoked if a setting this listener has be registered on is changed.
+
+
+\begin{DoxyParams}{Parameter}
+{\em key} & The key of the changed setting \\
+\hline
+{\em val\-Old} & The old value of the setting, can be null if there wasn't any \\
+\hline
+{\em val\-New} & The new value of the setting, can be null \\
+\hline
+\end{DoxyParams}
+
+
+Implementiert {\bf de.\-joglearth.\-settings.\-Settings\-Listener} \doxyref{}{S.}{interfacede_1_1joglearth_1_1settings_1_1_settings_listener_a77fca7f974574ac990a8ed54cb076aef}.
+
