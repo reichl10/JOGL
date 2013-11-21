@@ -204,10 +204,113 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 
 \chapter{JUnit Tests}
 
+\section{Getestete Klassen}
+
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline 
+\rule[-1ex]{0pt}{4ex} Klasse & Erläuterung \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} BinaryRequestDistributor & \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} RequestDistributor & \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} FileSystemCache & \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} MemoryCache & \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} TextureCache & \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} Camera & Teile \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} PlaneGeometry & \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} SphereGeometry & \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} Settings & Threadsicherheit + Listener testen \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} HTTPUtils & \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} Paket Source insgesamt & \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} HeightMapManager & \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} LocationManager & \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} TextureManager & \\ 
+\hline
+
+\end{tabular}
+
+\newpage
+\section{Testfälle}
+
+\subsection*{Testfall Settings}
+\lstset{language=Java}
+\begin{lstlisting}
+package de.joglearth.junit.settings;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import de.joglearth.settings.Settings;
+import de.joglearth.settings.SettingsContract;
 
 
-\chapter{Algorithmen}
+public class WriteAndLoadSettings {
 
+    private static final Boolean TV_BOOLEAN = new Boolean(false);
+    private static final Double  TV_DOUBLE  = new Double(123.301d);
+    private static final Float   TV_FLOAT   = new Float(32.35f);
+    private static final Integer TV_INTEGER = new Integer(39424);
+    private static final Long    TV_LONG    = new Long(348324023);
+    private static final String  TV_STRING  = "jfsdjfisdf*+3439(&2)(/&";
+
+
+    @Before
+    public void setUp() throws Exception {}
+
+    @After 
+    public void tearDown() throws Exception {}
+
+    @Test
+    public void testLoadSettings() {
+        Settings settings = Settings.getInstance();
+        settings.putBoolean("tkBoolean", TV_BOOLEAN);
+        settings.putDouble("tkDouble", TV_DOUBLE);
+        settings.putFloat("tkFloat", TV_FLOAT);
+        settings.putInteger("tkInteger", TV_INTEGER);
+        settings.putLong("tkLong", TV_LONG);
+        settings.putString("tkString", TV_STRING);
+        SettingsContract.saveSettings();
+        settings.putBoolean("tkBoolean", null);
+        settings.putDouble("tkDouble", null);
+        settings.putFloat("tkFloat", null);
+        settings.putInteger("tkInteger", null);
+        settings.putLong("tkLong", null);
+        settings.putString("tkString", null);
+        SettingsContract.loadSettings();
+        assertEquals("Loading Boolean Failed", TV_BOOLEAN, settings.getBoolean("tkBoolean"));
+        assertEquals("", TV_DOUBLE, settings.getDouble("tkDouble"));
+        assertEquals("", TV_FLOAT, settings.getFloat("tkFloat"));
+        assertEquals(TV_INTEGER, settings.getInteger("tkInteger"));
+        assertEquals(TV_LONG, settings.getLong("tkLong"));
+        assertEquals(TV_STRING, settings.getString("tkString"));
+    }
+
+    @Test
+    public void testSaveSettings() {
+        fail("Not yet implemented.");
+    }
+
+}
+
+\end{lstlisting}
+
+%\subsection*{•}
+%\begin{lstlisting}
+%\end{lstlisting}
 
 
 \chapter{Persistente Daten}
@@ -221,83 +324,71 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 \end{itemize}
 
 \section{Programm Icons}
-\begin{itemize}
-\item Logo und Icon
-\item Stecknadel
-\item Combobox-Icons
-\item Plus und Minus Icon des Zoombalkens
-\item Maßstab
-\item Ladebalken
-\item Handbuch
-\item Info
-\end{itemize}
 
+\vspace{5mm}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline 
+\rule[-1ex]{0pt}{4ex} \textbf{Symbol} & \textbf{Erläuterung} \\ 
+\hline
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} &  Logo von \JoglEarth \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.2]{Logo.eps}} & Programm-Icon \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.0]{Hinzufugen.eps}} &  Stecknadel zum markieren eines Punktes \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.0]{Entfernen.eps}} & Stecknadel zum entfernen eines Punktes \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.3]{Zoom_plus.eps}} & Plus beim Zoomen \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.3]{Zoom_minus.eps}} & Minus beim Zoomen \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} & Maßstab \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.2]{Handbuch.eps}} &  Handbuch-Icon \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.2]{Info.eps}} &  About-Icon \\ 
+\hline
+
+\end{tabular}
+
+\newpage
 
 \section{Kachelserver}
 Die Tabelle gibt eine Übersicht über die in \JoglEarth verfügbaren Kachelserver. \\
 
+\vspace{5mm}
 \begin{tabular}{|c|l|l|}
 \hline
-ENUM \textit{OSMTileType} & Server 1 & Server 2 \\
+\rule[-1ex]{0pt}{4ex} \textbf{ENUM \textit{OSMTileType}} & \textbf{Server 1} & \textbf{Server 2} \\
 \hline
 \hline
-OSM\_MAPNIK & http://otile1.mqcdn.com/tiles/1.0.0/osm/...png & http://otile2.mqcdn.com/tiles/1.0.0/osm/...png \\
+\rule[-1ex]{0pt}{4ex} OSM\_MAPNIK & http://otile1.mqcdn.com/tiles/1.0.0/osm/...png & http://otile2.mqcdn.com/tiles/1.0.0/osm/...png \\
 \hline
-CYCLING & http://a.tile.opencyclemap.org/cycle/...png & http://b.tile.opencyclemap.org/cycle/...png \\
+\rule[-1ex]{0pt}{4ex} CYCLING & http://a.tile.opencyclemap.org/cycle/...png & http://b.tile.opencyclemap.org/cycle/...png \\
 \hline
-SKIING & http://tiles.openpistemap.org/nocontours/...png & \\
+\rule[-1ex]{0pt}{4ex} SKIING & http://tiles.openpistemap.org/nocontours/...png & \\
 \hline
-SEA & http://tiles.openseamap.org/seamark/...png & \\
+\rule[-1ex]{0pt}{4ex} SEA & http://tiles.openseamap.org/seamark/...png & \\
 \hline
-HIKING & http://tile.lonvia.de/hiking/...png & \\
+\rule[-1ex]{0pt}{4ex} HIKING & http://tile.lonvia.de/hiking/...png & \\
 \hline
 \end{tabular}
+
+\vspace{1.5 cm}
 
 \section{Liste der POIs}
 Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann im Rahmen dieses Projekts nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den  Antworten der OverpassAPI vorgenommen.\\
 
+\vspace{5 mm}
 
-\vspace{1.5 cm}
-\begin{tabular}{|p{5cm}|p{9cm}|}
-\hline 
-\rule[-1ex]{0pt}{4ex} ENUM LocationType & Erklärung \\ 
-\hline  \hline
-\rule[-1ex]{0pt}{4ex} RESTAURANT & Liefert Cafes, Restaurants und Biergärten \\
-\hline
-\rule[-1ex]{0pt}{4ex} NIGHTLIFE & Liefert Bars, Clubs, Diskotheken, Kinos, Casinos und Solarien  \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} BANK & Liefert Banken \\
-\hline
-\rule[-1ex]{0pt}{4ex} TOILETS & Liefert öffentliche Toiletten \\
-\hline
-\rule[-1ex]{0pt}{4ex} FOOD & Liefert Supermärkte, Bäcker, Metzger und Drogerien \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} SHOPS & Liefert Geschäfte aller Art. \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} ACTIVITY & Liefert Freizeitaktivitäten, Picknickplätze und Aussichtspunkte \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} OUTDOORACTIVITY & Liefert POIs für Radfahrer und Wanderer, wie Picknickplätze und Aussichtspunkte, Bänke, Mülleimer und Fahrradläden \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} EDUCATION & Liefert Bildungseinrichtungen \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} HEALTH & Liefert Ärzte, Krankenhäuser, Apotheken und Drogerien \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} POST & Liefert Postämter, Briefkästen und Packstationen \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} HOTELS &  Liefert Hotels und Pensionen \\ 
-\hline
-\end{tabular}
-
-
-\vspace{1.5 cm}
-%\newcolumntype{L}[1]{>{\sffamily\bfseries\hsize=#1\hsize\raggedright\arraybackslash}X}
-%\newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}
 \setlength{\extrarowheight}{4mm}
-\begin{tabular}{|p{4cm}|p{10cm}|}%{L{0.35} R{1.65}}
+\begin{longtable}{|p{4cm} p{10cm}|}%{L{0.35} R{1.65}}
 \hline 
-\rule[-1ex]{0pt}{4ex} ENUM \textit{LocationType} &  Overpass Query \\ 
+\rule[-1ex]{0pt}{4ex} \textbf{ENUM \textit{LocationType}} &  \textbf{Overpass Query} \\ 
 \hline  \hline
-\rule[-1ex]{0pt}{4ex} RESTAURANT &   
+\rule[-1ex]{0pt}{4ex} RESTAURANT &
+\lstset{language=XML}  
 \begin{lstlisting} 
 <osm-script>
   <union>
@@ -573,7 +664,9 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 </osm-script>
 \end{lstlisting} \\ 
 \hline
-\end{tabular}
+\end{longtable}
+
+\newpage
 
 \section{Settingsfile}
 The XML File to be read and write by the SettingsContract class has to follow the here listed rules.
@@ -644,7 +737,7 @@ Example XML File Content:
 \chapter{Übersetzung der Bedienoberfläche}
 
 \section{Übersetzungstabelle GUI}
-\begin{tabular}{|p{7.5cm}|p{7.5cm}|}
+\begin{longtable}{|p{7.5cm}|p{7.5cm}|}
 \hline 
 \textbf{Deutsch} & \textbf{Englisch} \\ 
 \hline
@@ -729,11 +822,11 @@ Name eingeben & insert name \\
 \hline
 Beschreibung & description \\
 \hline
-\end{tabular}
+\end{longtable}
 
 \newpage
 \section{Übersetzungstabelle POIs}
-\begin{tabular}{|p{7.5cm}|p{7.5cm}|}
+\begin{longtable}{|p{7.5cm}|p{7.5cm}|}
 \hline 
 \textbf{Deutsch} & \textbf{Englisch} \\ 
 \hline
@@ -760,7 +853,7 @@ Post & post \\
 \hline
 & HOTELS \\
 \hline
-\end{tabular}
+\end{longtable}
 
 
 

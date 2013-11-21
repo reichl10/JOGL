@@ -17,6 +17,9 @@ import de.joglearth.source.SourceListener;
 
 
 
+/**
+ * Handles the OpenGL rendering.
+ */
 public class Renderer implements Runnable, CameraListener, SettingsListener {
 
     private GL2              gl;
@@ -30,6 +33,19 @@ public class Renderer implements Runnable, CameraListener, SettingsListener {
     private Camera           camera;
 
 
+    /**
+     * Constructor initializes the OpenGL functionalities.
+     * 
+     * @param canv
+     *            {@link com.jogamp.opengl.swt.GLCanvas} object of the GUI.
+     * @param height
+     *            {@link HeightMapManager} that provides the height of a point.
+     * @param locationManager
+     *            {@link LocationManager} that provides the information about Overlays to be
+     *            displayed.
+     * @param camera
+     *            //TODO {@link Camera}
+     */
     public Renderer(GLCanvas canv, HeightMapManager height,
             LocationManager locationManager, Camera camera) {
         this.locationManager = locationManager;
@@ -40,15 +56,28 @@ public class Renderer implements Runnable, CameraListener, SettingsListener {
         this.height = height;
     }
 
+    /**
+     * Gets the Camera.
+     * 
+     * @return Camera object.
+     */
     public Camera getCamera() {
         return camera;
     }
 
+    /**
+     * @param camera
+     */
     public void setCamera(Camera camera) {
         this.camera = camera;
     }
 
 
+    /**
+     * 
+     * Listener notified when a new element arrived in a {@link Cache}.
+     * 
+     */
     private class CacheListener implements SourceListener<Tile, byte[]> {
 
         @Override
@@ -58,6 +87,9 @@ public class Renderer implements Runnable, CameraListener, SettingsListener {
     }
 
 
+    /**
+     * @return
+     */
     private synchronized boolean isQuit() {
         return quit;
     }
@@ -74,12 +106,20 @@ public class Renderer implements Runnable, CameraListener, SettingsListener {
     // werden muss. Wenn vorher start() aufgerufen wurde, hat die
     // Methode u.U. keine Auswirkung. Asynchron, wartet nicht bis der
     // Frame gezeichnet wurde.
+    /**
+     * Notifies the <code>Renderer</code> that a new frame should be rendered. If
+     * <code>start()</code> is called this method may have no effect. Asynchron method, does not
+     * wait till a frame is drawn.
+     */
     public synchronized void post() {
         posted = true;
     }
 
     // Beginnt mit einer konstanten FPS-Zahl zu rendern, zB. 60.
     // Asynchron, kehrt sofort zur�ck.
+    /**
+     * Starts the render loops with 60 FPS.
+     */
     public synchronized void start() {
         running = true;
     }
@@ -87,6 +127,9 @@ public class Renderer implements Runnable, CameraListener, SettingsListener {
     // Beendet eine Renderschleife, die mit start() angesto�en wurde.
     // U.U. wird trotzdem noch ein Frame gerendert, falls w�hrenddessen
     // post() aufgerufen wurde.
+    /**
+     * Stops the rendering loop. When <code>post()</code> is called a new frame will be rendered.
+     */
     public synchronized void stop() {
         running = false;
     }
@@ -109,6 +152,7 @@ public class Renderer implements Runnable, CameraListener, SettingsListener {
         }
     }
 
+    //TODO
     private void render() {
 
     }
@@ -143,6 +187,7 @@ public class Renderer implements Runnable, CameraListener, SettingsListener {
 
         }
     }
+
 
     @Override
     public void settingsChanged(String key, Object valOld, Object valNew) {
