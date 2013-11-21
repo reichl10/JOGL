@@ -308,12 +308,9 @@ public class WriteAndLoadSettings {
 
 \end{lstlisting}
 
-\subsection*{•}
-\begin{lstlisting}
-\end{lstlisting}
-
-\chapter{Algorithmen}
-
+%\subsection*{•}
+%\begin{lstlisting}
+%\end{lstlisting}
 
 
 \chapter{Persistente Daten}
@@ -339,26 +336,26 @@ public class WriteAndLoadSettings {
 
 \begin{tabular}{|p{4cm}|p{10cm}|}
 \hline 
-\rule[-1ex]{0pt}{4ex} Symbol & Erläuterung \\ 
+\rule[-1ex]{0pt}{4ex} \textbf{Symbol} & \textbf{Erläuterung} \\ 
 \hline
 \hline
-\rule[-1ex]{0pt}{4ex}  \includegraphics[scale=0.5]{Logo-Print.eps} &  Logo von \JoglEarth \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} &  Logo von \JoglEarth \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \includegraphics[scale=0.5]{Logo-Print.eps} & Programm-Icon \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.2]{Logo.eps}} & Programm-Icon \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \includegraphics[scale=0.5]{Logo-Print.eps} &  Stecknadel zum markieren eines Punktes \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} &  Stecknadel zum markieren eines Punktes \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \includegraphics[scale=0.5]{Logo-Print.eps} & Stecknadel zum entfernen eines Punktes \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} & Stecknadel zum entfernen eines Punktes \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \includegraphics[scale=0.5]{Logo-Print.eps} & Plus beim Zoomen \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} & Plus beim Zoomen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \includegraphics[scale=0.5]{Logo-Print.eps} & Minus beim Zoomen \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} & Minus beim Zoomen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \includegraphics[scale=0.5]{Logo-Print.eps} & Maßstab \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} & Maßstab \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \includegraphics[scale=0.5]{Logo-Print.eps} &  Handbuch-Icon \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} &  Handbuch-Icon \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \includegraphics[scale=0.5]{Logo-Print.eps} &  About-Icon \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} &  About-Icon \\ 
 \hline
 
 \end{tabular}
@@ -369,7 +366,7 @@ Die Tabelle gibt eine Übersicht über die in \JoglEarth verfügbaren Kachelserv
 
 \begin{tabular}{|c|l|l|}
 \hline
-\rule[-1ex]{0pt}{4ex} ENUM \textit{OSMTileType} & Server 1 & Server 2 \\
+\rule[-1ex]{0pt}{4ex} \textbf{ENUM \textit{OSMTileType}} & \textbf{Server 1} & \textbf{Server 2} \\
 \hline
 \hline
 \rule[-1ex]{0pt}{4ex} OSM\_MAPNIK & http://otile1.mqcdn.com/tiles/1.0.0/osm/...png & http://otile2.mqcdn.com/tiles/1.0.0/osm/...png \\
@@ -391,12 +388,10 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 \vspace{5 mm}
 
-%\newcolumntype{L}[1]{>{\sffamily\bfseries\hsize=#1\hsize\raggedright\arraybackslash}X}
-%\newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}
 \setlength{\extrarowheight}{4mm}
 \begin{longtable}{|p{4cm} p{10cm}|}%{L{0.35} R{1.65}}
 \hline 
-\rule[-1ex]{0pt}{4ex} ENUM \textit{LocationType} &  Overpass Query \\ 
+\rule[-1ex]{0pt}{4ex} \textbf{ENUM \textit{LocationType}} &  \textbf{Overpass Query} \\ 
 \hline  \hline
 \rule[-1ex]{0pt}{4ex} RESTAURANT &
 \lstset{language=XML}  
@@ -677,7 +672,7 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 \hline
 \end{longtable}
 
-
+\newpage
 
 \section{Settingsfile}
 The XML File to be read and write by the SettingsContract class has to follow the here listed rules.
