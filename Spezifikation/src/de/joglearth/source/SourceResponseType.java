@@ -1,21 +1,22 @@
 package de.joglearth.source;
 
 /**
- * Type of the response of the source. 
+ * Type of the response of the source.
  */
 public enum SourceResponseType {
     /**
      * Shows if the response includes the requested value.
      */
-    SYNCHRONOUS, 
-    
+    SYNCHRONOUS,
+
     /**
-     * The requested value is temporarily not available. It must be loaded via internet.
+     * The requested value is temporarily not available. An <code>asynchronous</code> response
+     * follows.
      */
-    ASYNCHRONOUS, 
-    
+    ASYNCHRONOUS,
+
     /**
-     * The requested value is not available. It could not be loaded via internet.
+     * The requested value is not available. It could not be acquired.
      */
     MISSING
 }
