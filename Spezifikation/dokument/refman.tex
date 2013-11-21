@@ -1,0 +1,192 @@
+\documentclass[twoside]{book}
+
+% Packages required by doxygen
+\usepackage{calc}
+\usepackage{doxygen}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{makeidx}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{textcomp}
+\usepackage[table]{xcolor}
+
+% NLS support packages
+\usepackage[ngerman]{babel}
+
+% Font selection
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+\usepackage{amssymb}
+\usepackage{sectsty}
+\renewcommand{\familydefault}{\sfdefault}
+\allsectionsfont{%
+  \fontseries{bc}\selectfont%
+  \color{darkgray}%
+}
+\renewcommand{\DoxyLabelFont}{%
+  \fontseries{bc}\selectfont%
+  \color{darkgray}%
+}
+
+% Page & text layout
+\usepackage{geometry}
+\geometry{%
+  a4paper,%
+  top=2.5cm,%
+  bottom=2.5cm,%
+  left=2.5cm,%
+  right=2.5cm%
+}
+\tolerance=750
+\hfuzz=15pt
+\hbadness=750
+\setlength{\emergencystretch}{15pt}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{0.2cm}
+\makeatletter
+\renewcommand{\paragraph}{%
+  \@startsection{paragraph}{4}{0ex}{-1.0ex}{1.0ex}{%
+    \normalfont\normalsize\bfseries\SS@parafont%
+  }%
+}
+\renewcommand{\subparagraph}{%
+  \@startsection{subparagraph}{5}{0ex}{-1.0ex}{1.0ex}{%
+    \normalfont\normalsize\bfseries\SS@subparafont%
+  }%
+}
+\makeatother
+
+% Headers & footers
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhead[LE]{\fancyplain{}{\bfseries\thepage}}
+\fancyhead[CE]{\fancyplain{}{}}
+\fancyhead[RE]{\fancyplain{}{\bfseries\leftmark}}
+\fancyhead[LO]{\fancyplain{}{\bfseries\rightmark}}
+\fancyhead[CO]{\fancyplain{}{}}
+\fancyhead[RO]{\fancyplain{}{\bfseries\thepage}}
+\fancyfoot[LE]{\fancyplain{}{}}
+\fancyfoot[CE]{\fancyplain{}{}}
+\fancyfoot[RE]{\fancyplain{}{\bfseries\scriptsize Erzeugt am Don Nov 21 2013 11\-:16\-:42 für Jogl Earth von Doxygen }}
+\fancyfoot[LO]{\fancyplain{}{\bfseries\scriptsize Erzeugt am Don Nov 21 2013 11\-:16\-:42 für Jogl Earth von Doxygen }}
+\fancyfoot[CO]{\fancyplain{}{}}
+\fancyfoot[RO]{\fancyplain{}{}}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\chaptermark}[1]{%
+  \markboth{#1}{}%
+}
+\renewcommand{\sectionmark}[1]{%
+  \markright{\thesection\ #1}%
+}
+
+% Indices & bibliography
+\usepackage{natbib}
+\usepackage[titles]{tocloft}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{5}
+\makeindex
+
+% Custom commands
+\newcommand{\clearemptydoublepage}{%
+  \newpage{\pagestyle{empty}\cleardoublepage}%
+}
+
+
+%===== C O N T E N T S =====
+
+\begin{document}
+
+% Titlepage & ToC
+\pagenumbering{roman}
+\begin{titlepage}
+\vspace*{7cm}
+\begin{center}%
+{\Large Jogl Earth }\\
+\vspace*{1cm}
+{\large Erzeugt von Doxygen 1.8.5}\\
+\vspace*{0.5cm}
+{\small Don Nov 21 2013 11:16:42}\\
+\end{center}
+\end{titlepage}
+\clearemptydoublepage
+\tableofcontents
+\clearemptydoublepage
+\pagenumbering{arabic}
+
+%--- Begin generated contents ---
+\chapter{Verzeichnis der Namensbereiche}
+\input{namespaces}
+\chapter{Hierarchie-\/\-Verzeichnis}
+\input{hierarchy}
+\chapter{Klassen-\/\-Verzeichnis}
+\input{annotated}
+\chapter{Dokumentation der Namensbereiche}
+\input{namespacede_1_1joglearth}
+\input{namespacede_1_1joglearth_1_1settings}
+\chapter{Klassen-\/\-Dokumentation}
+\input{classde_1_1joglearth_1_1ui_1_1_about_box}
+\input{classde_1_1joglearth_1_1caching_1_1_binary_request_distributor_3_01_key_01_4}
+\input{interfacede_1_1joglearth_1_1caching_1_1_cache_3_01_key_00_01_value_01_4}
+\input{classde_1_1joglearth_1_1geometry_1_1_camera}
+\input{interfacede_1_1joglearth_1_1geometry_1_1_camera_listener}
+\input{classde_1_1joglearth_1_1caching_1_1_file_system_cache_3_01_key_01_4}
+\input{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates}
+\input{interfacede_1_1joglearth_1_1geometry_1_1_geometry}
+\input{classde_1_1joglearth_1_1ui_1_1_g_u_i_event_listener}
+\input{classde_1_1joglearth_1_1surface_1_1_height_map_manager}
+\input{classde_1_1joglearth_1_1source_1_1_h_t_t_p_utils}
+\input{classde_1_1joglearth_1_1_jogl_earth}
+\input{classde_1_1joglearth_1_1surface_1_1_location}
+\input{interfacede_1_1joglearth_1_1surface_1_1_location_listener}
+\input{classde_1_1joglearth_1_1surface_1_1_location_manager}
+\input{enumde_1_1joglearth_1_1surface_1_1_location_type}
+\input{classde_1_1joglearth_1_1ui_1_1_main_window}
+\input{classde_1_1joglearth_1_1geometry_1_1_matrix4}
+\input{classde_1_1joglearth_1_1caching_1_1_memory_cache_3_01_key_00_01_value_01_4}
+\input{classde_1_1joglearth_1_1rendering_1_1_mesh}
+\input{classde_1_1joglearth_1_1source_1_1_nominatim_query}
+\input{classde_1_1joglearth_1_1source_1_1_nominatim_source}
+\input{classde_1_1joglearth_1_1source_1_1_o_s_m_tile_source}
+\input{enumde_1_1joglearth_1_1source_1_1_o_s_m_tile_type}
+\input{classde_1_1joglearth_1_1source_1_1_overpass_query}
+\input{classde_1_1joglearth_1_1source_1_1_overpass_source}
+\input{classde_1_1joglearth_1_1geometry_1_1_plane_geometry}
+\input{classde_1_1joglearth_1_1rendering_1_1_plane_tessellator}
+\input{interfacede_1_1joglearth_1_1caching_1_1_progress_listener}
+\input{classde_1_1joglearth_1_1caching_1_1_progress_manager}
+\input{classde_1_1joglearth_1_1rendering_1_1_renderer}
+\input{classde_1_1joglearth_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4}
+\input{classde_1_1joglearth_1_1geometry_1_1_screen_coordinates}
+\input{classde_1_1joglearth_1_1settings_1_1_settings}
+\input{classde_1_1joglearth_1_1settings_1_1_settings_contract}
+\input{interfacede_1_1joglearth_1_1settings_1_1_settings_listener}
+\input{interfacede_1_1joglearth_1_1source_1_1_source_3_01_key_00_01_value_01_4}
+\input{interfacede_1_1joglearth_1_1source_1_1_source_listener_3_01_key_00_01_value_01_4}
+\input{classde_1_1joglearth_1_1source_1_1_source_response_3_01_value_01_4}
+\input{enumde_1_1joglearth_1_1source_1_1_source_response_type}
+\input{classde_1_1joglearth_1_1geometry_1_1_sphere_geometry}
+\input{classde_1_1joglearth_1_1rendering_1_1_sphere_tessellator}
+\input{classde_1_1joglearth_1_1source_1_1_s_r_t_m_tile_source}
+\input{interfacede_1_1joglearth_1_1surface_1_1_surface_listener}
+\input{interfacede_1_1joglearth_1_1rendering_1_1_tessellator}
+\input{classde_1_1joglearth_1_1caching_1_1_texture_cache}
+\input{classde_1_1joglearth_1_1surface_1_1_texture_manager}
+\input{classde_1_1joglearth_1_1source_1_1_texture_source}
+\input{classde_1_1joglearth_1_1geometry_1_1_tile}
+\input{enumde_1_1joglearth_1_1source_1_1_nominatim_query_1_1_type}
+\input{classde_1_1joglearth_1_1geometry_1_1_vector3}
+\input{classde_1_1joglearth_1_1geometry_1_1_vector4}
+\input{classde_1_1joglearth_1_1ui_1_1_view_event_listener}
+\input{classde_1_1joglearth_1_1junit_1_1settings_1_1_write_and_load_settings}
+%--- End generated contents ---
+
+% Index
+\newpage
+\phantomsection
+\addcontentsline{toc}{part}{Index}
+\printindex
+
+\end{document}

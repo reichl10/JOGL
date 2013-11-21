@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage[Bjornstrup]{fncychap}
-\usepackage{ngerman}
+%\usepackage{ngerman}
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \usepackage{etoolbox}
@@ -12,39 +12,45 @@
 \usepackage{numprint}
 \usepackage{longtable}
 \usepackage{caption}
-\usepackage{rotating}
+ \usepackage{rotating}
 \usepackage{array}
 \usepackage{listings}
-\usepackage{color}
 \usepackage{amssymb}
 \usepackage{multirow}
 \usepackage{textcomp}
 \usepackage{calc}
-\usepackage{../doc/doxygen}
+\usepackage{doxygen}
 \usepackage[table]{xcolor}
-\usepackage{hyperref}
-\hypersetup{%
-  colorlinks=true,%
-  linkcolor=blue,%
-  citecolor=blue,%
-  unicode%
-}
-\usepackage[T1]{fontenc}
+%\usepackage{hyperref}
+%\hypersetup{%
+%  colorlinks=false,%
+%  linkcolor=blue,%
+%  citecolor=blue,%
+%  unicode%
+%}
 \usepackage{mathptmx}
-\usepackage[scaled=.90]{helvet}
 \usepackage{courier}
 \usepackage{amssymb}
-\usepackage{sectsty}
-\renewcommand{\familydefault}{\sfdefault}
-\allsectionsfont{%
-  \fontseries{bc}\selectfont%
-  \color{darkgray}%
-}
 \renewcommand{\DoxyLabelFont}{%
   \fontseries{bc}\selectfont%
   \color{darkgray}%
 }
+% Used for member lists
+\renewenvironment{DoxyCompactItemize}{%
+  \begin{itemize}%
+  \sffamily
+    \setlength{\itemsep}{-3pt}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\topsep}{0pt}%
+    \setlength{\partopsep}{0pt}%
+}{%
+  \end{itemize}%
+}
 
+\renewcommand{\em}{\sffamily\bfseries}
+\renewcommand{\bf}{\sffamily\bfseries}
+\newcommand{\hyperlink}[2]{#1}
+\usepackage{colortbl}
 
 \makeatletter
 \patchcmd{\@makechapterhead}{\vspace*{50\p@}}{\vspace*{-20\p@}}{}{}
@@ -189,10 +195,9 @@ Die im Programm benötigten persistenten Daten werden festgelegt und soweit nöt
 Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte Implementierungsphase ein Gantt-Diagramm - ein sogenannter Implementierungsplan - erstellt und soll sozusagen die nächste Phase visualisieren.\\
 
 
-
-\chapter{JavaDocs}
-
-\input{../doc/include}
+\arrayrulecolor{white}
+\input{include}
+\arrayrulecolor{black}
 
 
 
@@ -238,7 +243,7 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 \vspace{1.5 cm}
 \begin{tabular}{|p{3cm}|p{8.5cm}|}
 \hline 
-\rule[-1ex]{0pt}{4ex} \textbf{ENUM} & \textbf{Erklärung} & \textbf{Overpass Query} \\ 
+\rule[-1ex]{0pt}{4ex} \textbf{ENUM} & \textbf{Erklärung}  \textbf{Overpass Query} \\ 
 \hline  \hline
 \rule[-1ex]{0pt}{4ex} RESTAURANT & Liefert Cafes, Restaurants und Biergärten \\
 \hline
@@ -270,7 +275,7 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 \vspace{1.5 cm}
 \begin{tabular}{|p{3cm}|p{8.5cm}|}
 \hline 
-\rule[-1ex]{0pt}{4ex} \textbf{ENUM} & \textbf{Erklärung} & \textbf{Overpass Query} \\ 
+\rule[-1ex]{0pt}{4ex} \textbf{ENUM} & \textbf{Erklärung}  \textbf{Overpass Query} \\ 
 \hline  \hline
 \rule[-1ex]{0pt}{4ex} RESTAURANT &   
 \begin{lstlisting} 

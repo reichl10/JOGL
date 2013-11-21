@@ -1,0 +1,40 @@
+\section{de.\-joglearth.\-source.\-Source$<$ Key, Value $>$ Schnittstellenreferenz}
+\label{interfacede_1_1joglearth_1_1source_1_1_source_3_01_key_00_01_value_01_4}\index{de.\-joglearth.\-source.\-Source$<$ Key, Value $>$@{de.\-joglearth.\-source.\-Source$<$ Key, Value $>$}}
+\subsection*{Öffentliche Methoden}
+\begin{DoxyCompactItemize}
+\item 
+Source\-Response$<$ Value $>$ {\bf request\-Object} (Key key, Source\-Listener$<$ Key, Value $>$ sender)
+\end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Offers methods to get objects identified by a specific key; gets the results in a synchronous or an asynchronous way.
+
+
+\begin{DoxyParams}{Parameter}
+{\em Key} & Identifier for the objects \\
+\hline
+{\em Value} & The type of value retrieved by the Source \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::source\-::\-Source$<$ Key, Value $>$@{de\-::joglearth\-::source\-::\-Source$<$ Key, Value $>$}!request\-Object@{request\-Object}}
+\index{request\-Object@{request\-Object}!de::joglearth::source::Source< Key, Value >@{de\-::joglearth\-::source\-::\-Source$<$ Key, Value $>$}}
+\subsubsection[{request\-Object}]{\setlength{\rightskip}{0pt plus 5cm}Source\-Response$<$Value$>$ de.\-joglearth.\-source.\-Source$<$ Key, Value $>$.request\-Object (
+\begin{DoxyParamCaption}
+\item[{Key}]{key, }
+\item[{Source\-Listener$<$ Key, Value $>$}]{sender}
+\end{DoxyParamCaption}
+)}\label{interfacede_1_1joglearth_1_1source_1_1_source_3_01_key_00_01_value_01_4_a922a111fd66113ffbfd6f68cac893cf4}
+Tries to load and return an object if it available locally. Otherwise it is attempted to load the object in an asynchronous way and {\ttfamily null} is returned. 
+\begin{DoxyParams}{Parameter}
+{\em key} & \\
+\hline
+{\em sender} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Rückgabe}
+
+\end{DoxyReturn}
