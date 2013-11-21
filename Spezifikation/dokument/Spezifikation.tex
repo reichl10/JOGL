@@ -210,17 +210,15 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 \hline 
 \rule[-1ex]{0pt}{4ex} Klasse & Erläuterung \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} BinaryRequestDistributor & \\ 
+\rule[-1ex]{0pt}{4ex} RequestDistributor & Überprüfen ob anfragen in annehmbarer Zeit beantwortet werden. Prüfen das nicht mehrfache gleiche Anfragen nicht mehrfach weiter gereicht werden aber mehrfach beantwortet werden falls die Listener nicht das selbe Objekt sind. Die wird sich ändern, Klasse momentan noch nicht dokumentiert. \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} RequestDistributor & \\ 
+\rule[-1ex]{0pt}{4ex} FileSystemCache & Übersprungen da momentan nicht dokumentiert \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} FileSystemCache & \\ 
+\rule[-1ex]{0pt}{4ex} MemoryCache & checken ob eingefüge object auch wieder gefunden werden, das richtig auf null reagiert wird.\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} MemoryCache & \\ 
+\rule[-1ex]{0pt}{4ex} TextureCache & checken der dropObject methode\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} TextureCache & \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} Camera & Teile \\ 
+\rule[-1ex]{0pt}{4ex} Camera & methoden: isPointVisible, getWindowPosition, getCoordinates \\ 
 \hline
 \rule[-1ex]{0pt}{4ex} PlaneGeometry & \\ 
 \hline
@@ -228,15 +226,15 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 \hline
 \rule[-1ex]{0pt}{4ex} Settings & Threadsicherheit + Listener testen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} HTTPUtils & \\ 
+\rule[-1ex]{0pt}{4ex} HTTPUtils & alle Methoden testen ob sie richtige Ergebnisse liefern für http anfragen\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} Paket Source insgesamt & \\ 
+\rule[-1ex]{0pt}{4ex} Paket Source insgesamt & Alle Querys b sie die richtigen Querys konstruieren, Sources ob sie die richten Daten liefern für bestimmte anfragen, ob das listening auf Sources funktioniert\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} HeightMapManager & \\ 
+\rule[-1ex]{0pt}{4ex} HeightMapManager & Das er richtig auf abschalten des Höhenprofils reagiert (Settingsänderung), das er richtige Daten liefert. \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} LocationManager & \\ 
+\rule[-1ex]{0pt}{4ex} LocationManager & Daten für bestimmte Punkte testen, Listener aufrufe prüfen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} TextureManager & \\ 
+\rule[-1ex]{0pt}{4ex} TextureManager & Ob man richtige Textur bekommt, ob er Texturen findet die schon im Grafikspeicher sind \\ 
 \hline
 
 \end{tabular}
