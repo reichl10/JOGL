@@ -4,12 +4,18 @@ import de.joglearth.geometry.Tile;
 import de.joglearth.surface.HeightMapManager;
 
 
+
+/**
+ * The <code>PlaneTesselator</code> calculates the {@link Mesh} for a
+ * {@link de.joglearth.geometry.Tile} on a plane map.
+ * 
+ */
 public class PlaneTessellator implements Tessellator {
 
-	@Override
-	public Mesh tessellateTile(Tile tile, int subdivisions, HeightMapManager heightMap) {
-		// TODO Automatisch erstellter Methoden-Stub
-		return null;
-	}
+    @Override
+    public Mesh tessellateTile(Tile tile, int subdivisions, HeightMapManager heightMap) {
+        // TODO Automatisch erstellter Methoden-Stub
+        return null;
+    }
 
 }

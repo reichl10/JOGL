@@ -7,6 +7,25 @@ import de.joglearth.surface.HeightMapManager;
 import de.joglearth.ui.*;
 
 
+
+/**
+ * Interface for a <code>Tesselator</code> that is need to calculate the {@link Mesh} for a tile.
+ * 
+ */
 public interface Tessellator {
-	Mesh tessellateTile(Tile tile, int subdivisions, HeightMapManager heightMap);
+
+    /**
+     * 
+     * 
+     * 
+     * @param tile
+     *            The location where the Mesh should be rendered.
+     * @param subdivisions
+     *            Number of times the Mesh is divided in both axis.
+     * @param heightMap
+     *            A {@link de.joglearth.surface.HeightMapManager} that provides the height data for
+     *            the tile.
+     * @return A {@link Mesh} with (subdivisions + 1)^2 squares, with each divided in two triangles.
+     */
+    Mesh tessellateTile(Tile tile, int subdivisions, HeightMapManager heightMap);
 }
