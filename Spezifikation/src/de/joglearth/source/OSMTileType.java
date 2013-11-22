@@ -1,10 +1,33 @@
 package de.joglearth.source;
 
 /**
- * Type of an OpenStreetMap tile. OSM: OpenStreetMaps, WANDER_REIT_KARTE: especially for walkers and
- * riders, SEA_MAP: especially for seafaring, CYCLE_MAP: especially for bicyclists, PISTE_MAP:
- * especially for winter sports enthusiasts
+ * <code>Type</code> of an OpenStreetMap tile. OSM tiles has a maximum Zoomlevel of '18'.
+ * 
  */
 public enum OSMTileType {
-    OSM, WANDER_REIT_KARTE, SEA_MAP, CYCLE_MAP, PISTE_MAP
+
+    /**
+     * OpenStreetMap maps.
+     */
+    OSM_MAP,
+
+    /**
+     * Especially for walkers and riders.
+     */
+    TREKKING_MAP,
+
+    /**
+     * Especially for seafaring.
+     */
+    SEA_MAP,
+
+    /**
+     * Especially for bicyclists.
+     */
+    CYCLE_MAP,
+
+    /**
+     * Especially for winter sports enthusiasts.
+     */
+    SKI_RUN_MAP
 }

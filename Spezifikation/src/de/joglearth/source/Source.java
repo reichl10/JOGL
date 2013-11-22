@@ -8,7 +8,7 @@ import de.joglearth.geometry.Tile;
  * an asynchronous way.
  * 
  * @param Key Identifier for the objects
- * @param Value The type of value retrieved by the Source
+ * @param Value The type of value retrieved by the {@link Source}
  */
 public interface Source<Key, Value> {
 

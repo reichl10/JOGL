@@ -20,5 +20,4 @@ public class TextureSource implements Source<Tile, Integer> {
         // Textur in OpenGL laden
         return null;
     }
-
 }

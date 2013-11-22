@@ -8,6 +8,7 @@ import de.joglearth.ui.*;
 
 /**
  * Loads OpenStreetMap image tiles by their coordinates via HTTP.
+ * 
  */
 public class OSMTileSource implements Source<Tile, byte[]> {
 
@@ -30,17 +31,6 @@ public class OSMTileSource implements Source<Tile, byte[]> {
         this.servers = servers;
     }
 
-    // /**
-    // * Gets a String representation of the server and the OSM tile ID.
-    // *
-    // * @param server OSM tile server
-    // * @param key tile ID
-    // * @return String representation of the server and the OSM tile ID
-    // */
-    // protected String getURL(String server, Tile key) {
-    // return server + key.toString();
-    // }
-
     @Override
     public SourceResponse<byte[]> requestObject(Tile k,
             SourceListener<Tile, byte[]> sender) {
@@ -52,7 +42,7 @@ public class OSMTileSource implements Source<Tile, byte[]> {
      * 
      * @param t {@link OSMTileType} of the tile
      */
-    public void setTileType(OSMTileType t) {
+    public void setTileType(OSMTileType type) {
 
     }
 }
