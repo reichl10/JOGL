@@ -27,5 +27,5 @@ public interface Tessellator {
      *            the tile.
      * @return A {@link Mesh} with (subdivisions + 1)^2 squares, with each divided in two triangles.
      */
-    Mesh tessellateTile(Tile tile, int subdivisions, HeightMapManager heightMap);
+    Mesh tessellateTile(Tile tile, int subdivisions, boolean heightMap);
 }

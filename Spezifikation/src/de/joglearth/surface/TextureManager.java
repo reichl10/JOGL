@@ -1,5 +1,7 @@
 package de.joglearth.surface;
 
+import javax.media.opengl.GL2;
+
 import de.joglearth.geometry.Tile;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.caching.RequestDistributor;
@@ -11,20 +13,11 @@ import de.joglearth.source.caching.RequestDistributor;
  */
 public class TextureManager {
 
-    private Integer                           placeholderTexture;
+    private Integer placeholderTexture;
     private RequestDistributor<Tile, Integer> source;
-    
-    private static TextureManager instance = null;
-    
-    public static TextureManager getInstance() {
-        if (instance == null) {
-            instance = new TextureManager();
-        }
-        return instance;
-    }
-    
-    private TextureManager() {
-    }
+
+
+    public TextureManager(GL2 gl) {}
 
     /**
      * Is called if a texture of a {@link Tile} should be loaded.

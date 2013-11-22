@@ -13,7 +13,7 @@ import de.joglearth.surface.HeightMapManager;
 public class PlaneTessellator implements Tessellator {
 
     @Override
-    public Mesh tessellateTile(Tile tile, int subdivisions, HeightMapManager heightMap) {
+    public Mesh tessellateTile(Tile tile, int subdivisions, boolean heightMap) {
         // TODO Automatisch erstellter Methoden-Stub
         return null;
     }

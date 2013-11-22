@@ -11,50 +11,42 @@ import de.joglearth.geometry.Tile;
 import de.joglearth.surface.HeightMapManager;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.surface.SurfaceListener;
+import de.joglearth.surface.TextureManager;
 import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.SourceListener;
-import de.joglearth.source.caching.FileSystemCache;
 import de.joglearth.source.osm.OSMTileSource;
-
 
 
 /**
  * Handles the OpenGL rendering.
  */
-public class Renderer implements Runnable, CameraListener, SettingsListener {
+public class Renderer implements Runnable, CameraListener, SettingsListener, SurfaceListener {
 
-    private GL2              gl;
-    private boolean          quit = false;
-    private boolean          running;
-    private boolean          posted;
-    private HeightMapManager height;
-    private LocationManager  locationManager;
-    // private TextureCache textureCache;
-    private OSMTileSource    tileSource;
-    private Camera           camera;
+    private GL2 gl;
+    private boolean quit = false;
+    private boolean running;
+    private boolean posted;
+    private LocationManager locationManager;
+    private TextureManager textureManager;
+    private Camera camera;
 
 
     /**
      * Constructor initializes the OpenGL functionalities.
      * 
-     * @param canv
-     *            {@link com.jogamp.opengl.swt.GLCanvas} object of the GUI.
-     * @param height
-     *            {@link HeightMapManager} that provides the height of a point.
-     * @param locationManager
-     *            {@link LocationManager} that provides the information about Overlays to be
-     *            displayed.
-     * @param camera
-     *            //TODO {@link Camera}
+     * @param canv {@link com.jogamp.opengl.swt.GLCanvas} object of the GUI.
+     * @param height {@link HeightMapManager} that provides the height of a point.
+     * @param locationManager {@link LocationManager} that provides the information about Overlays
+     *        to be displayed.
+     * @param camera //TODO {@link Camera}
      */
-    public Renderer(GLCanvas canv, HeightMapManager height,
-            LocationManager locationManager, Camera camera) {
+    public Renderer(GLCanvas canv, LocationManager locationManager, Camera camera) {
         this.locationManager = locationManager;
         this.camera = camera;
         this.gl = canv.getGL().getGL2();
         canv.addGLEventListener(new RendererEventListener());
-        FileSystemCache<Tile> fsCache = null;
-        this.height = height;
+        this.textureManager = new TextureManager(gl);
+        textureManager.addSurfaceListener(this);
     }
 
     /**
@@ -153,7 +145,7 @@ public class Renderer implements Runnable, CameraListener, SettingsListener {
         }
     }
 
-    //TODO
+    // TODO
     private void render() {
 
     }
@@ -200,6 +192,12 @@ public class Renderer implements Runnable, CameraListener, SettingsListener {
     public void cameraViewChanged() {
         // TODO Automatisch erstellter Methoden-Stub
 
+    }
+
+    @Override
+    public void surfaceChanged(Tile tile) {
+        // TODO Automatisch generierter Methodenstub
+        
     }
 
 }

@@ -18,8 +18,9 @@ public final class JoglEarth {
 	 */
 	public static void main(String[] args) {
 		Camera camera = new Camera();
-		MainWindow gui = new MainWindow(camera);
-		Renderer r = new Renderer(camera);
+		LocationManager locationManager = new LocationManager();
+		MainWindow gui = new MainWindow(locationManager, camera);
+		Renderer r = new Renderer(gui.getGLCanvas(), locationManager, camera);
 		gui.setVisible(true);
 	}
 }

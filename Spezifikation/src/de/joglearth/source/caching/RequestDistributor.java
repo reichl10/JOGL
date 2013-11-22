@@ -16,6 +16,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     public void addCache(Cache<Key, Value> cache, int maxSize) {
 
     }
+    
+    public void setCacheSize(Cache<Key, Value> cache, int maxSize) {
+        
+    }
 
     public void setSource(Source<Key, Value> source) {
         this.source = source;

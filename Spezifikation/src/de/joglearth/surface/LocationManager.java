@@ -18,32 +18,17 @@ import de.joglearth.source.overpass.OverpassSource;
  */
 public class LocationManager implements SettingsListener {
 
-    private MemoryCache<NominatimQuery, Location[]> nominatimCache;
-    private MemoryCache<OverpassQuery, Location[]> overpassCache;
     private NominatimQuery lastSearch;
     private boolean[] selectedResults;
     private boolean[] selectedUserTags;
     private boolean[] selectedPOIs;
     private Settings settings;
-    private static LocationManager instance;
 
-
-    public static LocationManager getInstance() {
-        if (instance == null) {
-            instance = new LocationManager();
-        }
-        return instance;
-    }
 
     /**
      * Constructor. Initializes the {@link LocationManager} and its underlying caches.
      */
-    private LocationManager() {
-        this.settings = Settings.getInstance();
-        OverpassSource overpass = null;
-        NominatimSource nominatim = null;
-        overpassCache = new MemoryCache<OverpassQuery, Location[]>();
-        nominatimCache = new MemoryCache<NominatimQuery, Location[]>();
+    public LocationManager() {
     }
 
     /**
