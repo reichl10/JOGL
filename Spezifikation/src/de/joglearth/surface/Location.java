@@ -21,10 +21,13 @@ public class Location implements Cloneable {
      * @param point The {@link GeoCoordinates} of a point
      * @param type The {@link LocationType} of that specific point
      * @param details A string containing gathered details about that point
+     * @param name A string containing the name of the <code>Location</code>
+     *        this should be used to display it in short form
      */
-    public Location(GeoCoordinates point, LocationType type, String details) {
+    public Location(GeoCoordinates point, LocationType type, String details, String name) {
         this.point = point;
         this.details = details;
         this.type = type;
+        this.name = name;
     }
 }

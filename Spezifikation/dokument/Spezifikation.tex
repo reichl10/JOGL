@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage[Bjornstrup]{fncychap}
-%\usepackage{ngerman}
+\usepackage{ngerman}
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \usepackage{etoolbox}
@@ -322,46 +322,40 @@ public class WriteAndLoadSettings {
 \end{itemize}
 
 \section{Programm Icons}
-\begin{itemize}
-\item Logo und Icon
-\item Stecknadel
-\item Combobox-Icons
-\item Plus und Minus Icon des Zoombalkens
-\item Maßstab
-\item Handbuch
-\item Info
-\end{itemize}
 
-\begin{tabular}{|p{4cm}|p{10cm}|}
+\vspace{5mm}
+\begin{tabular}{|p{3cm}|p{10cm}|}
 \hline 
 \rule[-1ex]{0pt}{4ex} \textbf{Symbol} & \textbf{Erläuterung} \\ 
 \hline
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} &  Logo von \JoglEarth \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.6]{Logo-Print.eps}} &  Logo von \JoglEarth \\ 
 \hline
 \rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.2]{Logo.eps}} & Programm-Icon \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} &  Stecknadel zum markieren eines Punktes \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{Hinzufugen.eps}} &  Stecknadel zum markieren eines Punktes \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} & Stecknadel zum entfernen eines Punktes \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{Entfernen.eps}} & Stecknadel zum entfernen eines Punktes \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} & Plus beim Zoomen \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{Zoom_plus.eps}} & Plus beim Zoomen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} & Minus beim Zoomen \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{Zoom_minus.eps}} & Minus beim Zoomen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} & Maßstab \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.6]{Massstab.eps}} & Maßstab \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} &  Handbuch-Icon \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{Handbuch.eps}} &  Handbuch-Icon \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} &  About-Icon \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{Info.eps}} &  About-Icon \\ 
 \hline
 
 \end{tabular}
 
+\newpage
 
 \section{Kachelserver}
 Die Tabelle gibt eine Übersicht über die in \JoglEarth verfügbaren Kachelserver. \\
 
+\vspace{5mm}
 \begin{tabular}{|c|l|l|}
 \hline
 \rule[-1ex]{0pt}{4ex} \textbf{ENUM \textit{OSMTileType}} & \textbf{Server 1} & \textbf{Server 2} \\
@@ -672,10 +666,10 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 \newpage
 
-\section{Settingsfile}
+\section{Einstellungsdatei}
 Die XML-Datei die von der \texttt{SettingsContract} Klasse muss den hier festgelegten Regeln folgen.
-Die XML-Datei muss UTF-8 encoding  und den XML 1.0 Standard benutzen.
-\texttt{<?xml version="1.0" encoding="UTF-8"?>}
+Die XML-Datei muss UTF-8 encoding  und den XML 1.0 Standard benutzen. \\
+\texttt{<?xml version=\"{}1.0\"{} encoding=\"{}UTF-8\"{} ?>} \\
 Sie besitzt ein Wurzelelement \texttt{settings}
 \begin{itemize}
  \item das Element kann keines oder mehr Kindelemente des Typs \texttt{entry} und keines oder mehr des Typs \texttt{locations}.
@@ -712,7 +706,7 @@ Das \texttt{entry} Element:
   \item die werten dieser Attribute stammen von Java double or Double zu einem String umgewandelt durch Double.toString;
  \end{itemize}
 \end{itemize}
-
+\newpage
 Inhalt einer Beispiel XML-Datei:
 \lstset{language=XML}
 \begin{lstlisting}[frame=single]
@@ -847,7 +841,7 @@ Einkaufsmöglichkeiten & shops \\
 \hline
 Freizeitaktivitäten & activity \\ 
 \hline
-& OUTDOORACTIVITY \\
+ & OUTDOORACTIVITY \\
 \hline
 Bildungseinrichtungen & education \\
 \hline
@@ -855,7 +849,7 @@ Gesundheit & health \\
 \hline
 Post & post \\ 
 \hline
-& HOTELS \\
+Unterkünfte & hotels \\
 \hline
 \end{longtable}
 
