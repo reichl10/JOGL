@@ -1,8 +1,8 @@
 package de.joglearth.surface;
 
-import de.joglearth.caching.RequestDistributor;
 import de.joglearth.geometry.Tile;
 import de.joglearth.source.SourceListener;
+import de.joglearth.source.caching.RequestDistributor;
 
 
 /**
@@ -13,7 +13,18 @@ public class TextureManager {
 
     private Integer                           placeholderTexture;
     private RequestDistributor<Tile, Integer> source;
-
+    
+    private static TextureManager instance = null;
+    
+    public static TextureManager getInstance() {
+        if (instance == null) {
+            instance = new TextureManager();
+        }
+        return instance;
+    }
+    
+    private TextureManager() {
+    }
 
     /**
      * Is called if a texture of a {@link Tile} should be loaded.

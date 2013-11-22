@@ -4,7 +4,7 @@ import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
-import de.joglearth.caching.FileSystemCache;
+
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.Tile;
@@ -12,8 +12,9 @@ import de.joglearth.surface.HeightMapManager;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.surface.SurfaceListener;
 import de.joglearth.settings.SettingsListener;
-import de.joglearth.source.OSMTileSource;
 import de.joglearth.source.SourceListener;
+import de.joglearth.source.caching.FileSystemCache;
+import de.joglearth.source.osm.OSMTileSource;
 
 
 

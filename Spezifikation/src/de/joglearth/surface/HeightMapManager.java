@@ -1,12 +1,12 @@
 package de.joglearth.surface;
 
-import de.joglearth.caching.FileSystemCache;
-import de.joglearth.caching.MemoryCache;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Tile;
 import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.SourceListener;
-import de.joglearth.source.SRTMTileSource;
+import de.joglearth.source.caching.FileSystemCache;
+import de.joglearth.source.caching.MemoryCache;
+import de.joglearth.source.srtm.SRTMTileSource;
 
 
 /**
@@ -17,13 +17,22 @@ import de.joglearth.source.SRTMTileSource;
 public class HeightMapManager implements SettingsListener {
 
     private MemoryCache<Tile, byte[]> cache;
-
+    
+    private static HeightMapManager instance = null;
+    
+    
+    public static HeightMapManager getInstance() {
+        if (instance == null) {
+            instance = new HeightMapManager();
+        }
+        return instance;
+    }
 
     /**
      * Constructor for HeightMapManager which knows and initializes a {@link FileSystemCache}, a
      * {@link SRTMTileSource} and a {@link MemoryCache}.
      */
-    public HeightMapManager() {
+    private HeightMapManager() {
         FileSystemCache<Tile> fsCache = null;
         SRTMTileSource source = null;
         cache = new MemoryCache<Tile, byte[]>();

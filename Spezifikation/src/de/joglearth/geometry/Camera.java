@@ -7,7 +7,7 @@ import de.joglearth.surface.SurfaceListener;
 
 
 /**
- * Administers geometrical calculations for the viewport perspective.
+ * Administers geometric calculations for the viewport perspective.
  * 
  * This class is not thread-safe by design, as clients will usually perform multiple dependent
  * operations on the camera. In multi-threaded code, these blocks of operations should be
@@ -21,7 +21,6 @@ public class Camera implements SurfaceListener {
     private double tiltY;
     private Matrix4 clipMatrix, projectionMatrix;
     private Geometry geometry;
-    private HeightMapManager heightMapManager;
 
 
     private void updateProjectionMatrix() {
@@ -39,9 +38,8 @@ public class Camera implements SurfaceListener {
      * 
      * @param hm The height map manager.
      */
-    public Camera(HeightMapManager hm) {
+    public Camera() {
         setPerspective((double) Math.PI / 2, 1, 0.1f, 1000);
-        heightMapManager = hm;
     }
 
     /**

@@ -5,7 +5,7 @@ import de.joglearth.geometry.Vector3;
 
 
 /**
- * Abstracts geometrical calculations dependent on the map model (plane or sphere).
+ * Abstracts geometric calculations dependent on the map model (plane or sphere).
  */
 public interface Geometry {
 

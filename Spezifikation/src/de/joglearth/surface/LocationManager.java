@@ -1,15 +1,15 @@
 package de.joglearth.surface;
 
-import de.joglearth.caching.MemoryCache;
 import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.Tile;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsListener;
-import de.joglearth.source.NominatimQuery;
-import de.joglearth.source.NominatimSource;
-import de.joglearth.source.OverpassQuery;
-import de.joglearth.source.OverpassSource;
 import de.joglearth.source.SourceListener;
+import de.joglearth.source.caching.MemoryCache;
+import de.joglearth.source.nominatim.NominatimQuery;
+import de.joglearth.source.nominatim.NominatimSource;
+import de.joglearth.source.overpass.OverpassQuery;
+import de.joglearth.source.overpass.OverpassSource;
 
 
 /**
@@ -19,18 +19,26 @@ import de.joglearth.source.SourceListener;
 public class LocationManager implements SettingsListener {
 
     private MemoryCache<NominatimQuery, Location[]> nominatimCache;
-    private MemoryCache<OverpassQuery, Location[]>  overpassCache;
-    private NominatimQuery                          lastSearch;
-    private boolean[]                               selectedResults;
-    private boolean[]                               selectedUserTags;
-    private boolean[]                               selectedPOIs;
-    private Settings                                settings;
+    private MemoryCache<OverpassQuery, Location[]> overpassCache;
+    private NominatimQuery lastSearch;
+    private boolean[] selectedResults;
+    private boolean[] selectedUserTags;
+    private boolean[] selectedPOIs;
+    private Settings settings;
+    private static LocationManager instance;
 
+
+    public static LocationManager getInstance() {
+        if (instance == null) {
+            instance = new LocationManager();
+        }
+        return instance;
+    }
 
     /**
      * Constructor. Initializes the {@link LocationManager} and its underlying caches.
      */
-    public LocationManager() {
+    private LocationManager() {
         this.settings = Settings.getInstance();
         OverpassSource overpass = null;
         NominatimSource nominatim = null;
@@ -44,10 +52,10 @@ public class LocationManager implements SettingsListener {
      * @param location The <code>Location</code> that should be shown
      * @param show Whether to show or hide the display
      */
-    public void showLocation (Location location, boolean show) {
-        
+    public void showLocation(Location location, boolean show) {
+
     }
-    
+
     /**
      * Searches on the whole globe/map after a query string.
      * 
