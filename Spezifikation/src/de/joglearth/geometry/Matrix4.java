@@ -1,18 +1,19 @@
 package de.joglearth.geometry;
 
+import java.util.Arrays;
+
+
 /**
  * A class for 4x4 matrices used in rendering contexts.
  * 
  * Provides methods for translation, rotation and scaling of transformed vectors.
- * @author Fabian Knorr
- *
  */
-public class Matrix4 implements Cloneable {
+public final class Matrix4 implements Cloneable {
 
     /**
      * Holds the matrix data in column-first ordering.
      */
-    private float[] m = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 };
+    private double[] m = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 };
 
 
     /**
@@ -25,8 +26,9 @@ public class Matrix4 implements Cloneable {
      * 
      * @return The copied matrix.
      */
+    @Override
     public Matrix4 clone() {
-        Matrix4 c = new Matrix4();
+        final Matrix4 c = new Matrix4();
         for (int i = 0; i < 16; ++i) {
             c.m[i] = m[i];
         }
@@ -34,29 +36,32 @@ public class Matrix4 implements Cloneable {
     }
 
     /**
-     * Creates a matrix from a float value array.
+     * Creates a matrix from a double value array.
      * 
      * @param init The matrix cells in column-first ordering.
      */
-    public Matrix4(float[] init) {
+    public Matrix4(double[] init) {
         for (int i = 0; i < 16; ++i) {
             m[i] = init[i];
         }
     }
 
     /**
-     * Multiplies the matrix with another matrix, given by a float value array.
+     * Multiplies the matrix with another matrix, given by a double value array.
      * 
      * Mathematical equivalent: this' := this * rhs
      * 
      * @param rhs The matrix to multiply with.
      */
-    public void mult(float[] rhs) {
-        float[] r = new float[16];
-        for (int i = 0; i < 4; ++i)
-            for (int j = 0; j < 4; ++j)
-                for (int k = 0; k < 4; ++k)
+    public void mult(double[] rhs) {
+        final double[] r = new double[16];
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; ++j) {
+                for (int k = 0; k < 4; ++k) {
                     r[4 * i + j] += m[4 * i + k] * rhs[4 * k + j];
+                }
+            }
+        }
         m = r;
     }
 
@@ -72,13 +77,14 @@ public class Matrix4 implements Cloneable {
     }
 
     /**
-     * Adds another matrix, given by a float value array, to itself component-wise.
+     * Adds another matrix, given by a double value array, to itself component-wise.
      * 
      * @param rhs The matrix to add.
      */
-    public void add(float[] rhs) {
-        for (int i = 0; i < 16; ++i)
+    public void add(double[] rhs) {
+        for (int i = 0; i < 16; ++i) {
             m[i] += rhs[i];
+        }
     }
 
     /**
@@ -91,11 +97,11 @@ public class Matrix4 implements Cloneable {
     }
 
     /**
-     * Returns the float value array for the matrix.
+     * Returns the double value array for the matrix.
      * 
      * @return The matrix values in column-first ordering.
      */
-    public float[] floats() {
+    public double[] doubles() {
         return m;
     }
 
@@ -108,8 +114,8 @@ public class Matrix4 implements Cloneable {
      * @param y Translation by the Y (second) coordinate.
      * @param z Translation by the Z (third) coordinate.
      */
-    public void translate(float x, float y, float z) {
-        mult(new float[] { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1 });
+    public void translate(double x, double y, double z) {
+        mult(new double[] { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1 });
     }
 
     /**
@@ -130,9 +136,9 @@ public class Matrix4 implements Cloneable {
      * 
      * @param rad The rotation angle, in radians.
      */
-    public void rotateX(float rad) {
-        float c = (float) Math.cos(rad), s = (float) Math.sin(rad);
-        mult(new float[] { 1, 0, 0, 0, 0, c, s, 0, 0, -s, c, 0, 0, 0, 0, 1 });
+    public void rotateX(double rad) {
+        final double c = Math.cos(rad), s = Math.sin(rad);
+        mult(new double[] { 1, 0, 0, 0, 0, c, s, 0, 0, -s, c, 0, 0, 0, 0, 1 });
     }
 
     /**
@@ -142,9 +148,9 @@ public class Matrix4 implements Cloneable {
      * 
      * @param rad The rotation angle, in radians.
      */
-    public void rotateY(float rad) {
-        float c = (float) Math.cos(rad), s = (float) Math.sin(rad);
-        mult(new float[] { c, 0, -s, 0, 0, 1, 0, 0, s, 0, c, 0, 0, 0, 0, 1 });
+    public void rotateY(double rad) {
+        final double c = Math.cos(rad), s = Math.sin(rad);
+        mult(new double[] { c, 0, -s, 0, 0, 1, 0, 0, s, 0, c, 0, 0, 0, 0, 1 });
     }
 
     /**
@@ -154,9 +160,9 @@ public class Matrix4 implements Cloneable {
      * 
      * @param rad The rotation angle, in radians.
      */
-    public void rotateZ(float rad) {
-        float c = (float) Math.cos(rad), s = (float) Math.sin(rad);
-        mult(new float[] { c, s, 0, 0, -s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 });
+    public void rotateZ(double rad) {
+        final double c = Math.cos(rad), s = Math.sin(rad);
+        mult(new double[] { c, s, 0, 0, -s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 });
     }
 
     /**
@@ -169,8 +175,8 @@ public class Matrix4 implements Cloneable {
      * @param y The scale in Y direction (The second axis).
      * @param z The scale in Z direction (The third axis).
      */
-    public void scale(float x, float y, float z) {
-        mult(new float[] { x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1 });
+    public void scale(double x, double y, double z) {
+        mult(new double[] { x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1 });
     }
 
     /**
@@ -193,7 +199,7 @@ public class Matrix4 implements Cloneable {
      * @return The inverse of the matrix.
      */
     public Matrix4 inverse() {
-        Matrix4 i = new Matrix4();
+        final Matrix4 i = new Matrix4();
 
         i.m[0] = m[5] * m[10] * m[15] - m[5] * m[11] * m[14] - m[9] * m[6]
                 * m[15] + m[9] * m[7] * m[14] + m[13] * m[6] * m[11] - m[13]
@@ -259,7 +265,7 @@ public class Matrix4 implements Cloneable {
                 * m[10] + m[4] * m[2] * m[9] + m[8] * m[1] * m[6] - m[8] * m[2]
                 * m[5];
 
-        float det = m[0] * i.m[0] + m[1] * i.m[4] + m[2] * i.m[8] + m[3]
+        final double det = m[0] * i.m[0] + m[1] * i.m[4] + m[2] * i.m[8] + m[3]
                 * i.m[12];
 
         for (int j = 0; j < 16; ++j) {
@@ -274,6 +280,7 @@ public class Matrix4 implements Cloneable {
      * 
      * @return The matrix in a human-readable string.
      */
+    @Override
     public String toString() {
         String s = "";
         for (int i = 0; i < 16; i += 4) {
@@ -291,13 +298,33 @@ public class Matrix4 implements Cloneable {
      * @return The transformed vector.
      */
     public Vector4 transform(Vector3 v3) {
-        float[] v = { v3.x, v3.y, v3.z, 1 }, w = { 0, 0, 0, 0 };
+        final double[] v = { v3.x, v3.y, v3.z, 1 }, w = { 0, 0, 0, 0 };
         for (int i = 0; i < 4; ++i) {
             for (int j = 0; j < 4; ++j) {
                 w[i] += m[4 * j + i] * v[j];
             }
         }
         return new Vector4(w[0], w[1], w[2], w[3]);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Arrays.hashCode(m);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final Matrix4 other = (Matrix4) obj;
+        return Arrays.equals(m, other.m);
     }
 
 }

@@ -1,7 +1,7 @@
 package de.joglearth.surface;
 
 /**
- * Represents the type of overlays like POIs, city names and points marked by the user.
+ * Represents overlay types like POIs, city names and points marked by the user.
  */
 public enum LocationType {
 
@@ -26,7 +26,7 @@ public enum LocationType {
     TOILETS,
 
     /**
-     * Returns supermarkets, bakeries, butchers and drugstores.
+     * Returns supermarkets, bakeries, butchers and drug stores.
      */
     FOOD,
 
@@ -36,7 +36,7 @@ public enum LocationType {
     SHOPS,
 
     /**
-     * Returns sparetime activities like amusement parks or museums, places for picnics and
+     * Returns spare-time activities like amusement parks or museums, places for picnics and
      * lookouts.
      */
     ACTIVITY,

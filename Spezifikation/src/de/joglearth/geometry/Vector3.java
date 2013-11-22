@@ -2,12 +2,12 @@ package de.joglearth.geometry;
 
 /**
  * A structure for 3-dimensional vectors in Cartesian coordinates.
- * @author Fabian Knorr
- *
  */
-public class Vector3 implements Cloneable {
+public final class Vector3 implements Cloneable {
 
-    public float x, y, z;
+    public double x;
+    public double y;
+    public double z;
 
     /**
      * Constructor. Creates a zero vector.
@@ -23,7 +23,7 @@ public class Vector3 implements Cloneable {
      * @param y The Y (second) component.
      * @param z The Z (third) component.
      */
-    public Vector3(float x, float y, float z) {
+    public Vector3(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -52,7 +52,7 @@ public class Vector3 implements Cloneable {
      * @param c The scalar.
      * @return The product vector.
      */
-    public Vector3 times(float c) {
+    public Vector3 times(double c) {
         return new Vector3(c * x, c * y, c * z);
     }
 
@@ -78,8 +78,8 @@ public class Vector3 implements Cloneable {
      * Calculates the vectors length, that is sqrt(x^2+y^2+z^2).
      * @return The length.
      */
-    public float length() {
-        return (float) Math.sqrt(x * x + y * y + z * z);
+    public double length() {
+        return (double) Math.sqrt(x * x + y * y + z * z);
     }
 
     /**
@@ -97,8 +97,34 @@ public class Vector3 implements Cloneable {
      * @return
      */
     public Vector3 normalized() {
-        float l = length();
+        double l = length();
         return new Vector3(x / l, y / l, z / l);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        long temp;
+        temp = Double.doubleToLongBits(x);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(y);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(z);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Vector3 other = (Vector3) obj;
+        return this.x == other.x && this.y == other.y && this.z == other.z;
     }
 
 }
