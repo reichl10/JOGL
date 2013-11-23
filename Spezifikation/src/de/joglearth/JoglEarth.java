@@ -11,6 +11,9 @@ import de.joglearth.ui.*;
  */
 public final class JoglEarth {
 
+    public static String PRODUCT_NAME = "Jogl Earth";
+    public static String PRODUCT_VERSION = "0.1";
+    
 	/**
 	 * Initializes the JoglEarth Application.
 	 * There are no valid command line arguments.
