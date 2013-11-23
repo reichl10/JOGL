@@ -20,10 +20,10 @@ public final class JoglEarth {
 	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) {
-		Camera camera = new Camera();
-		LocationManager locationManager = new LocationManager();
-		MainWindow gui = new MainWindow(locationManager, camera);
-		Renderer r = new Renderer(gui.getGLCanvas(), locationManager, camera);
-		gui.setVisible(true);
+		//Camera camera = new Camera();
+		//LocationManager locationManager = new LocationManager();
+		//MainWindow gui = new MainWindow(locationManager, camera);
+		//Renderer r = new Renderer(gui.getGLCanvas(), locationManager, camera);
+		//gui.setVisible(true);
 	}
 }
