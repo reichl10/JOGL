@@ -11,6 +11,9 @@ import de.joglearth.ui.*;
  */
 public final class JoglEarth {
 
+    public static String PRODUCT_NAME = "Jogl Earth";
+    public static String PRODUCT_VERSION = "0.1";
+    
 	/**
 	 * Initializes the JoglEarth Application.
 	 * There are no valid command line arguments.
@@ -18,10 +21,9 @@ public final class JoglEarth {
 	 */
 	public static void main(String[] args) {
 		Camera camera = new Camera();
-		LocationManager lm = new LocationManager();
-		MainWindow gui = new MainWindow(lm, camera);
-		HeightMapManager height = new HeightMapManager();
-		Renderer r = new Renderer(gui.getGLCanvas(), height ,lm, camera);
+		LocationManager locationManager = new LocationManager();
+		MainWindow gui = new MainWindow(locationManager, camera);
+		Renderer r = new Renderer(gui.getGLCanvas(), locationManager, camera);
 		gui.setVisible(true);
 	}
 }
