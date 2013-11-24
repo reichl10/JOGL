@@ -1,40 +1,42 @@
-\section{de.\-joglearth.\-source.\-Source$<$ Key, Value $>$ Schnittstellenreferenz}
+\section{de.\-joglearth.\-source.\-Source$<$ \-Key, \-Value $>$ \-Schnittstellenreferenz}
 \label{interfacede_1_1joglearth_1_1source_1_1_source_3_01_key_00_01_value_01_4}\index{de.\-joglearth.\-source.\-Source$<$ Key, Value $>$@{de.\-joglearth.\-source.\-Source$<$ Key, Value $>$}}
-\subsection*{Öffentliche Methoden}
+\subsection*{Öffentliche \-Methoden}
 \begin{DoxyCompactItemize}
 \item 
-Source\-Response$<$ Value $>$ {\bf request\-Object} (Key key, Source\-Listener$<$ Key, Value $>$ sender)
+\-Source\-Response$<$ \-Value $>$ {\bf request\-Object} (\-Key key, \-Source\-Listener$<$ \-Key, \-Value $>$ sender)
 \end{DoxyCompactItemize}
 
 
-\subsection{Ausführliche Beschreibung}
-Offers methods to get objects identified by a specific key; gets the results in a synchronous or an asynchronous way.
+\subsection{\-Ausführliche \-Beschreibung}
+\-Offers methods to get objects identified by a specific key; gets the results in a synchronous or an asynchronous way.
 
 
-\begin{DoxyParams}{Parameter}
-{\em Key} & Identifier for the objects \\
+\begin{DoxyParams}{\-Parameter}
+{\em \-Key} & \-Identifier for the objects \\
 \hline
-{\em Value} & The type of value retrieved by the Source \\
+{\em \-Value} & \-The type of value retrieved by the \-Source \\
 \hline
 \end{DoxyParams}
 
 
-\subsection{Dokumentation der Elementfunktionen}
+\subsection{\-Dokumentation der \-Elementfunktionen}
 \index{de\-::joglearth\-::source\-::\-Source$<$ Key, Value $>$@{de\-::joglearth\-::source\-::\-Source$<$ Key, Value $>$}!request\-Object@{request\-Object}}
 \index{request\-Object@{request\-Object}!de::joglearth::source::Source< Key, Value >@{de\-::joglearth\-::source\-::\-Source$<$ Key, Value $>$}}
-\subsubsection[{request\-Object}]{\setlength{\rightskip}{0pt plus 5cm}Source\-Response$<$Value$>$ de.\-joglearth.\-source.\-Source$<$ Key, Value $>$.request\-Object (
+\subsubsection[{request\-Object}]{\setlength{\rightskip}{0pt plus 5cm}\-Source\-Response$<$\-Value$>$ de.\-joglearth.\-source.\-Source$<$ \-Key, \-Value $>$.{\bf request\-Object} (
 \begin{DoxyParamCaption}
-\item[{Key}]{key, }
-\item[{Source\-Listener$<$ Key, Value $>$}]{sender}
+\item[{\-Key}]{key, }
+\item[{\-Source\-Listener$<$ \-Key, \-Value $>$}]{sender}
 \end{DoxyParamCaption}
 )}\label{interfacede_1_1joglearth_1_1source_1_1_source_3_01_key_00_01_value_01_4_a922a111fd66113ffbfd6f68cac893cf4}
-Tries to load and return an object if it available locally. Otherwise it is attempted to load the object in an asynchronous way and {\ttfamily null} is returned. 
-\begin{DoxyParams}{Parameter}
-{\em key} & \\
+\-Tries to load and return an object if it available locally. \-Otherwise it is attempted to load the object in an asynchronous way.
+
+
+\begin{DoxyParams}{\-Parameter}
+{\em key} & \-Identifier for the objects \\
 \hline
-{\em sender} & \\
+{\em sender} & \-Receiver of the response \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Rückgabe}
-
+\begin{DoxyReturn}{\-Rückgabe}
+\-A \doxyref{\-Source\-Response}{\-S.}{} that contains either {\ttfamily \-A\-S\-Y\-N\-C\-H\-R\-O\-N\-O\-U\-S} or {\ttfamily \-S\-Y\-N\-C\-H\-R\-O\-N\-O\-U\-S} or {\ttfamily \-M\-I\-S\-S\-I\-N\-G} 
 \end{DoxyReturn}
