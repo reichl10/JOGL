@@ -14,7 +14,7 @@
 
 
 \subsection{\-Ausführliche \-Beschreibung}
-\-Interface for a {\ttfamily \-Tesselator} that is need to calculate the \doxyref{\-Mesh}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_mesh} for a tile. 
+\-An implementation of the {\ttfamily \-Tesselator} \-Interface provides the occastion to generate a \doxyref{\-Mesh}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_mesh}. 
 
 \subsection{\-Dokumentation der \-Elementfunktionen}
 \index{de\-::joglearth\-::rendering\-::\-Tessellator@{de\-::joglearth\-::rendering\-::\-Tessellator}!tessellate\-Tile@{tessellate\-Tile}}
@@ -26,11 +26,13 @@
 \item[{{\bf \-Height\-Map\-Manager}}]{height\-Map}
 \end{DoxyParamCaption}
 )}\label{interfacede_1_1joglearth_1_1rendering_1_1_tessellator_a39d89f430ca5fab9912fe1db9c05e143}
+\-Creates a \doxyref{\-Mesh}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_mesh} for a  \-Tile with height data.
+
 
 \begin{DoxyParams}{\-Parameter}
 {\em tile} & \-The location where the \doxyref{\-Mesh}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_mesh} should be rendered. \\
 \hline
-{\em subdivisions} & \-Number of times the \doxyref{\-Mesh}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_mesh} is divided in both axis. \\
+{\em subdivisions} & \-Number of times the \doxyref{\-Mesh}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_mesh} is divided in both axis. \-Minimum {\ttfamily 0} divisions. \\
 \hline
 {\em height\-Map} & \-A \doxyref{de.\-joglearth.\-surface.\-Height\-Map\-Manager}{\-S.}{classde_1_1joglearth_1_1surface_1_1_height_map_manager} that provides the height data for the tile. \\
 \hline

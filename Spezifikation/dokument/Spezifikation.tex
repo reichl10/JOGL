@@ -210,13 +210,13 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 \hline 
 \rule[-1ex]{0pt}{4ex} Klasse & Erläuterung \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} RequestDistributor & Überprüfen ob anfragen in annehmbarer Zeit beantwortet werden. Prüfen das nicht mehrfache gleiche Anfragen nicht mehrfach weiter gereicht werden aber mehrfach beantwortet werden falls die Listener nicht das selbe Objekt sind. Die wird sich ändern, Klasse momentan noch nicht dokumentiert. \\ 
+\rule[-1ex]{0pt}{4ex} RequestDistributor & Überprüfen ob Anfragen in annehmbarer Zeit beantwortet werden. Prüfen das nicht mehrfache, gleiche Anfragen mehrmals ausgeführt werden \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} FileSystemCache & Übersprungen da momentan nicht dokumentiert \\ 
+\rule[-1ex]{0pt}{4ex} FileSystemCache &  \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} MemoryCache & checken ob eingefüge object auch wieder gefunden werden, das richtig auf null reagiert wird.\\ 
+\rule[-1ex]{0pt}{4ex} MemoryCache & Überprüfen ob eingefügte Objekte wieder gefunden werden können, und ob \textit{null} entsprechend abgefangen wird\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} TextureCache & checken der dropObject methode\\ 
+\rule[-1ex]{0pt}{4ex} TextureCache & Überprüfen der \textit{dropObject()} Methode\\ 
 \hline
 \rule[-1ex]{0pt}{4ex} Camera & methoden: isPointVisible, getWindowPosition, getCoordinates \\ 
 \hline
@@ -226,9 +226,9 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 \hline
 \rule[-1ex]{0pt}{4ex} Settings & Threadsicherheit + Listener testen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} HTTPUtils & alle Methoden testen ob sie richtige Ergebnisse liefern für http anfragen\\ 
+\rule[-1ex]{0pt}{4ex} HTTPUtils & Alle Methoden testen ob sie richtige Ergebnisse liefern für HTTP Anfragen\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} Paket Source insgesamt & Alle Querys b sie die richtigen Querys konstruieren, Sources ob sie die richten Daten liefern für bestimmte anfragen, ob das listening auf Sources funktioniert\\ 
+\rule[-1ex]{0pt}{4ex} Paket Source insgesamt & Alle Queries überprüfen ob sie richtig konstruiert wurden, Sources ob sie die richten Daten liefern für bestimmte Anfragen, ob das listening auf Sources funktioniert\\ 
 \hline
 \rule[-1ex]{0pt}{4ex} HeightMapManager & Das er richtig auf abschalten des Höhenprofils reagiert (Settingsänderung), das er richtige Daten liefert. \\ 
 \hline
@@ -744,7 +744,7 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 \section{Einstellungsdatei}
 Die XML-Datei die von der \texttt{SettingsContract} Klasse muss den hier festgelegten Regeln folgen.
 Die XML-Datei muss UTF-8 encoding  und den XML 1.0 Standard benutzen. \\
-\texttt{<?xml version=\"{}1.0\"{} encoding=\"{}UTF-8\"{} ?>} \\
+\texttt{<?xml version="{}1.0"{} encoding="{}UTF-8"{} ?>} \\
 Sie besitzt ein Wurzelelement \texttt{settings}
 \begin{itemize}
  \item das Element kann keines oder mehr Kindelemente des Typs \texttt{entry} und keines oder mehr des Typs \texttt{locations}.

@@ -8,19 +8,21 @@
 {\bf \-Geo\-Coordinates} {\bfseries clone} ()\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_a22d4ebdf5eb872c5a9f20bf204cf036c}
 
 \item 
-double {\bfseries get\-Longitude} ()\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_a0131884b84fd9c888ebfea83d106213b}
-
+double {\bf get\-Longitude} ()
 \item 
-double {\bfseries get\-Latitude} ()\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_aab194fa19c1cd0278a0a46593d02f491}
-
+double {\bf get\-Latitude} ()
 \item 
-\-String {\bfseries get\-Longitude\-String} ()\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_ae1efcb3ef78bc9c724677c18e479df9f}
-
+\-String {\bf get\-Longitude\-String} ()
 \item 
-\-String {\bfseries get\-Latitude\-String} ()\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_acc254db595ec834590276598ba933962}
-
+\-String {\bf get\-Latitude\-String} ()
 \item 
 \-String {\bfseries to\-String} ()\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_aeff694f70cbb07e5185ec3caa30ec632}
+
+\item 
+int {\bfseries hash\-Code} ()\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_a788cc2e0c94e6c7d1b614a63b30c1c98}
+
+\item 
+boolean {\bfseries equals} (\-Object obj)\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_ac5c4def2c19cd4a32dc90a77158ba9c1}
 
 \end{DoxyCompactItemize}
 \subsection*{Öffentliche, statische \-Methoden}
@@ -60,6 +62,46 @@ static {\bf \-Geo\-Coordinates} {\bf parse\-Coordinates} (\-String lon, \-String
 
 
 \subsection{\-Dokumentation der \-Elementfunktionen}
+\index{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}!get\-Latitude@{get\-Latitude}}
+\index{get\-Latitude@{get\-Latitude}!de::joglearth::geometry::GeoCoordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}}
+\subsubsection[{get\-Latitude}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf de.\-joglearth.\-geometry.\-Geo\-Coordinates.\-get\-Latitude} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_aab194fa19c1cd0278a0a46593d02f491}
+\-Returns the latitude, in radians. \begin{DoxyReturn}{\-Rückgabe}
+\-The latitude. 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}!get\-Latitude\-String@{get\-Latitude\-String}}
+\index{get\-Latitude\-String@{get\-Latitude\-String}!de::joglearth::geometry::GeoCoordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}}
+\subsubsection[{get\-Latitude\-String}]{\setlength{\rightskip}{0pt plus 5cm}\-String {\bf de.\-joglearth.\-geometry.\-Geo\-Coordinates.\-get\-Latitude\-String} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_acc254db595ec834590276598ba933962}
+\-Returns a string describing the latitude. \begin{DoxyReturn}{\-Rückgabe}
+\-The latitude in string representation. 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}!get\-Longitude@{get\-Longitude}}
+\index{get\-Longitude@{get\-Longitude}!de::joglearth::geometry::GeoCoordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}}
+\subsubsection[{get\-Longitude}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf de.\-joglearth.\-geometry.\-Geo\-Coordinates.\-get\-Longitude} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_a0131884b84fd9c888ebfea83d106213b}
+\-Returns the longitude, in radians. \begin{DoxyReturn}{\-Rückgabe}
+\-The longitude. 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}!get\-Longitude\-String@{get\-Longitude\-String}}
+\index{get\-Longitude\-String@{get\-Longitude\-String}!de::joglearth::geometry::GeoCoordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}}
+\subsubsection[{get\-Longitude\-String}]{\setlength{\rightskip}{0pt plus 5cm}\-String {\bf de.\-joglearth.\-geometry.\-Geo\-Coordinates.\-get\-Longitude\-String} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_ae1efcb3ef78bc9c724677c18e479df9f}
+\-Returns a string describing the longitude. \begin{DoxyReturn}{\-Rückgabe}
+\-The longitude in string representation. 
+\end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}!parse\-Coordinates@{parse\-Coordinates}}
 \index{parse\-Coordinates@{parse\-Coordinates}!de::joglearth::geometry::GeoCoordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}}
 \subsubsection[{parse\-Coordinates}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf \-Geo\-Coordinates} {\bf de.\-joglearth.\-geometry.\-Geo\-Coordinates.\-parse\-Coordinates} (

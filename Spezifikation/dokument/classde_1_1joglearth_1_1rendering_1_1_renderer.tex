@@ -31,8 +31,7 @@ synchronized void {\bf stop} ()
 void {\bfseries run} ()\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a7d71fd1d5672015e5a2b2642dc09ae27}
 
 \item 
-void {\bfseries quit} ()\label{classde_1_1joglearth_1_1rendering_1_1_renderer_afb25dedb47ab7ae5c0e326302c8e2a5c}
-
+void {\bf quit} ()
 \item 
 void {\bf settings\-Changed} (\-String key, \-Object val\-Old, \-Object val\-New)
 \item 
@@ -64,7 +63,7 @@ void {\bf camera\-View\-Changed} ()
 \hline
 {\em location\-Manager} & \doxyref{\-Location\-Manager}{\-S.}{} that provides the information about \-Overlays to be displayed. \\
 \hline
-{\em camera} & //\-T\-O\-D\-O \doxyref{\-Camera}{\-S.}{} \\
+{\em camera} & \-T\-O\-D\-O \doxyref{\-Camera}{\-S.}{} \\
 \hline
 \end{DoxyParams}
 
@@ -88,10 +87,10 @@ void {\bf camera\-View\-Changed} ()
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_adfeafdcd8fc69efd3aa1ebb271c5ad9b}
-\-Gets the \-Camera.
+\-Gets the \doxyref{\-Camera}{\-S.}{}.
 
 \begin{DoxyReturn}{\-Rückgabe}
-\-Camera object. 
+\doxyref{\-Camera}{\-S.}{} object. 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!post@{post}}
 \index{post@{post}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
@@ -100,16 +99,25 @@ void {\bf camera\-View\-Changed} ()
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_acdb2dda06a8744cb5f7975219a40a4f3}
-\-Notifies the {\ttfamily \doxyref{\-Renderer}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_renderer}} that a new frame should be rendered. \-If {\ttfamily \doxyref{start()}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_renderer_ab112c71a1f00a287f343e896c950dc37}} is called this method may have no effect. \-Asynchron method, does not wait till a frame is drawn. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!set\-Camera@{set\-Camera}}
+\-Notifies the {\ttfamily \doxyref{\-Renderer}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_renderer}} that a new frame should be rendered. \-If {\ttfamily \doxyref{start()}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_renderer_ab112c71a1f00a287f343e896c950dc37}} is called this method may have no effect. \-Asynchron method, does not wait till a frame is drawn. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!quit@{quit}}
+\index{quit@{quit}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
+\subsubsection[{quit}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-rendering.\-Renderer.\-quit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_afb25dedb47ab7ae5c0e326302c8e2a5c}
+\-Quits the \doxyref{\-Renderer}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_renderer} thread. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!set\-Camera@{set\-Camera}}
 \index{set\-Camera@{set\-Camera}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
 \subsubsection[{set\-Camera}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-rendering.\-Renderer.\-set\-Camera} (
 \begin{DoxyParamCaption}
 \item[{{\bf \-Camera}}]{camera}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a28b4e23c198100f4ebcf8d485946b275}
+\-Sets the \doxyref{\-Camera}{\-S.}{}
+
 
 \begin{DoxyParams}{\-Parameter}
-{\em camera} & \\
+{\em camera} & \-A \doxyref{\-Camera}{\-S.}{} object. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!settings\-Changed@{settings\-Changed}}

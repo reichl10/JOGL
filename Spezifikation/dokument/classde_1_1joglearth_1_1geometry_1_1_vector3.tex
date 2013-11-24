@@ -5,46 +5,46 @@
 \item 
 {\bf \-Vector3} ()
 \item 
-{\bf \-Vector3} (float x, float y, float z)
+{\bf \-Vector3} (double x, double y, double z)
 \item 
 {\bf \-Vector3} {\bf clone} ()
 \item 
 {\bf \-Vector3} {\bf to} ({\bf \-Vector3} other)
 \item 
-{\bf \-Vector3} {\bf times} (float c)
+{\bf \-Vector3} {\bf times} (double c)
 \item 
 {\bf \-Vector3} {\bf plus} ({\bf \-Vector3} v)
 \item 
 {\bf \-Vector3} {\bf minus} ({\bf \-Vector3} v)
 \item 
-float {\bf length} ()
+double {\bf length} ()
 \item 
 void {\bf add} ({\bf \-Vector3} v)
 \item 
 {\bf \-Vector3} {\bf normalized} ()
+\item 
+int {\bfseries hash\-Code} ()\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a6443b06dbbda9a6996f21aab53571672}
+
+\item 
+boolean {\bfseries equals} (\-Object obj)\label{classde_1_1joglearth_1_1geometry_1_1_vector3_ab559c440e731cd083e1f8708fe0062ca}
+
 \end{DoxyCompactItemize}
 \subsection*{Öffentliche \-Attribute}
 \begin{DoxyCompactItemize}
 \item 
-float {\bfseries x}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a9fba20850f1efe18bb7a4c274733cb41}
-
-\end{DoxyCompactItemize}
-\subsection*{\-Paketattribute}
-\begin{DoxyCompactItemize}
-\item 
-float {\bfseries y}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_aa762340b34c4b86c6237345b7ff88444}
+double {\bfseries x}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a3f2050e4ad0d81adb717429a87246377}
 
 \item 
-float {\bfseries z}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_ad078d8af5a40e9e77d2ea247537f0df3}
+double {\bfseries y}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_aa7f5535f1ac0cefcbaf1aa56d17f5f5e}
+
+\item 
+double {\bfseries z}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a18ed3b85836716833940d4fd412ff3e6}
 
 \end{DoxyCompactItemize}
 
 
 \subsection{\-Ausführliche \-Beschreibung}
-\-A structure for 3-\/dimensional vectors in \-Cartesian coordinates. \begin{DoxyAuthor}{\-Autor}
-\-Fabian \-Knorr 
-\end{DoxyAuthor}
-
+\-A structure for 3-\/dimensional vectors in \-Cartesian coordinates. 
 
 \subsection{\-Beschreibung der \-Konstruktoren und \-Destruktoren}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!\-Vector3@{\-Vector3}}
@@ -58,11 +58,11 @@ float {\bfseries z}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_ad078d8af
 \index{\-Vector3@{\-Vector3}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
 \subsubsection[{\-Vector3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf de.\-joglearth.\-geometry.\-Vector3.\-Vector3} (
 \begin{DoxyParamCaption}
-\item[{float}]{x, }
-\item[{float}]{y, }
-\item[{float}]{z}
+\item[{double}]{x, }
+\item[{double}]{y, }
+\item[{double}]{z}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_aa7135b39ff5b55501bdcef44a33442ff}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_afaa069b9ed2d163780939f6d93e1e1ad}
 \-Constructor. \-Initializes a vector with the parameters provided.
 
 
@@ -103,11 +103,11 @@ float {\bfseries z}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_ad078d8af
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!length@{length}}
 \index{length@{length}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
-\subsubsection[{length}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf de.\-joglearth.\-geometry.\-Vector3.\-length} (
+\subsubsection[{length}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf de.\-joglearth.\-geometry.\-Vector3.\-length} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a1e82cd11b593e9a483e06ee0c422c1e7}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a47bf183b1df757adffdd0991750390c4}
 \-Calculates the vectors length, that is sqrt(x$^\wedge$2+y$^\wedge$2+z$^\wedge$2). \begin{DoxyReturn}{\-Rückgabe}
 \-The length. 
 \end{DoxyReturn}
@@ -133,7 +133,7 @@ float {\bfseries z}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_ad078d8af
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_abafe54075c2af1b22d7485733fb12283}
-\-Normalizes the vector, so that \doxyref{length()}{\-S.}{classde_1_1joglearth_1_1geometry_1_1_vector3_a1e82cd11b593e9a483e06ee0c422c1e7} == 1. \begin{DoxyReturn}{\-Rückgabe}
+\-Normalizes the vector, so that \doxyref{length()}{\-S.}{classde_1_1joglearth_1_1geometry_1_1_vector3_a47bf183b1df757adffdd0991750390c4} == 1. \begin{DoxyReturn}{\-Rückgabe}
 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!plus@{plus}}
@@ -155,9 +155,9 @@ float {\bfseries z}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_ad078d8af
 \index{times@{times}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
 \subsubsection[{times}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Vector3} {\bf de.\-joglearth.\-geometry.\-Vector3.\-times} (
 \begin{DoxyParamCaption}
-\item[{float}]{c}
+\item[{double}]{c}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_ac6cb326de166fc4c1628a55702178baa}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a4a3580e21ee8ebdc80a7a56cdf45b303}
 \-Multiplies the vector by a scalar. 
 \begin{DoxyParams}{\-Parameter}
 {\em c} & \-The scalar. \\

@@ -3,18 +3,55 @@
 \subsection*{Öffentliche \-Methoden}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries \-Screen\-Coordinates} (float x, float y)\label{classde_1_1joglearth_1_1geometry_1_1_screen_coordinates_afc87532187738efd163d3e42981c3aaa}
-
+{\bf \-Screen\-Coordinates} (double {\bf x}, double {\bf y})
 \item 
 {\bf \-Screen\-Coordinates} {\bfseries clone} ()\label{classde_1_1joglearth_1_1geometry_1_1_screen_coordinates_a331deb737a91c46e453ea2ea1639ca0e}
+
+\item 
+int {\bfseries hash\-Code} ()\label{classde_1_1joglearth_1_1geometry_1_1_screen_coordinates_a7e35e8e493e19c3e0e0af19408423fab}
+
+\item 
+boolean {\bfseries equals} (\-Object obj)\label{classde_1_1joglearth_1_1geometry_1_1_screen_coordinates_a2471c92c5ffd1a500a647e86b316510c}
+
+\item 
+\-String {\bfseries to\-String} ()\label{classde_1_1joglearth_1_1geometry_1_1_screen_coordinates_aebaa9728690fe826983dc18e09f4fa07}
 
 \end{DoxyCompactItemize}
 \subsection*{Öffentliche \-Attribute}
 \begin{DoxyCompactItemize}
 \item 
-float {\bfseries x}\label{classde_1_1joglearth_1_1geometry_1_1_screen_coordinates_ac92e209f6e5cdc4576c2f78084429aed}
-
+double {\bf x}
 \item 
-float {\bfseries y}\label{classde_1_1joglearth_1_1geometry_1_1_screen_coordinates_a3916869098772aa49552deae6aa0e1cc}
-
+double {\bf y}
 \end{DoxyCompactItemize}
+
+
+\subsection{\-Ausführliche \-Beschreibung}
+\-Structure representing relative screen coordinates, where (0,0) is the top-\/left and (1,1) is the bottom-\/right. 
+
+\subsection{\-Beschreibung der \-Konstruktoren und \-Destruktoren}
+\index{de\-::joglearth\-::geometry\-::\-Screen\-Coordinates@{de\-::joglearth\-::geometry\-::\-Screen\-Coordinates}!\-Screen\-Coordinates@{\-Screen\-Coordinates}}
+\index{\-Screen\-Coordinates@{\-Screen\-Coordinates}!de::joglearth::geometry::ScreenCoordinates@{de\-::joglearth\-::geometry\-::\-Screen\-Coordinates}}
+\subsubsection[{\-Screen\-Coordinates}]{\setlength{\rightskip}{0pt plus 5cm}{\bf de.\-joglearth.\-geometry.\-Screen\-Coordinates.\-Screen\-Coordinates} (
+\begin{DoxyParamCaption}
+\item[{double}]{x, }
+\item[{double}]{y}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_screen_coordinates_a0598b0b40893c246f0adad39018659d6}
+\-Constructor. 
+\begin{DoxyParams}{\-Parameter}
+{\em x} & \-The horizontal position (this.\-x). \\
+\hline
+{\em y} & \-The vertical position (this.\-y). \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{\-Dokumentation der \-Datenelemente}
+\index{de\-::joglearth\-::geometry\-::\-Screen\-Coordinates@{de\-::joglearth\-::geometry\-::\-Screen\-Coordinates}!x@{x}}
+\index{x@{x}!de::joglearth::geometry::ScreenCoordinates@{de\-::joglearth\-::geometry\-::\-Screen\-Coordinates}}
+\subsubsection[{x}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf de.\-joglearth.\-geometry.\-Screen\-Coordinates.\-x}}\label{classde_1_1joglearth_1_1geometry_1_1_screen_coordinates_a1630b2a0f961d898f2cc17925b6dfdd6}
+\-The horizontal position in [0.\-0; 1.\-0], where 0.\-0 is the left, 1.\-0 the right border. \index{de\-::joglearth\-::geometry\-::\-Screen\-Coordinates@{de\-::joglearth\-::geometry\-::\-Screen\-Coordinates}!y@{y}}
+\index{y@{y}!de::joglearth::geometry::ScreenCoordinates@{de\-::joglearth\-::geometry\-::\-Screen\-Coordinates}}
+\subsubsection[{y}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf de.\-joglearth.\-geometry.\-Screen\-Coordinates.\-y}}\label{classde_1_1joglearth_1_1geometry_1_1_screen_coordinates_a1c1164479d145ac4426dcc074219a714}
+\-The vertical position in [0.\-0; 1.\-0], where 0.\-0 is the top, 1.\-0 the bottom border. 
