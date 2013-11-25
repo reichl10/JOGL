@@ -1,77 +1,161 @@
-\section{de.\-joglearth.\-rendering.\-Renderer Klassenreferenz}
+\section{de.\-joglearth.\-rendering.\-Renderer \-Klassenreferenz}
 \label{classde_1_1joglearth_1_1rendering_1_1_renderer}\index{de.\-joglearth.\-rendering.\-Renderer@{de.\-joglearth.\-rendering.\-Renderer}}
-Klassendiagramm für de.\-joglearth.\-rendering.\-Renderer\-:\begin{figure}[H]
+\-Klassendiagramm für de.\-joglearth.\-rendering.\-Renderer\-:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=1.581921cm]{classde_1_1joglearth_1_1rendering_1_1_renderer}
+\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1rendering_1_1_renderer}
 \end{center}
 \end{figure}
-\subsection*{Öffentliche Methoden}
+\subsection*{\-Klassen}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries Renderer} (G\-L\-Canvas canv, {\bf Height\-Map\-Manager} height, {\bf Location\-Manager} location\-Manager, {\bf Camera} camera)\label{classde_1_1joglearth_1_1rendering_1_1_renderer_aa837e32ec6464df79979770debcb5e21}
-
+class {\bfseries \-Cache\-Listener}
 \item 
-{\bf Camera} {\bfseries get\-Camera} ()\label{classde_1_1joglearth_1_1rendering_1_1_renderer_adfeafdcd8fc69efd3aa1ebb271c5ad9b}
-
+class {\bfseries \-Renderer\-Event\-Listener}
+\end{DoxyCompactItemize}
+\subsection*{Öffentliche \-Methoden}
+\begin{DoxyCompactItemize}
 \item 
-void {\bfseries set\-Camera} ({\bf Camera} camera)\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a28b4e23c198100f4ebcf8d485946b275}
-
+{\bf \-Renderer} (\-G\-L\-Canvas canv, {\bf \-Height\-Map\-Manager} height, {\bf \-Location\-Manager} location\-Manager, {\bf \-Camera} camera)
 \item 
-synchronized void {\bfseries post} ()\label{classde_1_1joglearth_1_1rendering_1_1_renderer_acdb2dda06a8744cb5f7975219a40a4f3}
-
+{\bf \-Camera} {\bf get\-Camera} ()
 \item 
-synchronized void {\bfseries start} ()\label{classde_1_1joglearth_1_1rendering_1_1_renderer_ab112c71a1f00a287f343e896c950dc37}
-
+void {\bf set\-Camera} ({\bf \-Camera} camera)
 \item 
-synchronized void {\bfseries stop} ()\label{classde_1_1joglearth_1_1rendering_1_1_renderer_abc1949c3ee8ccea9a14c299a969017cd}
-
+synchronized void {\bf post} ()
+\item 
+synchronized void {\bf start} ()
+\item 
+synchronized void {\bf stop} ()
 \item 
 void {\bfseries run} ()\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a7d71fd1d5672015e5a2b2642dc09ae27}
 
 \item 
-void {\bfseries quit} ()\label{classde_1_1joglearth_1_1rendering_1_1_renderer_afb25dedb47ab7ae5c0e326302c8e2a5c}
-
+void {\bf quit} ()
 \item 
-void {\bf settings\-Changed} (String key, Object val\-Old, Object val\-New)
+void {\bf settings\-Changed} (\-String key, \-Object val\-Old, \-Object val\-New)
 \item 
 void {\bf camera\-View\-Changed} ()
 \end{DoxyCompactItemize}
 
 
-\subsection{Dokumentation der Elementfunktionen}
-\index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!camera\-View\-Changed@{camera\-View\-Changed}}
-\index{camera\-View\-Changed@{camera\-View\-Changed}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
-\subsubsection[{camera\-View\-Changed}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-rendering.\-Renderer.\-camera\-View\-Changed (
+\subsection{\-Ausführliche \-Beschreibung}
+\-Handles the \-Open\-G\-L rendering. 
+
+\subsection{\-Beschreibung der \-Konstruktoren und \-Destruktoren}
+\index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!\-Renderer@{\-Renderer}}
+\index{\-Renderer@{\-Renderer}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
+\subsubsection[{\-Renderer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf de.\-joglearth.\-rendering.\-Renderer.\-Renderer} (
 \begin{DoxyParamCaption}
-{}
+\item[{\-G\-L\-Canvas}]{canv, }
+\item[{{\bf \-Height\-Map\-Manager}}]{height, }
+\item[{{\bf \-Location\-Manager}}]{location\-Manager, }
+\item[{{\bf \-Camera}}]{camera}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a5c90444884fdb634d26a2ff661c9a0ec}
-Called whenever a camera setting changes. 
-
-Implementiert {\bf de.\-joglearth.\-geometry.\-Camera\-Listener} \doxyref{}{S.}{interfacede_1_1joglearth_1_1geometry_1_1_camera_listener_a960186d2b50619ee65dddcf5058ba608}.
-
-\index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!settings\-Changed@{settings\-Changed}}
-\index{settings\-Changed@{settings\-Changed}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
-\subsubsection[{settings\-Changed}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-rendering.\-Renderer.\-settings\-Changed (
-\begin{DoxyParamCaption}
-\item[{String}]{key, }
-\item[{Object}]{val\-Old, }
-\item[{Object}]{val\-New}
-\end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_ae069b700ba6bdbef09879072a443bf00}
-Invoked if a setting this listener has be registered on is changed.
+)}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_aa837e32ec6464df79979770debcb5e21}
+\-Constructor initializes the \-Open\-G\-L functionalities.
 
 
-\begin{DoxyParams}{Parameter}
-{\em key} & The key of the changed setting \\
+\begin{DoxyParams}{\-Parameter}
+{\em canv} & \doxyref{com.\-jogamp.\-opengl.\-swt.\-G\-L\-Canvas}{\-S.}{} object of the \-G\-U\-I. \\
 \hline
-{\em val\-Old} & The old value of the setting, can be null if there wasn't any \\
+{\em height} & \doxyref{\-Height\-Map\-Manager}{\-S.}{} that provides the height of a point. \\
 \hline
-{\em val\-New} & The new value of the setting, can be null \\
+{\em location\-Manager} & \doxyref{\-Location\-Manager}{\-S.}{} that provides the information about \-Overlays to be displayed. \\
+\hline
+{\em camera} & \-T\-O\-D\-O \doxyref{\-Camera}{\-S.}{} \\
 \hline
 \end{DoxyParams}
 
 
-Implementiert {\bf de.\-joglearth.\-settings.\-Settings\-Listener} \doxyref{}{S.}{interfacede_1_1joglearth_1_1settings_1_1_settings_listener_a77fca7f974574ac990a8ed54cb076aef}.
+\subsection{\-Dokumentation der \-Elementfunktionen}
+\index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!camera\-View\-Changed@{camera\-View\-Changed}}
+\index{camera\-View\-Changed@{camera\-View\-Changed}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
+\subsubsection[{camera\-View\-Changed}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-rendering.\-Renderer.\-camera\-View\-Changed} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a5c90444884fdb634d26a2ff661c9a0ec}
+\-Called whenever a camera setting changes. 
 
+\-Implementiert {\bf de.\-joglearth.\-geometry.\-Camera\-Listener} \doxyref{}{\-S.}{interfacede_1_1joglearth_1_1geometry_1_1_camera_listener_a960186d2b50619ee65dddcf5058ba608}.
+
+\index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!get\-Camera@{get\-Camera}}
+\index{get\-Camera@{get\-Camera}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
+\subsubsection[{get\-Camera}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Camera} {\bf de.\-joglearth.\-rendering.\-Renderer.\-get\-Camera} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_adfeafdcd8fc69efd3aa1ebb271c5ad9b}
+\-Gets the \doxyref{\-Camera}{\-S.}{}.
+
+\begin{DoxyReturn}{\-Rückgabe}
+\doxyref{\-Camera}{\-S.}{} object. 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!post@{post}}
+\index{post@{post}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
+\subsubsection[{post}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void {\bf de.\-joglearth.\-rendering.\-Renderer.\-post} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_acdb2dda06a8744cb5f7975219a40a4f3}
+\-Notifies the {\ttfamily \doxyref{\-Renderer}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_renderer}} that a new frame should be rendered. \-If {\ttfamily \doxyref{start()}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_renderer_ab112c71a1f00a287f343e896c950dc37}} is called this method may have no effect. \-Asynchron method, does not wait till a frame is drawn. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!quit@{quit}}
+\index{quit@{quit}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
+\subsubsection[{quit}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-rendering.\-Renderer.\-quit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_afb25dedb47ab7ae5c0e326302c8e2a5c}
+\-Quits the \doxyref{\-Renderer}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_renderer} thread. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!set\-Camera@{set\-Camera}}
+\index{set\-Camera@{set\-Camera}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
+\subsubsection[{set\-Camera}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-rendering.\-Renderer.\-set\-Camera} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Camera}}]{camera}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a28b4e23c198100f4ebcf8d485946b275}
+\-Sets the \doxyref{\-Camera}{\-S.}{}
+
+
+\begin{DoxyParams}{\-Parameter}
+{\em camera} & \-A \doxyref{\-Camera}{\-S.}{} object. \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!settings\-Changed@{settings\-Changed}}
+\index{settings\-Changed@{settings\-Changed}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
+\subsubsection[{settings\-Changed}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-rendering.\-Renderer.\-settings\-Changed} (
+\begin{DoxyParamCaption}
+\item[{\-String}]{key, }
+\item[{\-Object}]{val\-Old, }
+\item[{\-Object}]{val\-New}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_ae069b700ba6bdbef09879072a443bf00}
+\-Invoked if a setting this listener has be registered on is changed.
+
+
+\begin{DoxyParams}{\-Parameter}
+{\em key} & \-The key of the changed setting \\
+\hline
+{\em val\-Old} & \-The old value of the setting, can be null if there wasn't any \\
+\hline
+{\em val\-New} & \-The new value of the setting, can be null \\
+\hline
+\end{DoxyParams}
+
+
+\-Implementiert {\bf de.\-joglearth.\-settings.\-Settings\-Listener} \doxyref{}{\-S.}{interfacede_1_1joglearth_1_1settings_1_1_settings_listener_a77fca7f974574ac990a8ed54cb076aef}.
+
+\index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!start@{start}}
+\index{start@{start}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
+\subsubsection[{start}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void {\bf de.\-joglearth.\-rendering.\-Renderer.\-start} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_ab112c71a1f00a287f343e896c950dc37}
+\-Starts the render loops with 60 \-F\-P\-S. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!stop@{stop}}
+\index{stop@{stop}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
+\subsubsection[{stop}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void {\bf de.\-joglearth.\-rendering.\-Renderer.\-stop} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_abc1949c3ee8ccea9a14c299a969017cd}
+\-Stops the rendering loop. \-When {\ttfamily \doxyref{post()}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_renderer_acdb2dda06a8744cb5f7975219a40a4f3}} is called a new frame will be rendered. 

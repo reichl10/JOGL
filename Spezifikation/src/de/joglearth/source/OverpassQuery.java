@@ -6,9 +6,9 @@ import de.joglearth.surface.LocationType;
 
 
 /**
- * The class {@link OverpassQuery} supports a query to the OverpassAPI. All results, e.g. POIs or
- * city names are within the FOV. The size of the FOV (the associated tiles) must be part of the
- * query.
+ * Supports a query to the OverpassAPI. All results, e.g. POIs or city names are within the FOV. The
+ * size of the FOV (the associated tiles) must be part of the query.
+ * 
  */
 public class OverpassQuery {
 

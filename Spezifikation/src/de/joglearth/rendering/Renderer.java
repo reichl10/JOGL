@@ -16,7 +16,6 @@ import de.joglearth.source.OSMTileSource;
 import de.joglearth.source.SourceListener;
 
 
-
 /**
  * Handles the OpenGL rendering.
  */
@@ -36,15 +35,11 @@ public class Renderer implements Runnable, CameraListener, SettingsListener {
     /**
      * Constructor initializes the OpenGL functionalities.
      * 
-     * @param canv
-     *            {@link com.jogamp.opengl.swt.GLCanvas} object of the GUI.
-     * @param height
-     *            {@link HeightMapManager} that provides the height of a point.
-     * @param locationManager
-     *            {@link LocationManager} that provides the information about Overlays to be
-     *            displayed.
-     * @param camera
-     *            //TODO {@link Camera}
+     * @param canv {@link com.jogamp.opengl.swt.GLCanvas} object of the GUI.
+     * @param height {@link HeightMapManager} that provides the height of a point.
+     * @param locationManager {@link LocationManager} that provides the information about Overlays
+     *        to be displayed.
+     * @param camera TODO {@link Camera}
      */
     public Renderer(GLCanvas canv, HeightMapManager height,
             LocationManager locationManager, Camera camera) {
@@ -57,16 +52,18 @@ public class Renderer implements Runnable, CameraListener, SettingsListener {
     }
 
     /**
-     * Gets the Camera.
+     * Gets the {@link Camera}.
      * 
-     * @return Camera object.
+     * @return {@link Camera} object.
      */
     public Camera getCamera() {
         return camera;
     }
 
     /**
-     * @param camera
+     * Sets the {@link Camera}
+     * 
+     * @param camera A {@link Camera} object.
      */
     public void setCamera(Camera camera) {
         this.camera = camera;
@@ -74,8 +71,7 @@ public class Renderer implements Runnable, CameraListener, SettingsListener {
 
 
     /**
-     * 
-     * Listener notified when a new element arrived in a {@link Cache}.
+     * Listener notified when a new element arrived in a {@link de.joglearth.caching.Cache}.
      * 
      */
     private class CacheListener implements SourceListener<Tile, byte[]> {
@@ -88,16 +84,28 @@ public class Renderer implements Runnable, CameraListener, SettingsListener {
 
 
     /**
-     * @return
+     * TODO Returns if the window is quit.
+     * 
+     * @return Is the window quit?
      */
     private synchronized boolean isQuit() {
         return quit;
     }
 
+    /**
+     * Returns if the OpenGL rendering loop is running.
+     * 
+     * @return Is OpenGL rendering loop running?
+     */
     private synchronized boolean isRunning() {
         return running;
     }
 
+    /**
+     * Returns if the surface has changed and a new render process is needed.
+     * 
+     * @return Should the window be re-rendered.
+     */
     private synchronized boolean isPosted() {
         return posted;
     }
@@ -152,38 +160,50 @@ public class Renderer implements Runnable, CameraListener, SettingsListener {
         }
     }
 
-    //TODO
+    /**
+     * Re-renders the OpenGL view.
+     */
     private void render() {
 
     }
 
+    /**
+     * TODO
+     * 
+     * Initializes the OpenGL settings.
+     */
     private void initialize() {
 
     }
 
+    /**
+     * Quits the Renderer thread.
+     */
     public void quit() {
         quit = true;
     }
 
 
+    /**
+     * A Listener to handle events for OpenGL rendering.
+     */
     private class RendererEventListener implements GLEventListener {
 
         @Override
-        public void display(GLAutoDrawable draw) {
+        public void display(GLAutoDrawable drawable) {
             post();
         }
 
         @Override
-        public void dispose(GLAutoDrawable draw) {}
+        public void dispose(GLAutoDrawable drawable) {}
 
         @Override
-        public void init(GLAutoDrawable draw) {
+        public void init(GLAutoDrawable drawable) {
             initialize();
         }
 
         @Override
-        public void reshape(GLAutoDrawable arg0, int arg1, int arg2, int arg3,
-                int arg4) {
+        public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
 
         }
     }

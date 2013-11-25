@@ -3,7 +3,7 @@ package de.joglearth.geometry;
 /**
  * A structure identifying a single OpenStreetMap surface tile.
  */
-public class Tile implements Cloneable {
+public final class Tile implements Cloneable {
 
     private int detailLevel;
     private int lonIndex;
@@ -27,8 +27,8 @@ public class Tile implements Cloneable {
     }
 
     // Returns the angle for the step given, in radians
-    private float angle(int steps) {
-        return (float) (Math.pow(0.5, detailLevel) * steps % 1 * 2 * Math.PI);
+    private double angle(int steps) {
+        return Math.pow(0.5, detailLevel) * steps % 1 * 2 * Math.PI;
     }
 
     /**
@@ -36,7 +36,7 @@ public class Tile implements Cloneable {
      * 
      * @return The longitude, in radians.
      */
-    public float longitudeFrom() {
+    public double longitudeFrom() {
         return angle(lonIndex);
     }
 
@@ -45,7 +45,7 @@ public class Tile implements Cloneable {
      * 
      * @return The longitude, in radians.
      */
-    public float longitudeTo() {
+    public double longitudeTo() {
         return angle(lonIndex + 1);
     }
 
@@ -54,7 +54,7 @@ public class Tile implements Cloneable {
      * 
      * @return The latitude, in radians.
      */
-    public float latitudeFrom() {
+    public double latitudeFrom() {
         return angle(latIndex);
     }
 
@@ -63,7 +63,7 @@ public class Tile implements Cloneable {
      * 
      * @return The latitude, in radians.
      */
-    public float latitudeTo() {
+    public double latitudeTo() {
         return angle(latIndex + 1);
     }
 
@@ -93,14 +93,38 @@ public class Tile implements Cloneable {
     public int getDetailLevel() {
         return detailLevel;
     }
-    
+
     /**
      * Returns a tile in the given detail level which contains a specific point.
+     * 
      * @param detailLevel The detail level.
      * @param coords The point.
      * @return A tile.
      */
     public static Tile getContainingTile(int detailLevel, GeoCoordinates coords) {
         return null;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + detailLevel;
+        result = prime * result + latIndex;
+        result = prime * result + lonIndex;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Tile other = (Tile) obj;
+        return this.detailLevel == other.detailLevel && this.latIndex == other.latIndex
+                && this.lonIndex == other.lonIndex;
     }
 }

@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage[Bjornstrup]{fncychap}
-%\usepackage{ngerman}
+\usepackage{ngerman}
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \usepackage{etoolbox}
@@ -210,17 +210,15 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 \hline 
 \rule[-1ex]{0pt}{4ex} Klasse & Erläuterung \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} BinaryRequestDistributor & \\ 
+\rule[-1ex]{0pt}{4ex} RequestDistributor & Überprüfen ob Anfragen in annehmbarer Zeit beantwortet werden. Prüfen das nicht mehrfache, gleiche Anfragen mehrmals ausgeführt werden \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} RequestDistributor & \\ 
+\rule[-1ex]{0pt}{4ex} FileSystemCache &  \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} FileSystemCache & \\ 
+\rule[-1ex]{0pt}{4ex} MemoryCache & Überprüfen ob eingefügte Objekte wieder gefunden werden können, und ob \textit{null} entsprechend abgefangen wird\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} MemoryCache & \\ 
+\rule[-1ex]{0pt}{4ex} TextureCache & Überprüfen der \textit{dropObject()} Methode\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} TextureCache & \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} Camera & Teile \\ 
+\rule[-1ex]{0pt}{4ex} Camera & methoden: isPointVisible, getWindowPosition, getCoordinates \\ 
 \hline
 \rule[-1ex]{0pt}{4ex} PlaneGeometry & \\ 
 \hline
@@ -228,15 +226,15 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 \hline
 \rule[-1ex]{0pt}{4ex} Settings & Threadsicherheit + Listener testen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} HTTPUtils & \\ 
+\rule[-1ex]{0pt}{4ex} HTTPUtils & Alle Methoden testen ob sie richtige Ergebnisse liefern für HTTP Anfragen\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} Paket Source insgesamt & \\ 
+\rule[-1ex]{0pt}{4ex} Paket Source insgesamt & Alle Queries überprüfen ob sie richtig konstruiert wurden, Sources ob sie die richten Daten liefern für bestimmte Anfragen, ob das listening auf Sources funktioniert\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} HeightMapManager & \\ 
+\rule[-1ex]{0pt}{4ex} HeightMapManager & Das er richtig auf abschalten des Höhenprofils reagiert (Settingsänderung), das er richtige Daten liefert. \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} LocationManager & \\ 
+\rule[-1ex]{0pt}{4ex} LocationManager & Daten für bestimmte Punkte testen, Listener aufrufe prüfen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex} TextureManager & \\ 
+\rule[-1ex]{0pt}{4ex} TextureManager & Ob man richtige Textur bekommt, ob er Texturen findet die schon im Grafikspeicher sind \\ 
 \hline
 
 \end{tabular}
@@ -250,53 +248,124 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 package de.joglearth.junit.settings;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
+import de.joglearth.surface.Location;
+import de.joglearth.surface.LocationType;
 
 
 public class WriteAndLoadSettings {
 
-    private static final Boolean TV_BOOLEAN = new Boolean(false);
-    private static final Double  TV_DOUBLE  = new Double(123.301d);
-    private static final Float   TV_FLOAT   = new Float(32.35f);
-    private static final Integer TV_INTEGER = new Integer(39424);
-    private static final Long    TV_LONG    = new Long(348324023);
-    private static final String  TV_STRING  = "jfsdjfisdf*+3439(&2)(/&";
-
+    private static final Boolean TV_BOOLEAN = new Boolean(true);
+    private static final Double TV_DOUBLE = new Double(123.301d);
+    private static final Float TV_FLOAT = new Float(32.35f);
+    private static final Integer TV_INTEGER = new Integer(-5634);
+    private static final Long TV_LONG = new Long(34332423);
+    private static final String TV_STRING = "jfsdjfisdf*+3439(&2)(/&";
+    private static final Set<Location> TV_LOCATION = new HashSet<Location>();
+    private static final String TEST_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
+            +
+            "<settings>\r\n"
+            +
+            "<entry key=\"exkey1\" type=\"Integer\" value=\"-5634\"/>\r\n"
+            +
+            "<entry key=\"exkey2\" type=\"Long\" value=\"34332423\"/>\r\n"
+            +
+            "<entry key=\"exkey3\" type=\"String\" value=\"jfsdjfisdf*+3439(&2)(/&\"/>\r\n"
+            +
+            "<entry key=\"exkey4\" type=\"Double\" value=\"123.301\"/>\r\n"
+            +
+            "<entry key=\"exkey5\" type=\"Float\" value=\"32.35\"/>\r\n"
+            +
+            "<entry key=\"exkey6\" type=\"Boolean\" value=\"true\"/>\r\n"
+            +
+            "<locations key=\"exkey7\">\r\n"
+            +
+            "  <location name=\"Name of Location\" details=\"Some Details\" type=\"USER_TAG\">\r\n"
+            +
+            "    <geocoordinates longitude=\"3.32\" latitude=\"1.45\" />\r\n"
+            +
+            "  </location>\r\n"
+            +
+            "  <location name=\"Name of Location 2\" details=\"Some Details\" type=\"USER_TAG\">\r\n"
+            +
+            "    <geocoordinates longitude=\"3.32\" latitude=\"1.47\" />\r\n" +
+            "  </location>\r\n" +
+            "</locations>\r\n" +
+            "<locations key=\"exkey9\">\r\n" +
+            "</locations>\r\n" +
+            "</settings>";
+    private File settingsFile;
 
     @Before
-    public void setUp() throws Exception {}
+    public void setUp() throws Exception {
+        String folderName = "joglearth";
+        TV_LOCATION.add(new Location(new GeoCoordinates(3.32d, 1.45d), LocationType.USER_TAG,
+                "Some Details", "Name of Location"));
+        TV_LOCATION.add(new Location(new GeoCoordinates(3.32d, 1.47d), LocationType.USER_TAG,
+                "Some Details", "Name of Location 2"));
+        String os = System.getProperty("os.name");
+        if (os.contains("Windows")) {
+            String localAppdata = System.getenv("LOCALAPPDATA");
+            settingsFile = new File(localAppdata + "\\" + folderName + "\\" + "settings.xml");
+        } else if (os.contains("Linux")) {
+            String userHome = System.getProperty("user.home");
+            settingsFile = new File(userHome + File.separator + "." + folderName + File.separator
+                    + "settings.xml");
+        } else {
+            settingsFile = null;
+            fail("This System is not supported!");
+            return;
+        }
+        if (!settingsFile.exists()) {
+            settingsFile.mkdirs();
+        }
+        FileOutputStream fos = new FileOutputStream(settingsFile);
+        fos.write(TEST_XML.getBytes(StandardCharsets.UTF_8));
+        fos.close();
+    }
 
-    @After 
-    public void tearDown() throws Exception {}
+    @After
+    public void tearDown() throws Exception {
+        if (settingsFile != null) {
+            settingsFile.delete();
+        }
+    }
 
     @Test
     public void testLoadSettings() {
         Settings settings = Settings.getInstance();
-        settings.putBoolean("tkBoolean", TV_BOOLEAN);
-        settings.putDouble("tkDouble", TV_DOUBLE);
-        settings.putFloat("tkFloat", TV_FLOAT);
-        settings.putInteger("tkInteger", TV_INTEGER);
-        settings.putLong("tkLong", TV_LONG);
-        settings.putString("tkString", TV_STRING);
-        SettingsContract.saveSettings();
-        settings.putBoolean("tkBoolean", null);
-        settings.putDouble("tkDouble", null);
-        settings.putFloat("tkFloat", null);
-        settings.putInteger("tkInteger", null);
-        settings.putLong("tkLong", null);
-        settings.putString("tkString", null);
+        settings.putInteger("exkey1", new Integer(23712));
+        settings.putLong("exkey2", new Long(37427373));
         SettingsContract.loadSettings();
-        assertEquals("Loading Boolean Failed", TV_BOOLEAN, settings.getBoolean("tkBoolean"));
-        assertEquals("", TV_DOUBLE, settings.getDouble("tkDouble"));
-        assertEquals("", TV_FLOAT, settings.getFloat("tkFloat"));
-        assertEquals(TV_INTEGER, settings.getInteger("tkInteger"));
-        assertEquals(TV_LONG, settings.getLong("tkLong"));
-        assertEquals(TV_STRING, settings.getString("tkString"));
+        assertEquals(TV_INTEGER, settings.getInteger("exkey1"));
+        assertEquals(TV_LONG, settings.getLong("exkey2"));
+        assertEquals(TV_STRING, settings.getString("exkey3"));
+        assertEquals(TV_DOUBLE, settings.getDouble("exkey4"));
+        assertEquals(TV_FLOAT, settings.getFloat("exkey5"));
+        assertEquals(TV_BOOLEAN, settings.getBoolean("exkey6"));
+        Set<Location> locationSet1 = settings.getLocations("exkey7");
+        assertNull(locationSet1);
+        for (Location location : locationSet1) {
+            assertTrue(TV_LOCATION.contains(location));
+        }
+        Set<Location> locationSet2 = settings.getLocations("exkey9");
+        assertTrue(locationSet2.size() == 0); 
     }
 
     @Test
@@ -326,28 +395,28 @@ public class WriteAndLoadSettings {
 \section{Programm Icons}
 
 \vspace{5mm}
-\begin{tabular}{|p{4cm}|p{10cm}|}
+\begin{tabular}{|p{3cm}|p{10cm}|}
 \hline 
 \rule[-1ex]{0pt}{4ex} \textbf{Symbol} & \textbf{Erläuterung} \\ 
 \hline
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} &  Logo von \JoglEarth \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.6]{Logo-Print.eps}} &  Logo von \JoglEarth \\ 
 \hline
 \rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.2]{Logo.eps}} & Programm-Icon \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.0]{Hinzufugen.eps}} &  Stecknadel zum markieren eines Punktes \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{Hinzufugen.eps}} &  Stecknadel zum markieren eines Punktes \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.0]{Entfernen.eps}} & Stecknadel zum entfernen eines Punktes \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{Entfernen.eps}} & Stecknadel zum entfernen eines Punktes \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.3]{Zoom_plus.eps}} & Plus beim Zoomen \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{Zoom_plus.eps}} & Plus beim Zoomen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.3]{Zoom_minus.eps}} & Minus beim Zoomen \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{Zoom_minus.eps}} & Minus beim Zoomen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.5]{Logo-Print.eps}} & Maßstab \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.6]{Massstab.eps}} & Maßstab \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.2]{Handbuch.eps}} &  Handbuch-Icon \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{Handbuch.eps}} &  Handbuch-Icon \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.2]{Info.eps}} &  About-Icon \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{Info.eps}} &  About-Icon \\ 
 \hline
 
 \end{tabular}
@@ -596,6 +665,10 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
     <has-kv k="amenity" v="kindergarten" />
     <bbox-query n="" s="" w="" e=""  />
   </query>
+    <query type="node">
+    <has-kv k="amenity" v="library" />
+    <bbox-query n="" s="" w="" e=""  />
+  </query>
   </union>
   <print/>
 </osm-script>
@@ -668,48 +741,48 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 \newpage
 
-\section{Settingsfile}
-The XML File to be read and write by the SettingsContract class has to follow the here listed rules.
-The XML File should use UTF-8 encoding and XML 1.0 .
-\texttt{<?xml version="1.0" encoding="UTF-8"?>}
-There has to be one root element \texttt{settings}
+\section{Einstellungsdatei}
+Die XML-Datei die von der \texttt{SettingsContract} Klasse muss den hier festgelegten Regeln folgen.
+Die XML-Datei muss UTF-8 encoding  und den XML 1.0 Standard benutzen. \\
+\texttt{<?xml version="{}1.0"{} encoding="{}UTF-8"{} ?>} \\
+Sie besitzt ein Wurzelelement \texttt{settings}
 \begin{itemize}
- \item element can contain zero or more child elements of tag \texttt{entry} and zero or more child elements of tag \texttt{locations}.
- \item The elements of tag \texttt{entry} and \texttt{locations} don't have to appear in a specific order.
+ \item das Element kann keines oder mehr Kindelemente des Typs \texttt{entry} und keines oder mehr des Typs \texttt{locations}.
+ \item Die Elemente des Typs \texttt{entry} und \texttt{locations} müssen nicht in einer bestimmten Reihenfolge angeordnet sein.
 \end{itemize}
 
-The \texttt{entry} element:
+Das \texttt{entry} Element:
 \begin{itemize}
- \item is not allowed to have child elements.
- \item has to have the following attributes: key, type, value
- \item the \texttt{key} attribute can contain a string and is the key of the element. It should be unique for entry elements in this file.
- \item the \texttt{type} attribute can contain one of the following strings: Integer, Boolean, Long, Double, Float, String
-  This type defines which java standard api type the String in value has to be parsed to and wars converted to a string from by using toString().
- \item the \texttt{value} attribute contains the string representation of the value of the settings entry.
+ \item besitzt keine Kindelemente
+ \item muss die folgenden Attribute besitzen: \texttt{key}, \texttt{type}, \texttt{value}
+ \item das \texttt{key} Attribut enthält einen String und ist der key des Elements. Es sollte einzigartig für \texttt{entry} Elemente in dieser Datei sein.
+ \item das \texttt{type} Attribut kann einen der folgenden Strings enthalten: Integer, Boolean, Long, Double, Float, String
+  Dieser Typ definiert zu welchen Java Standard API Typ der String im \texttt{value} Attribut geparsed werden muss, and von welchem er mit \texttt{toString} umgewandelt wurde.
+   \item das \texttt{value} Attribut enthält eine String Repräsentation des wertes dieses Eintrages.
 \end{itemize}
 
- The \texttt{locations} element:
+ Das \texttt{locations} Element:
 \begin{itemize}
- \item can contain zero or more child elements of tag \texttt{location}.
- \item has to have the attribute key containing the locations key used in the settings class.
+ \item kann keines oder mehr Elemente des Types \texttt{location} enthalten.
+ \item muss ein Attribut \texttt{key} besitzen das den Key des Locations enthält den die \texttt{Settings} Klasse benutzt.
 \end{itemize}
 
- The \texttt{location} element:
+ Das \texttt{location} Element:
 \begin{itemize}
- \item has to have the following attributes: details, type, name
+ \item muss die folgenden Attribute haben: \texttt{details}, \texttt{type}, \texttt{name}
  \begin{itemize}
-  \item the \texttt{details} attribute contains the value of the joglearths Location objects details field which is of Class String.
-  \item the \texttt{type} attribute contains the string representation of the Location objects type field which is retrieved by calling toString on the ENUM.
-  \item the \texttt{name} attribute contains the string value of the name field of a Location object.
+  \item das \texttt{details} Attribut enthält den wert des de.joglearth.surface.Location Objekts Details Attributs.
+  \item das \texttt{type} Attribut enthält die String Repräsentation des Locations Objektes Type Attributs, welche durch aufrufen von .toString auf dem Enum erzeugt wird.
+  \item das \texttt{name} Attribut enthält den String wert des name Attributs des Location Objekts.
   \end{itemize}
- \item has to have exactly one child element of tag \texttt{geocoordinates}
+ \item muss genau ein Kindelement des Typs \texttt{geocoordinates} besitzen
  \begin{itemize}
-  \item this element has to have the following attributes: longitude, latitude
-  \item the values of these attributes are java float or Float converted to Strings by Float.toString;
+  \item Diese Element muss die folgenden Attribute besitzen: \texttt{longitude}, \texttt{latitude}
+  \item die werten dieser Attribute stammen von Java double or Double zu einem String umgewandelt durch Double.toString;
  \end{itemize}
 \end{itemize}
-
-Example XML File Content:
+\newpage
+Inhalt einer Beispiel XML-Datei:
 \lstset{language=XML}
 \begin{lstlisting}[frame=single]
 <?xml version="1.0" encoding="UTF-8"?>
@@ -724,7 +797,7 @@ Example XML File Content:
   <location name="Name of Location" details="Some Details" type="USERMAKRKING">
     <geocoordinates longitude="3.32" latitude="4.78" />
   </location>
-  <location name="Name of Location 2" details="Some Details" type="USERMARKING">
+  <location name="Name of Location 2" details="Some Details" type="POST">
     <geocoordinates longitude="3.32" latitude="4.79" />
   </location>
 </locations>
@@ -843,7 +916,7 @@ Einkaufsmöglichkeiten & shops \\
 \hline
 Freizeitaktivitäten & activity \\ 
 \hline
-& OUTDOORACTIVITY \\
+ & OUTDOORACTIVITY \\
 \hline
 Bildungseinrichtungen & education \\
 \hline
@@ -851,7 +924,7 @@ Gesundheit & health \\
 \hline
 Post & post \\ 
 \hline
-& HOTELS \\
+Unterkünfte & hotels \\
 \hline
 \end{longtable}
 

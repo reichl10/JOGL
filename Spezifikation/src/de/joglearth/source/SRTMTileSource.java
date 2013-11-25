@@ -4,10 +4,10 @@ import de.joglearth.geometry.Tile;
 
 
 /**
- * Uses the {@link HTTPUtils} to get the SRTM data from NASA server. The size of the SRTM tiles is
+ * Uses the {@link HTTPUtils} to get the SRTM data from NASA servers. The size of the SRTM tiles is
  * 90 x 90 meters. The SRTM tiles include all information of a required point about the height above
- * the sea level. Necessary when the HeightProfile is activated. Only necessary if the HightProfile
- * is activated.
+ * the sea level. Only necessary if the HightProfile is activated.
+ * 
  */
 public class SRTMTileSource implements Source<Tile, byte[]> {
 
@@ -22,6 +22,7 @@ public class SRTMTileSource implements Source<Tile, byte[]> {
 
     /**
      * Constructor. Initializes the {@link SRTMTileSource}.
+     * 
      * @param servers An array of servers delivered as Strings
      */
     public SRTMTileSource(String[] servers) {

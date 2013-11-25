@@ -3,11 +3,11 @@ package de.joglearth.geometry;
 /**
  * Structure holding longitude and latitude coordinates.
  */
-public class GeoCoordinates implements Cloneable {
+// TODO Detailed description of the internal lon/lat format.
+public final class GeoCoordinates implements Cloneable {
 
     private double longitude; // Longitude, in radians
     private double latitude; // Latitude, in radians
-
 
     /**
      * Constructor. Initializes coordinates by their values in radians.
@@ -66,18 +66,36 @@ public class GeoCoordinates implements Cloneable {
         return new GeoCoordinates(longitude, latitude);
     }
 
+    /**     
+     * Returns the longitude, in radians.
+     * @return The longitude.
+     */
     public double getLongitude() {
         return longitude;
     }
 
+    /**     
+     * Returns the latitude, in radians.
+     * @return The latitude.
+     */
     public double getLatitude() {
         return latitude;
     }
 
+    /**
+     * Returns a string describing the longitude.
+     * @return The longitude in string representation.
+     */
+    //TODO Details?
     public String getLongitudeString() {
         return null;
     }
 
+    /**
+     * Returns a string describing the latitude.
+     * @return The latitude in string representation.
+     */
+    //TODO Details?
     public String getLatitudeString() {
         return null;
     }
@@ -86,4 +104,32 @@ public class GeoCoordinates implements Cloneable {
     public String toString() {
         return getLongitudeString() + " " + getLatitudeString();
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        long temp;
+        temp = Double.doubleToLongBits(latitude);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(longitude);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        GeoCoordinates other = (GeoCoordinates) obj;
+        return this.longitude == other.longitude && this.latitude == other.latitude;
+    }
+
 }

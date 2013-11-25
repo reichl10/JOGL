@@ -1,333 +1,330 @@
-\section{de.\-joglearth.\-geometry.\-Matrix4 Klassenreferenz}
+\section{de.\-joglearth.\-geometry.\-Matrix4 \-Klassenreferenz}
 \label{classde_1_1joglearth_1_1geometry_1_1_matrix4}\index{de.\-joglearth.\-geometry.\-Matrix4@{de.\-joglearth.\-geometry.\-Matrix4}}
-Klassendiagramm für de.\-joglearth.\-geometry.\-Matrix4\-:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1geometry_1_1_matrix4}
-\end{center}
-\end{figure}
-\subsection*{Öffentliche Methoden}
+\subsection*{Öffentliche \-Methoden}
 \begin{DoxyCompactItemize}
 \item 
-{\bf Matrix4} ()
+{\bf \-Matrix4} ()
 \item 
-{\bf Matrix4} {\bf clone} ()
+{\bf \-Matrix4} {\bf clone} ()
 \item 
-{\bf Matrix4} (float[$\,$] init)
+{\bf \-Matrix4} (double[$\,$] init)
 \item 
-void {\bf mult} (float[$\,$] rhs)
+void {\bf mult} (double[$\,$] rhs)
 \item 
-void {\bf mult} ({\bf Matrix4} rhs)
+void {\bf mult} ({\bf \-Matrix4} rhs)
 \item 
-void {\bf add} (float[$\,$] rhs)
+void {\bf add} (double[$\,$] rhs)
 \item 
-void {\bf add} ({\bf Matrix4} rhs)
+void {\bf add} ({\bf \-Matrix4} rhs)
 \item 
-float[$\,$] {\bf floats} ()
+double[$\,$] {\bf doubles} ()
 \item 
-void {\bf translate} (float x, float y, float z)
+void {\bf translate} (double x, double y, double z)
 \item 
-void {\bf translate} ({\bf Vector3} v)
+void {\bf translate} ({\bf \-Vector3} v)
 \item 
-void {\bf rotate\-X} (float rad)
+void {\bf rotate\-X} (double rad)
 \item 
-void {\bf rotate\-Y} (float rad)
+void {\bf rotate\-Y} (double rad)
 \item 
-void {\bf rotate\-Z} (float rad)
+void {\bf rotate\-Z} (double rad)
 \item 
-void {\bf scale} (float x, float y, float z)
+void {\bf scale} (double x, double y, double z)
 \item 
-void {\bf scale} ({\bf Vector3} v)
+void {\bf scale} ({\bf \-Vector3} v)
 \item 
-{\bf Matrix4} {\bf inverse} ()
+{\bf \-Matrix4} {\bf inverse} ()
 \item 
-String {\bf to\-String} ()
+\-String {\bf to\-String} ()
 \item 
-{\bf Vector4} {\bf transform} ({\bf Vector3} v3)
+{\bf \-Vector4} {\bf transform} ({\bf \-Vector3} v3)
+\item 
+int {\bfseries hash\-Code} ()\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a7299aaf8de4c8734194fe0573c5976d2}
+
+\item 
+boolean {\bfseries equals} (\-Object obj)\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a607b1abe61ca18c63b9a794fb95f1207}
+
 \end{DoxyCompactItemize}
 
 
-\subsection{Ausführliche Beschreibung}
-A class for 4x4 matrices used in rendering contexts.
+\subsection{\-Ausführliche \-Beschreibung}
+\-A class for 4x4 matrices used in rendering contexts.
 
-Provides methods for translation, rotation and scaling of transformed vectors. \begin{DoxyAuthor}{Autor}
-Fabian Knorr 
-\end{DoxyAuthor}
+\-Provides methods for translation, rotation and scaling of transformed vectors. 
 
-
-\subsection{Beschreibung der Konstruktoren und Destruktoren}
-\index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!Matrix4@{Matrix4}}
-\index{Matrix4@{Matrix4}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{Matrix4}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-geometry.\-Matrix4.\-Matrix4 (
+\subsection{\-Beschreibung der \-Konstruktoren und \-Destruktoren}
+\index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!\-Matrix4@{\-Matrix4}}
+\index{\-Matrix4@{\-Matrix4}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
+\subsubsection[{\-Matrix4}]{\setlength{\rightskip}{0pt plus 5cm}{\bf de.\-joglearth.\-geometry.\-Matrix4.\-Matrix4} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a5eeb6e4b635c609742684718afa65392}
-Constructor. Initializes an identity matrix. \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!Matrix4@{Matrix4}}
-\index{Matrix4@{Matrix4}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{Matrix4}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-geometry.\-Matrix4.\-Matrix4 (
+\-Constructor. \-Initializes an identity matrix. \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!\-Matrix4@{\-Matrix4}}
+\index{\-Matrix4@{\-Matrix4}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
+\subsubsection[{\-Matrix4}]{\setlength{\rightskip}{0pt plus 5cm}{\bf de.\-joglearth.\-geometry.\-Matrix4.\-Matrix4} (
 \begin{DoxyParamCaption}
-\item[{float[$\,$]}]{init}
+\item[{double[$\,$]}]{init}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_ad862570f31205326ad86bbaf20a6c3d2}
-Creates a matrix from a float value array.
+)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_ab0d63393664b2da5dec3dc4665719009}
+\-Creates a matrix from a double value array.
 
 
-\begin{DoxyParams}{Parameter}
-{\em init} & The matrix cells in column-\/first ordering. \\
+\begin{DoxyParams}{\-Parameter}
+{\em init} & \-The matrix cells in column-\/first ordering. \\
 \hline
 \end{DoxyParams}
 
 
-\subsection{Dokumentation der Elementfunktionen}
+\subsection{\-Dokumentation der \-Elementfunktionen}
 \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!add@{add}}
 \index{add@{add}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Matrix4.\-add (
+\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Matrix4.\-add} (
 \begin{DoxyParamCaption}
-\item[{float[$\,$]}]{rhs}
+\item[{double[$\,$]}]{rhs}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a332595c02e468048a0d5c4c652f6ae8b}
-Adds another matrix, given by a float value array, to itself component-\/wise.
+)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a5f706c1125df92eee29d5d8491a8c600}
+\-Adds another matrix, given by a double value array, to itself component-\/wise.
 
 
-\begin{DoxyParams}{Parameter}
-{\em rhs} & The matrix to add. \\
+\begin{DoxyParams}{\-Parameter}
+{\em rhs} & \-The matrix to add. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!add@{add}}
 \index{add@{add}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Matrix4.\-add (
+\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Matrix4.\-add} (
 \begin{DoxyParamCaption}
-\item[{{\bf Matrix4}}]{rhs}
+\item[{{\bf \-Matrix4}}]{rhs}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a9a610175655fe78222dc250ed739adc3}
-Adds another matrix to itself component-\/wise.
+\-Adds another matrix to itself component-\/wise.
 
 
-\begin{DoxyParams}{Parameter}
-{\em rhs} & The matrix to add. \\
+\begin{DoxyParams}{\-Parameter}
+{\em rhs} & \-The matrix to add. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!clone@{clone}}
 \index{clone@{clone}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{clone}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix4} de.\-joglearth.\-geometry.\-Matrix4.\-clone (
+\subsubsection[{clone}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Matrix4} {\bf de.\-joglearth.\-geometry.\-Matrix4.\-clone} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_aa44458a7c508a2a890212ce0e6572315}
-Creates a deep copy of the matrix.
+\-Creates a deep copy of the matrix.
 
-\begin{DoxyReturn}{Rückgabe}
-The copied matrix. 
+\begin{DoxyReturn}{\-Rückgabe}
+\-The copied matrix. 
 \end{DoxyReturn}
-\index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!floats@{floats}}
-\index{floats@{floats}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{floats}]{\setlength{\rightskip}{0pt plus 5cm}float [$\,$] de.\-joglearth.\-geometry.\-Matrix4.\-floats (
+\index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!doubles@{doubles}}
+\index{doubles@{doubles}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
+\subsubsection[{doubles}]{\setlength{\rightskip}{0pt plus 5cm}double [$\,$] {\bf de.\-joglearth.\-geometry.\-Matrix4.\-doubles} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_af6d21f73ac08356d0fc6fd7c994cfd51}
-Returns the float value array for the matrix.
+)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a7f8ec207b65c24b1927b8b27306cb686}
+\-Returns the double value array for the matrix.
 
-\begin{DoxyReturn}{Rückgabe}
-The matrix values in column-\/first ordering. 
+\begin{DoxyReturn}{\-Rückgabe}
+\-The matrix values in column-\/first ordering. 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!inverse@{inverse}}
 \index{inverse@{inverse}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{inverse}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix4} de.\-joglearth.\-geometry.\-Matrix4.\-inverse (
+\subsubsection[{inverse}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Matrix4} {\bf de.\-joglearth.\-geometry.\-Matrix4.\-inverse} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_ae7275dcd8bb2a23d708b5c679262529a}
-Inverts the matrix.
+\-Inverts the matrix.
 
-This may be used to create a projection matrix from a camera matrix.
+\-This may be used to create a projection matrix from a camera matrix.
 
-\begin{DoxyReturn}{Rückgabe}
-The inverse of the matrix. 
+\begin{DoxyReturn}{\-Rückgabe}
+\-The inverse of the matrix. 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!mult@{mult}}
 \index{mult@{mult}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{mult}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Matrix4.\-mult (
+\subsubsection[{mult}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Matrix4.\-mult} (
 \begin{DoxyParamCaption}
-\item[{float[$\,$]}]{rhs}
+\item[{double[$\,$]}]{rhs}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_abe3c82d9da4850d678f57f66eaf8a128}
-Multiplies the matrix with another matrix, given by a float value array.
+)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a8f8243ec2ee032bb1b9ccd7d419e4ffd}
+\-Multiplies the matrix with another matrix, given by a double value array.
 
-Mathematical equivalent\-: this' \-:= this $\ast$ rhs
+\-Mathematical equivalent\-: this' \-:= this $\ast$ rhs
 
 
-\begin{DoxyParams}{Parameter}
-{\em rhs} & The matrix to multiply with. \\
+\begin{DoxyParams}{\-Parameter}
+{\em rhs} & \-The matrix to multiply with. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!mult@{mult}}
 \index{mult@{mult}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{mult}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Matrix4.\-mult (
+\subsubsection[{mult}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Matrix4.\-mult} (
 \begin{DoxyParamCaption}
-\item[{{\bf Matrix4}}]{rhs}
+\item[{{\bf \-Matrix4}}]{rhs}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a3f97caf39b3ecd5e083e86025887dd8c}
-Multiplies the matrix with another matrix.
+\-Multiplies the matrix with another matrix.
 
-Mathematical equivalent\-: this' \-:= this $\ast$ rhs
+\-Mathematical equivalent\-: this' \-:= this $\ast$ rhs
 
 
-\begin{DoxyParams}{Parameter}
-{\em rhs} & The matrix to multiply with. \\
+\begin{DoxyParams}{\-Parameter}
+{\em rhs} & \-The matrix to multiply with. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!rotate\-X@{rotate\-X}}
 \index{rotate\-X@{rotate\-X}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{rotate\-X}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Matrix4.\-rotate\-X (
+\subsubsection[{rotate\-X}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Matrix4.\-rotate\-X} (
 \begin{DoxyParamCaption}
-\item[{float}]{rad}
+\item[{double}]{rad}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a0aa25a7c4f62b26e390b7aef767619f8}
-Multiplies itself with a rotation matrix rotating around the X (first) axis.
+)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a4d514abdc8c913bba7181b5b594fa090}
+\-Multiplies itself with a rotation matrix rotating around the \-X (first) axis.
 
-Points transformed with this matrix will thereafter be rotated by the given angle.
+\-Points transformed with this matrix will thereafter be rotated by the given angle.
 
 
-\begin{DoxyParams}{Parameter}
-{\em rad} & The rotation angle, in radians. \\
+\begin{DoxyParams}{\-Parameter}
+{\em rad} & \-The rotation angle, in radians. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!rotate\-Y@{rotate\-Y}}
 \index{rotate\-Y@{rotate\-Y}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{rotate\-Y}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Matrix4.\-rotate\-Y (
+\subsubsection[{rotate\-Y}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Matrix4.\-rotate\-Y} (
 \begin{DoxyParamCaption}
-\item[{float}]{rad}
+\item[{double}]{rad}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a467feace0f3aed240dce52c747df0791}
-Multiplies itself with a rotation matrix rotating around the Y (second) axis.
+)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a34c873e6a5d9db379bbef0092d634a1d}
+\-Multiplies itself with a rotation matrix rotating around the \-Y (second) axis.
 
-Points transformed with this matrix will thereafter be rotated by the given angle.
+\-Points transformed with this matrix will thereafter be rotated by the given angle.
 
 
-\begin{DoxyParams}{Parameter}
-{\em rad} & The rotation angle, in radians. \\
+\begin{DoxyParams}{\-Parameter}
+{\em rad} & \-The rotation angle, in radians. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!rotate\-Z@{rotate\-Z}}
 \index{rotate\-Z@{rotate\-Z}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{rotate\-Z}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Matrix4.\-rotate\-Z (
+\subsubsection[{rotate\-Z}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Matrix4.\-rotate\-Z} (
 \begin{DoxyParamCaption}
-\item[{float}]{rad}
+\item[{double}]{rad}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a3eb1bdede73507ec29301f230275028c}
-Multiplies itself with a rotation matrix rotating around the Z (third) axis.
+)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a86a58f8d78b7e1ca25720e4cc75483f7}
+\-Multiplies itself with a rotation matrix rotating around the \-Z (third) axis.
 
-Points transformed with this matrix will thereafter be rotated by the given angle.
+\-Points transformed with this matrix will thereafter be rotated by the given angle.
 
 
-\begin{DoxyParams}{Parameter}
-{\em rad} & The rotation angle, in radians. \\
+\begin{DoxyParams}{\-Parameter}
+{\em rad} & \-The rotation angle, in radians. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!scale@{scale}}
 \index{scale@{scale}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{scale}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Matrix4.\-scale (
+\subsubsection[{scale}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Matrix4.\-scale} (
 \begin{DoxyParamCaption}
-\item[{float}]{x, }
-\item[{float}]{y, }
-\item[{float}]{z}
+\item[{double}]{x, }
+\item[{double}]{y, }
+\item[{double}]{z}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a31bd63759e69ed6122f289e955948b78}
-Multiplies itself with a scale matrix.
+)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a0eeece6391da15b76dec1053b054c5fa}
+\-Multiplies itself with a scale matrix.
 
-Points transformed with this matrix will thereafter be scaled relative to the point of origin.
+\-Points transformed with this matrix will thereafter be scaled relative to the point of origin.
 
 
-\begin{DoxyParams}{Parameter}
-{\em x} & The scale in X direction (The first axis). \\
+\begin{DoxyParams}{\-Parameter}
+{\em x} & \-The scale in \-X direction (\-The first axis). \\
 \hline
-{\em y} & The scale in Y direction (The second axis). \\
+{\em y} & \-The scale in \-Y direction (\-The second axis). \\
 \hline
-{\em z} & The scale in Z direction (The third axis). \\
+{\em z} & \-The scale in \-Z direction (\-The third axis). \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!scale@{scale}}
 \index{scale@{scale}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{scale}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Matrix4.\-scale (
+\subsubsection[{scale}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Matrix4.\-scale} (
 \begin{DoxyParamCaption}
-\item[{{\bf Vector3}}]{v}
+\item[{{\bf \-Vector3}}]{v}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_ade18d4cf61a2570565c4b91357689b24}
-Multiplies itself with a scale matrix.
+\-Multiplies itself with a scale matrix.
 
-Points transformed with this matrix will thereafter be scaled relative to the point of origin.
+\-Points transformed with this matrix will thereafter be scaled relative to the point of origin.
 
 
-\begin{DoxyParams}{Parameter}
-{\em v} & The scale in all three dimensions. \\
+\begin{DoxyParams}{\-Parameter}
+{\em v} & \-The scale in all three dimensions. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!to\-String@{to\-String}}
 \index{to\-String@{to\-String}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{to\-String}]{\setlength{\rightskip}{0pt plus 5cm}String de.\-joglearth.\-geometry.\-Matrix4.\-to\-String (
+\subsubsection[{to\-String}]{\setlength{\rightskip}{0pt plus 5cm}\-String {\bf de.\-joglearth.\-geometry.\-Matrix4.\-to\-String} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a3661a2d8474123b9fca80d578173a176}
-Creates a string representation of the matrix.
+\-Creates a string representation of the matrix.
 
-\begin{DoxyReturn}{Rückgabe}
-The matrix in a human-\/readable string. 
+\begin{DoxyReturn}{\-Rückgabe}
+\-The matrix in a human-\/readable string. 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!transform@{transform}}
 \index{transform@{transform}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{transform}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vector4} de.\-joglearth.\-geometry.\-Matrix4.\-transform (
+\subsubsection[{transform}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Vector4} {\bf de.\-joglearth.\-geometry.\-Matrix4.\-transform} (
 \begin{DoxyParamCaption}
-\item[{{\bf Vector3}}]{v3}
+\item[{{\bf \-Vector3}}]{v3}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a978c11c3a4d89259b0ddda1868828e15}
-Transforms a three-\/dimensional vector of Cartesian coordinates into a four-\/dimensional vector of homogeneous coordinates by matrix-\/vector multiplication.
+\-Transforms a three-\/dimensional vector of \-Cartesian coordinates into a four-\/dimensional vector of homogeneous coordinates by matrix-\/vector multiplication.
 
 
-\begin{DoxyParams}{Parameter}
-{\em v3} & The vector to transform. \\
+\begin{DoxyParams}{\-Parameter}
+{\em v3} & \-The vector to transform. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Rückgabe}
-The transformed vector. 
+\begin{DoxyReturn}{\-Rückgabe}
+\-The transformed vector. 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!translate@{translate}}
 \index{translate@{translate}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{translate}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Matrix4.\-translate (
+\subsubsection[{translate}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Matrix4.\-translate} (
 \begin{DoxyParamCaption}
-\item[{float}]{x, }
-\item[{float}]{y, }
-\item[{float}]{z}
+\item[{double}]{x, }
+\item[{double}]{y, }
+\item[{double}]{z}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a610a0451e9c00e9325271b8c9437b6af}
-Multiplies itself by a translation matrix.
+)}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a570355cfea2937b867d90af13f19a145}
+\-Multiplies itself by a translation matrix.
 
-Points transformed with this matrix will thereafter be translated by the given extents.
+\-Points transformed with this matrix will thereafter be translated by the given extents.
 
 
-\begin{DoxyParams}{Parameter}
-{\em x} & Translation by the X (first) coordinate. \\
+\begin{DoxyParams}{\-Parameter}
+{\em x} & \-Translation by the \-X (first) coordinate. \\
 \hline
-{\em y} & Translation by the Y (second) coordinate. \\
+{\em y} & \-Translation by the \-Y (second) coordinate. \\
 \hline
-{\em z} & Translation by the Z (third) coordinate. \\
+{\em z} & \-Translation by the \-Z (third) coordinate. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}!translate@{translate}}
 \index{translate@{translate}!de::joglearth::geometry::Matrix4@{de\-::joglearth\-::geometry\-::\-Matrix4}}
-\subsubsection[{translate}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Matrix4.\-translate (
+\subsubsection[{translate}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Matrix4.\-translate} (
 \begin{DoxyParamCaption}
-\item[{{\bf Vector3}}]{v}
+\item[{{\bf \-Vector3}}]{v}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_matrix4_a6f87dbae7e80768f002d5c4274cb9015}
-Multiplies itself by a translation matrix.
+\-Multiplies itself by a translation matrix.
 
-Points transformed with this matrix will thereafter be translated by the given extents.
+\-Points transformed with this matrix will thereafter be translated by the given extents.
 
 
-\begin{DoxyParams}{Parameter}
-{\em v} & Translation for all three coordinates. \\
+\begin{DoxyParams}{\-Parameter}
+{\em v} & \-Translation for all three coordinates. \\
 \hline
 \end{DoxyParams}
