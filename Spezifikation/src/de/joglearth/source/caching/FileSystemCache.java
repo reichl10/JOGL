@@ -7,9 +7,9 @@ import de.joglearth.source.SourceResponse;
 public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
 	private String folder;
-	private FileSystemTranslator<Key> paths;
+	private PathTranslator<Key> paths;
 
-	public FileSystemCache(String folder, FileSystemTranslator<Key> p) {
+	public FileSystemCache(String folder, PathTranslator<Key> p) {
 		this.folder = folder;
 		paths = p;
 	}

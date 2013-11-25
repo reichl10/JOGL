@@ -48,43 +48,13 @@ public class Renderer implements Runnable, CameraListener, SettingsListener, Sur
         textureManager.addSurfaceListener(this);
     }
 
-    /**
-     * Gets the {@link Camera}.
-     * 
-     * @return {@link Camera} object.
-     */
-    public Camera getCamera() {
-        return camera;
-    }
-
-    /**
-     * Sets the {@link Camera}
-     * 
-     * @param camera A {@link Camera} object.
-     */
-    public void setCamera(Camera camera) {
-        this.camera = camera;
-    }
 
 
-    /**
-     * Listener notified when a new element arrived in a {@link de.joglearth.caching.Cache}.
-     * 
-     */
-    private class CacheListener implements SourceListener<Tile, byte[]> {
-
-        @Override
-        public void requestCompleted(Tile k, byte[] v) {
-            post();
-        }
-    }
-
-
-    /**
+    /*
      * TODO Returns if the window is quit.
      * 
      * @return Is the window quit?
-     */
+     *
     private synchronized boolean isQuit() {
         return quit;
     }
@@ -93,7 +63,7 @@ public class Renderer implements Runnable, CameraListener, SettingsListener, Sur
      * Returns if the OpenGL rendering loop is running.
      * 
      * @return Is OpenGL rendering loop running?
-     */
+     *
     private synchronized boolean isRunning() {
         return running;
     }
@@ -102,10 +72,10 @@ public class Renderer implements Runnable, CameraListener, SettingsListener, Sur
      * Returns if the surface has changed and a new render process is needed.
      * 
      * @return Should the window be re-rendered.
-     */
+     *
     private synchronized boolean isPosted() {
         return posted;
-    }
+    }*/
 
     // Benachrichtigt den Renderer, dass mindestens ein Frame gerendert
     // werden muss. Wenn vorher start() aufgerufen wurde, hat die
@@ -144,7 +114,7 @@ public class Renderer implements Runnable, CameraListener, SettingsListener, Sur
      * TODO wenn beides false ist thread anhalten!
      */
     public void run() {
-        while (!isQuit()) {
+      /*  while (!isQuit()) {
             if (isRunning() || isPosted()) {
 
                 // code
@@ -154,12 +124,12 @@ public class Renderer implements Runnable, CameraListener, SettingsListener, Sur
                     posted = false;
                 }
             }
-        }
+        }*/
     }
 
-    /**
+    /*
      * Re-renders the OpenGL view.
-     */
+     *
     private void render() {
 
     }
@@ -168,10 +138,10 @@ public class Renderer implements Runnable, CameraListener, SettingsListener, Sur
      * TODO
      * 
      * Initializes the OpenGL settings.
-     */
+     *
     private void initialize() {
 
-    }
+    }*/
 
     /**
      * Quits the Renderer thread.
@@ -196,7 +166,7 @@ public class Renderer implements Runnable, CameraListener, SettingsListener, Sur
 
         @Override
         public void init(GLAutoDrawable drawable) {
-            initialize();
+           // initialize();
         }
 
         @Override

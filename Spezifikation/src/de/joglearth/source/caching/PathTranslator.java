@@ -1,7 +1,7 @@
 package de.joglearth.source.caching;
 
 
-public interface FileSystemTranslator<Key> {
+public interface PathTranslator<Key> {
     String toFileSystemPath(Key k);
     Key fromFileSystemPath(String s);
 }
