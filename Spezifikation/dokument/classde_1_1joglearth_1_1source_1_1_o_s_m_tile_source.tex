@@ -1,77 +1,53 @@
-\section{de.\-joglearth.\-source.\-O\-S\-M\-Tile\-Source Klassenreferenz}
+\section{de.\-joglearth.\-source.\-O\-S\-M\-Tile\-Source \-Klassenreferenz}
 \label{classde_1_1joglearth_1_1source_1_1_o_s_m_tile_source}\index{de.\-joglearth.\-source.\-O\-S\-M\-Tile\-Source@{de.\-joglearth.\-source.\-O\-S\-M\-Tile\-Source}}
-Klassendiagramm für de.\-joglearth.\-source.\-O\-S\-M\-Tile\-Source\-:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1source_1_1_o_s_m_tile_source}
-\end{center}
-\end{figure}
-\subsection*{Öffentliche Methoden}
+
+
+\-Abgeleitet von \-Source$<$ Tile, byte[$\,$]$>$.
+
+\subsection*{Öffentliche \-Methoden}
 \begin{DoxyCompactItemize}
 \item 
-{\bf O\-S\-M\-Tile\-Source} (Source\-Listener$<$ {\bf Tile}, byte[$\,$]$>$ owner, String[$\,$] servers)
+{\bf \-O\-S\-M\-Tile\-Source} (\-String[$\,$] servers)
 \item 
-Source\-Response$<$ byte[$\,$]$>$ {\bf request\-Object} ({\bf Tile} k, Source\-Listener$<$ {\bf Tile}, byte[$\,$]$>$ sender)
+\-Source\-Response$<$ byte[$\,$]$>$ {\bfseries request\-Object} ({\bf \-Tile} k, \-Source\-Listener$<$ {\bf \-Tile}, byte[$\,$]$>$ sender)\label{classde_1_1joglearth_1_1source_1_1_o_s_m_tile_source_a96e7d43368613d379360df15c0ce0d8c}
+
 \item 
-void {\bf set\-Tile\-Type} ({\bf O\-S\-M\-Tile\-Type} t)
+void {\bf set\-Tile\-Type} ({\bf \-O\-S\-M\-Tile\-Type} type)
 \end{DoxyCompactItemize}
 
 
-\subsection{Ausführliche Beschreibung}
-The class \doxyref{O\-S\-M\-Tile\-Source}{S.}{classde_1_1joglearth_1_1source_1_1_o_s_m_tile_source} loads tiles by their coordinates via the internet. This class uses the \doxyref{H\-T\-T\-P\-Utils}{S.}{classde_1_1joglearth_1_1source_1_1_h_t_t_p_utils} to get the tiles from the Open\-Street\-Map server. 
+\subsection{\-Ausführliche \-Beschreibung}
+\-Loads \-Open\-Street\-Map image tiles by their coordinates via \-H\-T\-T\-P. 
 
-\subsection{Beschreibung der Konstruktoren und Destruktoren}
-\index{de\-::joglearth\-::source\-::\-O\-S\-M\-Tile\-Source@{de\-::joglearth\-::source\-::\-O\-S\-M\-Tile\-Source}!O\-S\-M\-Tile\-Source@{O\-S\-M\-Tile\-Source}}
-\index{O\-S\-M\-Tile\-Source@{O\-S\-M\-Tile\-Source}!de::joglearth::source::OSMTileSource@{de\-::joglearth\-::source\-::\-O\-S\-M\-Tile\-Source}}
-\subsubsection[{O\-S\-M\-Tile\-Source}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-source.\-O\-S\-M\-Tile\-Source.\-O\-S\-M\-Tile\-Source (
+\subsection{\-Beschreibung der \-Konstruktoren und \-Destruktoren}
+\index{de\-::joglearth\-::source\-::\-O\-S\-M\-Tile\-Source@{de\-::joglearth\-::source\-::\-O\-S\-M\-Tile\-Source}!\-O\-S\-M\-Tile\-Source@{\-O\-S\-M\-Tile\-Source}}
+\index{\-O\-S\-M\-Tile\-Source@{\-O\-S\-M\-Tile\-Source}!de::joglearth::source::OSMTileSource@{de\-::joglearth\-::source\-::\-O\-S\-M\-Tile\-Source}}
+\subsubsection[{\-O\-S\-M\-Tile\-Source}]{\setlength{\rightskip}{0pt plus 5cm}{\bf de.\-joglearth.\-source.\-O\-S\-M\-Tile\-Source.\-O\-S\-M\-Tile\-Source} (
 \begin{DoxyParamCaption}
-\item[{Source\-Listener$<$ {\bf Tile}, byte[$\,$]$>$}]{owner, }
-\item[{String[$\,$]}]{servers}
+\item[{\-String[$\,$]}]{servers}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1source_1_1_o_s_m_tile_source_a5305a0f9aa938cf6e8e8024030b8f03a}
-Constructor. Initializes the \doxyref{O\-S\-M\-Tile\-Source}{S.}{classde_1_1joglearth_1_1source_1_1_o_s_m_tile_source}.
+)}\label{classde_1_1joglearth_1_1source_1_1_o_s_m_tile_source_af2ef39d6bf256d2d3186ea3930e9347b}
+\-Constructor. \-Initializes the \doxyref{\-O\-S\-M\-Tile\-Source}{\-S.}{classde_1_1joglearth_1_1source_1_1_o_s_m_tile_source}.
 
 
-\begin{DoxyParams}{Parameter}
-{\em owner} & \\
-\hline
-{\em servers} & \\
+\begin{DoxyParams}{\-Parameter}
+{\em servers} & \-An array containing the server strings \\
 \hline
 \end{DoxyParams}
 
 
-\subsection{Dokumentation der Elementfunktionen}
-\index{de\-::joglearth\-::source\-::\-O\-S\-M\-Tile\-Source@{de\-::joglearth\-::source\-::\-O\-S\-M\-Tile\-Source}!request\-Object@{request\-Object}}
-\index{request\-Object@{request\-Object}!de::joglearth::source::OSMTileSource@{de\-::joglearth\-::source\-::\-O\-S\-M\-Tile\-Source}}
-\subsubsection[{request\-Object}]{\setlength{\rightskip}{0pt plus 5cm}Source\-Response$<$byte[$\,$]$>$ de.\-joglearth.\-source.\-O\-S\-M\-Tile\-Source.\-request\-Object (
-\begin{DoxyParamCaption}
-\item[{{\bf Tile}}]{k, }
-\item[{Source\-Listener$<$ {\bf Tile}, byte[$\,$]$>$}]{sender}
-\end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1source_1_1_o_s_m_tile_source_a96e7d43368613d379360df15c0ce0d8c}
-Gets a String representation of the server and the O\-S\-M tile I\-D.
-
-
-\begin{DoxyParams}{Parameter}
-{\em server} & O\-S\-M tile server \\
-\hline
-{\em key} & tile I\-D \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Rückgabe}
-String representation of the server and the O\-S\-M tile I\-D 
-\end{DoxyReturn}
+\subsection{\-Dokumentation der \-Elementfunktionen}
 \index{de\-::joglearth\-::source\-::\-O\-S\-M\-Tile\-Source@{de\-::joglearth\-::source\-::\-O\-S\-M\-Tile\-Source}!set\-Tile\-Type@{set\-Tile\-Type}}
 \index{set\-Tile\-Type@{set\-Tile\-Type}!de::joglearth::source::OSMTileSource@{de\-::joglearth\-::source\-::\-O\-S\-M\-Tile\-Source}}
-\subsubsection[{set\-Tile\-Type}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-O\-S\-M\-Tile\-Source.\-set\-Tile\-Type (
+\subsubsection[{set\-Tile\-Type}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-source.\-O\-S\-M\-Tile\-Source.\-set\-Tile\-Type} (
 \begin{DoxyParamCaption}
-\item[{{\bf O\-S\-M\-Tile\-Type}}]{t}
+\item[{{\bf \-O\-S\-M\-Tile\-Type}}]{type}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1source_1_1_o_s_m_tile_source_a8637d08608dcbf234303562d4d10eb98}
-Sets the type of an Open\-Street\-Map tile.
+)}\label{classde_1_1joglearth_1_1source_1_1_o_s_m_tile_source_a32ece7f5c35d2b72e5e1e8f846edc445}
+\-Sets the type of an \-Open\-Street\-Map tile.
 
 
-\begin{DoxyParams}{Parameter}
-{\em t} & type of the tile \\
+\begin{DoxyParams}{\-Parameter}
+{\em t} & \doxyref{\-O\-S\-M\-Tile\-Type}{\-S.}{enumde_1_1joglearth_1_1source_1_1_o_s_m_tile_type} of the tile \\
 \hline
 \end{DoxyParams}

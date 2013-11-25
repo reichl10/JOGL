@@ -4,6 +4,7 @@ package de.joglearth.source;
  * Type of the response of the source.
  */
 public enum SourceResponseType {
+
     /**
      * Shows if the response includes the requested value.
      */

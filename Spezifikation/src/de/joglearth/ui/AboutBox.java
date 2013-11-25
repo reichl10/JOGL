@@ -56,7 +56,7 @@ public class AboutBox extends JDialog {
         }
     }
 
-    public static ImageIcon loadIconResource(String name) {
+    private static ImageIcon loadIconResource(String name) {
         try {
             return new ImageIcon(ImageIO.read(Thread.currentThread().getContextClassLoader()
                     .getResource(name)));

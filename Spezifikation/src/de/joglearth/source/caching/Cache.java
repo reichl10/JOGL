@@ -3,19 +3,35 @@ package de.joglearth.source.caching;
 import de.joglearth.source.Source;
 
 
-// Key: Identifiziert Cache-Objekt, z.B. Kachelkoordinaten
-// Value: Gecachter Typ
-// Reference: Referenziert die tatsächlichen Daten, zB. Array-Index oder java.io.File
+/**
+ * Stores objects of type <Value> with an identifier <Key>
+ * and returns them on request according to their ID.
+ * 
+ */
 public interface Cache<Key, Value>
 extends Source<Key, Value> {
 	
-	// Versucht ein Paar in den Cache zu legen, verdrängt u.U. einen Wert.
-	// Vollständig hier implementiert.
+
+        /**
+         * Stores object if type is valid and key isn't used yet.
+         * 
+         * @param k ID of object
+         * @param v object to be stored
+         */
 	void putObject(Key k, Value v);
 	
-	// Entfernt einen vorhandenen Datensatz. Wird von MemoryCache, FileSystemCache implementiert.
-	void dropObject(Key k);
-	
+	/**
+         * Erases reference to object if key is valid ID of stored object.
+         * 
+         * @param k ID of object to be dropped
+         */
+        void dropObject(Key k);
+
+	/**
+         * Returns all stored objects. 
+         * Main purpose of this method is to inform classes about content when
+         * get new reference to cache that already exists and isn't empty anymore.
+         */
 	Iterable<Key> getExistingObjects();
 }
 

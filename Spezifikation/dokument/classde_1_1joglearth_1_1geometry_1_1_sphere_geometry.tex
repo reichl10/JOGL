@@ -1,23 +1,101 @@
-\section{de.\-joglearth.\-geometry.\-Sphere\-Geometry Klassenreferenz}
+\section{de.\-joglearth.\-geometry.\-Sphere\-Geometry \-Klassenreferenz}
 \label{classde_1_1joglearth_1_1geometry_1_1_sphere_geometry}\index{de.\-joglearth.\-geometry.\-Sphere\-Geometry@{de.\-joglearth.\-geometry.\-Sphere\-Geometry}}
-Klassendiagramm für de.\-joglearth.\-geometry.\-Sphere\-Geometry\-:\begin{figure}[H]
+\-Klassendiagramm für de.\-joglearth.\-geometry.\-Sphere\-Geometry\-:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1geometry_1_1_sphere_geometry}
 \end{center}
 \end{figure}
-\subsection*{Öffentliche Methoden}
+\subsection*{Öffentliche \-Methoden}
 \begin{DoxyCompactItemize}
 \item 
-boolean {\bfseries is\-Point\-Visible} (float longitude, float latitude)\label{classde_1_1joglearth_1_1geometry_1_1_sphere_geometry_aa3c89f18a62d1ff65f66836f830987e2}
-
+boolean {\bf is\-Point\-Visible} ({\bf \-Geo\-Coordinates} geo)
 \item 
-{\bf Vector3} {\bfseries get\-Space\-Position} (float longitude, float latitude)\label{classde_1_1joglearth_1_1geometry_1_1_sphere_geometry_af3f29a11beed52787c3f2e0bd12706d9}
-
+{\bf \-Vector3} {\bf get\-Space\-Position} ({\bf \-Geo\-Coordinates} geo)
 \item 
-{\bf Screen\-Coordinates} {\bfseries get\-Surface\-Coordinates} ({\bf Vector3} view\-Vector)\label{classde_1_1joglearth_1_1geometry_1_1_sphere_geometry_a59b8d62f478dde615bb2794e46fb64a7}
-
+{\bf \-Screen\-Coordinates} {\bf get\-Surface\-Coordinates} ({\bf \-Vector3} view\-Vector)
 \item 
-{\bf Matrix4} {\bfseries get\-View\-Matrix} ()\label{classde_1_1joglearth_1_1geometry_1_1_sphere_geometry_adaebcd9cc9c9e5c6146dd699c701cdba}
-
+{\bf \-Matrix4} {\bf get\-View\-Matrix} ()
 \end{DoxyCompactItemize}
+
+
+\subsection{\-Dokumentation der \-Elementfunktionen}
+\index{de\-::joglearth\-::geometry\-::\-Sphere\-Geometry@{de\-::joglearth\-::geometry\-::\-Sphere\-Geometry}!get\-Space\-Position@{get\-Space\-Position}}
+\index{get\-Space\-Position@{get\-Space\-Position}!de::joglearth::geometry::SphereGeometry@{de\-::joglearth\-::geometry\-::\-Sphere\-Geometry}}
+\subsubsection[{get\-Space\-Position}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Vector3} {\bf de.\-joglearth.\-geometry.\-Sphere\-Geometry.\-get\-Space\-Position} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Geo\-Coordinates}}]{geo}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_sphere_geometry_a058f9d046e2c3d7dd26747eec134d0a1}
+\-Determines the three-\/dimensional position of a surface point in model space. \-The height map is ignored.
+
+
+\begin{DoxyParams}{\-Parameter}
+{\em geo} & \-The surface point. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Rückgabe}
+\-The position. 
+\end{DoxyReturn}
+
+
+\-Implementiert {\bf de.\-joglearth.\-geometry.\-Geometry} \doxyref{}{\-S.}{interfacede_1_1joglearth_1_1geometry_1_1_geometry_a8fa1da4fcc3f99eb998a5db2f22cb2eb}.
+
+\index{de\-::joglearth\-::geometry\-::\-Sphere\-Geometry@{de\-::joglearth\-::geometry\-::\-Sphere\-Geometry}!get\-Surface\-Coordinates@{get\-Surface\-Coordinates}}
+\index{get\-Surface\-Coordinates@{get\-Surface\-Coordinates}!de::joglearth::geometry::SphereGeometry@{de\-::joglearth\-::geometry\-::\-Sphere\-Geometry}}
+\subsubsection[{get\-Surface\-Coordinates}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Screen\-Coordinates} {\bf de.\-joglearth.\-geometry.\-Sphere\-Geometry.\-get\-Surface\-Coordinates} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Vector3}}]{view\-Vector}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_sphere_geometry_a59b8d62f478dde615bb2794e46fb64a7}
+\-Calculates the surface coordinates of the intersection from a straight line between a given point and the model center (\-The globes center or infinity for the map plane) and the map surface.
+
+
+\begin{DoxyParams}{\-Parameter}
+{\em view\-Vector} & \-The origin point. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Rückgabe}
+\-The surface coordinates. 
+\end{DoxyReturn}
+
+
+\-Implementiert {\bf de.\-joglearth.\-geometry.\-Geometry} \doxyref{}{\-S.}{interfacede_1_1joglearth_1_1geometry_1_1_geometry_a65efb18a90aeacc6ba446c3cbf9f4787}.
+
+\index{de\-::joglearth\-::geometry\-::\-Sphere\-Geometry@{de\-::joglearth\-::geometry\-::\-Sphere\-Geometry}!get\-View\-Matrix@{get\-View\-Matrix}}
+\index{get\-View\-Matrix@{get\-View\-Matrix}!de::joglearth::geometry::SphereGeometry@{de\-::joglearth\-::geometry\-::\-Sphere\-Geometry}}
+\subsubsection[{get\-View\-Matrix}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Matrix4} {\bf de.\-joglearth.\-geometry.\-Sphere\-Geometry.\-get\-View\-Matrix} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_sphere_geometry_adaebcd9cc9c9e5c6146dd699c701cdba}
+\-Returns the view matrix performing translations and rotations incurred by the camera position.
+
+\begin{DoxyReturn}{\-Rückgabe}
+\-The view matrix. 
+\end{DoxyReturn}
+
+
+\-Implementiert {\bf de.\-joglearth.\-geometry.\-Geometry} \doxyref{}{\-S.}{interfacede_1_1joglearth_1_1geometry_1_1_geometry_a30f45d30257e8fc7e9d6f91cf846cdda}.
+
+\index{de\-::joglearth\-::geometry\-::\-Sphere\-Geometry@{de\-::joglearth\-::geometry\-::\-Sphere\-Geometry}!is\-Point\-Visible@{is\-Point\-Visible}}
+\index{is\-Point\-Visible@{is\-Point\-Visible}!de::joglearth::geometry::SphereGeometry@{de\-::joglearth\-::geometry\-::\-Sphere\-Geometry}}
+\subsubsection[{is\-Point\-Visible}]{\setlength{\rightskip}{0pt plus 5cm}boolean {\bf de.\-joglearth.\-geometry.\-Sphere\-Geometry.\-is\-Point\-Visible} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Geo\-Coordinates}}]{geo}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_sphere_geometry_a224b024410063b95a3ec51fcc983effb}
+\-Returns whether a point, given by longitude and latitude coordinates, could be visible given that the field of view and distance is large enough.
+
+
+\begin{DoxyParams}{\-Parameter}
+{\em geo} & \-The surface point. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Rückgabe}
+\-Whether the point might be visible. 
+\end{DoxyReturn}
+
+
+\-Implementiert {\bf de.\-joglearth.\-geometry.\-Geometry} \doxyref{}{\-S.}{interfacede_1_1joglearth_1_1geometry_1_1_geometry_a1bca475164a399431f9f6238dd292b6a}.
+

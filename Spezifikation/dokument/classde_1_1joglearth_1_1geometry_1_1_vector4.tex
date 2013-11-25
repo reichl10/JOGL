@@ -1,23 +1,116 @@
-\section{de.\-joglearth.\-geometry.\-Vector4 Klassenreferenz}
+\section{de.\-joglearth.\-geometry.\-Vector4 \-Klassenreferenz}
 \label{classde_1_1joglearth_1_1geometry_1_1_vector4}\index{de.\-joglearth.\-geometry.\-Vector4@{de.\-joglearth.\-geometry.\-Vector4}}
-Klassendiagramm für de.\-joglearth.\-geometry.\-Vector4\-:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1geometry_1_1_vector4}
-\end{center}
-\end{figure}
-\subsection*{Öffentliche Methoden}
+\subsection*{Öffentliche \-Methoden}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries Vector4} (float x, float y, float z, float w)\label{classde_1_1joglearth_1_1geometry_1_1_vector4_a70db9638f6e7aa161eea017b1b795af9}
+{\bf \-Vector4} ()
+\item 
+{\bf \-Vector4} (double {\bf x}, double {\bf y}, double {\bf z}, double {\bf w})
+\item 
+{\bf \-Vector4} ({\bf \-Vector3} copy\-From)
+\item 
+{\bf \-Vector3} {\bf divide} ()
+\item 
+\-String {\bfseries to\-String} ()\label{classde_1_1joglearth_1_1geometry_1_1_vector4_ac09e3af7012cbcefff485d6c0c78667a}
 
 \item 
-{\bf Vector3} {\bfseries divide} ()\label{classde_1_1joglearth_1_1geometry_1_1_vector4_a9c46bb2498e82e0b2a28a8bad0406bb1}
+int {\bfseries hash\-Code} ()\label{classde_1_1joglearth_1_1geometry_1_1_vector4_a171d3d8eeb912579e61a750b72b41820}
+
+\item 
+boolean {\bfseries equals} (\-Object obj)\label{classde_1_1joglearth_1_1geometry_1_1_vector4_a25acec04eb4a9544e8873c1df2ae31c2}
 
 \end{DoxyCompactItemize}
-\subsection*{Öffentliche Attribute}
+\subsection*{Öffentliche \-Attribute}
 \begin{DoxyCompactItemize}
 \item 
-float {\bfseries x}\label{classde_1_1joglearth_1_1geometry_1_1_vector4_a1b56f77e0d2e295f9fd3259705107c7c}
-
+double {\bf x}
+\item 
+double {\bf y}
+\item 
+double {\bf z}
+\item 
+double {\bf w}
 \end{DoxyCompactItemize}
+
+
+\subsection{\-Ausführliche \-Beschreibung}
+\-A structure for 4-\/dimensional vectors in homogeneous coordinates. 
+
+\subsection{\-Beschreibung der \-Konstruktoren und \-Destruktoren}
+\index{de\-::joglearth\-::geometry\-::\-Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}!\-Vector4@{\-Vector4}}
+\index{\-Vector4@{\-Vector4}!de::joglearth::geometry::Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}}
+\subsubsection[{\-Vector4}]{\setlength{\rightskip}{0pt plus 5cm}{\bf de.\-joglearth.\-geometry.\-Vector4.\-Vector4} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_vector4_aef0f28577f39c7eb02ad45b8decc14e6}
+\-Default constructor. \-Initializes a zero vector with scaling factor 1.
+
+\-The resulting vector will have x=0, y=0, z=0, w=1. \index{de\-::joglearth\-::geometry\-::\-Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}!\-Vector4@{\-Vector4}}
+\index{\-Vector4@{\-Vector4}!de::joglearth::geometry::Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}}
+\subsubsection[{\-Vector4}]{\setlength{\rightskip}{0pt plus 5cm}{\bf de.\-joglearth.\-geometry.\-Vector4.\-Vector4} (
+\begin{DoxyParamCaption}
+\item[{double}]{x, }
+\item[{double}]{y, }
+\item[{double}]{z, }
+\item[{double}]{w}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_vector4_af2bec15f21d9355104714d591efca7b7}
+\-Constructor.
+
+
+\begin{DoxyParams}{\-Parameter}
+{\em x} & \-The first component (this.\-x). \\
+\hline
+{\em y} & \-The second component (this.\-y). \\
+\hline
+{\em z} & \-The third component (this.\-z). \\
+\hline
+{\em w} & \-The scaling factor (this.\-w). \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::geometry\-::\-Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}!\-Vector4@{\-Vector4}}
+\index{\-Vector4@{\-Vector4}!de::joglearth::geometry::Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}}
+\subsubsection[{\-Vector4}]{\setlength{\rightskip}{0pt plus 5cm}{\bf de.\-joglearth.\-geometry.\-Vector4.\-Vector4} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Vector3}}]{copy\-From}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_vector4_ab21bf2e030b969308b87162b84111f3e}
+\-Constructor copying the position from a \doxyref{\-Vector3}{\-S.}{classde_1_1joglearth_1_1geometry_1_1_vector3}. \-The scaling factor w is set to 1.
+
+
+\begin{DoxyParams}{\-Parameter}
+{\em copy\-From} & \-The vector to copy from. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{\-Dokumentation der \-Elementfunktionen}
+\index{de\-::joglearth\-::geometry\-::\-Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}!divide@{divide}}
+\index{divide@{divide}!de::joglearth::geometry::Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}}
+\subsubsection[{divide}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Vector3} {\bf de.\-joglearth.\-geometry.\-Vector4.\-divide} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_vector4_a9c46bb2498e82e0b2a28a8bad0406bb1}
+\-Creates a three-\/dimensional vector by dividing (x,y,z) by the scaling factor w.
+
+\begin{DoxyReturn}{\-Rückgabe}
+\-The scaled three-\/dimensional vector. 
+\end{DoxyReturn}
+
+
+\subsection{\-Dokumentation der \-Datenelemente}
+\index{de\-::joglearth\-::geometry\-::\-Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}!w@{w}}
+\index{w@{w}!de::joglearth::geometry::Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}}
+\subsubsection[{w}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf de.\-joglearth.\-geometry.\-Vector4.\-w}}\label{classde_1_1joglearth_1_1geometry_1_1_vector4_acf93eceaadf2301848b91352caedea3c}
+\-The scaling factor. \index{de\-::joglearth\-::geometry\-::\-Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}!x@{x}}
+\index{x@{x}!de::joglearth::geometry::Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}}
+\subsubsection[{x}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf de.\-joglearth.\-geometry.\-Vector4.\-x}}\label{classde_1_1joglearth_1_1geometry_1_1_vector4_a100feeea55a945d8d59aba95d1b113fc}
+\-The first (\-X) component. \index{de\-::joglearth\-::geometry\-::\-Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}!y@{y}}
+\index{y@{y}!de::joglearth::geometry::Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}}
+\subsubsection[{y}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf de.\-joglearth.\-geometry.\-Vector4.\-y}}\label{classde_1_1joglearth_1_1geometry_1_1_vector4_a30f3cc3accf392826e1beee439583802}
+\-The second (\-Y) component. \index{de\-::joglearth\-::geometry\-::\-Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}!z@{z}}
+\index{z@{z}!de::joglearth::geometry::Vector4@{de\-::joglearth\-::geometry\-::\-Vector4}}
+\subsubsection[{z}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf de.\-joglearth.\-geometry.\-Vector4.\-z}}\label{classde_1_1joglearth_1_1geometry_1_1_vector4_afb069fbe322710e8f4a699ba239c91b0}
+\-The third (\-Z) component. 
