@@ -4,7 +4,6 @@ import de.joglearth.source.HTTPUtils;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
-import de.joglearth.source.caching.BinaryRequestDistributor;
 
 
 
@@ -19,7 +18,7 @@ public class SRTMTileSource implements Source<SRTMTileIndex, SRTMTile> {
     private Source<SRTMTileIndex, byte[]> binary;
 
 
-    public SRTMTileSource(BinaryRequestDistributor<SRTMTileIndex> binarySource) {
+    public SRTMTileSource(Source<SRTMTileIndex, byte[]> binarySource) {
         binary = binarySource;
     }
 

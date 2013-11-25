@@ -9,7 +9,7 @@ import de.joglearth.source.caching.RequestDistributor;
 
 /**
  * Executes requests for textures of the {@link Renderer}. Loads textures from a
- * {@link RequestDistrubutor} which accesses a {@link TextureSource} and a {@link TextureCache}.
+ * {@link RequestDistrubutor} which accesses a {@link TileTextureSource} and a {@link TextureCache}.
  */
 public class TextureManager {
 

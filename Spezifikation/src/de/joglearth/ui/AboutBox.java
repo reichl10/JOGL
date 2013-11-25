@@ -89,31 +89,31 @@ public class AboutBox extends JDialog {
                         FormFactory.DEFAULT_ROWSPEC,
                         FormFactory.RELATED_GAP_ROWSPEC, }));
         {
-            JPanel panel = new JPanel();
-            contentPanel.add(panel, "2, 2, center, fill");
-            panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+            JPanel logoPanel = new JPanel();
+            contentPanel.add(logoPanel, "2, 2, center, fill");
+            logoPanel.setLayout(new BoxLayout(logoPanel, BoxLayout.X_AXIS));
             {
-                JLabel label = new JLabel("");
-                label.setIcon(loadIconResource("icons/AboutJogl.png"));
-                panel.add(label);
+                JLabel logoLeftLabel = new JLabel("");
+                logoLeftLabel.setIcon(loadIconResource("icons/AboutJogl.png"));
+                logoPanel.add(logoLeftLabel);
             }
             {
-                JPanel panel_1 = new JPanel();
-                panel.add(panel_1);
-                panel_1.setLayout(new FormLayout(new ColumnSpec[] {
+                JPanel logoRightPanel = new JPanel();
+                logoPanel.add(logoRightPanel);
+                logoRightPanel.setLayout(new FormLayout(new ColumnSpec[] {
                         FormFactory.RELATED_GAP_COLSPEC,
                         ColumnSpec.decode("right:default"), },
                         new RowSpec[] {
                                 RowSpec.decode("top:default"),
                                 RowSpec.decode("bottom:default"), }));
                 {
-                    JLabel lblNewLabel = new JLabel("");
-                    lblNewLabel.setIcon(loadIconResource("icons/AboutEarth.png"));
-                    panel_1.add(lblNewLabel, "2, 1");
+                    JLabel logoRightLabel = new JLabel("");
+                    logoRightLabel.setIcon(loadIconResource("icons/AboutEarth.png"));
+                    logoRightPanel.add(logoRightLabel, "2, 1");
                 }
                 {
-                    JLabel lblNewLabel_1 = new JLabel("v" + JoglEarth.PRODUCT_VERSION);
-                    panel_1.add(lblNewLabel_1, "2, 2");
+                    JLabel versionLabel = new JLabel("v" + JoglEarth.PRODUCT_VERSION);
+                    logoRightPanel.add(versionLabel, "2, 2");
                 }
             }
         }

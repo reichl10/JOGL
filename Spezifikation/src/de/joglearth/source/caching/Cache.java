@@ -33,5 +33,8 @@ extends Source<Key, Value> {
          * get new reference to cache that already exists and isn't empty anymore.
          */
 	Iterable<Key> getExistingObjects();
+	
+	
+	void dropAll();
 }
 

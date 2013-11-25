@@ -14,7 +14,7 @@ import de.joglearth.source.srtm.SRTMTileSource;
  * A {@link de.joglearth.rendering.Tessellator} uses this class to generate a map surface by the
  * {@link HeightMap}.
  */
-public class HeightMapManager implements SettingsListener {
+public class HeightMapManager {
 
     private MemoryCache<Tile, byte[]> cache;
     
@@ -69,11 +69,6 @@ public class HeightMapManager implements SettingsListener {
      * @param l The listener that should be removed
      */
     public void removeSurfaceListener(SurfaceListener l) {
-
-    }
-
-    @Override
-    public void settingsChanged(String key, Object valOld, Object valNew) {
 
     }
 }

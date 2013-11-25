@@ -1,4 +1,4 @@
-package de.joglearth.source.caching;
+package de.joglearth.source;
 
 /**
  * Listener interface notified on @ref ProgressManager events.

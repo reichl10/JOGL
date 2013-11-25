@@ -37,4 +37,10 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 		return null;
 	}
 
+	@Override
+	public void dropAll() {
+		// TODO Automatisch generierter Methodenstub
+		
+	}
+
 }

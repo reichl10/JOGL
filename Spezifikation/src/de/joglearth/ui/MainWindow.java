@@ -251,20 +251,20 @@ public class MainWindow extends JFrame implements SurfaceListener,
 				FormFactory.DEFAULT_ROWSPEC, FormFactory.DEFAULT_ROWSPEC, }));
 
 		textField = new JTextField();
-		searchQueryPanel.add(textField, "1, 1, fill, default");
+		searchQueryPanel.add(textField, "1, 1, fill, fill");
 
-		JButton btnNewButton = new JButton(loadIconResource("icons/search.png"));
-		searchQueryPanel.add(btnNewButton, "3, 1, fill, fill");
+		JButton searchButton = new JButton(loadIconResource("icons/search.png"));
+		searchQueryPanel.add(searchButton, "3, 1, fill, fill");
 
 		JPanel panel = new JPanel();
 		searchPanel.add(panel, "2, 3, fill, fill");
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 2));
 
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Nearby");
-		panel.add(rdbtnNewRadioButton);
+		JRadioButton localSearchRadioButton = new JRadioButton("Nearby");
+		panel.add(localSearchRadioButton);
 
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Global");
-		panel.add(rdbtnNewRadioButton_1);
+		JRadioButton globalSearchRadioButton = new JRadioButton("Global");
+		panel.add(globalSearchRadioButton);
 
 		JScrollPane searchResultScrollPane = new JScrollPane();
 		searchPanel.add(searchResultScrollPane, "2, 5, fill, fill");
@@ -284,7 +284,7 @@ public class MainWindow extends JFrame implements SurfaceListener,
 				FormFactory.RELATED_GAP_ROWSPEC, }));
 
 		JScrollPane userTagScrollPane = new JScrollPane();
-		userTagPanel.add(userTagScrollPane, "2, 2, left, top");
+		userTagPanel.add(userTagScrollPane, "2, 2, fill, fill");
 
 		JList userTagList = new JList();
 		userTagScrollPane.setViewportView(userTagList);
@@ -317,24 +317,24 @@ public class MainWindow extends JFrame implements SurfaceListener,
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("default:grow"), }));
 
-		JPanel panel_3 = new JPanel();
-		settingsTab.add(panel_3, "2, 2, fill, fill");
-		panel_3.setLayout(new FormLayout(new ColumnSpec[] {
+		JPanel manualAboutPanel = new JPanel();
+		settingsTab.add(manualAboutPanel, "2, 2, fill, fill");
+		manualAboutPanel.setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("default:grow"), ColumnSpec.decode("5dlu"),
 				ColumnSpec.decode("default:grow"), }, new RowSpec[] { RowSpec
 				.decode("22dlu"), }));
 
-		JButton btnNewButton_1 = new JButton("Manual");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton manualButton = new JButton("Manual");
+		manualButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNewButton_1.setIcon(loadIconResource("icons/manual.png"));
-		panel_3.add(btnNewButton_1, "1, 1");
+		manualButton.setIcon(loadIconResource("icons/manual.png"));
+		manualAboutPanel.add(manualButton, "1, 1");
 
-		JButton btnNewButton_2 = new JButton("About");
-		btnNewButton_2.setIcon(loadIconResource("icons/info.png"));
-		panel_3.add(btnNewButton_2, "3, 1");
+		JButton aboutButton = new JButton("About");
+		aboutButton.setIcon(loadIconResource("icons/info.png"));
+		manualAboutPanel.add(aboutButton, "3, 1");
 
 		JPanel detailsPanel = new JPanel();
 		detailsPanel.setBorder(BorderFactory.createTitledBorder("Details"));
@@ -374,7 +374,7 @@ public class MainWindow extends JFrame implements SurfaceListener,
 				((FormLayout) getContentPane().getLayout()).setColumnSpec(1,
 						ColumnSpec.decode(visible ? "130dlu" : "0dlu"));
 				sidebarHideIconLabel.setIcon(visible ? hideIcon : showIcon);
-				revalidate();
+				getContentPane().revalidate();
 			}
 			
 			@Override

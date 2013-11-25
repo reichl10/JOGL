@@ -38,4 +38,9 @@ public class MemoryCache<Key, Value>
 		return storage.keySet();
 	}
 
+	@Override
+	public void dropAll() {
+		storage.clear();
+	}
+
 }

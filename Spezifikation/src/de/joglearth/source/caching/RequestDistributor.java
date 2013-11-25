@@ -24,6 +24,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value>, Sourc
     private ArrayList<Key> pendingRequests; // prevent processing multiple requests for same key
     private ArrayList<Cache<Key, Value>> caches;
     private Source<Key, Value> source;
+	private ObjectMeasure<Value> measure;
 
     /**
      * Organizes following meta-data of entries:
@@ -86,15 +87,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value>, Sourc
         return null;
     }
 
-    /**
-     * Returns size of cache-entry. Returns 1 when cache is limited by number of entries only.
-     * 
-     * @return 1
-     */
-    protected int getObjectSize(Value v) {
-        return 1;
-    }
-
     
     /**
      * Adds element <code>response</code> to it's first cache and updates FreeCacheSpace.
@@ -140,13 +132,26 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value>, Sourc
      * Standard-constructor
      * 
      */
-    public RequestDistributor() {
+    public RequestDistributor(ObjectMeasure<Value> m) {
       /*  this.tree = new TreeSet<CacheEntry>(new Comparator<CacheEntry>() {
             public int compare(CacheEntry a, CacheEntry b) {
               //a.lastUsed < b.lastUsed
                 return 
             }
         });*/
+    	measure = m;
     }
-
+    
+    public RequestDistributor() {
+    	this(new UnityMeasure<Value>());
+    }
+    
+    public void dropAll() {
+    	
+    }
+    
+    public void dropObject(Key k) {
+    	
+    }
+    
 }
