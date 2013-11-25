@@ -1,132 +1,54 @@
-\documentclass[twoside]{book}
-
-% Packages required by doxygen
-\usepackage{calc}
-\usepackage{doxygen}
-\usepackage{graphicx}
-\usepackage[utf8]{inputenc}
+\documentclass[a4paper]{book}
 \usepackage{makeidx}
+\usepackage{natbib}
+\usepackage{graphicx}
 \usepackage{multicol}
-\usepackage{multirow}
-\usepackage{textcomp}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{ifthen}
 \usepackage[table]{xcolor}
-
-% NLS support packages
+\usepackage{textcomp}
+\usepackage{alltt}
+\usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 
-% Font selection
-\usepackage[T1]{fontenc}
 \usepackage{mathptmx}
 \usepackage[scaled=.90]{helvet}
 \usepackage{courier}
-\usepackage{amssymb}
 \usepackage{sectsty}
-\renewcommand{\familydefault}{\sfdefault}
-\allsectionsfont{%
-  \fontseries{bc}\selectfont%
-  \color{darkgray}%
-}
-\renewcommand{\DoxyLabelFont}{%
-  \fontseries{bc}\selectfont%
-  \color{darkgray}%
-}
-
-% Page & text layout
-\usepackage{geometry}
-\geometry{%
-  a4paper,%
-  top=2.5cm,%
-  bottom=2.5cm,%
-  left=2.5cm,%
-  right=2.5cm%
-}
-\tolerance=750
-\hfuzz=15pt
-\hbadness=750
-\setlength{\emergencystretch}{15pt}
-\setlength{\parindent}{0cm}
-\setlength{\parskip}{0.2cm}
-\makeatletter
-\renewcommand{\paragraph}{%
-  \@startsection{paragraph}{4}{0ex}{-1.0ex}{1.0ex}{%
-    \normalfont\normalsize\bfseries\SS@parafont%
-  }%
-}
-\renewcommand{\subparagraph}{%
-  \@startsection{subparagraph}{5}{0ex}{-1.0ex}{1.0ex}{%
-    \normalfont\normalsize\bfseries\SS@subparafont%
-  }%
-}
-\makeatother
-
-% Headers & footers
-\usepackage{fancyhdr}
-\pagestyle{fancyplain}
-\fancyhead[LE]{\fancyplain{}{\bfseries\thepage}}
-\fancyhead[CE]{\fancyplain{}{}}
-\fancyhead[RE]{\fancyplain{}{\bfseries\leftmark}}
-\fancyhead[LO]{\fancyplain{}{\bfseries\rightmark}}
-\fancyhead[CO]{\fancyplain{}{}}
-\fancyhead[RO]{\fancyplain{}{\bfseries\thepage}}
-\fancyfoot[LE]{\fancyplain{}{}}
-\fancyfoot[CE]{\fancyplain{}{}}
-\fancyfoot[RE]{\fancyplain{}{\bfseries\scriptsize Erzeugt am Don Nov 21 2013 11\-:16\-:42 für Jogl Earth von Doxygen }}
-\fancyfoot[LO]{\fancyplain{}{\bfseries\scriptsize Erzeugt am Don Nov 21 2013 11\-:16\-:42 für Jogl Earth von Doxygen }}
-\fancyfoot[CO]{\fancyplain{}{}}
-\fancyfoot[RO]{\fancyplain{}{}}
-\renewcommand{\footrulewidth}{0.4pt}
-\renewcommand{\chaptermark}[1]{%
-  \markboth{#1}{}%
-}
-\renewcommand{\sectionmark}[1]{%
-  \markright{\thesection\ #1}%
-}
-
-% Indices & bibliography
-\usepackage{natbib}
 \usepackage[titles]{tocloft}
-\setcounter{tocdepth}{3}
-\setcounter{secnumdepth}{5}
+\usepackage{doxygen}
+\lstset{language=C++,inputencoding=utf8,basicstyle=\footnotesize,breaklines=true,breakatwhitespace=true,tabsize=4,numbers=left }
 \makeindex
-
-% Custom commands
-\newcommand{\clearemptydoublepage}{%
-  \newpage{\pagestyle{empty}\cleardoublepage}%
-}
-
-
-%===== C O N T E N T S =====
-
+\setcounter{tocdepth}{3}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\familydefault}{\sfdefault}
+\hfuzz=15pt
+\setlength{\emergencystretch}{15pt}
+\hbadness=750
+\tolerance=750
 \begin{document}
-
-% Titlepage & ToC
-\pagenumbering{roman}
 \begin{titlepage}
 \vspace*{7cm}
-\begin{center}%
-{\Large Jogl Earth }\\
+\begin{center}
+{\Large \-Jogl \-Earth }\\
 \vspace*{1cm}
-{\large Erzeugt von Doxygen 1.8.5}\\
+{\large \-Erzeugt von Doxygen 1.7.6.1}\\
 \vspace*{0.5cm}
-{\small Don Nov 21 2013 11:16:42}\\
+{\small Son Nov 24 2013 19:25:47}\\
 \end{center}
 \end{titlepage}
 \clearemptydoublepage
+\pagenumbering{roman}
 \tableofcontents
 \clearemptydoublepage
 \pagenumbering{arabic}
-
-%--- Begin generated contents ---
-\chapter{Verzeichnis der Namensbereiche}
-\input{namespaces}
-\chapter{Hierarchie-\/\-Verzeichnis}
+\chapter{\-Klassen-\/\-Verzeichnis}
 \input{hierarchy}
-\chapter{Klassen-\/\-Verzeichnis}
+\chapter{\-Klassen-\/\-Verzeichnis}
 \input{annotated}
-\chapter{Dokumentation der Namensbereiche}
-\input{namespacede_1_1joglearth}
-\input{namespacede_1_1joglearth_1_1settings}
-\chapter{Klassen-\/\-Dokumentation}
+\chapter{\-Klassen-\/\-Dokumentation}
 \input{classde_1_1joglearth_1_1ui_1_1_about_box}
 \input{classde_1_1joglearth_1_1caching_1_1_binary_request_distributor_3_01_key_01_4}
 \input{interfacede_1_1joglearth_1_1caching_1_1_cache_3_01_key_00_01_value_01_4}
@@ -159,6 +81,7 @@
 \input{classde_1_1joglearth_1_1caching_1_1_progress_manager}
 \input{classde_1_1joglearth_1_1rendering_1_1_renderer}
 \input{classde_1_1joglearth_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4}
+\input{classde_1_1joglearth_1_1junit_1_1caching_1_1_request_distributor_test}
 \input{classde_1_1joglearth_1_1geometry_1_1_screen_coordinates}
 \input{classde_1_1joglearth_1_1settings_1_1_settings}
 \input{classde_1_1joglearth_1_1settings_1_1_settings_contract}
@@ -181,12 +104,5 @@
 \input{classde_1_1joglearth_1_1geometry_1_1_vector4}
 \input{classde_1_1joglearth_1_1ui_1_1_view_event_listener}
 \input{classde_1_1joglearth_1_1junit_1_1settings_1_1_write_and_load_settings}
-%--- End generated contents ---
-
-% Index
-\newpage
-\phantomsection
-\addcontentsline{toc}{part}{Index}
 \printindex
-
 \end{document}

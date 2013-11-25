@@ -26,8 +26,30 @@ public class RequestDistributorTest {
 
     @Test
     public void testRequestObject() {
+
+        /**
+         * Trivial Source
+         */
+        private class IntSource implements Source<Integer, Integer> {
+
+            private SourceResponse response = new SourceResponse(SourceResponseType.SYNCHRONOUS, 33);
+
+            @Override
+            public SourceResponse<Integer> requestObject(Integer key,
+                SourceListener<Integer, Integer> sender) {
+
+
+                return response;
+            }
+        }
+
+        RequestDistributor<Integer, Integer>() t = new RequestDistributor<Integer, Integer>();
+        Source source = new IntSource();
+        t.setSource(source);
         
-        fail("Not yet implemented");
+        assertSame("Failed to mediate Source!", source.requestObject(3, null), 
+                    t.requestObject(3, null));
+
     }
 
 }

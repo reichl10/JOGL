@@ -1,180 +1,183 @@
-\section{de.\-joglearth.\-geometry.\-Vector3 Klassenreferenz}
+\section{de.\-joglearth.\-geometry.\-Vector3 \-Klassenreferenz}
 \label{classde_1_1joglearth_1_1geometry_1_1_vector3}\index{de.\-joglearth.\-geometry.\-Vector3@{de.\-joglearth.\-geometry.\-Vector3}}
-Klassendiagramm für de.\-joglearth.\-geometry.\-Vector3\-:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1geometry_1_1_vector3}
-\end{center}
-\end{figure}
-\subsection*{Öffentliche Methoden}
+\subsection*{Öffentliche \-Methoden}
 \begin{DoxyCompactItemize}
 \item 
-{\bf Vector3} ()
+{\bf \-Vector3} ()
 \item 
-{\bf Vector3} (float x, float y, float z)
+{\bf \-Vector3} (double x, double y, double z)
 \item 
-{\bf Vector3} {\bf clone} ()
+{\bf \-Vector3} {\bf clone} ()
 \item 
-{\bf Vector3} {\bf to} ({\bf Vector3} other)
+{\bf \-Vector3} {\bf to} ({\bf \-Vector3} other)
 \item 
-{\bf Vector3} {\bf times} (float c)
+{\bf \-Vector3} {\bf times} (double c)
 \item 
-{\bf Vector3} {\bf plus} ({\bf Vector3} v)
+{\bf \-Vector3} {\bf plus} ({\bf \-Vector3} v)
 \item 
-{\bf Vector3} {\bf minus} ({\bf Vector3} v)
+{\bf \-Vector3} {\bf minus} ({\bf \-Vector3} v)
 \item 
-float {\bf length} ()
+double {\bf length} ()
 \item 
-void {\bf add} ({\bf Vector3} v)
+void {\bf add} ({\bf \-Vector3} v)
 \item 
-{\bf Vector3} {\bf normalized} ()
+{\bf \-Vector3} {\bf normalized} ()
+\item 
+int {\bfseries hash\-Code} ()\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a6443b06dbbda9a6996f21aab53571672}
+
+\item 
+boolean {\bfseries equals} (\-Object obj)\label{classde_1_1joglearth_1_1geometry_1_1_vector3_ab559c440e731cd083e1f8708fe0062ca}
+
 \end{DoxyCompactItemize}
-\subsection*{Öffentliche Attribute}
+\subsection*{Öffentliche \-Attribute}
 \begin{DoxyCompactItemize}
 \item 
-float {\bfseries x}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a9fba20850f1efe18bb7a4c274733cb41}
+double {\bfseries x}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a3f2050e4ad0d81adb717429a87246377}
+
+\item 
+double {\bfseries y}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_aa7f5535f1ac0cefcbaf1aa56d17f5f5e}
+
+\item 
+double {\bfseries z}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a18ed3b85836716833940d4fd412ff3e6}
 
 \end{DoxyCompactItemize}
 
 
-\subsection{Ausführliche Beschreibung}
-A structure for 3-\/dimensional vectors in Cartesian coordinates. \begin{DoxyAuthor}{Autor}
-Fabian Knorr 
-\end{DoxyAuthor}
+\subsection{\-Ausführliche \-Beschreibung}
+\-A structure for 3-\/dimensional vectors in \-Cartesian coordinates. 
 
-
-\subsection{Beschreibung der Konstruktoren und Destruktoren}
-\index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!Vector3@{Vector3}}
-\index{Vector3@{Vector3}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
-\subsubsection[{Vector3}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-geometry.\-Vector3.\-Vector3 (
+\subsection{\-Beschreibung der \-Konstruktoren und \-Destruktoren}
+\index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!\-Vector3@{\-Vector3}}
+\index{\-Vector3@{\-Vector3}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
+\subsubsection[{\-Vector3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf de.\-joglearth.\-geometry.\-Vector3.\-Vector3} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a84ab3f388b5d1a290fa4db450265c862}
-Constructor. Creates a zero vector. \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!Vector3@{Vector3}}
-\index{Vector3@{Vector3}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
-\subsubsection[{Vector3}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-geometry.\-Vector3.\-Vector3 (
+\-Constructor. \-Creates a zero vector. \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!\-Vector3@{\-Vector3}}
+\index{\-Vector3@{\-Vector3}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
+\subsubsection[{\-Vector3}]{\setlength{\rightskip}{0pt plus 5cm}{\bf de.\-joglearth.\-geometry.\-Vector3.\-Vector3} (
 \begin{DoxyParamCaption}
-\item[{float}]{x, }
-\item[{float}]{y, }
-\item[{float}]{z}
+\item[{double}]{x, }
+\item[{double}]{y, }
+\item[{double}]{z}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_aa7135b39ff5b55501bdcef44a33442ff}
-Constructor. Initializes a vector with the parameters provided.
+)}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_afaa069b9ed2d163780939f6d93e1e1ad}
+\-Constructor. \-Initializes a vector with the parameters provided.
 
 
-\begin{DoxyParams}{Parameter}
-{\em x} & The X (first) component. \\
+\begin{DoxyParams}{\-Parameter}
+{\em x} & \-The \-X (first) component. \\
 \hline
-{\em y} & The Y (second) component. \\
+{\em y} & \-The \-Y (second) component. \\
 \hline
-{\em z} & The Z (third) component. \\
+{\em z} & \-The \-Z (third) component. \\
 \hline
 \end{DoxyParams}
 
 
-\subsection{Dokumentation der Elementfunktionen}
+\subsection{\-Dokumentation der \-Elementfunktionen}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!add@{add}}
 \index{add@{add}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
-\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Vector3.\-add (
+\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Vector3.\-add} (
 \begin{DoxyParamCaption}
-\item[{{\bf Vector3}}]{v}
+\item[{{\bf \-Vector3}}]{v}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_adea5176e0b73c83b74bbb139e40ac3c5}
-Adds another vector to this vector. 
-\begin{DoxyParams}{Parameter}
-{\em v} & The vector to add. \\
+\-Adds another vector to this vector. 
+\begin{DoxyParams}{\-Parameter}
+{\em v} & \-The vector to add. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!clone@{clone}}
 \index{clone@{clone}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
-\subsubsection[{clone}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vector3} de.\-joglearth.\-geometry.\-Vector3.\-clone (
+\subsubsection[{clone}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Vector3} {\bf de.\-joglearth.\-geometry.\-Vector3.\-clone} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a6c9bdfdd9e73cb6cd56e784e12702341}
-Creates a deep copy.
+\-Creates a deep copy.
 
-\begin{DoxyReturn}{Rückgabe}
-An exact copy of the vector. 
+\begin{DoxyReturn}{\-Rückgabe}
+\-An exact copy of the vector. 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!length@{length}}
 \index{length@{length}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
-\subsubsection[{length}]{\setlength{\rightskip}{0pt plus 5cm}float de.\-joglearth.\-geometry.\-Vector3.\-length (
+\subsubsection[{length}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf de.\-joglearth.\-geometry.\-Vector3.\-length} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a1e82cd11b593e9a483e06ee0c422c1e7}
-Calculates the vectors length, that is sqrt(x$^\wedge$2+y$^\wedge$2+z$^\wedge$2). \begin{DoxyReturn}{Rückgabe}
-The length. 
+)}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a47bf183b1df757adffdd0991750390c4}
+\-Calculates the vectors length, that is sqrt(x$^\wedge$2+y$^\wedge$2+z$^\wedge$2). \begin{DoxyReturn}{\-Rückgabe}
+\-The length. 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!minus@{minus}}
 \index{minus@{minus}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
-\subsubsection[{minus}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vector3} de.\-joglearth.\-geometry.\-Vector3.\-minus (
+\subsubsection[{minus}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Vector3} {\bf de.\-joglearth.\-geometry.\-Vector3.\-minus} (
 \begin{DoxyParamCaption}
-\item[{{\bf Vector3}}]{v}
+\item[{{\bf \-Vector3}}]{v}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_ae5d57a22ab35a8b2e23723261c3f6399}
-Calculates the difference vector to another Vecotr3. 
-\begin{DoxyParams}{Parameter}
-{\em v} & The vector to subtract. \\
+\-Calculates the difference vector to another \-Vecotr3. 
+\begin{DoxyParams}{\-Parameter}
+{\em v} & \-The vector to subtract. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Rückgabe}
-The difference. 
+\begin{DoxyReturn}{\-Rückgabe}
+\-The difference. 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!normalized@{normalized}}
 \index{normalized@{normalized}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
-\subsubsection[{normalized}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vector3} de.\-joglearth.\-geometry.\-Vector3.\-normalized (
+\subsubsection[{normalized}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Vector3} {\bf de.\-joglearth.\-geometry.\-Vector3.\-normalized} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_abafe54075c2af1b22d7485733fb12283}
-Normalizes the vector, so that \doxyref{length()}{S.}{classde_1_1joglearth_1_1geometry_1_1_vector3_a1e82cd11b593e9a483e06ee0c422c1e7} == 1. \begin{DoxyReturn}{Rückgabe}
+\-Normalizes the vector, so that \doxyref{length()}{\-S.}{classde_1_1joglearth_1_1geometry_1_1_vector3_a47bf183b1df757adffdd0991750390c4} == 1. \begin{DoxyReturn}{\-Rückgabe}
 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!plus@{plus}}
 \index{plus@{plus}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
-\subsubsection[{plus}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vector3} de.\-joglearth.\-geometry.\-Vector3.\-plus (
+\subsubsection[{plus}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Vector3} {\bf de.\-joglearth.\-geometry.\-Vector3.\-plus} (
 \begin{DoxyParamCaption}
-\item[{{\bf Vector3}}]{v}
+\item[{{\bf \-Vector3}}]{v}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a22fca4a8ad0e84578402d239b43a154e}
-Calculates the sum of this and a second vector. 
-\begin{DoxyParams}{Parameter}
-{\em v} & The vector to add. \\
+\-Calculates the sum of this and a second vector. 
+\begin{DoxyParams}{\-Parameter}
+{\em v} & \-The vector to add. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Rückgabe}
-The sum. 
+\begin{DoxyReturn}{\-Rückgabe}
+\-The sum. 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!times@{times}}
 \index{times@{times}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
-\subsubsection[{times}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vector3} de.\-joglearth.\-geometry.\-Vector3.\-times (
+\subsubsection[{times}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Vector3} {\bf de.\-joglearth.\-geometry.\-Vector3.\-times} (
 \begin{DoxyParamCaption}
-\item[{float}]{c}
+\item[{double}]{c}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_ac6cb326de166fc4c1628a55702178baa}
-Multiplies the vector by a scalar. 
-\begin{DoxyParams}{Parameter}
-{\em c} & The scalar. \\
+)}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a4a3580e21ee8ebdc80a7a56cdf45b303}
+\-Multiplies the vector by a scalar. 
+\begin{DoxyParams}{\-Parameter}
+{\em c} & \-The scalar. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Rückgabe}
-The product vector. 
+\begin{DoxyReturn}{\-Rückgabe}
+\-The product vector. 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!to@{to}}
 \index{to@{to}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
-\subsubsection[{to}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vector3} de.\-joglearth.\-geometry.\-Vector3.\-to (
+\subsubsection[{to}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Vector3} {\bf de.\-joglearth.\-geometry.\-Vector3.\-to} (
 \begin{DoxyParamCaption}
-\item[{{\bf Vector3}}]{other}
+\item[{{\bf \-Vector3}}]{other}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a6e61b26f95647b79ca50d58c41c25435}
-Calculates the difference vector from another \doxyref{Vector3}{S.}{classde_1_1joglearth_1_1geometry_1_1_vector3}. 
-\begin{DoxyParams}{Parameter}
-{\em other} & The vector to subtract from. \\
+\-Calculates the difference vector from another \doxyref{\-Vector3}{\-S.}{classde_1_1joglearth_1_1geometry_1_1_vector3}. 
+\begin{DoxyParams}{\-Parameter}
+{\em other} & \-The vector to subtract from. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Rückgabe}
-The difference. 
+\begin{DoxyReturn}{\-Rückgabe}
+\-The difference. 
 \end{DoxyReturn}
