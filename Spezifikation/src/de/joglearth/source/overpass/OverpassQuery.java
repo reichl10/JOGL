@@ -1,7 +1,6 @@
 package de.joglearth.source.overpass;
 
 import de.joglearth.geometry.Tile;
-import de.joglearth.source.nominatim.NominatimQuery.Type;
 import de.joglearth.surface.LocationType;
 
 
@@ -14,16 +13,6 @@ public class OverpassQuery {
 
     public Tile         area;
     public LocationType query;
-
-
-    /**
-     * Constructor for a global query. Assigns a value to a {@link LocationType}.
-     * 
-     * @param query The <code>LocationType</code> of the query
-     */
-    public OverpassQuery(LocationType query) {
-
-    }
 
     /**
      * Constructor for a query in a given area. Assigns a value to a {@link LocationType} and a
