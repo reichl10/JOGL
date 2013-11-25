@@ -159,26 +159,28 @@ public class MainWindow extends JFrame implements SurfaceListener,
             new RowSpec[] {
                 RowSpec.decode("default:grow"),}));
         
-        JPanel panel_2 = new JPanel();
-        getContentPane().add(panel_2, "1, 1, left, fill");
-        panel_2.setLayout(new FormLayout(new ColumnSpec[] {
+        JPanel sideBar = new JPanel();
+        getContentPane().add(sideBar, "1, 1, left, fill");
+        sideBar.setLayout(new FormLayout(new ColumnSpec[] {
                 ColumnSpec.decode("default:grow"),},
             new RowSpec[] {
                 RowSpec.decode("top:45dlu"),
-                RowSpec.decode("top:default:grow"),}));
+                RowSpec.decode("top:default:grow"),
+                FormFactory.RELATED_GAP_ROWSPEC,
+                RowSpec.decode("80dlu"),}));
         
-        JLabel lblNewLabel = new JLabel("");
-        lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-        lblNewLabel.setIcon(loadIconResource("icons/logo.png"));
-        panel_2.add(lblNewLabel, "1, 1, center, bottom");
+        JLabel logoLabel = new JLabel("");
+        logoLabel.setVerticalAlignment(SwingConstants.TOP);
+        logoLabel.setIcon(loadIconResource("icons/logo.png"));
+        sideBar.add(logoLabel, "1, 1, center, bottom");
         
-        JTabbedPane sideBar = new JTabbedPane(JTabbedPane.TOP);
-        panel_2.add(sideBar, "1, 2, left, default");
-        sideBar.setBackground(UIManager.getColor("menu"));
+        JTabbedPane sideBarTabs = new JTabbedPane(JTabbedPane.TOP);
+        sideBar.add(sideBarTabs, "1, 2, fill, fill");
+        sideBarTabs.setBackground(UIManager.getColor("menu"));
         
         JPanel viewTab = new JPanel();
-        sideBar.addTab("View", loadIconResource("icons/view.png"), viewTab, null);
-        sideBar.setEnabledAt(0, true);
+        sideBarTabs.addTab("View", loadIconResource("icons/view.png"), viewTab, null);
+        sideBarTabs.setEnabledAt(0, true);
         viewTab.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.RELATED_GAP_COLSPEC,
                 ColumnSpec.decode("default:grow"),
@@ -211,17 +213,19 @@ public class MainWindow extends JFrame implements SurfaceListener,
         viewTab.add(heightMapCheckBox, "2, 10");
         
         JPanel placesTab = new JPanel();
-        sideBar.addTab("Places", loadIconResource("icons/places.png"), placesTab, null);
-        sideBar.setEnabledAt(1, true);
+        sideBarTabs.addTab("Places", loadIconResource("icons/places.png"), placesTab, null);
+        sideBarTabs.setEnabledAt(1, true);
         placesTab.setLayout(new FormLayout(new ColumnSpec[] {
                 ColumnSpec.decode("2dlu"),
                 ColumnSpec.decode("default:grow"),
                 ColumnSpec.decode("2dlu"),},
             new RowSpec[] {
                 RowSpec.decode("5dlu"),
-                RowSpec.decode("100dlu"),
+                RowSpec.decode("max(80dlu;default):grow"),
                 RowSpec.decode("10px"),
-                RowSpec.decode("100dlu:grow"),}));
+                RowSpec.decode("default:grow"),
+                RowSpec.decode("10dlu"),
+                RowSpec.decode("default:grow"),}));
         
         JPanel searchPanel = new JPanel();
         searchPanel.setBorder(BorderFactory.createTitledBorder("Search"));
@@ -264,22 +268,51 @@ public class MainWindow extends JFrame implements SurfaceListener,
         JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Global");
         panel.add(rdbtnNewRadioButton_1);
         
-        JScrollPane scrollPane = new JScrollPane();
-        searchPanel.add(scrollPane, "2, 5, fill, fill");
+        JScrollPane searchResultScrollPane = new JScrollPane();
+        searchPanel.add(searchResultScrollPane, "2, 5, fill, fill");
         
-        JList list = new JList();
-        scrollPane.setRowHeaderView(list);
+        JList searchResultList = new JList();
+        searchResultScrollPane.setViewportView(searchResultList);
         
-        JPanel panel_1 = new JPanel();
-        panel_1.setBorder(BorderFactory.createTitledBorder("User Tags"));
-        placesTab.add(panel_1, "2, 4, fill, fill");
+        JPanel userTagPanel = new JPanel();
+        userTagPanel.setBorder(BorderFactory.createTitledBorder("User Tags"));
+        placesTab.add(userTagPanel, "2, 4, fill, fill");
+        userTagPanel.setLayout(new FormLayout(new ColumnSpec[] {
+                FormFactory.RELATED_GAP_COLSPEC,
+                ColumnSpec.decode("default:grow"),
+                FormFactory.RELATED_GAP_COLSPEC,},
+            new RowSpec[] {
+                FormFactory.RELATED_GAP_ROWSPEC,
+                RowSpec.decode("default:grow"),
+                FormFactory.RELATED_GAP_ROWSPEC,}));
         
-        JLabel label = new JLabel("New label");
-        panel_1.add(label);
+        JScrollPane userTagScrollPane = new JScrollPane();
+        userTagPanel.add(userTagScrollPane, "2, 2, left, top");
+        
+        JList userTagList = new JList();
+        userTagScrollPane.setViewportView(userTagList);
+        
+        JPanel overlayPanel = new JPanel();
+        overlayPanel.setBorder(BorderFactory.createTitledBorder("Overlays"));
+        placesTab.add(overlayPanel, "2, 6, fill, fill");
+        overlayPanel.setLayout(new FormLayout(new ColumnSpec[] {
+                FormFactory.RELATED_GAP_COLSPEC,
+                ColumnSpec.decode("default:grow"),
+                FormFactory.RELATED_GAP_COLSPEC,},
+            new RowSpec[] {
+                FormFactory.RELATED_GAP_ROWSPEC,
+                RowSpec.decode("default:grow"),
+                FormFactory.RELATED_GAP_ROWSPEC,}));
+        
+        JScrollPane overlayScrollPane = new JScrollPane();
+        overlayPanel.add(overlayScrollPane, "2, 2, fill, fill");
+        
+        JList overlayList = new JList();
+        overlayScrollPane.setViewportView(overlayList);
         
         JPanel settingsTab = new JPanel();
-        sideBar.addTab("Settings", loadIconResource("icons/settings.png"), settingsTab, null);
-        sideBar.setEnabledAt(2, true);
+        sideBarTabs.addTab("Settings", loadIconResource("icons/settings.png"), settingsTab, null);
+        sideBarTabs.setEnabledAt(2, true);
         settingsTab.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.RELATED_GAP_COLSPEC,
                 ColumnSpec.decode("default:grow"),
@@ -308,6 +341,37 @@ public class MainWindow extends JFrame implements SurfaceListener,
         JButton btnNewButton_2 = new JButton("About");
         btnNewButton_2.setIcon(loadIconResource("icons/info.png"));
         panel_3.add(btnNewButton_2, "3, 1");
+        
+        JPanel detailsPanel = new JPanel();
+        detailsPanel.setBorder(BorderFactory.createTitledBorder("Details"));
+        sideBar.add(detailsPanel, "1, 4, fill, fill");
+        detailsPanel.setLayout(new FormLayout(new ColumnSpec[] {
+                FormFactory.RELATED_GAP_COLSPEC,
+                ColumnSpec.decode("default:grow"),
+                FormFactory.RELATED_GAP_COLSPEC,},
+            new RowSpec[] {
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,
+                RowSpec.decode("default:grow"),
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,}));
+        
+        JLabel detailNameLabel = new JLabel("Unknown location");
+        detailsPanel.add(detailNameLabel, "2, 2");
+        
+        JButton userTagButton = new JButton("Add user tag");
+        userTagButton.setHorizontalAlignment(SwingConstants.LEFT);
+        userTagButton.setIcon(loadIconResource("icons/addTag.png"));
+        userTagButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            }
+        });
+        
+        JLabel detailDescriptionLabel = new JLabel("No description available.");
+        detailsPanel.add(detailDescriptionLabel, "2, 4, default, top");
+        detailsPanel.add(userTagButton, "2, 6");
         
         JPanel sideBarHidePanel = new JPanel();
         sideBarHidePanel.setBackground(Color.LIGHT_GRAY);
@@ -355,11 +419,11 @@ public class MainWindow extends JFrame implements SurfaceListener,
         viewPanel.add(statusBar, "1, 3, fill, fill");
         statusBar.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.RELATED_GAP_COLSPEC,
-                ColumnSpec.decode("50dlu:grow"),
+                ColumnSpec.decode("50dlu"),
                 ColumnSpec.decode("default:grow"),
-                ColumnSpec.decode("120dlu:grow"),
+                ColumnSpec.decode("150dlu"),
                 ColumnSpec.decode("default:grow"),
-                ColumnSpec.decode("50dlu:grow"),
+                ColumnSpec.decode("70dlu"),
                 FormFactory.RELATED_GAP_COLSPEC,},
             new RowSpec[] {
                 RowSpec.decode("default:grow"),}));

@@ -1,6 +1,10 @@
 ﻿package de.joglearth.caching;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.TreeSet;
+
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
@@ -12,7 +16,7 @@ import de.joglearth.source.SourceResponse;
  * 
  * 
  */
-public class RequestDistributor<Key, Value> implements Source<Key, Value> {
+public class RequestDistributor<Key, Value> implements Source<Key, Value>, SourceListener<Key, Value> {
 
     private int[] FreeCacheSpace;
     private ArrayList<TreeSet<CacheEntry>> tree;
@@ -31,12 +35,13 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         public int size;
         public Key key;
         public int lastUsed;
+        private Source<Key, Value> source;
     
         @Override
-        public long hashCode() {
+        public int hashCode() {
             return key.hashCode();
         }
-
+    }
 
 
     /**
@@ -98,7 +103,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * 
      */
     @Override
-    public void requestCompleted(SourceResponse response) {
+    public void requestCompleted(Key k, Value v) {
     }
 
     /**
@@ -124,17 +129,20 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * 
      */
     private boolean switchCache(Key a, int cache1, int cache2) {
+        return false;
     }
     
     /**
      * Standard-constructor
      * 
      */
-    public RequestDistributor<Key, Value>() {
-        this.tree = new TreeSet<CacheEntry>(new Comparator() {
-            public bool compare {
-            ....  //a.lastUsed < b.lastUsed
+    public RequestDistributor() {
+      /*  this.tree = new TreeSet<CacheEntry>(new Comparator<CacheEntry>() {
+            public int compare(CacheEntry a, CacheEntry b) {
+              //a.lastUsed < b.lastUsed
+                return 
             }
-        }
+        });*/
     }
+
 }

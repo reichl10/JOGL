@@ -8,6 +8,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import de.joglearth.source.Source;
+import de.joglearth.source.SourceResponse;
+import de.joglearth.source.SourceResponseType;
+import de.joglearth.source.SourceListener;
+import de.joglearth.caching.RequestDistributor;
+
 
 public class RequestDistributorTest {
 
@@ -30,9 +36,9 @@ public class RequestDistributorTest {
         /**
          * Trivial Source
          */
-        private class IntSource implements Source<Integer, Integer> {
+       class IntSource implements Source<Integer, Integer> {
 
-            private SourceResponse response = new SourceResponse(SourceResponseType.SYNCHRONOUS, 33);
+            private SourceResponse<Integer> response = new SourceResponse<Integer>(SourceResponseType.SYNCHRONOUS, 33);
 
             @Override
             public SourceResponse<Integer> requestObject(Integer key,
@@ -44,7 +50,7 @@ public class RequestDistributorTest {
         }
 
         RequestDistributor<Integer, Integer>() t = new RequestDistributor<Integer, Integer>();
-        Source source = new IntSource();
+        Source<Integer, Integer> source = new IntSource();
         t.setSource(source);
         
         assertSame("Failed to mediate Source!", source.requestObject(3, null), 
