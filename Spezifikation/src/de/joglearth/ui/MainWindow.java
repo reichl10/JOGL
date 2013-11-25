@@ -1,5 +1,6 @@
 package de.joglearth.ui;
 
+import javax.imageio.ImageIO;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
@@ -45,10 +46,21 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 
 import java.awt.Font;
+import java.io.IOException;
+
+import javax.swing.BorderFactory;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
+import java.awt.Panel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 
@@ -70,6 +82,15 @@ public class MainWindow extends JFrame implements SurfaceListener,
             dialog.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static ImageIcon loadIconResource(String name) {
+        try {
+            return new ImageIcon(ImageIO.read(Thread.currentThread().getContextClassLoader()
+                    .getResource(name)));
+        } catch (IOException e) {
+            return null;
         }
     }
     
@@ -106,8 +127,9 @@ public class MainWindow extends JFrame implements SurfaceListener,
      * constructor.
      */
     private Camera            camera;
+    private JTextField latitudeTextField;
+    private JTextField longitudeTextField;
     private JTextField textField;
-    private JTextField textField_1;
 
 
     /**
@@ -129,7 +151,7 @@ public class MainWindow extends JFrame implements SurfaceListener,
         this.viewEventListener = new ViewEventListener(camera);
         this.guiEventListener = new GUIEventListener(camera);
         getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
-                ColumnSpec.decode("left:110dlu"),
+                ColumnSpec.decode("130dlu"),
                 ColumnSpec.decode("2dlu"),
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
                 ColumnSpec.decode("2dlu"),
@@ -137,30 +159,166 @@ public class MainWindow extends JFrame implements SurfaceListener,
             new RowSpec[] {
                 RowSpec.decode("default:grow"),}));
         
-        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-        tabbedPane.setBackground(UIManager.getColor("menu"));
-        tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-        getContentPane().add(tabbedPane, "1, 1, fill, fill");
-        
-        JPanel panel_1 = new JPanel();
-        tabbedPane.addTab("View", null, panel_1, null);
-        
         JPanel panel_2 = new JPanel();
-        tabbedPane.addTab("Places", null, panel_2, null);
+        getContentPane().add(panel_2, "1, 1, left, fill");
+        panel_2.setLayout(new FormLayout(new ColumnSpec[] {
+                ColumnSpec.decode("default:grow"),},
+            new RowSpec[] {
+                RowSpec.decode("top:45dlu"),
+                RowSpec.decode("top:default:grow"),}));
         
-        JPanel panel_3 = new JPanel();
-        tabbedPane.addTab("Settings", null, panel_3, null);
+        JLabel lblNewLabel = new JLabel("");
+        lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
+        lblNewLabel.setIcon(loadIconResource("icons/logo.png"));
+        panel_2.add(lblNewLabel, "1, 1, center, bottom");
         
-        JPanel panel_6 = new JPanel();
-        panel_6.setBackground(new Color(211, 211, 211));
-        FlowLayout flowLayout = (FlowLayout) panel_6.getLayout();
-        flowLayout.setVgap(0);
-        flowLayout.setHgap(0);
-        getContentPane().add(panel_6, "3, 1, fill, fill");
+        JTabbedPane sideBar = new JTabbedPane(JTabbedPane.TOP);
+        panel_2.add(sideBar, "1, 2, left, default");
+        sideBar.setBackground(UIManager.getColor("menu"));
+        
+        JPanel viewTab = new JPanel();
+        sideBar.addTab("View", loadIconResource("icons/view.png"), viewTab, null);
+        sideBar.setEnabledAt(0, true);
+        viewTab.setLayout(new FormLayout(new ColumnSpec[] {
+                FormFactory.RELATED_GAP_COLSPEC,
+                ColumnSpec.decode("default:grow"),
+                FormFactory.RELATED_GAP_COLSPEC,},
+            new RowSpec[] {
+                RowSpec.decode("6dlu"),
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                RowSpec.decode("8dlu"),
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                RowSpec.decode("10dlu"),
+                FormFactory.DEFAULT_ROWSPEC,}));
+        
+        JLabel displayModeLabel = new JLabel("Display mode:");
+        viewTab.add(displayModeLabel, "2, 2");
+        
+        JComboBox displayModeComboBox = new JComboBox();
+        viewTab.add(displayModeComboBox, "2, 4, fill, default");
+        
+        JLabel mapTypeLabel = new JLabel("Map type:");
+        viewTab.add(mapTypeLabel, "2, 6");
+        
+        JComboBox mapTypeComboBox = new JComboBox();
+        viewTab.add(mapTypeComboBox, "2, 8, fill, default");
+        
+        JCheckBox heightMapCheckBox = new JCheckBox("Enable height map");
+        viewTab.add(heightMapCheckBox, "2, 10");
+        
+        JPanel placesTab = new JPanel();
+        sideBar.addTab("Places", loadIconResource("icons/places.png"), placesTab, null);
+        sideBar.setEnabledAt(1, true);
+        placesTab.setLayout(new FormLayout(new ColumnSpec[] {
+                ColumnSpec.decode("2dlu"),
+                ColumnSpec.decode("default:grow"),
+                ColumnSpec.decode("2dlu"),},
+            new RowSpec[] {
+                RowSpec.decode("5dlu"),
+                RowSpec.decode("100dlu"),
+                RowSpec.decode("10px"),
+                RowSpec.decode("100dlu:grow"),}));
+        
+        JPanel searchPanel = new JPanel();
+        searchPanel.setBorder(BorderFactory.createTitledBorder("Search"));
+        placesTab.add(searchPanel, "2, 2, fill, fill");
+        searchPanel.setLayout(new FormLayout(new ColumnSpec[] {
+                ColumnSpec.decode("2dlu"),
+                ColumnSpec.decode("default:grow"),
+                ColumnSpec.decode("2dlu"),},
+            new RowSpec[] {
+                FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                RowSpec.decode("15dlu"),
+                RowSpec.decode("15dlu"),
+                FormFactory.RELATED_GAP_ROWSPEC,
+                RowSpec.decode("default:grow"),
+                FormFactory.LINE_GAP_ROWSPEC,}));
+        
+        JPanel searchQueryPanel = new JPanel();
+        searchPanel.add(searchQueryPanel, "2, 2, fill, top");
+        searchQueryPanel.setLayout(new FormLayout(new ColumnSpec[] {
+                ColumnSpec.decode("default:grow"),
+                ColumnSpec.decode("2dlu"),
+                ColumnSpec.decode("20dlu"),},
+            new RowSpec[] {
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,}));
+        
+        textField = new JTextField();
+        searchQueryPanel.add(textField, "1, 1, fill, default");
+        
+        JButton btnNewButton = new JButton(loadIconResource("icons/search.png"));
+        searchQueryPanel.add(btnNewButton, "3, 1, fill, fill");
         
         JPanel panel = new JPanel();
-        getContentPane().add(panel, "5, 1, fill, fill");
-        panel.setLayout(new FormLayout(new ColumnSpec[] {
+        searchPanel.add(panel, "2, 3, fill, fill");
+        panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 2));
+        
+        JRadioButton rdbtnNewRadioButton = new JRadioButton("Nearby");
+        panel.add(rdbtnNewRadioButton);
+        
+        JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Global");
+        panel.add(rdbtnNewRadioButton_1);
+        
+        JScrollPane scrollPane = new JScrollPane();
+        searchPanel.add(scrollPane, "2, 5, fill, fill");
+        
+        JList list = new JList();
+        scrollPane.setRowHeaderView(list);
+        
+        JPanel panel_1 = new JPanel();
+        panel_1.setBorder(BorderFactory.createTitledBorder("User Tags"));
+        placesTab.add(panel_1, "2, 4, fill, fill");
+        
+        JLabel label = new JLabel("New label");
+        panel_1.add(label);
+        
+        JPanel settingsTab = new JPanel();
+        sideBar.addTab("Settings", loadIconResource("icons/settings.png"), settingsTab, null);
+        sideBar.setEnabledAt(2, true);
+        settingsTab.setLayout(new FormLayout(new ColumnSpec[] {
+                FormFactory.RELATED_GAP_COLSPEC,
+                ColumnSpec.decode("default:grow"),
+                FormFactory.RELATED_GAP_COLSPEC,},
+            new RowSpec[] {
+                FormFactory.RELATED_GAP_ROWSPEC,
+                RowSpec.decode("default:grow"),}));
+        
+        JPanel panel_3 = new JPanel();
+        settingsTab.add(panel_3, "2, 2, fill, fill");
+        panel_3.setLayout(new FormLayout(new ColumnSpec[] {
+                ColumnSpec.decode("default:grow"),
+                ColumnSpec.decode("5dlu"),
+                ColumnSpec.decode("default:grow"),},
+            new RowSpec[] {
+                RowSpec.decode("22dlu"),}));
+        
+        JButton btnNewButton_1 = new JButton("Manual");
+        btnNewButton_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            }
+        });
+        btnNewButton_1.setIcon(loadIconResource("icons/manual.png"));
+        panel_3.add(btnNewButton_1, "1, 1");
+        
+        JButton btnNewButton_2 = new JButton("About");
+        btnNewButton_2.setIcon(loadIconResource("icons/info.png"));
+        panel_3.add(btnNewButton_2, "3, 1");
+        
+        JPanel sideBarHidePanel = new JPanel();
+        sideBarHidePanel.setBackground(Color.LIGHT_GRAY);
+        FlowLayout fl_sideBarHidePanel = (FlowLayout) sideBarHidePanel.getLayout();
+        fl_sideBarHidePanel.setVgap(0);
+        fl_sideBarHidePanel.setHgap(0);
+        getContentPane().add(sideBarHidePanel, "3, 1, fill, fill");
+        
+        JPanel viewPanel = new JPanel();
+        getContentPane().add(viewPanel, "5, 1, fill, fill");
+        viewPanel.setLayout(new FormLayout(new ColumnSpec[] {
                 ColumnSpec.decode("default:grow"),},
             new RowSpec[] {
                 RowSpec.decode("default:grow"),
@@ -168,8 +326,8 @@ public class MainWindow extends JFrame implements SurfaceListener,
                 RowSpec.decode("20dlu"),
                 RowSpec.decode("1dlu"),}));
         
-        GLCanvas panel_4 = new GLCanvas();
-        panel_4.addGLEventListener(new GLEventListener() {
+        GLCanvas glCanvas = new GLCanvas();
+        glCanvas.addGLEventListener(new GLEventListener() {
 
             @Override
             public void display(GLAutoDrawable arg0) {
@@ -191,11 +349,11 @@ public class MainWindow extends JFrame implements SurfaceListener,
             }
             
         });
-        panel.add(panel_4, "1, 1, fill, fill");
+        viewPanel.add(glCanvas, "1, 1, fill, fill");
         
-        JPanel panel_5 = new JPanel();
-        panel.add(panel_5, "1, 3, fill, fill");
-        panel_5.setLayout(new FormLayout(new ColumnSpec[] {
+        JPanel statusBar = new JPanel();
+        viewPanel.add(statusBar, "1, 3, fill, fill");
+        statusBar.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.RELATED_GAP_COLSPEC,
                 ColumnSpec.decode("50dlu:grow"),
                 ColumnSpec.decode("default:grow"),
@@ -206,24 +364,24 @@ public class MainWindow extends JFrame implements SurfaceListener,
             new RowSpec[] {
                 RowSpec.decode("default:grow"),}));
         
-        JPanel panel_7 = new JPanel();
-        panel_5.add(panel_7, "2, 1, fill, fill");
-        panel_7.setLayout(new FormLayout(new ColumnSpec[] {
+        JPanel scalePanel = new JPanel();
+        statusBar.add(scalePanel, "2, 1, fill, fill");
+        scalePanel.setLayout(new FormLayout(new ColumnSpec[] {
                 ColumnSpec.decode("center:default:grow"),},
             new RowSpec[] {
                 RowSpec.decode("default:grow"),
                 RowSpec.decode("default:grow"),}));
         
-        JLabel lblNewLabel_3 = new JLabel("");
-        lblNewLabel_3.setIcon(new ImageIcon("/home/trion/Uni/SEP/Git/Spezifikation/res/icons/scale.png"));
-        panel_7.add(lblNewLabel_3, "1, 1");
+        JLabel scaleIcon = new JLabel("");
+        scaleIcon.setIcon(loadIconResource("icons/scale.png"));
+        scalePanel.add(scaleIcon, "1, 1");
         
-        JLabel lblNewLabel = new JLabel("1 km");
-        panel_7.add(lblNewLabel, "1, 2");
+        JLabel scaleLabel = new JLabel("1 km");
+        scalePanel.add(scaleLabel, "1, 2");
         
-        JPanel panel_8 = new JPanel();
-        panel_5.add(panel_8, "4, 1, fill, fill");
-        panel_8.setLayout(new FormLayout(new ColumnSpec[] {
+        JPanel coordPanel = new JPanel();
+        statusBar.add(coordPanel, "4, 1, fill, fill");
+        coordPanel.setLayout(new FormLayout(new ColumnSpec[] {
                 ColumnSpec.decode("default:grow"),
                 ColumnSpec.decode("2dlu"),
                 ColumnSpec.decode("default:grow"),
@@ -234,24 +392,24 @@ public class MainWindow extends JFrame implements SurfaceListener,
             new RowSpec[] {
                 RowSpec.decode("default:grow"),}));
         
-        JLabel lblNewLabel_1 = new JLabel("Latitude:");
-        panel_8.add(lblNewLabel_1, "1, 1, right, default");
+        JLabel latitudeLabel = new JLabel("Latitude:");
+        coordPanel.add(latitudeLabel, "1, 1, right, default");
         
-        textField = new JTextField();
-        panel_8.add(textField, "3, 1, fill, default");
-        textField.setColumns(10);
+        latitudeTextField = new JTextField();
+        coordPanel.add(latitudeTextField, "3, 1, fill, default");
+        latitudeTextField.setColumns(10);
         
-        JLabel lblNewLabel_2 = new JLabel("Longitude:");
-        panel_8.add(lblNewLabel_2, "5, 1, right, default");
+        JLabel longitudeLabel = new JLabel("Longitude:");
+        coordPanel.add(longitudeLabel, "5, 1, right, default");
         
-        textField_1 = new JTextField();
-        panel_8.add(textField_1, "7, 1, fill, default");
-        textField_1.setColumns(10);
+        longitudeTextField = new JTextField();
+        coordPanel.add(longitudeTextField, "7, 1, fill, default");
+        longitudeTextField.setColumns(10);
         
         JProgressBar progressBar = new JProgressBar();
         progressBar.setStringPainted(true);
         progressBar.setValue(100);
-        panel_5.add(progressBar, "6, 1");
+        statusBar.add(progressBar, "6, 1");
     }
 
     /**
