@@ -41,6 +41,9 @@ public final class Matrix4 implements Cloneable {
      * @param init The matrix cells in column-first ordering.
      */
     public Matrix4(double[] init) {
+        if (init == null || init.length != 16) {
+            throw new IllegalArgumentException();
+        }
         for (int i = 0; i < 16; ++i) {
             m[i] = init[i];
         }
@@ -54,6 +57,9 @@ public final class Matrix4 implements Cloneable {
      * @param rhs The matrix to multiply with.
      */
     public void mult(double[] rhs) {
+        if (rhs == null || rhs.length != 16) {
+            throw new IllegalArgumentException();
+        }
         final double[] r = new double[16];
         for (int i = 0; i < 4; ++i) {
             for (int j = 0; j < 4; ++j) {
@@ -82,6 +88,9 @@ public final class Matrix4 implements Cloneable {
      * @param rhs The matrix to add.
      */
     public void add(double[] rhs) {
+        if (rhs == null || rhs.length != 16) {
+            throw new IllegalArgumentException();
+        }
         for (int i = 0; i < 16; ++i) {
             m[i] += rhs[i];
         }
@@ -126,6 +135,9 @@ public final class Matrix4 implements Cloneable {
      * @param v Translation for all three coordinates.
      */
     public void translate(Vector3 v) {
+        if (v == null) {
+            throw new IllegalArgumentException();
+        }
         translate(v.x, v.y, v.z);
     }
 
@@ -192,9 +204,7 @@ public final class Matrix4 implements Cloneable {
     }
 
     /**
-     * Inverts the matrix.
-     * 
-     * This may be used to create a projection matrix from a camera matrix.
+     * Calculates the inverse of the matrix. If the matrix is singular, the result is unspecified.
      * 
      * @return The inverse of the matrix.
      */
@@ -298,6 +308,9 @@ public final class Matrix4 implements Cloneable {
      * @return The transformed vector.
      */
     public Vector4 transform(Vector3 v3) {
+        if (v3 == null) {
+            throw new IllegalArgumentException();
+        }
         final double[] v = { v3.x, v3.y, v3.z, 1 }, w = { 0, 0, 0, 0 };
         for (int i = 0; i < 4; ++i) {
             for (int j = 0; j < 4; ++j) {
