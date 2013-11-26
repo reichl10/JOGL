@@ -1,10 +1,14 @@
-package de.joglearth.source.osm;
+package de.joglearth.surface;
 
 /**
  * <code>Type</code> of an OpenStreetMap tile. OSM tiles has a maximum Zoomlevel of '18'.
  * 
  */
-public enum OSMTileType {
+public enum MapType {
+    
+    SATELLITE,
+    
+    CHILDREN,
 
     /**
      * OpenStreetMap maps.

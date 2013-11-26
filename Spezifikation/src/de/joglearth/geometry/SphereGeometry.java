@@ -3,6 +3,9 @@ package de.joglearth.geometry;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.Vector3;
 
+/**
+ * Implements the {@link Geometry} interface for a camera looking at a globe.
+ */
 public class SphereGeometry implements Geometry {
 	
 	@Override

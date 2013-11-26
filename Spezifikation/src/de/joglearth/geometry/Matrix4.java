@@ -24,37 +24,40 @@ public final class Matrix4 implements Cloneable {
     /**
      * Creates a deep copy of the matrix.
      * 
-     * @return The copied matrix.
+     * @return The copied matrix
      */
     @Override
     public Matrix4 clone() {
-        final Matrix4 c = new Matrix4();
-        for (int i = 0; i < 16; ++i) {
-            c.m[i] = m[i];
-        }
+        Matrix4 c = new Matrix4();
+        System.arraycopy(m, 0, c.m, 0, 16);
         return c;
     }
 
     /**
      * Creates a matrix from a double value array.
      * 
-     * @param init The matrix cells in column-first ordering.
+     * @param init The matrix cells in column-first ordering
      */
     public Matrix4(double[] init) {
         if (init == null || init.length != 16) {
             throw new IllegalArgumentException();
         }
-        for (int i = 0; i < 16; ++i) {
-            m[i] = init[i];
-        }
+        System.arraycopy(init, 0, m, 0, 16);
     }
 
+    /**
+     * Replaces the matrix by an identity matrix.
+     */
+    public void reset() {
+        double[] identity = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 };
+        System.arraycopy(identity, 0, m, 0, 16);
+    }
+    
     /**
      * Multiplies the matrix with another matrix, given by a double value array.
      * 
      * Mathematical equivalent: this' := this * rhs
-     * 
-     * @param rhs The matrix to multiply with.
+     * @param rhs The matrix to multiply with
      */
     public void mult(double[] rhs) {
         if (rhs == null || rhs.length != 16) {
@@ -76,16 +79,19 @@ public final class Matrix4 implements Cloneable {
      * 
      * Mathematical equivalent: this' := this * rhs
      * 
-     * @param rhs The matrix to multiply with.
+     * @param rhs The matrix to multiply with
      */
     public void mult(Matrix4 rhs) {
+        if (rhs == null) { 
+            throw new IllegalArgumentException();
+        }
         mult(rhs.m);
     }
 
     /**
      * Adds another matrix, given by a double value array, to itself component-wise.
      * 
-     * @param rhs The matrix to add.
+     * @param rhs The matrix to add
      */
     public void add(double[] rhs) {
         if (rhs == null || rhs.length != 16) {
@@ -99,7 +105,7 @@ public final class Matrix4 implements Cloneable {
     /**
      * Adds another matrix to itself component-wise.
      * 
-     * @param rhs The matrix to add.
+     * @param rhs The matrix to add
      */
     public void add(Matrix4 rhs) {
         add(rhs.m);
@@ -119,9 +125,9 @@ public final class Matrix4 implements Cloneable {
      * 
      * Points transformed with this matrix will thereafter be translated by the given extents.
      * 
-     * @param x Translation by the X (first) coordinate.
-     * @param y Translation by the Y (second) coordinate.
-     * @param z Translation by the Z (third) coordinate.
+     * @param x Translation by the X (first) coordinate
+     * @param y Translation by the Y (second) coordinate
+     * @param z Translation by the Z (third) coordinate
      */
     public void translate(double x, double y, double z) {
         mult(new double[] { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1 });
@@ -132,7 +138,7 @@ public final class Matrix4 implements Cloneable {
      * 
      * Points transformed with this matrix will thereafter be translated by the given extents.
      * 
-     * @param v Translation for all three coordinates.
+     * @param v Translation for all three coordinates
      */
     public void translate(Vector3 v) {
         if (v == null) {
@@ -146,7 +152,7 @@ public final class Matrix4 implements Cloneable {
      * 
      * Points transformed with this matrix will thereafter be rotated by the given angle.
      * 
-     * @param rad The rotation angle, in radians.
+     * @param rad The rotation angle, in radians
      */
     public void rotateX(double rad) {
         final double c = Math.cos(rad), s = Math.sin(rad);
@@ -158,7 +164,7 @@ public final class Matrix4 implements Cloneable {
      * 
      * Points transformed with this matrix will thereafter be rotated by the given angle.
      * 
-     * @param rad The rotation angle, in radians.
+     * @param rad The rotation angle, in radians
      */
     public void rotateY(double rad) {
         final double c = Math.cos(rad), s = Math.sin(rad);
@@ -170,7 +176,7 @@ public final class Matrix4 implements Cloneable {
      * 
      * Points transformed with this matrix will thereafter be rotated by the given angle.
      * 
-     * @param rad The rotation angle, in radians.
+     * @param rad The rotation angle, in radians
      */
     public void rotateZ(double rad) {
         final double c = Math.cos(rad), s = Math.sin(rad);
@@ -183,9 +189,9 @@ public final class Matrix4 implements Cloneable {
      * Points transformed with this matrix will thereafter be scaled relative to the point of
      * origin.
      * 
-     * @param x The scale in X direction (The first axis).
-     * @param y The scale in Y direction (The second axis).
-     * @param z The scale in Z direction (The third axis).
+     * @param x The scale in X direction (The first axis)
+     * @param y The scale in Y direction (The second axis)
+     * @param z The scale in Z direction (The third axis)
      */
     public void scale(double x, double y, double z) {
         mult(new double[] { x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1 });
@@ -197,16 +203,16 @@ public final class Matrix4 implements Cloneable {
      * Points transformed with this matrix will thereafter be scaled relative to the point of
      * origin.
      * 
-     * @param v The scale in all three dimensions.
+     * @param v The scale in all three dimensions
      */
     public void scale(Vector3 v) {
         scale(v.x, v.y, v.z);
     }
 
     /**
-     * Calculates the inverse of the matrix. If the matrix is singular, the result is unspecified.
+     * Calculates and returns the inverse of the matrix. If the matrix is singular, the result is unspecified.
      * 
-     * @return The inverse of the matrix.
+     * @return The inverse
      */
     public Matrix4 inverse() {
         final Matrix4 i = new Matrix4();
@@ -288,7 +294,7 @@ public final class Matrix4 implements Cloneable {
     /**
      * Creates a string representation of the matrix.
      * 
-     * @return The matrix in a human-readable string.
+     * @return The matrix in a human-readable string
      */
     @Override
     public String toString() {
@@ -304,8 +310,8 @@ public final class Matrix4 implements Cloneable {
      * Transforms a three-dimensional vector of Cartesian coordinates into a four-dimensional vector
      * of homogeneous coordinates by matrix-vector multiplication.
      * 
-     * @param v3 The vector to transform.
-     * @return The transformed vector.
+     * @param v3 The vector to transform
+     * @return The transformed vector
      */
     public Vector4 transform(Vector3 v3) {
         if (v3 == null) {

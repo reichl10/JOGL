@@ -1,14 +1,15 @@
 package de.joglearth.rendering;
 
 /**
- * 
  * Container class to save vertices, normals and texture coordinates and other parameters to build a
  * tile.
  * 
  */
-public class Mesh {
+public final class Mesh {
 
-    private float[] vertices, normals, texCoords;
+    private float[] vertices;
+    private float[] normals;
+    private float[] texCoords;
     private int[] indices;
 
 
