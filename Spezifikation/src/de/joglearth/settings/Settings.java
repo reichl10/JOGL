@@ -5,9 +5,10 @@ import de.joglearth.surface.Location;
 
 
 /**
- * Used to store settings of JoglEarth. A key can only have one value. If put a value of an other
- * type under the same key it replaces the old value of the other type. For key the
- * <code>null</code> object is not allowed. This Class is thread save.
+ * Used to store settings of JoglEarth. A key can only have one value, except for Locations where
+ * multiple can exist under the same key. If put a value of an other type under the same key it
+ * replaces the old value of the other type. For key the <code>null</code> object is not allowed.
+ * This class is thread-safe.
  */
 public final class Settings {
 
