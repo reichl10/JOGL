@@ -10,7 +10,7 @@ import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.Tile;
 import de.joglearth.surface.HeightMapManager;
 import de.joglearth.surface.LocationManager;
-import de.joglearth.surface.MapType;
+import de.joglearth.surface.TiledMapType;
 import de.joglearth.surface.SurfaceListener;
 import de.joglearth.surface.TextureManager;
 import de.joglearth.settings.SettingsListener;
@@ -30,7 +30,7 @@ public class Renderer implements Runnable, CameraListener, SettingsListener, Sur
     private TextureManager textureManager;
     private Camera camera;
     private DisplayMode activeDisplayMode;
-    private MapType activeMapType;
+    private TiledMapType activeMapType;
 
 
     /**

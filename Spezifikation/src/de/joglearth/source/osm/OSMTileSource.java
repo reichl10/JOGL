@@ -3,7 +3,7 @@ package de.joglearth.source.osm;
 import de.joglearth.geometry.Tile;
 import de.joglearth.rendering.*;
 import de.joglearth.source.*;
-import de.joglearth.surface.MapType;
+import de.joglearth.surface.TiledMapType;
 import de.joglearth.ui.*;
 
 
@@ -40,9 +40,9 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
     /**
      * Sets the type of an OpenStreetMap tile.
      * 
-     * @param t {@link MapType} of the tile
+     * @param t {@link TiledMapType} of the tile
      */
-    public void setTileType(MapType type) {
+    public void setTileType(TiledMapType type) {
 
     }
 }

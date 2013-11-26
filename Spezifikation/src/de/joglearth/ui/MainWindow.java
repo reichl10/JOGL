@@ -17,7 +17,7 @@ import de.joglearth.settings.SettingsListener;
 import de.joglearth.surface.Location;
 import de.joglearth.surface.LocationListener;
 import de.joglearth.surface.LocationManager;
-import de.joglearth.surface.MapType;
+import de.joglearth.surface.TiledMapType;
 import de.joglearth.surface.SurfaceListener;
 
 import javax.swing.JSplitPane;
@@ -141,7 +141,7 @@ public class MainWindow extends JFrame implements SurfaceListener,
     private JLabel sidebarHideIconLabel;
     private JPanel sideBarHideLinePanel;
     private JPanel mapOptionsPanel;
-    private JComboBox<IconizedItem<MapType>> mapTypeComboBox;
+    private JComboBox<IconizedItem<TiledMapType>> mapTypeComboBox;
     private JComboBox<IconizedItem<DisplayMode>> displayModeComboBox;
 
 
@@ -241,9 +241,9 @@ public class MainWindow extends JFrame implements SurfaceListener,
         JLabel mapTypeLabel = new JLabel("Map type:");
         mapOptionsPanel.add(mapTypeLabel, "1, 1");
 
-        mapTypeComboBox = new JComboBox<IconizedItem<MapType>>();
+        mapTypeComboBox = new JComboBox<IconizedItem<TiledMapType>>();
         mapOptionsPanel.add(mapTypeComboBox, "1, 3");
-        mapTypeComboBox.setRenderer(new IconListCellRenderer<IconizedItem<MapType>>());
+        mapTypeComboBox.setRenderer(new IconListCellRenderer<IconizedItem<TiledMapType>>());
 
         JCheckBox heightMapCheckBox = new JCheckBox("Enable height map");
         mapOptionsPanel.add(heightMapCheckBox, "1, 5");
@@ -252,12 +252,12 @@ public class MainWindow extends JFrame implements SurfaceListener,
                 viewTab.add(logoLabel, "2, 8, center, bottom");
                 logoLabel.setVerticalAlignment(SwingConstants.TOP);
                 logoLabel.setIcon(loadIcon("icons/logo.png"));
-        mapTypeComboBox.addItem(new IconizedItem<MapType>("Satellite",
-                loadIcon("icons/mapSatellite.png"), MapType.SATELLITE));
-        mapTypeComboBox.addItem(new IconizedItem<MapType>("OpenStreetMap",
-                loadIcon("icons/mapOSM.png"), MapType.OSM_MAP));
-        mapTypeComboBox.addItem(new IconizedItem<MapType>("Children's Map",
-                loadIcon("icons/mapChildren.png"), MapType.CHILDREN));
+        mapTypeComboBox.addItem(new IconizedItem<TiledMapType>("Satellite",
+                loadIcon("icons/mapSatellite.png"), TiledMapType.SATELLITE));
+        mapTypeComboBox.addItem(new IconizedItem<TiledMapType>("OpenStreetMap",
+                loadIcon("icons/mapOSM.png"), TiledMapType.OSM_MAP));
+        mapTypeComboBox.addItem(new IconizedItem<TiledMapType>("Children's Map",
+                loadIcon("icons/mapChildren.png"), TiledMapType.CHILDREN));
 
         JPanel placesTab = new JPanel();
         sideBarTabs.addTab("Places", loadIcon("icons/places.png"),
