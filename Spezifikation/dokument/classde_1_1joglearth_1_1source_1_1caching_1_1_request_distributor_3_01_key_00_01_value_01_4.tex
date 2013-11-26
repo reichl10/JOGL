@@ -1,0 +1,80 @@
+\section{de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$ Klassenreferenz}
+\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4}\index{de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$@{de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$}}
+Klassendiagramm für de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4}
+\end{center}
+\end{figure}
+\subsection*{Öffentliche Methoden}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf add\-Cache} (Cache$<$ Key, Value $>$ cache, int max\-Size)
+\item 
+void {\bfseries set\-Cache\-Size} (Cache$<$ Key, Value $>$ cache, int max\-Size)\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a9f434cffad6e2b3f6f085a3c42568e91}
+
+\item 
+void {\bf set\-Source} (Source$<$ Key, Value $>$ source)
+\item 
+Source\-Response$<$ Value $>$ {\bf request\-Object} (Key key, Source\-Listener$<$ Key, Value $>$ sender)
+\item 
+{\bf Request\-Distributor} (Object\-Measure$<$ Value $>$ m)
+\item 
+void {\bfseries drop\-All} ()\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_abf8c409b311e0888dd36dbca3c3dd6ae}
+
+\item 
+void {\bfseries drop\-All} (Predicate$<$ Key $>$ pred)\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a9f5c4e8442dad9a5c1f2a9de21fcc13f}
+
+\item 
+void {\bfseries drop\-Object} (Key k)\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a5e40a92cd0440bb2d6ab372e4c718cf4}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Recieves requests for objects, can get the objects from one Source that can be set. Stores requested objects in caches to minimize loading-\/time. 
+
+\subsection{Beschreibung der Konstruktoren und Destruktoren}
+\index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!Request\-Distributor@{Request\-Distributor}}
+\index{Request\-Distributor@{Request\-Distributor}!de::joglearth::source::caching::RequestDistributor< Key, Value >@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}}
+\subsubsection[{Request\-Distributor}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$.Request\-Distributor (
+\begin{DoxyParamCaption}
+\item[{Object\-Measure$<$ Value $>$}]{m}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a356575251551009739db3a8b7a172eda}
+Standard-\/constructor 
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!add\-Cache@{add\-Cache}}
+\index{add\-Cache@{add\-Cache}!de::joglearth::source::caching::RequestDistributor< Key, Value >@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}}
+\subsubsection[{add\-Cache}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$.add\-Cache (
+\begin{DoxyParamCaption}
+\item[{Cache$<$ Key, Value $>$}]{cache, }
+\item[{int}]{max\-Size}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a18da9721a25e75be8bb654c461a4c45d}
+Adds new cache and creates new {\ttfamily tree}, hash\-Last\-Used and Free\-Cache\-Space. \index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!request\-Object@{request\-Object}}
+\index{request\-Object@{request\-Object}!de::joglearth::source::caching::RequestDistributor< Key, Value >@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}}
+\subsubsection[{request\-Object}]{\setlength{\rightskip}{0pt plus 5cm}Source\-Response$<$Value$>$ de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$.request\-Object (
+\begin{DoxyParamCaption}
+\item[{Key}]{key, }
+\item[{Source\-Listener$<$ Key, Value $>$}]{sender}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a0dddf19cb7d3f9a9664b7dad36816d89}
+Tries to return requested object. Consults caches first and updates hash\-Last\-Used and entry in {\ttfamily tree} if object found in cache. When found in other cache than primary cache, put object in primary cache. If object not found in caches, consult {\ttfamily Source}, add to pending\-Requests and return null with response\-Type A\-S\-Y\-N\-C\-H\-R\-O\-N\-E. If no Source set, return null and response\-Type M\-I\-S\-S\-I\-N\-G instead.
+
+
+\begin{DoxyParams}{Parameter}
+{\em key} & Key (identifier) of requested object \\
+\hline
+{\em sender} & Entity to be notified when request is completed asynchrone \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!set\-Source@{set\-Source}}
+\index{set\-Source@{set\-Source}!de::joglearth::source::caching::RequestDistributor< Key, Value >@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}}
+\subsubsection[{set\-Source}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$.set\-Source (
+\begin{DoxyParamCaption}
+\item[{Source$<$ Key, Value $>$}]{source}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a2961584cee25c3101f7bd849e3bfa6f0}
+Replace Source. 

@@ -1,19 +1,13 @@
-\section{de.\-joglearth.\-geometry.\-Camera \-Klassenreferenz}
+\section{de.\-joglearth.\-geometry.\-Camera Klassenreferenz}
 \label{classde_1_1joglearth_1_1geometry_1_1_camera}\index{de.\-joglearth.\-geometry.\-Camera@{de.\-joglearth.\-geometry.\-Camera}}
-\-Klassendiagramm für de.\-joglearth.\-geometry.\-Camera\-:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1geometry_1_1_camera}
-\end{center}
-\end{figure}
-\subsection*{Öffentliche \-Methoden}
+\subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
-{\bf \-Camera} ({\bf \-Height\-Map\-Manager} hm)
+{\bf Camera} ()
 \item 
-void {\bf set\-Geometry} ({\bf \-Geometry} g)
+void {\bf set\-Geometry} ({\bf Geometry} g)
 \item 
-void {\bf set\-Position} ({\bf \-Geo\-Coordinates} coords)
+void {\bf set\-Position} ({\bf Geo\-Coordinates} coords)
 \item 
 void {\bf set\-Distance} (double distance)
 \item 
@@ -27,185 +21,183 @@ void {\bf tilt} (double delta\-X, double delta\-Y)
 \item 
 void {\bf move} (double delta\-Lon, double delta\-Lat)
 \item 
-boolean {\bf is\-Point\-Visible} ({\bf \-Geo\-Coordinates} geo)
+boolean {\bf is\-Point\-Visible} ({\bf Geo\-Coordinates} geo)
 \item 
-{\bf \-Screen\-Coordinates} {\bf get\-Screen\-Coordinates} ({\bf \-Geo\-Coordinates} geo)
+{\bf Screen\-Coordinates} {\bf get\-Screen\-Coordinates} ({\bf Geo\-Coordinates} geo)
 \item 
-{\bf \-Geo\-Coordinates} {\bf get\-Geo\-Coordinates} ({\bf \-Screen\-Coordinates} screen)
+{\bf Geo\-Coordinates} {\bf get\-Geo\-Coordinates} ({\bf Screen\-Coordinates} screen)
 \item 
-{\bf \-Tile}[$\,$] {\bf get\-Visible\-Tiles} ()
+{\bf Tile}[$\,$] {\bf get\-Visible\-Tiles} ()
 \item 
-{\bf \-Matrix4} {\bf get\-Projection\-Matrix} ()
+{\bf Matrix4} {\bf get\-Projection\-Matrix} ()
 \item 
-void {\bf surface\-Changed} ({\bf \-Tile} tile)
-\end{DoxyCompactItemize}
-\subsection*{\-Paketattribute}
-\begin{DoxyCompactItemize}
+void {\bfseries add\-Camera\-Listener} ({\bf Camera\-Listener} l)\label{classde_1_1joglearth_1_1geometry_1_1_camera_a2f06e1d4b555f4d96f1016e5611568ea}
+
 \item 
-{\bf \-Matrix4} {\bfseries projection\-Matrix}\label{classde_1_1joglearth_1_1geometry_1_1_camera_a42e23b6255ead80333552de46b300633}
+void {\bfseries remove\-Camera\-Listener} ({\bf Camera\-Listener} l)\label{classde_1_1joglearth_1_1geometry_1_1_camera_a961ca081f11f43f651e6691c953efb79}
 
 \end{DoxyCompactItemize}
 
 
-\subsection{\-Ausführliche \-Beschreibung}
-\-Administers geometrical calculations for the viewport perspective.
+\subsection{Ausführliche Beschreibung}
+Administers geometric calculations for the viewport perspective.
 
-\-This class is not thread-\/safe by design, as clients will usually perform multiple dependent operations on the camera. \-In multi-\/threaded code, these blocks of operations should be synchronized on the camera object. 
+This class is not thread-\/safe by design, as clients will usually perform multiple dependent operations on the camera. In multi-\/threaded code, these blocks of operations should be synchronized on the camera object. 
 
-\subsection{\-Beschreibung der \-Konstruktoren und \-Destruktoren}
-\index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!\-Camera@{\-Camera}}
-\index{\-Camera@{\-Camera}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
-\subsubsection[{\-Camera}]{\setlength{\rightskip}{0pt plus 5cm}{\bf de.\-joglearth.\-geometry.\-Camera.\-Camera} (
+\subsection{Beschreibung der Konstruktoren und Destruktoren}
+\index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!Camera@{Camera}}
+\index{Camera@{Camera}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
+\subsubsection[{Camera}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-geometry.\-Camera.\-Camera (
 \begin{DoxyParamCaption}
-\item[{{\bf \-Height\-Map\-Manager}}]{hm}
+{}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_camera_a81998bbe086612c723da486fa44a0f16}
-\-Constructor.
+)}\label{classde_1_1joglearth_1_1geometry_1_1_camera_a29f1c52c4bd14ccbea2b4d6c9413924a}
+Constructor.
 
-\-Creates a camera with \-F\-O\-V 90, aspect ratio 1\-:1, z\-Near=0.\-1 and z\-Far=1000.
+Creates a camera with F\-O\-V 90, aspect ratio 1\-:1, z\-Near=0.\-1 and z\-Far=1000.
 
 
-\begin{DoxyParams}{\-Parameter}
-{\em hm} & \-The height map manager. \\
+\begin{DoxyParams}{Parameter}
+{\em hm} & The height map manager. \\
 \hline
 \end{DoxyParams}
 
 
-\subsection{\-Dokumentation der \-Elementfunktionen}
+\subsection{Dokumentation der Elementfunktionen}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!get\-Geo\-Coordinates@{get\-Geo\-Coordinates}}
 \index{get\-Geo\-Coordinates@{get\-Geo\-Coordinates}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
-\subsubsection[{get\-Geo\-Coordinates}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Geo\-Coordinates} {\bf de.\-joglearth.\-geometry.\-Camera.\-get\-Geo\-Coordinates} (
+\subsubsection[{get\-Geo\-Coordinates}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Geo\-Coordinates} de.\-joglearth.\-geometry.\-Camera.\-get\-Geo\-Coordinates (
 \begin{DoxyParamCaption}
-\item[{{\bf \-Screen\-Coordinates}}]{screen}
+\item[{{\bf Screen\-Coordinates}}]{screen}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_camera_afe9082eba345c6836dcee5d87ac3d046}
-\-Calculates the longitude and latitude coordinates of the point underneath a point on the screen.
+Calculates the longitude and latitude coordinates of the point underneath a point on the screen.
 
 
-\begin{DoxyParams}{\-Parameter}
-{\em screen} & \-The screen coordinates. \\
+\begin{DoxyParams}{Parameter}
+{\em screen} & The screen coordinates. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{\-Rückgabe}
-\-The surface coordinates if the point maps to the surface, null if it points outside the plane or globe (\char`\"{}space\char`\"{}). 
+\begin{DoxyReturn}{Rückgabe}
+The surface coordinates if the point maps to the surface, null if it points outside the plane or globe (\char`\"{}space\char`\"{}). 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!get\-Projection\-Matrix@{get\-Projection\-Matrix}}
 \index{get\-Projection\-Matrix@{get\-Projection\-Matrix}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
-\subsubsection[{get\-Projection\-Matrix}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Matrix4} {\bf de.\-joglearth.\-geometry.\-Camera.\-get\-Projection\-Matrix} (
+\subsubsection[{get\-Projection\-Matrix}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix4} de.\-joglearth.\-geometry.\-Camera.\-get\-Projection\-Matrix (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_camera_acddc48206fc1c2374010be00f23e0ef7}
-\-Returns the projection matrix derived from the current camera settings.
+Returns the projection matrix derived from the current camera settings.
 
-\-The result may be directly passed to \-Open\-G\-L as a projection matrix, and is guaranteed to produce a picture corresponding to whatever results the camera visibility and projection methods produced for these settings.
+The result may be directly passed to Open\-G\-L as a projection matrix, and is guaranteed to produce a picture corresponding to whatever results the camera visibility and projection methods produced for these settings.
 
-\begin{DoxyReturn}{\-Rückgabe}
-\-The projection matrix. 
+\begin{DoxyReturn}{Rückgabe}
+The projection matrix. 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!get\-Screen\-Coordinates@{get\-Screen\-Coordinates}}
 \index{get\-Screen\-Coordinates@{get\-Screen\-Coordinates}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
-\subsubsection[{get\-Screen\-Coordinates}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Screen\-Coordinates} {\bf de.\-joglearth.\-geometry.\-Camera.\-get\-Screen\-Coordinates} (
+\subsubsection[{get\-Screen\-Coordinates}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Screen\-Coordinates} de.\-joglearth.\-geometry.\-Camera.\-get\-Screen\-Coordinates (
 \begin{DoxyParamCaption}
-\item[{{\bf \-Geo\-Coordinates}}]{geo}
+\item[{{\bf Geo\-Coordinates}}]{geo}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_camera_a5dcfda10174ad76c0b414afe6478029c}
-\-Calculates the screen coodrinates of a visible point given in longitude and latitude coordinates. \-If the point is not visible, the result is unspecified.
+Calculates the screen coodrinates of a visible point given in longitude and latitude coordinates. If the point is not visible, the result is unspecified.
 
 
-\begin{DoxyParams}{\-Parameter}
-{\em geo} & \-The point's coordinates. \\
+\begin{DoxyParams}{Parameter}
+{\em geo} & The point's coordinates. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{\-Rückgabe}
-\-The coordinates of the point on the screen. 
+\begin{DoxyReturn}{Rückgabe}
+The coordinates of the point on the screen. 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!get\-Visible\-Tiles@{get\-Visible\-Tiles}}
 \index{get\-Visible\-Tiles@{get\-Visible\-Tiles}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
-\subsubsection[{get\-Visible\-Tiles}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Tile} [$\,$] {\bf de.\-joglearth.\-geometry.\-Camera.\-get\-Visible\-Tiles} (
+\subsubsection[{get\-Visible\-Tiles}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tile} [$\,$] de.\-joglearth.\-geometry.\-Camera.\-get\-Visible\-Tiles (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_camera_aa4704ce2be569a3551d3f43cf5a44646}
-\-Returns an array of tiles visible or partially visible by the camera.
+Returns an array of tiles visible or partially visible by the camera.
 
-\-All tiles have the same detail level, which is calculated from the distance and number of visible tiles.
+All tiles have the same detail level, which is calculated from the distance and number of visible tiles.
 
-\begin{DoxyReturn}{\-Rückgabe}
-\-The array of visible tiles. 
+\begin{DoxyReturn}{Rückgabe}
+The array of visible tiles. 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!is\-Point\-Visible@{is\-Point\-Visible}}
 \index{is\-Point\-Visible@{is\-Point\-Visible}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
-\subsubsection[{is\-Point\-Visible}]{\setlength{\rightskip}{0pt plus 5cm}boolean {\bf de.\-joglearth.\-geometry.\-Camera.\-is\-Point\-Visible} (
+\subsubsection[{is\-Point\-Visible}]{\setlength{\rightskip}{0pt plus 5cm}boolean de.\-joglearth.\-geometry.\-Camera.\-is\-Point\-Visible (
 \begin{DoxyParamCaption}
-\item[{{\bf \-Geo\-Coordinates}}]{geo}
+\item[{{\bf Geo\-Coordinates}}]{geo}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_camera_abe19e71f42da5fe01d3515b3efdf5153}
-\-Determines whether a surface point is visible by the camera. \-The visibility is limited by both the viewport (the clipping planes) and parts of the scene closer to the camera that might shadow others (the back of the globe, for example).
+Determines whether a surface point is visible by the camera. The visibility is limited by both the viewport (the clipping planes) and parts of the scene closer to the camera that might shadow others (the back of the globe, for example).
 
 
-\begin{DoxyParams}{\-Parameter}
-{\em geo} & \-The coordinates to check for. \\
+\begin{DoxyParams}{Parameter}
+{\em geo} & The coordinates to check for. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{\-Rückgabe}
-\-Whether the point is visible. 
+\begin{DoxyReturn}{Rückgabe}
+Whether the point is visible. 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!move@{move}}
 \index{move@{move}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
-\subsubsection[{move}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Camera.\-move} (
+\subsubsection[{move}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Camera.\-move (
 \begin{DoxyParamCaption}
 \item[{double}]{delta\-Lon, }
 \item[{double}]{delta\-Lat}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_camera_a69f1e07991f1f7e95e9b3d336a28eeb6}
-\-Changes the camera's surface position by difference values.
+Changes the camera's surface position by difference values.
 
 
-\begin{DoxyParams}{\-Parameter}
-{\em delta\-Lon} & \-The angular distance to move in longitude direction. \\
+\begin{DoxyParams}{Parameter}
+{\em delta\-Lon} & The angular distance to move in longitude direction. \\
 \hline
-{\em delta\-Lat} & \-The angular distance to move in latitude direction. \\
+{\em delta\-Lat} & The angular distance to move in latitude direction. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!reset\-Tilt@{reset\-Tilt}}
 \index{reset\-Tilt@{reset\-Tilt}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
-\subsubsection[{reset\-Tilt}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Camera.\-reset\-Tilt} (
+\subsubsection[{reset\-Tilt}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Camera.\-reset\-Tilt (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_camera_ab06fa6de4a7d086eea9d11ed94936b8c}
-\-Resets the camera tilt to x=y=0. \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!set\-Distance@{set\-Distance}}
+Resets the camera tilt to x=y=0. \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!set\-Distance@{set\-Distance}}
 \index{set\-Distance@{set\-Distance}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
-\subsubsection[{set\-Distance}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Camera.\-set\-Distance} (
+\subsubsection[{set\-Distance}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Camera.\-set\-Distance (
 \begin{DoxyParamCaption}
 \item[{double}]{distance}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_camera_a6aeda520b06ed43cd8cd322cad50b5e5}
-\-Sets the camera's distance to the surface.
+Sets the camera's distance to the surface.
 
 
-\begin{DoxyParams}{\-Parameter}
-{\em distance} & \-The distance. \\
+\begin{DoxyParams}{Parameter}
+{\em distance} & The distance. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!set\-Geometry@{set\-Geometry}}
 \index{set\-Geometry@{set\-Geometry}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
-\subsubsection[{set\-Geometry}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Camera.\-set\-Geometry} (
+\subsubsection[{set\-Geometry}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Camera.\-set\-Geometry (
 \begin{DoxyParamCaption}
-\item[{{\bf \-Geometry}}]{g}
+\item[{{\bf Geometry}}]{g}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_camera_a7a517b53cbcfabacfeaed8fd6c8b5b63}
-\-Sets a new geometry object for model-\/specific computations.
+Sets a new geometry object for model-\/specific computations.
 
 
-\begin{DoxyParams}{\-Parameter}
-{\em g} & \-The new geometry object. \\
+\begin{DoxyParams}{Parameter}
+{\em g} & The new geometry object. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!set\-Perspective@{set\-Perspective}}
 \index{set\-Perspective@{set\-Perspective}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
-\subsubsection[{set\-Perspective}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Camera.\-set\-Perspective} (
+\subsubsection[{set\-Perspective}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Camera.\-set\-Perspective (
 \begin{DoxyParamCaption}
 \item[{double}]{fov, }
 \item[{double}]{aspect\-Ratio, }
@@ -213,82 +205,64 @@ void {\bf surface\-Changed} ({\bf \-Tile} tile)
 \item[{double}]{far}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_camera_adb41b643cb5880cb93b32744ffaee1a1}
-\-Sets the parameters for the perspective transformation done by the projection matrix.
+Sets the parameters for the perspective transformation done by the projection matrix.
 
 
-\begin{DoxyParams}{\-Parameter}
-{\em fov} & \-The field of view, in radians. \-This is the angular distance of the left and right clipping plane. 90° (\-P\-I/2) by default. \\
+\begin{DoxyParams}{Parameter}
+{\em fov} & The field of view, in radians. This is the angular distance of the left and right clipping plane. 90° (P\-I/2) by default. \\
 \hline
-{\em aspect\-Ratio} & \-The aspect ratio, i.\-e. the width-\/to-\/height ratio. 1 by default. \\
+{\em aspect\-Ratio} & The aspect ratio, i.\-e. the width-\/to-\/height ratio. 1 by default. \\
 \hline
-{\em near} & \-The distance of the near clipping plane to the camera position. 0.\-1 by default. \\
+{\em near} & The distance of the near clipping plane to the camera position. 0.\-1 by default. \\
 \hline
-{\em far} & \-The distance of the far clipping plane to the camera position. 1000.\-0 by default. \\
+{\em far} & The distance of the far clipping plane to the camera position. 1000.\-0 by default. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!set\-Position@{set\-Position}}
 \index{set\-Position@{set\-Position}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
-\subsubsection[{set\-Position}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Camera.\-set\-Position} (
+\subsubsection[{set\-Position}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Camera.\-set\-Position (
 \begin{DoxyParamCaption}
-\item[{{\bf \-Geo\-Coordinates}}]{coords}
+\item[{{\bf Geo\-Coordinates}}]{coords}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_camera_accb57080d3b54b039dd2c319888456d0}
-\-Sets the position the camera is currently over.
+Sets the position the camera is currently over.
 
 
-\begin{DoxyParams}{\-Parameter}
-{\em coords} & \-The surface coordinates of the camera's position. \\
+\begin{DoxyParams}{Parameter}
+{\em coords} & The surface coordinates of the camera's position. \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!set\-Tilt@{set\-Tilt}}
 \index{set\-Tilt@{set\-Tilt}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
-\subsubsection[{set\-Tilt}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Camera.\-set\-Tilt} (
+\subsubsection[{set\-Tilt}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Camera.\-set\-Tilt (
 \begin{DoxyParamCaption}
 \item[{double}]{x, }
 \item[{double}]{y}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_camera_aae972a16bed0d01cebb14fd006ab16eb}
-\-Sets the camera tilt to a specific value.
+Sets the camera tilt to a specific value.
 
 
-\begin{DoxyParams}{\-Parameter}
-{\em x} & \-The tilt around the x axis (\char`\"{}up and down\char`\"{}). \\
+\begin{DoxyParams}{Parameter}
+{\em x} & The tilt around the x axis (\char`\"{}up and down\char`\"{}). \\
 \hline
-{\em y} & \-The tilt around the y axis (\char`\"{}left and right\char`\"{}). \\
-\hline
-\end{DoxyParams}
-\index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!surface\-Changed@{surface\-Changed}}
-\index{surface\-Changed@{surface\-Changed}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
-\subsubsection[{surface\-Changed}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Camera.\-surface\-Changed} (
-\begin{DoxyParamCaption}
-\item[{{\bf \-Tile}}]{tile}
-\end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1geometry_1_1_camera_a5c54667ccae2368b18b08810ca237b18}
-\-T\-O\-D\-O think of other description. \-Sends a notification that the surface was changed simultaneously to a tile that was changed. \-This can happen if a texture is loaded too late or a user added a marker.
-
-
-\begin{DoxyParams}{\-Parameter}
-{\em tile} & \-A new \doxyref{\-Tile}{\-S.}{classde_1_1joglearth_1_1geometry_1_1_tile} that should be displayed now \\
+{\em y} & The tilt around the y axis (\char`\"{}left and right\char`\"{}). \\
 \hline
 \end{DoxyParams}
-
-
-\-Implementiert {\bf de.\-joglearth.\-surface.\-Surface\-Listener} \doxyref{}{\-S.}{interfacede_1_1joglearth_1_1surface_1_1_surface_listener_a9a8245556a093a51c899014a98c6e572}.
-
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!tilt@{tilt}}
 \index{tilt@{tilt}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
-\subsubsection[{tilt}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-geometry.\-Camera.\-tilt} (
+\subsubsection[{tilt}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-geometry.\-Camera.\-tilt (
 \begin{DoxyParamCaption}
 \item[{double}]{delta\-X, }
 \item[{double}]{delta\-Y}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_camera_ad33f6da0b82dd367ecbd99dc98c3d4db}
-\-Changes the tilt by a difference value.
+Changes the tilt by a difference value.
 
 
-\begin{DoxyParams}{\-Parameter}
-{\em delta\-X} & \-The tilt difference around the x axis (\char`\"{}up and down\char`\"{}). \\
+\begin{DoxyParams}{Parameter}
+{\em delta\-X} & The tilt difference around the x axis (\char`\"{}up and down\char`\"{}). \\
 \hline
-{\em delta\-Y} & \-The tilt difference around the y axis (\char`\"{}left and right\char`\"{}). \\
+{\em delta\-Y} & The tilt difference around the y axis (\char`\"{}left and right\char`\"{}). \\
 \hline
 \end{DoxyParams}

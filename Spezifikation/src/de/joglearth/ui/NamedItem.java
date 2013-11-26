@@ -1,6 +1,12 @@
 package de.joglearth.ui;
 
 
+/**
+ * 
+ * @author trion
+ *
+ * @param E
+ */
 public class NamedItem<E> {
     private String caption;
     private E value;

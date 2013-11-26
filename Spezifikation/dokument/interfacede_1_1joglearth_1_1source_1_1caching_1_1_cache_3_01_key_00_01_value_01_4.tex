@@ -1,0 +1,78 @@
+\section{de.\-joglearth.\-source.\-caching.\-Cache$<$ Key, Value $>$ Schnittstellenreferenz}
+\label{interfacede_1_1joglearth_1_1source_1_1caching_1_1_cache_3_01_key_00_01_value_01_4}\index{de.\-joglearth.\-source.\-caching.\-Cache$<$ Key, Value $>$@{de.\-joglearth.\-source.\-caching.\-Cache$<$ Key, Value $>$}}
+Klassendiagramm für de.\-joglearth.\-source.\-caching.\-Cache$<$ Key, Value $>$\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{interfacede_1_1joglearth_1_1source_1_1caching_1_1_cache_3_01_key_00_01_value_01_4}
+\end{center}
+\end{figure}
+\subsection*{Öffentliche Methoden}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf put\-Object} (Key k, Value v)
+\item 
+void {\bf drop\-Object} (Key k)
+\item 
+Iterable$<$ Key $>$ {\bf get\-Existing\-Objects} ()
+\item 
+void {\bfseries drop\-All} ()\label{interfacede_1_1joglearth_1_1source_1_1caching_1_1_cache_3_01_key_00_01_value_01_4_a5f80139900d2147330955a4bfd865581}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Stores objects of type 
+
+with an identifier $<$\-Key$>$ and returns them on request according to their I\-D. 
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::source\-::caching\-::\-Cache$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Cache$<$ Key, Value $>$}!drop\-Object@{drop\-Object}}
+\index{drop\-Object@{drop\-Object}!de::joglearth::source::caching::Cache< Key, Value >@{de\-::joglearth\-::source\-::caching\-::\-Cache$<$ Key, Value $>$}}
+\subsubsection[{drop\-Object}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-caching.\-Cache$<$ Key, Value $>$.drop\-Object (
+\begin{DoxyParamCaption}
+\item[{Key}]{k}
+\end{DoxyParamCaption}
+)}\label{interfacede_1_1joglearth_1_1source_1_1caching_1_1_cache_3_01_key_00_01_value_01_4_a8489bd44c6848442a8aa8cc7c4a13cb0}
+Erases reference to object if key is valid I\-D of stored object.
+
+
+\begin{DoxyParams}{Parameter}
+{\em k} & I\-D of object to be dropped \\
+\hline
+\end{DoxyParams}
+
+
+Implementiert in {\bf de.\-joglearth.\-source.\-caching.\-Memory\-Cache$<$ Key, Value $>$} \doxyref{}{S.}{classde_1_1joglearth_1_1source_1_1caching_1_1_memory_cache_3_01_key_00_01_value_01_4_a33c591b306da4105b8703321c5765618}.
+
+\index{de\-::joglearth\-::source\-::caching\-::\-Cache$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Cache$<$ Key, Value $>$}!get\-Existing\-Objects@{get\-Existing\-Objects}}
+\index{get\-Existing\-Objects@{get\-Existing\-Objects}!de::joglearth::source::caching::Cache< Key, Value >@{de\-::joglearth\-::source\-::caching\-::\-Cache$<$ Key, Value $>$}}
+\subsubsection[{get\-Existing\-Objects}]{\setlength{\rightskip}{0pt plus 5cm}Iterable$<$Key$>$ de.\-joglearth.\-source.\-caching.\-Cache$<$ Key, Value $>$.get\-Existing\-Objects (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{interfacede_1_1joglearth_1_1source_1_1caching_1_1_cache_3_01_key_00_01_value_01_4_a482408fd3c7be507f7d51b421889a725}
+Returns all stored objects. Main purpose of this method is to inform classes about content when get new reference to cache that already exists and isn't empty anymore. 
+
+Implementiert in {\bf de.\-joglearth.\-source.\-caching.\-Memory\-Cache$<$ Key, Value $>$} \doxyref{}{S.}{classde_1_1joglearth_1_1source_1_1caching_1_1_memory_cache_3_01_key_00_01_value_01_4_a98e5a449b0ced05c622c782a8aa1f1ec}.
+
+\index{de\-::joglearth\-::source\-::caching\-::\-Cache$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Cache$<$ Key, Value $>$}!put\-Object@{put\-Object}}
+\index{put\-Object@{put\-Object}!de::joglearth::source::caching::Cache< Key, Value >@{de\-::joglearth\-::source\-::caching\-::\-Cache$<$ Key, Value $>$}}
+\subsubsection[{put\-Object}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-caching.\-Cache$<$ Key, Value $>$.put\-Object (
+\begin{DoxyParamCaption}
+\item[{Key}]{k, }
+\item[{Value}]{v}
+\end{DoxyParamCaption}
+)}\label{interfacede_1_1joglearth_1_1source_1_1caching_1_1_cache_3_01_key_00_01_value_01_4_ad2c805820ba476907fd53b4dcb255d50}
+Stores object if type is valid and key isn't used yet.
+
+
+\begin{DoxyParams}{Parameter}
+{\em k} & I\-D of object \\
+\hline
+{\em v} & object to be stored \\
+\hline
+\end{DoxyParams}
+
+
+Implementiert in {\bf de.\-joglearth.\-source.\-caching.\-Memory\-Cache$<$ Key, Value $>$} \doxyref{}{S.}{classde_1_1joglearth_1_1source_1_1caching_1_1_memory_cache_3_01_key_00_01_value_01_4_a1c757dc21fa73d5318867db45002aae2}.
+

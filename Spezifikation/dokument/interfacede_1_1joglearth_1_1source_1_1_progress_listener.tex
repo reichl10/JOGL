@@ -1,0 +1,36 @@
+\section{de.\-joglearth.\-source.\-Progress\-Listener Schnittstellenreferenz}
+\label{interfacede_1_1joglearth_1_1source_1_1_progress_listener}\index{de.\-joglearth.\-source.\-Progress\-Listener@{de.\-joglearth.\-source.\-Progress\-Listener}}
+\subsection*{Öffentliche Methoden}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf update\-Progress} (double prog)
+\item 
+void {\bf abort\-Pending\-Requests} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Listener interface notified on \doxyref{Progress\-Manager}{S.}{classde_1_1joglearth_1_1source_1_1_progress_manager} events. 
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::source\-::\-Progress\-Listener@{de\-::joglearth\-::source\-::\-Progress\-Listener}!abort\-Pending\-Requests@{abort\-Pending\-Requests}}
+\index{abort\-Pending\-Requests@{abort\-Pending\-Requests}!de::joglearth::source::ProgressListener@{de\-::joglearth\-::source\-::\-Progress\-Listener}}
+\subsubsection[{abort\-Pending\-Requests}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-Progress\-Listener.\-abort\-Pending\-Requests (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{interfacede_1_1joglearth_1_1source_1_1_progress_listener_ae16476f3daec5f2d01844f2ff65738d9}
+Called when \doxyref{Progress\-Manager.\-abort\-Pending\-Requests()}{S.}{classde_1_1joglearth_1_1source_1_1_progress_manager_a1666689a11a8ed6d10605ece6bf4348d} is invoked. An implementation should attempt to stop any pending asynchronous request. \index{de\-::joglearth\-::source\-::\-Progress\-Listener@{de\-::joglearth\-::source\-::\-Progress\-Listener}!update\-Progress@{update\-Progress}}
+\index{update\-Progress@{update\-Progress}!de::joglearth::source::ProgressListener@{de\-::joglearth\-::source\-::\-Progress\-Listener}}
+\subsubsection[{update\-Progress}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-Progress\-Listener.\-update\-Progress (
+\begin{DoxyParamCaption}
+\item[{double}]{prog}
+\end{DoxyParamCaption}
+)}\label{interfacede_1_1joglearth_1_1source_1_1_progress_listener_a34023ed7363f7455d96e3a905c05f824}
+Called when the global loading progress changes.
+
+
+\begin{DoxyParams}{Parameter}
+{\em prog} & The progress, where 0.\-0 equals 0\% and 1.\-0 equals 100\%. \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,88 @@
+\section{de.\-joglearth.\-source.\-Progress\-Manager Klassenreferenz}
+\label{classde_1_1joglearth_1_1source_1_1_progress_manager}\index{de.\-joglearth.\-source.\-Progress\-Manager@{de.\-joglearth.\-source.\-Progress\-Manager}}
+\subsection*{Öffentliche Methoden}
+\begin{DoxyCompactItemize}
+\item 
+synchronized void {\bf add\-Progress\-Listener} ({\bf Progress\-Listener} l)
+\item 
+synchronized void {\bf remove\-Progress\-Listener} ({\bf Progress\-Listener} l)
+\item 
+synchronized void {\bf abort\-Pending\-Requests} ()
+\item 
+synchronized void {\bf request\-Arrived} ()
+\item 
+synchronized void {\bf request\-Completed} ()
+\end{DoxyCompactItemize}
+\subsection*{Öffentliche, statische Methoden}
+\begin{DoxyCompactItemize}
+\item 
+static synchronized {\bf Progress\-Manager} {\bf get\-Instance} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Singleton class managing the global progress of asynchronous requests handled by Request\-Distributors. 
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::source\-::\-Progress\-Manager@{de\-::joglearth\-::source\-::\-Progress\-Manager}!abort\-Pending\-Requests@{abort\-Pending\-Requests}}
+\index{abort\-Pending\-Requests@{abort\-Pending\-Requests}!de::joglearth::source::ProgressManager@{de\-::joglearth\-::source\-::\-Progress\-Manager}}
+\subsubsection[{abort\-Pending\-Requests}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void de.\-joglearth.\-source.\-Progress\-Manager.\-abort\-Pending\-Requests (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1_progress_manager_a1666689a11a8ed6d10605ece6bf4348d}
+Removes all pending requests and notifies listeners that all remaining requests should be aborted. \index{de\-::joglearth\-::source\-::\-Progress\-Manager@{de\-::joglearth\-::source\-::\-Progress\-Manager}!add\-Progress\-Listener@{add\-Progress\-Listener}}
+\index{add\-Progress\-Listener@{add\-Progress\-Listener}!de::joglearth::source::ProgressManager@{de\-::joglearth\-::source\-::\-Progress\-Manager}}
+\subsubsection[{add\-Progress\-Listener}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void de.\-joglearth.\-source.\-Progress\-Manager.\-add\-Progress\-Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Progress\-Listener}}]{l}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1_progress_manager_af55cdcb08c0f04076d3d98ebdea11344}
+Adds a new progress listener which is notified whenever the overall progress changes or the pending requests are to be aborted.
+
+
+\begin{DoxyParams}{Parameter}
+{\em l} & The listener to add. \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::source\-::\-Progress\-Manager@{de\-::joglearth\-::source\-::\-Progress\-Manager}!get\-Instance@{get\-Instance}}
+\index{get\-Instance@{get\-Instance}!de::joglearth::source::ProgressManager@{de\-::joglearth\-::source\-::\-Progress\-Manager}}
+\subsubsection[{get\-Instance}]{\setlength{\rightskip}{0pt plus 5cm}static synchronized {\bf Progress\-Manager} de.\-joglearth.\-source.\-Progress\-Manager.\-get\-Instance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1source_1_1_progress_manager_a31a505e4bbd05c02162356576b8dfae2}
+Returns the instance of the singleton, creating it if it does not exist yet.
+
+\begin{DoxyReturn}{Rückgabe}
+The instance. 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::source\-::\-Progress\-Manager@{de\-::joglearth\-::source\-::\-Progress\-Manager}!remove\-Progress\-Listener@{remove\-Progress\-Listener}}
+\index{remove\-Progress\-Listener@{remove\-Progress\-Listener}!de::joglearth::source::ProgressManager@{de\-::joglearth\-::source\-::\-Progress\-Manager}}
+\subsubsection[{remove\-Progress\-Listener}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void de.\-joglearth.\-source.\-Progress\-Manager.\-remove\-Progress\-Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Progress\-Listener}}]{l}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1_progress_manager_a4cffeb36cc57fbedad50b94c034924f5}
+Removes an existing \doxyref{Progress\-Listener}{S.}{interfacede_1_1joglearth_1_1source_1_1_progress_listener} from the set of listeners.
+
+
+\begin{DoxyParams}{Parameter}
+{\em l} & The listener to remove. \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::source\-::\-Progress\-Manager@{de\-::joglearth\-::source\-::\-Progress\-Manager}!request\-Arrived@{request\-Arrived}}
+\index{request\-Arrived@{request\-Arrived}!de::joglearth::source::ProgressManager@{de\-::joglearth\-::source\-::\-Progress\-Manager}}
+\subsubsection[{request\-Arrived}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void de.\-joglearth.\-source.\-Progress\-Manager.\-request\-Arrived (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1_progress_manager_a52cfde4a89f57ea4e446935c8e2a921f}
+Adds a pending request, notifying all listeners of the change. \index{de\-::joglearth\-::source\-::\-Progress\-Manager@{de\-::joglearth\-::source\-::\-Progress\-Manager}!request\-Completed@{request\-Completed}}
+\index{request\-Completed@{request\-Completed}!de::joglearth::source::ProgressManager@{de\-::joglearth\-::source\-::\-Progress\-Manager}}
+\subsubsection[{request\-Completed}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void de.\-joglearth.\-source.\-Progress\-Manager.\-request\-Completed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1_progress_manager_a930313dfc8f55932e8adc77cc7ad8615}
+Marks a pending request as completed, notifying all listeners of the change. 

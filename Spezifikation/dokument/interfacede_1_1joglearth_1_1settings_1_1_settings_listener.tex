@@ -1,43 +1,43 @@
-\section{de.\-joglearth.\-settings.\-Settings\-Listener \-Schnittstellenreferenz}
+\section{de.\-joglearth.\-settings.\-Settings\-Listener Schnittstellenreferenz}
 \label{interfacede_1_1joglearth_1_1settings_1_1_settings_listener}\index{de.\-joglearth.\-settings.\-Settings\-Listener@{de.\-joglearth.\-settings.\-Settings\-Listener}}
-\-Klassendiagramm für de.\-joglearth.\-settings.\-Settings\-Listener\-:\begin{figure}[H]
+Klassendiagramm für de.\-joglearth.\-settings.\-Settings\-Listener\-:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=1.120000cm]{interfacede_1_1joglearth_1_1settings_1_1_settings_listener}
+\includegraphics[height=2.000000cm]{interfacede_1_1joglearth_1_1settings_1_1_settings_listener}
 \end{center}
 \end{figure}
-\subsection*{Öffentliche \-Methoden}
+\subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
-void {\bf settings\-Changed} (\-String key, \-Object val\-Old, \-Object val\-New)
+void {\bf settings\-Changed} (String key, Object val\-Old, Object val\-New)
 \end{DoxyCompactItemize}
 
 
-\subsection{\-Ausführliche \-Beschreibung}
-\-The listener interface to receive notification about a changed setting. \-The class interested in listening to settings changes implements this interface. \-The listener object created from that class can then be registered on a \doxyref{\-Settings}{\-S.}{classde_1_1joglearth_1_1settings_1_1_settings} object for a setting using \doxyref{\-Settings\#add\-Settings\-Listener(\-String key, Settings\-Listener listener)}{\-S.}{}. 
+\subsection{Ausführliche Beschreibung}
+The listener interface to receive notification about a changed setting. The class interested in listening to settings changes implements this interface. The listener object created from that class can then be registered on a \doxyref{Settings}{S.}{classde_1_1joglearth_1_1settings_1_1_settings} object for a setting using \doxyref{Settings\#add\-Settings\-Listener(\-String key, Settings\-Listener listener)}{S.}{}. 
 
-\subsection{\-Dokumentation der \-Elementfunktionen}
+\subsection{Dokumentation der Elementfunktionen}
 \index{de\-::joglearth\-::settings\-::\-Settings\-Listener@{de\-::joglearth\-::settings\-::\-Settings\-Listener}!settings\-Changed@{settings\-Changed}}
 \index{settings\-Changed@{settings\-Changed}!de::joglearth::settings::SettingsListener@{de\-::joglearth\-::settings\-::\-Settings\-Listener}}
-\subsubsection[{settings\-Changed}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf de.\-joglearth.\-settings.\-Settings\-Listener.\-settings\-Changed} (
+\subsubsection[{settings\-Changed}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-settings.\-Settings\-Listener.\-settings\-Changed (
 \begin{DoxyParamCaption}
-\item[{\-String}]{key, }
-\item[{\-Object}]{val\-Old, }
-\item[{\-Object}]{val\-New}
+\item[{String}]{key, }
+\item[{Object}]{val\-Old, }
+\item[{Object}]{val\-New}
 \end{DoxyParamCaption}
 )}\label{interfacede_1_1joglearth_1_1settings_1_1_settings_listener_a77fca7f974574ac990a8ed54cb076aef}
-\-Invoked if a setting this listener has be registered on is changed.
+Invoked if a setting this listener has be registered on is changed.
 
 
-\begin{DoxyParams}{\-Parameter}
-{\em key} & \-The key of the changed setting \\
+\begin{DoxyParams}{Parameter}
+{\em key} & The key of the changed setting \\
 \hline
-{\em val\-Old} & \-The old value of the setting, can be null if there wasn't any \\
+{\em val\-Old} & The old value of the setting, can be null if there wasn't any \\
 \hline
-{\em val\-New} & \-The new value of the setting, can be null \\
+{\em val\-New} & The new value of the setting, can be null \\
 \hline
 \end{DoxyParams}
 
 
-\-Implementiert in {\bf de.\-joglearth.\-rendering.\-Renderer} \doxyref{}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_renderer_ae069b700ba6bdbef09879072a443bf00}, {\bf de.\-joglearth.\-surface.\-Location\-Manager} \doxyref{}{\-S.}{classde_1_1joglearth_1_1surface_1_1_location_manager_a5cb5a6e42aff0c82ee889c37ae72bfcc} und {\bf de.\-joglearth.\-surface.\-Height\-Map\-Manager} \doxyref{}{\-S.}{classde_1_1joglearth_1_1surface_1_1_height_map_manager_ae732b1d485cb410bbb1de7e2c41dda60}.
+Implementiert in {\bf de.\-joglearth.\-surface.\-Location\-Manager} \doxyref{}{S.}{classde_1_1joglearth_1_1surface_1_1_location_manager_a5cb5a6e42aff0c82ee889c37ae72bfcc}.
 
