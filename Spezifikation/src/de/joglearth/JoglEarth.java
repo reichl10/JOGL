@@ -10,7 +10,14 @@ import de.joglearth.ui.MainWindow;
  */
 public final class JoglEarth {
 
+    /**
+     * The product title. Might be altered to mark milestones.
+     */
     public static String PRODUCT_NAME = "Jogl Earth";
+    
+    /**
+     * The current product version. Altered between releases.
+     */
     public static String PRODUCT_VERSION = "0.1";
     
 	/**

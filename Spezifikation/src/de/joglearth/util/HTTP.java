@@ -8,6 +8,8 @@ package de.joglearth.util;
  */
 public final class HTTP {
 
+    private HTTP() {}
+    
     /**
      * Gathers information via a HTTP get-request and is used for synchronous HTTP queries.
      * 

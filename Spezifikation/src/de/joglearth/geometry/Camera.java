@@ -25,6 +25,7 @@ public class Camera {
     private Geometry geometry;
     private List<CameraListener> listeners;
     
+    
     private void notifyListeners() {
         
     }
