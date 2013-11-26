@@ -1115,23 +1115,25 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 \newpage
 
 \section{Einstellungsdatei}
-Die XML-Datei die von der \texttt{SettingsContract} Klasse muss den hier festgelegten Regeln folgen.
-Die XML-Datei muss UTF-8 encoding  und den XML 1.0 Standard benutzen. \\
+Die XML-Datei der \texttt{SettingsContract} Klasse muss den hier festgelegten Regeln folgen.
+Sie muss sowohl UTF-8 encoding als auch den XML 1.0 Standard benutzen. \\
 \texttt{<?xml version="{}1.0"{} encoding="{}UTF-8"{} ?>} \\
 Sie besitzt ein Wurzelelement \texttt{settings}
 \begin{itemize}
- \item das Element kann keines oder mehr Kindelemente des Typs \texttt{entry} und keines oder mehr des Typs \texttt{locations}.
- \item Die Elemente des Typs \texttt{entry} und \texttt{locations} müssen nicht in einer bestimmten Reihenfolge angeordnet sein.
+ \item das Element kann null oder mehr Kindelemente des Typs \texttt{entry} oder \texttt{locations} enthalten.
+ \item Die Elemente der Typen \texttt{entry} und \texttt{locations} dürfen beliebeig angeordnet sein.
 \end{itemize}
 
-Das \texttt{entry} Element:
+Das \texttt{entry} Element
 \begin{itemize}
  \item besitzt keine Kindelemente
  \item muss die folgenden Attribute besitzen: \texttt{key}, \texttt{type}, \texttt{value}
- \item das \texttt{key} Attribut enthält einen String und ist der key des Elements. Es sollte einzigartig für \texttt{entry} Elemente in dieser Datei sein.
- \item das \texttt{type} Attribut kann einen der folgenden Strings enthalten: Integer, Boolean, Long, Double, Float, String
-  Dieser Typ definiert zu welchen Java Standard API Typ der String im \texttt{value} Attribut geparsed werden muss, and von welchem er mit \texttt{toString} umgewandelt wurde.
-   \item das \texttt{value} Attribut enthält eine String Repräsentation des wertes dieses Eintrages.
+ \begin{itemize}
+ \item Das String-Attribut \texttt{key} ist der Elementschlüssel und muss somit eindeutig für \texttt{entry} Elemente dieser Datei sein.
+ \item Das String-Attribut \texttt{type} kann einen der folgenden Werte enthalten: Integer, Boolean, Long, Double, Float, String.
+  Dieser Typ definiert zu welchem Java Standard API Typ der String im \texttt{value} Attribut geparsed werden muss, und aus welchem Typ er mittels \texttt{toString} umgewandelt wurde.
+   \item Das \texttt{value} Attribut enthält eine String Repräsentation des Wertes dieses Eintrages.
+ \end{itemize}
 \end{itemize}
 
  Das \texttt{locations} Element:
