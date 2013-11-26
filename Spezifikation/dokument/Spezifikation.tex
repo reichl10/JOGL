@@ -148,10 +148,10 @@
 \textbf{{\huge OpenStreetMap: Die Welt in 3D}}
 
 \vspace{1.5 cm}
-22.11.2013
+29.11.2013
 
 \vspace{0.5 cm}
-Version: 1.0
+Version: 1.1
 
 \vspace{1.5 cm}
 {\Large Projektbetreuer: Peter Barth}
@@ -206,7 +206,7 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 
 \section{Getestete Klassen}
 
-\begin{tabular}{|p{4cm}|p{10cm}|}
+\begin{tabular}{|p{4cm}|p{11cm}|}
 \hline 
 \rule[-1ex]{0pt}{4ex} \textbf{Klasse} & \textbf{Erläuterung} \\ 
 \hline
@@ -447,6 +447,36 @@ Die Tabelle gibt eine Übersicht über die in \JoglEarth verfügbaren Kachelserv
 
 \vspace{1.5 cm}
 
+\section{Nominatim Suchanfragen}
+
+Die Suche nach Orten oder Sehenswürdigkeiten erfolgt über Nominatim dafür wird von OpenStreetMap der Server \textit{http://nominatim.openstreetmap.org/search/} bereitgestellt. \\
+Die folgenden Anfrageparameter sind als HTTP GET-Request zu formulieren.
+
+\vspace{1.5 cm}
+
+\begin{tabular}{|p{5cm}|p{11cm}|}
+\hline
+\textbf{Parameter} & \textbf{Beschreibung} \\
+\hline
+\hline
+q = $<$query$>$ & Suchbegriff (Ort oder Sehenswürdigkeit) \\
+\hline
+format = [xml$|$json] & Format der Rückgabe \\
+\hline
+accept-language = [de$|$en] & Sprache in der die Suchergebnisse angezeigt werden sollen. Bei der Angabe mehrerer Sprachen, z.B. \textit{accept-language = de,en} wird das Suchergebnis vorrangig in Deutsch und nachranging in Englisch übermittelt. \\
+\hline
+viewbox = $<$left$>$,$<$top$>$,$<$right$>$,$<$bottom$>$ & Begrenzung des Suchbereichs (FOV). Vergleichbar mit \textit{$<$bbox-query  n="{}$<$top$>$"{} s="{}$<$bottom$>$"{} w="{}$<$left$>$"{} e="{}$<$right$>$"{}  /$>$} in der Overpass-API. \\
+\hline
+limit = $<$integer$>$ & Gibt an wie viele Ergebnisse maximal zurückgegeben werden sollen. Standardwert von Nominatim ist 10.\\
+\hline
+adressdetails = [0$|$1] & Erweitert die Suchergebnisse um Details zu den Adressen. \textit{0} bedeutet \textit{aus} und \textit{1} bedeutet \textit{an}. \\
+\hline
+\end{tabular}
+
+\vspace{1.5 cm}
+
+\newpage
+
 \section{Liste der POIs}
 Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann im Rahmen dieses Projekts nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den  Antworten der OverpassAPI vorgenommen.\\
 
@@ -647,7 +677,7 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 </osm-script>
 \end{lstlisting}\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} FOOD &  
+\rule[-1ex]{0pt}{4ex} GROCERY &  
 \begin{lstlisting}
 <osm-script>
   <union>
@@ -815,7 +845,7 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 \setlength{\extrarowheight}{4mm}
 \begin{longtable}{|p{4cm} p{10cm}|}%{L{0.35} R{1.65}}
 \hline
-\rule[-1ex]{0pt}{4ex} OUTDOORACTIVITY &   
+\rule[-1ex]{0pt}{4ex} HIKING\_CYCLING &   
 \begin{lstlisting}
 <osm-script>
   <union>
