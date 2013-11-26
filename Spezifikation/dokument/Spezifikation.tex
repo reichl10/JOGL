@@ -1308,17 +1308,24 @@ Unterkünfte & hotels \\
 
 
 
-\chapter{Verbesserungen gegenüber dem Entwurf}
+\chapter{Änderungen gegenüber dem Entwurf}
 
 Nach der Entwurfsphase wurden in erster Linie die Cache- und Sourceverwaltung in Singletons gekapselt, um parallele Zugriffe auf dieselben Cacheverzeichnisse zu unterbinden.
 
 Desweiteren wurde mit dem \textit{ProgressManager} ein Mechanismus zum globalen Verfolgen des Ladezustands eingefügt. Dieser wird von der GUI benötigt um einen Fortschrittsbalken anzeigen zu können.
 
-Um die Renderzeit zu optimieren, wurde des weiteren ein Source/Cache-Paar nach Vorbild des TextureCache/Source entworfen, der Kachelmeshes, die von Tessellatoren erzeugt wurden, als \textit{Vertex Buffer Object} in OpenGL lädt und verdrängt.
+Um die Renderzeit zu optimieren, wurde außerdem ein Source/Cache-Paar nach Vorbild des TextureCache/Source entworfen, der Kachelmeshes, die von Tessellatoren erzeugt wurden, als \textit{Vertex Buffer Object} in OpenGL lädt und verdrängt.
+
+Um die Umsetzung von Schlüsseln zu Dateinamen und zurück zu ermöglichen, wurde das \textit{PathTranslator}-Interface und deren Implementierungen \textit{OSMPathTranslator} und \textit{SRTMPathTranslator} entwickelt. 
+
+Nach deren Vorbild wurde der \textit{RequestDistributor} umstrukturiert, sodass nun die Größenbestimmung der Cache-Elemente Aufgabe der \textit{ObjectMeasure}-Schnittstelle und ihrer Implementierungen ist.
 
 \section{Packages}
 
-Da durch den Singleton-Ansatz zusätzliche Klassen erforderlich werden, wurde das \textit{source}-Paket aufgeteilt. Insgesamt sind folgende neue Packages enthalten:
+Da durch den Singleton-Ansatz zusätzliche Klassen erforderlich werden, wurde das \textit{source}-Paket aufgeteilt. 
+
+\subsection*{Neue Packages}
+Insgesamt sind folgende neue Packages enthalten:
 \begin{itemize}
 \item de.joglearth.source.nominatim
 \item de.joglearth.source.overpass
@@ -1328,6 +1335,7 @@ Da durch den Singleton-Ansatz zusätzliche Klassen erforderlich werden, wurde da
 \item de.joglearth.source.util
 \end{itemize}
 
+\subsection*{Verschobene Pakete}
 Aus semantischen Gründen wurde ein Paket umbenannt:
 \begin{itemize}
 \item de.joglearth.caching $ \rightarrow $ de.joglearth.source.caching
@@ -1335,6 +1343,7 @@ Aus semantischen Gründen wurde ein Paket umbenannt:
 
 \section{Klassen, Interfaces und Enumerations}
 
+\subsection*{Verschobene Elemente}
 Es wurden folgende Definitionen umbenannt oder verschoben:
 
 \begin{itemize}
@@ -1351,16 +1360,47 @@ Es wurden folgende Definitionen umbenannt oder verschoben:
 \item de.joglearth.source.TextureSource $ \rightarrow $ de.joglearth.source.opengl.TileTextureSource
 \end{itemize}
 
+\subsection*{Gelöschte Elemente}
 Es fällt eine Klasse weg:
 
 \begin{itemize}
 \item de.joglearth.caching.BinaryRequestDistributor
 \end{itemize}
 
+\subsection*{Neue Elemente}
 Die folgenden Klassen, Interfaces und Enumerations sind hinzugekommen:
 
 \begin{itemize}
-\item de.joglearth.
+\item de.joglearth.rendering.DisplayMode
+\item de.joglearth.rendering.LevelOfDetail
+\item de.joglearth.source.ProgressManager
+\item de.joglearth.source.ProgressListener
+\item de.joglearth.source.caching.ByteArrayMeasure
+\item de.joglearth.source.caching.ObjectMeasure
+\item de.joglearth.source.caching.PathTranslator
+\item de.joglearth.source.caching.UnityMeasure
+\item de.joglearth.source.nominatim.NominatimManager
+\item de.joglearth.source.opengl.TileMeshManager
+\item de.joglearth.source.opengl.VertexBufferCache
+\item de.joglearth.source.osm.OSMPathTranslator
+\item de.joglearth.source.osm.OSMTile
+\item de.joglearth.source.osm.OSMTileManager
+\item de.joglearth.source.overpass.OverpassManager
+\item de.joglearth.source.srtm.SRTMTileSource
+\item de.joglearth.source.srtm.SRTMPathTranslator
+\item de.joglearth.source.srtm.SRTMTileIndex
+\item de.joglearth.source.srtm.SRTMTileManager
+\item de.joglearth.surface.MapLayout
+\item de.joglearth.surface.SingleMapType
+\item de.joglearth.surface.TiledMapType
+\item de.joglearth.surface.TileMeshManager
+\item de.joglearth.ui.AboutBox
+\item de.joglearth.ui.AddTagWindow
+\item de.joglearth.ui.IconizedItem
+\item de.joglearth.ui.IconListCellRenderer
+\item de.joglearth.ui.NamedItem
+\item de.joglearth.util.Resource
+\item de.joglearth.util.Predicate
 \end{itemize}
 
 
