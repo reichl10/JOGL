@@ -12,6 +12,9 @@ import de.joglearth.source.caching.RequestDistributor;
 import de.joglearth.source.opengl.TileMeshSource;
 import de.joglearth.source.opengl.VertexBufferCache;
 
+/**
+ * Creates and cashes tile meshes as OpenGL vertex buffer objects.
+ */
 public class TileMeshManager implements Source<Tile, Integer> {
 
 	private final int VERTEX_BUFFER_CACHE_SIZE = 50;
@@ -22,6 +25,12 @@ public class TileMeshManager implements Source<Tile, Integer> {
 	private VertexBufferCache cache;
 	private TileMeshSource source;
 
+	/**
+	 * Creates a new {@link TileMeshManager} as it initializes the source, the cache, sets
+	 * the {@link RequestDistributor} and adds a surface listener from {@link HeightMapManager}.
+	 * @param gl The GL context
+	 * @param t The {@link de.joglearth.rendering.Tessellator} that should be used
+	 */
 	public TileMeshManager(GL2 gl, Tessellator t) {
 		source = new TileMeshSource(gl, t);
 		cache = new VertexBufferCache(gl);
@@ -39,16 +48,28 @@ public class TileMeshManager implements Source<Tile, Integer> {
 				});
 	}
 
+	/**
+	 * 
+	 * @param t
+	 */
 	public void setTessellator(Tessellator t) {
 		source.setTessellator(t);
 		dist.dropAll();
 	}
 
+	/**
+	 * 
+	 * @param sub
+	 */
 	public void setTileSubdivisions(int sub) {
 		source.setTileSubdivisions(sub);
 		dist.dropAll();
 	}
 
+	/**
+	 * 
+	 * @param enable
+	 */
 	public void enableHeightMap(boolean enable) {
 		source.enableHeightMap(enable);
 		dist.dropAll();
