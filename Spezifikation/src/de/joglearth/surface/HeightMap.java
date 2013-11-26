@@ -5,7 +5,7 @@ import de.joglearth.source.srtm.SRTMTileManager;
 
 
 /**
- * Singleton class for interpolation of informations about the height of points displayed on the
+ * Static class for the interpolation of information about the height of points displayed on the
  * map. For that purpose SRTM height data is used. A {@link de.joglearth.rendering.Tessellator}
  * uses this class to generate a map surface by the {@link HeightMap}.
  */

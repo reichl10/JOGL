@@ -7,42 +7,47 @@ import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.caching.Cache;
 
+
+/**
+ * Manages and displaces vertex buffer objects in OpenGl graphics memory.
+ */
 public class VertexBufferCache implements Cache<Tile, Integer> {
 
-	private GL2 gl;
-	
-	public VertexBufferCache(GL2 gl) {
-		this.gl = gl;
-	}
+    private GL2 gl;
 
-	@Override
-	public SourceResponse<Integer> requestObject(Tile key,
-			SourceListener<Tile, Integer> sender) {
-		// TODO Automatisch generierter Methodenstub
-		return null;
-	}
 
-	@Override
-	public void putObject(Tile k, Integer v) {
-		// TODO Automatisch generierter Methodenstub
-		
-	}
+    /**
+     * Constructor. Initializes the {@link VertexBufferCache} and assigns a value to the GL context.
+     * 
+     * @param gl The GL context
+     */
+    public VertexBufferCache(GL2 gl) {
+        this.gl = gl;
+    }
 
-	@Override
-	public void dropObject(Tile k) {
-		// TODO Automatisch generierter Methodenstub
-		
-	}
+    @Override
+    public SourceResponse<Integer> requestObject(Tile key,
+            SourceListener<Tile, Integer> sender) {
+        return null;
+    }
 
-	@Override
-	public Iterable<Tile> getExistingObjects() {
-		return null;
-	}
+    @Override
+    public void putObject(Tile k, Integer v) {
 
-	@Override
-	public void dropAll() {
-		// TODO Automatisch generierter Methodenstub
-		
-	}
+    }
 
+    @Override
+    public void dropObject(Tile k) {
+
+    }
+
+    @Override
+    public Iterable<Tile> getExistingObjects() {
+        return null;
+    }
+
+    @Override
+    public void dropAll() {
+
+    }
 }

@@ -9,13 +9,14 @@ import de.joglearth.source.SourceResponse;
 
 
 /**
- * Loads the textures into the OpenGL object where each texture gets it own ID and implements
- * {@link Source} to get a new texture, when it is needed. Owns a {@link Source}.
+ * Loads the textures into OpenGL returning the ID. Implements {@link Source} to get a new texture,
+ * when it is needed. Owns a {@link Source} for image data.
  */
 public class TileTextureSource implements Source<Tile, Integer> {
 
     private GL2                  gl;
     private Source<Tile, byte[]> imageSource;
+
 
     @Override
     public SourceResponse<Integer> requestObject(Tile key,

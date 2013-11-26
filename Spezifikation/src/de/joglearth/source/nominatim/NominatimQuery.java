@@ -27,10 +27,10 @@ public class NominatimQuery {
 
 
     /**
-     * <code>Type</code> of the NominatimQuery.
-     * 
+     * {@link Type} of the {@link NominatimQuery}.
      */
     public enum Type {
+
         /**
          * Global search of points.
          */

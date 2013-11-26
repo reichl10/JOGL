@@ -6,7 +6,9 @@ import de.joglearth.geometry.Tile;
 import de.joglearth.source.Source;
 import de.joglearth.source.caching.MemoryCache;
 
-
+/**
+ * Manages and displaces textures in OpenGl graphics memory. 
+ */
 public class TextureCache extends MemoryCache<Tile, Integer> {
 
 	private GL2 gl;
