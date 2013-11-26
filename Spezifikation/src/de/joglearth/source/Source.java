@@ -1,6 +1,5 @@
 package de.joglearth.source;
 
-
 /**
  * Offers methods to get objects identified by a specific key; gets the results in a synchronous or
  * an asynchronous way.
