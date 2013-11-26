@@ -111,6 +111,7 @@ public final class Settings {
 
     /**
      * Removes the given {@link Location} from the given key.
+     * The Location that is removed is found by the <code>this == value || this.equals(value)</code>
      * 
      * @param key the key the <code>Location</code> should be removed from
      * @param value the <code>Location</code> to remove
