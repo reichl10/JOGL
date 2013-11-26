@@ -28,7 +28,7 @@ public enum LocationType {
     /**
      * Returns supermarkets, bakeries, butchers and drug stores.
      */
-    FOOD,
+    GROCERY_SHOPS,
 
     /**
      * Returns a variety of shops.
@@ -45,7 +45,7 @@ public enum LocationType {
      * Returns outdoor pursuits for bikers and hikers like picnic places and lookouts, benches,
      * rubbish bins and bike shops.
      */
-    OUTDOOR_ACTIVITY,
+    HIKING_AND_CYCLING,
 
     /**
      * Returns educational institutions.
