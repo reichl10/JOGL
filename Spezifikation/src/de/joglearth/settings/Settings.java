@@ -110,6 +110,14 @@ public final class Settings {
     }
 
     /**
+     * Removes the given {@link Location} from the given key.
+     * 
+     * @param key the key the <code>Location</code> should be removed from
+     * @param value the <code>Location</code> to remove
+     */
+    public synchronized void dropLocation(final String key, final Location value) {}
+
+    /**
      * Stores a setting of type <code>Boolean</code> using a given key.
      * 
      * @param key The key of the setting
