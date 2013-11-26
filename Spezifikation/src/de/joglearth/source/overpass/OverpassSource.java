@@ -5,9 +5,9 @@ import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.surface.Location;
 
+
 /**
  * Provides responses from the OverpassAPI, for e.g. detailed information to a POI or a place.
- * 
  */
 public class OverpassSource implements Source<OverpassQuery, Location[]> {
 

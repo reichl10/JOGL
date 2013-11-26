@@ -7,9 +7,9 @@ import de.joglearth.util.HTTP;
 
 
 /**
- * Uses the {@link HTTP} to get the SRTM data from NASA servers. The size of the SRTM tiles is
- * 90 x 90 meters. The SRTM tiles include all information of a required point about the height above
- * the sea level. Only necessary if the HightProfile is activated.
+ * Loads SRTM data from NASA servers. The size of the {@link SRTMTiles} is 90 x 90 meters. The SRTM
+ * tiles include all information of a required point about the height above the sea level. Only
+ * necessary if the HightProfile is activated.
  * 
  */
 public class SRTMBinarySource implements Source<SRTMTileIndex, byte[]> {
@@ -22,13 +22,14 @@ public class SRTMBinarySource implements Source<SRTMTileIndex, byte[]> {
     // Verwaltung? Sollen u.U. unerreichbare Server markiert werden?
     private final String[] servers = null;
 
+
     /**
      * Constructor. Initializes the {@link SRTMTileSource}.
      * 
      * @param servers An array of servers delivered as Strings
      */
-    public SRTMBinarySource() {
-    }
+    public SRTMBinarySource() {}
+
     @Override
     public SourceResponse<byte[]> requestObject(SRTMTileIndex key,
             SourceListener<SRTMTileIndex, byte[]> sender) {

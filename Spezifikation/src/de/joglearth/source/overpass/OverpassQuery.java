@@ -5,14 +5,14 @@ import de.joglearth.surface.LocationType;
 
 
 /**
- * Supports a query to the OverpassAPI. All results, e.g. POIs or city names are within the FOV. The
+ * Supplies a query to the OverpassAPI. All results, e.g. POIs or city names are within the FOV. The
  * size of the FOV (the associated tiles) must be part of the query.
- * 
  */
 public class OverpassQuery {
 
     public Tile         area;
     public LocationType query;
+
 
     /**
      * Constructor for a query in a given area. Assigns a value to a {@link LocationType} and a

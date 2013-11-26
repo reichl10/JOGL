@@ -6,7 +6,6 @@ import de.joglearth.surface.TiledMapType;
 
 /**
  * Loads OpenStreetMap image tiles by their coordinates via HTTP.
- * 
  */
 public class OSMTileSource implements Source<OSMTile, byte[]> {
 
@@ -19,7 +18,6 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
     private final String[] servers;
 
 
-    // Owner: Wie bei Source
     /**
      * Constructor. Initializes the {@link OSMTileSource}.
      * 
