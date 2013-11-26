@@ -8,6 +8,7 @@ import java.util.TreeSet;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
+import de.joglearth.util.Predicate;
 
 
 /**
@@ -63,7 +64,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value>, Sourc
      */
     public void setSource(Source<Key, Value> source) {
         this.source = source;
-                
     }
 
     /**
@@ -148,6 +148,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value>, Sourc
     
     public void dropAll() {
     	
+    }
+    
+    public void dropAll(Predicate<Key> pred) {
+        
     }
     
     public void dropObject(Key k) {

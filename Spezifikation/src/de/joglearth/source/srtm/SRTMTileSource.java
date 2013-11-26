@@ -1,14 +1,14 @@
 package de.joglearth.source.srtm;
 
-import de.joglearth.source.HTTPUtils;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
+import de.joglearth.util.HTTP;
 
 
 
 /**
- * Uses the {@link HTTPUtils} to get the SRTM data from NASA server. The level of detail of a pixel
+ * Uses the {@link HTTP} to get the SRTM data from NASA server. The level of detail of a pixel
  * in the SRTM tiles is 90 x 90 meters. The SRTM tiles include all information of a required point
  * about the height. As 'standard elevation zero' the WGS84 spheroid is used. Necessary when the HeightProfile is activated. Only
  * necessary if the HightProfile is activated.

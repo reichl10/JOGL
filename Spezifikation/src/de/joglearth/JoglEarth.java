@@ -1,7 +1,7 @@
 package de.joglearth;
 
 import de.joglearth.geometry.Camera;
-import de.joglearth.surface.HeightMapManager;
+import de.joglearth.surface.HeightMap;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.rendering.*;
 import de.joglearth.ui.*;

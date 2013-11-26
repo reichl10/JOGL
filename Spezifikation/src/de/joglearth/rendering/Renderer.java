@@ -8,7 +8,7 @@ import javax.media.opengl.awt.GLCanvas;
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.Tile;
-import de.joglearth.surface.HeightMapManager;
+import de.joglearth.surface.HeightMap;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.surface.TiledMapType;
 import de.joglearth.surface.SurfaceListener;
@@ -37,7 +37,7 @@ public class Renderer implements Runnable, CameraListener, SettingsListener, Sur
      * Constructor initializes the OpenGL functionalities.
      * 
      * @param canv {@link com.jogamp.opengl.swt.GLCanvas} object of the GUI.
-     * @param height {@link HeightMapManager} that provides the height of a point.
+     * @param height {@link HeightMap} that provides the height of a point.
      * @param locationManager {@link LocationManager} that provides the information about Overlays
      *        to be displayed.
      * @param camera TODO {@link Camera}
@@ -191,8 +191,10 @@ public class Renderer implements Runnable, CameraListener, SettingsListener, Sur
 
     }
 
+
+
     @Override
-    public void surfaceChanged(Tile tile) {
+    public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
         // TODO Automatisch generierter Methodenstub
         
     }

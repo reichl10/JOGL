@@ -15,5 +15,5 @@ public interface SurfaceListener {
      * 
      * @param tile A new {@link Tile} that should be displayed now
      */
-    void surfaceChanged(Tile tile);
+    void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo);
 }

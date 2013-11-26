@@ -6,6 +6,7 @@ import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.caching.FileSystemCache;
 import de.joglearth.source.caching.MemoryCache;
+import de.joglearth.source.srtm.SRTMTileManager;
 import de.joglearth.source.srtm.SRTMTileSource;
 
 
@@ -14,25 +15,11 @@ import de.joglearth.source.srtm.SRTMTileSource;
  * map. For that purpose SRTM height data is used. A {@link de.joglearth.rendering.Tessellator}
  * uses this class to generate a map surface by the {@link HeightMap}.
  */
-public class HeightMapManager {
+public class HeightMap {
     
-    private static HeightMapManager instance = null;
+    private final static SRTMTileManager srtm = SRTMTileManager.getInstance();
     
-
-    /**
-     * Returns the existing instance of {@link HeightMapManager}. If there is no such object, it's
-     * created.
-     * @return The singletons instance.
-     */
-    public static HeightMapManager getInstance() {
-        if (instance == null) {
-            instance = new HeightMapManager();
-        }
-        return instance;
-    }
-
-    //Private constructor for the HeightMapManager
-    private HeightMapManager() {
+    private HeightMap() {
     }
 
     /**
@@ -43,7 +30,7 @@ public class HeightMapManager {
      * @return The height of the wanted point, <code>0</code> if the height of the point is not yet
      *         in the cache
      */
-    public double getHeight(GeoCoordinates coords) {
+    public static double getHeight(GeoCoordinates coords) {
         /*
          * approximate longitude and latitude to arcsec, determine tileCoordinate, request tile
          * from cache, interpolate height value.
@@ -56,8 +43,8 @@ public class HeightMapManager {
      * 
      * @param l The new listener
      */
-    public void addSurfaceListener(SurfaceListener l) {
-
+    public static void addSurfaceListener(SurfaceListener l) {
+        srtm.addSurfaceListener(l);
     }
 
     /**
@@ -65,7 +52,7 @@ public class HeightMapManager {
      * 
      * @param l The listener that should be removed
      */
-    public void removeSurfaceListener(SurfaceListener l) {
+    public static void removeSurfaceListener(SurfaceListener l) {
 
     }
 }

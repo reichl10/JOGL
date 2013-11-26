@@ -1,7 +1,7 @@
 package de.joglearth.rendering;
 
 import de.joglearth.geometry.Tile;
-import de.joglearth.surface.HeightMapManager;
+import de.joglearth.surface.HeightMap;
 
 
 

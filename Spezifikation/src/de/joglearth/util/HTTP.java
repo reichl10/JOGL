@@ -1,4 +1,4 @@
-package de.joglearth.source;
+package de.joglearth.util;
 
 /**
  * 
@@ -6,7 +6,7 @@ package de.joglearth.source;
  * two static methods (GET, POST) for HTTP queries.
  * 
  */
-public final class HTTPUtils {
+public final class HTTP {
 
     /**
      * Gathers information via a HTTP get-request and is used for synchronous HTTP queries.
