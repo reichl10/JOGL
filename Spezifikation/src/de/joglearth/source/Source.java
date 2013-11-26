@@ -1,7 +1,5 @@
 package de.joglearth.source;
 
-import de.joglearth.geometry.Tile;
-
 
 /**
  * Offers methods to get objects identified by a specific key; gets the results in a synchronous or

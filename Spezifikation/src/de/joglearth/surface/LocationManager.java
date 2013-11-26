@@ -4,11 +4,8 @@ import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.Tile;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsListener;
-import de.joglearth.source.SourceListener;
-import de.joglearth.source.caching.MemoryCache;
 import de.joglearth.source.nominatim.NominatimQuery;
 import de.joglearth.source.nominatim.NominatimSource;
-import de.joglearth.source.overpass.OverpassQuery;
 import de.joglearth.source.overpass.OverpassSource;
 
 

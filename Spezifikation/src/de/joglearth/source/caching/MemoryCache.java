@@ -2,10 +2,10 @@ package de.joglearth.source.caching;
 
 import java.util.HashMap;
 
-import de.joglearth.geometry.Tile;
-import de.joglearth.rendering.*;
-import de.joglearth.source.*;
-import de.joglearth.ui.*;
+import de.joglearth.source.SourceListener;
+import de.joglearth.source.SourceResponse;
+import de.joglearth.source.SourceResponseType;
+
 
 // Cache-Reference-Typ ist Integer, da die interne Speicherung wohl
 // mit Arrays oder HashMap<Integer, Value> funktioniert

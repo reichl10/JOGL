@@ -1,7 +1,6 @@
 package de.joglearth.source.caching;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.TreeSet;
 
