@@ -1,4 +1,4 @@
-package de.joglearth.ui;
+package de.joglearth.util;
 
 import java.io.IOException;
 

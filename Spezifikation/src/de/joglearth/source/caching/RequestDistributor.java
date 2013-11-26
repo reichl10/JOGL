@@ -17,7 +17,7 @@ import de.joglearth.util.Predicate;
  * 
  * 
  */
-public class RequestDistributor<Key, Value> implements Source<Key, Value>, SourceListener<Key, Value> {
+public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
     private int[] FreeCacheSpace;
     private ArrayList<TreeSet<CacheEntry>> tree;
@@ -88,7 +88,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value>, Sourc
     }
 
     
-    /**
+    /*
      * Adds element <code>response</code> to it's first cache and updates FreeCacheSpace.
      * Calls <code>displace()</code> if cache is already full.
      * Also erases <code>Key</code> of <code>response</code> from <code>pendingRequests</code> 
@@ -97,11 +97,11 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value>, Sourc
      * 
      * @param response The requested entry to be added to the Cache
      * 
-     */
+    
     @Override
     public void requestCompleted(Key k, Value v) {
     }
-
+ */
     /**
      * When cache exists, drop last used entry from cache and add it to next lower cache if 
      * cache exists. Method calls itself recursive if next lower cache is full.

@@ -1,5 +1,7 @@
 package de.joglearth.geometry;
 
+import java.util.List;
+
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.surface.HeightMap;
@@ -13,7 +15,7 @@ import de.joglearth.surface.SurfaceListener;
  * operations on the camera. In multi-threaded code, these blocks of operations should be
  * synchronized on the camera object.
  */
-public class Camera implements SurfaceListener {
+public class Camera {
 
     private GeoCoordinates position;
     private double distance;
@@ -21,6 +23,11 @@ public class Camera implements SurfaceListener {
     private double tiltY;
     private Matrix4 clipMatrix, projectionMatrix;
     private Geometry geometry;
+    private List<CameraListener> listeners;
+    
+    private void notifyListeners() {
+        
+    }
 
 
     private void updateProjectionMatrix() {
@@ -31,6 +38,19 @@ public class Camera implements SurfaceListener {
         projectionMatrix.mult(clipMatrix);
     }
 
+
+    private class SurfaceHeightListener implements SurfaceListener {
+
+        @Override
+        public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
+            if (position.getLatitude() >= latFrom && position.getLatitude() <= latTo
+                    && position.getLongitude() >= lonFrom && position.getLongitude() <= lonTo) {
+                notifyListeners();
+            }
+        }
+    }
+
+
     /**
      * Constructor.
      * 
@@ -40,6 +60,7 @@ public class Camera implements SurfaceListener {
      */
     public Camera() {
         setPerspective((double) Math.PI / 2, 1, 0.1f, 1000);
+        HeightMap.addSurfaceListener(new SurfaceHeightListener());
     }
 
     /**
@@ -195,10 +216,13 @@ public class Camera implements SurfaceListener {
     public Matrix4 getProjectionMatrix() {
         return projectionMatrix;
     }
-    @Override
-    public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
-        // TODO Automatisch generierter Methodenstub
-        
+
+    public void addCameraListener(CameraListener l) {
+
+    }
+
+    public void removeCameraListener(CameraListener l) {
+
     }
 
 }

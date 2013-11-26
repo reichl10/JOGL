@@ -77,7 +77,7 @@ import javax.swing.JSlider;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import static de.joglearth.ui.Resource.loadIcon;
+import static de.joglearth.util.Resource.loadIcon;
 
 import javax.swing.JSpinner;
 import javax.swing.border.TitledBorder;
@@ -87,8 +87,7 @@ import javax.swing.border.LineBorder;
 /**
  * This class is used to create the main ui window for joglearth.
  */
-public class MainWindow extends JFrame implements SurfaceListener,
-        LocationListener, CameraListener, SettingsListener {
+public class MainWindow extends JFrame {
 
     /**
      * Launch the application.
@@ -130,10 +129,7 @@ public class MainWindow extends JFrame implements SurfaceListener,
      * Stores the reference to the <code>ViewEventListener</code> that is created on initialization.
      */
     private ViewEventListener viewEventListener;
-    /**
-     * Stores the reference to the <code>GUIEventListener</code> that is created on initialization.
-     */
-    private GUIEventListener guiEventListener;
+
     /**
      * Stores the reference to the <code>Camera</code> that it gets through the constructor.
      */
@@ -163,7 +159,6 @@ public class MainWindow extends JFrame implements SurfaceListener,
         this.locationManager = locationManager;
         this.camera = camera;
         this.viewEventListener = new ViewEventListener(camera);
-        this.guiEventListener = new GUIEventListener(camera);
         getContentPane().setLayout(
                 new FormLayout(new ColumnSpec[] {
                         ColumnSpec.decode("130dlu"),
@@ -718,19 +713,44 @@ public class MainWindow extends JFrame implements SurfaceListener,
         return null;
     }
 
-    @Override
-    public void settingsChanged(final String key, final Object valOld,
-            final Object valNew) {}
 
-    @Override
-    public void cameraViewChanged() {}
+    private class UISettingsListener implements SettingsListener {
 
-    @Override
-    public void searchResultsAvailable(final Location[] results) {}
+        @Override
+        public void settingsChanged(String key, Object valOld, Object valNew) {
+            // TODO Automatisch generierter Methodenstub
 
-    @Override
-    public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
-        // TODO Automatisch generierter Methodenstub
+        }
+
+    }
+
+    private class UICameraListener implements CameraListener {
+
+        @Override
+        public void cameraViewChanged() {
+            // TODO Automatisch generierter Methodenstub
+
+        }
+
+    }
+
+    private class UILocationListener implements LocationListener {
+
+        @Override
+        public void searchResultsAvailable(Location[] results) {
+            // TODO Automatisch generierter Methodenstub
+
+        }
+
+    }
+
+    private class UISurfaceListener implements SurfaceListener {
+
+        @Override
+        public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
+            // TODO Automatisch generierter Methodenstub
+
+        }
 
     }
 }

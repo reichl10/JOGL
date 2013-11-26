@@ -15,7 +15,7 @@ import de.joglearth.source.srtm.SRTMTileSource;
  * map. For that purpose SRTM height data is used. A {@link de.joglearth.rendering.Tessellator}
  * uses this class to generate a map surface by the {@link HeightMap}.
  */
-public class HeightMap {
+public final class HeightMap {
     
     private final static SRTMTileManager srtm = SRTMTileManager.getInstance();
     

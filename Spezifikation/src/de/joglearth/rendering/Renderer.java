@@ -7,9 +7,12 @@ import javax.media.opengl.awt.GLCanvas;
 
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
+import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Tile;
 import de.joglearth.surface.HeightMap;
 import de.joglearth.surface.LocationManager;
+import de.joglearth.surface.MapLayout;
+import de.joglearth.surface.SingleMapType;
 import de.joglearth.surface.TiledMapType;
 import de.joglearth.surface.SurfaceListener;
 import de.joglearth.surface.TextureManager;
@@ -17,10 +20,11 @@ import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.osm.OSMTileSource;
 
+
 /**
  * Handles the OpenGL rendering.
  */
-public class Renderer implements Runnable, CameraListener, SettingsListener, SurfaceListener {
+public class Renderer {
 
     private GL2 gl;
     private boolean quit = false;
@@ -31,6 +35,54 @@ public class Renderer implements Runnable, CameraListener, SettingsListener, Sur
     private Camera camera;
     private DisplayMode activeDisplayMode;
     private TiledMapType activeMapType;
+    private MapLayout mapLayout;
+    private SingleMapType singleMapType;
+    private TiledMapType tiledMapType;
+    private DisplayMode displayMode;
+
+
+    private class Worker implements Runnable {
+
+        @Override
+        public void run() {
+            // TODO Automatisch generierter Methodenstub
+            /*
+             * while (!isQuit()) { if (isRunning() || isPosted()) {
+             * 
+             * // code render();
+             * 
+             * synchronized (this) { posted = false; } } }
+             */
+        }
+    }
+    
+    
+    private class SurfaceValidator implements SurfaceListener {
+
+        @Override
+        public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
+            GeoCoordinates[] edges = { new GeoCoordinates(lonFrom, latFrom),
+                                       new GeoCoordinates(lonFrom,  latTo),
+                                       new GeoCoordinates(lonTo, latFrom),
+                                       new GeoCoordinates(lonTo, latTo) };
+            for (GeoCoordinates geo: edges) {
+                if (camera.isPointVisible(geo)) {
+                    post(); 
+                    break;
+                }
+            }
+        }        
+    }
+    
+    
+    private class GraphicsSettingsListener implements SettingsListener {
+
+        @Override
+        public void settingsChanged(String key, Object valOld, Object valNew) {
+            // TODO Automatisch generierter Methodenstub
+            
+        }        
+    }
 
 
     /**
@@ -48,37 +100,41 @@ public class Renderer implements Runnable, CameraListener, SettingsListener, Sur
         this.gl = canv.getGL().getGL2();
         canv.addGLEventListener(new RendererEventListener());
         this.textureManager = new TextureManager(gl);
-        textureManager.addSurfaceListener(this);
+        
+        SurfaceValidator surfaceValidator = new SurfaceValidator();
+        textureManager.addSurfaceListener(surfaceValidator);
+        locationManager.addSurfaceListener(surfaceValidator);
+        
+        
+        
+        camera.addCameraListener(new CameraListener() {
+            
+            @Override
+            public void cameraViewChanged() {
+                post();
+            }
+        });
     }
-
-
 
     /*
      * TODO Returns if the window is quit.
      * 
      * @return Is the window quit?
-     *
-    private synchronized boolean isQuit() {
-        return quit;
-    }
-
-    /**
-     * Returns if the OpenGL rendering loop is running.
+     * 
+     * private synchronized boolean isQuit() { return quit; }
+     * 
+     * /** Returns if the OpenGL rendering loop is running.
      * 
      * @return Is OpenGL rendering loop running?
-     *
-    private synchronized boolean isRunning() {
-        return running;
-    }
-
-    /**
-     * Returns if the surface has changed and a new render process is needed.
+     * 
+     * private synchronized boolean isRunning() { return running; }
+     * 
+     * /** Returns if the surface has changed and a new render process is needed.
      * 
      * @return Should the window be re-rendered.
-     *
-    private synchronized boolean isPosted() {
-        return posted;
-    }*/
+     * 
+     * private synchronized boolean isPosted() { return posted; }
+     */
 
     // Benachrichtigt den Renderer, dass mindestens ein Frame gerendert
     // werden muss. Wenn vorher start() aufgerufen wurde, hat die
@@ -112,39 +168,21 @@ public class Renderer implements Runnable, CameraListener, SettingsListener, Sur
         running = false;
     }
 
-    @Override
-    /*
-     * TODO wenn beides false ist thread anhalten!
-     */
-    public void run() {
-      /*  while (!isQuit()) {
-            if (isRunning() || isPosted()) {
-
-                // code
-                render();
-
-                synchronized (this) {
-                    posted = false;
-                }
-            }
-        }*/
-    }
-
     /*
      * Re-renders the OpenGL view.
-     *
-    private void render() {
-
-    }
-
-    /**
-     * TODO
+     * 
+     * private void render() {
+     * 
+     * }
+     * 
+     * /** TODO
      * 
      * Initializes the OpenGL settings.
-     *
-    private void initialize() {
-
-    }*/
+     * 
+     * private void initialize() {
+     * 
+     * }
+     */
 
     /**
      * Quits the Renderer thread.
@@ -169,7 +207,7 @@ public class Renderer implements Runnable, CameraListener, SettingsListener, Sur
 
         @Override
         public void init(GLAutoDrawable drawable) {
-           // initialize();
+            // initialize();
         }
 
         @Override
@@ -178,25 +216,21 @@ public class Renderer implements Runnable, CameraListener, SettingsListener, Sur
         }
     }
 
-
-    @Override
-    public void settingsChanged(String key, Object valOld, Object valNew) {
-        // TODO Automatisch erstellter Methoden-Stub
-
+    public void setDisplayMode(DisplayMode m) {
+        displayMode = m;
+        post();
     }
 
-    @Override
-    public void cameraViewChanged() {
-        // TODO Automatisch erstellter Methoden-Stub
-
+    public void setMapType(SingleMapType t) {
+        mapLayout = MapLayout.SINGLE;
+        singleMapType = t;
+        post();
     }
 
-
-
-    @Override
-    public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
-        // TODO Automatisch generierter Methodenstub
-        
+    public void setMapType(TiledMapType t) {
+        mapLayout = MapLayout.TILED;
+        tiledMapType = t;
+        post();
     }
 
 }
