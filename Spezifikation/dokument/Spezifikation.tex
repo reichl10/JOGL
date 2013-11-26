@@ -456,6 +456,27 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 \hline 
 \rule[-1ex]{0pt}{4ex} \textbf{ENUM \textit{LocationType}} &  \textbf{Overpass Query} \\ 
 \hline  \hline
+\rule[-1ex]{0pt}{4ex} SHOPS & 
+\begin{lstlisting}
+<osm-script>
+  <union>
+  <query type="node">
+    <has-kv k="shop" v="" />
+    <bbox-query  n="" s="" w="" e=""  />
+  </query>
+  <query type="way">
+    <has-kv k="shop" v="" />
+    <bbox-query  n="" s="" w="" e=""  />
+  </query>
+  <query type="relation">
+    <has-kv k="shop" v="" />
+    <bbox-query  n="" s="" w="" e=""  />
+  </query>
+  </union>
+  <print/>
+</osm-script>
+\end{lstlisting} \\ 
+\hline
 \rule[-1ex]{0pt}{4ex} RESTAURANT &
 \lstset{language=XML}  
 \begin{lstlisting} 
@@ -681,27 +702,6 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
   <print/>
 </osm-script>
 \end{lstlisting}\\ 
-\hline
-\rule[-1ex]{0pt}{4ex} SHOPS & 
-\begin{lstlisting}
-<osm-script>
-  <union>
-  <query type="node">
-    <has-kv k="shop" v="" />
-    <bbox-query  n="" s="" w="" e=""  />
-  </query>
-  <query type="way">
-    <has-kv k="shop" v="" />
-    <bbox-query  n="" s="" w="" e=""  />
-  </query>
-  <query type="relation">
-    <has-kv k="shop" v="" />
-    <bbox-query  n="" s="" w="" e=""  />
-  </query>
-  </union>
-  <print/>
-</osm-script>
-\end{lstlisting} \\ 
 \hline
 \rule[-1ex]{0pt}{4ex} ACTIVITY &  
 \begin{lstlisting}
