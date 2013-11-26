@@ -23,22 +23,25 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
 import de.joglearth.JoglEarth;
+import static de.joglearth.util.Resource.loadIcon;
 
 
+/**
+ * Dialog window class displaying version and licensing information.
+ */
 public class AboutBox extends JDialog {
 
     /**
      * Makes the compiler happy.
      */
     private static final long serialVersionUID = -3023220810789138152L;
-    
+
     private final JPanel contentPanel = new JPanel();
     private JTextArea aboutTextArea;
 
 
     /**
-     * @internal
-     * Launch the application.
+     * @internal Launch the application.
      */
     public static void main(String[] args) {
         try {
@@ -47,15 +50,6 @@ public class AboutBox extends JDialog {
             dialog.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    private static ImageIcon loadIconResource(String name) {
-        try {
-            return new ImageIcon(ImageIO.read(Thread.currentThread().getContextClassLoader()
-                    .getResource(name)));
-        } catch (IOException e) {
-            return null;
         }
     }
 
@@ -88,7 +82,7 @@ public class AboutBox extends JDialog {
             logoPanel.setLayout(new BoxLayout(logoPanel, BoxLayout.X_AXIS));
             {
                 JLabel logoLeftLabel = new JLabel("");
-                logoLeftLabel.setIcon(loadIconResource("icons/AboutJogl.png"));
+                logoLeftLabel.setIcon(loadIcon("icons/AboutJogl.png"));
                 logoPanel.add(logoLeftLabel);
             }
             {
@@ -102,7 +96,7 @@ public class AboutBox extends JDialog {
                                 RowSpec.decode("bottom:default"), }));
                 {
                     JLabel logoRightLabel = new JLabel("");
-                    logoRightLabel.setIcon(loadIconResource("icons/AboutEarth.png"));
+                    logoRightLabel.setIcon(loadIcon("icons/AboutEarth.png"));
                     logoRightPanel.add(logoRightLabel, "2, 1");
                 }
                 {

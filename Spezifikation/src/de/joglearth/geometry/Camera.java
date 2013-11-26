@@ -24,12 +24,11 @@ public class Camera {
     private Matrix4 clipMatrix, projectionMatrix;
     private Geometry geometry;
     private List<CameraListener> listeners;
-    
-    
-    private void notifyListeners() {
-        
-    }
 
+
+    private void notifyListeners() {
+
+    }
 
     private void updateProjectionMatrix() {
         Matrix4 cameraMatrix = new Matrix4();

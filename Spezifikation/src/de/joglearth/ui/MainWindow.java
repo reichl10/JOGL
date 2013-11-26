@@ -68,13 +68,12 @@ import javax.swing.border.TitledBorder;
 
 
 /**
- * This class is used to create the main ui window for joglearth.
+ * The main UI window class.
  */
 public class MainWindow extends JFrame {
 
     /**
      * @internal
-     * Launch the application.
      */
     public static void main(String[] args) {
         try {
@@ -126,15 +125,54 @@ public class MainWindow extends JFrame {
     private JPanel mapOptionsPanel;
     private JComboBox<?> mapTypeComboBox;
     private JComboBox<IconizedItem<DisplayMode>> displayModeComboBox;
+    private JPanel viewTab, placesTab, settingsTab, detailsPanel, viewPanel;
 
 
-    /**
-     * Constructor to create he window out of a given {@link LocationManager} and {@link Camera}.
-     * 
-     * @param locationManager the <code>LocationManager</code> used by this window
-     * @param camera the <code>Camera</code> used by this window
-     */
-    public MainWindow(final LocationManager locationManager, final Camera camera) {
+    private class HideSideBarListener extends MouseAdapter {
+
+        boolean visible = true;
+
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            visible = !visible;
+            ((FormLayout) getContentPane().getLayout()).setColumnSpec(1,
+                    ColumnSpec.decode(visible ? "130dlu" : "0dlu"));
+            sidebarHideIconLabel.setIcon(visible ? hideIcon : showIcon);
+            getContentPane().revalidate();
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            sideBarHideLinePanel.setBackground(new Color(0xa8a8a8));
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            sideBarHideLinePanel.setBackground(Color.LIGHT_GRAY);
+
+        }
+    };
+
+    private class MapTypePair {
+
+        public MapLayout layout;
+        public Object type;
+
+
+        public MapTypePair(SingleMapType s) {
+            layout = MapLayout.SINGLE;
+            type = s;
+        }
+
+        public MapTypePair(TiledMapType s) {
+            layout = MapLayout.TILED;
+            type = s;
+        }
+    }
+
+
+    private void initializeWindow() {
         setBackground(UIManager.getColor("inactiveCaption"));
         getContentPane().setBackground(UIManager.getColor("inactiveCaption"));
         setTitle(JoglEarth.PRODUCT_NAME);
@@ -166,10 +204,81 @@ public class MainWindow extends JFrame {
         sideBar.add(sideBarTabs, "1, 2, fill, fill");
         sideBarTabs.setBackground(UIManager.getColor("menu"));
 
-        JPanel viewTab = new JPanel();
+        viewTab = new JPanel();
         sideBarTabs.addTab("View", loadIcon("icons/view.png"), viewTab,
                 null);
         sideBarTabs.setEnabledAt(0, true);
+        placesTab = new JPanel();
+        sideBarTabs.addTab("Places", loadIcon("icons/places.png"),
+                placesTab, null);
+        sideBarTabs.setEnabledAt(1, true);
+        settingsTab = new JPanel();
+        sideBarTabs.addTab("Settings", loadIcon("icons/settings.png"),
+                settingsTab, null);
+        sideBarTabs.setEnabledAt(2, true);
+        detailsPanel = new JPanel();
+        sideBar.add(detailsPanel, "1, 4, fill, fill");
+
+        JPanel sideBarHidePanel = new JPanel();
+        sideBarHidePanel.addMouseListener(new HideSideBarListener());
+        getContentPane().add(sideBarHidePanel, "2, 1, fill, fill");
+        sideBarHidePanel.setLayout(new FormLayout(new ColumnSpec[] {
+                ColumnSpec.decode("default:grow"),
+                ColumnSpec.decode("5px"),
+                ColumnSpec.decode("default:grow"), },
+                new RowSpec[] {
+                        RowSpec.decode("4dlu:grow"),
+                        RowSpec.decode("0dlu"), }));
+
+        sideBarHideLinePanel = new JPanel();
+        sideBarHideLinePanel.setBackground(Color.LIGHT_GRAY);
+        sideBarHidePanel.add(sideBarHideLinePanel, "2, 1, fill, fill");
+        sideBarHideLinePanel.setLayout(new FormLayout(new ColumnSpec[] {
+                ColumnSpec.decode("default:grow"), },
+                new RowSpec[] {
+                        RowSpec.decode("default:grow"), }));
+
+        sidebarHideIconLabel = new JLabel("");
+        sidebarHideIconLabel.setIcon(hideIcon);
+        sideBarHideLinePanel.add(sidebarHideIconLabel, "1, 1");
+        
+        viewPanel = new JPanel();
+        getContentPane().add(viewPanel, "3, 1, fill, fill");
+    }
+       
+    private void initializeDetailsPanel() {
+        detailsPanel.setBorder(BorderFactory.createTitledBorder("Details"));        
+        detailsPanel.setLayout(new FormLayout(new ColumnSpec[] {
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                ColumnSpec.decode("default:grow"),
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC, },
+                new RowSpec[] {
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        RowSpec.decode("default:grow"),
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
+
+        JLabel detailNameLabel = new JLabel("Unknown location");
+        detailsPanel.add(detailNameLabel, "2, 2");
+
+        JButton userTagButton = new JButton("Add user tag");
+        userTagButton.setHorizontalAlignment(SwingConstants.LEFT);
+        userTagButton.setIcon(loadIcon("icons/addTag.png"));
+        userTagButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent arg0) {}
+        });
+
+        JLabel detailDescriptionLabel = new JLabel("No description available.");
+        detailsPanel.add(detailDescriptionLabel, "2, 4, default, top");
+        detailsPanel.add(userTagButton, "2, 6");
+    }
+    
+    
+    private void initializeViewTab() {
         viewTab.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.RELATED_GAP_COLSPEC,
                 ColumnSpec.decode("default:grow"),
@@ -223,22 +332,6 @@ public class MainWindow extends JFrame {
         JLabel mapTypeLabel = new JLabel("Map type:");
         mapOptionsPanel.add(mapTypeLabel, "1, 1");
 
-        class MapTypePair {
-
-            public MapLayout layout;
-            public Object type;
-
-            public MapTypePair(SingleMapType s) {
-                layout = MapLayout.SINGLE;
-                type = s;
-            }
-
-            public MapTypePair(TiledMapType s) {
-                layout = MapLayout.TILED;
-                type = s;
-            }
-        }
-
         JComboBox<IconizedItem<MapTypePair>> paraMapTypeComboBox = new JComboBox<IconizedItem<MapTypePair>>();
         mapTypeComboBox = paraMapTypeComboBox;
         mapOptionsPanel.add(paraMapTypeComboBox, "1, 3");
@@ -256,12 +349,11 @@ public class MainWindow extends JFrame {
         paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>("OpenStreetMap",
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAP)));
         paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>("Children's Map",
-                loadIcon("icons/mapChildren.png"), new MapTypePair(SingleMapType.CHILDREN)));
-
-        JPanel placesTab = new JPanel();
-        sideBarTabs.addTab("Places", loadIcon("icons/places.png"),
-                placesTab, null);
-        sideBarTabs.setEnabledAt(1, true);
+                loadIcon("icons/mapChildren.png"), new MapTypePair(SingleMapType.CHILDREN)));        
+    }
+    
+    
+    private void initializePlacesTab() {
         placesTab.setLayout(new FormLayout(new ColumnSpec[] {
                 ColumnSpec.decode("2dlu"),
                 ColumnSpec.decode("default:grow"),
@@ -359,10 +451,11 @@ public class MainWindow extends JFrame {
         JList overlayList = new JList();
         overlayScrollPane.setViewportView(overlayList);
 
-        JPanel settingsTab = new JPanel();
-        sideBarTabs.addTab("Settings", loadIcon("icons/settings.png"),
-                settingsTab, null);
-        sideBarTabs.setEnabledAt(2, true);
+        
+    }
+    
+    
+    private void initializeSettingsTab() {
         settingsTab.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.RELATED_GAP_COLSPEC,
                 ColumnSpec.decode("default:grow"),
@@ -494,89 +587,10 @@ public class MainWindow extends JFrame {
         JButton aboutButton = new JButton("About");
         manualAboutPanel.add(aboutButton, "3, 1");
         aboutButton.setIcon(loadIcon("icons/info.png"));
-
-        JPanel detailsPanel = new JPanel();
-        detailsPanel.setBorder(BorderFactory.createTitledBorder("Details"));
-        sideBar.add(detailsPanel, "1, 4, fill, fill");
-        detailsPanel.setLayout(new FormLayout(new ColumnSpec[] {
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-                ColumnSpec.decode("default:grow"),
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC, },
-                new RowSpec[] {
-                        FormFactory.NARROW_LINE_GAP_ROWSPEC,
-                        FormFactory.DEFAULT_ROWSPEC,
-                        FormFactory.RELATED_GAP_ROWSPEC,
-                        RowSpec.decode("default:grow"),
-                        FormFactory.RELATED_GAP_ROWSPEC,
-                        FormFactory.DEFAULT_ROWSPEC,
-                        FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
-
-        JLabel detailNameLabel = new JLabel("Unknown location");
-        detailsPanel.add(detailNameLabel, "2, 2");
-
-        JButton userTagButton = new JButton("Add user tag");
-        userTagButton.setHorizontalAlignment(SwingConstants.LEFT);
-        userTagButton.setIcon(loadIcon("icons/addTag.png"));
-        userTagButton.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent arg0) {}
-        });
-
-        JLabel detailDescriptionLabel = new JLabel("No description available.");
-        detailsPanel.add(detailDescriptionLabel, "2, 4, default, top");
-        detailsPanel.add(userTagButton, "2, 6");
-
-        MouseListener hideSideBarListener = new MouseAdapter() {
-
-            boolean visible = true;
-
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                visible = !visible;
-                ((FormLayout) getContentPane().getLayout()).setColumnSpec(1,
-                        ColumnSpec.decode(visible ? "130dlu" : "0dlu"));
-                sidebarHideIconLabel.setIcon(visible ? hideIcon : showIcon);
-                getContentPane().revalidate();
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                sideBarHideLinePanel.setBackground(new Color(0xa8a8a8));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                sideBarHideLinePanel.setBackground(Color.LIGHT_GRAY);
-
-            }
-        };
-
-        JPanel sideBarHidePanel = new JPanel();
-        sideBarHidePanel.addMouseListener(hideSideBarListener);
-        getContentPane().add(sideBarHidePanel, "2, 1, fill, fill");
-        sideBarHidePanel.setLayout(new FormLayout(new ColumnSpec[] {
-                ColumnSpec.decode("default:grow"),
-                ColumnSpec.decode("5px"),
-                ColumnSpec.decode("default:grow"), },
-                new RowSpec[] {
-                        RowSpec.decode("4dlu:grow"),
-                        RowSpec.decode("0dlu"), }));
-
-        sideBarHideLinePanel = new JPanel();
-        sideBarHideLinePanel.setBackground(Color.LIGHT_GRAY);
-        sideBarHidePanel.add(sideBarHideLinePanel, "2, 1, fill, fill");
-        sideBarHideLinePanel.setLayout(new FormLayout(new ColumnSpec[] {
-                ColumnSpec.decode("default:grow"), },
-                new RowSpec[] {
-                        RowSpec.decode("default:grow"), }));
-
-        sidebarHideIconLabel = new JLabel("");
-        sidebarHideIconLabel.setIcon(hideIcon);
-        sideBarHideLinePanel.add(sidebarHideIconLabel, "1, 1");
-
-        JPanel viewPanel = new JPanel();
-        getContentPane().add(viewPanel, "3, 1, fill, fill");
+    }
+    
+    
+    private void initializeViewPanel() {
         viewPanel.setLayout(new FormLayout(new ColumnSpec[] {
                 ColumnSpec.decode("default:grow"),
                 ColumnSpec.decode("center:20dlu"), }, new RowSpec[] {
@@ -685,6 +699,22 @@ public class MainWindow extends JFrame {
         statusBar.add(progressBar, "6, 1");
         progressBar.setStringPainted(true);
         progressBar.setValue(100);
+    }
+    
+
+    /**
+     * Constructor.
+     * 
+     * @param locationManager The <code>LocationManager</code> associated with this window.
+     * @param camera the <code>Camera</code> used by this window
+     */
+    public MainWindow(final LocationManager locationManager, final Camera camera) {
+        initializeWindow();
+        initializeViewTab();
+        initializePlacesTab();
+        initializeSettingsTab();
+        initializeDetailsPanel();
+        initializeViewPanel();
     }
 
     /**

@@ -5,9 +5,10 @@ import de.joglearth.surface.Location;
 
 
 /**
- * Used to store settings of JoglEarth. A key can only have one value. If put a value of an other
- * type under the same key it replaces the old value of the other type. For key the
- * <code>null</code> object is not allowed. This Class is thread save.
+ * Used to store settings of JoglEarth. A key can only have one value, except for Locations where
+ * multiple can exist under the same key. If put a value of an other type under the same key it
+ * replaces the old value of the other type. For key the <code>null</code> object is not allowed.
+ * This class is thread-safe.
  */
 public final class Settings {
 
@@ -30,7 +31,7 @@ public final class Settings {
      * 
      * @return The settings
      */
-    public static Settings getInstance() {
+    public static synchronized Settings getInstance() {
         if (instance == null) {
             instance = new Settings();
         }
@@ -38,8 +39,7 @@ public final class Settings {
     }
 
     /**
-     * Add a {@link SettingsListener} to be called if the
-     * setting with the given name is changed.
+     * Add a {@link SettingsListener} to be called if the setting with the given name is changed.
      * 
      * @param key The key of the setting
      * @param listener The listener to be called
@@ -49,8 +49,8 @@ public final class Settings {
     }
 
     /**
-     * Unregisters the given {@link SettingsListener} from being called if the setting with
-     * the given name changes.
+     * Unregisters the given {@link SettingsListener} from being called if the setting with the
+     * given name changes.
      * 
      * @param key The key of the setting
      * @param listener The listener to remove
@@ -65,7 +65,7 @@ public final class Settings {
      * @param key The key of the setting
      * @param value The value of the setting
      */
-    public void putInteger(final String key, final Integer value) {
+    public synchronized void putInteger(final String key, final Integer value) {
 
     }
 
@@ -75,7 +75,7 @@ public final class Settings {
      * @param key The key of the setting
      * @param value The value of the setting
      */
-    public void putDouble(final String key, final Double value) {
+    public synchronized void putDouble(final String key, final Double value) {
 
     }
 
@@ -85,7 +85,7 @@ public final class Settings {
      * @param key The key of the setting
      * @param value The value of the setting
      */
-    public void putFloat(final String key, final Float value) {
+    public synchronized void putFloat(final String key, final Float value) {
 
     }
 
@@ -95,7 +95,7 @@ public final class Settings {
      * @param key The key of the setting
      * @param value The value of the setting
      */
-    public void putLong(final String key, final Long value) {
+    public synchronized void putLong(final String key, final Long value) {
 
     }
 
@@ -105,9 +105,18 @@ public final class Settings {
      * @param key The locations key
      * @param value The location to add to this key
      */
-    public void putLocation(final String key, final Location value) {
+    public synchronized void putLocation(final String key, final Location value) {
 
     }
+
+    /**
+     * Removes the given {@link Location} from the given key.
+     * The Location that is removed is found by the <code>this == value || this.equals(value)</code>
+     * 
+     * @param key the key the <code>Location</code> should be removed from
+     * @param value the <code>Location</code> to remove
+     */
+    public synchronized void dropLocation(final String key, final Location value) {}
 
     /**
      * Stores a setting of type <code>Boolean</code> using a given key.
@@ -115,7 +124,7 @@ public final class Settings {
      * @param key The key of the setting
      * @param value The value of the setting
      */
-    public void putBoolean(final String key, final Boolean value) {
+    public synchronized void putBoolean(final String key, final Boolean value) {
 
     }
 
@@ -125,7 +134,7 @@ public final class Settings {
      * @param key The key of the setting
      * @param value The value of the setting
      */
-    public void putString(final String key, final String value) {
+    public synchronized void putString(final String key, final String value) {
 
     }
 
@@ -137,7 +146,7 @@ public final class Settings {
      *         if no setting found with given name or the setting is no instance of
      *         <code>Boolean</code>
      */
-    public Boolean getBoolean(final String key) {
+    public synchronized Boolean getBoolean(final String key) {
         return null;
     }
 
@@ -148,7 +157,7 @@ public final class Settings {
      * @return The setting stored under the given key as String or <code>null</code> if no setting
      *         found with given name or the setting is no instance of <code>String</code>
      */
-    public String getString(final String key) {
+    public synchronized String getString(final String key) {
         return null;
     }
 
@@ -159,7 +168,7 @@ public final class Settings {
      * @return The setting stored under the given key as <code>Long</code> or <code>null</code> if
      *         no setting found with given name or the setting is no instance of <code>Long</code>
      */
-    public Long getLong(final String key) {
+    public synchronized Long getLong(final String key) {
         return null;
     }
 
@@ -170,7 +179,7 @@ public final class Settings {
      * @return The setting stored under the given key as <code>Float</code> or <code>null</code> if
      *         no setting found with given name or the setting is no instance of <code>Float</code>
      */
-    public Float getFloat(final String key) {
+    public synchronized Float getFloat(final String key) {
         return null;
     }
 
@@ -181,7 +190,7 @@ public final class Settings {
      * @return The setting stored under the given key as <code>Double</code> or <code>null</code> if
      *         no setting found with given name or the setting is no instance of <code>Double</code>
      */
-    public Double getDouble(final String key) {
+    public synchronized Double getDouble(final String key) {
         return null;
     }
 
@@ -193,7 +202,7 @@ public final class Settings {
      *         if no setting found with given name or the setting is no instance of
      *         <code>Integer</code>
      */
-    public Integer getInteger(final String key) {
+    public synchronized Integer getInteger(final String key) {
         return null;
     }
 
@@ -204,7 +213,7 @@ public final class Settings {
      * @return a <code>Set</code> of <code>Location</code> Objects stored under the given key or
      *         <code>null</code> if no <code>Location</code> Object is found using this key.
      */
-    public Set<Location> getLocations(final String key) {
+    public synchronized Set<Location> getLocations(final String key) {
         return null;
     }
 
