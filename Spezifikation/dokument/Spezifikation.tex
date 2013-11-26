@@ -1312,8 +1312,58 @@ Unterkünfte & hotels \\
 
 \chapter{Verbesserungen gegenüber dem Entwurf}
 
+Nach der Entwurfsphase wurden in erster Linie die Cache- und Sourceverwaltung in Singletons gekapselt, um parallele Zugriffe auf dieselben Cacheverzeichnisse zu unterbinden.
 
+Desweiteren wurde mit dem \textit{ProgressManager} ein Mechanismus zum globalen Verfolgen des Ladezustands eingefügt. Dieser wird von der GUI benötigt um einen Fortschrittsbalken anzeigen zu können.
 
+Um die Renderzeit zu optimieren, wurde des weiteren ein Source/Cache-Paar nach Vorbild des TextureCache/Source entworfen, der Kachelmeshes, die von Tessellatoren erzeugt wurden, als \textit{Vertex Buffer Object} in OpenGL lädt und verdrängt.
+
+\section{Packages}
+
+Da durch den Singleton-Ansatz zusätzliche Klassen erforderlich werden, wurde das \textit{source}-Paket aufgeteilt. Insgesamt sind folgende neue Packages enthalten:
+\begin{itemize}
+\item de.joglearth.source.nominatim
+\item de.joglearth.source.overpass
+\item de.joglearth.source.osm
+\item de.joglearth.source.srtm
+\item de.joglearth.source.opengl
+\item de.joglearth.source.util
+\end{itemize}
+
+Aus semantischen Gründen wurde ein Paket umbenannt:
+\begin{itemize}
+\item de.joglearth.caching $ \rightarrow $ de.joglearth.source.caching
+\end{itemize}
+
+\section{Klassen, Interfaces und Enumerations}
+
+Es wurden folgende Definitionen umbenannt oder verschoben:
+
+\begin{itemize}
+\item de.joglearth.source.HTTPUtils $ \rightarrow $ de.joglearth.utils.HTTP
+\item de.joglearth.source.OverpassQuery $ \rightarrow $ de.joglearth.source.overpass.OverpassQuery
+\item de.joglearth.source.OverpassSource $ \rightarrow $ de.joglearth.source.overpass.OverpassSource
+\item de.joglearth.source.NominatimQuery $ \rightarrow $ de.joglearth.source.nominatim.NominatimQuery
+\item de.joglearth.source.NominatimQuery $ \rightarrow $ de.joglearth.nominatim.
+\item de.joglearth.source.SRTMTileSource $ \rightarrow $ de.joglearth.source.srtm.SRTMBinarySource
+\item de.joglearth.source.OSMTileType $ \rightarrow $ de.joglearth.surface.TiledMapType
+\item de.joglearth.source.TextureSource $ \rightarrow $ de.joglearth.source.opengl.TextureSource
+\item de.joglearth.surface.HeightMapManager $ \rightarrow $ de.joglearth.surface.HeightMap
+\item de.joglearth.caching.TextureCache $ \rightarrow $ de.joglearth.source.opengl.TextureCache
+\item de.joglearth.source.TextureSource $ \rightarrow $ de.joglearth.source.opengl.TileTextureSource
+\end{itemize}
+
+Es fällt eine Klasse weg:
+
+\begin{itemize}
+\item de.joglearth.caching.BinaryRequestDistributor
+\end{itemize}
+
+Die folgenden Klassen, Interfaces und Enumerations sind hinzugekommen:
+
+\begin{itemize}
+\item de.joglearth.
+\end{itemize}
 
 
 \end{document}
