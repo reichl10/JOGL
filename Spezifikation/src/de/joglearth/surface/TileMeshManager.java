@@ -82,7 +82,7 @@ public class TileMeshManager implements Source<Tile, Integer> {
      * @param enable
      */
     public void enableHeightMap(boolean enable) {
-        source.enableHeightMap(enable);
+        source.setHeightMapEnabled(enable);
         dist.dropAll();
     }
 
