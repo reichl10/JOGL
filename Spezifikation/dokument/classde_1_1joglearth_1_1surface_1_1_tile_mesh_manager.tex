@@ -1,0 +1,116 @@
+\section{de.\-joglearth.\-surface.\-Tile\-Mesh\-Manager Klassenreferenz}
+\label{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager}\index{de.\-joglearth.\-surface.\-Tile\-Mesh\-Manager@{de.\-joglearth.\-surface.\-Tile\-Mesh\-Manager}}
+Klassendiagramm für de.\-joglearth.\-surface.\-Tile\-Mesh\-Manager\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager}
+\end{center}
+\end{figure}
+\subsection*{Öffentliche Methoden}
+\begin{DoxyCompactItemize}
+\item 
+{\bf Tile\-Mesh\-Manager} (G\-L2 gl, {\bf Tessellator} t)
+\item 
+void {\bf set\-Tessellator} ({\bf Tessellator} t)
+\item 
+void {\bf set\-Tile\-Subdivisions} (int sub)
+\item 
+void {\bf enable\-Height\-Map} (boolean enable)
+\item 
+Source\-Response$<$ Integer $>$ {\bfseries request\-Object} ({\bf Tile} key, Source\-Listener$<$ {\bf Tile}, Integer $>$ sender)\label{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager_a3a85a95c3f769e5821d3d17bbc09fb69}
+
+\item 
+void {\bf add\-Surface\-Listener} ({\bf Surface\-Listener} l)
+\item 
+void {\bf remove\-Surface\-Listener} ({\bf Surface\-Listener} l)
+\end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Creates and cashes tile meshes as Open\-G\-L vertex buffer objects. 
+
+\subsection{Beschreibung der Konstruktoren und Destruktoren}
+\index{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}!Tile\-Mesh\-Manager@{Tile\-Mesh\-Manager}}
+\index{Tile\-Mesh\-Manager@{Tile\-Mesh\-Manager}!de::joglearth::surface::TileMeshManager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}}
+\subsubsection[{Tile\-Mesh\-Manager}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-surface.\-Tile\-Mesh\-Manager.\-Tile\-Mesh\-Manager (
+\begin{DoxyParamCaption}
+\item[{G\-L2}]{gl, }
+\item[{{\bf Tessellator}}]{t}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager_ab6fb3ea0ce4a88ca127c87e08c20560b}
+Creates a new \doxyref{Tile\-Mesh\-Manager}{S.}{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager} as it initializes the source, the cache, sets the \doxyref{Request\-Distributor}{S.}{} and adds a surface listener from \doxyref{Height\-Map}{S.}{classde_1_1joglearth_1_1surface_1_1_height_map}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em gl} & The G\-L context \\
+\hline
+{\em t} & The \doxyref{de.\-joglearth.\-rendering.\-Tessellator}{S.}{interfacede_1_1joglearth_1_1rendering_1_1_tessellator} that should be used \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}!add\-Surface\-Listener@{add\-Surface\-Listener}}
+\index{add\-Surface\-Listener@{add\-Surface\-Listener}!de::joglearth::surface::TileMeshManager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}}
+\subsubsection[{add\-Surface\-Listener}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Tile\-Mesh\-Manager.\-add\-Surface\-Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Surface\-Listener}}]{l}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager_ab93649c9e934a0ae470dd8abdbd72cb5}
+Adds a \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_surface_listener} that distributes a notification if the surface was changed.
+
+
+\begin{DoxyParams}{Parameter}
+{\em l} & The new listener \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}!enable\-Height\-Map@{enable\-Height\-Map}}
+\index{enable\-Height\-Map@{enable\-Height\-Map}!de::joglearth::surface::TileMeshManager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}}
+\subsubsection[{enable\-Height\-Map}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Tile\-Mesh\-Manager.\-enable\-Height\-Map (
+\begin{DoxyParamCaption}
+\item[{boolean}]{enable}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager_ad5eedfaa8a35e81169c6d8fe1a358cdf}
+
+\begin{DoxyParams}{Parameter}
+{\em enable} & \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}!remove\-Surface\-Listener@{remove\-Surface\-Listener}}
+\index{remove\-Surface\-Listener@{remove\-Surface\-Listener}!de::joglearth::surface::TileMeshManager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}}
+\subsubsection[{remove\-Surface\-Listener}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Tile\-Mesh\-Manager.\-remove\-Surface\-Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Surface\-Listener}}]{l}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager_a705794ee58a5376847b0f52cb72a3317}
+Removes a specific \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_surface_listener}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em l} & The listener that should be removed \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}!set\-Tessellator@{set\-Tessellator}}
+\index{set\-Tessellator@{set\-Tessellator}!de::joglearth::surface::TileMeshManager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}}
+\subsubsection[{set\-Tessellator}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Tile\-Mesh\-Manager.\-set\-Tessellator (
+\begin{DoxyParamCaption}
+\item[{{\bf Tessellator}}]{t}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager_a3b3f46132bc25e8211dfe32212d3bfed}
+
+\begin{DoxyParams}{Parameter}
+{\em t} & \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}!set\-Tile\-Subdivisions@{set\-Tile\-Subdivisions}}
+\index{set\-Tile\-Subdivisions@{set\-Tile\-Subdivisions}!de::joglearth::surface::TileMeshManager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}}
+\subsubsection[{set\-Tile\-Subdivisions}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Tile\-Mesh\-Manager.\-set\-Tile\-Subdivisions (
+\begin{DoxyParamCaption}
+\item[{int}]{sub}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager_ab3938bc10c39fded92b9cc0f44c3e95f}
+
+\begin{DoxyParams}{Parameter}
+{\em sub} & \\
+\hline
+\end{DoxyParams}

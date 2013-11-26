@@ -1,10 +1,6 @@
 package de.joglearth.rendering;
 
 import de.joglearth.geometry.Tile;
-import de.joglearth.rendering.*;
-import de.joglearth.source.*;
-import de.joglearth.surface.HeightMap;
-import de.joglearth.ui.*;
 
 
 /**

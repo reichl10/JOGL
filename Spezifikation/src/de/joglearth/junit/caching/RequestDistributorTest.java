@@ -1,8 +1,6 @@
 package de.joglearth.junit.caching;
 
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

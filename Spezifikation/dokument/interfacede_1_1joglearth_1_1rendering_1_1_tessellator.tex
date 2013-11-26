@@ -1,46 +1,46 @@
-\section{de.\-joglearth.\-rendering.\-Tessellator \-Schnittstellenreferenz}
+\section{de.\-joglearth.\-rendering.\-Tessellator Schnittstellenreferenz}
 \label{interfacede_1_1joglearth_1_1rendering_1_1_tessellator}\index{de.\-joglearth.\-rendering.\-Tessellator@{de.\-joglearth.\-rendering.\-Tessellator}}
-\-Klassendiagramm für de.\-joglearth.\-rendering.\-Tessellator\-:\begin{figure}[H]
+Klassendiagramm für de.\-joglearth.\-rendering.\-Tessellator\-:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{interfacede_1_1joglearth_1_1rendering_1_1_tessellator}
 \end{center}
 \end{figure}
-\subsection*{Öffentliche \-Methoden}
+\subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
-{\bf \-Mesh} {\bf tessellate\-Tile} ({\bf \-Tile} tile, int subdivisions, {\bf \-Height\-Map\-Manager} height\-Map)
+{\bf Mesh} {\bf tessellate\-Tile} ({\bf Tile} tile, int subdivisions, boolean height\-Map)
 \end{DoxyCompactItemize}
 
 
-\subsection{\-Ausführliche \-Beschreibung}
-\-An implementation of the {\ttfamily \-Tesselator} \-Interface provides the occastion to generate a \doxyref{\-Mesh}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_mesh}. 
+\subsection{Ausführliche Beschreibung}
+An implementation of the {\ttfamily Tesselator} Interface provides the occastion to generate a \doxyref{Mesh}{S.}{classde_1_1joglearth_1_1rendering_1_1_mesh}. 
 
-\subsection{\-Dokumentation der \-Elementfunktionen}
+\subsection{Dokumentation der Elementfunktionen}
 \index{de\-::joglearth\-::rendering\-::\-Tessellator@{de\-::joglearth\-::rendering\-::\-Tessellator}!tessellate\-Tile@{tessellate\-Tile}}
 \index{tessellate\-Tile@{tessellate\-Tile}!de::joglearth::rendering::Tessellator@{de\-::joglearth\-::rendering\-::\-Tessellator}}
-\subsubsection[{tessellate\-Tile}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-Mesh} {\bf de.\-joglearth.\-rendering.\-Tessellator.\-tessellate\-Tile} (
+\subsubsection[{tessellate\-Tile}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Mesh} de.\-joglearth.\-rendering.\-Tessellator.\-tessellate\-Tile (
 \begin{DoxyParamCaption}
-\item[{{\bf \-Tile}}]{tile, }
+\item[{{\bf Tile}}]{tile, }
 \item[{int}]{subdivisions, }
-\item[{{\bf \-Height\-Map\-Manager}}]{height\-Map}
+\item[{boolean}]{height\-Map}
 \end{DoxyParamCaption}
-)}\label{interfacede_1_1joglearth_1_1rendering_1_1_tessellator_a39d89f430ca5fab9912fe1db9c05e143}
-\-Creates a \doxyref{\-Mesh}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_mesh} for a  \-Tile with height data.
+)}\label{interfacede_1_1joglearth_1_1rendering_1_1_tessellator_a05a3cd23966d23fb0460f339aea496f0}
+Creates a \doxyref{Mesh}{S.}{classde_1_1joglearth_1_1rendering_1_1_mesh} for a  Tile with height data.
 
 
-\begin{DoxyParams}{\-Parameter}
-{\em tile} & \-The location where the \doxyref{\-Mesh}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_mesh} should be rendered. \\
+\begin{DoxyParams}{Parameter}
+{\em tile} & The location where the \doxyref{Mesh}{S.}{classde_1_1joglearth_1_1rendering_1_1_mesh} should be rendered. \\
 \hline
-{\em subdivisions} & \-Number of times the \doxyref{\-Mesh}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_mesh} is divided in both axis. \-Minimum {\ttfamily 0} divisions. \\
+{\em subdivisions} & Number of times the \doxyref{Mesh}{S.}{classde_1_1joglearth_1_1rendering_1_1_mesh} is divided in both axis. Minimum {\ttfamily 0} divisions. \\
 \hline
-{\em height\-Map} & \-A \doxyref{de.\-joglearth.\-surface.\-Height\-Map\-Manager}{\-S.}{classde_1_1joglearth_1_1surface_1_1_height_map_manager} that provides the height data for the tile. \\
+{\em height\-Map} & A \doxyref{de.\-joglearth.\-surface.\-Height\-Map}{S.}{classde_1_1joglearth_1_1surface_1_1_height_map} that provides the height data for the tile. \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{\-Rückgabe}
-\-A \doxyref{\-Mesh}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_mesh} with (subdivisions + 1)$^\wedge$2 squares, with each divided in two triangles. 
+\begin{DoxyReturn}{Rückgabe}
+A \doxyref{Mesh}{S.}{classde_1_1joglearth_1_1rendering_1_1_mesh} with (subdivisions + 1)$^\wedge$2 squares, with each divided in two triangles. 
 \end{DoxyReturn}
 
 
-\-Implementiert in {\bf de.\-joglearth.\-rendering.\-Plane\-Tessellator} \doxyref{}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_plane_tessellator_ad8fb35a18af60f6285090669a6d41c52} und {\bf de.\-joglearth.\-rendering.\-Sphere\-Tessellator} \doxyref{}{\-S.}{classde_1_1joglearth_1_1rendering_1_1_sphere_tessellator_aebd520442a8aba87ecc31b11bcb7d734}.
+Implementiert in {\bf de.\-joglearth.\-rendering.\-Plane\-Tessellator} \doxyref{}{S.}{classde_1_1joglearth_1_1rendering_1_1_plane_tessellator_a18c9e45cfb94086cb93e1f10076414cc} und {\bf de.\-joglearth.\-rendering.\-Sphere\-Tessellator} \doxyref{}{S.}{classde_1_1joglearth_1_1rendering_1_1_sphere_tessellator_a2231f3dbde16ae862c5865fa3ddf253a}.
 

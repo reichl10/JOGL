@@ -2,48 +2,42 @@ package de.joglearth.ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-
-import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.EmptyBorder;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
-
-import de.joglearth.JoglEarth;
-
-import javax.swing.JTextArea;
-
-import java.awt.Canvas;
-
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-
-import java.awt.Dialog.ModalityType;
-import java.awt.Window.Type;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import javax.swing.JScrollPane;
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
-import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
+
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
+
+import de.joglearth.JoglEarth;
 
 
 public class AboutBox extends JDialog {
 
+    /**
+     * Makes the compiler happy.
+     */
+    private static final long serialVersionUID = -3023220810789138152L;
+    
     private final JPanel contentPanel = new JPanel();
     private JTextArea aboutTextArea;
 
 
     /**
+     * @internal
      * Launch the application.
      */
     public static void main(String[] args) {

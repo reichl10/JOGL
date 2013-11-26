@@ -7,7 +7,6 @@ import de.joglearth.rendering.Tessellator;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
-import de.joglearth.source.caching.RequestDistributor;
 
 public class TileMeshSource implements Source<Tile, Integer> {
 

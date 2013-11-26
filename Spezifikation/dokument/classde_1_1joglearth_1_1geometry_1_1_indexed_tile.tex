@@ -1,0 +1,174 @@
+\section{de.\-joglearth.\-geometry.\-Indexed\-Tile Klassenreferenz}
+\label{classde_1_1joglearth_1_1geometry_1_1_indexed_tile}\index{de.\-joglearth.\-geometry.\-Indexed\-Tile@{de.\-joglearth.\-geometry.\-Indexed\-Tile}}
+Klassendiagramm für de.\-joglearth.\-geometry.\-Indexed\-Tile\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1geometry_1_1_indexed_tile}
+\end{center}
+\end{figure}
+\subsection*{Öffentliche Methoden}
+\begin{DoxyCompactItemize}
+\item 
+{\bf Indexed\-Tile} (int detail\-Level, int lon\-Index, int lat\-Index)
+\item 
+double {\bf longitude\-From} ()
+\item 
+double {\bf longitude\-To} ()
+\item 
+double {\bf latitude\-From} ()
+\item 
+double {\bf latitude\-To} ()
+\item 
+int {\bf get\-Longitude\-Index} ()
+\item 
+int {\bf get\-Latitude\-Index} ()
+\item 
+int {\bf get\-Detail\-Level} ()
+\item 
+boolean {\bfseries intersects} (double lon\-From, double lat\-From, double lon\-To, double lat\-To)\label{classde_1_1joglearth_1_1geometry_1_1_indexed_tile_af310357948d08d89003b5c6eb8d2db7c}
+
+\item 
+int {\bfseries hash\-Code} ()\label{classde_1_1joglearth_1_1geometry_1_1_indexed_tile_af5dde886686d3ae8d458442af6575d53}
+
+\item 
+boolean {\bfseries equals} (Object obj)\label{classde_1_1joglearth_1_1geometry_1_1_indexed_tile_ad1de27dfef28482a1b7a3da6e065d865}
+
+\end{DoxyCompactItemize}
+\subsection*{Öffentliche, statische Methoden}
+\begin{DoxyCompactItemize}
+\item 
+static {\bf Indexed\-Tile} {\bf get\-Containing\-Tile} (int detail\-Level, {\bf Geo\-Coordinates} coords)
+\end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+A structure identifying a single Open\-Street\-Map surface tile. 
+
+\subsection{Beschreibung der Konstruktoren und Destruktoren}
+\index{de\-::joglearth\-::geometry\-::\-Indexed\-Tile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}!Indexed\-Tile@{Indexed\-Tile}}
+\index{Indexed\-Tile@{Indexed\-Tile}!de::joglearth::geometry::IndexedTile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}}
+\subsubsection[{Indexed\-Tile}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-geometry.\-Indexed\-Tile.\-Indexed\-Tile (
+\begin{DoxyParamCaption}
+\item[{int}]{detail\-Level, }
+\item[{int}]{lon\-Index, }
+\item[{int}]{lat\-Index}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_indexed_tile_a814d339729a2aa5e55ecb74a59f895de}
+Constructor.
+
+
+\begin{DoxyParams}{Parameter}
+{\em detail\-Level} & How often the globe is subdivided to reach the desired tile size. \\
+\hline
+{\em lon\-Index} & The number of tiles to skip, starting from latitude 0, to reach the left bound of the tile. \\
+\hline
+{\em lon\-Index} & The number of tiles to skip, starting from the north pole, to reach the desired longitude. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::geometry\-::\-Indexed\-Tile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}!get\-Containing\-Tile@{get\-Containing\-Tile}}
+\index{get\-Containing\-Tile@{get\-Containing\-Tile}!de::joglearth::geometry::IndexedTile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}}
+\subsubsection[{get\-Containing\-Tile}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf Indexed\-Tile} de.\-joglearth.\-geometry.\-Indexed\-Tile.\-get\-Containing\-Tile (
+\begin{DoxyParamCaption}
+\item[{int}]{detail\-Level, }
+\item[{{\bf Geo\-Coordinates}}]{coords}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1geometry_1_1_indexed_tile_a061d10615a41788e4e54e2bb0866d3bb}
+Returns a tile in the given detail level which contains a specific point.
+
+
+\begin{DoxyParams}{Parameter}
+{\em detail\-Level} & The detail level. \\
+\hline
+{\em coords} & The point. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Rückgabe}
+A tile. 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::geometry\-::\-Indexed\-Tile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}!get\-Detail\-Level@{get\-Detail\-Level}}
+\index{get\-Detail\-Level@{get\-Detail\-Level}!de::joglearth::geometry::IndexedTile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}}
+\subsubsection[{get\-Detail\-Level}]{\setlength{\rightskip}{0pt plus 5cm}int de.\-joglearth.\-geometry.\-Indexed\-Tile.\-get\-Detail\-Level (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_indexed_tile_ab19df400a31cd45401550503704e0fda}
+The detail level, as supplied in the constructor.
+
+\begin{DoxyReturn}{Rückgabe}
+The detail level. 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::geometry\-::\-Indexed\-Tile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}!get\-Latitude\-Index@{get\-Latitude\-Index}}
+\index{get\-Latitude\-Index@{get\-Latitude\-Index}!de::joglearth::geometry::IndexedTile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}}
+\subsubsection[{get\-Latitude\-Index}]{\setlength{\rightskip}{0pt plus 5cm}int de.\-joglearth.\-geometry.\-Indexed\-Tile.\-get\-Latitude\-Index (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_indexed_tile_a74dd33dee433b312ddf46721c4ee72a5}
+The latitude index, as supplied in the constructor.
+
+\begin{DoxyReturn}{Rückgabe}
+The latitude index. 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::geometry\-::\-Indexed\-Tile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}!get\-Longitude\-Index@{get\-Longitude\-Index}}
+\index{get\-Longitude\-Index@{get\-Longitude\-Index}!de::joglearth::geometry::IndexedTile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}}
+\subsubsection[{get\-Longitude\-Index}]{\setlength{\rightskip}{0pt plus 5cm}int de.\-joglearth.\-geometry.\-Indexed\-Tile.\-get\-Longitude\-Index (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_indexed_tile_a694b6b839308d6240e725deb3a855b6d}
+The longitude index, as supplied in the constructor.
+
+\begin{DoxyReturn}{Rückgabe}
+The longitude index. 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::geometry\-::\-Indexed\-Tile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}!latitude\-From@{latitude\-From}}
+\index{latitude\-From@{latitude\-From}!de::joglearth::geometry::IndexedTile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}}
+\subsubsection[{latitude\-From}]{\setlength{\rightskip}{0pt plus 5cm}double de.\-joglearth.\-geometry.\-Indexed\-Tile.\-latitude\-From (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_indexed_tile_aac78634cbdae267c67c496898ea50335}
+Returns the lower latitude bound of the tile.
+
+\begin{DoxyReturn}{Rückgabe}
+The latitude, in radians. 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::geometry\-::\-Indexed\-Tile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}!latitude\-To@{latitude\-To}}
+\index{latitude\-To@{latitude\-To}!de::joglearth::geometry::IndexedTile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}}
+\subsubsection[{latitude\-To}]{\setlength{\rightskip}{0pt plus 5cm}double de.\-joglearth.\-geometry.\-Indexed\-Tile.\-latitude\-To (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_indexed_tile_a6a024502a74fe47bf70f736acd1128a8}
+Returns the upper latitude bound of the tile.
+
+\begin{DoxyReturn}{Rückgabe}
+The latitude, in radians. 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::geometry\-::\-Indexed\-Tile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}!longitude\-From@{longitude\-From}}
+\index{longitude\-From@{longitude\-From}!de::joglearth::geometry::IndexedTile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}}
+\subsubsection[{longitude\-From}]{\setlength{\rightskip}{0pt plus 5cm}double de.\-joglearth.\-geometry.\-Indexed\-Tile.\-longitude\-From (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_indexed_tile_ab96b4a8fed2c7dafa2a424361496de28}
+Returns the lower longitude bound of the tile.
+
+\begin{DoxyReturn}{Rückgabe}
+The longitude, in radians. 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::geometry\-::\-Indexed\-Tile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}!longitude\-To@{longitude\-To}}
+\index{longitude\-To@{longitude\-To}!de::joglearth::geometry::IndexedTile@{de\-::joglearth\-::geometry\-::\-Indexed\-Tile}}
+\subsubsection[{longitude\-To}]{\setlength{\rightskip}{0pt plus 5cm}double de.\-joglearth.\-geometry.\-Indexed\-Tile.\-longitude\-To (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_indexed_tile_a63f5da40eaa178edca9b88dbe3588131}
+Returns the upper longitude bound of the tile.
+
+\begin{DoxyReturn}{Rückgabe}
+The longitude, in radians. 
+\end{DoxyReturn}

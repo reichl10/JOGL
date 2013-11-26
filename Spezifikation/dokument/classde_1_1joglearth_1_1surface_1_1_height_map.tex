@@ -1,0 +1,62 @@
+\section{de.\-joglearth.\-surface.\-Height\-Map Klassenreferenz}
+\label{classde_1_1joglearth_1_1surface_1_1_height_map}\index{de.\-joglearth.\-surface.\-Height\-Map@{de.\-joglearth.\-surface.\-Height\-Map}}
+\subsection*{Öffentliche, statische Methoden}
+\begin{DoxyCompactItemize}
+\item 
+static double {\bf get\-Height} ({\bf Geo\-Coordinates} coords)
+\item 
+static void {\bf add\-Surface\-Listener} ({\bf Surface\-Listener} l)
+\item 
+static void {\bf remove\-Surface\-Listener} ({\bf Surface\-Listener} l)
+\end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Singleton class for interpolation of informations about the height of points displayed on the map. For that purpose S\-R\-T\-M height data is used. A \doxyref{de.\-joglearth.\-rendering.\-Tessellator}{S.}{interfacede_1_1joglearth_1_1rendering_1_1_tessellator} uses this class to generate a map surface by the \doxyref{Height\-Map}{S.}{classde_1_1joglearth_1_1surface_1_1_height_map}. 
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::surface\-::\-Height\-Map@{de\-::joglearth\-::surface\-::\-Height\-Map}!add\-Surface\-Listener@{add\-Surface\-Listener}}
+\index{add\-Surface\-Listener@{add\-Surface\-Listener}!de::joglearth::surface::HeightMap@{de\-::joglearth\-::surface\-::\-Height\-Map}}
+\subsubsection[{add\-Surface\-Listener}]{\setlength{\rightskip}{0pt plus 5cm}static void de.\-joglearth.\-surface.\-Height\-Map.\-add\-Surface\-Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Surface\-Listener}}]{l}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1surface_1_1_height_map_ab99f9c338e6668046a074e71213a87e7}
+Adds a \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_surface_listener} that distributes a notification if the surface was changed.
+
+
+\begin{DoxyParams}{Parameter}
+{\em l} & The new listener \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::surface\-::\-Height\-Map@{de\-::joglearth\-::surface\-::\-Height\-Map}!get\-Height@{get\-Height}}
+\index{get\-Height@{get\-Height}!de::joglearth::surface::HeightMap@{de\-::joglearth\-::surface\-::\-Height\-Map}}
+\subsubsection[{get\-Height}]{\setlength{\rightskip}{0pt plus 5cm}static double de.\-joglearth.\-surface.\-Height\-Map.\-get\-Height (
+\begin{DoxyParamCaption}
+\item[{{\bf Geo\-Coordinates}}]{coords}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1surface_1_1_height_map_a7e21e9890662d98427dc6504b33c2d46}
+Tries to determine the height of a point using the S\-R\-T\-M data that contains its \doxyref{Geo\-Coordinates}{S.}{} or returns default {\ttfamily 0} if no value was found.
+
+
+\begin{DoxyParams}{Parameter}
+{\em coords} & The {\ttfamily Geo\-Coordinates} of the point \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Rückgabe}
+The height of the wanted point, {\ttfamily 0} if the height of the point is not yet in the cache 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::surface\-::\-Height\-Map@{de\-::joglearth\-::surface\-::\-Height\-Map}!remove\-Surface\-Listener@{remove\-Surface\-Listener}}
+\index{remove\-Surface\-Listener@{remove\-Surface\-Listener}!de::joglearth::surface::HeightMap@{de\-::joglearth\-::surface\-::\-Height\-Map}}
+\subsubsection[{remove\-Surface\-Listener}]{\setlength{\rightskip}{0pt plus 5cm}static void de.\-joglearth.\-surface.\-Height\-Map.\-remove\-Surface\-Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Surface\-Listener}}]{l}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1surface_1_1_height_map_abe176c5507898a6116d6c36952d996fc}
+Removes a specific \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_surface_listener}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em l} & The listener that should be removed \\
+\hline
+\end{DoxyParams}

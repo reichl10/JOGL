@@ -1115,44 +1115,42 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 \newpage
 
 \section{Einstellungsdatei}
-Die XML-Datei die von der \texttt{SettingsContract} Klasse muss den hier festgelegten Regeln folgen.
-Die XML-Datei muss UTF-8 encoding  und den XML 1.0 Standard benutzen. \\
+Die XML-Datei der \texttt{SettingsContract} Klasse muss den hier festgelegten Regeln folgen.
+Sie muss sowohl UTF-8 encoding als auch den XML 1.0 Standard benutzen. \\
 \texttt{<?xml version="{}1.0"{} encoding="{}UTF-8"{} ?>} \\
 Sie besitzt ein Wurzelelement \texttt{settings}
 \begin{itemize}
- \item das Element kann keines oder mehr Kindelemente des Typs \texttt{entry} und keines oder mehr des Typs \texttt{locations}.
- \item Die Elemente des Typs \texttt{entry} und \texttt{locations} müssen nicht in einer bestimmten Reihenfolge angeordnet sein.
+ \item das Element kann null oder mehr Kindelemente des Typs \texttt{entry} oder \texttt{locations} enthalten.
+ \item Die Elemente der Typen \texttt{entry} und \texttt{locations} dürfen beliebeig angeordnet sein.
 \end{itemize}
 
-Das \texttt{entry} Element:
+Das \texttt{entry} Element
 \begin{itemize}
  \item besitzt keine Kindelemente
  \item muss die folgenden Attribute besitzen: \texttt{key}, \texttt{type}, \texttt{value}
- \item das \texttt{key} Attribut enthält einen String und ist der key des Elements. Es sollte einzigartig für \texttt{entry} Elemente in dieser Datei sein.
- \item das \texttt{type} Attribut kann einen der folgenden Strings enthalten: Integer, Boolean, Long, Double, Float, String
-  Dieser Typ definiert zu welchen Java Standard API Typ der String im \texttt{value} Attribut geparsed werden muss, and von welchem er mit \texttt{toString} umgewandelt wurde.
-   \item das \texttt{value} Attribut enthält eine String Repräsentation des wertes dieses Eintrages.
+ \begin{itemize}
+ \item Das String-Attribut \texttt{key} ist der Elementschlüssel und muss somit eindeutig für \texttt{entry} Elemente dieser Datei sein.
+ \item Das String-Attribut \texttt{type} kann einen der folgenden Werte enthalten: Integer, Boolean, Long, Double, Float, String.
+  Dieser Typ definiert zu welchem Java Standard API Typ der String im Attribut \texttt{value} geparsed werden muss, und aus welchem Typ er mittels \texttt{toString} umgewandelt wurde.
+   \item Das Attribut \texttt{value} enthält eine String Repräsentation des Wertes dieses Eintrages.
+ \end{itemize}
 \end{itemize}
 
- Das \texttt{locations} Element:
+ Das \texttt{locations} Element
 \begin{itemize}
- \item kann keines oder mehr Elemente des Types \texttt{location} enthalten.
- \item muss ein Attribut \texttt{key} besitzen das den Key des Locations enthält den die \texttt{Settings} Klasse benutzt.
+ \item kann null oder mehr Elemente des Typs \texttt{location} enthalten.
+ \item muss ein Attribut \texttt{key} besitzen, das den Schlüssel des \textit{locationType} enthält, der von der Klasse \texttt{Settings} benutzt wird.
 \end{itemize}
 
  Das \texttt{location} Element:
 \begin{itemize}
- \item muss die folgenden Attribute haben: \texttt{details}, \texttt{type}, \texttt{name}
+ \item muss die folgenden Attribute besitzen: \texttt{details}, \texttt{type}, \texttt{name}
  \begin{itemize}
-  \item das \texttt{details} Attribut enthält den wert des de.joglearth.surface.Location Objekts Details Attributs.
-  \item das \texttt{type} Attribut enthält die String Repräsentation des Locations Objektes Type Attributs, welche durch aufrufen von .toString auf dem Enum erzeugt wird.
-  \item das \texttt{name} Attribut enthält den String wert des name Attributs des Location Objekts.
+  \item Das Attribut \texttt{details} enthält den Wert des Detail-Attributs des Objekts \textit{de.joglearth.surface.Location}.
+  \item Das Attribut \texttt{type} enthält die String Repräsentation des Typs, welcher durch Aufrufen von \texttt{toString} auf dem Enum \textit{locationType} erzeugt wurde.
+  \item Das Attribut \texttt{name} Namen des Location-Objekts als String.
   \end{itemize}
- \item muss genau ein Kindelement des Typs \texttt{geocoordinates} besitzen
- \begin{itemize}
-  \item Diese Element muss die folgenden Attribute besitzen: \texttt{longitude}, \texttt{latitude}
-  \item die werten dieser Attribute stammen von Java double or Double zu einem String umgewandelt durch Double.toString;
- \end{itemize}
+ \item muss genau ein Kindelement des Typs \textit{GeoCoordinates} besitzen, das die Attribute \texttt{longitude} und \texttt{latitude} enthält, deren Werte aus Java double oder Double stammen, die mittels \texttt{Double.toString} zu einem String umgewandelt wurden.
 \end{itemize}
 \newpage
 Inhalt einer Beispiel XML-Datei:
@@ -1312,8 +1310,58 @@ Unterkünfte & hotel \\
 
 \chapter{Verbesserungen gegenüber dem Entwurf}
 
+Nach der Entwurfsphase wurden in erster Linie die Cache- und Sourceverwaltung in Singletons gekapselt, um parallele Zugriffe auf dieselben Cacheverzeichnisse zu unterbinden.
 
+Desweiteren wurde mit dem \textit{ProgressManager} ein Mechanismus zum globalen Verfolgen des Ladezustands eingefügt. Dieser wird von der GUI benötigt um einen Fortschrittsbalken anzeigen zu können.
 
+Um die Renderzeit zu optimieren, wurde des weiteren ein Source/Cache-Paar nach Vorbild des TextureCache/Source entworfen, der Kachelmeshes, die von Tessellatoren erzeugt wurden, als \textit{Vertex Buffer Object} in OpenGL lädt und verdrängt.
+
+\section{Packages}
+
+Da durch den Singleton-Ansatz zusätzliche Klassen erforderlich werden, wurde das \textit{source}-Paket aufgeteilt. Insgesamt sind folgende neue Packages enthalten:
+\begin{itemize}
+\item de.joglearth.source.nominatim
+\item de.joglearth.source.overpass
+\item de.joglearth.source.osm
+\item de.joglearth.source.srtm
+\item de.joglearth.source.opengl
+\item de.joglearth.source.util
+\end{itemize}
+
+Aus semantischen Gründen wurde ein Paket umbenannt:
+\begin{itemize}
+\item de.joglearth.caching $ \rightarrow $ de.joglearth.source.caching
+\end{itemize}
+
+\section{Klassen, Interfaces und Enumerations}
+
+Es wurden folgende Definitionen umbenannt oder verschoben:
+
+\begin{itemize}
+\item de.joglearth.source.HTTPUtils $ \rightarrow $ de.joglearth.utils.HTTP
+\item de.joglearth.source.OverpassQuery $ \rightarrow $ de.joglearth.source.overpass.OverpassQuery
+\item de.joglearth.source.OverpassSource $ \rightarrow $ de.joglearth.source.overpass.OverpassSource
+\item de.joglearth.source.NominatimQuery $ \rightarrow $ de.joglearth.source.nominatim.NominatimQuery
+\item de.joglearth.source.NominatimQuery $ \rightarrow $ de.joglearth.nominatim.
+\item de.joglearth.source.SRTMTileSource $ \rightarrow $ de.joglearth.source.srtm.SRTMBinarySource
+\item de.joglearth.source.OSMTileType $ \rightarrow $ de.joglearth.surface.TiledMapType
+\item de.joglearth.source.TextureSource $ \rightarrow $ de.joglearth.source.opengl.TextureSource
+\item de.joglearth.surface.HeightMapManager $ \rightarrow $ de.joglearth.surface.HeightMap
+\item de.joglearth.caching.TextureCache $ \rightarrow $ de.joglearth.source.opengl.TextureCache
+\item de.joglearth.source.TextureSource $ \rightarrow $ de.joglearth.source.opengl.TileTextureSource
+\end{itemize}
+
+Es fällt eine Klasse weg:
+
+\begin{itemize}
+\item de.joglearth.caching.BinaryRequestDistributor
+\end{itemize}
+
+Die folgenden Klassen, Interfaces und Enumerations sind hinzugekommen:
+
+\begin{itemize}
+\item de.joglearth.
+\end{itemize}
 
 
 \end{document}

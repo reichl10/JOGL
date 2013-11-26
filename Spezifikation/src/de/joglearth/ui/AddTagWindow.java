@@ -17,8 +17,16 @@ import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 
 public class AddTagWindow extends JDialog {
-	private JTextField nameTextField;
+    
+	/**
+     * Makes the compiler happy.
+     */
+    private static final long serialVersionUID = -8715326019757123990L;
+    
+    private JTextField nameTextField;
 	private JTextField descriptionTextField;
+	
+	
 	public AddTagWindow() {
 		setSize(370, 250);
 		setTitle("Add user tag");
@@ -80,6 +88,10 @@ public class AddTagWindow extends JDialog {
 		
 	}
 
+	
+	/**
+	 * @internal
+	 */
 	public static void main(String[] args) {
 		new AddTagWindow().setVisible(true);;
 
