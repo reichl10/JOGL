@@ -2,7 +2,7 @@ package de.joglearth.geometry;
 
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.Vector3;
-import de.joglearth.surface.HeightMapManager;
+import de.joglearth.surface.HeightMap;
 import de.joglearth.surface.SurfaceListener;
 
 
@@ -195,9 +195,10 @@ public class Camera implements SurfaceListener {
     public Matrix4 getProjectionMatrix() {
         return projectionMatrix;
     }
-
     @Override
-    public void surfaceChanged(Tile tile) {
+    public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
+        // TODO Automatisch generierter Methodenstub
+        
     }
 
 }

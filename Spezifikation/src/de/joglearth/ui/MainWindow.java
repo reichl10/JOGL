@@ -17,6 +17,8 @@ import de.joglearth.settings.SettingsListener;
 import de.joglearth.surface.Location;
 import de.joglearth.surface.LocationListener;
 import de.joglearth.surface.LocationManager;
+import de.joglearth.surface.MapLayout;
+import de.joglearth.surface.SingleMapType;
 import de.joglearth.surface.TiledMapType;
 import de.joglearth.surface.SurfaceListener;
 
@@ -54,6 +56,7 @@ import java.io.IOException;
 import javax.swing.BorderFactory;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.ListCellRenderer;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -141,7 +144,7 @@ public class MainWindow extends JFrame implements SurfaceListener,
     private JLabel sidebarHideIconLabel;
     private JPanel sideBarHideLinePanel;
     private JPanel mapOptionsPanel;
-    private JComboBox<IconizedItem<TiledMapType>> mapTypeComboBox;
+    private JComboBox<?> mapTypeComboBox;
     private JComboBox<IconizedItem<DisplayMode>> displayModeComboBox;
 
 
@@ -172,13 +175,13 @@ public class MainWindow extends JFrame implements SurfaceListener,
         JPanel sideBar = new JPanel();
         getContentPane().add(sideBar, "1, 1, left, fill");
         sideBar.setLayout(new FormLayout(new ColumnSpec[] {
-                ColumnSpec.decode("default:grow"),},
-            new RowSpec[] {
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,
-                RowSpec.decode("top:default:grow"),
-                FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.decode("80dlu"),
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,}));
+                ColumnSpec.decode("default:grow"), },
+                new RowSpec[] {
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                        RowSpec.decode("top:default:grow"),
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        RowSpec.decode("80dlu"),
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
 
         JTabbedPane sideBarTabs = new JTabbedPane(JTabbedPane.TOP);
         sideBar.add(sideBarTabs, "1, 2, fill, fill");
@@ -191,16 +194,16 @@ public class MainWindow extends JFrame implements SurfaceListener,
         viewTab.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.RELATED_GAP_COLSPEC,
                 ColumnSpec.decode("default:grow"),
-                FormFactory.RELATED_GAP_COLSPEC,},
-            new RowSpec[] {
-                RowSpec.decode("6dlu"),
-                FormFactory.DEFAULT_ROWSPEC,
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,
-                FormFactory.DEFAULT_ROWSPEC,
-                FormFactory.RELATED_GAP_ROWSPEC,
-                FormFactory.DEFAULT_ROWSPEC,
-                FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.decode("bottom:default:grow"),}));
+                FormFactory.RELATED_GAP_COLSPEC, },
+                new RowSpec[] {
+                        RowSpec.decode("6dlu"),
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        RowSpec.decode("bottom:default:grow"), }));
 
         JLabel displayModeLabel = new JLabel("Display mode:");
         viewTab.add(displayModeLabel, "2, 2");
@@ -241,23 +244,41 @@ public class MainWindow extends JFrame implements SurfaceListener,
         JLabel mapTypeLabel = new JLabel("Map type:");
         mapOptionsPanel.add(mapTypeLabel, "1, 1");
 
-        mapTypeComboBox = new JComboBox<IconizedItem<TiledMapType>>();
-        mapOptionsPanel.add(mapTypeComboBox, "1, 3");
-        mapTypeComboBox.setRenderer(new IconListCellRenderer<IconizedItem<TiledMapType>>());
+        class MapTypePair {
+
+            public MapLayout layout;
+            public Object type;
+
+
+            public MapTypePair(SingleMapType s) {
+                layout = MapLayout.SINGLE;
+                type = s;
+            }
+
+            public MapTypePair(TiledMapType s) {
+                layout = MapLayout.TILED;
+                type = s;
+            }
+        }
+
+        JComboBox<IconizedItem<MapTypePair>> paraMapTypeComboBox = new JComboBox<IconizedItem<MapTypePair>>();
+        mapTypeComboBox = paraMapTypeComboBox;
+        mapOptionsPanel.add(paraMapTypeComboBox, "1, 3");
+        paraMapTypeComboBox.setRenderer(new IconListCellRenderer<IconizedItem<MapTypePair>>());
 
         JCheckBox heightMapCheckBox = new JCheckBox("Enable height map");
         mapOptionsPanel.add(heightMapCheckBox, "1, 5");
-        
-                JLabel logoLabel = new JLabel("");
-                viewTab.add(logoLabel, "2, 8, center, bottom");
-                logoLabel.setVerticalAlignment(SwingConstants.TOP);
-                logoLabel.setIcon(loadIcon("icons/logo.png"));
-        mapTypeComboBox.addItem(new IconizedItem<TiledMapType>("Satellite",
-                loadIcon("icons/mapSatellite.png"), TiledMapType.SATELLITE));
-        mapTypeComboBox.addItem(new IconizedItem<TiledMapType>("OpenStreetMap",
-                loadIcon("icons/mapOSM.png"), TiledMapType.OSM_MAP));
-        mapTypeComboBox.addItem(new IconizedItem<TiledMapType>("Children's Map",
-                loadIcon("icons/mapChildren.png"), TiledMapType.CHILDREN));
+
+        JLabel logoLabel = new JLabel("");
+        viewTab.add(logoLabel, "2, 8, center, bottom");
+        logoLabel.setVerticalAlignment(SwingConstants.TOP);
+        logoLabel.setIcon(loadIcon("icons/logo.png"));
+        paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>("Satellite",
+                loadIcon("icons/mapSatellite.png"), new MapTypePair(SingleMapType.SATELLITE)));
+        paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>("OpenStreetMap",
+                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAP)));
+        paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>("Children's Map",
+                loadIcon("icons/mapChildren.png"), new MapTypePair(SingleMapType.CHILDREN)));
 
         JPanel placesTab = new JPanel();
         sideBarTabs.addTab("Places", loadIcon("icons/places.png"),
@@ -266,31 +287,31 @@ public class MainWindow extends JFrame implements SurfaceListener,
         placesTab.setLayout(new FormLayout(new ColumnSpec[] {
                 ColumnSpec.decode("2dlu"),
                 ColumnSpec.decode("default:grow"),
-                ColumnSpec.decode("2dlu"),},
-            new RowSpec[] {
-                FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.decode("max(60dlu;default):grow"),
-                FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.decode("default:grow"),
-                FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.decode("default:grow"),
-                FormFactory.RELATED_GAP_ROWSPEC,}));
+                ColumnSpec.decode("2dlu"), },
+                new RowSpec[] {
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        RowSpec.decode("max(60dlu;default):grow"),
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        RowSpec.decode("default:grow"),
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        RowSpec.decode("default:grow"),
+                        FormFactory.RELATED_GAP_ROWSPEC, }));
 
         JPanel searchPanel = new JPanel();
         searchPanel.setBorder(BorderFactory.createTitledBorder("Search"));
         placesTab.add(searchPanel, "2, 2, fill, fill");
         searchPanel
                 .setLayout(new FormLayout(new ColumnSpec[] {
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-                ColumnSpec.decode("default:grow"),
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,},
-            new RowSpec[] {
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,
-                RowSpec.decode("15dlu"),
-                RowSpec.decode("12dlu"),
-                FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.decode("default:grow"),
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,}));
+                        FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                        ColumnSpec.decode("default:grow"),
+                        FormFactory.LABEL_COMPONENT_GAP_COLSPEC, },
+                        new RowSpec[] {
+                                FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                                RowSpec.decode("15dlu"),
+                                RowSpec.decode("12dlu"),
+                                FormFactory.RELATED_GAP_ROWSPEC,
+                                RowSpec.decode("default:grow"),
+                                FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
 
         JPanel searchQueryPanel = new JPanel();
         searchPanel.add(searchQueryPanel, "2, 2, fill, top");
@@ -394,8 +415,10 @@ public class MainWindow extends JFrame implements SurfaceListener,
 
         JComboBox<IconizedItem<String>> languageComboBox = new JComboBox<IconizedItem<String>>();
         languageComboBox.setRenderer(new IconListCellRenderer<IconizedItem<String>>());
-        languageComboBox.addItem(new IconizedItem<String>("English", loadIcon("icons/flagEng.png"), "en"));
-        languageComboBox.addItem(new IconizedItem<String>("Deutsch", loadIcon("icons/flagGer.png"), "de"));
+        languageComboBox.addItem(new IconizedItem<String>("English", loadIcon("icons/flagEng.png"),
+                "en"));
+        languageComboBox.addItem(new IconizedItem<String>("Deutsch", loadIcon("icons/flagGer.png"),
+                "de"));
         languagePanel.add(languageComboBox, "2, 2, fill, top");
 
         JPanel graphicsPanel = new JPanel();
@@ -493,37 +516,37 @@ public class MainWindow extends JFrame implements SurfaceListener,
         JButton aboutButton = new JButton("About");
         manualAboutPanel.add(aboutButton, "3, 1");
         aboutButton.setIcon(loadIcon("icons/info.png"));
-                                        
-                                                JPanel detailsPanel = new JPanel();
-                                                detailsPanel.setBorder(BorderFactory.createTitledBorder("Details"));
-                                                sideBar.add(detailsPanel, "1, 4, fill, fill");
-                                                detailsPanel.setLayout(new FormLayout(new ColumnSpec[] {
-                                                        FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-                                                        ColumnSpec.decode("default:grow"),
-                                                        FormFactory.LABEL_COMPONENT_GAP_COLSPEC, },
-                                                        new RowSpec[] {
-                                                                FormFactory.NARROW_LINE_GAP_ROWSPEC,
-                                                                FormFactory.DEFAULT_ROWSPEC,
-                                                                FormFactory.RELATED_GAP_ROWSPEC,
-                                                                RowSpec.decode("default:grow"),
-                                                                FormFactory.RELATED_GAP_ROWSPEC,
-                                                                FormFactory.DEFAULT_ROWSPEC,
-                                                                FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
-                                                
-                                                        JLabel detailNameLabel = new JLabel("Unknown location");
-                                                        detailsPanel.add(detailNameLabel, "2, 2");
-                                                        
-                                                                JButton userTagButton = new JButton("Add user tag");
-                                                                userTagButton.setHorizontalAlignment(SwingConstants.LEFT);
-                                                                userTagButton.setIcon(loadIcon("icons/addTag.png"));
-                                                                userTagButton.addActionListener(new ActionListener() {
 
-                                                                    public void actionPerformed(ActionEvent arg0) {}
-                                                                });
-                                                                
-                                                                        JLabel detailDescriptionLabel = new JLabel("No description available.");
-                                                                        detailsPanel.add(detailDescriptionLabel, "2, 4, default, top");
-                                                                        detailsPanel.add(userTagButton, "2, 6");
+        JPanel detailsPanel = new JPanel();
+        detailsPanel.setBorder(BorderFactory.createTitledBorder("Details"));
+        sideBar.add(detailsPanel, "1, 4, fill, fill");
+        detailsPanel.setLayout(new FormLayout(new ColumnSpec[] {
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                ColumnSpec.decode("default:grow"),
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC, },
+                new RowSpec[] {
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        RowSpec.decode("default:grow"),
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
+
+        JLabel detailNameLabel = new JLabel("Unknown location");
+        detailsPanel.add(detailNameLabel, "2, 2");
+
+        JButton userTagButton = new JButton("Add user tag");
+        userTagButton.setHorizontalAlignment(SwingConstants.LEFT);
+        userTagButton.setIcon(loadIcon("icons/addTag.png"));
+        userTagButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent arg0) {}
+        });
+
+        JLabel detailDescriptionLabel = new JLabel("No description available.");
+        detailsPanel.add(detailDescriptionLabel, "2, 4, default, top");
+        detailsPanel.add(userTagButton, "2, 6");
 
         MouseListener hideSideBarListener = new MouseAdapter() {
 
@@ -700,11 +723,14 @@ public class MainWindow extends JFrame implements SurfaceListener,
             final Object valNew) {}
 
     @Override
-    public void surfaceChanged(final Tile tile) {}
-
-    @Override
     public void cameraViewChanged() {}
 
     @Override
     public void searchResultsAvailable(final Location[] results) {}
+
+    @Override
+    public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
+        // TODO Automatisch generierter Methodenstub
+
+    }
 }

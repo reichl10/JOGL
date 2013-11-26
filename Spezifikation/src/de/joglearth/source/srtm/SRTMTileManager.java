@@ -4,6 +4,7 @@ import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.caching.RequestDistributor;
+import de.joglearth.surface.SurfaceListener;
 
 
 public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
@@ -12,7 +13,7 @@ public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
     
     private RequestDistributor<SRTMTileIndex, SRTMTile> dist;
     
-    public SRTMTileManager getInstance() {
+    public static SRTMTileManager getInstance() {
         if (instance == null) {
             instance = new SRTMTileManager();
         }
@@ -29,4 +30,12 @@ public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
         return dist.requestObject(key, sender);
     }
 
+    public void addSurfaceListener(SurfaceListener l) {
+        
+    }
+
+    public void removeSurfaceListener(SurfaceListener l) {
+        
+    }
+    
 }

@@ -104,6 +104,12 @@ public final class Tile implements Cloneable {
     public static Tile getContainingTile(int detailLevel, GeoCoordinates coords) {
         return null;
     }
+    
+    
+    public boolean intersects(double lonFrom, double latFrom, double lonTo, double latTo) {
+        return false;
+    }
+    
 
     @Override
     public int hashCode() {

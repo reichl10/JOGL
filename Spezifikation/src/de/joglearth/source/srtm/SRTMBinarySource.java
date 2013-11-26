@@ -1,13 +1,13 @@
 package de.joglearth.source.srtm;
 
-import de.joglearth.source.HTTPUtils;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
+import de.joglearth.util.HTTP;
 
 
 /**
- * Uses the {@link HTTPUtils} to get the SRTM data from NASA servers. The size of the SRTM tiles is
+ * Uses the {@link HTTP} to get the SRTM data from NASA servers. The size of the SRTM tiles is
  * 90 x 90 meters. The SRTM tiles include all information of a required point about the height above
  * the sea level. Only necessary if the HightProfile is activated.
  * 
