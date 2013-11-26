@@ -183,13 +183,13 @@ Version: 1.0
 \tableofcontents
 
 \chapter{Einleitung}
-Dieses Dokument stellt die Spezifikation von \JoglEarth vor. Die geforderten Funktionalitäten aus dem Pflichtenheft und dem Entwurf werden im Detail abgebildet und spezifiziert.\\
+Dieses Dokument stellt die Spezifikation von \JoglEarth vor. Die geforderten Funktionalitäten aus dem Pflichtenheft und dem Entwurf werden im Detail abgebildet und spezifiziert. Änderungen, die der besseren Strukturierung der Klassen dienen, die im Laufe der Phase entstanden sind werden im letzten Kapitel gelistet. \\
 
-Aus dem Entwurf wurde das Skelett der Klassen und Methoden übernommen. Sämtliche Klassen inklusive deren zugehörigen Methoden erhielten Parameter und JavaDocs.\\
+Aus dem Entwurf wurde größtenteils das Skelett der Klassen und Methoden übernommen. Sämtliche Klassen inklusive der zugehörigen Methoden erhielten Parameter und JavaDocs mit deren Beschreibungen. Bei den JavaDocs wurde explizit darauf geachtet, dass die offiziellen Coding-Convenions gewahrt werden.\\
 
 Durch einige in der Spezifikationsphase formulierten JUnit Tests soll sichergestellt werden, dass das Zusammenspiel der Klassen und der Methoden ins Detail durchdacht wurde. Mit Hilfe der einzelnen Tests kann die korrekte Ausführung von komplexen Methoden simuliert werden.\\
 
-Mathematische Berechnungen und die angewendeten Algorithmen, wie zum Beispiel die Verdrängungsstrategie des Caches bilden die mannigfaltigen Systeme in \JoglEarth .\\
+Mathematischen Berechnungen und angewendete Algorithmen, wie zum Beispiel die Verdrängungsstrategie des Caches bilden die mannigfaltigen Systeme in \JoglEarth . \\
 
 Die im Programm benötigten persistenten Daten werden festgelegt und soweit nötig vordefiniert. Die Übersetzungstabelle der in der GUI verwendeten Begriffe soll eine Erleichterung in der Implementierungsphase bringen.\\
 
@@ -208,7 +208,8 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 
 \begin{tabular}{|p{4cm}|p{10cm}|}
 \hline 
-\rule[-1ex]{0pt}{4ex} Klasse & Erläuterung \\ 
+\rule[-1ex]{0pt}{4ex} \textbf{Klasse} & \textbf{Erläuterung} \\ 
+\hline
 \hline
 \rule[-1ex]{0pt}{4ex} RequestDistributor & Überprüfen ob Anfragen in annehmbarer Zeit beantwortet werden. Prüfen das nicht mehrfache, gleiche Anfragen mehrmals ausgeführt werden \\ 
 \hline
@@ -429,7 +430,7 @@ Die Tabelle gibt eine Übersicht über die in \JoglEarth verfügbaren Kachelserv
 \vspace{5mm}
 \begin{tabular}{|c|l|l|}
 \hline
-\rule[-1ex]{0pt}{4ex} \textbf{ENUM \textit{OSMTileType}} & \textbf{Server 1} & \textbf{Server 2} \\
+\rule[-1ex]{0pt}{4ex} \textbf{Bezeichnung} & \textbf{Server 1} & \textbf{Server 2} \\
 \hline
 \hline
 \rule[-1ex]{0pt}{4ex} OSM\_MAPNIK & http://otile1.mqcdn.com/tiles/1.0.0/osm/*.png & http://otile2.mqcdn.com/tiles/1.0.0/osm/*.png \\
@@ -646,7 +647,7 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 </osm-script>
 \end{lstlisting}\\ 
 \hline
-\rule[-1ex]{0pt}{4ex} FOOD  &  
+\rule[-1ex]{0pt}{4ex} FOOD &  
 \begin{lstlisting}
 <osm-script>
   <union>
@@ -1216,13 +1217,13 @@ Nachtleben & nightlife \\
 \hline
 Banken und Sparkassen & bank \\ 
 \hline
-Lebensmittelläden & food \\ 
+Lebensmittelläden & grocery stores \\ 
 \hline
 Einkaufsmöglichkeiten & shops \\ 
 \hline
 Freizeitaktivitäten & activity \\ 
 \hline
- & OUTDOORACTIVITY \\
+Wandern und Radfahren & hiking and cycling \\
 \hline
 Bildungseinrichtungen & education \\
 \hline
@@ -1239,6 +1240,13 @@ Unterkünfte & hotels \\
 
 
 \chapter{Implementierungsplan}
+
+
+
+
+\chapter{Verbesserungen gegenüber dem Entwurf}
+
+
 
 
 
