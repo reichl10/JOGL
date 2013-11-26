@@ -1131,30 +1131,26 @@ Das \texttt{entry} Element
  \begin{itemize}
  \item Das String-Attribut \texttt{key} ist der Elementschlüssel und muss somit eindeutig für \texttt{entry} Elemente dieser Datei sein.
  \item Das String-Attribut \texttt{type} kann einen der folgenden Werte enthalten: Integer, Boolean, Long, Double, Float, String.
-  Dieser Typ definiert zu welchem Java Standard API Typ der String im \texttt{value} Attribut geparsed werden muss, und aus welchem Typ er mittels \texttt{toString} umgewandelt wurde.
-   \item Das \texttt{value} Attribut enthält eine String Repräsentation des Wertes dieses Eintrages.
+  Dieser Typ definiert zu welchem Java Standard API Typ der String im Attribut \texttt{value} geparsed werden muss, und aus welchem Typ er mittels \texttt{toString} umgewandelt wurde.
+   \item Das Attribut \texttt{value} enthält eine String Repräsentation des Wertes dieses Eintrages.
  \end{itemize}
 \end{itemize}
 
- Das \texttt{locations} Element:
+ Das \texttt{locations} Element
 \begin{itemize}
- \item kann keines oder mehr Elemente des Types \texttt{location} enthalten.
- \item muss ein Attribut \texttt{key} besitzen das den Key des Locations enthält den die \texttt{Settings} Klasse benutzt.
+ \item kann null oder mehr Elemente des Typs \texttt{location} enthalten.
+ \item muss ein Attribut \texttt{key} besitzen, das den Schlüssel des \textit{locationType} enthält, der von der Klasse \texttt{Settings} benutzt wird.
 \end{itemize}
 
  Das \texttt{location} Element:
 \begin{itemize}
- \item muss die folgenden Attribute haben: \texttt{details}, \texttt{type}, \texttt{name}
+ \item muss die folgenden Attribute besitzen: \texttt{details}, \texttt{type}, \texttt{name}
  \begin{itemize}
-  \item das \texttt{details} Attribut enthält den wert des de.joglearth.surface.Location Objekts Details Attributs.
-  \item das \texttt{type} Attribut enthält die String Repräsentation des Locations Objektes Type Attributs, welche durch aufrufen von .toString auf dem Enum erzeugt wird.
-  \item das \texttt{name} Attribut enthält den String wert des name Attributs des Location Objekts.
+  \item Das Attribut \texttt{details} enthält den Wert des Detail-Attributs des Objekts \textit{de.joglearth.surface.Location}.
+  \item Das Attribut \texttt{type} enthält die String Repräsentation des Typs, welcher durch Aufrufen von \texttt{toString} auf dem Enum \textit{locationType} erzeugt wurde.
+  \item Das Attribut \texttt{name} Namen des Location-Objekts als String.
   \end{itemize}
- \item muss genau ein Kindelement des Typs \texttt{geocoordinates} besitzen
- \begin{itemize}
-  \item Diese Element muss die folgenden Attribute besitzen: \texttt{longitude}, \texttt{latitude}
-  \item die werten dieser Attribute stammen von Java double or Double zu einem String umgewandelt durch Double.toString;
- \end{itemize}
+ \item muss genau ein Kindelement des Typs \textit{GeoCoordinates} besitzen, das die Attribute \texttt{longitude} und \texttt{latitude} enthält, deren Werte aus Java double oder Double stammen, die mittels \texttt{Double.toString} zu einem String umgewandelt wurden.
 \end{itemize}
 \newpage
 Inhalt einer Beispiel XML-Datei:
