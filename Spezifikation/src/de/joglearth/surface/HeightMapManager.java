@@ -10,17 +10,20 @@ import de.joglearth.source.srtm.SRTMTileSource;
 
 
 /**
- * Interpolates informations about the height of points displayed on the map using SRTM height data.
- * A {@link de.joglearth.rendering.Tessellator} uses this class to generate a map surface by the
- * {@link HeightMap}.
+ * Singleton class for interpolation of informations about the height of points displayed on the
+ * map. For that purpose SRTM height data is used. A {@link de.joglearth.rendering.Tessellator}
+ * uses this class to generate a map surface by the {@link HeightMap}.
  */
 public class HeightMapManager {
-
-    private MemoryCache<Tile, byte[]> cache;
     
     private static HeightMapManager instance = null;
     
-    
+
+    /**
+     * Returns the existing instance of {@link HeightMapManager}. If there is no such object, it's
+     * created.
+     * @return The singletons instance.
+     */
     public static HeightMapManager getInstance() {
         if (instance == null) {
             instance = new HeightMapManager();
@@ -28,14 +31,8 @@ public class HeightMapManager {
         return instance;
     }
 
-    /**
-     * Constructor for HeightMapManager which knows and initializes a {@link FileSystemCache}, a
-     * {@link SRTMTileSource} and a {@link MemoryCache}.
-     */
+    //Private constructor for the HeightMapManager
     private HeightMapManager() {
-        FileSystemCache<Tile> fsCache = null;
-        SRTMTileSource source = null;
-        cache = new MemoryCache<Tile, byte[]>();
     }
 
     /**
