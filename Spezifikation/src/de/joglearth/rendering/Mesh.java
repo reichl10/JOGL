@@ -1,68 +1,47 @@
 package de.joglearth.rendering;
 
+import javax.media.opengl.GL2;
+
 /**
  * Container class to save vertices, normals and texture coordinates and other parameters to build a
  * tile.
- * 
  */
 public final class Mesh {
 
-    private float[] vertices;
-    private float[] normals;
-    private float[] texCoords;
-    private int[] indices;
+    /**
+     * The array of vertices. Elements are treated as dictated by the <code>glVertexFormat</code>.
+     */
+    public float[] vertices = null;
+    
+    /**
+     * The vertex format, as specified by OpenGL.
+     */
+    public int glVertexFormat = GL2.GL_T2F_N3F_V3F;
+    
+    /**
+     * The array of indices used to iterate over the vertex array.
+     */
+    public int[] indices = null;
 
 
     /**
      * Constructor. Initializes the {@link Mesh}
      * 
-     * @param vertices
-     * @param normals
-     * @param texCoords
-     * @param indices
+     * @param vertices The array of vertices, normals and texture coordinates according to the vertex format.
+     * @param glVertexFormat The OpenGL vertex format used. Describes the layout of the vertex array.
+     * @param indices The array of indices.
      */
-    public Mesh(float[] vertices, float[] normals, float[] texCoords,
-            int[] indices) {
+    public Mesh(float[] vertices, int glVertexFormat, int[] indices) {
         this.vertices = vertices;
-        this.normals = normals;
-        this.texCoords = texCoords;
-        this.indices = indices;
+        this.glVertexFormat = glVertexFormat;
     }
-
+    
     /**
-     * Gets the vertices stored in the {@link Mesh}.
-     * 
-     * @return A float array of vertices.
+     * Default constructor.
+     * Initializes an empty mesh.
      */
-    public float[] getVertices() {
-        return vertices;
-    }
-
-    /**
-     * Gets the normals stored in the {@link Mesh}.
-     * 
-     * @return A float array of normals
-     */
-    public float[] getNormals() {
-        return normals;
-    }
-
-    /**
-     * Gets the texture coordinates stored in the {@link Mesh}.
-     * 
-     * @return A float array of texture coordinates
-     */
-    public float[] getTexCoords() {
-        return texCoords;
-    }
-
-    /**
-     * Gets the indices stored in the {@link Mesh}.
-     * 
-     * @return A int array of indices
-     */
-    public int[] getIndices() {
-        return indices;
+    public Mesh() {
+        
     }
 
 }
