@@ -393,6 +393,31 @@ public class WriteAndLoadSettings {
 \item Platzhalter-Textur
 \end{itemize}
 
+\vspace{5mm}
+
+\section{Kachelserver}
+Die Tabelle gibt eine Übersicht über die in \JoglEarth verfügbaren Kachelserver.
+
+\vspace{5mm}
+\begin{tabular}{|c|l|l|}
+\hline
+\rule[-1ex]{0pt}{4ex} \textbf{Bezeichnung} & \textbf{Server 1} & \textbf{Server 2} \\
+\hline
+\hline
+\rule[-1ex]{0pt}{4ex} OSM\_MAPNIK & http://otile1.mqcdn.com/tiles/1.0.0/osm/*.png & http://otile2.mqcdn.com/tiles/1.0.0/osm/*.png \\
+\hline
+\rule[-1ex]{0pt}{4ex} CYCLING & http://a.tile.opencyclemap.org/cycle/*.png & http://b.tile.opencyclemap.org/cycle/*.png \\
+\hline
+\rule[-1ex]{0pt}{4ex} SKIING & http://tiles.openpistemap.org/nocontours/*.png & \\
+\hline
+\rule[-1ex]{0pt}{4ex} HIKING & http://tile.waymarkedtrails.org/hiking/*.png & \\
+\hline
+\rule[-1ex]{0pt}{4ex} OSM2WORLD & http://a.tiles.osm2world.org/osm/pngtiles/n/*.png & Subdomains {b,c,d} als Ausweichserver\\
+\hline
+\end{tabular}
+
+\vspace{1.5 cm}
+
 \section{Programm Icons}
 
 \vspace{5mm}
@@ -419,61 +444,36 @@ public class WriteAndLoadSettings {
 \hline
 \rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{Info.eps}} &  About-Icon \\ 
 \hline
-
-\end{tabular}
-
-\newpage
-
-\section{Kachelserver}
-Die Tabelle gibt eine Übersicht über die in \JoglEarth verfügbaren Kachelserver. \\
-
-\vspace{5mm}
-\begin{tabular}{|c|l|l|}
-\hline
-\rule[-1ex]{0pt}{4ex} \textbf{Bezeichnung} & \textbf{Server 1} & \textbf{Server 2} \\
-\hline
-\hline
-\rule[-1ex]{0pt}{4ex} OSM\_MAPNIK & http://otile1.mqcdn.com/tiles/1.0.0/osm/*.png & http://otile2.mqcdn.com/tiles/1.0.0/osm/*.png \\
-\hline
-\rule[-1ex]{0pt}{4ex} CYCLING & http://a.tile.opencyclemap.org/cycle/*.png & http://b.tile.opencyclemap.org/cycle/*.png \\
-\hline
-\rule[-1ex]{0pt}{4ex} SKIING & http://tiles.openpistemap.org/nocontours/*.png & \\
-\hline
-\rule[-1ex]{0pt}{4ex} HIKING & http://tile.waymarkedtrails.org/hiking/*.png & \\
-\hline
-\rule[-1ex]{0pt}{4ex} OSM2WORLD & http://a.tiles.osm2world.org/osm/pngtiles/n/*.png & Subdomains {b,c,d} als Ausweichserver\\
-\hline
 \end{tabular}
 
 \vspace{1.5 cm}
 
 \section{Nominatim Suchanfragen}
 
-Die Suche nach Orten oder Sehenswürdigkeiten erfolgt über Nominatim dafür wird von OpenStreetMap der Server \textit{http://nominatim.openstreetmap.org/search/} bereitgestellt. \\
+Die Suche nach Orten oder Sehenswürdigkeiten erfolgt über \textit{Nominatim}, dafür wird von OpenStreetMap der Server \textit{http://nominatim.openstreetmap.org/search/} bereitgestellt. \\
 Die folgenden Anfrageparameter sind als HTTP GET-Request zu formulieren.
 
-\vspace{1.5 cm}
+\vspace{5mm}
 
 \begin{tabular}{|p{5cm}|p{11cm}|}
 \hline
-\textbf{Parameter} & \textbf{Beschreibung} \\
+\rule[-1ex]{0pt}{4ex} \textbf{Parameter} & \textbf{Beschreibung} \\
 \hline
 \hline
-q = $<$query$>$ & Suchbegriff (Ort oder Sehenswürdigkeit) \\
+\rule[-1ex]{0pt}{4ex} q = $<$query$>$ & Suchbegriff (Ort oder Sehenswürdigkeit) \\
 \hline
-format = [xml$|$json] & Format der Rückgabe \\
+\rule[-1ex]{0pt}{4ex} format = [xml$|$json] & Format der Rückgabe \\
 \hline
-accept-language = [de$|$en] & Sprache in der die Suchergebnisse angezeigt werden sollen. Bei der Angabe mehrerer Sprachen, z.B. \textit{accept-language = de,en} wird das Suchergebnis vorrangig in Deutsch und nachranging in Englisch übermittelt. \\
+\rule[-1ex]{0pt}{4ex} accept-language = [de$|$en] & Sprache in der die Suchergebnisse angezeigt werden sollen. Bei der Angabe mehrerer Sprachen, z.B. \textit{accept-language = de,en} wird das Suchergebnis vorrangig in Deutsch und nachranging in Englisch übermittelt. \\
 \hline
-viewbox = $<$left$>$,$<$top$>$,$<$right$>$,$<$bottom$>$ & Begrenzung des Suchbereichs (FOV). Vergleichbar mit \textit{$<$bbox-query  n="{}$<$top$>$"{} s="{}$<$bottom$>$"{} w="{}$<$left$>$"{} e="{}$<$right$>$"{}  /$>$} in der Overpass-API. \\
+\rule[-1ex]{0pt}{4ex} viewbox = $<$left$>$,$<$top$>$,$<$right$>$,$<$bottom$>$ & Begrenzung des Suchbereichs (FOV). Vergleichbar mit \textit{$<$bbox-query  n="{}$<$top$>$"{} s="{}$<$bottom$>$"{} w="{}$<$left$>$"{} e="{}$<$right$>$"{}  /$>$} in der Overpass-API. \\
 \hline
-limit = $<$integer$>$ & Gibt an wie viele Ergebnisse maximal zurückgegeben werden sollen. Standardwert von Nominatim ist 10.\\
+\rule[-1ex]{0pt}{4ex} limit = $<$integer$>$ & Gibt an wie viele Ergebnisse maximal zurückgegeben werden sollen. Standardwert von Nominatim ist 10.\\
 \hline
-adressdetails = [0$|$1] & Erweitert die Suchergebnisse um Details zu den Adressen. \textit{0} bedeutet \textit{aus} und \textit{1} bedeutet \textit{an}. \\
+\rule[-1ex]{0pt}{4ex} adressdetails = [0$|$1] & Erweitert die Suchergebnisse um Details zu den Adressen. \textit{0} bedeutet \textit{aus} und \textit{1} bedeutet \textit{an}. \\
 \hline
 \end{tabular}
 
-\vspace{1.5 cm}
 
 \newpage
 
@@ -517,12 +517,9 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 \newpage
 
-\setlength{\extrarowheight}{4mm}
-\begin{longtable}{|p{4cm} p{10cm}|}%{L{0.35} R{1.65}}
-\hline 
-\rule[-1ex]{0pt}{4ex} \textbf{ENUM \textit{LocationType}} &  \textbf{Overpass Query} \\ 
-\hline  \hline
-\rule[-1ex]{0pt}{4ex} SHOPS & 
+\section{Overpass Queries zum ENUM LocationType} 
+\subsection*{SHOPS}
+\lstset{language=XML}   
 \begin{lstlisting}
 <osm-script>
   <union>
@@ -541,10 +538,8 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
   </union>
   <print/>
 </osm-script>
-\end{lstlisting} \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} RESTAURANT &
-\lstset{language=XML}  
+\end{lstlisting}
+\subsection*{RESTAURANT}
 \begin{lstlisting} 
 <osm-script>
   <union>
@@ -599,9 +594,8 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
   </union>
   <print/>
 </osm-script>
-\end{lstlisting}\\ 
-\hline
-\rule[-1ex]{0pt}{4ex} NIGHTLIFE  & 
+\end{lstlisting}
+\subsection*{NIGHTLIFE} 
 \begin{lstlisting}
 <osm-script>
   <union>
@@ -668,9 +662,8 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
   </union>
   <print/>
 </osm-script>
-\end{lstlisting} \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} BANK &  
+\end{lstlisting} 
+\subsection*{BANK}  
 \begin{lstlisting}
 <osm-script>
   <union>
@@ -689,9 +682,8 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
   </union>
   <print/>
 </osm-script>
-\end{lstlisting}\\
-\hline
-\rule[-1ex]{0pt}{4ex} TOILETS  &  
+\end{lstlisting}
+\subsection*{TOILETS}  
 \begin{lstlisting}
 <osm-script>
   <union>
@@ -710,9 +702,11 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
   </union>
   <print/>
 </osm-script>
-\end{lstlisting}\\ 
-\hline
-\rule[-1ex]{0pt}{4ex} GROCERY &  
+\end{lstlisting}
+
+\newpage
+
+\subsection*{GROCERY}  
 \begin{lstlisting}
 <osm-script>
   <union>
@@ -767,9 +761,11 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
   </union>
   <print/>
 </osm-script>
-\end{lstlisting}\\ 
-\hline
-\rule[-1ex]{0pt}{4ex} ACTIVITY &  
+\end{lstlisting}
+
+\newpage
+
+\subsection*{ACTIVITY} 
 \begin{lstlisting}
 <osm-script>
   <union>
@@ -837,9 +833,6 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
     <has-kv k="leisure" v="sports_centre" />
     <bbox-query n="" s="" w="" e=""  />
   </query>
-  \end{lstlisting} \\
-  \rule[-1ex]{0pt}{4ex} &
-  \begin{lstlisting}
   <query type="relation">
     <has-kv k="tourism" v="viewpoint" />
     <bbox-query n="" s="" w="" e=""  />
@@ -875,13 +868,8 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
   </union>
   <print/>
 </osm-script>
-\end{lstlisting}\\
-\hline 
-\end{longtable}
-\setlength{\extrarowheight}{4mm}
-\begin{longtable}{|p{4cm} p{10cm}|}%{L{0.35} R{1.65}}
-\hline
-\rule[-1ex]{0pt}{4ex} HIKING\_CYCLING &   
+\end{lstlisting}
+\subsection*{HIKING\_CYCLING}   
 \begin{lstlisting}
 <osm-script>
   <union>
@@ -932,9 +920,8 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
   </union>
   <print/>
 </osm-script>
-\end{lstlisting}\\ 
-\hline
-\rule[-1ex]{0pt}{4ex} EDUCATION &  
+\end{lstlisting} 
+\subsection*{EDUCATION}  
 \begin{lstlisting}
 <osm-script>
   <union>
@@ -989,9 +976,8 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
   </union>
   <print/>
 </osm-script>
-\end{lstlisting}\\ 
-\hline
-\rule[-1ex]{0pt}{4ex} HEALTH & 
+\end{lstlisting} 
+\subsection*{HEALTH}
 \begin{lstlisting}
 <osm-script>
   <union>
@@ -1046,9 +1032,11 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
   </union>
   <print/>
 </osm-script>
-\end{lstlisting} \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} POST &  
+\end{lstlisting}
+
+\newpage
+
+\subsection*{POST} 
 \begin{lstlisting}
 <osm-script>
   <union>
@@ -1075,9 +1063,8 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
   </union>
   <print/>
 </osm-script>
-\end{lstlisting}\\ 
-\hline
-\rule[-1ex]{0pt}{4ex} HOTELS & 
+\end{lstlisting}
+\subsection*{HOTELS}
 \begin{lstlisting}
 <osm-script>
   <union>
@@ -1108,9 +1095,7 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
   </union>
   <print/>
 </osm-script>
-\end{lstlisting} \\ 
-\hline
-\end{longtable}
+\end{lstlisting}
 
 \newpage
 
