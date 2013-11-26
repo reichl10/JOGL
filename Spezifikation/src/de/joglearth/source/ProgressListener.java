@@ -1,7 +1,7 @@
 package de.joglearth.source;
 
 /**
- * Listener interface notified on @ref ProgressManager events.
+ * Listener interface notified on {@link ProgressManager} events.
  */
 public interface ProgressListener {
 
@@ -13,7 +13,7 @@ public interface ProgressListener {
     void updateProgress(double prog);
 
     /**
-     * Called when @ref ProgressManager.abortPendingRequests() is invoked. An implementation should
+     * Called when {@link ProgressManager}.abortPendingRequests() is invoked. An implementation should
      * attempt to stop any pending asynchronous request.
      */
     void abortPendingRequests();

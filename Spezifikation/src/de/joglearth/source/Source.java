@@ -6,7 +6,7 @@ package de.joglearth.source;
  * an asynchronous way.
  * 
  * @param Key Identifier for the objects
- * @param Value The type of value retrieved by the {@link Source}
+ * @param Value The type of value retrieved by the <code>Source</code>
  */
 public interface Source<Key, Value> {
 

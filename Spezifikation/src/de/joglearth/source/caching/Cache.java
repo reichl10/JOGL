@@ -4,33 +4,37 @@ import de.joglearth.source.Source;
 
 
 /**
- * Stores objects of type <Value> with an identifier <Key> and returns them on request according to
- * their ID.
+ * Stores objects of type <code>Value</code> with an identifier <code>Key</code> and returns them on
+ * request according to their ID.
  * 
  */
 public interface Cache<Key, Value>
         extends Source<Key, Value> {
 
     /**
-     * Stores object if type is valid and key isn't used yet.
+     * Stores object identified by a <code>Key</code>. An existing object with that <code>Key</code>
+     * may be overwritten.
      * 
      * @param k ID of object
-     * @param v object to be stored
+     * @param v The object to be stored
      */
     void putObject(Key k, Value v);
 
     /**
-     * Erases reference to object if key is valid ID of stored object.
+     * Erases the reference to an object if the <code>Key</code> is a valid ID of a stored object.
      * 
-     * @param k ID of object to be dropped
+     * @param k The ID of object to be dropped
      */
     void dropObject(Key k);
 
     /**
-     * Returns all stored objects. Main purpose of this method is to inform classes about content
-     * when get new reference to cache that already exists and isn't empty anymore.
+     * Can be used to get the objects that already exist when the cache is initialized.
+     * @return All stored objects
      */
     Iterable<Key> getExistingObjects();
 
+    /**
+     * Drops all objects contained in a cache.
+     */
     void dropAll();
 }

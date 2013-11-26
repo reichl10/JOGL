@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Singleton class managing the global progress of asynchronous requests handled by
- * RequestDistributors.
+ * {@link RequestDistributor}s.
  */
 public class ProgressManager {
 
@@ -14,8 +14,10 @@ public class ProgressManager {
 
     private List<ProgressListener> listeners;
 
-    private int pending; // Number of unfinished requests
-    private int maxPending; // Total number of requests added since the last pending == 0
+    private int                    pending;        // Number of unfinished requests
+    private int                    maxPending;     // Total number of requests added since the last
+                                                    // pending == 0
+
 
     // Constructor. Should only called by getInstance().
     private ProgressManager() {
@@ -36,8 +38,8 @@ public class ProgressManager {
     }
 
     /**
-     * Adds a new progress listener which is notified whenever the overall progress changes or the
-     * pending requests are to be aborted.
+     * Adds a new {@link ProgressListener} which is notified whenever the overall progress changes
+     * or the pending requests are to be aborted.
      * 
      * @param l The listener to add.
      */
@@ -46,7 +48,7 @@ public class ProgressManager {
     }
 
     /**
-     * Removes an existing ProgressListener from the set of listeners.
+     * Removes an existing {@link ProgressListener} from the set of listeners.
      * 
      * @param l The listener to remove.
      */
