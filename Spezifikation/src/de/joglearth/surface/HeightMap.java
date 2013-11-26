@@ -1,13 +1,7 @@
 package de.joglearth.surface;
 
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.geometry.Tile;
-import de.joglearth.settings.SettingsListener;
-import de.joglearth.source.SourceListener;
-import de.joglearth.source.caching.FileSystemCache;
-import de.joglearth.source.caching.MemoryCache;
 import de.joglearth.source.srtm.SRTMTileManager;
-import de.joglearth.source.srtm.SRTMTileSource;
 
 
 /**

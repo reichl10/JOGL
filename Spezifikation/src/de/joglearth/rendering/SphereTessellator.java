@@ -1,7 +1,6 @@
 package de.joglearth.rendering;
 
 import de.joglearth.geometry.Tile;
-import de.joglearth.surface.HeightMap;
 
 /**
  * The <code>SphereTesselator</code> calculates the {@link Mesh} for a

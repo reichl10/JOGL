@@ -3,7 +3,6 @@ package de.joglearth.surface;
 import javax.media.opengl.GL2;
 
 import de.joglearth.geometry.Tile;
-import de.joglearth.source.SourceListener;
 import de.joglearth.source.caching.RequestDistributor;
 
 

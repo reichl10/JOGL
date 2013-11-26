@@ -8,7 +8,6 @@ import javax.media.opengl.awt.GLCanvas;
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.geometry.Tile;
 import de.joglearth.surface.HeightMap;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.surface.MapLayout;
@@ -17,8 +16,6 @@ import de.joglearth.surface.TiledMapType;
 import de.joglearth.surface.SurfaceListener;
 import de.joglearth.surface.TextureManager;
 import de.joglearth.settings.SettingsListener;
-import de.joglearth.source.SourceListener;
-import de.joglearth.source.osm.OSMTileSource;
 
 
 /**

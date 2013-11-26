@@ -1,6 +1,5 @@
 package de.joglearth.ui;
 
-import javax.imageio.ImageIO;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
@@ -10,7 +9,6 @@ import javax.swing.JFrame;
 import de.joglearth.JoglEarth;
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
-import de.joglearth.geometry.Tile;
 import de.joglearth.rendering.DisplayMode;
 import de.joglearth.rendering.LevelOfDetail;
 import de.joglearth.settings.SettingsListener;
@@ -22,17 +20,12 @@ import de.joglearth.surface.SingleMapType;
 import de.joglearth.surface.TiledMapType;
 import de.joglearth.surface.SurfaceListener;
 
-import javax.swing.JSplitPane;
-
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.BoxLayout;
-
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -45,24 +38,15 @@ import javax.swing.UIManager;
 
 import com.jgoodies.forms.factories.FormFactory;
 
-import javax.media.nativewindow.WindowClosingProtocol.WindowClosingMode;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
-import java.awt.Font;
-import java.io.IOException;
-
 import javax.swing.BorderFactory;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.ListCellRenderer;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
-
-import java.awt.Panel;
 
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -81,7 +65,6 @@ import static de.joglearth.util.Resource.loadIcon;
 
 import javax.swing.JSpinner;
 import javax.swing.border.TitledBorder;
-import javax.swing.border.LineBorder;
 
 
 /**
@@ -90,6 +73,7 @@ import javax.swing.border.LineBorder;
 public class MainWindow extends JFrame {
 
     /**
+     * @internal
      * Launch the application.
      */
     public static void main(String[] args) {
@@ -243,7 +227,6 @@ public class MainWindow extends JFrame {
 
             public MapLayout layout;
             public Object type;
-
 
             public MapTypePair(SingleMapType s) {
                 layout = MapLayout.SINGLE;

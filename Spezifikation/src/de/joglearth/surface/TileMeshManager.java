@@ -4,7 +4,6 @@ import javax.media.opengl.GL2;
 
 import de.joglearth.geometry.Tile;
 import de.joglearth.rendering.Tessellator;
-import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;

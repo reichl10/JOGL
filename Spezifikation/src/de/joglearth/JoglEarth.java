@@ -1,10 +1,9 @@
 package de.joglearth;
 
 import de.joglearth.geometry.Camera;
-import de.joglearth.surface.HeightMap;
+import de.joglearth.rendering.Renderer;
 import de.joglearth.surface.LocationManager;
-import de.joglearth.rendering.*;
-import de.joglearth.ui.*;
+import de.joglearth.ui.MainWindow;
 
 /**
  * Utility Class that contains the main method of JoglEarth.

@@ -1,10 +1,7 @@
 package de.joglearth.source.osm;
 
-import de.joglearth.geometry.Tile;
-import de.joglearth.rendering.*;
 import de.joglearth.source.*;
 import de.joglearth.surface.TiledMapType;
-import de.joglearth.ui.*;
 
 
 /**
