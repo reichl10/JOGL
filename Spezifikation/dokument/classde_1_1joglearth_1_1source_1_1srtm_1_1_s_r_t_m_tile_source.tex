@@ -9,8 +9,7 @@ Klassendiagramm für de.\-joglearth.\-source.\-srtm.\-S\-R\-T\-M\-Tile\-Source\-
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries S\-R\-T\-M\-Tile\-Source} (Source$<$ {\bf S\-R\-T\-M\-Tile\-Index}, byte[$\,$]$>$ binary\-Source)\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_source_a92d4e677775f995de445953de408fac5}
-
+{\bf S\-R\-T\-M\-Tile\-Source} (Source$<$ {\bf S\-R\-T\-M\-Tile\-Index}, byte[$\,$]$>$ binary\-Source)
 \item 
 Source\-Response$<$ {\bf S\-R\-T\-M\-Tile} $>$ {\bfseries request\-Object} ({\bf S\-R\-T\-M\-Tile\-Index} k, Source\-Listener$<$ {\bf S\-R\-T\-M\-Tile\-Index}, {\bf S\-R\-T\-M\-Tile} $>$ sender)\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_source_a0d95e07ac6234f6740f85e7ba2e1b0fc}
 
@@ -18,4 +17,18 @@ Source\-Response$<$ {\bf S\-R\-T\-M\-Tile} $>$ {\bfseries request\-Object} ({\bf
 
 
 \subsection{Ausführliche Beschreibung}
-Uses the \doxyref{H\-T\-T\-P}{S.}{} to get the S\-R\-T\-M data from N\-A\-S\-A server. The level of detail of a pixel in the S\-R\-T\-M tiles is 90 x 90 meters. The S\-R\-T\-M tiles include all information of a required point about the height. As 'standard elevation zero' the W\-G\-S84 spheroid is used. Necessary when the Height\-Profile is activated. Only necessary if the Hight\-Profile is activated. 
+Loads S\-R\-T\-M data from N\-A\-S\-A servers. The level of detail of a pixel in the S\-R\-T\-M tiles is 90 x 90 meters. The S\-R\-T\-M tiles include all information of a required point about the height. As 'standard elevation zero' the W\-G\-S84 spheroid is used. Necessary when the Height\-Profile is activated. Only necessary if the Hight\-Profile is activated. 
+
+\subsection{Beschreibung der Konstruktoren und Destruktoren}
+\index{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile\-Source@{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile\-Source}!S\-R\-T\-M\-Tile\-Source@{S\-R\-T\-M\-Tile\-Source}}
+\index{S\-R\-T\-M\-Tile\-Source@{S\-R\-T\-M\-Tile\-Source}!de::joglearth::source::srtm::SRTMTileSource@{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile\-Source}}
+\subsubsection[{S\-R\-T\-M\-Tile\-Source}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-source.\-srtm.\-S\-R\-T\-M\-Tile\-Source.\-S\-R\-T\-M\-Tile\-Source (
+\begin{DoxyParamCaption}
+\item[{Source$<$ {\bf S\-R\-T\-M\-Tile\-Index}, byte[$\,$]$>$}]{binary\-Source}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_source_a92d4e677775f995de445953de408fac5}
+Constructor. Initializes the \doxyref{S\-R\-T\-M\-Tile\-Source}{S.}{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_source} as it assigns a value to the \doxyref{Source}{S.}{} of {\ttfamily \doxyref{S\-R\-T\-M\-Tile\-Source}{S.}{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_source}} 
+\begin{DoxyParams}{Parameter}
+{\em binary\-Source} & The {\ttfamily Source} thats assigned \\
+\hline
+\end{DoxyParams}

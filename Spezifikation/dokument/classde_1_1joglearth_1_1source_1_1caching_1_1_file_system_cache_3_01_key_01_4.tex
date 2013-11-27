@@ -9,8 +9,7 @@ Klassendiagramm für de.\-joglearth.\-source.\-caching.\-File\-System\-Cache$<$ 
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries File\-System\-Cache} (String folder, Path\-Translator$<$ Key $>$ p)\label{classde_1_1joglearth_1_1source_1_1caching_1_1_file_system_cache_3_01_key_01_4_aa15baef0f6d76f03f3b24a2b26217251}
-
+{\bf File\-System\-Cache} (String folder, Path\-Translator$<$ Key $>$ p)
 \item 
 Source\-Response$<$ byte[$\,$]$>$ {\bfseries request\-Object} (Key key, Source\-Listener$<$ Key, byte[$\,$]$>$ sender)\label{classde_1_1joglearth_1_1source_1_1caching_1_1_file_system_cache_3_01_key_01_4_ae40d9dd9583027c14e4468e183cf48da}
 
@@ -27,3 +26,26 @@ Iterable$<$ Key $>$ {\bfseries get\-Existing\-Objects} ()\label{classde_1_1jogle
 void {\bfseries drop\-All} ()\label{classde_1_1joglearth_1_1source_1_1caching_1_1_file_system_cache_3_01_key_01_4_a433d8c26ced086c0cda87ebd1a072765}
 
 \end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Implements the \doxyref{Cache}{S.}{} interface in such way that it stores objects in the file system. 
+
+\subsection{Beschreibung der Konstruktoren und Destruktoren}
+\index{de\-::joglearth\-::source\-::caching\-::\-File\-System\-Cache$<$ Key $>$@{de\-::joglearth\-::source\-::caching\-::\-File\-System\-Cache$<$ Key $>$}!File\-System\-Cache@{File\-System\-Cache}}
+\index{File\-System\-Cache@{File\-System\-Cache}!de::joglearth::source::caching::FileSystemCache< Key >@{de\-::joglearth\-::source\-::caching\-::\-File\-System\-Cache$<$ Key $>$}}
+\subsubsection[{File\-System\-Cache}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-source.\-caching.\-File\-System\-Cache$<$ Key $>$.File\-System\-Cache (
+\begin{DoxyParamCaption}
+\item[{String}]{folder, }
+\item[{Path\-Translator$<$ Key $>$}]{p}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_file_system_cache_3_01_key_01_4_aa15baef0f6d76f03f3b24a2b26217251}
+Constructor.\-Initializes a {\ttfamily File\-System\-Cache} as it assigns values to the {\ttfamily folder} value and the \doxyref{Path\-Translator}{S.}{}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em folder} & The name of the folder where the objects should be stored \\
+\hline
+{\em p} & The {\ttfamily Path\-Translator} that is used by the {\ttfamily File\-System\-Cache} to convert a path to a string and vice versa \\
+\hline
+\end{DoxyParams}

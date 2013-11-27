@@ -11,8 +11,7 @@ Klassendiagramm für de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$
 \item 
 void {\bf add\-Cache} (Cache$<$ Key, Value $>$ cache, int max\-Size)
 \item 
-void {\bfseries set\-Cache\-Size} (Cache$<$ Key, Value $>$ cache, int max\-Size)\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a9f434cffad6e2b3f6f085a3c42568e91}
-
+void {\bf set\-Cache\-Size} (Cache$<$ Key, Value $>$ cache, int max\-Size)
 \item 
 void {\bf set\-Source} (Source$<$ Key, Value $>$ source)
 \item 
@@ -20,19 +19,20 @@ Source\-Response$<$ Value $>$ {\bf request\-Object} (Key key, Source\-Listener$<
 \item 
 {\bf Request\-Distributor} (Object\-Measure$<$ Value $>$ m)
 \item 
-void {\bfseries drop\-All} ()\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_abf8c409b311e0888dd36dbca3c3dd6ae}
-
+{\bf Request\-Distributor} ()
 \item 
-void {\bfseries drop\-All} (Predicate$<$ Key $>$ pred)\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a9f5c4e8442dad9a5c1f2a9de21fcc13f}
-
+void {\bf drop\-All} ()
 \item 
-void {\bfseries drop\-Object} (Key k)\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a5e40a92cd0440bb2d6ab372e4c718cf4}
-
+void {\bf drop\-All} (Predicate$<$ Key $>$ pred)
+\item 
+void {\bf drop\-Object} (Key k)
 \end{DoxyCompactItemize}
 
 
 \subsection{Ausführliche Beschreibung}
-Recieves requests for objects, can get the objects from one Source that can be set. Stores requested objects in caches to minimize loading-\/time. 
+Dispatches requests for objects to a number of caches and an underlying source.
+
+Retrieved objects are moved to faster caches after access, thus optimizing the response time for repeating queries. 
 
 \subsection{Beschreibung der Konstruktoren und Destruktoren}
 \index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!Request\-Distributor@{Request\-Distributor}}
@@ -42,7 +42,21 @@ Recieves requests for objects, can get the objects from one Source that can be s
 \item[{Object\-Measure$<$ Value $>$}]{m}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a356575251551009739db3a8b7a172eda}
-Standard-\/constructor 
+Constructor.
+
+
+\begin{DoxyParams}{Parameter}
+{\em m} & The Object\-Measure to use. \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!Request\-Distributor@{Request\-Distributor}}
+\index{Request\-Distributor@{Request\-Distributor}!de::joglearth::source::caching::RequestDistributor< Key, Value >@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}}
+\subsubsection[{Request\-Distributor}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$.Request\-Distributor (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a2951a2de7bb7e752b1570991d3419ad4}
+Default constructor. Uses \doxyref{Unity\-Measure}{S.}{} as \doxyref{Object\-Measure}{S.}{}. 
 
 \subsection{Dokumentation der Elementfunktionen}
 \index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!add\-Cache@{add\-Cache}}
@@ -53,7 +67,51 @@ Standard-\/constructor
 \item[{int}]{max\-Size}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a18da9721a25e75be8bb654c461a4c45d}
-Adds new cache and creates new {\ttfamily tree}, hash\-Last\-Used and Free\-Cache\-Space. \index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!request\-Object@{request\-Object}}
+Appends a new cache, which will have the lowest priority of any cache added so far.
+
+
+\begin{DoxyParams}{Parameter}
+{\em cache} & The cache. \\
+\hline
+{\em max\-Size} & The maximum size in units defined by the Object\-Measure passed in the constructor. T\-O\-D\-O max\-Size should probably have a minimum value \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!drop\-All@{drop\-All}}
+\index{drop\-All@{drop\-All}!de::joglearth::source::caching::RequestDistributor< Key, Value >@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}}
+\subsubsection[{drop\-All}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$.drop\-All (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_abf8c409b311e0888dd36dbca3c3dd6ae}
+Drops all cached objects. \index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!drop\-All@{drop\-All}}
+\index{drop\-All@{drop\-All}!de::joglearth::source::caching::RequestDistributor< Key, Value >@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}}
+\subsubsection[{drop\-All}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$.drop\-All (
+\begin{DoxyParamCaption}
+\item[{Predicate$<$ Key $>$}]{pred}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a9f5c4e8442dad9a5c1f2a9de21fcc13f}
+Removes all objects from the \doxyref{cache}{S.}{}s that fulfill the \doxyref{Predicate}{S.}{}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em pred} & Conformance with that {\ttfamily Predicate} leads to deletion of that object \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!drop\-Object@{drop\-Object}}
+\index{drop\-Object@{drop\-Object}!de::joglearth::source::caching::RequestDistributor< Key, Value >@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}}
+\subsubsection[{drop\-Object}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$.drop\-Object (
+\begin{DoxyParamCaption}
+\item[{Key}]{k}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a5e40a92cd0440bb2d6ab372e4c718cf4}
+Removes an object stored under a {\ttfamily Key} from the \doxyref{Cache}{S.}{} that contains it.
+
+
+\begin{DoxyParams}{Parameter}
+{\em k} & The key identifying the object. \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!request\-Object@{request\-Object}}
 \index{request\-Object@{request\-Object}!de::joglearth::source::caching::RequestDistributor< Key, Value >@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}}
 \subsubsection[{request\-Object}]{\setlength{\rightskip}{0pt plus 5cm}Source\-Response$<$Value$>$ de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$.request\-Object (
 \begin{DoxyParamCaption}
@@ -61,13 +119,30 @@ Adds new cache and creates new {\ttfamily tree}, hash\-Last\-Used and Free\-Cach
 \item[{Source\-Listener$<$ Key, Value $>$}]{sender}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a0dddf19cb7d3f9a9664b7dad36816d89}
-Tries to return requested object. Consults caches first and updates hash\-Last\-Used and entry in {\ttfamily tree} if object found in cache. When found in other cache than primary cache, put object in primary cache. If object not found in caches, consult {\ttfamily Source}, add to pending\-Requests and return null with response\-Type A\-S\-Y\-N\-C\-H\-R\-O\-N\-E. If no Source set, return null and response\-Type M\-I\-S\-S\-I\-N\-G instead.
+Tries to retrieve a requested object. Asks \doxyref{Cache}{S.}{}s in the order of their hierarchy, if the object is not in the {\ttfamily Caches} it asks its \doxyref{Source}{S.}{}. Objects that are not found in the primary {\ttfamily Cache}, but in another {\ttfamily Cache} or the {\ttfamily Source} are stored in the primary {\ttfamily Cache}. This may lead to displacements of other objects from the primary {\ttfamily Cache}.
 
 
 \begin{DoxyParams}{Parameter}
-{\em key} & Key (identifier) of requested object \\
+{\em key} & Identifier of the requested object \\
 \hline
-{\em sender} & Entity to be notified when request is completed asynchrone \\
+{\em sender} & Entity to be notified when request is completed asynchronous \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!set\-Cache\-Size@{set\-Cache\-Size}}
+\index{set\-Cache\-Size@{set\-Cache\-Size}!de::joglearth::source::caching::RequestDistributor< Key, Value >@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}}
+\subsubsection[{set\-Cache\-Size}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$.set\-Cache\-Size (
+\begin{DoxyParamCaption}
+\item[{Cache$<$ Key, Value $>$}]{cache, }
+\item[{int}]{max\-Size}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a9f434cffad6e2b3f6f085a3c42568e91}
+Changes the maximum size of an existing cache, possibly dropping cached objects in the process.
+
+
+\begin{DoxyParams}{Parameter}
+{\em cache} & The cache to modify. \\
+\hline
+{\em max\-Size} & The new maximum size. T\-O\-D\-O max\-Size should probably have a minimum value \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!set\-Source@{set\-Source}}
@@ -77,4 +152,10 @@ Tries to return requested object. Consults caches first and updates hash\-Last\-
 \item[{Source$<$ Key, Value $>$}]{source}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a2961584cee25c3101f7bd849e3bfa6f0}
-Replace Source. 
+Replaces the \doxyref{Source}{S.}{}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em source} & The new source \\
+\hline
+\end{DoxyParams}

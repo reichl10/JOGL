@@ -9,6 +9,35 @@ Klassendiagramm für de.\-joglearth.\-source.\-caching.\-Unity\-Measure$<$ T $>$
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
-int {\bfseries get\-Size} (T t)\label{classde_1_1joglearth_1_1source_1_1caching_1_1_unity_measure_3_01_t_01_4_a2fe8769ef6b5b550d83169ef02eebb90}
-
+int {\bf get\-Size} (T t)
 \end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Implements the \doxyref{Object\-Measure}{S.}{} interface in such way that it can measure the size of single objects. Treats every object as a object of the size 1. 
+\begin{DoxyParams}{Parameter}
+{\em T} & The type of the measured object \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::source\-::caching\-::\-Unity\-Measure$<$ T $>$@{de\-::joglearth\-::source\-::caching\-::\-Unity\-Measure$<$ T $>$}!get\-Size@{get\-Size}}
+\index{get\-Size@{get\-Size}!de::joglearth::source::caching::UnityMeasure< T >@{de\-::joglearth\-::source\-::caching\-::\-Unity\-Measure$<$ T $>$}}
+\subsubsection[{get\-Size}]{\setlength{\rightskip}{0pt plus 5cm}int de.\-joglearth.\-source.\-caching.\-Unity\-Measure$<$ T $>$.get\-Size (
+\begin{DoxyParamCaption}
+\item[{T}]{object}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_unity_measure_3_01_t_01_4_a2fe8769ef6b5b550d83169ef02eebb90}
+Determines the size of an object in a unit specific to the implementing class. 
+\begin{DoxyParams}{Parameter}
+{\em object} & The object to measure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Rückgabe}
+The size, in units. Must be greater or equal 1. 
+\end{DoxyReturn}
+
+
+Implementiert {\bf de.\-joglearth.\-source.\-caching.\-Object\-Measure$<$ T $>$} \doxyref{}{S.}{interfacede_1_1joglearth_1_1source_1_1caching_1_1_object_measure_3_01_t_01_4_a1d7e082d696fb43f94fbade17deb9f2c}.
+

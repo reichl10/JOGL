@@ -7,43 +7,45 @@ void {\bf add\-Settings\-Listener} (final String key, final {\bf Settings\-Liste
 \item 
 void {\bf remove\-Settings\-Listener} (final String key, final {\bf Settings\-Listener} listener)
 \item 
-void {\bf put\-Integer} (final String key, final Integer value)
+synchronized void {\bf put\-Integer} (final String key, final Integer value)
 \item 
-void {\bf put\-Double} (final String key, final Double value)
+synchronized void {\bf put\-Double} (final String key, final Double value)
 \item 
-void {\bf put\-Float} (final String key, final Float value)
+synchronized void {\bf put\-Float} (final String key, final Float value)
 \item 
-void {\bf put\-Long} (final String key, final Long value)
+synchronized void {\bf put\-Long} (final String key, final Long value)
 \item 
-void {\bf put\-Location} (final String key, final {\bf Location} value)
+synchronized void {\bf put\-Location} (final String key, final {\bf Location} value)
 \item 
-void {\bf put\-Boolean} (final String key, final Boolean value)
+synchronized void {\bf drop\-Location} (final String key, final {\bf Location} value)
 \item 
-void {\bf put\-String} (final String key, final String value)
+synchronized void {\bf put\-Boolean} (final String key, final Boolean value)
 \item 
-Boolean {\bf get\-Boolean} (final String key)
+synchronized void {\bf put\-String} (final String key, final String value)
 \item 
-String {\bf get\-String} (final String key)
+synchronized Boolean {\bf get\-Boolean} (final String key)
 \item 
-Long {\bf get\-Long} (final String key)
+synchronized String {\bf get\-String} (final String key)
 \item 
-Float {\bf get\-Float} (final String key)
+synchronized Long {\bf get\-Long} (final String key)
 \item 
-Double {\bf get\-Double} (final String key)
+synchronized Float {\bf get\-Float} (final String key)
 \item 
-Integer {\bf get\-Integer} (final String key)
+synchronized Double {\bf get\-Double} (final String key)
 \item 
-Set$<$ {\bf Location} $>$ {\bf get\-Locations} (final String key)
+synchronized Integer {\bf get\-Integer} (final String key)
+\item 
+synchronized Set$<$ {\bf Location} $>$ {\bf get\-Locations} (final String key)
 \end{DoxyCompactItemize}
 \subsection*{Öffentliche, statische Methoden}
 \begin{DoxyCompactItemize}
 \item 
-static {\bf Settings} {\bf get\-Instance} ()
+static synchronized {\bf Settings} {\bf get\-Instance} ()
 \end{DoxyCompactItemize}
 
 
 \subsection{Ausführliche Beschreibung}
-Used to store settings of \doxyref{Jogl\-Earth}{S.}{classde_1_1joglearth_1_1_jogl_earth}. A key can only have one value. If put a value of an other type under the same key it replaces the old value of the other type. For key the {\ttfamily null} object is not allowed. This Class is thread save. 
+Used to store settings of \doxyref{Jogl\-Earth}{S.}{classde_1_1joglearth_1_1_jogl_earth}. A key can only have one value, except for Locations where multiple can exist under the same key. If put a value of an other type under the same key it replaces the old value of the other type. For key the {\ttfamily null} object is not allowed. This class is thread-\/safe. 
 
 \subsection{Dokumentation der Elementfunktionen}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!add\-Settings\-Listener@{add\-Settings\-Listener}}
@@ -63,13 +65,30 @@ Add a \doxyref{Settings\-Listener}{S.}{interfacede_1_1joglearth_1_1settings_1_1_
 {\em listener} & The listener to be called \\
 \hline
 \end{DoxyParams}
+\index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!drop\-Location@{drop\-Location}}
+\index{drop\-Location@{drop\-Location}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
+\subsubsection[{drop\-Location}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void de.\-joglearth.\-settings.\-Settings.\-drop\-Location (
+\begin{DoxyParamCaption}
+\item[{final String}]{key, }
+\item[{final {\bf Location}}]{value}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a93f664ab93cb83d852b98a400a1e4c11}
+Removes the given \doxyref{Location}{S.}{} from the given key. The Location that is removed is found by the {\ttfamily this == value $|$$|$ this.\-equals(value)}
+
+
+\begin{DoxyParams}{Parameter}
+{\em key} & the key the {\ttfamily Location} should be removed from \\
+\hline
+{\em value} & the {\ttfamily Location} to remove \\
+\hline
+\end{DoxyParams}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!get\-Boolean@{get\-Boolean}}
 \index{get\-Boolean@{get\-Boolean}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
-\subsubsection[{get\-Boolean}]{\setlength{\rightskip}{0pt plus 5cm}Boolean de.\-joglearth.\-settings.\-Settings.\-get\-Boolean (
+\subsubsection[{get\-Boolean}]{\setlength{\rightskip}{0pt plus 5cm}synchronized Boolean de.\-joglearth.\-settings.\-Settings.\-get\-Boolean (
 \begin{DoxyParamCaption}
 \item[{final String}]{key}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a0f905e7545cc3179eae9f2d328c5f442}
+)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a6e3d0defd993ace2d60feaeb0bd11c85}
 Retrieve the setting stored, using the given key, as {\ttfamily Boolean} .
 
 
@@ -82,11 +101,11 @@ The setting stored under the given key as {\ttfamily Boolean} or {\ttfamily null
 \end{DoxyReturn}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!get\-Double@{get\-Double}}
 \index{get\-Double@{get\-Double}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
-\subsubsection[{get\-Double}]{\setlength{\rightskip}{0pt plus 5cm}Double de.\-joglearth.\-settings.\-Settings.\-get\-Double (
+\subsubsection[{get\-Double}]{\setlength{\rightskip}{0pt plus 5cm}synchronized Double de.\-joglearth.\-settings.\-Settings.\-get\-Double (
 \begin{DoxyParamCaption}
 \item[{final String}]{key}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a6f17aed23ce488286b5aa028cd4a12f0}
+)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a8416ad653d1b524486c9f7af450535d6}
 Retrieve the setting stored, using the given key, as {\ttfamily Double}.
 
 
@@ -99,11 +118,11 @@ The setting stored under the given key as {\ttfamily Double} or {\ttfamily null}
 \end{DoxyReturn}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!get\-Float@{get\-Float}}
 \index{get\-Float@{get\-Float}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
-\subsubsection[{get\-Float}]{\setlength{\rightskip}{0pt plus 5cm}Float de.\-joglearth.\-settings.\-Settings.\-get\-Float (
+\subsubsection[{get\-Float}]{\setlength{\rightskip}{0pt plus 5cm}synchronized Float de.\-joglearth.\-settings.\-Settings.\-get\-Float (
 \begin{DoxyParamCaption}
 \item[{final String}]{key}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a7dd8b3e230453ddea7533b406f2835ce}
+)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a7b9b4f224da094ed2c0e581953fbbbcf}
 Retrieve the setting stored, using the given key, as {\ttfamily Float}.
 
 
@@ -116,11 +135,11 @@ The setting stored under the given key as {\ttfamily Float} or {\ttfamily null} 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!get\-Instance@{get\-Instance}}
 \index{get\-Instance@{get\-Instance}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
-\subsubsection[{get\-Instance}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf Settings} de.\-joglearth.\-settings.\-Settings.\-get\-Instance (
+\subsubsection[{get\-Instance}]{\setlength{\rightskip}{0pt plus 5cm}static synchronized {\bf Settings} de.\-joglearth.\-settings.\-Settings.\-get\-Instance (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1settings_1_1_settings_a34cf3483855ab55d8b3df0421ff7c574}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1settings_1_1_settings_a58ca604701da037a83b9e455cb7dc1f9}
 Get the instance of \doxyref{Settings}{S.}{classde_1_1joglearth_1_1settings_1_1_settings}.
 
 \begin{DoxyReturn}{Rückgabe}
@@ -128,11 +147,11 @@ The settings
 \end{DoxyReturn}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!get\-Integer@{get\-Integer}}
 \index{get\-Integer@{get\-Integer}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
-\subsubsection[{get\-Integer}]{\setlength{\rightskip}{0pt plus 5cm}Integer de.\-joglearth.\-settings.\-Settings.\-get\-Integer (
+\subsubsection[{get\-Integer}]{\setlength{\rightskip}{0pt plus 5cm}synchronized Integer de.\-joglearth.\-settings.\-Settings.\-get\-Integer (
 \begin{DoxyParamCaption}
 \item[{final String}]{key}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a08fbd63abc11e1b0bd5e676b74409980}
+)}\label{classde_1_1joglearth_1_1settings_1_1_settings_ad29c8250467949616b226df5df249d69}
 Retrieve the setting stored, using the given key, as {\ttfamily Integer} .
 
 
@@ -145,11 +164,11 @@ The setting stored under the given key as {\ttfamily Integer} or {\ttfamily null
 \end{DoxyReturn}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!get\-Locations@{get\-Locations}}
 \index{get\-Locations@{get\-Locations}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
-\subsubsection[{get\-Locations}]{\setlength{\rightskip}{0pt plus 5cm}Set$<${\bf Location}$>$ de.\-joglearth.\-settings.\-Settings.\-get\-Locations (
+\subsubsection[{get\-Locations}]{\setlength{\rightskip}{0pt plus 5cm}synchronized Set$<${\bf Location}$>$ de.\-joglearth.\-settings.\-Settings.\-get\-Locations (
 \begin{DoxyParamCaption}
 \item[{final String}]{key}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a0e4d847417d51c305a7cb05dd26a24ee}
+)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a08cb9e5ada6ae8604cf3b8030daedb4e}
 Gets the \doxyref{Location}{S.}{} Objects stored using the given key.
 
 
@@ -162,11 +181,11 @@ a {\ttfamily Set} of {\ttfamily Location} Objects stored under the given key or 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!get\-Long@{get\-Long}}
 \index{get\-Long@{get\-Long}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
-\subsubsection[{get\-Long}]{\setlength{\rightskip}{0pt plus 5cm}Long de.\-joglearth.\-settings.\-Settings.\-get\-Long (
+\subsubsection[{get\-Long}]{\setlength{\rightskip}{0pt plus 5cm}synchronized Long de.\-joglearth.\-settings.\-Settings.\-get\-Long (
 \begin{DoxyParamCaption}
 \item[{final String}]{key}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1settings_1_1_settings_aa2aeb453fb3760a31308dd34355d0cc3}
+)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a4d6b91a5b97e08d0aa4e42c4c73c60d8}
 Retrieve the setting stored, using the given key, as {\ttfamily Long}.
 
 
@@ -179,11 +198,11 @@ The setting stored under the given key as {\ttfamily Long} or {\ttfamily null} i
 \end{DoxyReturn}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!get\-String@{get\-String}}
 \index{get\-String@{get\-String}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
-\subsubsection[{get\-String}]{\setlength{\rightskip}{0pt plus 5cm}String de.\-joglearth.\-settings.\-Settings.\-get\-String (
+\subsubsection[{get\-String}]{\setlength{\rightskip}{0pt plus 5cm}synchronized String de.\-joglearth.\-settings.\-Settings.\-get\-String (
 \begin{DoxyParamCaption}
 \item[{final String}]{key}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1settings_1_1_settings_acfd30089cd2b2b899cc94263c0e6d697}
+)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a2dd7edb036f43fc18c43abccf7dcc0dc}
 Retrieve the setting stored, using the given key, as {\ttfamily String}.
 
 
@@ -196,12 +215,12 @@ The setting stored under the given key as String or {\ttfamily null} if no setti
 \end{DoxyReturn}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!put\-Boolean@{put\-Boolean}}
 \index{put\-Boolean@{put\-Boolean}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
-\subsubsection[{put\-Boolean}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-settings.\-Settings.\-put\-Boolean (
+\subsubsection[{put\-Boolean}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void de.\-joglearth.\-settings.\-Settings.\-put\-Boolean (
 \begin{DoxyParamCaption}
 \item[{final String}]{key, }
 \item[{final Boolean}]{value}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1settings_1_1_settings_ad921660f145305132ff8c06bc0fd9daf}
+)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a52cf6f91ba06047db3c6363d9869fca9}
 Stores a setting of type {\ttfamily Boolean} using a given key.
 
 
@@ -213,12 +232,12 @@ Stores a setting of type {\ttfamily Boolean} using a given key.
 \end{DoxyParams}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!put\-Double@{put\-Double}}
 \index{put\-Double@{put\-Double}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
-\subsubsection[{put\-Double}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-settings.\-Settings.\-put\-Double (
+\subsubsection[{put\-Double}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void de.\-joglearth.\-settings.\-Settings.\-put\-Double (
 \begin{DoxyParamCaption}
 \item[{final String}]{key, }
 \item[{final Double}]{value}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1settings_1_1_settings_ada5b1d3bea8ee3f65872aab2c3f3ed14}
+)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a1dd1824c7bd6dabfb3147126deb41ef8}
 Stores a setting of type {\ttfamily Double} using a given key.
 
 
@@ -230,12 +249,12 @@ Stores a setting of type {\ttfamily Double} using a given key.
 \end{DoxyParams}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!put\-Float@{put\-Float}}
 \index{put\-Float@{put\-Float}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
-\subsubsection[{put\-Float}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-settings.\-Settings.\-put\-Float (
+\subsubsection[{put\-Float}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void de.\-joglearth.\-settings.\-Settings.\-put\-Float (
 \begin{DoxyParamCaption}
 \item[{final String}]{key, }
 \item[{final Float}]{value}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1settings_1_1_settings_abecdaf86fc41c5be6080ed7579d95e7d}
+)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a4e23b29a0077e3580d3b27e4f7c7a3c3}
 Stores a setting of type {\ttfamily Float} using a given key.
 
 
@@ -247,12 +266,12 @@ Stores a setting of type {\ttfamily Float} using a given key.
 \end{DoxyParams}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!put\-Integer@{put\-Integer}}
 \index{put\-Integer@{put\-Integer}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
-\subsubsection[{put\-Integer}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-settings.\-Settings.\-put\-Integer (
+\subsubsection[{put\-Integer}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void de.\-joglearth.\-settings.\-Settings.\-put\-Integer (
 \begin{DoxyParamCaption}
 \item[{final String}]{key, }
 \item[{final Integer}]{value}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a7df4e5a79184b222d8fc55ea1036cd12}
+)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a664900764447e5ae282e1aadf6f477e5}
 Stores a setting of type {\ttfamily Integer} using a given key.
 
 
@@ -264,12 +283,12 @@ Stores a setting of type {\ttfamily Integer} using a given key.
 \end{DoxyParams}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!put\-Location@{put\-Location}}
 \index{put\-Location@{put\-Location}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
-\subsubsection[{put\-Location}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-settings.\-Settings.\-put\-Location (
+\subsubsection[{put\-Location}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void de.\-joglearth.\-settings.\-Settings.\-put\-Location (
 \begin{DoxyParamCaption}
 \item[{final String}]{key, }
 \item[{final {\bf Location}}]{value}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a37523505471c0fbe84461a3fe1388082}
+)}\label{classde_1_1joglearth_1_1settings_1_1_settings_a19e0c64f8c310c990e13f7a00df3fc07}
 Stores a \doxyref{Location}{S.}{} using a given key.
 
 
@@ -281,12 +300,12 @@ Stores a \doxyref{Location}{S.}{} using a given key.
 \end{DoxyParams}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!put\-Long@{put\-Long}}
 \index{put\-Long@{put\-Long}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
-\subsubsection[{put\-Long}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-settings.\-Settings.\-put\-Long (
+\subsubsection[{put\-Long}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void de.\-joglearth.\-settings.\-Settings.\-put\-Long (
 \begin{DoxyParamCaption}
 \item[{final String}]{key, }
 \item[{final Long}]{value}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1settings_1_1_settings_abd2f02ce0f4f58c5228fa5586a13ab32}
+)}\label{classde_1_1joglearth_1_1settings_1_1_settings_ac689b484b610d8d2916db783a64fa6c8}
 Stores a setting of type {\ttfamily Long} using a given key.
 
 
@@ -298,12 +317,12 @@ Stores a setting of type {\ttfamily Long} using a given key.
 \end{DoxyParams}
 \index{de\-::joglearth\-::settings\-::\-Settings@{de\-::joglearth\-::settings\-::\-Settings}!put\-String@{put\-String}}
 \index{put\-String@{put\-String}!de::joglearth::settings::Settings@{de\-::joglearth\-::settings\-::\-Settings}}
-\subsubsection[{put\-String}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-settings.\-Settings.\-put\-String (
+\subsubsection[{put\-String}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void de.\-joglearth.\-settings.\-Settings.\-put\-String (
 \begin{DoxyParamCaption}
 \item[{final String}]{key, }
 \item[{final String}]{value}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1settings_1_1_settings_af2ed333e28e0de489cd63291efcf6a1d}
+)}\label{classde_1_1joglearth_1_1settings_1_1_settings_ab8f3efb73b838d2ee2b85821e2e514b4}
 Stores a setting of type {\ttfamily String} using a given key.
 
 

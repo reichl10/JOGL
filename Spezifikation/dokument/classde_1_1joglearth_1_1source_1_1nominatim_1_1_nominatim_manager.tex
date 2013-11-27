@@ -12,12 +12,40 @@ Klassendiagramm für de.\-joglearth.\-source.\-nominatim.\-Nominatim\-Manager\-:
 Source\-Response$<$ {\bf Location}[$\,$]$>$ {\bfseries request\-Object} ({\bf Nominatim\-Query} key, Source\-Listener$<$ {\bf Nominatim\-Query}, {\bf Location}[$\,$]$>$ sender)\label{classde_1_1joglearth_1_1source_1_1nominatim_1_1_nominatim_manager_aed4ffa20f411b64191a5009fec8b0646}
 
 \item 
-void {\bfseries set\-Cache\-Size} (int cache\-Size)\label{classde_1_1joglearth_1_1source_1_1nominatim_1_1_nominatim_manager_ae2a43b7a49f6d0cf9040380396f91169}
-
+void {\bf set\-Cache\-Size} (int cache\-Size)
 \end{DoxyCompactItemize}
 \subsection*{Öffentliche, statische Methoden}
 \begin{DoxyCompactItemize}
 \item 
-static {\bf Nominatim\-Manager} {\bfseries get\-Instance} ()\label{classde_1_1joglearth_1_1source_1_1nominatim_1_1_nominatim_manager_aaa7bdec62233b4724949821bd1f4add8}
-
+static {\bf Nominatim\-Manager} {\bf get\-Instance} ()
 \end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Singleton class that retrieves data from the \doxyref{Nominatim\-Source}{S.}{classde_1_1joglearth_1_1source_1_1nominatim_1_1_nominatim_source}. 
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::source\-::nominatim\-::\-Nominatim\-Manager@{de\-::joglearth\-::source\-::nominatim\-::\-Nominatim\-Manager}!get\-Instance@{get\-Instance}}
+\index{get\-Instance@{get\-Instance}!de::joglearth::source::nominatim::NominatimManager@{de\-::joglearth\-::source\-::nominatim\-::\-Nominatim\-Manager}}
+\subsubsection[{get\-Instance}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf Nominatim\-Manager} de.\-joglearth.\-source.\-nominatim.\-Nominatim\-Manager.\-get\-Instance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1source_1_1nominatim_1_1_nominatim_manager_aaa7bdec62233b4724949821bd1f4add8}
+Returns the instance of the class or creates it, if it does not exist yet.
+
+\begin{DoxyReturn}{Rückgabe}
+The instance of \doxyref{Nominatim\-Manager}{S.}{classde_1_1joglearth_1_1source_1_1nominatim_1_1_nominatim_manager} 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::source\-::nominatim\-::\-Nominatim\-Manager@{de\-::joglearth\-::source\-::nominatim\-::\-Nominatim\-Manager}!set\-Cache\-Size@{set\-Cache\-Size}}
+\index{set\-Cache\-Size@{set\-Cache\-Size}!de::joglearth::source::nominatim::NominatimManager@{de\-::joglearth\-::source\-::nominatim\-::\-Nominatim\-Manager}}
+\subsubsection[{set\-Cache\-Size}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-nominatim.\-Nominatim\-Manager.\-set\-Cache\-Size (
+\begin{DoxyParamCaption}
+\item[{int}]{cache\-Size}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1nominatim_1_1_nominatim_manager_ae2a43b7a49f6d0cf9040380396f91169}
+Sets the size of a \doxyref{Cache}{S.}{}. 
+\begin{DoxyParams}{Parameter}
+{\em cache\-Size} & the new size of the {\ttfamily Cache} \\
+\hline
+\end{DoxyParams}

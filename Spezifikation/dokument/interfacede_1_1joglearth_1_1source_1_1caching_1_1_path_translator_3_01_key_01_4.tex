@@ -3,9 +3,43 @@
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
-String {\bfseries to\-File\-System\-Path} (Key k)\label{interfacede_1_1joglearth_1_1source_1_1caching_1_1_path_translator_3_01_key_01_4_ac35bce7cdc48585d135c7ea2b55d9509}
-
+String {\bf to\-File\-System\-Path} (Key k)
 \item 
-Key {\bfseries from\-File\-System\-Path} (String s)\label{interfacede_1_1joglearth_1_1source_1_1caching_1_1_path_translator_3_01_key_01_4_a6fea337e909602766e8796884c3e969b}
-
+Key {\bf from\-File\-System\-Path} (String s)
 \end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Is used to convert a path to a {\ttfamily Key} and vice versa. 
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::source\-::caching\-::\-Path\-Translator$<$ Key $>$@{de\-::joglearth\-::source\-::caching\-::\-Path\-Translator$<$ Key $>$}!from\-File\-System\-Path@{from\-File\-System\-Path}}
+\index{from\-File\-System\-Path@{from\-File\-System\-Path}!de::joglearth::source::caching::PathTranslator< Key >@{de\-::joglearth\-::source\-::caching\-::\-Path\-Translator$<$ Key $>$}}
+\subsubsection[{from\-File\-System\-Path}]{\setlength{\rightskip}{0pt plus 5cm}Key de.\-joglearth.\-source.\-caching.\-Path\-Translator$<$ Key $>$.from\-File\-System\-Path (
+\begin{DoxyParamCaption}
+\item[{String}]{s}
+\end{DoxyParamCaption}
+)}\label{interfacede_1_1joglearth_1_1source_1_1caching_1_1_path_translator_3_01_key_01_4_a6fea337e909602766e8796884c3e969b}
+Converts a path to a {\ttfamily Key}. 
+\begin{DoxyParams}{Parameter}
+{\em s} & The path that should be resolved to a {\ttfamily Key} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Rückgabe}
+The {\ttfamily Key} described by the path 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::source\-::caching\-::\-Path\-Translator$<$ Key $>$@{de\-::joglearth\-::source\-::caching\-::\-Path\-Translator$<$ Key $>$}!to\-File\-System\-Path@{to\-File\-System\-Path}}
+\index{to\-File\-System\-Path@{to\-File\-System\-Path}!de::joglearth::source::caching::PathTranslator< Key >@{de\-::joglearth\-::source\-::caching\-::\-Path\-Translator$<$ Key $>$}}
+\subsubsection[{to\-File\-System\-Path}]{\setlength{\rightskip}{0pt plus 5cm}String de.\-joglearth.\-source.\-caching.\-Path\-Translator$<$ Key $>$.to\-File\-System\-Path (
+\begin{DoxyParamCaption}
+\item[{Key}]{k}
+\end{DoxyParamCaption}
+)}\label{interfacede_1_1joglearth_1_1source_1_1caching_1_1_path_translator_3_01_key_01_4_ac35bce7cdc48585d135c7ea2b55d9509}
+Converts a {\ttfamily Key} into a path. 
+\begin{DoxyParams}{Parameter}
+{\em k} & The {\ttfamily Key} that be resolved to a string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Rückgabe}
+The string representation of the {\ttfamily Key} 
+\end{DoxyReturn}

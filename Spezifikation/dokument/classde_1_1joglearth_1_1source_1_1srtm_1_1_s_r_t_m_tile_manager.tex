@@ -12,15 +12,58 @@ Klassendiagramm für de.\-joglearth.\-source.\-srtm.\-S\-R\-T\-M\-Tile\-Manager\
 Source\-Response$<$ {\bf S\-R\-T\-M\-Tile} $>$ {\bfseries request\-Object} ({\bf S\-R\-T\-M\-Tile\-Index} key, Source\-Listener$<$ {\bf S\-R\-T\-M\-Tile\-Index}, {\bf S\-R\-T\-M\-Tile} $>$ sender)\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_manager_a550623a000605af3dc7527d07bc74a74}
 
 \item 
-void {\bfseries add\-Surface\-Listener} ({\bf Surface\-Listener} l)\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_manager_a89be1c30bb09cd331cb178832cbb65b3}
-
+void {\bf add\-Surface\-Listener} ({\bf Surface\-Listener} l)
 \item 
-void {\bfseries remove\-Surface\-Listener} ({\bf Surface\-Listener} l)\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_manager_a669c41f02243b7fe3fba9e8176488b67}
-
+void {\bf remove\-Surface\-Listener} ({\bf Surface\-Listener} l)
 \end{DoxyCompactItemize}
 \subsection*{Öffentliche, statische Methoden}
 \begin{DoxyCompactItemize}
 \item 
-static {\bf S\-R\-T\-M\-Tile\-Manager} {\bfseries get\-Instance} ()\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_manager_a35779b3791c0b99d85cbf28e7f9a3edd}
-
+static {\bf S\-R\-T\-M\-Tile\-Manager} {\bf get\-Instance} ()
 \end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Singleton class that retrieves data from the \doxyref{S\-R\-T\-M\-Tile\-Source}{S.}{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_source}. 
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile\-Manager@{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile\-Manager}!add\-Surface\-Listener@{add\-Surface\-Listener}}
+\index{add\-Surface\-Listener@{add\-Surface\-Listener}!de::joglearth::source::srtm::SRTMTileManager@{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile\-Manager}}
+\subsubsection[{add\-Surface\-Listener}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-srtm.\-S\-R\-T\-M\-Tile\-Manager.\-add\-Surface\-Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Surface\-Listener}}]{l}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_manager_a89be1c30bb09cd331cb178832cbb65b3}
+Adds a new \doxyref{Surface\-Listener}{S.}{}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em l} & The new {\ttfamily Surface\-Listener} \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile\-Manager@{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile\-Manager}!get\-Instance@{get\-Instance}}
+\index{get\-Instance@{get\-Instance}!de::joglearth::source::srtm::SRTMTileManager@{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile\-Manager}}
+\subsubsection[{get\-Instance}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf S\-R\-T\-M\-Tile\-Manager} de.\-joglearth.\-source.\-srtm.\-S\-R\-T\-M\-Tile\-Manager.\-get\-Instance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_manager_a35779b3791c0b99d85cbf28e7f9a3edd}
+Returns the instance of the class or creates it, if it does not exist yet.
+
+\begin{DoxyReturn}{Rückgabe}
+The instance of \doxyref{S\-R\-T\-M\-Tile\-Manager}{S.}{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_manager} 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile\-Manager@{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile\-Manager}!remove\-Surface\-Listener@{remove\-Surface\-Listener}}
+\index{remove\-Surface\-Listener@{remove\-Surface\-Listener}!de::joglearth::source::srtm::SRTMTileManager@{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile\-Manager}}
+\subsubsection[{remove\-Surface\-Listener}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-srtm.\-S\-R\-T\-M\-Tile\-Manager.\-remove\-Surface\-Listener (
+\begin{DoxyParamCaption}
+\item[{{\bf Surface\-Listener}}]{l}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_manager_a669c41f02243b7fe3fba9e8176488b67}
+Removes a given \doxyref{Surface\-Listener}{S.}{}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em l} & The {\ttfamily Surface\-Listener} that should be removed \\
+\hline
+\end{DoxyParams}

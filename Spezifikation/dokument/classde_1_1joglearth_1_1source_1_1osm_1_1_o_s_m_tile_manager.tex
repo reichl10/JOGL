@@ -12,12 +12,40 @@ Klassendiagramm für de.\-joglearth.\-source.\-osm.\-O\-S\-M\-Tile\-Manager\-:\b
 Source\-Response$<$ byte[$\,$]$>$ {\bfseries request\-Object} ({\bf O\-S\-M\-Tile} key, Source\-Listener$<$ {\bf O\-S\-M\-Tile}, byte[$\,$]$>$ sender)\label{classde_1_1joglearth_1_1source_1_1osm_1_1_o_s_m_tile_manager_acb86a61ab9d3572ed510b45bada76a26}
 
 \item 
-void {\bfseries set\-Cache\-Size} (int cache\-Size)\label{classde_1_1joglearth_1_1source_1_1osm_1_1_o_s_m_tile_manager_aae8e7bab613b9504c1de76626ac87f8b}
-
+void {\bf set\-Cache\-Size} (int cache\-Size)
 \end{DoxyCompactItemize}
 \subsection*{Öffentliche, statische Methoden}
 \begin{DoxyCompactItemize}
 \item 
-static {\bf O\-S\-M\-Tile\-Manager} {\bfseries get\-Instance} ()\label{classde_1_1joglearth_1_1source_1_1osm_1_1_o_s_m_tile_manager_a132bf30ed8003964deda8bb2214acc27}
-
+static {\bf O\-S\-M\-Tile\-Manager} {\bf get\-Instance} ()
 \end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Singleton class that retrieves data from the \doxyref{O\-S\-M\-Tile\-Source}{S.}{classde_1_1joglearth_1_1source_1_1osm_1_1_o_s_m_tile_source}. 
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::source\-::osm\-::\-O\-S\-M\-Tile\-Manager@{de\-::joglearth\-::source\-::osm\-::\-O\-S\-M\-Tile\-Manager}!get\-Instance@{get\-Instance}}
+\index{get\-Instance@{get\-Instance}!de::joglearth::source::osm::OSMTileManager@{de\-::joglearth\-::source\-::osm\-::\-O\-S\-M\-Tile\-Manager}}
+\subsubsection[{get\-Instance}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf O\-S\-M\-Tile\-Manager} de.\-joglearth.\-source.\-osm.\-O\-S\-M\-Tile\-Manager.\-get\-Instance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1source_1_1osm_1_1_o_s_m_tile_manager_a132bf30ed8003964deda8bb2214acc27}
+Returns the instance of the class or creates it, if it does not exist yet.
+
+\begin{DoxyReturn}{Rückgabe}
+The instance of \doxyref{O\-S\-M\-Tile\-Manager}{S.}{classde_1_1joglearth_1_1source_1_1osm_1_1_o_s_m_tile_manager} 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::source\-::osm\-::\-O\-S\-M\-Tile\-Manager@{de\-::joglearth\-::source\-::osm\-::\-O\-S\-M\-Tile\-Manager}!set\-Cache\-Size@{set\-Cache\-Size}}
+\index{set\-Cache\-Size@{set\-Cache\-Size}!de::joglearth::source::osm::OSMTileManager@{de\-::joglearth\-::source\-::osm\-::\-O\-S\-M\-Tile\-Manager}}
+\subsubsection[{set\-Cache\-Size}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-osm.\-O\-S\-M\-Tile\-Manager.\-set\-Cache\-Size (
+\begin{DoxyParamCaption}
+\item[{int}]{cache\-Size}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1osm_1_1_o_s_m_tile_manager_aae8e7bab613b9504c1de76626ac87f8b}
+Sets the size of a \doxyref{Cache}{S.}{}. 
+\begin{DoxyParams}{Parameter}
+{\em cache\-Size} & the new size of the {\ttfamily Cache} \\
+\hline
+\end{DoxyParams}

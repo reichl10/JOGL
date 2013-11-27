@@ -22,6 +22,9 @@ import de.joglearth.surface.Location;
 import de.joglearth.surface.LocationType;
 
 
+/**
+ * @internal
+ */
 public class WriteAndLoadSettings {
 
     private static final Boolean TV_BOOLEAN = new Boolean(true);

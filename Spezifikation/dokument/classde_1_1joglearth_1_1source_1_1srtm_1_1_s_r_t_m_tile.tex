@@ -3,9 +3,45 @@
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries S\-R\-T\-M\-Tile} (byte[$\,$][$\,$] raw)\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_aa53ac6f4006d9e77deaf3f097722afec}
-
+{\bf S\-R\-T\-M\-Tile} (byte[$\,$] raw)
 \item 
-short[$\,$][$\,$] {\bfseries get\-Tile} (int lod)\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_aee10576cfcf9c6001e8eaaa668736e24}
-
+short[$\,$][$\,$] {\bf get\-Tile} (int lod)
 \end{DoxyCompactItemize}
+
+
+\subsection{Ausführliche Beschreibung}
+Provides access to two dimensional S\-R\-T\-M height data. 
+
+\subsection{Beschreibung der Konstruktoren und Destruktoren}
+\index{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile@{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile}!S\-R\-T\-M\-Tile@{S\-R\-T\-M\-Tile}}
+\index{S\-R\-T\-M\-Tile@{S\-R\-T\-M\-Tile}!de::joglearth::source::srtm::SRTMTile@{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile}}
+\subsubsection[{S\-R\-T\-M\-Tile}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-source.\-srtm.\-S\-R\-T\-M\-Tile.\-S\-R\-T\-M\-Tile (
+\begin{DoxyParamCaption}
+\item[{byte[$\,$]}]{raw}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_a54261af22b3e5def1269ec5d9e42416a}
+Constructor. Decodes the height information from binary S\-R\-T\-M data. 
+\begin{DoxyParams}{Parameter}
+{\em raw} & The binary data \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile@{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile}!get\-Tile@{get\-Tile}}
+\index{get\-Tile@{get\-Tile}!de::joglearth::source::srtm::SRTMTile@{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile}}
+\subsubsection[{get\-Tile}]{\setlength{\rightskip}{0pt plus 5cm}short [$\,$][$\,$] de.\-joglearth.\-source.\-srtm.\-S\-R\-T\-M\-Tile.\-get\-Tile (
+\begin{DoxyParamCaption}
+\item[{int}]{lod}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_aee10576cfcf9c6001e8eaaa668736e24}
+Returns a short array containing .... ina given level of detail.
+
+
+\begin{DoxyParams}{Parameter}
+{\em lod} & The level of detail of the data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Rückgabe}
+
+\end{DoxyReturn}

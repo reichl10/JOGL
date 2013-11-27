@@ -3,15 +3,18 @@
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
-{\bf Mesh} (float[$\,$] vertices, float[$\,$] normals, float[$\,$] tex\-Coords, int[$\,$] indices)
+{\bf Mesh} (float[$\,$] {\bf vertices}, int {\bf gl\-Vertex\-Format}, int[$\,$] {\bf indices})
 \item 
-float[$\,$] {\bf get\-Vertices} ()
+{\bf Mesh} ()
+\end{DoxyCompactItemize}
+\subsection*{Öffentliche Attribute}
+\begin{DoxyCompactItemize}
 \item 
-float[$\,$] {\bf get\-Normals} ()
+float[$\,$] {\bf vertices} = null
 \item 
-float[$\,$] {\bf get\-Tex\-Coords} ()
+int {\bf gl\-Vertex\-Format} = G\-L2.\-G\-L\-\_\-\-T2\-F\-\_\-\-N3\-F\-\_\-\-V3\-F
 \item 
-int[$\,$] {\bf get\-Indices} ()
+int[$\,$] {\bf indices} = null
 \end{DoxyCompactItemize}
 
 
@@ -24,72 +27,38 @@ Container class to save vertices, normals and texture coordinates and other para
 \subsubsection[{Mesh}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-rendering.\-Mesh.\-Mesh (
 \begin{DoxyParamCaption}
 \item[{float[$\,$]}]{vertices, }
-\item[{float[$\,$]}]{normals, }
-\item[{float[$\,$]}]{tex\-Coords, }
+\item[{int}]{gl\-Vertex\-Format, }
 \item[{int[$\,$]}]{indices}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1rendering_1_1_mesh_a3e1cd2f8bcf85194a1beaaedae01f4bc}
+)}\label{classde_1_1joglearth_1_1rendering_1_1_mesh_ad96a6527669ee20829cfcb14998af60d}
 Constructor. Initializes the \doxyref{Mesh}{S.}{classde_1_1joglearth_1_1rendering_1_1_mesh}
 
 
 \begin{DoxyParams}{Parameter}
-{\em vertices} & \\
+{\em vertices} & The array of vertices, normals and texture coordinates according to the vertex format. \\
 \hline
-{\em normals} & \\
+{\em gl\-Vertex\-Format} & The Open\-G\-L vertex format used. Describes the layout of the vertex array. \\
 \hline
-{\em tex\-Coords} & \\
-\hline
-{\em indices} & \\
+{\em indices} & The array of indices. \\
 \hline
 \end{DoxyParams}
-
-
-\subsection{Dokumentation der Elementfunktionen}
-\index{de\-::joglearth\-::rendering\-::\-Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}!get\-Indices@{get\-Indices}}
-\index{get\-Indices@{get\-Indices}!de::joglearth::rendering::Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}}
-\subsubsection[{get\-Indices}]{\setlength{\rightskip}{0pt plus 5cm}int [$\,$] de.\-joglearth.\-rendering.\-Mesh.\-get\-Indices (
+\index{de\-::joglearth\-::rendering\-::\-Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}!Mesh@{Mesh}}
+\index{Mesh@{Mesh}!de::joglearth::rendering::Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}}
+\subsubsection[{Mesh}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-rendering.\-Mesh.\-Mesh (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1rendering_1_1_mesh_aaa0a71b75ae412b779be13535110ca1f}
-Gets the indices stored in the \doxyref{Mesh}{S.}{classde_1_1joglearth_1_1rendering_1_1_mesh}.
+)}\label{classde_1_1joglearth_1_1rendering_1_1_mesh_a2497af1e7a6a39fc0d7ca63e24a5bed7}
+Default constructor. Initializes an empty mesh. 
 
-\begin{DoxyReturn}{Rückgabe}
-A int array of indices 
-\end{DoxyReturn}
-\index{de\-::joglearth\-::rendering\-::\-Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}!get\-Normals@{get\-Normals}}
-\index{get\-Normals@{get\-Normals}!de::joglearth::rendering::Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}}
-\subsubsection[{get\-Normals}]{\setlength{\rightskip}{0pt plus 5cm}float [$\,$] de.\-joglearth.\-rendering.\-Mesh.\-get\-Normals (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1rendering_1_1_mesh_a2898c981a4d765303f2de303c8254ec9}
-Gets the normals stored in the \doxyref{Mesh}{S.}{classde_1_1joglearth_1_1rendering_1_1_mesh}.
-
-\begin{DoxyReturn}{Rückgabe}
-A float array of normals 
-\end{DoxyReturn}
-\index{de\-::joglearth\-::rendering\-::\-Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}!get\-Tex\-Coords@{get\-Tex\-Coords}}
-\index{get\-Tex\-Coords@{get\-Tex\-Coords}!de::joglearth::rendering::Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}}
-\subsubsection[{get\-Tex\-Coords}]{\setlength{\rightskip}{0pt plus 5cm}float [$\,$] de.\-joglearth.\-rendering.\-Mesh.\-get\-Tex\-Coords (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1rendering_1_1_mesh_adefd50f84de1f71a711abcfdc6b4315b}
-Gets the texture coordinates stored in the \doxyref{Mesh}{S.}{classde_1_1joglearth_1_1rendering_1_1_mesh}.
-
-\begin{DoxyReturn}{Rückgabe}
-A float array of texture coordinates 
-\end{DoxyReturn}
-\index{de\-::joglearth\-::rendering\-::\-Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}!get\-Vertices@{get\-Vertices}}
-\index{get\-Vertices@{get\-Vertices}!de::joglearth::rendering::Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}}
-\subsubsection[{get\-Vertices}]{\setlength{\rightskip}{0pt plus 5cm}float [$\,$] de.\-joglearth.\-rendering.\-Mesh.\-get\-Vertices (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1rendering_1_1_mesh_a3601272bedd6b791e7613039db7dc7f3}
-Gets the vertices stored in the \doxyref{Mesh}{S.}{classde_1_1joglearth_1_1rendering_1_1_mesh}.
-
-\begin{DoxyReturn}{Rückgabe}
-A float array of vertices. 
-\end{DoxyReturn}
+\subsection{Dokumentation der Datenelemente}
+\index{de\-::joglearth\-::rendering\-::\-Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}!gl\-Vertex\-Format@{gl\-Vertex\-Format}}
+\index{gl\-Vertex\-Format@{gl\-Vertex\-Format}!de::joglearth::rendering::Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}}
+\subsubsection[{gl\-Vertex\-Format}]{\setlength{\rightskip}{0pt plus 5cm}int de.\-joglearth.\-rendering.\-Mesh.\-gl\-Vertex\-Format = G\-L2.\-G\-L\-\_\-\-T2\-F\-\_\-\-N3\-F\-\_\-\-V3\-F}\label{classde_1_1joglearth_1_1rendering_1_1_mesh_a355e6a00994dc073710ace1cb59b67ae}
+The vertex format, as specified by Open\-G\-L. \index{de\-::joglearth\-::rendering\-::\-Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}!indices@{indices}}
+\index{indices@{indices}!de::joglearth::rendering::Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}}
+\subsubsection[{indices}]{\setlength{\rightskip}{0pt plus 5cm}int [$\,$] de.\-joglearth.\-rendering.\-Mesh.\-indices = null}\label{classde_1_1joglearth_1_1rendering_1_1_mesh_a7aa6d61511c82f451c9b75b8b7bf1cf6}
+The array of indices used to iterate over the vertex array. \index{de\-::joglearth\-::rendering\-::\-Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}!vertices@{vertices}}
+\index{vertices@{vertices}!de::joglearth::rendering::Mesh@{de\-::joglearth\-::rendering\-::\-Mesh}}
+\subsubsection[{vertices}]{\setlength{\rightskip}{0pt plus 5cm}float [$\,$] de.\-joglearth.\-rendering.\-Mesh.\-vertices = null}\label{classde_1_1joglearth_1_1rendering_1_1_mesh_a78c0fca31a542fc6d7261bdd9428643a}
+The array of vertices. Elements are treated as dictated by the {\ttfamily gl\-Vertex\-Format}. 

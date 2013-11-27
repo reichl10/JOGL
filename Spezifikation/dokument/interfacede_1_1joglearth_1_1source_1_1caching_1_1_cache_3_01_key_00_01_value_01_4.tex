@@ -15,17 +15,25 @@ void {\bf drop\-Object} (Key k)
 \item 
 Iterable$<$ Key $>$ {\bf get\-Existing\-Objects} ()
 \item 
-void {\bfseries drop\-All} ()\label{interfacede_1_1joglearth_1_1source_1_1caching_1_1_cache_3_01_key_00_01_value_01_4_a5f80139900d2147330955a4bfd865581}
-
+void {\bf drop\-All} ()
 \end{DoxyCompactItemize}
 
 
 \subsection{Ausführliche Beschreibung}
-Stores objects of type 
-
-with an identifier $<$\-Key$>$ and returns them on request according to their I\-D. 
+Stores objects of type {\ttfamily Value} with an identifier {\ttfamily Key} and returns them on request according to their I\-D. 
 
 \subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::source\-::caching\-::\-Cache$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Cache$<$ Key, Value $>$}!drop\-All@{drop\-All}}
+\index{drop\-All@{drop\-All}!de::joglearth::source::caching::Cache< Key, Value >@{de\-::joglearth\-::source\-::caching\-::\-Cache$<$ Key, Value $>$}}
+\subsubsection[{drop\-All}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-caching.\-Cache$<$ Key, Value $>$.drop\-All (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{interfacede_1_1joglearth_1_1source_1_1caching_1_1_cache_3_01_key_00_01_value_01_4_a5f80139900d2147330955a4bfd865581}
+Drops all objects contained in a cache. 
+
+Implementiert in {\bf de.\-joglearth.\-source.\-caching.\-Memory\-Cache$<$ Key, Value $>$} \doxyref{}{S.}{classde_1_1joglearth_1_1source_1_1caching_1_1_memory_cache_3_01_key_00_01_value_01_4_a704e4bb8f34123141f5175f4a22386d0}.
+
 \index{de\-::joglearth\-::source\-::caching\-::\-Cache$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Cache$<$ Key, Value $>$}!drop\-Object@{drop\-Object}}
 \index{drop\-Object@{drop\-Object}!de::joglearth::source::caching::Cache< Key, Value >@{de\-::joglearth\-::source\-::caching\-::\-Cache$<$ Key, Value $>$}}
 \subsubsection[{drop\-Object}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-source.\-caching.\-Cache$<$ Key, Value $>$.drop\-Object (
@@ -33,11 +41,11 @@ with an identifier $<$\-Key$>$ and returns them on request according to their I\
 \item[{Key}]{k}
 \end{DoxyParamCaption}
 )}\label{interfacede_1_1joglearth_1_1source_1_1caching_1_1_cache_3_01_key_00_01_value_01_4_a8489bd44c6848442a8aa8cc7c4a13cb0}
-Erases reference to object if key is valid I\-D of stored object.
+Erases the reference to an object if the {\ttfamily Key} is a valid I\-D of a stored object.
 
 
 \begin{DoxyParams}{Parameter}
-{\em k} & I\-D of object to be dropped \\
+{\em k} & The I\-D of object to be dropped \\
 \hline
 \end{DoxyParams}
 
@@ -51,7 +59,10 @@ Implementiert in {\bf de.\-joglearth.\-source.\-caching.\-Memory\-Cache$<$ Key, 
 {}
 \end{DoxyParamCaption}
 )}\label{interfacede_1_1joglearth_1_1source_1_1caching_1_1_cache_3_01_key_00_01_value_01_4_a482408fd3c7be507f7d51b421889a725}
-Returns all stored objects. Main purpose of this method is to inform classes about content when get new reference to cache that already exists and isn't empty anymore. 
+Can be used to get the objects that already exist when the cache is initialized. \begin{DoxyReturn}{Rückgabe}
+All stored objects 
+\end{DoxyReturn}
+
 
 Implementiert in {\bf de.\-joglearth.\-source.\-caching.\-Memory\-Cache$<$ Key, Value $>$} \doxyref{}{S.}{classde_1_1joglearth_1_1source_1_1caching_1_1_memory_cache_3_01_key_00_01_value_01_4_a98e5a449b0ced05c622c782a8aa1f1ec}.
 
@@ -63,13 +74,13 @@ Implementiert in {\bf de.\-joglearth.\-source.\-caching.\-Memory\-Cache$<$ Key, 
 \item[{Value}]{v}
 \end{DoxyParamCaption}
 )}\label{interfacede_1_1joglearth_1_1source_1_1caching_1_1_cache_3_01_key_00_01_value_01_4_ad2c805820ba476907fd53b4dcb255d50}
-Stores object if type is valid and key isn't used yet.
+Stores object identified by a {\ttfamily Key}. An existing object with that {\ttfamily Key} may be overwritten.
 
 
 \begin{DoxyParams}{Parameter}
 {\em k} & I\-D of object \\
 \hline
-{\em v} & object to be stored \\
+{\em v} & The object to be stored \\
 \hline
 \end{DoxyParams}
 

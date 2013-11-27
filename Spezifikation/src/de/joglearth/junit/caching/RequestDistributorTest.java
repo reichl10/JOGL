@@ -14,6 +14,9 @@ import de.joglearth.source.SourceListener;
 import de.joglearth.source.caching.RequestDistributor;
 
 
+/**
+ * @internal
+ */
 public class RequestDistributorTest {
 
     @BeforeClass

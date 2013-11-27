@@ -1,10 +1,18 @@
 package de.joglearth.surface;
 
-
+/**
+ * Enumerates all map textures in the {@link de.joglearth.surface.MapLayout.SINGLE} layout available
+ * to the program.
+ */
 public enum SingleMapType {
-    
-    SATELLITE,
-    
-    CHILDREN
 
+    /**
+     * Simple satellite imagery.
+     */
+    SATELLITE,
+
+    /**
+     * A children's map of the world, showing colored continents and native animals.
+     */
+    CHILDREN
 }
