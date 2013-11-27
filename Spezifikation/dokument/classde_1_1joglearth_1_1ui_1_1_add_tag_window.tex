@@ -9,7 +9,7 @@ Klassendiagramm für de.\-joglearth.\-ui.\-Add\-Tag\-Window\-:\begin{figure}[H]
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
-{\bf Add\-Tag\-Window} ()
+{\bf Add\-Tag\-Window} ({\bf Location} location)
 \end{DoxyCompactItemize}
 \subsection*{Öffentliche, statische Methoden}
 \begin{DoxyCompactItemize}
@@ -20,14 +20,18 @@ static void {\bfseries main} (String[$\,$] args)\label{classde_1_1joglearth_1_1u
 
 
 \subsection{Ausführliche Beschreibung}
-A dialog window class for entering name and description of a user tag. 
+Dialog for entering information about a location. You can add a {\ttfamily Window\-Listener} to this dialog reaction to it closing. The given {\ttfamily Location} object will be manipulated before closing to represent the users input. 
 
 \subsection{Beschreibung der Konstruktoren und Destruktoren}
 \index{de\-::joglearth\-::ui\-::\-Add\-Tag\-Window@{de\-::joglearth\-::ui\-::\-Add\-Tag\-Window}!Add\-Tag\-Window@{Add\-Tag\-Window}}
 \index{Add\-Tag\-Window@{Add\-Tag\-Window}!de::joglearth::ui::AddTagWindow@{de\-::joglearth\-::ui\-::\-Add\-Tag\-Window}}
 \subsubsection[{Add\-Tag\-Window}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-ui.\-Add\-Tag\-Window.\-Add\-Tag\-Window (
 \begin{DoxyParamCaption}
-{}
+\item[{{\bf Location}}]{location}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1ui_1_1_add_tag_window_ab7cef09efa068ae57fd34a423fe1a989}
-Constructor. 
+)}\label{classde_1_1joglearth_1_1ui_1_1_add_tag_window_a9cb9b021c23ca5b1d239fcdad960d45a}
+Create the dialog for entering information about a location. 
+\begin{DoxyParams}{Parameter}
+{\em location} & the \doxyref{Location}{S.}{} object will be changed before closing \\
+\hline
+\end{DoxyParams}

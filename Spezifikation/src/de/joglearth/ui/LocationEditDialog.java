@@ -5,6 +5,8 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 
+import de.joglearth.surface.Location;
+
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -17,9 +19,11 @@ import javax.swing.SwingConstants;
 
 
 /**
- * A dialog window class for entering name and description of a user tag.
+ * Dialog for entering information about a location. You can add a <code>WindowListener</code> to
+ * this dialog reaction to it closing. The given <code>Location</code> object will be manipulated
+ * before closing to represent the users input.
  */
-public class AddTagWindow extends JDialog {
+public class LocationEditDialog extends JDialog {
 
     /**
      * Makes the compiler happy.
@@ -32,9 +36,10 @@ public class AddTagWindow extends JDialog {
 
     
     /**
-     * Constructor.
+     * Create the dialog for entering information about a location.
+     * @param location the {@link Location} object will be changed before closing
      */
-    public AddTagWindow() {
+    public LocationEditDialog(Location location) {
         setSize(370, 250);
         setTitle("Add user tag");
         getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
@@ -99,9 +104,7 @@ public class AddTagWindow extends JDialog {
      * @internal
      */
     public static void main(String[] args) {
-        new AddTagWindow().setVisible(true);
-        ;
-
+        new LocationEditDialog(null).setVisible(true);
     }
 
 }

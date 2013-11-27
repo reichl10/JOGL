@@ -55,8 +55,6 @@ public class Camera {
      * Constructor.
      * 
      * Creates a camera with FOV 90, aspect ratio 1:1, zNear=0.1 and zFar=1000.
-     * 
-     * @param hm The height map manager.
      */
     public Camera() {
         setPerspective((double) Math.PI / 2, 1, 0.1f, 1000);
