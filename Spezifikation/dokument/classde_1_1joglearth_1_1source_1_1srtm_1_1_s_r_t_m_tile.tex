@@ -10,7 +10,7 @@ short[$\,$][$\,$] {\bf get\-Tile} (int lod)
 
 
 \subsection{Ausführliche Beschreibung}
-Provides access to two dimensional S\-R\-T\-M height data. 
+Provides access to two-\/dimensional S\-R\-T\-M height data. 
 
 \subsection{Beschreibung der Konstruktoren und Destruktoren}
 \index{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile@{de\-::joglearth\-::source\-::srtm\-::\-S\-R\-T\-M\-Tile}!S\-R\-T\-M\-Tile@{S\-R\-T\-M\-Tile}}
@@ -20,7 +20,9 @@ Provides access to two dimensional S\-R\-T\-M height data.
 \item[{byte[$\,$]}]{raw}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_a54261af22b3e5def1269ec5d9e42416a}
-Constructor. Decodes the height information from binary S\-R\-T\-M data. 
+Constructor. Decodes the height information from binary S\-R\-T\-M data.
+
+
 \begin{DoxyParams}{Parameter}
 {\em raw} & The binary data \\
 \hline
@@ -35,13 +37,13 @@ Constructor. Decodes the height information from binary S\-R\-T\-M data.
 \item[{int}]{lod}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1source_1_1srtm_1_1_s_r_t_m_tile_aee10576cfcf9c6001e8eaaa668736e24}
-Returns a short array containing .... ina given level of detail.
+Returns a two-\/dimensional array containing the height data interpolated to 1/(4$^\wedge$lod) the size.
 
 
 \begin{DoxyParams}{Parameter}
-{\em lod} & The level of detail of the data \\
+{\em lod} & The \doxyref{de.\-joglearth.\-rendering.\-Level\-Of\-Detail}{S.}{enumde_1_1joglearth_1_1rendering_1_1_level_of_detail} of the data \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Rückgabe}
-
+Two-\/dimensional array containing the height data 
 \end{DoxyReturn}
