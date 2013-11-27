@@ -1291,20 +1291,24 @@ Unterkünfte & hotel \\
 
 \chapter{Implementierungsplan}
 
+Da die Umsetzung der Enumerations und Interfaces bereits während der Spezifikationsphase erfolgt ist, ist nur noch die Implementierung der Klassen auf Arbeitspaktete zu verteilen.
+
+Der Implementierungsplan besteht aus drei Meilensteinen. Im folgenden wird eine Übersicht über den Inhalt der einzelnen Pakete gegeben, anschließend folgt der Plan als Gantt-Diagramm.
+
 \subsection*{UI, Rendering, Settings}
 \begin{itemize}
 \item \textbf{Settings}\\
 de.joglearth.settings.Settings\\
-de.joglearth.settings.SettingsContract\\
-\item \textbf{GeoCoordinates, Tile}
+de.joglearth.settings.SettingsContract
+\item \textbf{GeoCoordinates, Tile}\\
 de.joglearth.geometry.GeoCoordinates\\
 de.joglearth.geometry.Tile
 \item \textbf{TextureManager (Platzhalter)}\\
 de.joglearth.surface.TextureManager.requestObject() (Nur Rückgabe einer Platzhaltertextur)
-\item \textit{ProgressManager}
+\item \textbf{ProgressManager}\\
 de.joglearth.source.ProgressManager
 \item \textbf{LocationManager (Platzhalter)}\\
-de.joglearth.surface.Location
+de.joglearth.surface.Location\\
 de.joglearth.surface.LocationManager.getVisibleLocations() (Nur Rückgabe eines leeren Werts)
 \item \textbf{Swing-UI}\\
 de.joglearth.utils.Resource
@@ -1316,7 +1320,7 @@ de.joglearth.ui.MainWindow (Klasse)\\
 de.joglearth.ui.AboutBox (Klasse)\\
 de.joglearth.ui.IconizedItem (Klasse)
 \item \textbf{Renderer-Main}\\
-de.joglearth.rendering.Mesh
+de.joglearth.rendering.Mesh\\
 de.joglearth.rendering.Renderer.Worker.run() 
 \item \textbf{PlaneTesselator}\\
 de.joglearth.rendering.PlaneTessellator
@@ -1394,7 +1398,7 @@ de.joglearth.rendering.Renderer.???
 de.joglearth.JoglEarth.main()
 \end{itemize}
 
-\includepdf{Gantt_JoglEarth.pdf}
+\includepdf[pages={1-3}]{Gantt_JoglEarth.pdf}
 
 
 \chapter{Änderungen gegenüber dem Entwurf}
