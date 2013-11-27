@@ -18,7 +18,7 @@ public final class SRTMTile {
      * Returns a two-dimensional array containing the height data interpolated to 1/(4^lod) the
      * size.
      * 
-     * @param lod The level of detail of the data
+     * @param lod The {@link de.joglearth.rendering.LevelOfDetail} of the data
      * @return Two-dimensional array containing the height data
      */
     public short[][] getTile(int lod) {
