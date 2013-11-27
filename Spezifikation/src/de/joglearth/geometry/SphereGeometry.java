@@ -19,7 +19,7 @@ public class SphereGeometry implements Geometry {
 	}
 
 	@Override
-	public ScreenCoordinates getSurfaceCoordinates(Vector3 viewVector) {
+	public ScreenCoordinates getSurfaceCoordinates(Vector3 cameraPosition, Vector3 viewVector) {
 		return null;
 	}
 

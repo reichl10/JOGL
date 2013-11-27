@@ -35,7 +35,7 @@ public interface Geometry {
      * @param viewVector The origin point.
      * @return The surface coordinates.
      */
-    public ScreenCoordinates getSurfaceCoordinates(Vector3 viewVector);
+    public ScreenCoordinates getSurfaceCoordinates(Vector3 cameraPosition, Vector3 viewVector);
 
     /**
      * Returns the view matrix performing translations and rotations incurred by the camera

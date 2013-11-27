@@ -13,14 +13,20 @@ import de.joglearth.source.overpass.OverpassSource;
  * Administers the visibility of particular points gathered from {@link OverpassSource} and
  * {@link NominatimSource}, and user marks from {@link Settings}.
  */
-public class LocationManager implements SettingsListener {
+public class LocationManager {
 
     private NominatimQuery lastSearch;
     private boolean[] selectedResults;
     private boolean[] selectedUserTags;
     private boolean[] selectedPOIs;
-    private Settings settings;
+    
+    
+    private class UserTagsListener implements SettingsListener {
 
+        @Override
+        public void settingsChanged(String key, Object valOld, Object valNew) {
+        }        
+    }
 
     /**
      * Constructor. Initializes the {@link LocationManager} and its underlying caches.
@@ -32,10 +38,14 @@ public class LocationManager implements SettingsListener {
      * Changes the visibility of a given {@link Location}.
      * 
      * @param location The <code>Location</code> that should be shown
-     * @param show Whether to show or hide the display
+     * @param visible Whether to show or hide the display
      */
-    public void showLocation(Location location, boolean show) {
+    public void setLocationTypeActive(LocationType type, boolean active) {
 
+    }
+    
+    public void setActiveOverlays(LocationType[] lt, Tile[] tiles) {
+        
     }
 
     /**
@@ -69,10 +79,6 @@ public class LocationManager implements SettingsListener {
         return null;
     }
 
-    @Override
-    public void settingsChanged(String key, Object valOld, Object valNew) {
-
-    }
 
     /**
      * Adds a new {@link SurfaceListener} that is called on every change of the surface.

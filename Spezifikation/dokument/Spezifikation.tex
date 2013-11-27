@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage[Bjornstrup]{fncychap}
+\usepackage{pdfpages}
 \usepackage{ngerman}
 \usepackage{graphicx}
 \usepackage{epstopdf}
@@ -1290,7 +1291,110 @@ Unterkünfte & hotel \\
 
 \chapter{Implementierungsplan}
 
+\subsection*{UI, Rendering, Settings}
+\begin{itemize}
+\item \textbf{Settings}\\
+de.joglearth.settings.Settings\\
+de.joglearth.settings.SettingsContract\\
+\item \textbf{GeoCoordinates, Tile}
+de.joglearth.geometry.GeoCoordinates\\
+de.joglearth.geometry.Tile
+\item \textbf{TextureManager (Platzhalter)}\\
+de.joglearth.surface.TextureManager.requestObject() (Nur Rückgabe einer Platzhaltertextur)
+\item \textit{ProgressManager}
+de.joglearth.source.ProgressManager
+\item \textbf{LocationManager (Platzhalter)}\\
+de.joglearth.surface.Location
+de.joglearth.surface.LocationManager.getVisibleLocations() (Nur Rückgabe eines leeren Werts)
+\item \textbf{Swing-UI}\\
+de.joglearth.utils.Resource
+de.joglearth.ui.NamedItem\\
+de.joglearth.ui.ViewEventListener\\
+de.joglearth.ui.LocationEditDialog\\
+de.joglearth.ui.IconListCellRenderer\\
+de.joglearth.ui.MainWindow (Klasse)\\
+de.joglearth.ui.AboutBox (Klasse)\\
+de.joglearth.ui.IconizedItem (Klasse)
+\item \textbf{Renderer-Main}\\
+de.joglearth.rendering.Mesh
+de.joglearth.rendering.Renderer.Worker.run() 
+\item \textbf{PlaneTesselator}\\
+de.joglearth.rendering.PlaneTessellator
+\item \textbf{SphereTessellator}\\
+de.joglearth.rendering.SphereTessellator
+\item \textbf{Vertex Buffer Objects}\\
+de.joglearth.source.opengl.VertexBufferCache\\
+de.joglearth.source.opengl.TileMeshSource\\
+de.joglearth.source.opengl.TileMeshManager
+\item \textbf{Matrix / Vektor}\\
+de.joglearth.geometry.Matrix4\\
+de.joglearth.geometry.Vector3\\
+de.joglearth.geometry.Vector4\\
+\item \textbf{PlaneGeometry}\\
+de.joglearth.geometry.PlaneGeometry
+\item \textbf{SphereGeometry}\\
+de.joglearth.geometry.SphereGeometry
+\item \textbf{Camera}\\
+de.joglearth.geometry.ScreenCoordinates\\
+de.joglearth.geometry.Camera
+\item \textbf{Renderer-Scheduling}\\
+de.joglearth.rendering.Renderer.start()\\
+de.joglearth.rendering.Renderer.stop()\\
+de.joglearth.rendering.Renderer.post()
+\item \textbf{HTTPUtils}\\
+de.joglearth.util.HTTP
+\end{itemize}
 
+\subsection*{Sources, Caching, HeightMaps}
+\begin{itemize}
+\item \textbf{SRTMBinarySource}\\
+de.joglearth.source.srtm.SRTMTileIndex\\
+de.joglearth.source.srtm.SRTMBinarySource\\
+de.joglearth.source.srtm.SRTMPathTranslator
+\item \textbf{SRTMTileSource}\\
+de.joglearth.source.srtm.SRTMTile\\
+de.joglearth.source.srtm.SRTMTileSource
+\item \textbf{HeightMap}\\
+de.joglearth.surface.HeightMap
+\item \textbf{OSMTileSource}\\
+de.joglearth.source.osm.OSMTileSource\\
+de.joglearth.source.osm.OSMTileManager\\
+de.joglearth.source.osm.OSMTile\\
+de.joglearth.source.osm.OSMPathTranslator
+\item \textbf{RequestDistributor}\\
+de.joglearth.source.caching.ByteArrayMeasure\\
+de.joglearth.source.caching.RequestDistributor\\
+de.joglearth.source.caching.UnityMeasure
+\item \textbf{TextureSource / -Cache}\\
+de.joglearth.source.opengl.TextureCache\\
+de.joglearth.source.opengl.TileTextureSource
+\item \textbf{FileSystemCache}\\
+de.joglearth.source.caching.FileSystemCache
+\item \textbf{MemoryCache}\\
+de.joglearth.source.caching.MemoryCache
+\item \textbf{TextureManager}\\
+de.joglearth.surface.TextureManager
+\end{itemize}
+
+\subsection*{Suche, POIs}
+\begin{itemize}
+\item \textbf{NominatimSource}\\
+de.joglearth.source.nominatim.NominatimSource\\
+de.joglearth.source.nominatim.NominatimQuery\\
+de.joglearth.source.nominatim.NominatimManager
+\item \textbf{OverpassSource}\\
+de.joglearth.source.overpass.OverpassManager\\
+de.joglearth.source.overpass.OverpassQuery\\
+de.joglearth.source.overpass.OverpassSource
+\item \textbf{LocationManager}\\
+de.joglearth.surface.LocationManager
+\item \textbf{Renderer: Overlays}\\
+de.joglearth.rendering.Renderer.???
+\item \textbf{JoglEarth-Main}\\
+de.joglearth.JoglEarth.main()
+\end{itemize}
+
+\includepdf{Gantt_JoglEarth.pdf}
 
 
 \chapter{Änderungen gegenüber dem Entwurf}
