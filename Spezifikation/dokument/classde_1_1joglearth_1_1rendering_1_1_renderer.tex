@@ -1,5 +1,16 @@
 \section{de.\-joglearth.\-rendering.\-Renderer Klassenreferenz}
 \label{classde_1_1joglearth_1_1rendering_1_1_renderer}\index{de.\-joglearth.\-rendering.\-Renderer@{de.\-joglearth.\-rendering.\-Renderer}}
+\subsection*{Klassen}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries Graphics\-Settings\-Listener}
+\item 
+class {\bfseries Renderer\-Event\-Listener}
+\item 
+class {\bfseries Surface\-Validator}
+\item 
+class {\bfseries Worker}
+\end{DoxyCompactItemize}
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
@@ -13,14 +24,11 @@ synchronized void {\bf stop} ()
 \item 
 void {\bf quit} ()
 \item 
-void {\bfseries set\-Display\-Mode} ({\bf Display\-Mode} m)\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a8ec4f320e1f8964b6569f37ff6ef42ba}
-
+void {\bf set\-Display\-Mode} ({\bf Display\-Mode} m)
 \item 
-void {\bfseries set\-Map\-Type} ({\bf Single\-Map\-Type} t)\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a6dfc0ad658ba63b0eac647397aad7704}
-
+void {\bf set\-Map\-Type} ({\bf Single\-Map\-Type} t)
 \item 
-void {\bfseries set\-Map\-Type} ({\bf Tiled\-Map\-Type} t)\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a968c90cff4efe05abcacf346fd3fd48d}
-
+void {\bf set\-Map\-Type} ({\bf Tiled\-Map\-Type} t)
 \end{DoxyCompactItemize}
 
 
@@ -60,25 +68,67 @@ Constructor initializes the Open\-G\-L functionalities.
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_acdb2dda06a8744cb5f7975219a40a4f3}
-Notifies the {\ttfamily \doxyref{Renderer}{S.}{classde_1_1joglearth_1_1rendering_1_1_renderer}} that a new frame should be rendered. If {\ttfamily \doxyref{start()}{S.}{classde_1_1joglearth_1_1rendering_1_1_renderer_ab112c71a1f00a287f343e896c950dc37}} is called this method may have no effect. Asynchron method, does not wait till a frame is drawn. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!quit@{quit}}
+Notifies the \doxyref{Renderer}{S.}{classde_1_1joglearth_1_1rendering_1_1_renderer} that a new frame should be rendered. If {\ttfamily \doxyref{start()}{S.}{classde_1_1joglearth_1_1rendering_1_1_renderer_ab112c71a1f00a287f343e896c950dc37}} is called this method may have no effect. Asynchronous method, does not wait until a frame is drawn. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!quit@{quit}}
 \index{quit@{quit}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
 \subsubsection[{quit}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-rendering.\-Renderer.\-quit (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_afb25dedb47ab7ae5c0e326302c8e2a5c}
-Quits the \doxyref{Renderer}{S.}{classde_1_1joglearth_1_1rendering_1_1_renderer} thread. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!start@{start}}
+Quits the \doxyref{Renderer}{S.}{classde_1_1joglearth_1_1rendering_1_1_renderer} thread. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!set\-Display\-Mode@{set\-Display\-Mode}}
+\index{set\-Display\-Mode@{set\-Display\-Mode}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
+\subsubsection[{set\-Display\-Mode}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-rendering.\-Renderer.\-set\-Display\-Mode (
+\begin{DoxyParamCaption}
+\item[{{\bf Display\-Mode}}]{m}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a8ec4f320e1f8964b6569f37ff6ef42ba}
+Sets the \doxyref{Display\-Mode}{S.}{enumde_1_1joglearth_1_1rendering_1_1_display_mode} to a given value.
+
+
+\begin{DoxyParams}{Parameter}
+{\em m} & The new {\ttfamily \doxyref{Display\-Mode}{S.}{enumde_1_1joglearth_1_1rendering_1_1_display_mode}} \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!set\-Map\-Type@{set\-Map\-Type}}
+\index{set\-Map\-Type@{set\-Map\-Type}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
+\subsubsection[{set\-Map\-Type}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-rendering.\-Renderer.\-set\-Map\-Type (
+\begin{DoxyParamCaption}
+\item[{{\bf Single\-Map\-Type}}]{t}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a6dfc0ad658ba63b0eac647397aad7704}
+Sets the \doxyref{Map\-Layout}{S.}{} to a given value. This type is a \doxyref{Single\-Map\-Type}{S.}{} as it is only one tile as a texture.
+
+
+\begin{DoxyParams}{Parameter}
+{\em t} & The new {\ttfamily Map\-Layout} \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!set\-Map\-Type@{set\-Map\-Type}}
+\index{set\-Map\-Type@{set\-Map\-Type}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
+\subsubsection[{set\-Map\-Type}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-rendering.\-Renderer.\-set\-Map\-Type (
+\begin{DoxyParamCaption}
+\item[{{\bf Tiled\-Map\-Type}}]{t}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a968c90cff4efe05abcacf346fd3fd48d}
+Sets the \doxyref{Map\-Layout}{S.}{} to a given value. This type is a \doxyref{Tiled\-Map\-Type}{S.}{} as the texture consists of multiple tiles.
+
+
+\begin{DoxyParams}{Parameter}
+{\em t} & The new {\ttfamily Map\-Layout} \\
+\hline
+\end{DoxyParams}
+\index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!start@{start}}
 \index{start@{start}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
 \subsubsection[{start}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void de.\-joglearth.\-rendering.\-Renderer.\-start (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_ab112c71a1f00a287f343e896c950dc37}
-Starts the render loops with 60 F\-P\-S. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!stop@{stop}}
+Starts the render loop with 60 F\-P\-S. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!stop@{stop}}
 \index{stop@{stop}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
 \subsubsection[{stop}]{\setlength{\rightskip}{0pt plus 5cm}synchronized void de.\-joglearth.\-rendering.\-Renderer.\-stop (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_abc1949c3ee8ccea9a14c299a969017cd}
-Stops the rendering loop. When {\ttfamily \doxyref{post()}{S.}{classde_1_1joglearth_1_1rendering_1_1_renderer_acdb2dda06a8744cb5f7975219a40a4f3}} is called a new frame will be rendered. 
+Stops the render loop. When {\ttfamily \doxyref{post()}{S.}{classde_1_1joglearth_1_1rendering_1_1_renderer_acdb2dda06a8744cb5f7975219a40a4f3}} is called a new frame will be rendered. 
