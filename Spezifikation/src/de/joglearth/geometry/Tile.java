@@ -133,4 +133,13 @@ public final class Tile implements Cloneable {
         return this.detailLevel == other.detailLevel && this.latIndex == other.latIndex
                 && this.lonIndex == other.lonIndex;
     }
+
+    public boolean contains(GeoCoordinates coords) {
+        if (coords == null) {
+            throw new IllegalArgumentException();
+        }
+        double lon = coords.getLongitude(), lat = coords.getLatitude();
+        return lon >= longitudeFrom() && lon <= longitudeTo() && lat >= latitudeFrom()
+                && lat <= latitudeTo();
+    }
 }

@@ -1,15 +1,15 @@
 package de.joglearth.source.caching;
 
 /**
- * Classes implementing this interface can determine the size of an object.
- * @param <T> The type of the measured object
+ * Interface for classes assigning sizes to objects.
+ * @param <T> The type to measure.
  */
 public interface ObjectMeasure<T> {
-	
+    
     /**
-     * Returns the size of an object
-     * @param t The object to measure
-     * @return The size of the object that should be measured
+     * Determines the size of an object in a unit specific to the implementing class.
+     * @param object The object to measure.
+     * @return The size, in units. Must be greater or equal 1.
      */
-    int getSize(T t);
+	int getSize(T object);
 }

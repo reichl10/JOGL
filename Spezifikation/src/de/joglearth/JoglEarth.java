@@ -7,7 +7,8 @@ import de.joglearth.ui.MainWindow;
 
 
 /**
- * Utility Class that contains the main method of JoglEarth.
+ * Static main class of the application.
+ * Provides application-specific constants and the main method.
  */
 public final class JoglEarth {
 
@@ -21,11 +22,10 @@ public final class JoglEarth {
      */
     public static String PRODUCT_VERSION = "0.1";
 
-
     /**
      * Initializes the JoglEarth Application. There are no valid command line arguments.
      * 
-     * @param args the command line arguments
+     * @param args Command line arguments(unused)
      */
     public static void main(String[] args) {
         Camera camera = new Camera();
@@ -34,4 +34,5 @@ public final class JoglEarth {
         Renderer r = new Renderer(gui.getGLCanvas(), locationManager, camera);
         gui.setVisible(true);
     }
+    
 }

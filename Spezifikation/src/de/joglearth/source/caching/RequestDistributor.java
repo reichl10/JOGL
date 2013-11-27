@@ -11,34 +11,30 @@ import de.joglearth.util.Predicate;
 
 
 /**
- * Receives requests for objects, can get the objects from one {@link Source} that can be set.
- * Stores a requested <code>Value</code> in {@link Cache}s under a given <code>Key</code> to
- * minimize loading time.
+ * Dispatches requests for objects to a number of caches and an underlying source.
  * 
+ * Retrieved objects are moved to faster caches after access, thus optimizing the response time for
+ * repeating queries.
  */
 public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
-    private int[]                          FreeCacheSpace;
-    private ArrayList<TreeSet<CacheEntry>> tree;
-    private ArrayList<HashSet<CacheEntry>> hashLastUsed;
-
-    // prevent processing multiple requests for same key
-    private ArrayList<Key>                 pendingRequests;
-    private ArrayList<Cache<Key, Value>>   caches;
-    private Source<Key, Value>             source;
-    private ObjectMeasure<Value>           measure;
+    private int[] FreeCacheSpace;
+    private ArrayList<CacheHandle> caches;
+    private HashSet<Key> pendingRequests; // prevent processing multiple requests for same key
+    private Source<Key, Value> source;
+    private ObjectMeasure<Value> measure;
 
 
-    /*
+    /**
      * Organizes following meta-data of entries: size of entry, identifier of entry (key), measure
      * for time passed since last use Returns hashcode of entry determined by key.
+     * 
      */
     private class CacheEntry {
 
-        public int                 size;
-        public Key                 key;
-        public int                 lastUsed;
-        private Source<Key, Value> source;
+        public int size;
+        public Key key;
+        public int lastUsed;
 
 
         @Override
@@ -47,19 +43,41 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         }
     }
 
+    private class CacheHandle {
+
+        public Cache<Key, Value> cache;
+        public TreeSet<CacheEntry> tree;
+        public HashSet<CacheEntry> hash;
+        public int maxSize;
+    }
+
+    private class CacheListener implements SourceListener<Key, Value> {
+
+        @Override
+        public void requestCompleted(Key key, Value value) {
+            // TODO Automatisch generierter Methodenstub
+
+        }
+    }
+
 
     /**
-     * Adds new cache and creates new <code>tree</code>, hashLastUsed and FreeCacheSpace.
+     * Appends a new cache, which will have the lowest priority of any cache added so far.
+     * 
+     * @param cache The cache.
+     * @param maxSize The maximum size in units defined by the ObjectMeasure passed in the
+     *        constructor. TODO maxSize should probably have a minimum value
      */
     public void addCache(Cache<Key, Value> cache, int maxSize) {
 
     }
 
     /**
-     * Changes the size of a {@link cache} to a given value.
+     * Changes the maximum size of an existing cache, possibly dropping cached objects in the
+     * process.
      * 
-     * @param cache The <code>Cache</code> whose size should be changed
-     * @param maxSize The new size of the <code>Cache</code>
+     * @param cache The cache to modify.
+     * @param maxSize The new maximum size. TODO maxSize should probably have a minimum value
      */
     public void setCacheSize(Cache<Key, Value> cache, int maxSize) {
 
@@ -68,7 +86,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     /**
      * Replaces the {@link Source}.
      * 
-     * @param source The new <code>Source</code>
+     * @param source The new source
      */
     public void setSource(Source<Key, Value> source) {
         this.source = source;
@@ -87,24 +105,12 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     @Override
     public SourceResponse<Value> requestObject(Key key,
             SourceListener<Key, Value> sender) {
-        for (Cache<Key, Value> c : caches) {
-            
+        for (CacheHandle c : caches) {
+            // Abklappern
         }
         return null;
     }
 
-    /*
-     * Adds element <code>response</code> to it's first cache and updates FreeCacheSpace. Calls
-     * <code>displace()</code> if cache is already full. Also erases <code>Key</code> of
-     * <code>response</code> from <code>pendingRequests</code> and notifies listeners that requested
-     * object is available now. Method wont do anything when parameter is null or Key is already
-     * represented in cache.
-     * 
-     * @param response The requested entry to be added to the Cache
-     * 
-     * 
-     * @Override public void requestCompleted(Key k, Value v) { }
-     */
     /**
      * When cache exists, drop last used entry from cache and add it to next lower cache if cache
      * exists. Method calls itself recursive if next lower cache is full. When argument is invalid,
@@ -130,9 +136,9 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     /**
-     * Constructor. Assigns a value to the {@link ObjectMeasure}.
+     * Constructor.
      * 
-     * @param m The <code>Measure</code> that should be used
+     * @param m The ObjectMeasure to use.
      */
     public RequestDistributor(ObjectMeasure<Value> m) {
         /*
@@ -158,6 +164,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
     /**
      * Removes all objects from the {@link cache}s that fulfill the {@link Predicate}.
+     * 
      * @param pred Conformance with that <code>Predicate</code> leads to deletion of that object
      */
     public void dropAll(Predicate<Key> pred) {
@@ -166,9 +173,11 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
     /**
      * Removes an object stored under a <code>Key</code> from the {@link Cache} that contains it.
-     * @param k The <code>Key</code> of the object to drop
+     * 
+     * @param k The key identifying the object.
      */
     public void dropObject(Key k) {
 
     }
+
 }
