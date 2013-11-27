@@ -12,17 +12,17 @@ import de.joglearth.surface.SurfaceListener;
  * Administers geometric calculations for the viewport perspective.
  * 
  * This class is not thread-safe by design, as clients will usually perform multiple dependent
- * operations on the camera. In multi-threaded code, these blocks of operations should be
+ * operations on the {@link Camera}. In multi-threaded code, these blocks of operations should be
  * synchronized on the camera object.
  */
 public class Camera {
 
-    private GeoCoordinates position;
-    private double distance;
-    private double tiltX;
-    private double tiltY;
-    private Matrix4 clipMatrix, projectionMatrix;
-    private Geometry geometry;
+    private GeoCoordinates       position;
+    private double               distance;
+    private double               tiltX;
+    private double               tiltY;
+    private Matrix4              clipMatrix, projectionMatrix;
+    private Geometry             geometry;
     private List<CameraListener> listeners;
 
 
@@ -54,9 +54,9 @@ public class Camera {
     /**
      * Constructor.
      * 
-     * Creates a camera with FOV 90, aspect ratio 1:1, zNear=0.1 and zFar=1000.
+     * Creates a {@link Camera} with FOV 90, aspect ratio 1:1, zNear=0.1 and zFar=1000.
      * 
-     * @param hm The height map manager.
+     * @param hm The {@link HeightMapManager}.
      */
     public Camera() {
         setPerspective((double) Math.PI / 2, 1, 0.1f, 1000);
@@ -64,18 +64,18 @@ public class Camera {
     }
 
     /**
-     * Sets a new geometry object for model-specific computations.
+     * Sets a new {@link Geometry} object for model-specific computations.
      * 
-     * @param g The new geometry object.
+     * @param g The new Geometry object.
      */
     public void setGeometry(Geometry g) {
         this.geometry = g;
     }
 
     /**
-     * Sets the position the camera is currently over.
+     * Sets the position the {@link Camera} is currently over.
      * 
-     * @param coords The surface coordinates of the camera's position.
+     * @param coords The {@link GeoCoordinates} of the camera's position.
      */
     public void setPosition(GeoCoordinates coords) {
         this.position = coords;
@@ -83,7 +83,7 @@ public class Camera {
     }
 
     /**
-     * Sets the camera's distance to the surface.
+     * Sets the {@link Camera}'s distance to the surface.
      * 
      * @param distance The distance.
      */
@@ -111,7 +111,7 @@ public class Camera {
     }
 
     /**
-     * Resets the camera tilt to x=y=0.
+     * Resets the {@link Camera} tilt to x=y=0.
      */
     public void resetTilt() {
         tiltX = 0;
@@ -120,7 +120,7 @@ public class Camera {
     }
 
     /**
-     * Sets the camera tilt to a specific value.
+     * Sets the {@link Camera} tilt to a specific value.
      * 
      * @param x The tilt around the x axis ("up and down").
      * @param y The tilt around the y axis ("left and right").
@@ -142,7 +142,7 @@ public class Camera {
     }
 
     /**
-     * Changes the camera's surface position by difference values.
+     * Changes the {@link Camera}'s surface position by difference values.
      * 
      * @param deltaLon The angular distance to move in longitude direction.
      * @param deltaLat The angular distance to move in latitude direction.
@@ -158,9 +158,9 @@ public class Camera {
     }
 
     /**
-     * Determines whether a surface point is visible by the camera. The visibility is limited by
-     * both the viewport (the clipping planes) and parts of the scene closer to the camera that
-     * might shadow others (the back of the globe, for example).
+     * Determines whether a surface point is visible by the {@link Camera}. The visibility is
+     * limited by both the viewport (the clipping planes) and parts of the scene closer to the
+     * camera that might shadow others (the back of the globe, for example).
      * 
      * @param geo The coordinates to check for.
      * @return Whether the point is visible.
@@ -170,7 +170,7 @@ public class Camera {
     }
 
     /**
-     * Calculates the screen coodrinates of a visible point given in longitude and latitude
+     * Calculates the screen coordinates of a visible point given in longitude and latitude
      * coordinates. If the point is not visible, the result is unspecified.
      * 
      * @param geo The point's coordinates.
@@ -193,7 +193,7 @@ public class Camera {
     }
 
     /**
-     * Returns an array of tiles visible or partially visible by the camera.
+     * Returns an array of tiles visible or partially visible by the {@link Camera}.
      * 
      * All tiles have the same detail level, which is calculated from the distance and number of
      * visible tiles.
@@ -217,10 +217,20 @@ public class Camera {
         return projectionMatrix;
     }
 
+    /**
+     * Adds a new {@link CameraListener}.
+     * 
+     * @param l The new <code>CameraListener</code>
+     */
     public void addCameraListener(CameraListener l) {
 
     }
 
+    /**
+     * Removes a given {@link CameraListener}.
+     * 
+     * @param l The <code>CameraListener</code> that should be removed
+     */
     public void removeCameraListener(CameraListener l) {
 
     }
