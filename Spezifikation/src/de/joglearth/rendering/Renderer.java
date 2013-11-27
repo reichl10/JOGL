@@ -23,26 +23,25 @@ import de.joglearth.settings.SettingsListener;
  */
 public class Renderer {
 
-    private GL2 gl;
-    private boolean quit = false;
-    private boolean running;
-    private boolean posted;
+    private GL2             gl;
+    private boolean         quit = false;
+    private boolean         running;
+    private boolean         posted;
     private LocationManager locationManager;
-    private TextureManager textureManager;
-    private Camera camera;
-    private DisplayMode activeDisplayMode;
-    private TiledMapType activeMapType;
-    private MapLayout mapLayout;
-    private SingleMapType singleMapType;
-    private TiledMapType tiledMapType;
-    private DisplayMode displayMode;
+    private TextureManager  textureManager;
+    private Camera          camera;
+    private DisplayMode     activeDisplayMode;
+    private TiledMapType    activeMapType;
+    private MapLayout       mapLayout;
+    private SingleMapType   singleMapType;
+    private TiledMapType    tiledMapType;
+    private DisplayMode     displayMode;
 
 
     private class Worker implements Runnable {
 
         @Override
         public void run() {
-            // TODO Automatisch generierter Methodenstub
             /*
              * while (!isQuit()) { if (isRunning() || isPosted()) {
              * 
@@ -52,33 +51,31 @@ public class Renderer {
              */
         }
     }
-    
-    
+
     private class SurfaceValidator implements SurfaceListener {
 
         @Override
         public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
             GeoCoordinates[] edges = { new GeoCoordinates(lonFrom, latFrom),
-                                       new GeoCoordinates(lonFrom,  latTo),
-                                       new GeoCoordinates(lonTo, latFrom),
-                                       new GeoCoordinates(lonTo, latTo) };
-            for (GeoCoordinates geo: edges) {
+                    new GeoCoordinates(lonFrom, latTo),
+                    new GeoCoordinates(lonTo, latFrom),
+                    new GeoCoordinates(lonTo, latTo) };
+            for (GeoCoordinates geo : edges) {
                 if (camera.isPointVisible(geo)) {
-                    post(); 
+                    post();
                     break;
                 }
             }
-        }        
+        }
     }
-    
-    
+
     private class GraphicsSettingsListener implements SettingsListener {
 
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
             // TODO Automatisch generierter Methodenstub
-            
-        }        
+
+        }
     }
 
 
@@ -97,15 +94,13 @@ public class Renderer {
         this.gl = canv.getGL().getGL2();
         canv.addGLEventListener(new RendererEventListener());
         this.textureManager = new TextureManager(gl);
-        
+
         SurfaceValidator surfaceValidator = new SurfaceValidator();
         textureManager.addSurfaceListener(surfaceValidator);
         locationManager.addSurfaceListener(surfaceValidator);
-        
-        
-        
+
         camera.addCameraListener(new CameraListener() {
-            
+
             @Override
             public void cameraViewChanged() {
                 post();
@@ -138,9 +133,9 @@ public class Renderer {
     // Methode u.U. keine Auswirkung. Asynchron, wartet nicht bis der
     // Frame gezeichnet wurde.
     /**
-     * Notifies the <code>Renderer</code> that a new frame should be rendered. If
-     * <code>start()</code> is called this method may have no effect. Asynchron method, does not
-     * wait till a frame is drawn.
+     * Notifies the {@link Renderer} that a new frame should be rendered. If <code>start()</code> is
+     * called this method may have no effect. Asynchronous method, does not wait until a frame is
+     * drawn.
      */
     public synchronized void post() {
         posted = true;
@@ -149,7 +144,7 @@ public class Renderer {
     // Beginnt mit einer konstanten FPS-Zahl zu rendern, zB. 60.
     // Asynchron, kehrt sofort zur�ck.
     /**
-     * Starts the render loops with 60 FPS.
+     * Starts the render loop with 60 FPS.
      */
     public synchronized void start() {
         running = true;
@@ -159,7 +154,7 @@ public class Renderer {
     // U.U. wird trotzdem noch ein Frame gerendert, falls w�hrenddessen
     // post() aufgerufen wurde.
     /**
-     * Stops the rendering loop. When <code>post()</code> is called a new frame will be rendered.
+     * Stops the render loop. When <code>post()</code> is called a new frame will be rendered.
      */
     public synchronized void stop() {
         running = false;
@@ -182,7 +177,7 @@ public class Renderer {
      */
 
     /**
-     * Quits the Renderer thread.
+     * Quits the {@link Renderer} thread.
      */
     public void quit() {
         quit = true;
@@ -213,17 +208,35 @@ public class Renderer {
         }
     }
 
+
+    /**
+     * Sets the {@link DisplayMode} to a given value.
+     * 
+     * @param m The new <code>DisplayMode</code>
+     */
     public void setDisplayMode(DisplayMode m) {
         displayMode = m;
         post();
     }
 
+    /**
+     * Sets the {@link MapLayout} to a given value. This type is a {@link SingleMapType} as it is
+     * only one tile as a texture.
+     * 
+     * @param t The new <code>MapLayout</code>
+     */
     public void setMapType(SingleMapType t) {
         mapLayout = MapLayout.SINGLE;
         singleMapType = t;
         post();
     }
 
+    /**
+     * Sets the {@link MapLayout} to a given value. This type is a {@link TiledMapType} as the
+     * texture consists of multiple tiles.
+     * 
+     * @param t The new <code>MapLayout</code>
+     */
     public void setMapType(TiledMapType t) {
         mapLayout = MapLayout.TILED;
         tiledMapType = t;
