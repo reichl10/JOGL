@@ -26,6 +26,7 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -41,13 +42,11 @@ import com.jgoodies.forms.factories.FormFactory;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-
 import javax.swing.BorderFactory;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
-
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
@@ -60,6 +59,7 @@ import javax.swing.JSlider;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Collection;
 
 import static de.joglearth.util.Resource.loadIcon;
 
@@ -750,7 +750,7 @@ public class MainWindow extends JFrame {
     private class UILocationListener implements LocationListener {
 
         @Override
-        public void searchResultsAvailable(Location[] results) {
+        public void searchResultsAvailable(Collection<Location> results) {
             // TODO Automatisch generierter Methodenstub
 
         }
