@@ -1,5 +1,7 @@
 package de.joglearth.surface;
 
+import java.util.Collection;
+
 import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.Tile;
 import de.joglearth.settings.Settings;
@@ -35,19 +37,24 @@ public class LocationManager {
     }
 
     /**
-     * Changes the visibility of a given {@link Location}.
+     * Changes the visibility of a given {@link LocationType}.
      * 
-     * @param location The <code>Location</code> that should be shown
-     * @param visible Whether to show or hide the display
+     * @param location The <code>LocationType</code> that should be shown or hidden
+     * @param visible Whether to show or hide
      */
     public void setLocationTypeActive(LocationType type, boolean active) {
 
     }
     
-    public void setActiveOverlays(LocationType[] lt, Tile[] tiles) {
-        
+    /**
+     * Returns all active locations within the given area.
+     * @param area The tiles defining the area
+     * @return A collection of active locations
+     */
+    public Collection<Location> getActiveLocations(Iterable<Tile> area) {
+        return null;      
     }
-
+    
     /**
      * Searches on the whole globe/map after a query string.
      * 
@@ -61,9 +68,9 @@ public class LocationManager {
      * Searches after a query string on the visible part of the map/globe.
      * 
      * @param query The query string
-     * @param area An array of visible tiles where the search should be performed on
+     * @param area A collection of tiles where the search should be performed on
      */
-    public void searchLocal(String query, Tile[] area) {
+    public void searchLocal(String query, Iterable<Tile> area) {
 
     }
 
