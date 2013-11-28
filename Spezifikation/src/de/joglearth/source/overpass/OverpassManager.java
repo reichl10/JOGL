@@ -1,5 +1,7 @@
 package de.joglearth.source.overpass;
 
+import java.util.Collection;
+
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
@@ -12,11 +14,11 @@ import de.joglearth.surface.Location;
 /**
  * Singleton class that retrieves data from the {@link OverpassSource}.
  */
-public final class OverpassManager implements Source<OverpassQuery, Location[]> {
+public final class OverpassManager implements Source<OverpassQuery, Collection<Location>> {
 
     private static OverpassManager                        instance;
 
-    private RequestDistributor<OverpassQuery, Location[]> dist;
+    private RequestDistributor<OverpassQuery, Collection<Location>> dist;
 
 
     /**
@@ -37,8 +39,8 @@ public final class OverpassManager implements Source<OverpassQuery, Location[]> 
     }
 
     @Override
-    public SourceResponse<Location[]> requestObject(OverpassQuery key,
-            SourceListener<OverpassQuery, Location[]> sender) {
+    public SourceResponse<Collection<Location>> requestObject(OverpassQuery key,
+            SourceListener<OverpassQuery, Collection<Location>> sender) {
         return dist.requestObject(key, sender);
     }
 }
