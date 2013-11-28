@@ -8,21 +8,46 @@ public final class SettingsContract {
 
     /**
      * Name Constant for the Language setting.
+     * You should save a string to settings using this.
      */
-    public static final String LANGUAGE         = "lang";
+    public static final String LANGUAGE         = "Language";
 
     /**
      * Name Constant for the texture filter setting.
+     * You should save a boolean to Settings using this. (Only on/off)
      */
-    public static final String TEXTURE_FILTER   = "textureFilter";
+    public static final String TEXTURE_FILTER   = "TextureFilter";
 
     /**
      * Name Constant for the Level of Details setting.
+     * You should save a String to Settings using this.
+     * Use <code>toString</code> of the Enum.
      */
-    public static final String LEVEL_OF_DETAILS = "lvlOfDetails";
+    public static final String LEVEL_OF_DETAILS = "LevelOfDetail";
 
-
-    // TODO: Define others
+    /**
+     * Name Constant for the users Locations.
+     * You should save {@link Location} objects using this key.
+     */
+    public static final String USER_LOCATIONS = "UserLocations";
+    
+    /**
+     * Name Constant for antialiasing.
+     * You should save a boolean unsing this key. (Only on/off)
+     */
+    public static final String ANTIALIASING = "Antialiasing";
+    
+    /**
+     * Name Constant for the Memory cache's size.
+     * You should save an integer using this key.
+     */
+    public static final String CACHE_SIZE_MEMORY = "CacheSizeMemory";
+    
+    /**
+     * Name Constant for the FileSystem cache's size.
+     * You should save an integer using this key.
+     */
+    public static final String CACHE_SIZE_FILESYSTEM = "CacheSizeFileSystem";
 
     /**
      * Private Constructor to prevent creating instances of this class.
