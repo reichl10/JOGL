@@ -390,10 +390,21 @@ public class WriteAndLoadSettings {
 
 \section{Bestimmung des Schnittpunkts einer Blickwinkelgeraden mit dem Oberflächenmodell}
 Um die Koordinaten des Kartenausschnitts unter einem Bildpunkt (wie beispielsweise der Mausposition) zu bestimmen, wird zunächst eine Geradengleichung konstruiert:
-\[x = c+\lambda v\]
-wobei $c$ der Kameraursprung und $v$ der (Blick-)Richtungsvektor ist. Zur Berechnung von $v$ wird die Blickrichtung zum Mittelpunkt, der Versatz in (Bild-) X- und Y-Richtung sowie der Kippwinkel herangezogen:
-\[x = c+\lambda\left(-c\ \mathrm{Rot}_1\left(tilt_x+\left(y-\frac{1}{2}\right)FOV\right)\ \mathrm{Rot}_2\left(tilt_y+\left(x-\frac{1}{2}\right)aspect\cdot FOV\right)\right)\]
-wobei $Rot_n$ die dreidimensionale Drehmatrix um die entsprechende Achse ist, $x$ und $y$ die Bildposition $\in [0, 1]$, $FOV$ das \textit{Field of view} und \textit{aspect} das Seitenverhältnis \textit{Breite:Höhe}.
+\[\vec{x} = \vec{c}+\lambda\vec{u}\]
+wobei $\vec{c}$ der Kameraursprung und $\vec{u}$ der (Blick-)Richtungsvektor ist. Um die Kippachsen zu erhalten, werden zwei orthogonale Vektoren bestimmt die ihrerseits zum Kamera-Mittelpunkt-Vektor $-\vec{M}-\vec{c}$ orthogonal sind und von denen einer parallel zur Erdachse ist oder sie schneidet:
+\[\vec{v} = (\vec{c}-\vec{M})\times\left(\begin{array}{c}0\\1\\0\end{array}\right)\qquad \vec{w} = \vec{v}\times (\vec{c}-\vec{M})\]
+
+
+Zur Berechnung von $v$ wird die Blickrichtung zum Mittelpunkt, der Versatz in (Bild-) X- und Y-Richtung sowie der Kippwinkel herangezogen:
+\[\vec{u}=\mathrm{Rot}_{\vec{v}}\left(tilt_x+\left(y-\frac{1}{2}\right)FOV\right)\ \cdot \mathrm{Rot}_{\vec{w}}\left(tilt_y+\left(x-\frac{1}{2}\right)aspect\cdot FOV\right)\cdot (-\vec{M}-\vec{c})\]
+wobei $x$ und $y$ die Bildposition $\in [0, 1]$, $FOV$ das \textit{Field of view}, \textit{aspect} das Seitenverhältnis \textit{Breite:Höhe}, und $Rot_n$ die dreidimensionale Drehmatrix um den Achsenvektor $\vec{n}$ ist:
+
+\[\mathrm{Rot}_n(\alpha) = 
+\begin{pmatrix}
+n_1^2(1-\cos\alpha)+\cos\alpha	& 	n_1n_2(1-\cos\alpha)-n_3\sin\alpha	& 	n_1n_3(1-\cos\alpha)+n_2\sin\alpha\\
+n_2n_1(1-\cos\alpha)+n_3\sin\alpha	& 	n_2^2(1-\cos\alpha)+\cos\alpha	& 	n_2n_3(1-\cos\alpha)-n_1\sin\alpha\\
+n_3n_1(1-\cos\alpha)-n_2\sin\alpha	& 	n_3n_2(1-\cos\alpha)+n_1\sin\alpha	&	n_3^2(1-\cos\alpha)+\cos\alpha
+\end{pmatrix}\]
 
 \subsection{Auf dem Globus}
 
@@ -407,44 +418,75 @@ Die Oberfläche ist also durch folgende Kugelgleichung gegeben:
 
 \[||c+\lambda v||_2 = 1\]
 
-Gesucht ist der Längen- und Breitengrad des Schnittpunkts. Dafür wird zunächst $\lambda$ bestimmt:
+Gesucht ist der Längen- und Breitengrad des Schnittpunkts. Dafür wird zunächst $\lambda$ bestimmt.
 
+
+\newpage
 \vspace{7mm}
 \begin{equation*}
 \lambda = \frac{1}{v_1^2+v_2^2+v_3^2}\Big(-c_1v_1-c_2v_2-c_3v_3
 -\sqrt{\left(c_1v_1+c_2v_2+c_3v_3\right)^2-(c_1^2+c_2^2+c_3^2-1)(v_1^2+v_2^2+v_3^2)}\Big)
 \end{equation*}
 
-Für Längen- und Breitengrad folgt bei Ausrichtung des Äquators senkrecht zur $x_2$-Achse gilt:
-\[lon = \arccos(c_1+\lambda v_1)\]
-\[lat = \arcsin(c_2+\lambda v_2)\]
-
-\newpage
+Für Längen- und Breitengrad folgt bei Ausrichtung des Äquators senkrecht zur $x_2$-Achse:
+\[lon = \arccos((c_1-M_1)+\lambda v_1)\]
+\[lat = \arcsin((c_2-M_2)+\lambda v_2)\]
 
 \subsection{Auf der Ebene}
-\begin{figure}[!htb]
+\begin{wrapfigure}{l}{8cm}
 \includegraphics[scale=0.75]{algo/SchnittEbene.eps}
-\end{figure}
+\end{wrapfigure}
 
-\newpage
+Um mit dem Kugelmodell konsistent zu bleiben, wird die Kartenebene senkrecht zur Z-Achse durch die Ebenengleichung
+
+\[\vec{x} = \mu\left(\begin{array}{c}1\\0\\0\end{array}\right)+\nu\left(\begin{array}{c}0\\1\\0\end{array}\right)\]
+
+gegeben, wobei sich der Längengrad in Richtung der X, der Breitengrad in Richtung der Y-Achse ändert.
+
+Mit der Gleichung für den Schnittpunkt ergibt sich:
+\[
+\vec{c}+\lambda\vec{u}=\mu\left(\begin{array}{c}1\\0\\0\end{array}\right)+ \nu\left(\begin{array}{c}0\\1\\0\end{array}\right)\quad\Rightarrow\quad\begin{array}{c}c_1+\lambda u_1 = \mu\\c_2 + \lambda u_2 = \nu\\c_3 + \lambda u_3 = 0\end{array}
+\]\\
+
+\vspace{2mm}
+Daraus lassen sich anschließend Längen- und Breitengrad bestimmen.
+\[
+\lambda=\frac{-c_3}{u_3}\quad\Rightarrow\quad lon = \mu c_1-\frac{c_3}{u_3}u_1\quad\quad lat=c_2-\frac{c_3}{u_3}u_2
+\]
+
 \section{Bestimmung der Transformation aus einer Mausbewegung}
-\subsection*{Globus}
+
+Die Verschiebung oder Drehung, die aus einer Mausbewegung folgt, ist modellunabhängig. Die Differenz muss lediglich als solche der \textit{Camera} übergeben werden.
+
 \begin{figure}[!htb]
+\begin{minipage}[l]{7.5cm}
+\flushleft
 \includegraphics[scale=0.75]{algo/MausKugel.eps}
+\end{minipage}
+\begin{minipage}[r]{7.5cm}
+\flushright
+\includegraphics[scale=0.75]{algo/MausEbene.eps}
+\end{minipage}
 \end{figure}
 
-\subsection*{Ebene}
-\begin{figure}[!htb]
-\includegraphics[scale=0.75]{algo/MausEbene.eps}
-\end{figure}
+Zur Bestimmung des Drehwinkels in Längen- und Breitengradrichtung geschieht durch die Konstruktion zweier Blickwinkelgeraden für Start- und Zielpunkt gemäß Abschnitt 5.1 und Bildung der Differenz.
+
+\section{Berechnung der Bildposition eines Punktes im Raum}
+
+\section{Berechnung der Raumposition eines Oberflächenpunkts}
 
 \section{Bestimmung der prinzipiellen Sichtbarkeit eines Punktes der Oberfläche}
-\begin{figure}[!htb]
+Die prinzipielle Sichtbarkeit eines Punktes sagt aus, ob die Oberfläche dem Betrachter zugewandt ist. Das ist für die Kartenebene trivialerweise immer der Fall, beim Globus muss eine Unterscheidung zwischen Vorder- und Rückseite vorgenommen werden.\\
+\begin{wrapfigure}{r}{8cm}
+\flushright
 \includegraphics[scale=0.75]{algo/SichtbarKugel.eps}
-\end{figure}
+\end{wrapfigure}
+Ein Punkt auf der Globusoberfläche ist prinzipiell sichtbar, falls sein Abstand zur Kamera geringer oder gleich dem Abstand zum Berührpunkt einer Kugeltangente ist (siehe Abbildung). 
 
-
-
+Im Beispiel ist der Punkt weiter entfernt, es gilt also 
+\[\vec{XC} > \sqrt{\vec{CM}^2-1}\]
+Er ist damit prinzipiell nicht sichtbar.\\[5mm]
+Die Sichtbarkeitsabfrage bezüglich Blickrichtung und Bildausschnitt kann auf die Berechnung des Bildpunkts aus einem Raumpunkt und des Raumpunkts aus Koordinaten zurückgeführt werden und ist damit modellunabhängig.
 
 \chapter{Persistente Daten}
 
