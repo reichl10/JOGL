@@ -66,9 +66,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * 
      * @param cache The cache
      * @param maxSize The maximum size in units defined by the ObjectMeasure passed in the
-     *        constructor. TODO maxSize should probably have a minimum value
+     *        constructor, has to be greater than <code>0</code>
      */
     public void addCache(Cache<Key, Value> cache, int maxSize) {
+        //TODO maxSize should probably have a minimum value
 
     }
 
@@ -77,9 +78,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * process.
      * 
      * @param cache The cache to modify
-     * @param maxSize The new maximum size. TODO maxSize should probably have a minimum value
+     * @param maxSize The new maximum size, has to be greater than <code>0</code>
      */
     public void setCacheSize(Cache<Key, Value> cache, int maxSize) {
+        //TODO maxSize should probably have a minimum value
 
     }
 
@@ -126,9 +128,9 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * entry will be lost. If Key or cache1 aren't valid, method will do nothing but return true.
      * Method will do nothing and return false when cache2 is full.
      * 
-     * @param a Key of entry to be switched to other cache.
-     * @param cache1 Cache where entry is stored and shall be dropped.
-     * @param cache2 Cache where entry shall be placed.
+     * @param a Key of entry to be switched to other cache
+     * @param cache1 Cache where entry is stored and shall be dropped
+     * @param cache2 Cache where entry shall be placed
      * 
      */
     private boolean switchCache(Key a, int cache1, int cache2) {

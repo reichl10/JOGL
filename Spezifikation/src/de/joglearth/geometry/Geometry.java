@@ -10,8 +10,8 @@ import de.joglearth.geometry.Vector3;
 public interface Geometry {
 
     /**
-     * Returns whether a point, given by longitude and latitude coordinates, could be visible given
-     * that the field of view and distance is large enough.
+     * Returns whether a point, given by longitude and latitude coordinates, could be visible
+     * provided that the field of view and distance are large enough.
      * 
      * @param geo The surface point
      * @return Whether the point might be visible
