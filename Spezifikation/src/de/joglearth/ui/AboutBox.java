@@ -54,7 +54,7 @@ public class AboutBox extends JDialog {
     }
 
     /**
-     * Create the dialog.
+     * Creates the dialog.
      */
     public AboutBox() {
         setTitle("About " + JoglEarth.PRODUCT_NAME);

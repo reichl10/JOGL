@@ -15,7 +15,7 @@ public interface Cache<Key, Value>
      * Stores object identified by a <code>Key</code>. An existing object with that <code>Key</code>
      * may be overwritten.
      * 
-     * @param k ID of object
+     * @param k ID of the object
      * @param v The object to be stored
      */
     void putObject(Key k, Value v);
@@ -23,7 +23,7 @@ public interface Cache<Key, Value>
     /**
      * Erases the reference to an object if the <code>Key</code> is a valid ID of a stored object.
      * 
-     * @param k The ID of object to be dropped
+     * @param k The ID of the object to be dropped
      */
     void dropObject(Key k);
 
