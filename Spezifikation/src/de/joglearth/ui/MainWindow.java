@@ -347,7 +347,7 @@ public class MainWindow extends JFrame {
         paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>("Satellite",
                 loadIcon("icons/mapSatellite.png"), new MapTypePair(SingleMapType.SATELLITE)));
         paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>("OpenStreetMap",
-                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAP)));
+                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK)));
         paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>("Children's Map",
                 loadIcon("icons/mapChildren.png"), new MapTypePair(SingleMapType.CHILDREN)));        
     }

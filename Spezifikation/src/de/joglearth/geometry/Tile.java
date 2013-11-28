@@ -107,12 +107,13 @@ public final class Tile implements Cloneable {
     
     
     /**
+     * Checks if a given rectangle intersects with a {@link Tile}.
      * 
-     * @param lonFrom
-     * @param latFrom
-     * @param lonTo
-     * @param latTo
-     * @return
+     * @param lonFrom The longitude where the rectangle starts
+     * @param latFrom The latitude where the rectangle starts
+     * @param lonTo The longitude where the rectangle ends
+     * @param latTo The latitude where the rectangle ends
+     * @return True if the rectangle intersects, else false
      */
     public boolean intersects(double lonFrom, double latFrom, double lonTo, double latTo) {
         return false;
@@ -143,10 +144,10 @@ public final class Tile implements Cloneable {
     }
 
     /**
-     * Returns if given {@link GeoCoordinates} are in this tile.
+     * Returns if given {@link GeoCoordinates} are in this {@link Tile}.
      * 
-     * @param coords Coordinates
-     * @return  If coords are in the Tile
+     * @param coords The <code>GeoCoordinates</code>
+     * @return  If The <code>GeoCoordinates</code> are in the <code>Tile</code>
      */
     public boolean contains(GeoCoordinates coords) {
         if (coords == null) {
