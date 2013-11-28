@@ -11,6 +11,7 @@
 \usepackage{wrapfig}
 \usepackage{enumitem}
 \usepackage{tabu}
+\usepackage{amsmath}
 \usepackage{url}
 \usepackage{numprint}
 \usepackage{longtable}
@@ -388,12 +389,39 @@ public class WriteAndLoadSettings {
 \chapter{Algorithmen}
 
 \section{Bestimmung des Schnittpunkts einer Blickwinkelgeraden mit dem Oberflächenmodell}
-\subsection*{Globus}
-\begin{figure}[!htb]
-\includegraphics[scale=0.75]{algo/SchnittKugel.eps}
-\end{figure}
+Um die Koordinaten des Kartenausschnitts unter einem Bildpunkt (wie beispielsweise der Mausposition) zu bestimmen, wird zunächst eine Geradengleichung konstruiert:
+\[x = c+\lambda v\]
+wobei $c$ der Kameraursprung und $v$ der (Blick-)Richtungsvektor ist. Zur Berechnung von $v$ wird die Blickrichtung zum Mittelpunkt, der Versatz in (Bild-) X- und Y-Richtung sowie der Kippwinkel herangezogen:
+\[x = c+\lambda\left(-c\ \mathrm{Rot}_1\left(tilt_x+\left(y-\frac{1}{2}\right)FOV\right)\ \mathrm{Rot}_2\left(tilt_y+\left(x-\frac{1}{2}\right)aspect\cdot FOV\right)\right)\]
+wobei $Rot_n$ die dreidimensionale Drehmatrix um die entsprechende Achse ist, $x$ und $y$ die Bildposition $\in [0, 1]$, $FOV$ das \textit{Field of view} und \textit{aspect} das Seitenverhältnis \textit{Breite:Höhe}.
 
-\subsection*{Ebene}
+\subsection{Auf dem Globus}
+
+\begin{wrapfigure}{l}{8cm}
+\includegraphics[scale=0.75]{algo/SchnittKugel.eps}
+\end{wrapfigure}
+
+Im Modell wird die Erde als perfekte Kugel mit Radius $1$ angenommen, insbesondere wird also die Veränderung durch das Höhenprofil außer Acht gelassen, da deren Berücksichtigung aufwändige Raytracing-Ansätze erfordern würde.
+
+Die Oberfläche ist also durch folgende Kugelgleichung gegeben:
+
+\[||c+\lambda v||_2 = 1\]
+
+Gesucht ist der Längen- und Breitengrad des Schnittpunkts. Dafür wird zunächst $\lambda$ bestimmt:
+
+\vspace{7mm}
+\begin{equation*}
+\lambda = \frac{1}{v_1^2+v_2^2+v_3^2}\Big(-c_1v_1-c_2v_2-c_3v_3
+-\sqrt{\left(c_1v_1+c_2v_2+c_3v_3\right)^2-(c_1^2+c_2^2+c_3^2-1)(v_1^2+v_2^2+v_3^2)}\Big)
+\end{equation*}
+
+Für Längen- und Breitengrad folgt bei Ausrichtung des Äquators senkrecht zur $x_2$-Achse gilt:
+\[lon = \arccos(c_1+\lambda v_1)\]
+\[lat = \arcsin(c_2+\lambda v_2)\]
+
+\newpage
+
+\subsection{Auf der Ebene}
 \begin{figure}[!htb]
 \includegraphics[scale=0.75]{algo/SchnittEbene.eps}
 \end{figure}
@@ -1531,5 +1559,11 @@ Die folgenden Klassen, Interfaces und Enumerations sind hinzugekommen:
 \item de.joglearth.util.Predicate
 \end{itemize}
 
+\chapter*{Index}
+\let\oldbf\bf
+\renewcommand{\bf}{}
+\addcontentsline{toc}{chapter}{Index}
+\let\bf\oldbf
+\input{annotated}
 
 \end{document}
