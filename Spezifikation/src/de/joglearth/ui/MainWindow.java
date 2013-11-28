@@ -706,7 +706,7 @@ public class MainWindow extends JFrame {
      * Constructor.
      * 
      * @param locationManager The <code>LocationManager</code> associated with this window.
-     * @param camera the <code>Camera</code> used by this window
+     * @param camera The <code>Camera</code> used by this window
      */
     public MainWindow(final LocationManager locationManager, final Camera camera) {
         initializeWindow();
@@ -720,7 +720,7 @@ public class MainWindow extends JFrame {
     /**
      * Gets the <code>GLCanvas</code> that is displayed in the left half of the window.
      * 
-     * @return the GLCanvas used in this window
+     * @return The GLCanvas used in this window
      */
     public final GLCanvas getGLCanvas() {
         return null;

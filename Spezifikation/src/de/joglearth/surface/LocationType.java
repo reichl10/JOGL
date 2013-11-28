@@ -36,13 +36,13 @@ public enum LocationType {
     SHOPS,
 
     /**
-     * Returns spare-time activities like amusement parks or museums, places for picnics and
-     * lookouts.
+     * Returns spare-time activities like theme parks, museums, picnic sites and
+     * viewpoints.
      */
     ACTIVITY,
 
     /**
-     * Returns outdoor pursuits for bikers and hikers like picnic places and lookouts, benches,
+     * Returns outdoor pursuits for bikers and hikers like picnic sites viewpoints, benches,
      * rubbish bins and bike shops.
      */
     HIKING_AND_CYCLING,

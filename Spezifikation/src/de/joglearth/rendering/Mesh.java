@@ -29,10 +29,10 @@ public final class Mesh {
      * Constructor. Initializes the {@link Mesh}
      * 
      * @param vertices The array of vertices, normals and texture coordinates according to the
-     *        vertex format.
+     *        vertex format
      * @param glVertexFormat The OpenGL vertex format used. Describes the layout of the vertex
      *        array.
-     * @param indices The array of indices.
+     * @param indices The array of indices
      */
     public Mesh(float[] vertices, int glVertexFormat, int[] indices) {
         this.vertices = vertices;

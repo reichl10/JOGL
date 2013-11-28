@@ -60,8 +60,8 @@ public class TileMeshManager implements Source<Tile, Integer> {
     }
 
     /**
-     * 
-     * @param t
+     * Sets the {@link de.joglearth.rendering.Tessellator} of the {@link TileMeshSource}
+     * @param t The new {@link Tesselator}
      */
     public void setTessellator(Tessellator t) {
         source.setTessellator(t);
@@ -69,8 +69,8 @@ public class TileMeshManager implements Source<Tile, Integer> {
     }
 
     /**
-     * 
-     * @param sub
+     * Sets the level of detail of the {@link de.joglearth.rendering.Tessellator}.
+     * @param sub The new level of detail
      */
     public void setTileSubdivisions(int sub) {
         source.setTileSubdivisions(sub);
@@ -78,8 +78,9 @@ public class TileMeshManager implements Source<Tile, Integer> {
     }
 
     /**
+     * Enables or disables the {@link de.joglearth.surface.HeightMap}.
      * 
-     * @param enable
+     * @param enable Whether to enable or disable the {@link HeightMap}
      */
     public void enableHeightMap(boolean enable) {
         source.setHeightMapEnabled(enable);

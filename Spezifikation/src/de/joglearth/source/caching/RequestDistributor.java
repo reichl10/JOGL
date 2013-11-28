@@ -64,7 +64,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     /**
      * Appends a new cache, which will have the lowest priority of any cache added so far.
      * 
-     * @param cache The cache.
+     * @param cache The cache
      * @param maxSize The maximum size in units defined by the ObjectMeasure passed in the
      *        constructor. TODO maxSize should probably have a minimum value
      */
@@ -76,7 +76,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * Changes the maximum size of an existing cache, possibly dropping cached objects in the
      * process.
      * 
-     * @param cache The cache to modify.
+     * @param cache The cache to modify
      * @param maxSize The new maximum size. TODO maxSize should probably have a minimum value
      */
     public void setCacheSize(Cache<Key, Value> cache, int maxSize) {
@@ -138,7 +138,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     /**
      * Constructor.
      * 
-     * @param m The ObjectMeasure to use.
+     * @param m The {@link ObjectMeasure} to use
      */
     public RequestDistributor(ObjectMeasure<Value> m) {
         /*
@@ -174,7 +174,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     /**
      * Removes an object stored under a <code>Key</code> from the {@link Cache} that contains it.
      * 
-     * @param k The key identifying the object.
+     * @param k The key identifying the object
      */
     public void dropObject(Key k) {
 

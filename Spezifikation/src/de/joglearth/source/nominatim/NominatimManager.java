@@ -40,7 +40,7 @@ public final class NominatimManager implements Source<NominatimQuery, Location[]
     
     /**
      * Sets the size of a {@link Cache}.
-     * @param cacheSize the new size of the <code>Cache</code>
+     * @param cacheSize The new size of the <code>Cache</code>
      */
     public void setCacheSize(int cacheSize) {
         

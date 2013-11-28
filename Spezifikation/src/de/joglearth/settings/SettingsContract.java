@@ -7,17 +7,17 @@ package de.joglearth.settings;
 public final class SettingsContract {
 
     /**
-     * Name Constant for the Language setting.
+     * Name constant for the Language setting.
      */
     public static final String LANGUAGE         = "lang";
 
     /**
-     * Name Constant for the texture filter setting.
+     * Name constant for the texture filter setting.
      */
     public static final String TEXTURE_FILTER   = "textureFilter";
 
     /**
-     * Name Constant for the Level of Details setting.
+     * Name constant for the Level of Details setting.
      */
     public static final String LEVEL_OF_DETAILS = "lvlOfDetails";
 
@@ -25,7 +25,7 @@ public final class SettingsContract {
     // TODO: Define others
 
     /**
-     * Private Constructor to prevent creating instances of this class.
+     * Private constructor to prevent creating instances of this class.
      */
     private SettingsContract() {}
 

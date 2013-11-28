@@ -1,7 +1,7 @@
 package de.joglearth.surface;
 
 /**
- * Type of an OpenStreetMap tile. OSM tiles has a maximum zoom level of '18'.
+ * Type of an OpenStreetMap tile. OSM tiles have a maximum zoom level of '18'.
  * 
  */
 public enum TiledMapType {
@@ -9,25 +9,25 @@ public enum TiledMapType {
     /**
      * OpenStreetMap maps.
      */
-    OSM_MAP,
+    OSM_MAPNIK,
 
     /**
      * Especially for walkers and riders.
      */
-    TREKKING_MAP,
-
-    /**
-     * Especially for seafaring.
-     */
-    SEA_MAP,
+    HIKING,
 
     /**
      * Especially for bicyclists.
      */
-    CYCLE_MAP,
+    CYCLING,
 
     /**
      * Especially for winter sports enthusiasts.
      */
-    SKI_RUN_MAP
+    SKIING,
+    
+    /**
+     * A map with 3D models of buildings.
+     */
+    OSM2WORLD
 }

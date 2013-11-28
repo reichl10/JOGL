@@ -13,11 +13,11 @@ public final class Tile implements Cloneable {
     /**
      * Constructor.
      * 
-     * @param detailLevel How often the globe is subdivided to reach the desired tile size.
+     * @param detailLevel How often the globe is subdivided to reach the desired tile size
      * @param lonIndex The number of tiles to skip, starting from latitude 0, to reach the left
-     *        bound of the tile.
+     *        bound of the tile
      * @param lonIndex The number of tiles to skip, starting from the north pole, to reach the
-     *        desired longitude.
+     *        desired longitude
      */
     public Tile(int detailLevel, int lonIndex, int latIndex)
     {
@@ -34,7 +34,7 @@ public final class Tile implements Cloneable {
     /**
      * Returns the lower longitude bound of the tile.
      * 
-     * @return The longitude, in radians.
+     * @return The longitude, in radians
      */
     public double longitudeFrom() {
         return angle(lonIndex);
@@ -43,7 +43,7 @@ public final class Tile implements Cloneable {
     /**
      * Returns the upper longitude bound of the tile.
      * 
-     * @return The longitude, in radians.
+     * @return The longitude, in radians
      */
     public double longitudeTo() {
         return angle(lonIndex + 1);
@@ -52,7 +52,7 @@ public final class Tile implements Cloneable {
     /**
      * Returns the lower latitude bound of the tile.
      * 
-     * @return The latitude, in radians.
+     * @return The latitude, in radians
      */
     public double latitudeFrom() {
         return angle(latIndex);
@@ -70,7 +70,7 @@ public final class Tile implements Cloneable {
     /**
      * The longitude index, as supplied in the constructor.
      * 
-     * @return The longitude index.
+     * @return The longitude index
      */
     public int getLongitudeIndex() {
         return lonIndex;
@@ -79,7 +79,7 @@ public final class Tile implements Cloneable {
     /**
      * The latitude index, as supplied in the constructor.
      * 
-     * @return The latitude index.
+     * @return The latitude index
      */
     public int getLatitudeIndex() {
         return latIndex;
@@ -88,7 +88,7 @@ public final class Tile implements Cloneable {
     /**
      * The detail level, as supplied in the constructor.
      * 
-     * @return The detail level.
+     * @return The detail level
      */
     public int getDetailLevel() {
         return detailLevel;
@@ -97,15 +97,23 @@ public final class Tile implements Cloneable {
     /**
      * Returns a tile in the given detail level which contains a specific point.
      * 
-     * @param detailLevel The detail level.
-     * @param coords The point.
-     * @return A tile.
+     * @param detailLevel The detail level
+     * @param coords The point
+     * @return A tile
      */
     public static Tile getContainingTile(int detailLevel, GeoCoordinates coords) {
         return null;
     }
     
     
+    /**
+     * 
+     * @param lonFrom
+     * @param latFrom
+     * @param lonTo
+     * @param latTo
+     * @return
+     */
     public boolean intersects(double lonFrom, double latFrom, double lonTo, double latTo) {
         return false;
     }
@@ -134,6 +142,12 @@ public final class Tile implements Cloneable {
                 && this.lonIndex == other.lonIndex;
     }
 
+    /**
+     * Returns if given {@link GeoCoordinates} are in this tile.
+     * 
+     * @param coords Coordinates
+     * @return  If coords are in the Tile
+     */
     public boolean contains(GeoCoordinates coords) {
         if (coords == null) {
             throw new IllegalArgumentException();

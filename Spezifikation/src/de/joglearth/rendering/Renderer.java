@@ -82,11 +82,11 @@ public class Renderer {
     /**
      * Constructor initializes the OpenGL functionalities.
      * 
-     * @param canv {@link com.jogamp.opengl.swt.GLCanvas} object of the GUI.
-     * @param height {@link HeightMap} that provides the height of a point.
+     * @param canv GLCanvas object of the GUI
+     * @param height {@link HeightMap} that provides the height of a point
      * @param locationManager {@link LocationManager} that provides the information about Overlays
-     *        to be displayed.
-     * @param camera TODO {@link Camera}
+     *        to be displayed
+     * @param camera {@link Camera} object
      */
     public Renderer(GLCanvas canv, LocationManager locationManager, Camera camera) {
         this.locationManager = locationManager;

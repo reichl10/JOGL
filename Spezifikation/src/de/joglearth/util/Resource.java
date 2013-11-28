@@ -15,8 +15,8 @@ public final class Resource {
 
     /**
      * Loads a Swing <code>ImageIcon</code> from an image resource.
-     * @param name The resource file name.
-     * @return The icon if successfully loaded, else <code>null</code>.
+     * @param name The resource file name
+     * @return The icon if successfully loaded, else <code>null</code>
      */
     public static ImageIcon loadIcon(String name) {
         try {

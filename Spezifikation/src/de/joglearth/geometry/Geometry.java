@@ -13,8 +13,8 @@ public interface Geometry {
      * Returns whether a point, given by longitude and latitude coordinates, could be visible given
      * that the field of view and distance is large enough.
      * 
-     * @param geo The surface point.
-     * @return Whether the point might be visible.
+     * @param geo The surface point
+     * @return Whether the point might be visible
      */
     public boolean isPointVisible(GeoCoordinates geo);
 
@@ -22,8 +22,8 @@ public interface Geometry {
      * Determines the three-dimensional position of a surface point in model space. The height map
      * is ignored.
      * 
-     * @param geo The surface point.
-     * @return The position.
+     * @param geo The surface point
+     * @return The position
      */
     public Vector3 getSpacePosition(GeoCoordinates geo);
 
@@ -32,8 +32,8 @@ public interface Geometry {
      * point and the model center (The globes center or infinity for the map plane) and the map
      * surface.
      * 
-     * @param viewVector The origin point.
-     * @return The surface coordinates.
+     * @param viewVector The origin point
+     * @return The surface coordinates
      */
     public ScreenCoordinates getSurfaceCoordinates(Vector3 cameraPosition, Vector3 viewVector);
 
@@ -41,7 +41,7 @@ public interface Geometry {
      * Returns the view matrix performing translations and rotations incurred by the camera
      * position.
      * 
-     * @return The view matrix.
+     * @return The view matrix
      */
     public Matrix4 getViewMatrix();
 

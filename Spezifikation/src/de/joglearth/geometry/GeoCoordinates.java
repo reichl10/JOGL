@@ -12,8 +12,8 @@ public final class GeoCoordinates implements Cloneable {
     /**
      * Constructor. Initializes coordinates by their values in radians.
      * 
-     * @param lon Longitude, in the interval [0, 2pi).
-     * @param lat Latitude, in the interval [-pi/2, pi/2].
+     * @param lon Longitude, in the interval [0, 2pi)
+     * @param lat Latitude, in the interval [-pi/2, pi/2]
      */
     public GeoCoordinates(double lon, double lat) {
         if (lat < -Math.PI / 2 || lat > Math.PI / 2) {
@@ -54,8 +54,8 @@ public final class GeoCoordinates implements Cloneable {
      * 
      * @param lon The longitude, in the format <code>\s*(coord)\s*[WE]?\s*</code>, e.g. 55° 17' 48.2" E
      * @param lat The latitude, in the format <code>\s*(coord)\s*[NS]?\s*</code>, e.g. 55° 17' 48.2" N
-     * @return The coordinate structure.
-     * @throws NumberFormatException One of the parameters was not a valid coordinate.
+     * @return The coordinate structure
+     * @throws NumberFormatException One of the parameters was not a valid coordinate
      */
     public static GeoCoordinates parseCoordinates(String lon, String lat) {
         return null;
@@ -68,7 +68,7 @@ public final class GeoCoordinates implements Cloneable {
 
     /**     
      * Returns the longitude, in radians.
-     * @return The longitude.
+     * @return The longitude
      */
     public double getLongitude() {
         return longitude;
@@ -76,7 +76,7 @@ public final class GeoCoordinates implements Cloneable {
 
     /**     
      * Returns the latitude, in radians.
-     * @return The latitude.
+     * @return The latitude
      */
     public double getLatitude() {
         return latitude;
@@ -84,7 +84,7 @@ public final class GeoCoordinates implements Cloneable {
 
     /**
      * Returns a string describing the longitude.
-     * @return The longitude in string representation.
+     * @return The longitude in string representation
      */
     //TODO Details?
     public String getLongitudeString() {
@@ -93,7 +93,7 @@ public final class GeoCoordinates implements Cloneable {
 
     /**
      * Returns a string describing the latitude.
-     * @return The latitude in string representation.
+     * @return The latitude in string representation
      */
     //TODO Details?
     public String getLatitudeString() {

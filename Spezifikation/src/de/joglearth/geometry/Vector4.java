@@ -38,10 +38,10 @@ public final class Vector4 implements Cloneable {
     /**
      * Constructor.
      * 
-     * @param x The first component (this.x).
-     * @param y The second component (this.y).
-     * @param z The third component (this.z).
-     * @param w The scaling factor (this.w).
+     * @param x The first component (this.x)
+     * @param y The second component (this.y)
+     * @param z The third component (this.z)
+     * @param w The scaling factor (this.w)
      */
     public Vector4(double x, double y, double z, double w) {
         this.x = x;
@@ -53,7 +53,7 @@ public final class Vector4 implements Cloneable {
     /**
      * Constructor copying the position from a Vector3. The scaling factor w is set to 1.
      * 
-     * @param copyFrom The vector to copy from.
+     * @param copyFrom The vector to copy from
      */
     public Vector4(Vector3 copyFrom) {
         this(copyFrom.x, copyFrom.y, copyFrom.z, 1);

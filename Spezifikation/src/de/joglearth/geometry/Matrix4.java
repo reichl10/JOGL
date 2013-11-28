@@ -114,7 +114,7 @@ public final class Matrix4 implements Cloneable {
     /**
      * Returns the double value array for the matrix.
      * 
-     * @return The matrix values in column-first ordering.
+     * @return The matrix values in column-first ordering
      */
     public double[] doubles() {
         return m;
@@ -176,7 +176,7 @@ public final class Matrix4 implements Cloneable {
      * 
      * Points transformed with this matrix will thereafter be rotated by the given angle.
      * 
-     * @param rad The rotation angle, in radians
+     * @param rad The rotation angle in radians
      */
     public void rotateZ(double rad) {
         final double c = Math.cos(rad), s = Math.sin(rad);
