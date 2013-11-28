@@ -1,11 +1,5 @@
 \section{de.\-joglearth.\-geometry.\-Tile Klassenreferenz}
 \label{classde_1_1joglearth_1_1geometry_1_1_tile}\index{de.\-joglearth.\-geometry.\-Tile@{de.\-joglearth.\-geometry.\-Tile}}
-Klassendiagramm für de.\-joglearth.\-geometry.\-Tile\-:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1geometry_1_1_tile}
-\end{center}
-\end{figure}
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
@@ -25,8 +19,7 @@ int {\bf get\-Latitude\-Index} ()
 \item 
 int {\bf get\-Detail\-Level} ()
 \item 
-boolean {\bfseries intersects} (double lon\-From, double lat\-From, double lon\-To, double lat\-To)\label{classde_1_1joglearth_1_1geometry_1_1_tile_adfc74c03a286841a64ce0ee042c14434}
-
+boolean {\bf intersects} (double lon\-From, double lat\-From, double lon\-To, double lat\-To)
 \item 
 int {\bfseries hash\-Code} ()\label{classde_1_1joglearth_1_1geometry_1_1_tile_a3b21cc339782d60f6063a2400d404818}
 
@@ -34,8 +27,7 @@ int {\bfseries hash\-Code} ()\label{classde_1_1joglearth_1_1geometry_1_1_tile_a3
 boolean {\bfseries equals} (Object obj)\label{classde_1_1joglearth_1_1geometry_1_1_tile_a3fe21b8a7de2e649e281ad00e97bacaf}
 
 \item 
-boolean {\bfseries contains} ({\bf Geo\-Coordinates} coords)\label{classde_1_1joglearth_1_1geometry_1_1_tile_a4f74853fb1566ecc598bdde775b0b691}
-
+boolean {\bf contains} ({\bf Geo\-Coordinates} coords)
 \end{DoxyCompactItemize}
 \subsection*{Öffentliche, statische Methoden}
 \begin{DoxyCompactItemize}
@@ -61,16 +53,33 @@ Constructor.
 
 
 \begin{DoxyParams}{Parameter}
-{\em detail\-Level} & How often the globe is subdivided to reach the desired tile size. \\
+{\em detail\-Level} & How often the globe is subdivided to reach the desired tile size \\
 \hline
-{\em lon\-Index} & The number of tiles to skip, starting from latitude 0, to reach the left bound of the tile. \\
+{\em lon\-Index} & The number of tiles to skip, starting from latitude 0, to reach the left bound of the tile \\
 \hline
-{\em lon\-Index} & The number of tiles to skip, starting from the north pole, to reach the desired longitude. \\
+{\em lon\-Index} & The number of tiles to skip, starting from the north pole, to reach the desired longitude \\
 \hline
 \end{DoxyParams}
 
 
 \subsection{Dokumentation der Elementfunktionen}
+\index{de\-::joglearth\-::geometry\-::\-Tile@{de\-::joglearth\-::geometry\-::\-Tile}!contains@{contains}}
+\index{contains@{contains}!de::joglearth::geometry::Tile@{de\-::joglearth\-::geometry\-::\-Tile}}
+\subsubsection[{contains}]{\setlength{\rightskip}{0pt plus 5cm}boolean de.\-joglearth.\-geometry.\-Tile.\-contains (
+\begin{DoxyParamCaption}
+\item[{{\bf Geo\-Coordinates}}]{coords}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_tile_a4f74853fb1566ecc598bdde775b0b691}
+Returns if given \doxyref{Geo\-Coordinates}{S.}{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates} are in this \doxyref{Tile}{S.}{classde_1_1joglearth_1_1geometry_1_1_tile}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em coords} & The {\ttfamily \doxyref{Geo\-Coordinates}{S.}{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates}} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Rückgabe}
+If The {\ttfamily \doxyref{Geo\-Coordinates}{S.}{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates}} are in the {\ttfamily \doxyref{Tile}{S.}{classde_1_1joglearth_1_1geometry_1_1_tile}} 
+\end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Tile@{de\-::joglearth\-::geometry\-::\-Tile}!get\-Containing\-Tile@{get\-Containing\-Tile}}
 \index{get\-Containing\-Tile@{get\-Containing\-Tile}!de::joglearth::geometry::Tile@{de\-::joglearth\-::geometry\-::\-Tile}}
 \subsubsection[{get\-Containing\-Tile}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf Tile} de.\-joglearth.\-geometry.\-Tile.\-get\-Containing\-Tile (
@@ -83,13 +92,13 @@ Returns a tile in the given detail level which contains a specific point.
 
 
 \begin{DoxyParams}{Parameter}
-{\em detail\-Level} & The detail level. \\
+{\em detail\-Level} & The detail level \\
 \hline
-{\em coords} & The point. \\
+{\em coords} & The point \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Rückgabe}
-A tile. 
+A tile 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Tile@{de\-::joglearth\-::geometry\-::\-Tile}!get\-Detail\-Level@{get\-Detail\-Level}}
 \index{get\-Detail\-Level@{get\-Detail\-Level}!de::joglearth::geometry::Tile@{de\-::joglearth\-::geometry\-::\-Tile}}
@@ -101,7 +110,7 @@ A tile.
 The detail level, as supplied in the constructor.
 
 \begin{DoxyReturn}{Rückgabe}
-The detail level. 
+The detail level 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Tile@{de\-::joglearth\-::geometry\-::\-Tile}!get\-Latitude\-Index@{get\-Latitude\-Index}}
 \index{get\-Latitude\-Index@{get\-Latitude\-Index}!de::joglearth::geometry::Tile@{de\-::joglearth\-::geometry\-::\-Tile}}
@@ -113,7 +122,7 @@ The detail level.
 The latitude index, as supplied in the constructor.
 
 \begin{DoxyReturn}{Rückgabe}
-The latitude index. 
+The latitude index 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Tile@{de\-::joglearth\-::geometry\-::\-Tile}!get\-Longitude\-Index@{get\-Longitude\-Index}}
 \index{get\-Longitude\-Index@{get\-Longitude\-Index}!de::joglearth::geometry::Tile@{de\-::joglearth\-::geometry\-::\-Tile}}
@@ -125,7 +134,33 @@ The latitude index.
 The longitude index, as supplied in the constructor.
 
 \begin{DoxyReturn}{Rückgabe}
-The longitude index. 
+The longitude index 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::geometry\-::\-Tile@{de\-::joglearth\-::geometry\-::\-Tile}!intersects@{intersects}}
+\index{intersects@{intersects}!de::joglearth::geometry::Tile@{de\-::joglearth\-::geometry\-::\-Tile}}
+\subsubsection[{intersects}]{\setlength{\rightskip}{0pt plus 5cm}boolean de.\-joglearth.\-geometry.\-Tile.\-intersects (
+\begin{DoxyParamCaption}
+\item[{double}]{lon\-From, }
+\item[{double}]{lat\-From, }
+\item[{double}]{lon\-To, }
+\item[{double}]{lat\-To}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_tile_adfc74c03a286841a64ce0ee042c14434}
+Checks if a given rectangle intersects with a \doxyref{Tile}{S.}{classde_1_1joglearth_1_1geometry_1_1_tile}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em lon\-From} & The longitude where the rectangle starts \\
+\hline
+{\em lat\-From} & The latitude where the rectangle starts \\
+\hline
+{\em lon\-To} & The longitude where the rectangle ends \\
+\hline
+{\em lat\-To} & The latitude where the rectangle ends \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Rückgabe}
+True if the rectangle intersects, else false 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Tile@{de\-::joglearth\-::geometry\-::\-Tile}!latitude\-From@{latitude\-From}}
 \index{latitude\-From@{latitude\-From}!de::joglearth::geometry::Tile@{de\-::joglearth\-::geometry\-::\-Tile}}
@@ -137,7 +172,7 @@ The longitude index.
 Returns the lower latitude bound of the tile.
 
 \begin{DoxyReturn}{Rückgabe}
-The latitude, in radians. 
+The latitude, in radians 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Tile@{de\-::joglearth\-::geometry\-::\-Tile}!latitude\-To@{latitude\-To}}
 \index{latitude\-To@{latitude\-To}!de::joglearth::geometry::Tile@{de\-::joglearth\-::geometry\-::\-Tile}}
@@ -161,7 +196,7 @@ The latitude, in radians.
 Returns the lower longitude bound of the tile.
 
 \begin{DoxyReturn}{Rückgabe}
-The longitude, in radians. 
+The longitude, in radians 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Tile@{de\-::joglearth\-::geometry\-::\-Tile}!longitude\-To@{longitude\-To}}
 \index{longitude\-To@{longitude\-To}!de::joglearth::geometry::Tile@{de\-::joglearth\-::geometry\-::\-Tile}}
@@ -173,5 +208,5 @@ The longitude, in radians.
 Returns the upper longitude bound of the tile.
 
 \begin{DoxyReturn}{Rückgabe}
-The longitude, in radians. 
+The longitude, in radians 
 \end{DoxyReturn}

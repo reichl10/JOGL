@@ -1,11 +1,5 @@
 \section{de.\-joglearth.\-geometry.\-Geo\-Coordinates Klassenreferenz}
 \label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates}\index{de.\-joglearth.\-geometry.\-Geo\-Coordinates@{de.\-joglearth.\-geometry.\-Geo\-Coordinates}}
-Klassendiagramm für de.\-joglearth.\-geometry.\-Geo\-Coordinates\-:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates}
-\end{center}
-\end{figure}
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
@@ -60,9 +54,9 @@ Constructor. Initializes coordinates by their values in radians.
 
 
 \begin{DoxyParams}{Parameter}
-{\em lon} & Longitude, in the interval [0, 2pi). \\
+{\em lon} & Longitude, in the interval [0, 2pi) \\
 \hline
-{\em lat} & Latitude, in the interval [-\/pi/2, pi/2]. \\
+{\em lat} & Latitude, in the interval [-\/pi/2, pi/2] \\
 \hline
 \end{DoxyParams}
 
@@ -76,7 +70,7 @@ Constructor. Initializes coordinates by their values in radians.
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_aab194fa19c1cd0278a0a46593d02f491}
 Returns the latitude, in radians. \begin{DoxyReturn}{Rückgabe}
-The latitude. 
+The latitude 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}!get\-Latitude\-String@{get\-Latitude\-String}}
 \index{get\-Latitude\-String@{get\-Latitude\-String}!de::joglearth::geometry::GeoCoordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}}
@@ -86,7 +80,7 @@ The latitude.
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_acc254db595ec834590276598ba933962}
 Returns a string describing the latitude. \begin{DoxyReturn}{Rückgabe}
-The latitude in string representation. 
+The latitude in string representation 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}!get\-Longitude@{get\-Longitude}}
 \index{get\-Longitude@{get\-Longitude}!de::joglearth::geometry::GeoCoordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}}
@@ -96,7 +90,7 @@ The latitude in string representation.
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_a0131884b84fd9c888ebfea83d106213b}
 Returns the longitude, in radians. \begin{DoxyReturn}{Rückgabe}
-The longitude. 
+The longitude 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}!get\-Longitude\-String@{get\-Longitude\-String}}
 \index{get\-Longitude\-String@{get\-Longitude\-String}!de::joglearth::geometry::GeoCoordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}}
@@ -106,7 +100,7 @@ The longitude.
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_ae1efcb3ef78bc9c724677c18e479df9f}
 Returns a string describing the longitude. \begin{DoxyReturn}{Rückgabe}
-The longitude in string representation. 
+The longitude in string representation 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}!parse\-Coordinates@{parse\-Coordinates}}
 \index{parse\-Coordinates@{parse\-Coordinates}!de::joglearth::geometry::GeoCoordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}}
@@ -118,21 +112,17 @@ The longitude in string representation.
 )\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_a51b1d3e2b1645918bf77e9162dab8008}
 Parses two coordinate strings, returning the \doxyref{Geo\-Coordinates}{S.}{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates}.
 
-Coordinates are given in the format {\ttfamily /[0-\/9]?[0-\/9]$\ast$°$\ast$([0-\/9]?[0-\/9]$\ast$'($\ast$[0-\/9]?{\tt 0-\/9}?$\ast$\char`\"{})?)?$|$[0-\/9]+(.[0-\/9]+)?/$<$/code$>$
-(later referred to as \char`\"{}(coord)\char`\"{}), e.\-g. 55° 17' 48.\-2\char`\"{} or 17.\-35135, followed by a specifier for North/\-East/\-South/\-West (see parameters for details).}
 
-{\ttfamily 
 \begin{DoxyParams}{Parameter}
-{\em lon} & The longitude, in the format {\ttfamily $\ast$(coord)$\ast$[W\-E]?$\ast$}, e.\-g. 55° 17' 48.\-2\char`\"{} E
-@param lat The latitude, in the format $<$code$>$\textbackslash{}s$\ast$(coord)\textbackslash{}s$\ast$[\-N\-S]?\textbackslash{}s$\ast$$<$/code$>$, e.\-g. 55° 17' 48.\-2\char`\"{} N \\
+{\em lon} & The longitude, e.\-g. 55° 17' 48.\-2\char`\"{} E
+@param lat The latitude, e.\-g. 55° 17' 48.\-2\char`\"{} N \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Rückgabe}
-The coordinate structure. 
+The coordinate structure 
 \end{DoxyReturn}
 
 \begin{DoxyExceptions}{Ausnahmebehandlung}
-{\em Number\-Format\-Exception} & One of the parameters was not a valid coordinate. \\
+{\em Number\-Format\-Exception} & One of the parameters was not a valid coordinate \\
 \hline
 \end{DoxyExceptions}
-}

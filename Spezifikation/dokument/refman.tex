@@ -1,125 +1,54 @@
-\documentclass[twoside]{book}
-
-% Packages required by doxygen
-\usepackage{calc}
-\usepackage{doxygen}
-\usepackage{graphicx}
-\usepackage[utf8]{inputenc}
+\documentclass{book}
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
 \usepackage{makeidx}
+\usepackage{natbib}
+\usepackage{graphicx}
 \usepackage{multicol}
-\usepackage{multirow}
-\usepackage{textcomp}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{ifthen}
 \usepackage[table]{xcolor}
-
-% NLS support packages
+\usepackage{textcomp}
+\usepackage{alltt}
+\usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 
-% Font selection
-\usepackage[T1]{fontenc}
 \usepackage{mathptmx}
 \usepackage[scaled=.90]{helvet}
 \usepackage{courier}
-\usepackage{amssymb}
 \usepackage{sectsty}
-\renewcommand{\familydefault}{\sfdefault}
-\allsectionsfont{%
-  \fontseries{bc}\selectfont%
-  \color{darkgray}%
-}
-\renewcommand{\DoxyLabelFont}{%
-  \fontseries{bc}\selectfont%
-  \color{darkgray}%
-}
-
-% Page & text layout
-\usepackage{geometry}
-\geometry{%
-  a4paper,%
-  top=2.5cm,%
-  bottom=2.5cm,%
-  left=2.5cm,%
-  right=2.5cm%
-}
-\tolerance=750
-\hfuzz=15pt
-\hbadness=750
-\setlength{\emergencystretch}{15pt}
-\setlength{\parindent}{0cm}
-\setlength{\parskip}{0.2cm}
-\makeatletter
-\renewcommand{\paragraph}{%
-  \@startsection{paragraph}{4}{0ex}{-1.0ex}{1.0ex}{%
-    \normalfont\normalsize\bfseries\SS@parafont%
-  }%
-}
-\renewcommand{\subparagraph}{%
-  \@startsection{subparagraph}{5}{0ex}{-1.0ex}{1.0ex}{%
-    \normalfont\normalsize\bfseries\SS@subparafont%
-  }%
-}
-\makeatother
-
-% Headers & footers
-\usepackage{fancyhdr}
-\pagestyle{fancyplain}
-\fancyhead[LE]{\fancyplain{}{\bfseries\thepage}}
-\fancyhead[CE]{\fancyplain{}{}}
-\fancyhead[RE]{\fancyplain{}{\bfseries\leftmark}}
-\fancyhead[LO]{\fancyplain{}{\bfseries\rightmark}}
-\fancyhead[CO]{\fancyplain{}{}}
-\fancyhead[RO]{\fancyplain{}{\bfseries\thepage}}
-\fancyfoot[LE]{\fancyplain{}{}}
-\fancyfoot[CE]{\fancyplain{}{}}
-\fancyfoot[RE]{\fancyplain{}{\bfseries\scriptsize Erzeugt am Mit Nov 27 2013 19\-:31\-:25 für Jogl Earth von Doxygen }}
-\fancyfoot[LO]{\fancyplain{}{\bfseries\scriptsize Erzeugt am Mit Nov 27 2013 19\-:31\-:25 für Jogl Earth von Doxygen }}
-\fancyfoot[CO]{\fancyplain{}{}}
-\fancyfoot[RO]{\fancyplain{}{}}
-\renewcommand{\footrulewidth}{0.4pt}
-\renewcommand{\chaptermark}[1]{%
-  \markboth{#1}{}%
-}
-\renewcommand{\sectionmark}[1]{%
-  \markright{\thesection\ #1}%
-}
-
-% Indices & bibliography
-\usepackage{natbib}
+\usepackage{amssymb}
 \usepackage[titles]{tocloft}
-\setcounter{tocdepth}{3}
-\setcounter{secnumdepth}{5}
+\usepackage{doxygen}
+\lstset{language=C++,inputencoding=utf8,basicstyle=\footnotesize,breaklines=true,breakatwhitespace=true,tabsize=4,numbers=left }
 \makeindex
-
-% Custom commands
-\newcommand{\clearemptydoublepage}{%
-  \newpage{\pagestyle{empty}\cleardoublepage}%
-}
-
-
-%===== C O N T E N T S =====
-
+\setcounter{tocdepth}{3}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\familydefault}{\sfdefault}
+\hfuzz=15pt
+\setlength{\emergencystretch}{15pt}
+\hbadness=750
+\tolerance=750
 \begin{document}
-
-% Titlepage & ToC
-\pagenumbering{roman}
 \begin{titlepage}
 \vspace*{7cm}
-\begin{center}%
+\begin{center}
 {\Large Jogl Earth }\\
 \vspace*{1cm}
-{\large Erzeugt von Doxygen 1.8.5}\\
+{\large Erzeugt von Doxygen 1.8.1.2}\\
 \vspace*{0.5cm}
-{\small Mit Nov 27 2013 19:31:25}\\
+{\small Don Nov 28 2013 15:57:04}\\
 \end{center}
 \end{titlepage}
 \clearemptydoublepage
+\pagenumbering{roman}
 \tableofcontents
 \clearemptydoublepage
 \pagenumbering{arabic}
-
-%--- Begin generated contents ---
 \chapter{Verzeichnis der Namensbereiche}
 \input{namespaces}
-\chapter{Hierarchie-\/\-Verzeichnis}
+\chapter{Klassen-\/\-Verzeichnis}
 \input{hierarchy}
 \chapter{Klassen-\/\-Verzeichnis}
 \input{annotated}
@@ -218,12 +147,5 @@
 \input{classde_1_1joglearth_1_1source_1_1opengl_1_1_vertex_buffer_cache}
 \input{classde_1_1joglearth_1_1ui_1_1_view_event_listener}
 \input{classde_1_1joglearth_1_1junit_1_1settings_1_1_write_and_load_settings}
-%--- End generated contents ---
-
-% Index
-\newpage
-\phantomsection
-\addcontentsline{toc}{part}{Index}
 \printindex
-
 \end{document}
