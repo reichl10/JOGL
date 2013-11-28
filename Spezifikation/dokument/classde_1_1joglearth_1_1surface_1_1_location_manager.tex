@@ -31,7 +31,7 @@ void {\bf remove\-Location\-Listener} ({\bf Location\-Listener} l)
 
 
 \subsection{Ausführliche Beschreibung}
-Administers the visibility of particular points gathered from \doxyref{Overpass\-Source}{S.}{} and \doxyref{Nominatim\-Source}{S.}{}, and user marks from \doxyref{Settings}{S.}{}. 
+Administers the visibility of particular points gathered from \doxyref{de.\-joglearth.\-source.\-overpass.\-Overpass\-Source}{S.}{classde_1_1joglearth_1_1source_1_1overpass_1_1_overpass_source} and \doxyref{de.\-joglearth.\-source.\-nominatim.\-Nominatim\-Source}{S.}{classde_1_1joglearth_1_1source_1_1nominatim_1_1_nominatim_source}, and user marks from \doxyref{de.\-joglearth.\-settings.\-Settings}{S.}{classde_1_1joglearth_1_1settings_1_1_settings}. 
 
 \subsection{Beschreibung der Konstruktoren und Destruktoren}
 \index{de\-::joglearth\-::surface\-::\-Location\-Manager@{de\-::joglearth\-::surface\-::\-Location\-Manager}!Location\-Manager@{Location\-Manager}}
@@ -79,7 +79,9 @@ Adds a new \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1
 \item[{Iterable$<$ {\bf Tile} $>$}]{area}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_a4d9eb126d47e73c28bdd0d3713ecd7d4}
-Returns all active locations within the given area. 
+Returns all active locations within the given area.
+
+
 \begin{DoxyParams}{Parameter}
 {\em area} & The tiles defining the area \\
 \hline
@@ -94,7 +96,7 @@ A collection of active locations
 \item[{{\bf Screen\-Coordinates}}]{coordinates}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_a5a37434c3d2bfd665f9915dd9d1690c7}
-Gets the details of a point with given \doxyref{Screen\-Coordinates}{S.}{}. To achieve that it asks the \doxyref{Request\-Distributor}{S.}{}.
+Gets the details of a point with given \doxyref{de.\-joglearth.\-geometry.\-Screen\-Coordinates}{S.}{classde_1_1joglearth_1_1geometry_1_1_screen_coordinates}. To achieve that it asks the \doxyref{de.\-joglearth.\-source.\-caching.\-Request\-Distributor}{S.}{}.
 
 
 \begin{DoxyParams}{Parameter}
@@ -171,12 +173,12 @@ Searches after a query string on the visible part of the map/globe.
 \item[{boolean}]{active}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_affe675194acc45a88431389ebacb0a2a}
-Changes the visibility of a given \doxyref{Location\-Type}{S.}{enumde_1_1joglearth_1_1surface_1_1_location_type}.
+Changes the visibility of a given \doxyref{de.\-joglearth.\-surface.\-Location\-Type}{S.}{enumde_1_1joglearth_1_1surface_1_1_location_type}.
 
 
 \begin{DoxyParams}{Parameter}
-{\em location} & The {\ttfamily \doxyref{Location\-Type}{S.}{enumde_1_1joglearth_1_1surface_1_1_location_type}} that should be shown or hidden \\
+{\em type} & The {\ttfamily \doxyref{Location\-Type}{S.}{enumde_1_1joglearth_1_1surface_1_1_location_type}} that should be shown or hidden \\
 \hline
-{\em visible} & Whether to show or hide \\
+{\em active} & The {\ttfamily \doxyref{Location\-Type}{S.}{enumde_1_1joglearth_1_1surface_1_1_location_type}} to show or hide \\
 \hline
 \end{DoxyParams}

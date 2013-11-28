@@ -51,11 +51,9 @@ Constructor initializes the Open\-G\-L functionalities.
 \begin{DoxyParams}{Parameter}
 {\em canv} & G\-L\-Canvas object of the G\-U\-I \\
 \hline
-{\em height} & \doxyref{Height\-Map}{S.}{} that provides the height of a point \\
+{\em location\-Manager} & {\ttfamily Location\-Manager} that provides the information about Overlays to be displayed \\
 \hline
-{\em location\-Manager} & \doxyref{Location\-Manager}{S.}{} that provides the information about Overlays to be displayed \\
-\hline
-{\em camera} & \doxyref{Camera}{S.}{} object \\
+{\em camera} & {\ttfamily Camera} object \\
 \hline
 \end{DoxyParams}
 
@@ -68,21 +66,21 @@ Constructor initializes the Open\-G\-L functionalities.
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_acdb2dda06a8744cb5f7975219a40a4f3}
-Notifies the \doxyref{Renderer}{S.}{classde_1_1joglearth_1_1rendering_1_1_renderer} that a new frame should be rendered. If {\ttfamily \doxyref{start()}{S.}{classde_1_1joglearth_1_1rendering_1_1_renderer_ab112c71a1f00a287f343e896c950dc37}} is called this method may have no effect. Asynchronous method, does not wait until a frame is drawn. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!quit@{quit}}
+Notifies the \doxyref{de.\-joglearth.\-rendering.\-Renderer}{S.}{} that a new frame should be rendered. If {\ttfamily \doxyref{start()}{S.}{classde_1_1joglearth_1_1rendering_1_1_renderer_ab112c71a1f00a287f343e896c950dc37}} is called this method may have no effect. Asynchronous method, does not wait until a frame is drawn. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!quit@{quit}}
 \index{quit@{quit}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
 \subsubsection[{quit}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-rendering.\-Renderer.\-quit (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_afb25dedb47ab7ae5c0e326302c8e2a5c}
-Quits the \doxyref{Renderer}{S.}{classde_1_1joglearth_1_1rendering_1_1_renderer} thread. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!set\-Display\-Mode@{set\-Display\-Mode}}
+Quits the \doxyref{de.\-joglearth.\-rendering.\-Renderer}{S.}{} thread. \index{de\-::joglearth\-::rendering\-::\-Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}!set\-Display\-Mode@{set\-Display\-Mode}}
 \index{set\-Display\-Mode@{set\-Display\-Mode}!de::joglearth::rendering::Renderer@{de\-::joglearth\-::rendering\-::\-Renderer}}
 \subsubsection[{set\-Display\-Mode}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-rendering.\-Renderer.\-set\-Display\-Mode (
 \begin{DoxyParamCaption}
 \item[{{\bf Display\-Mode}}]{m}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a8ec4f320e1f8964b6569f37ff6ef42ba}
-Sets the \doxyref{Display\-Mode}{S.}{enumde_1_1joglearth_1_1rendering_1_1_display_mode} to a given value.
+Sets the \doxyref{de.\-joglearth.\-rendering.\-Display\-Mode}{S.}{enumde_1_1joglearth_1_1rendering_1_1_display_mode} to a given value.
 
 
 \begin{DoxyParams}{Parameter}
@@ -96,7 +94,7 @@ Sets the \doxyref{Display\-Mode}{S.}{enumde_1_1joglearth_1_1rendering_1_1_displa
 \item[{{\bf Single\-Map\-Type}}]{t}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a6dfc0ad658ba63b0eac647397aad7704}
-Sets the \doxyref{Map\-Layout}{S.}{} to a given value. This type is a \doxyref{Single\-Map\-Type}{S.}{} as it is only one tile as a texture.
+Sets the \doxyref{de.\-joglearth.\-surface.\-Map\-Layout}{S.}{enumde_1_1joglearth_1_1surface_1_1_map_layout} to a given value. This type is a \doxyref{de.\-joglearth.\-surface.\-Single\-Map\-Type}{S.}{enumde_1_1joglearth_1_1surface_1_1_single_map_type} as it is only one tile as a texture.
 
 
 \begin{DoxyParams}{Parameter}
@@ -110,7 +108,7 @@ Sets the \doxyref{Map\-Layout}{S.}{} to a given value. This type is a \doxyref{S
 \item[{{\bf Tiled\-Map\-Type}}]{t}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1rendering_1_1_renderer_a968c90cff4efe05abcacf346fd3fd48d}
-Sets the \doxyref{Map\-Layout}{S.}{} to a given value. This type is a \doxyref{Tiled\-Map\-Type}{S.}{} as the texture consists of multiple tiles.
+Sets the \doxyref{de.\-joglearth.\-surface.\-Map\-Layout}{S.}{enumde_1_1joglearth_1_1surface_1_1_map_layout} to a given value. This type is a \doxyref{de.\-joglearth.\-surface.\-Tiled\-Map\-Type}{S.}{enumde_1_1joglearth_1_1surface_1_1_tiled_map_type} as the texture consists of multiple tiles.
 
 
 \begin{DoxyParams}{Parameter}

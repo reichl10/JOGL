@@ -28,11 +28,9 @@ boolean {\bfseries equals} (Object obj)\label{classde_1_1joglearth_1_1geometry_1
 \subsection*{Öffentliche, statische Methoden}
 \begin{DoxyCompactItemize}
 \item 
-static double {\bfseries rad\-To\-Deg} (double rad)\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_ab337427f199f610f13d503b71e9731f1}
-
+static double {\bf rad\-To\-Deg} (double rad)
 \item 
-static double {\bfseries limit\-Rad} (double rad)\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_ac2bf9ff7e17192132ec0af9add1d7cb6}
-
+static double {\bf limit\-Rad} (double rad)
 \item 
 static {\bf Geo\-Coordinates} {\bf parse\-Coordinates} (String lon, String lat)
 \end{DoxyCompactItemize}
@@ -69,7 +67,9 @@ Constructor. Initializes coordinates by their values in radians.
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_aab194fa19c1cd0278a0a46593d02f491}
-Returns the latitude, in radians. \begin{DoxyReturn}{Rückgabe}
+Returns the latitude, in radians.
+
+\begin{DoxyReturn}{Rückgabe}
 The latitude 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}!get\-Latitude\-String@{get\-Latitude\-String}}
@@ -79,7 +79,9 @@ The latitude
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_acc254db595ec834590276598ba933962}
-Returns a string describing the latitude. \begin{DoxyReturn}{Rückgabe}
+Returns a string describing the latitude.
+
+\begin{DoxyReturn}{Rückgabe}
 The latitude in string representation 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}!get\-Longitude@{get\-Longitude}}
@@ -89,7 +91,9 @@ The latitude in string representation
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_a0131884b84fd9c888ebfea83d106213b}
-Returns the longitude, in radians. \begin{DoxyReturn}{Rückgabe}
+Returns the longitude, in radians.
+
+\begin{DoxyReturn}{Rückgabe}
 The longitude 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}!get\-Longitude\-String@{get\-Longitude\-String}}
@@ -99,8 +103,27 @@ The longitude
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_ae1efcb3ef78bc9c724677c18e479df9f}
-Returns a string describing the longitude. \begin{DoxyReturn}{Rückgabe}
+Returns a string describing the longitude.
+
+\begin{DoxyReturn}{Rückgabe}
 The longitude in string representation 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}!limit\-Rad@{limit\-Rad}}
+\index{limit\-Rad@{limit\-Rad}!de::joglearth::geometry::GeoCoordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}}
+\subsubsection[{limit\-Rad}]{\setlength{\rightskip}{0pt plus 5cm}static double de.\-joglearth.\-geometry.\-Geo\-Coordinates.\-limit\-Rad (
+\begin{DoxyParamCaption}
+\item[{double}]{rad}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_ac2bf9ff7e17192132ec0af9add1d7cb6}
+Adds or subtracts 2pi to/from an angle to move it to the interval [0, 2pi).
+
+
+\begin{DoxyParams}{Parameter}
+{\em rad} & The value in radians \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Rückgabe}
+A converted value in the interval [0, 2pi) 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}!parse\-Coordinates@{parse\-Coordinates}}
 \index{parse\-Coordinates@{parse\-Coordinates}!de::joglearth::geometry::GeoCoordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}}
@@ -126,3 +149,20 @@ The coordinate structure
 {\em Number\-Format\-Exception} & One of the parameters was not a valid coordinate \\
 \hline
 \end{DoxyExceptions}
+\index{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}!rad\-To\-Deg@{rad\-To\-Deg}}
+\index{rad\-To\-Deg@{rad\-To\-Deg}!de::joglearth::geometry::GeoCoordinates@{de\-::joglearth\-::geometry\-::\-Geo\-Coordinates}}
+\subsubsection[{rad\-To\-Deg}]{\setlength{\rightskip}{0pt plus 5cm}static double de.\-joglearth.\-geometry.\-Geo\-Coordinates.\-rad\-To\-Deg (
+\begin{DoxyParamCaption}
+\item[{double}]{rad}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates_ab337427f199f610f13d503b71e9731f1}
+Converts an angle, given in radians to degrees.
+
+
+\begin{DoxyParams}{Parameter}
+{\em rad} & The value in radians \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Rückgabe}
+The value in degrees 
+\end{DoxyReturn}

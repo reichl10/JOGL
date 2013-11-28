@@ -36,13 +36,13 @@ Creates and cashes tile meshes as Open\-G\-L vertex buffer objects.
 \item[{{\bf Tessellator}}]{t}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager_ab6fb3ea0ce4a88ca127c87e08c20560b}
-Creates a new \doxyref{Tile\-Mesh\-Manager}{S.}{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager} as it initializes the source, the cache, sets the \doxyref{Request\-Distributor}{S.}{} and adds a surface listener from \doxyref{Height\-Map}{S.}{classde_1_1joglearth_1_1surface_1_1_height_map}.
+Creates a new \doxyref{Tile\-Mesh\-Manager}{S.}{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager} as it initializes the source, the cache, sets the \doxyref{de.\-joglearth.\-source.\-caching.\-Request\-Distributor}{S.}{} and adds a surface listener from \doxyref{de.\-joglearth.\-surface.\-Height\-Map}{S.}{classde_1_1joglearth_1_1surface_1_1_height_map}.
 
 
 \begin{DoxyParams}{Parameter}
 {\em gl} & The G\-L context \\
 \hline
-{\em t} & The \doxyref{de.\-joglearth.\-rendering.\-Tessellator}{S.}{interfacede_1_1joglearth_1_1rendering_1_1_tessellator} that should be used \\
+{\em t} & The {\ttfamily Tessellator} that should be used \\
 \hline
 \end{DoxyParams}
 
@@ -73,7 +73,7 @@ Enables or disables the \doxyref{de.\-joglearth.\-surface.\-Height\-Map}{S.}{cla
 
 
 \begin{DoxyParams}{Parameter}
-{\em enable} & Whether to enable or disable the \doxyref{Height\-Map}{S.}{classde_1_1joglearth_1_1surface_1_1_height_map} \\
+{\em enable} & Whether to enable or disable the {\ttfamily \doxyref{Height\-Map}{S.}{classde_1_1joglearth_1_1surface_1_1_height_map}} \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}!remove\-Surface\-Listener@{remove\-Surface\-Listener}}
@@ -97,9 +97,11 @@ Removes a specific \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1s
 \item[{{\bf Tessellator}}]{t}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager_a3b3f46132bc25e8211dfe32212d3bfed}
-Sets the \doxyref{de.\-joglearth.\-rendering.\-Tessellator}{S.}{interfacede_1_1joglearth_1_1rendering_1_1_tessellator} of the \doxyref{Tile\-Mesh\-Source}{S.}{} 
+Sets the \doxyref{de.\-joglearth.\-rendering.\-Tessellator}{S.}{interfacede_1_1joglearth_1_1rendering_1_1_tessellator} of the \doxyref{de.\-joglearth.\-source.\-opengl.\-Tile\-Mesh\-Source}{S.}{classde_1_1joglearth_1_1source_1_1opengl_1_1_tile_mesh_source}
+
+
 \begin{DoxyParams}{Parameter}
-{\em t} & The new \doxyref{Tesselator}{S.}{} \\
+{\em t} & The new {\ttfamily Tesselator} \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}!set\-Tile\-Subdivisions@{set\-Tile\-Subdivisions}}
@@ -109,8 +111,10 @@ Sets the \doxyref{de.\-joglearth.\-rendering.\-Tessellator}{S.}{interfacede_1_1j
 \item[{int}]{sub}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager_ab3938bc10c39fded92b9cc0f44c3e95f}
-Sets the level of detail of the \doxyref{de.\-joglearth.\-rendering.\-Tessellator}{S.}{interfacede_1_1joglearth_1_1rendering_1_1_tessellator}. 
+Sets the level of detail of the \doxyref{de.\-joglearth.\-rendering.\-Tessellator}{S.}{interfacede_1_1joglearth_1_1rendering_1_1_tessellator}.
+
+
 \begin{DoxyParams}{Parameter}
-{\em sub} & The new level of detail \\
+{\em sub} & The new {\ttfamily level of detail} \\
 \hline
 \end{DoxyParams}
