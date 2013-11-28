@@ -486,7 +486,7 @@ Ein Punkt auf der Globusoberfläche ist prinzipiell sichtbar, falls sein Abstand
 Im Beispiel ist der Punkt weiter entfernt, es gilt also 
 \[\vec{XC} > \sqrt{\vec{CM}^2-1}\]
 Er ist damit prinzipiell nicht sichtbar.\\[5mm]
-Die Sichtbarkeitsabfrage bezüglich Blickrichtung und Bildausschnitt kann auf die Berechnung des Bildpunkts aus einem Raumpunkt und des Raumpunkts aus Koordinaten zurückgeführt werden und ist damit modellunabhängig.
+Die Sichtbarkeitsabfrage bezüglich Blickrichtung und Bildausschnitt kann auf die Berechnung des Bildpunkts aus einem Raumpunkt und des Raumpunkts aus Koordinaten zurückgeführt werden und ist damit modellunabhängig.\\
 
 \section{Erzeugung der Projektionsmatrix}
 
@@ -533,7 +533,7 @@ Die Tabelle gibt eine Übersicht über die in \JoglEarth verfügbaren Kachelserv
 
 \vspace{1.5 cm}
 
-\section{Programm Icons}
+\section{Programm-Icons}
 
 \vspace{5mm}
 \begin{tabular}{|p{3cm}|p{10cm}|}
@@ -563,7 +563,7 @@ Die Tabelle gibt eine Übersicht über die in \JoglEarth verfügbaren Kachelserv
 
 \vspace{1.5 cm}
 
-\section{Nominatim Suchanfragen}
+\section{Nominatim-Suchanfragen}
 
 Die Suche nach Orten oder Sehenswürdigkeiten erfolgt über \textit{Nominatim}, dafür wird von OpenStreetMap der Server \textit{http://nominatim.openstreetmap.org/search/} bereitgestellt. \\
 Die folgenden Anfrageparameter sind als HTTP GET-Request zu formulieren.
@@ -632,7 +632,7 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 \newpage
 
-\section{Overpass Queries zum ENUM LocationType} 
+\section{Overpass-Queries zur Enumeration LocationType} 
 \subsection*{SHOPS}
 \lstset{language=XML}   
 \begin{lstlisting}
@@ -1214,9 +1214,9 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 \newpage
 
-\section{Einstellungsdatei}
-Die XML-Datei der \texttt{SettingsContract} Klasse muss den hier festgelegten Regeln folgen.
-Sie muss sowohl UTF-8 encoding als auch den XML 1.0 Standard benutzen. \\
+\section{Settings-Datei}
+Die XML-Datei der \texttt{SettingsContract}-Klasse muss den hier festgelegten Regeln folgen.
+Sie muss sowohl die UTF-8-Zeichenkodierung als auch den XML 1.0 Standard benutzen. \\
 \texttt{<?xml version="{}1.0"{} encoding="{}UTF-8"{} ?>} \\
 Sie besitzt ein Wurzelelement \texttt{settings}
 \begin{itemize}
@@ -1224,7 +1224,7 @@ Sie besitzt ein Wurzelelement \texttt{settings}
  \item Die Elemente der Typen \texttt{entry} und \texttt{locations} dürfen beliebeig angeordnet sein.
 \end{itemize}
 
-Das \texttt{entry} Element
+Das \texttt{entry}-Element
 \begin{itemize}
  \item besitzt keine Kindelemente
  \item muss die folgenden Attribute besitzen: \texttt{key}, \texttt{type}, \texttt{value}
@@ -1236,7 +1236,7 @@ Das \texttt{entry} Element
  \end{itemize}
 \end{itemize}
 
- Das \texttt{locations} Element
+ Das \texttt{locations}-Element
 \begin{itemize}
  \item kann null oder mehr Elemente des Typs \texttt{location} enthalten.
  \item muss ein Attribut \texttt{key} besitzen, das den Schlüssel des \textit{locationType} enthält, der von der Klasse \texttt{Settings} benutzt wird.
