@@ -29,7 +29,7 @@ public class ProgressManager {
     /**
      * Returns the instance of the singleton, creating it if it does not exist yet.
      * 
-     * @return The instance.
+     * @return The instance
      */
     public static synchronized ProgressManager getInstance() {
         if (instance == null)
@@ -41,7 +41,7 @@ public class ProgressManager {
      * Adds a new {@link ProgressListener} which is notified whenever the overall progress changes
      * or the pending requests are to be aborted.
      * 
-     * @param l The listener to add.
+     * @param l The listener to add
      */
     public synchronized void addProgressListener(ProgressListener l) {
         listeners.add(l);
@@ -50,7 +50,7 @@ public class ProgressManager {
     /**
      * Removes an existing {@link ProgressListener} from the set of listeners.
      * 
-     * @param l The listener to remove.
+     * @param l The listener to remove
      */
     public synchronized void removeProgressListener(ProgressListener l) {
         listeners.remove(l);

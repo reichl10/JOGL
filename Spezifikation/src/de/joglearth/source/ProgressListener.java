@@ -6,14 +6,14 @@ package de.joglearth.source;
 public interface ProgressListener {
 
     /**
-     * Called when the global loading progress changes.
+     * Is called when the global loading progress changes.
      * 
-     * @param prog The progress, where 0.0 equals 0% and 1.0 equals 100%.
+     * @param prog The progress, where 0.0 equals 0% and 1.0 equals 100%
      */
     void updateProgress(double prog);
 
     /**
-     * Called when {@link ProgressManager}.abortPendingRequests() is invoked. An implementation should
+     * Is called when {@link ProgressManager.abortPendingRequests()} is invoked. An implementation should
      * attempt to stop any pending asynchronous request.
      */
     void abortPendingRequests();

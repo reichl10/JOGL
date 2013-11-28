@@ -21,7 +21,7 @@ public class TextureManager {
     /**
      * Is called if a texture of a {@link Tile} should be loaded.
      * 
-     * @param tile The <code>Tile</code> that should be loaded.
+     * @param tile The {@link Tile} that should be loaded
      * @return Returns a loaded OpenGl identifier for the texture or if it is not yet loaded, the
      *         method returns a place holder texture
      */

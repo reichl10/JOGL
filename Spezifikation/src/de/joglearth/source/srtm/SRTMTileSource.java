@@ -19,7 +19,7 @@ public class SRTMTileSource implements Source<SRTMTileIndex, SRTMTile> {
     /**
      * Constructor. Initializes the {@link SRTMTileSource} as it assigns a value to the
      * {@link Source} of <code>SRTMTileSource</code>
-     * @param binarySource The <code>Source</code> thats assigned
+     * @param binarySource The {@link Source} thats assigned
      */
     public SRTMTileSource(Source<SRTMTileIndex, byte[]> binarySource) {
         binary = binarySource;

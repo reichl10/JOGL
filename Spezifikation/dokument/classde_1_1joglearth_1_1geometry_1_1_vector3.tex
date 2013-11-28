@@ -1,11 +1,5 @@
 \section{de.\-joglearth.\-geometry.\-Vector3 Klassenreferenz}
 \label{classde_1_1joglearth_1_1geometry_1_1_vector3}\index{de.\-joglearth.\-geometry.\-Vector3@{de.\-joglearth.\-geometry.\-Vector3}}
-Klassendiagramm für de.\-joglearth.\-geometry.\-Vector3\-:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1geometry_1_1_vector3}
-\end{center}
-\end{figure}
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
@@ -28,6 +22,8 @@ double {\bf length} ()
 void {\bf add} ({\bf Vector3} v)
 \item 
 {\bf Vector3} {\bf normalized} ()
+\item 
+{\bf Vector3} {\bf cross\-Product} ({\bf Vector3} v)
 \item 
 int {\bfseries hash\-Code} ()\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a6443b06dbbda9a6996f21aab53571672}
 
@@ -73,11 +69,11 @@ Constructor. Initializes a vector with the parameters provided.
 
 
 \begin{DoxyParams}{Parameter}
-{\em x} & The X (first) component. \\
+{\em x} & The X (first) component \\
 \hline
-{\em y} & The Y (second) component. \\
+{\em y} & The Y (second) component \\
 \hline
-{\em z} & The Z (third) component. \\
+{\em z} & The Z (third) component \\
 \hline
 \end{DoxyParams}
 
@@ -90,9 +86,11 @@ Constructor. Initializes a vector with the parameters provided.
 \item[{{\bf Vector3}}]{v}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_adea5176e0b73c83b74bbb139e40ac3c5}
-Adds another vector to this vector. 
+Adds another vector to this vector.
+
+
 \begin{DoxyParams}{Parameter}
-{\em v} & The vector to add. \\
+{\em v} & The vector to add, must not be {\ttfamily null} \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!clone@{clone}}
@@ -105,7 +103,24 @@ Adds another vector to this vector.
 Creates a deep copy.
 
 \begin{DoxyReturn}{Rückgabe}
-An exact copy of the vector. 
+An exact copy of the vector 
+\end{DoxyReturn}
+\index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!cross\-Product@{cross\-Product}}
+\index{cross\-Product@{cross\-Product}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
+\subsubsection[{cross\-Product}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vector3} de.\-joglearth.\-geometry.\-Vector3.\-cross\-Product (
+\begin{DoxyParamCaption}
+\item[{{\bf Vector3}}]{v}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_adfb946e7ee59b74a421eba255bd5b504}
+Calculates the cross product of a given \doxyref{Vector3}{S.}{classde_1_1joglearth_1_1geometry_1_1_vector3}.
+
+
+\begin{DoxyParams}{Parameter}
+{\em v} & The vector, must not be {\ttfamily null} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Rückgabe}
+The cross product of the vector 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!length@{length}}
 \index{length@{length}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
@@ -114,8 +129,10 @@ An exact copy of the vector.
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a47bf183b1df757adffdd0991750390c4}
-Calculates the vectors length, that is sqrt(x$^\wedge$2+y$^\wedge$2+z$^\wedge$2). \begin{DoxyReturn}{Rückgabe}
-The length. 
+Calculates the vectors length, that is sqrt(x$^\wedge$2+y$^\wedge$2+z$^\wedge$2).
+
+\begin{DoxyReturn}{Rückgabe}
+The length 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!minus@{minus}}
 \index{minus@{minus}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
@@ -124,13 +141,15 @@ The length.
 \item[{{\bf Vector3}}]{v}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_ae5d57a22ab35a8b2e23723261c3f6399}
-Calculates the difference vector to another Vecotr3. 
+Calculates the difference vector to another Vecotr3.
+
+
 \begin{DoxyParams}{Parameter}
-{\em v} & The vector to subtract. \\
+{\em v} & The vector to subtract, must not be {\ttfamily null} \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Rückgabe}
-The difference. 
+The difference 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!normalized@{normalized}}
 \index{normalized@{normalized}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
@@ -139,8 +158,10 @@ The difference.
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_abafe54075c2af1b22d7485733fb12283}
-Normalizes the vector, so that \doxyref{length()}{S.}{classde_1_1joglearth_1_1geometry_1_1_vector3_a47bf183b1df757adffdd0991750390c4} == 1. \begin{DoxyReturn}{Rückgabe}
+Normalizes the vector, so that \doxyref{length()}{S.}{classde_1_1joglearth_1_1geometry_1_1_vector3_a47bf183b1df757adffdd0991750390c4} == 1.
 
+\begin{DoxyReturn}{Rückgabe}
+A normalized \doxyref{Vector3}{S.}{classde_1_1joglearth_1_1geometry_1_1_vector3} 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!plus@{plus}}
 \index{plus@{plus}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
@@ -149,13 +170,15 @@ Normalizes the vector, so that \doxyref{length()}{S.}{classde_1_1joglearth_1_1ge
 \item[{{\bf Vector3}}]{v}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a22fca4a8ad0e84578402d239b43a154e}
-Calculates the sum of this and a second vector. 
+Calculates the sum of this and a second vector.
+
+
 \begin{DoxyParams}{Parameter}
-{\em v} & The vector to add. \\
+{\em v} & The vector to add, must not be {\ttfamily null} \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Rückgabe}
-The sum. 
+The sum 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!times@{times}}
 \index{times@{times}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
@@ -164,13 +187,15 @@ The sum.
 \item[{double}]{c}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a4a3580e21ee8ebdc80a7a56cdf45b303}
-Multiplies the vector by a scalar. 
+Multiplies the vector by a scalar.
+
+
 \begin{DoxyParams}{Parameter}
-{\em c} & The scalar. \\
+{\em c} & The scalar \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Rückgabe}
-The product vector. 
+The product vector 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!to@{to}}
 \index{to@{to}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
@@ -179,11 +204,13 @@ The product vector.
 \item[{{\bf Vector3}}]{other}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a6e61b26f95647b79ca50d58c41c25435}
-Calculates the difference vector from another \doxyref{Vector3}{S.}{classde_1_1joglearth_1_1geometry_1_1_vector3}. 
+Calculates the difference vector from another \doxyref{Vector3}{S.}{classde_1_1joglearth_1_1geometry_1_1_vector3}.
+
+
 \begin{DoxyParams}{Parameter}
-{\em other} & The vector to subtract from. \\
+{\em other} & The vector to subtract from, must not be {\ttfamily null} \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Rückgabe}
-The difference. 
+The difference 
 \end{DoxyReturn}

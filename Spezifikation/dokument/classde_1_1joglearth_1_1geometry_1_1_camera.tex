@@ -1,5 +1,10 @@
 \section{de.\-joglearth.\-geometry.\-Camera Klassenreferenz}
 \label{classde_1_1joglearth_1_1geometry_1_1_camera}\index{de.\-joglearth.\-geometry.\-Camera@{de.\-joglearth.\-geometry.\-Camera}}
+\subsection*{Klassen}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries Surface\-Height\-Listener}
+\end{DoxyCompactItemize}
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
@@ -38,9 +43,7 @@ void {\bf remove\-Camera\-Listener} ({\bf Camera\-Listener} l)
 
 
 \subsection{Ausführliche Beschreibung}
-Administers geometric calculations for the viewport perspective.
-
-This class is not thread-\/safe by design, as clients will usually perform multiple dependent operations on the \doxyref{Camera}{S.}{classde_1_1joglearth_1_1geometry_1_1_camera}. In multi-\/threaded code, these blocks of operations should be synchronized on the camera object. 
+Administers geometric calculations for the viewport perspective. 
 
 \subsection{Beschreibung der Konstruktoren und Destruktoren}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!Camera@{Camera}}
@@ -52,7 +55,7 @@ This class is not thread-\/safe by design, as clients will usually perform multi
 )}\label{classde_1_1joglearth_1_1geometry_1_1_camera_a29f1c52c4bd14ccbea2b4d6c9413924a}
 Constructor.
 
-Creates a \doxyref{Camera}{S.}{classde_1_1joglearth_1_1geometry_1_1_camera} with F\-O\-V 90, aspect ratio 1\-:1, z\-Near=0.\-1 and z\-Far=1000. 
+Creates a \doxyref{Camera}{S.}{classde_1_1joglearth_1_1geometry_1_1_camera} with F\-O\-V 90°, aspect ratio 1\-:1, z\-Near=0.\-1 and z\-Far=1000. 
 
 \subsection{Dokumentation der Elementfunktionen}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!add\-Camera\-Listener@{add\-Camera\-Listener}}
@@ -80,11 +83,11 @@ Calculates the longitude and latitude coordinates of the point underneath a poin
 
 
 \begin{DoxyParams}{Parameter}
-{\em screen} & The screen coordinates. \\
+{\em screen} & The screen coordinates \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Rückgabe}
-The surface coordinates if the point maps to the surface, null if it points outside the plane or globe (\char`\"{}space\char`\"{}). 
+The surface coordinates if the point maps to the surface, {\ttfamily null} if it points outside the plane or globe (\char`\"{}space\char`\"{}) 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!get\-Projection\-Matrix@{get\-Projection\-Matrix}}
 \index{get\-Projection\-Matrix@{get\-Projection\-Matrix}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
@@ -98,7 +101,7 @@ Returns the projection matrix derived from the current camera settings.
 The result may be directly passed to Open\-G\-L as a projection matrix, and is guaranteed to produce a picture corresponding to whatever results the camera visibility and projection methods produced for these settings.
 
 \begin{DoxyReturn}{Rückgabe}
-The projection matrix. 
+The projection matrix 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!get\-Screen\-Coordinates@{get\-Screen\-Coordinates}}
 \index{get\-Screen\-Coordinates@{get\-Screen\-Coordinates}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
@@ -111,11 +114,11 @@ Calculates the screen coordinates of a visible point given in longitude and lati
 
 
 \begin{DoxyParams}{Parameter}
-{\em geo} & The point's coordinates. \\
+{\em geo} & The point's coordinates \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Rückgabe}
-The coordinates of the point on the screen. 
+The coordinates of the point on the screen 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!get\-Visible\-Tiles@{get\-Visible\-Tiles}}
 \index{get\-Visible\-Tiles@{get\-Visible\-Tiles}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
@@ -129,7 +132,7 @@ Returns an array of tiles visible or partially visible by the \doxyref{Camera}{S
 All tiles have the same detail level, which is calculated from the distance and number of visible tiles.
 
 \begin{DoxyReturn}{Rückgabe}
-The array of visible tiles. 
+The array of visible tiles 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!is\-Point\-Visible@{is\-Point\-Visible}}
 \index{is\-Point\-Visible@{is\-Point\-Visible}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
@@ -142,11 +145,11 @@ Determines whether a surface point is visible by the \doxyref{Camera}{S.}{classd
 
 
 \begin{DoxyParams}{Parameter}
-{\em geo} & The coordinates to check for. \\
+{\em geo} & The coordinates to check for \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Rückgabe}
-Whether the point is visible. 
+Whether the point is visible 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!move@{move}}
 \index{move@{move}!de::joglearth::geometry::Camera@{de\-::joglearth\-::geometry\-::\-Camera}}
@@ -156,13 +159,13 @@ Whether the point is visible.
 \item[{double}]{delta\-Lat}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_camera_a69f1e07991f1f7e95e9b3d336a28eeb6}
-Changes the \doxyref{Camera}{S.}{classde_1_1joglearth_1_1geometry_1_1_camera}'s surface position by difference values.
+Changes the surface position of the \doxyref{Camera}{S.}{classde_1_1joglearth_1_1geometry_1_1_camera} by difference values.
 
 
 \begin{DoxyParams}{Parameter}
-{\em delta\-Lon} & The angular distance to move in longitude direction. \\
+{\em delta\-Lon} & The angular distance to move in longitude direction \\
 \hline
-{\em delta\-Lat} & The angular distance to move in latitude direction. \\
+{\em delta\-Lat} & The angular distance to move in latitude direction \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!remove\-Camera\-Listener@{remove\-Camera\-Listener}}
@@ -197,7 +200,7 @@ Sets the \doxyref{Camera}{S.}{classde_1_1joglearth_1_1geometry_1_1_camera}'s dis
 
 
 \begin{DoxyParams}{Parameter}
-{\em distance} & The distance. \\
+{\em distance} & The distance \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!set\-Geometry@{set\-Geometry}}
@@ -211,7 +214,7 @@ Sets a new \doxyref{Geometry}{S.}{interfacede_1_1joglearth_1_1geometry_1_1_geome
 
 
 \begin{DoxyParams}{Parameter}
-{\em g} & The new \doxyref{Geometry}{S.}{interfacede_1_1joglearth_1_1geometry_1_1_geometry} object. \\
+{\em g} & The new \doxyref{Geometry}{S.}{interfacede_1_1joglearth_1_1geometry_1_1_geometry} object \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!set\-Perspective@{set\-Perspective}}
@@ -228,13 +231,13 @@ Sets the parameters for the perspective transformation done by the projection ma
 
 
 \begin{DoxyParams}{Parameter}
-{\em fov} & The field of view, in radians. This is the angular distance of the left and right clipping plane. 90° (P\-I/2) by default. \\
+{\em fov} & The field of view, in radians. This is the angular distance of the left and right clipping plane. 90° (P\-I/2) by default \\
 \hline
-{\em aspect\-Ratio} & The aspect ratio, i.\-e. the width-\/to-\/height ratio. 1 by default. \\
+{\em aspect\-Ratio} & The aspect ratio, i.\-e. the width-\/to-\/height ratio. 1 by default \\
 \hline
-{\em near} & The distance of the near clipping plane to the camera position. 0.\-1 by default. \\
+{\em near} & The distance of the near clipping plane to the camera position. 0.\-1 by default \\
 \hline
-{\em far} & The distance of the far clipping plane to the camera position. 1000.\-0 by default. \\
+{\em far} & The distance of the far clipping plane to the camera position. 1000.\-0 by default \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!set\-Position@{set\-Position}}
@@ -248,7 +251,7 @@ Sets the position the \doxyref{Camera}{S.}{classde_1_1joglearth_1_1geometry_1_1_
 
 
 \begin{DoxyParams}{Parameter}
-{\em coords} & The \doxyref{Geo\-Coordinates}{S.}{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates} of the camera's position. \\
+{\em coords} & The \doxyref{Geo\-Coordinates}{S.}{classde_1_1joglearth_1_1geometry_1_1_geo_coordinates} of the camera's position \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!set\-Tilt@{set\-Tilt}}
@@ -263,9 +266,9 @@ Sets the \doxyref{Camera}{S.}{classde_1_1joglearth_1_1geometry_1_1_camera} tilt 
 
 
 \begin{DoxyParams}{Parameter}
-{\em x} & The tilt around the x axis (\char`\"{}up and down\char`\"{}). \\
+{\em x} & The tilt around the x axis (\char`\"{}up and down\char`\"{}) \\
 \hline
-{\em y} & The tilt around the y axis (\char`\"{}left and right\char`\"{}). \\
+{\em y} & The tilt around the y axis (\char`\"{}left and right\char`\"{}) \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::geometry\-::\-Camera@{de\-::joglearth\-::geometry\-::\-Camera}!tilt@{tilt}}
@@ -280,8 +283,8 @@ Changes the tilt by a difference value.
 
 
 \begin{DoxyParams}{Parameter}
-{\em delta\-X} & The tilt difference around the x axis (\char`\"{}up and down\char`\"{}). \\
+{\em delta\-X} & The tilt difference around the x axis (\char`\"{}up and down\char`\"{}) \\
 \hline
-{\em delta\-Y} & The tilt difference around the y axis (\char`\"{}left and right\char`\"{}). \\
+{\em delta\-Y} & The tilt difference around the y axis (\char`\"{}left and right\char`\"{}) \\
 \hline
 \end{DoxyParams}

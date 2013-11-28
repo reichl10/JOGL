@@ -10,7 +10,7 @@ package de.joglearth.source;
 public interface Source<Key, Value> {
 
     /**
-     * Tries to load and return an object if it available locally. Otherwise it is attempted to load
+     * Tries to load and return an object if it is available locally. Otherwise it is attempted to load
      * the object in an asynchronous way.
      * 
      * @param key Identifier for the objects

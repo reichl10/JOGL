@@ -1,11 +1,18 @@
 \section{de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$ Klassenreferenz}
 \label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4}\index{de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$@{de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$}}
-Klassendiagramm für de.\-joglearth.\-source.\-caching.\-Request\-Distributor$<$ Key, Value $>$\-:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4}
-\end{center}
-\end{figure}
+
+
+Abgeleitet von Source$<$ Key, Value $>$.
+
+\subsection*{Klassen}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries Cache\-Entry}
+\item 
+class {\bfseries Cache\-Handle}
+\item 
+class {\bfseries Cache\-Listener}
+\end{DoxyCompactItemize}
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
@@ -46,7 +53,7 @@ Constructor.
 
 
 \begin{DoxyParams}{Parameter}
-{\em m} & The Object\-Measure to use. \\
+{\em m} & The \doxyref{Object\-Measure}{S.}{} to use \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!Request\-Distributor@{Request\-Distributor}}
@@ -71,9 +78,9 @@ Appends a new cache, which will have the lowest priority of any cache added so f
 
 
 \begin{DoxyParams}{Parameter}
-{\em cache} & The cache. \\
+{\em cache} & The cache \\
 \hline
-{\em max\-Size} & The maximum size in units defined by the Object\-Measure passed in the constructor. T\-O\-D\-O max\-Size should probably have a minimum value \\
+{\em max\-Size} & The maximum size in units defined by the Object\-Measure passed in the constructor, has to be greater than {\ttfamily 0} \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!drop\-All@{drop\-All}}
@@ -108,7 +115,7 @@ Removes an object stored under a {\ttfamily Key} from the \doxyref{Cache}{S.}{} 
 
 
 \begin{DoxyParams}{Parameter}
-{\em k} & The key identifying the object. \\
+{\em k} & The key identifying the object \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!request\-Object@{request\-Object}}
@@ -140,9 +147,9 @@ Changes the maximum size of an existing cache, possibly dropping cached objects 
 
 
 \begin{DoxyParams}{Parameter}
-{\em cache} & The cache to modify. \\
+{\em cache} & The cache to modify \\
 \hline
-{\em max\-Size} & The new maximum size. T\-O\-D\-O max\-Size should probably have a minimum value \\
+{\em max\-Size} & The new maximum size, has to be greater than {\ttfamily 0} \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!set\-Source@{set\-Source}}

@@ -10,10 +10,7 @@ import de.joglearth.surface.SurfaceListener;
 
 /**
  * Administers geometric calculations for the viewport perspective.
- * 
- * This class is not thread-safe by design, as clients will usually perform multiple dependent
- * operations on the {@link Camera}. In multi-threaded code, these blocks of operations should be
- * synchronized on the camera object.
+ *
  */
 public class Camera {
 
@@ -32,8 +29,7 @@ public class Camera {
 
     private void updateProjectionMatrix() {
         Matrix4 cameraMatrix = new Matrix4();
-        cameraMatrix.rotateX(tiltX);
-        cameraMatrix.rotateY(tiltY);
+        
         projectionMatrix = cameraMatrix.inverse();
         projectionMatrix.mult(clipMatrix);
     }
@@ -54,7 +50,7 @@ public class Camera {
     /**
      * Constructor.
      * 
-     * Creates a {@link Camera} with FOV 90, aspect ratio 1:1, zNear=0.1 and zFar=1000.
+     * Creates a {@link Camera} with FOV 90°, aspect ratio 1:1, zNear=0.1 and zFar=1000.
      */
     public Camera() {
         setPerspective((double) Math.PI / 2, 1, 0.1f, 1000);
@@ -140,7 +136,7 @@ public class Camera {
     }
 
     /**
-     * Changes the {@link Camera}'s surface position by difference values.
+     * Changes the surface position of the {@link Camera} by difference values.
      * 
      * @param deltaLon The angular distance to move in longitude direction
      * @param deltaLat The angular distance to move in latitude direction

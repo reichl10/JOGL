@@ -23,9 +23,9 @@ public final class JoglEarth {
     public static String PRODUCT_VERSION = "0.1";
 
     /**
-     * Initializes the JoglEarth Application. There are no valid command line arguments.
+     * Initializes the JoglEarth application. There are no valid command line arguments.
      * 
-     * @param args Command line arguments(unused)
+     * @param args Command line arguments (unused)
      */
     public static void main(String[] args) {
         Camera camera = new Camera();

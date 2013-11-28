@@ -1,5 +1,10 @@
 \section{de.\-joglearth.\-surface.\-Location\-Manager Klassenreferenz}
 \label{classde_1_1joglearth_1_1surface_1_1_location_manager}\index{de.\-joglearth.\-surface.\-Location\-Manager@{de.\-joglearth.\-surface.\-Location\-Manager}}
+\subsection*{Klassen}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries User\-Tags\-Listener}
+\end{DoxyCompactItemize}
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
@@ -7,12 +12,11 @@
 \item 
 void {\bf set\-Location\-Type\-Active} ({\bf Location\-Type} type, boolean active)
 \item 
-void {\bfseries set\-Active\-Overlays} ({\bf Location\-Type}[$\,$] lt, {\bf Tile}[$\,$] tiles)\label{classde_1_1joglearth_1_1surface_1_1_location_manager_a0cdac9c2da2f2ef51205a0d44067c273}
-
+Collection$<$ {\bf Location} $>$ {\bf get\-Active\-Locations} (Iterable$<$ {\bf Tile} $>$ area)
 \item 
 void {\bf search\-Global} (String query)
 \item 
-void {\bf search\-Local} (String query, {\bf Tile}[$\,$] area)
+void {\bf search\-Local} (String query, Iterable$<$ {\bf Tile} $>$ area)
 \item 
 {\bf Location} {\bf get\-Details} ({\bf Screen\-Coordinates} coordinates)
 \item 
@@ -68,6 +72,21 @@ Adds a new \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1
 {\em l} & The new {\ttfamily \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_surface_listener}} \\
 \hline
 \end{DoxyParams}
+\index{de\-::joglearth\-::surface\-::\-Location\-Manager@{de\-::joglearth\-::surface\-::\-Location\-Manager}!get\-Active\-Locations@{get\-Active\-Locations}}
+\index{get\-Active\-Locations@{get\-Active\-Locations}!de::joglearth::surface::LocationManager@{de\-::joglearth\-::surface\-::\-Location\-Manager}}
+\subsubsection[{get\-Active\-Locations}]{\setlength{\rightskip}{0pt plus 5cm}Collection$<${\bf Location}$>$ de.\-joglearth.\-surface.\-Location\-Manager.\-get\-Active\-Locations (
+\begin{DoxyParamCaption}
+\item[{Iterable$<$ {\bf Tile} $>$}]{area}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_a4d9eb126d47e73c28bdd0d3713ecd7d4}
+Returns all active locations within the given area. 
+\begin{DoxyParams}{Parameter}
+{\em area} & The tiles defining the area \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Rückgabe}
+A collection of active locations 
+\end{DoxyReturn}
 \index{de\-::joglearth\-::surface\-::\-Location\-Manager@{de\-::joglearth\-::surface\-::\-Location\-Manager}!get\-Details@{get\-Details}}
 \index{get\-Details@{get\-Details}!de::joglearth::surface::LocationManager@{de\-::joglearth\-::surface\-::\-Location\-Manager}}
 \subsubsection[{get\-Details}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Location} de.\-joglearth.\-surface.\-Location\-Manager.\-get\-Details (
@@ -132,16 +151,16 @@ Searches on the whole globe/map after a query string.
 \subsubsection[{search\-Local}]{\setlength{\rightskip}{0pt plus 5cm}void de.\-joglearth.\-surface.\-Location\-Manager.\-search\-Local (
 \begin{DoxyParamCaption}
 \item[{String}]{query, }
-\item[{{\bf Tile}[$\,$]}]{area}
+\item[{Iterable$<$ {\bf Tile} $>$}]{area}
 \end{DoxyParamCaption}
-)}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_abd861424864158ced5760a5d74ceddd9}
+)}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_a9ca091cb752c1408c51f9cf50ad95070}
 Searches after a query string on the visible part of the map/globe.
 
 
 \begin{DoxyParams}{Parameter}
 {\em query} & The query string \\
 \hline
-{\em area} & An array of visible tiles where the search should be performed on \\
+{\em area} & A collection of tiles where the search should be performed on \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::surface\-::\-Location\-Manager@{de\-::joglearth\-::surface\-::\-Location\-Manager}!set\-Location\-Type\-Active@{set\-Location\-Type\-Active}}
@@ -152,12 +171,12 @@ Searches after a query string on the visible part of the map/globe.
 \item[{boolean}]{active}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1surface_1_1_location_manager_affe675194acc45a88431389ebacb0a2a}
-Changes the visibility of a given \doxyref{Location}{S.}{classde_1_1joglearth_1_1surface_1_1_location}.
+Changes the visibility of a given \doxyref{Location\-Type}{S.}{enumde_1_1joglearth_1_1surface_1_1_location_type}.
 
 
 \begin{DoxyParams}{Parameter}
-{\em location} & The {\ttfamily \doxyref{Location}{S.}{classde_1_1joglearth_1_1surface_1_1_location}} that should be shown \\
+{\em location} & The {\ttfamily \doxyref{Location\-Type}{S.}{enumde_1_1joglearth_1_1surface_1_1_location_type}} that should be shown or hidden \\
 \hline
-{\em visible} & Whether to show or hide the display \\
+{\em visible} & Whether to show or hide \\
 \hline
 \end{DoxyParams}

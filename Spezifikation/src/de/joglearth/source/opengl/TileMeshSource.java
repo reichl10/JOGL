@@ -23,7 +23,7 @@ public class TileMeshSource implements Source<Tile, Integer> {
 	 * and {@link de.joglearth.rendering.Tesselator}.
 	 * 
 	 * @param gl The GL context of <code>TileMeshManager</code>
-	 * @param t The <code>Tesselator</code> of the <code>TileMeshManager</code>
+	 * @param t The {@link Tesselator} of the {@link TileMeshManager}
 	 */
 	public TileMeshSource(GL2 gl, Tessellator t) {
 		this.gl = gl;
@@ -32,7 +32,7 @@ public class TileMeshSource implements Source<Tile, Integer> {
 	
 	/**
 	 * Sets the {@link de.joglearth.rendering.Tessellator} of the {@link TileMeshSource}
-	 * @param t The new <code>Tesselator</code>
+	 * @param t The new {@link Tesselator}
 	 */
 	public void setTessellator(Tessellator t) {
 		tess = t;
@@ -45,10 +45,11 @@ public class TileMeshSource implements Source<Tile, Integer> {
 	public void setTileSubdivisions(int sub) {
 		subdivisions = sub;
 	}
+	
 	/**
 	 * Enables or disables the {@link de.joglearth.surface.HeightMap}.
 	 * 
-	 * @param enable Whether to enable or disable the <code>HeightMap</code>
+	 * @param enable Whether to enable or disable the {@link HeightMap}
 	 */
 	public void setHeightMapEnabled(boolean enable) {
 		heightMap = enable;

@@ -18,8 +18,8 @@ public final class SRTMTileIndex {
 
     /**
      * Constructor.
-     * @param lon The longitude index.
-     * @param lat The latitude index.
+     * @param lon The longitude index
+     * @param lat The latitude index
      */
     public SRTMTileIndex(int lon, int lat) {
         longitude = lon;

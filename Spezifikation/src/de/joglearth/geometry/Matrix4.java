@@ -114,7 +114,7 @@ public final class Matrix4 implements Cloneable {
     /**
      * Returns the double value array for the matrix.
      * 
-     * @return The matrix values in column-first ordering.
+     * @return The matrix values in column-first ordering
      */
     public double[] doubles() {
         return m;
@@ -138,7 +138,7 @@ public final class Matrix4 implements Cloneable {
      * 
      * Points transformed with this matrix will thereafter be translated by the given extents.
      * 
-     * @param v Translation for all three coordinates
+     * @param v Translation for all three coordinates, must not be <code>null</code>
      */
     public void translate(Vector3 v) {
         if (v == null) {
@@ -148,39 +148,16 @@ public final class Matrix4 implements Cloneable {
     }
 
     /**
-     * Multiplies itself with a rotation matrix rotating around the X (first) axis.
+     * Multiplies itself with a rotation matrix rotating around a given axis.
      * 
      * Points transformed with this matrix will thereafter be rotated by the given angle.
      * 
+     * @param axis The axis that should be rotated around, must not be <code>null</code>
      * @param rad The rotation angle, in radians
      */
-    public void rotateX(double rad) {
+    public void rotate(Vector3 axis, double rad) {
         final double c = Math.cos(rad), s = Math.sin(rad);
         mult(new double[] { 1, 0, 0, 0, 0, c, s, 0, 0, -s, c, 0, 0, 0, 0, 1 });
-    }
-
-    /**
-     * Multiplies itself with a rotation matrix rotating around the Y (second) axis.
-     * 
-     * Points transformed with this matrix will thereafter be rotated by the given angle.
-     * 
-     * @param rad The rotation angle, in radians
-     */
-    public void rotateY(double rad) {
-        final double c = Math.cos(rad), s = Math.sin(rad);
-        mult(new double[] { c, 0, -s, 0, 0, 1, 0, 0, s, 0, c, 0, 0, 0, 0, 1 });
-    }
-
-    /**
-     * Multiplies itself with a rotation matrix rotating around the Z (third) axis.
-     * 
-     * Points transformed with this matrix will thereafter be rotated by the given angle.
-     * 
-     * @param rad The rotation angle, in radians
-     */
-    public void rotateZ(double rad) {
-        final double c = Math.cos(rad), s = Math.sin(rad);
-        mult(new double[] { c, s, 0, 0, -s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 });
     }
 
     /**
@@ -203,14 +180,15 @@ public final class Matrix4 implements Cloneable {
      * Points transformed with this matrix will thereafter be scaled relative to the point of
      * origin.
      * 
-     * @param v The scale in all three dimensions
+     * @param v The scale in all three dimensions, must not be <code>null</code>
      */
     public void scale(Vector3 v) {
         scale(v.x, v.y, v.z);
     }
 
     /**
-     * Calculates and returns the inverse of the matrix. If the matrix is singular, the result is unspecified.
+     * Calculates and returns the inverse of the matrix. If the matrix is singular, the result is
+     * unspecified.
      * 
      * @return The inverse
      */
@@ -310,7 +288,7 @@ public final class Matrix4 implements Cloneable {
      * Transforms a three-dimensional vector of Cartesian coordinates into a four-dimensional vector
      * of homogeneous coordinates by matrix-vector multiplication.
      * 
-     * @param v3 The vector to transform
+     * @param v3 The vector to transform, must not be <code>null</code>
      * @return The transformed vector
      */
     public Vector4 transform(Vector3 v3) {

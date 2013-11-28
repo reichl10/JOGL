@@ -45,7 +45,7 @@ public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
     /**
      * Adds a new {@link SurfaceListener}.
      * 
-     * @param l The new <code>SurfaceListener</code>
+     * @param l The new {@link SurfaceListener}
      */
     public void addSurfaceListener(SurfaceListener l) {
 
@@ -54,7 +54,7 @@ public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
     /**
      * Removes a given {@link SurfaceListener}.
      * 
-     * @param l The <code>SurfaceListener</code> that should be removed
+     * @param l The {@link SurfaceListener} that should be removed
      */
     public void removeSurfaceListener(SurfaceListener l) {
 

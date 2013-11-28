@@ -19,8 +19,8 @@ public final class ScreenCoordinates implements Cloneable {
 
     /**
      * Constructor.
-     * @param x The horizontal position (this.x).
-     * @param y The vertical position (this.y).
+     * @param x The horizontal position (this.x)
+     * @param y The vertical position (this.y)
      */
     public ScreenCoordinates(double x, double y) {
         this.x = x;

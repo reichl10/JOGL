@@ -26,6 +26,7 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -41,13 +42,11 @@ import com.jgoodies.forms.factories.FormFactory;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-
 import javax.swing.BorderFactory;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
-
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JRadioButton;
@@ -60,6 +59,7 @@ import javax.swing.JSlider;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Collection;
 
 import static de.joglearth.util.Resource.loadIcon;
 
@@ -347,7 +347,7 @@ public class MainWindow extends JFrame {
         paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>("Satellite",
                 loadIcon("icons/mapSatellite.png"), new MapTypePair(SingleMapType.SATELLITE)));
         paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>("OpenStreetMap",
-                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAP)));
+                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK)));
         paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>("Children's Map",
                 loadIcon("icons/mapChildren.png"), new MapTypePair(SingleMapType.CHILDREN)));        
     }
@@ -706,7 +706,7 @@ public class MainWindow extends JFrame {
      * Constructor.
      * 
      * @param locationManager The <code>LocationManager</code> associated with this window.
-     * @param camera the <code>Camera</code> used by this window
+     * @param camera The <code>Camera</code> used by this window
      */
     public MainWindow(final LocationManager locationManager, final Camera camera) {
         initializeWindow();
@@ -720,7 +720,7 @@ public class MainWindow extends JFrame {
     /**
      * Gets the <code>GLCanvas</code> that is displayed in the left half of the window.
      * 
-     * @return the GLCanvas used in this window
+     * @return The GLCanvas used in this window
      */
     public final GLCanvas getGLCanvas() {
         return null;
@@ -750,7 +750,7 @@ public class MainWindow extends JFrame {
     private class UILocationListener implements LocationListener {
 
         @Override
-        public void searchResultsAvailable(Location[] results) {
+        public void searchResultsAvailable(Collection<Location> results) {
             // TODO Automatisch generierter Methodenstub
 
         }

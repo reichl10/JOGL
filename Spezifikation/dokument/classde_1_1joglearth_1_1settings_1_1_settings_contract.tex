@@ -12,11 +12,19 @@ static void {\bf save\-Settings} ()
 \subsection*{Statische öffentliche Attribute}
 \begin{DoxyCompactItemize}
 \item 
-static final String {\bf L\-A\-N\-G\-U\-A\-G\-E} = \char`\"{}lang\char`\"{}
+static final String {\bf L\-A\-N\-G\-U\-A\-G\-E} = \char`\"{}Language\char`\"{}
 \item 
-static final String {\bf T\-E\-X\-T\-U\-R\-E\-\_\-\-F\-I\-L\-T\-E\-R} = \char`\"{}texture\-Filter\char`\"{}
+static final String {\bf T\-E\-X\-T\-U\-R\-E\-\_\-\-F\-I\-L\-T\-E\-R} = \char`\"{}Texture\-Filter\char`\"{}
 \item 
-static final String {\bf L\-E\-V\-E\-L\-\_\-\-O\-F\-\_\-\-D\-E\-T\-A\-I\-L\-S} = \char`\"{}lvl\-Of\-Details\char`\"{}
+static final String {\bf L\-E\-V\-E\-L\-\_\-\-O\-F\-\_\-\-D\-E\-T\-A\-I\-L\-S} = \char`\"{}Level\-Of\-Detail\char`\"{}
+\item 
+static final String {\bf U\-S\-E\-R\-\_\-\-L\-O\-C\-A\-T\-I\-O\-N\-S} = \char`\"{}User\-Locations\char`\"{}
+\item 
+static final String {\bf A\-N\-T\-I\-A\-L\-I\-A\-S\-I\-N\-G} = \char`\"{}Antialiasing\char`\"{}
+\item 
+static final String {\bf C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E\-\_\-\-M\-E\-M\-O\-R\-Y} = \char`\"{}Cache\-Size\-Memory\char`\"{}
+\item 
+static final String {\bf C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E\-\_\-\-F\-I\-L\-E\-S\-Y\-S\-T\-E\-M} = \char`\"{}Cache\-Size\-File\-System\char`\"{}
 \end{DoxyCompactItemize}
 
 
@@ -48,13 +56,25 @@ Saves the settings defined in this contract to a file. This saves to the same fi
 Inserts the default values for each of the settings defined in this contract. 
 
 \subsection{Dokumentation der Datenelemente}
-\index{de\-::joglearth\-::settings\-::\-Settings\-Contract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}!L\-A\-N\-G\-U\-A\-G\-E@{L\-A\-N\-G\-U\-A\-G\-E}}
+\index{de\-::joglearth\-::settings\-::\-Settings\-Contract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}!A\-N\-T\-I\-A\-L\-I\-A\-S\-I\-N\-G@{A\-N\-T\-I\-A\-L\-I\-A\-S\-I\-N\-G}}
+\index{A\-N\-T\-I\-A\-L\-I\-A\-S\-I\-N\-G@{A\-N\-T\-I\-A\-L\-I\-A\-S\-I\-N\-G}!de::joglearth::settings::SettingsContract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}}
+\subsubsection[{A\-N\-T\-I\-A\-L\-I\-A\-S\-I\-N\-G}]{\setlength{\rightskip}{0pt plus 5cm}final String de.\-joglearth.\-settings.\-Settings\-Contract.\-A\-N\-T\-I\-A\-L\-I\-A\-S\-I\-N\-G = \char`\"{}Antialiasing\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1settings_1_1_settings_contract_a521d324e29ce5575f5a675703f2668f5}
+Name constant for Antialiasing. You should save a boolean using this key. (Only on/off) \index{de\-::joglearth\-::settings\-::\-Settings\-Contract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}!C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E\-\_\-\-F\-I\-L\-E\-S\-Y\-S\-T\-E\-M@{C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E\-\_\-\-F\-I\-L\-E\-S\-Y\-S\-T\-E\-M}}
+\index{C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E\-\_\-\-F\-I\-L\-E\-S\-Y\-S\-T\-E\-M@{C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E\-\_\-\-F\-I\-L\-E\-S\-Y\-S\-T\-E\-M}!de::joglearth::settings::SettingsContract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}}
+\subsubsection[{C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E\-\_\-\-F\-I\-L\-E\-S\-Y\-S\-T\-E\-M}]{\setlength{\rightskip}{0pt plus 5cm}final String de.\-joglearth.\-settings.\-Settings\-Contract.\-C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E\-\_\-\-F\-I\-L\-E\-S\-Y\-S\-T\-E\-M = \char`\"{}Cache\-Size\-File\-System\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1settings_1_1_settings_contract_af9e74fa307fe19f1054503c0021aa5bb}
+Name constant for the file system cache's size. You should save an integer using this key. \index{de\-::joglearth\-::settings\-::\-Settings\-Contract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}!C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E\-\_\-\-M\-E\-M\-O\-R\-Y@{C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E\-\_\-\-M\-E\-M\-O\-R\-Y}}
+\index{C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E\-\_\-\-M\-E\-M\-O\-R\-Y@{C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E\-\_\-\-M\-E\-M\-O\-R\-Y}!de::joglearth::settings::SettingsContract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}}
+\subsubsection[{C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E\-\_\-\-M\-E\-M\-O\-R\-Y}]{\setlength{\rightskip}{0pt plus 5cm}final String de.\-joglearth.\-settings.\-Settings\-Contract.\-C\-A\-C\-H\-E\-\_\-\-S\-I\-Z\-E\-\_\-\-M\-E\-M\-O\-R\-Y = \char`\"{}Cache\-Size\-Memory\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1settings_1_1_settings_contract_a384b6c909a29e2446696ae3518c58ecf}
+Name constant for the memory cache's size. You should save an integer using this key. \index{de\-::joglearth\-::settings\-::\-Settings\-Contract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}!L\-A\-N\-G\-U\-A\-G\-E@{L\-A\-N\-G\-U\-A\-G\-E}}
 \index{L\-A\-N\-G\-U\-A\-G\-E@{L\-A\-N\-G\-U\-A\-G\-E}!de::joglearth::settings::SettingsContract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}}
-\subsubsection[{L\-A\-N\-G\-U\-A\-G\-E}]{\setlength{\rightskip}{0pt plus 5cm}final String de.\-joglearth.\-settings.\-Settings\-Contract.\-L\-A\-N\-G\-U\-A\-G\-E = \char`\"{}lang\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1settings_1_1_settings_contract_acce9d63d02fb241bb52c6a6bae583c85}
-Name Constant for the Language setting. \index{de\-::joglearth\-::settings\-::\-Settings\-Contract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}!L\-E\-V\-E\-L\-\_\-\-O\-F\-\_\-\-D\-E\-T\-A\-I\-L\-S@{L\-E\-V\-E\-L\-\_\-\-O\-F\-\_\-\-D\-E\-T\-A\-I\-L\-S}}
+\subsubsection[{L\-A\-N\-G\-U\-A\-G\-E}]{\setlength{\rightskip}{0pt plus 5cm}final String de.\-joglearth.\-settings.\-Settings\-Contract.\-L\-A\-N\-G\-U\-A\-G\-E = \char`\"{}Language\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1settings_1_1_settings_contract_acce9d63d02fb241bb52c6a6bae583c85}
+Name constant for the Language setting. You should save a string to settings using this. \index{de\-::joglearth\-::settings\-::\-Settings\-Contract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}!L\-E\-V\-E\-L\-\_\-\-O\-F\-\_\-\-D\-E\-T\-A\-I\-L\-S@{L\-E\-V\-E\-L\-\_\-\-O\-F\-\_\-\-D\-E\-T\-A\-I\-L\-S}}
 \index{L\-E\-V\-E\-L\-\_\-\-O\-F\-\_\-\-D\-E\-T\-A\-I\-L\-S@{L\-E\-V\-E\-L\-\_\-\-O\-F\-\_\-\-D\-E\-T\-A\-I\-L\-S}!de::joglearth::settings::SettingsContract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}}
-\subsubsection[{L\-E\-V\-E\-L\-\_\-\-O\-F\-\_\-\-D\-E\-T\-A\-I\-L\-S}]{\setlength{\rightskip}{0pt plus 5cm}final String de.\-joglearth.\-settings.\-Settings\-Contract.\-L\-E\-V\-E\-L\-\_\-\-O\-F\-\_\-\-D\-E\-T\-A\-I\-L\-S = \char`\"{}lvl\-Of\-Details\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1settings_1_1_settings_contract_a57be34f7555a5463672084ceddd9897c}
-Name Constant for the Level of Details setting. \index{de\-::joglearth\-::settings\-::\-Settings\-Contract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}!T\-E\-X\-T\-U\-R\-E\-\_\-\-F\-I\-L\-T\-E\-R@{T\-E\-X\-T\-U\-R\-E\-\_\-\-F\-I\-L\-T\-E\-R}}
+\subsubsection[{L\-E\-V\-E\-L\-\_\-\-O\-F\-\_\-\-D\-E\-T\-A\-I\-L\-S}]{\setlength{\rightskip}{0pt plus 5cm}final String de.\-joglearth.\-settings.\-Settings\-Contract.\-L\-E\-V\-E\-L\-\_\-\-O\-F\-\_\-\-D\-E\-T\-A\-I\-L\-S = \char`\"{}Level\-Of\-Detail\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1settings_1_1_settings_contract_a57be34f7555a5463672084ceddd9897c}
+Name constant for the level of details setting. You should save a String to settings using this. Use {\ttfamily to\-String} of the Enum. \index{de\-::joglearth\-::settings\-::\-Settings\-Contract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}!T\-E\-X\-T\-U\-R\-E\-\_\-\-F\-I\-L\-T\-E\-R@{T\-E\-X\-T\-U\-R\-E\-\_\-\-F\-I\-L\-T\-E\-R}}
 \index{T\-E\-X\-T\-U\-R\-E\-\_\-\-F\-I\-L\-T\-E\-R@{T\-E\-X\-T\-U\-R\-E\-\_\-\-F\-I\-L\-T\-E\-R}!de::joglearth::settings::SettingsContract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}}
-\subsubsection[{T\-E\-X\-T\-U\-R\-E\-\_\-\-F\-I\-L\-T\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}final String de.\-joglearth.\-settings.\-Settings\-Contract.\-T\-E\-X\-T\-U\-R\-E\-\_\-\-F\-I\-L\-T\-E\-R = \char`\"{}texture\-Filter\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1settings_1_1_settings_contract_a48c36ee0ad4cd33a26682ad3573f2445}
-Name Constant for the texture filter setting. 
+\subsubsection[{T\-E\-X\-T\-U\-R\-E\-\_\-\-F\-I\-L\-T\-E\-R}]{\setlength{\rightskip}{0pt plus 5cm}final String de.\-joglearth.\-settings.\-Settings\-Contract.\-T\-E\-X\-T\-U\-R\-E\-\_\-\-F\-I\-L\-T\-E\-R = \char`\"{}Texture\-Filter\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1settings_1_1_settings_contract_a48c36ee0ad4cd33a26682ad3573f2445}
+Name constant for the texture filter setting. You should save a boolean to settings using this. (Only on/off) \index{de\-::joglearth\-::settings\-::\-Settings\-Contract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}!U\-S\-E\-R\-\_\-\-L\-O\-C\-A\-T\-I\-O\-N\-S@{U\-S\-E\-R\-\_\-\-L\-O\-C\-A\-T\-I\-O\-N\-S}}
+\index{U\-S\-E\-R\-\_\-\-L\-O\-C\-A\-T\-I\-O\-N\-S@{U\-S\-E\-R\-\_\-\-L\-O\-C\-A\-T\-I\-O\-N\-S}!de::joglearth::settings::SettingsContract@{de\-::joglearth\-::settings\-::\-Settings\-Contract}}
+\subsubsection[{U\-S\-E\-R\-\_\-\-L\-O\-C\-A\-T\-I\-O\-N\-S}]{\setlength{\rightskip}{0pt plus 5cm}final String de.\-joglearth.\-settings.\-Settings\-Contract.\-U\-S\-E\-R\-\_\-\-L\-O\-C\-A\-T\-I\-O\-N\-S = \char`\"{}User\-Locations\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\label{classde_1_1joglearth_1_1settings_1_1_settings_contract_aa3f933aafd1125f6bbff6867fec57efd}
+Name constant for the users Locations. You should save \doxyref{Location}{S.}{} objects using this key. 

@@ -7,9 +7,9 @@ import de.joglearth.util.HTTP;
 
 
 /**
- * Loads SRTM data from NASA servers. The size of the {@link SRTMTiles} is 90 x 90 meters. The SRTM
- * tiles include all information of a required point about the height above the sea level. Only
- * necessary if the HightProfile is activated.
+ * Loads SRTM data from NASA servers. The level of detail of a pixel in the SRTM tiles is 90 x 90
+ * meters. The SRTM tiles include all information of a required point about the height. As 'standard
+ * elevation zero' the WGS84 spheroid is used. Only necessary if the HightProfile is activated.
  * 
  */
 public class SRTMBinarySource implements Source<SRTMTileIndex, byte[]> {

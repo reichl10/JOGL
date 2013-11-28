@@ -37,7 +37,7 @@ public class LocationEditDialog extends JDialog {
     
     /**
      * Create the dialog for entering information about a location.
-     * @param location the {@link Location} object will be changed before closing
+     * @param location The {@link de.joglearth.surface.Location} object will be changed before closing
      */
     public LocationEditDialog(Location location) {
         setSize(370, 250);

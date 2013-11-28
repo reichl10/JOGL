@@ -1,11 +1,9 @@
 \section{de.\-joglearth.\-surface.\-Tile\-Mesh\-Manager Klassenreferenz}
 \label{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager}\index{de.\-joglearth.\-surface.\-Tile\-Mesh\-Manager@{de.\-joglearth.\-surface.\-Tile\-Mesh\-Manager}}
-Klassendiagramm für de.\-joglearth.\-surface.\-Tile\-Mesh\-Manager\-:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager}
-\end{center}
-\end{figure}
+
+
+Abgeleitet von Source$<$ Tile, Integer $>$.
+
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
@@ -71,9 +69,11 @@ Adds a \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_s
 \item[{boolean}]{enable}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager_ad5eedfaa8a35e81169c6d8fe1a358cdf}
+Enables or disables the \doxyref{de.\-joglearth.\-surface.\-Height\-Map}{S.}{classde_1_1joglearth_1_1surface_1_1_height_map}.
+
 
 \begin{DoxyParams}{Parameter}
-{\em enable} & \\
+{\em enable} & Whether to enable or disable the \doxyref{Height\-Map}{S.}{classde_1_1joglearth_1_1surface_1_1_height_map} \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}!remove\-Surface\-Listener@{remove\-Surface\-Listener}}
@@ -97,9 +97,9 @@ Removes a specific \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1s
 \item[{{\bf Tessellator}}]{t}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager_a3b3f46132bc25e8211dfe32212d3bfed}
-
+Sets the \doxyref{de.\-joglearth.\-rendering.\-Tessellator}{S.}{interfacede_1_1joglearth_1_1rendering_1_1_tessellator} of the \doxyref{Tile\-Mesh\-Source}{S.}{} 
 \begin{DoxyParams}{Parameter}
-{\em t} & \\
+{\em t} & The new \doxyref{Tesselator}{S.}{} \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager@{de\-::joglearth\-::surface\-::\-Tile\-Mesh\-Manager}!set\-Tile\-Subdivisions@{set\-Tile\-Subdivisions}}
@@ -109,8 +109,8 @@ Removes a specific \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1s
 \item[{int}]{sub}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1surface_1_1_tile_mesh_manager_ab3938bc10c39fded92b9cc0f44c3e95f}
-
+Sets the level of detail of the \doxyref{de.\-joglearth.\-rendering.\-Tessellator}{S.}{interfacede_1_1joglearth_1_1rendering_1_1_tessellator}. 
 \begin{DoxyParams}{Parameter}
-{\em sub} & \\
+{\em sub} & The new level of detail \\
 \hline
 \end{DoxyParams}

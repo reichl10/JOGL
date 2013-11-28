@@ -111,10 +111,10 @@ public final class Settings {
 
     /**
      * Removes the given {@link Location} from the given key.
-     * The Location that is removed is found by the <code>this == value || this.equals(value)</code>
+     * The Location that is removed is found by <code>this == value || this.equals(value)</code>
      * 
-     * @param key the key the <code>Location</code> should be removed from
-     * @param value the <code>Location</code> to remove
+     * @param key The key the <code>Location</code> should be removed from
+     * @param value The <code>Location</code> to remove
      */
     public synchronized void dropLocation(final String key, final Location value) {}
 
@@ -207,11 +207,11 @@ public final class Settings {
     }
 
     /**
-     * Gets the {@link Location} Objects stored using the given key.
+     * Gets the {@link Location} objects stored using the given key.
      * 
-     * @param key the key to use
-     * @return a <code>Set</code> of <code>Location</code> Objects stored under the given key or
-     *         <code>null</code> if no <code>Location</code> Object is found using this key.
+     * @param key The key to use
+     * @return A <code>Set</code> of <code>Location</code> objects stored under the given key or
+     *         <code>null</code> if no <code>Location</code> object is found using this key
      */
     public synchronized Set<Location> getLocations(final String key) {
         return null;
