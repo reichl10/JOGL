@@ -10,7 +10,7 @@ import de.joglearth.surface.SurfaceListener;
 
 
 /**
- * Singleton class that retrieves data from the {@link SRTMTileSource}.
+ * Singleton class that retrieves data from the {@link de.joglearth.source.srtm.SRTMTileSource}.
  */
 public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
 
@@ -22,7 +22,7 @@ public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
     /**
      * Returns the instance of the class or creates it, if it does not exist yet.
      * 
-     * @return The instance of {@link SRTMTileManager}
+     * @return The instance of <code>SRTMTileManager</code>
      */
     public static SRTMTileManager getInstance() {
         if (instance == null) {
@@ -43,18 +43,18 @@ public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
     }
 
     /**
-     * Adds a new {@link SurfaceListener}.
+     * Adds a new {@link de.joglearth.surface.SurfaceListener}.
      * 
-     * @param l The new {@link SurfaceListener}
+     * @param l The new <code>SurfaceListener</code>
      */
     public void addSurfaceListener(SurfaceListener l) {
 
     }
 
     /**
-     * Removes a given {@link SurfaceListener}.
+     * Removes a given {@link de.joglearth.surface.SurfaceListener}.
      * 
-     * @param l The {@link SurfaceListener} that should be removed
+     * @param l The <code>SurfaceListener</code> that should be removed
      */
     public void removeSurfaceListener(SurfaceListener l) {
 

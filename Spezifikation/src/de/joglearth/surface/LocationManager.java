@@ -12,49 +12,51 @@ import de.joglearth.source.overpass.OverpassSource;
 
 
 /**
- * Administers the visibility of particular points gathered from {@link OverpassSource} and
- * {@link NominatimSource}, and user marks from {@link Settings}.
+ * Administers the visibility of particular points gathered from
+ * {@link de.joglearth.source.overpass.OverpassSource} and
+ * {@link de.joglearth.source.nominatim.NominatimSource}, and user marks from
+ * {@link de.joglearth.settings.Settings}.
  */
 public class LocationManager {
 
     private NominatimQuery lastSearch;
-    private boolean[] selectedResults;
-    private boolean[] selectedUserTags;
-    private boolean[] selectedPOIs;
-    
-    
+    private boolean[]      selectedResults;
+    private boolean[]      selectedUserTags;
+    private boolean[]      selectedPOIs;
+
+
     private class UserTagsListener implements SettingsListener {
 
         @Override
-        public void settingsChanged(String key, Object valOld, Object valNew) {
-        }        
+        public void settingsChanged(String key, Object valOld, Object valNew) {}
     }
+
 
     /**
      * Constructor. Initializes the {@link LocationManager} and its underlying caches.
      */
-    public LocationManager() {
-    }
+    public LocationManager() {}
 
     /**
-     * Changes the visibility of a given {@link LocationType}.
+     * Changes the visibility of a given {@link de.joglearth.surface.LocationType}.
      * 
-     * @param location The <code>LocationType</code> that should be shown or hidden
-     * @param visible Whether to show or hide
+     * @param type The <code>LocationType</code> that should be shown or hidden
+     * @param active The <code>LocationType</code> to show or hide
      */
     public void setLocationTypeActive(LocationType type, boolean active) {
 
     }
-    
+
     /**
      * Returns all active locations within the given area.
+     * 
      * @param area The tiles defining the area
      * @return A collection of active locations
      */
     public Collection<Location> getActiveLocations(Iterable<Tile> area) {
-        return null;      
+        return null;
     }
-    
+
     /**
      * Searches on the whole globe/map after a query string.
      * 
@@ -75,8 +77,8 @@ public class LocationManager {
     }
 
     /**
-     * Gets the details of a point with given {@link ScreenCoordinates}. To achieve that it asks the
-     * {@link RequestDistributor}.
+     * Gets the details of a point with given {@link de.joglearth.geometry.ScreenCoordinates}. To
+     * achieve that it asks the {@link de.joglearth.source.caching.RequestDistributor}.
      * 
      * @param coordinates The <code>ScreenCoordinates</code> of the point
      * @return The <code>Location</code> with details that is located on the given point or a
@@ -85,7 +87,6 @@ public class LocationManager {
     public Location getDetails(ScreenCoordinates coordinates) {
         return null;
     }
-
 
     /**
      * Adds a new {@link SurfaceListener} that is called on every change of the surface.

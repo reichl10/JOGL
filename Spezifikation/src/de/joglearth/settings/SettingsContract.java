@@ -27,7 +27,7 @@ public final class SettingsContract {
 
     /**
      * Name constant for the users Locations.
-     * You should save {@link Location} objects using this key.
+     * You should save {@link de.joglearth.surface.Location} objects using this key.
      */
     public static final String USER_LOCATIONS = "UserLocations";
     

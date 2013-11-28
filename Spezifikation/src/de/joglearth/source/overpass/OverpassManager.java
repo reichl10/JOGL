@@ -12,7 +12,7 @@ import de.joglearth.surface.Location;
 
 
 /**
- * Singleton class that retrieves data from the {@link OverpassSource}.
+ * Singleton class that retrieves data from the {@link de.joglearth.source.overpass.OverpassSource}.
  */
 public final class OverpassManager implements Source<OverpassQuery, Collection<Location>> {
 
@@ -24,7 +24,7 @@ public final class OverpassManager implements Source<OverpassQuery, Collection<L
     /**
      * Returns the instance of the class or creates it, if it does not exist yet.
      * 
-     * @return The instance of {@link OverpassManager}
+     * @return The instance of <code>OverpassManager</code>
      */
     public static OverpassManager getInstance() {
         if (instance == null) {

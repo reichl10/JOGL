@@ -4,7 +4,7 @@ import de.joglearth.source.caching.PathTranslator;
 
 
 /**
- * Implements the {@link PathTranslator} interface for SRTM height data tiles.
+ * Implements the {@link de.joglearth.source.caching.PathTranslator} interface for SRTM height data tiles.
  */
 public class SRTMPathTranslator implements PathTranslator<SRTMTileIndex> {
 

@@ -14,10 +14,10 @@ public final class Tile implements Cloneable {
      * Constructor.
      * 
      * @param detailLevel How often the globe is subdivided to reach the desired tile size
-     * @param lonIndex The number of tiles to skip, starting from latitude 0, to reach the left
-     *        bound of the tile
      * @param lonIndex The number of tiles to skip, starting from the north pole, to reach the
      *        desired longitude
+     * @param latIndex The number of tiles to skip, starting from latitude 0, to reach the left
+     *        bound of the tile
      */
     public Tile(int detailLevel, int lonIndex, int latIndex)
     {
@@ -104,10 +104,9 @@ public final class Tile implements Cloneable {
     public static Tile getContainingTile(int detailLevel, GeoCoordinates coords) {
         return null;
     }
-    
-    
+
     /**
-     * Checks if a given rectangle intersects with a {@link Tile}.
+     * Checks if a given rectangle intersects with a {@link de.joglearth.geometry.Tile}.
      * 
      * @param lonFrom The longitude where the rectangle starts
      * @param latFrom The latitude where the rectangle starts
@@ -118,7 +117,6 @@ public final class Tile implements Cloneable {
     public boolean intersects(double lonFrom, double latFrom, double lonTo, double latTo) {
         return false;
     }
-    
 
     @Override
     public int hashCode() {
@@ -144,10 +142,11 @@ public final class Tile implements Cloneable {
     }
 
     /**
-     * Returns if given {@link GeoCoordinates} are in this {@link Tile}.
+     * Returns if given {@link de.joglearth.geometry.GeoCoordinates} are in this
+     * {@link de.joglearth.geometry.Tile}.
      * 
      * @param coords The <code>GeoCoordinates</code>
-     * @return  If The <code>GeoCoordinates</code> are in the <code>Tile</code>
+     * @return If The <code>GeoCoordinates</code> are in the <code>Tile</code>
      */
     public boolean contains(GeoCoordinates coords) {
         if (coords == null) {

@@ -32,7 +32,7 @@ import static de.joglearth.util.Resource.loadIcon;
 public class AboutBox extends JDialog {
 
     /**
-     * Makes the compiler happy.
+     * SerialVersionUID
      */
     private static final long serialVersionUID = -3023220810789138152L;
 

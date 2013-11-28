@@ -87,45 +87,49 @@ public class MainWindow extends JFrame {
     }
 
 
-    private static ImageIcon hideIcon = loadIcon("icons/hide.png");
-    private static ImageIcon showIcon = loadIcon("icons/show.png");
+    private static ImageIcon                     hideIcon         = loadIcon("icons/hide.png");
+    private static ImageIcon                     showIcon         = loadIcon("icons/show.png");
 
     /**
-     * makes the compiler happy.
+     * SerialVersionUID
      */
-    private static final long serialVersionUID = -7540009258222187987L;
+    private static final long                    serialVersionUID = -7540009258222187987L;
 
     /**
      * Default minimum width of the window.
      */
-    private static final int MIN_WIDTH = 900;
+    private static final int                     MIN_WIDTH        = 900;
+
     /**
      * Default minimum height of the window.
      */
-    private static final int MIN_HEIGHT = 600;
+    private static final int                     MIN_HEIGHT       = 600;
+
     /**
      * Stores the reference to the <code>LocationManager</code> that it gets through the
      * Constructor.
      */
-    private LocationManager locationManager;
+    private LocationManager                      locationManager;
+
     /**
      * Stores the reference to the <code>ViewEventListener</code> that is created on initialization.
      */
-    private ViewEventListener viewEventListener;
+    private ViewEventListener                    viewEventListener;
 
     /**
      * Stores the reference to the <code>Camera</code> that it gets through the constructor.
      */
-    private Camera camera;
-    private JTextField latitudeTextField;
-    private JTextField longitudeTextField;
-    private JTextField textField;
-    private JLabel sidebarHideIconLabel;
-    private JPanel sideBarHideLinePanel;
-    private JPanel mapOptionsPanel;
-    private JComboBox<?> mapTypeComboBox;
+    private Camera                               camera;
+    private JTextField                           latitudeTextField;
+    private JTextField                           longitudeTextField;
+    private JTextField                           textField;
+    private JLabel                               sidebarHideIconLabel;
+    private JPanel                               sideBarHideLinePanel;
+    private JPanel                               mapOptionsPanel;
+    private JComboBox<?>                         mapTypeComboBox;
     private JComboBox<IconizedItem<DisplayMode>> displayModeComboBox;
-    private JPanel viewTab, placesTab, settingsTab, detailsPanel, viewPanel;
+    private JPanel                               viewTab, placesTab, settingsTab, detailsPanel,
+            viewPanel;
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -157,7 +161,7 @@ public class MainWindow extends JFrame {
     private class MapTypePair {
 
         public MapLayout layout;
-        public Object type;
+        public Object    type;
 
 
         public MapTypePair(SingleMapType s) {
@@ -241,13 +245,13 @@ public class MainWindow extends JFrame {
         sidebarHideIconLabel = new JLabel("");
         sidebarHideIconLabel.setIcon(hideIcon);
         sideBarHideLinePanel.add(sidebarHideIconLabel, "1, 1");
-        
+
         viewPanel = new JPanel();
         getContentPane().add(viewPanel, "3, 1, fill, fill");
     }
-       
+
     private void initializeDetailsPanel() {
-        detailsPanel.setBorder(BorderFactory.createTitledBorder("Details"));        
+        detailsPanel.setBorder(BorderFactory.createTitledBorder("Details"));
         detailsPanel.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
                 ColumnSpec.decode("default:grow"),
@@ -276,8 +280,7 @@ public class MainWindow extends JFrame {
         detailsPanel.add(detailDescriptionLabel, "2, 4, default, top");
         detailsPanel.add(userTagButton, "2, 6");
     }
-    
-    
+
     private void initializeViewTab() {
         viewTab.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.RELATED_GAP_COLSPEC,
@@ -349,10 +352,9 @@ public class MainWindow extends JFrame {
         paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>("OpenStreetMap",
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK)));
         paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>("Children's Map",
-                loadIcon("icons/mapChildren.png"), new MapTypePair(SingleMapType.CHILDREN)));        
+                loadIcon("icons/mapChildren.png"), new MapTypePair(SingleMapType.CHILDREN)));
     }
-    
-    
+
     private void initializePlacesTab() {
         placesTab.setLayout(new FormLayout(new ColumnSpec[] {
                 ColumnSpec.decode("2dlu"),
@@ -451,10 +453,8 @@ public class MainWindow extends JFrame {
         JList overlayList = new JList();
         overlayScrollPane.setViewportView(overlayList);
 
-        
     }
-    
-    
+
     private void initializeSettingsTab() {
         settingsTab.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.RELATED_GAP_COLSPEC,
@@ -588,8 +588,7 @@ public class MainWindow extends JFrame {
         manualAboutPanel.add(aboutButton, "3, 1");
         aboutButton.setIcon(loadIcon("icons/info.png"));
     }
-    
-    
+
     private void initializeViewPanel() {
         viewPanel.setLayout(new FormLayout(new ColumnSpec[] {
                 ColumnSpec.decode("default:grow"),
@@ -700,7 +699,6 @@ public class MainWindow extends JFrame {
         progressBar.setStringPainted(true);
         progressBar.setValue(100);
     }
-    
 
     /**
      * Constructor.

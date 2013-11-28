@@ -15,7 +15,7 @@ public interface Source<Key, Value> {
      * 
      * @param key Identifier for the objects
      * @param sender Receiver of the response
-     * @return A {@link SourceResponse} that contains either <code>ASYNCHRONOUS</code> or
+     * @return A <code>SourceResponse</code> that contains either <code>ASYNCHRONOUS</code> or
      *         <code>SYNCHRONOUS</code> or <code>MISSING</code>
      */
     SourceResponse<Value> requestObject(Key key, SourceListener<Key, Value> sender);

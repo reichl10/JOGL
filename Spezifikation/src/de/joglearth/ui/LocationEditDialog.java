@@ -26,18 +26,19 @@ import javax.swing.SwingConstants;
 public class LocationEditDialog extends JDialog {
 
     /**
-     * Makes the compiler happy.
+     * SerialVersionUID
      */
     private static final long serialVersionUID = -8715326019757123990L;
 
-    private JTextField nameTextField;
+    private JTextField        nameTextField;
 
-    private JTextField descriptionTextField;
+    private JTextField        descriptionTextField;
 
-    
+
     /**
      * Create the dialog for entering information about a location.
-     * @param location The {@link de.joglearth.surface.Location} object will be changed before closing
+     * 
+     * @param location The <code>Location</code> object will be changed before closing
      */
     public LocationEditDialog(Location location) {
         setSize(370, 250);

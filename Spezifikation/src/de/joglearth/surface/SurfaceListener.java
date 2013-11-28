@@ -11,7 +11,10 @@ public interface SurfaceListener {
     /**
      * Receives if the surface i a given area has been changed.
      * 
-     * @param tile A new {@link Tile} that should be displayed now
+     * @param lonFrom Longitude from
+     * @param latFrom Latitude from
+     * @param lonTo Longitude to
+     * @param latTo Latitude to
      */
     void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo);
 }

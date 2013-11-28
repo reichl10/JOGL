@@ -4,7 +4,7 @@ import java.util.Collection;
 
 /**
  * Classes implementing this interface receive asynchronous answers from the
- * {@link LocationMananger} such as search results.
+ * {@link de.joglearth.surface.LocationMananger} such as search results.
  * 
  */
 public interface LocationListener {

@@ -83,10 +83,9 @@ public class Renderer {
      * Constructor initializes the OpenGL functionalities.
      * 
      * @param canv GLCanvas object of the GUI
-     * @param height {@link HeightMap} that provides the height of a point
-     * @param locationManager {@link LocationManager} that provides the information about Overlays
+     * @param locationManager <code>LocationManager</code> that provides the information about Overlays
      *        to be displayed
-     * @param camera {@link Camera} object
+     * @param camera <code>Camera</code> object
      */
     public Renderer(GLCanvas canv, LocationManager locationManager, Camera camera) {
         this.locationManager = locationManager;
@@ -133,9 +132,9 @@ public class Renderer {
     // Methode u.U. keine Auswirkung. Asynchron, wartet nicht bis der
     // Frame gezeichnet wurde.
     /**
-     * Notifies the {@link Renderer} that a new frame should be rendered. If <code>start()</code> is
-     * called this method may have no effect. Asynchronous method, does not wait until a frame is
-     * drawn.
+     * Notifies the {@link de.joglearth.rendering.Renderer} that a new frame should be rendered. If
+     * <code>start()</code> is called this method may have no effect. Asynchronous method, does not
+     * wait until a frame is drawn.
      */
     public synchronized void post() {
         posted = true;
@@ -177,7 +176,7 @@ public class Renderer {
      */
 
     /**
-     * Quits the {@link Renderer} thread.
+     * Quits the {@link de.joglearth.rendering.Renderer} thread.
      */
     public void quit() {
         quit = true;
@@ -210,7 +209,7 @@ public class Renderer {
 
 
     /**
-     * Sets the {@link DisplayMode} to a given value.
+     * Sets the {@link de.joglearth.rendering.DisplayMode} to a given value.
      * 
      * @param m The new <code>DisplayMode</code>
      */
@@ -220,8 +219,8 @@ public class Renderer {
     }
 
     /**
-     * Sets the {@link MapLayout} to a given value. This type is a {@link SingleMapType} as it is
-     * only one tile as a texture.
+     * Sets the {@link de.joglearth.surface.MapLayout} to a given value. This type is a
+     * {@link de.joglearth.surface.SingleMapType} as it is only one tile as a texture.
      * 
      * @param t The new <code>MapLayout</code>
      */
@@ -232,8 +231,8 @@ public class Renderer {
     }
 
     /**
-     * Sets the {@link MapLayout} to a given value. This type is a {@link TiledMapType} as the
-     * texture consists of multiple tiles.
+     * Sets the {@link de.joglearth.surface.MapLayout} to a given value. This type is a
+     * {@link de.joglearth.surface.TiledMapType} as the texture consists of multiple tiles.
      * 
      * @param t The new <code>MapLayout</code>
      */

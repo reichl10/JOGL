@@ -20,7 +20,7 @@ public final class NominatimManager implements Source<NominatimQuery, Collection
     /**
      * Returns the instance of the class or creates it, if it does not exist yet.
      * 
-     * @return The instance of {@link NominatimManager}
+     * @return The instance of <code>NominatimManager</code>
      */
     public static NominatimManager getInstance() {
         if (instance == null) {

@@ -20,7 +20,7 @@ public class SourceResponse<Value> {
     /**
      * Constructor. Initializes the {@link SourceResponse}.
      * 
-     * @param r {@link SourceResponseType} of the response of a source
+     * @param r <code>SourceResponseType</code> of the response of a source
      * @param v Value of the response (Only necessary, when the <code>SourceResponseType</code> of
      *        the response is <code>SYNCHRONOUS</code>)
      */

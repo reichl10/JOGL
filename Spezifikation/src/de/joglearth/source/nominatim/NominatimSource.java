@@ -11,14 +11,14 @@ import de.joglearth.util.HTTP;
 
 /**
  * Provides responses of search requests, for e.g. search requests for places or detailed
- * information to a point. The response will be prepared for the {@link LocationManager}; uses the
- * {@link HTTP} for the search request.
+ * information to a point. The response will be prepared for the {@link de.joglearth.surface.LocationManager}; uses the
+ * {@link de.joglearth.util.HTTP} for the search request.
  * 
  */
 public class NominatimSource implements Source<NominatimQuery, Collection<Location>> {
 
     /**
-     * Constructor. Initializes the {@link NominatimSource}.
+     * Constructor. Initializes the {@link de.joglearth.source.nominatim.NominatimSource}.
      */
     public NominatimSource() {
 

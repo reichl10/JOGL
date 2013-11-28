@@ -18,21 +18,21 @@ import de.joglearth.util.Predicate;
  */
 public class TileMeshManager implements Source<Tile, Integer> {
 
-    private final int VERTEX_BUFFER_CACHE_SIZE = 50;
+    private final int                         VERTEX_BUFFER_CACHE_SIZE = 50;
 
-    private Tessellator tess;
-    private int subdivisions;
+    private Tessellator                       tess;
+    private int                               subdivisions;
     private RequestDistributor<Tile, Integer> dist;
-    private VertexBufferCache cache;
-    private TileMeshSource source;
+    private VertexBufferCache                 cache;
+    private TileMeshSource                    source;
 
 
     /**
      * Creates a new {@link TileMeshManager} as it initializes the source, the cache, sets the
-     * {@link RequestDistributor} and adds a surface listener from {@link HeightMap}.
+     * {@link de.joglearth.source.caching.RequestDistributor} and adds a surface listener from {@link de.joglearth.surface.HeightMap}.
      * 
      * @param gl The GL context
-     * @param t The {@link de.joglearth.rendering.Tessellator} that should be used
+     * @param t The <code>Tessellator</code> that should be used
      */
     public TileMeshManager(GL2 gl, Tessellator t) {
         source = new TileMeshSource(gl, t);
@@ -60,8 +60,10 @@ public class TileMeshManager implements Source<Tile, Integer> {
     }
 
     /**
-     * Sets the {@link de.joglearth.rendering.Tessellator} of the {@link TileMeshSource}
-     * @param t The new {@link Tesselator}
+     * Sets the {@link de.joglearth.rendering.Tessellator} of the
+     * {@link de.joglearth.source.opengl.TileMeshSource}
+     * 
+     * @param t The new <code>Tesselator</code>
      */
     public void setTessellator(Tessellator t) {
         source.setTessellator(t);
@@ -70,7 +72,8 @@ public class TileMeshManager implements Source<Tile, Integer> {
 
     /**
      * Sets the level of detail of the {@link de.joglearth.rendering.Tessellator}.
-     * @param sub The new level of detail
+     * 
+     * @param sub The new <code>level of detail</code>
      */
     public void setTileSubdivisions(int sub) {
         source.setTileSubdivisions(sub);
@@ -80,7 +83,7 @@ public class TileMeshManager implements Source<Tile, Integer> {
     /**
      * Enables or disables the {@link de.joglearth.surface.HeightMap}.
      * 
-     * @param enable Whether to enable or disable the {@link HeightMap}
+     * @param enable Whether to enable or disable the <code>HeightMap</code>
      */
     public void enableHeightMap(boolean enable) {
         source.setHeightMapEnabled(enable);

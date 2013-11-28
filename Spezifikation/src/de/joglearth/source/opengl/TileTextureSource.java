@@ -9,8 +9,8 @@ import de.joglearth.source.SourceResponse;
 
 
 /**
- * Loads the textures into OpenGL returning the ID. Implements {@link Source} to get a new texture,
- * when it is needed. Owns a {@link Source} for image data.
+ * Loads the textures into OpenGL returning the ID. Implements {@link de.joglearth.source.Source} to get a new texture,
+ * when it is needed. Owns a {@link de.joglearth.source.Source} for image data.
  */
 public class TileTextureSource implements Source<Tile, Integer> {
 

@@ -17,7 +17,7 @@ public class VertexBufferCache implements Cache<Tile, Integer> {
 
 
     /**
-     * Constructor. Initializes the {@link VertexBufferCache} and assigns a value to the GL context.
+     * Constructor. Initializes the {@link de.joglearth.source.opengl.VertexBufferCache} and assigns a value to the GL context.
      * 
      * @param gl The GL context
      */

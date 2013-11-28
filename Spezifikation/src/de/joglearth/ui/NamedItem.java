@@ -9,13 +9,14 @@ package de.joglearth.ui;
 public class NamedItem<E> {
 
     private String caption;
-    private E value;
+    private E      value;
 
 
     /**
      * Constructor.
-     * @param caption The caption, later returned by {@link toString().}
-     * @param value The value to map to.
+     * 
+     * @param caption The caption, later returned by <code>toString()</code>
+     * @param value The value to map to
      */
     public NamedItem(String caption, E value) {
         this.caption = caption;

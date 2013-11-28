@@ -19,7 +19,7 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
 
 
     /**
-     * Constructor. Initializes the {@link OSMTileSource}.
+     * Constructor. Initializes the {@link de.joglearth.source.osm.OSMTileSource}.
      * 
      * @param servers An array containing the server strings
      */
@@ -35,7 +35,7 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
     /**
      * Sets the type of an OpenStreetMap tile.
      * 
-     * @param t {@link TiledMapType} of the tile
+     * @param type <code>TiledMapType</code> of the tile
      */
     public void setTileType(TiledMapType type) {
 

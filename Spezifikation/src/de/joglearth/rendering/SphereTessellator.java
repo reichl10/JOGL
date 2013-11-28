@@ -4,7 +4,7 @@ import de.joglearth.geometry.Tile;
 
 
 /**
- * Generates {@link Mesh}es for tiles on the globe.
+ * Generates {@link de.joglearth.rendering.Mesh}es for tiles on the globe.
  * 
  */
 public class SphereTessellator implements Tessellator {

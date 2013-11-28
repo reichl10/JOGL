@@ -10,14 +10,28 @@ import de.joglearth.geometry.Tile;
  */
 public class NominatimQuery {
 
+    /**
+     * Query type.
+     */
     public Type              type;
+    
+    /**
+     * The area of the query.
+     */
     public Tile              area;
+    
+    /**
+     * Coordinates of the point.
+     */
     public ScreenCoordinates point;
+    
+    /**
+     * The query.
+     */
     public String            query;
 
-
     /**
-     * Constructor. Assigns a value to a {@link Type}.
+     * Constructor. Assigns a value to a {@link de.joglearth.source.nominatim.Type}.
      * 
      * @param type The <code>Type</code> of the query
      */
@@ -27,7 +41,7 @@ public class NominatimQuery {
 
 
     /**
-     * {@link Type} of the {@link NominatimQuery}.
+     * {@link de.joglearth.source.nominatim.Type} of the {@link de.joglearth.source.nominatim.NominatimQuery}.
      */
     public enum Type {
 
