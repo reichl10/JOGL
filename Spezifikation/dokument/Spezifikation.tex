@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \usepackage{etoolbox}
+\usepackage{wrapfig}
 \usepackage{enumitem}
 \usepackage{tabu}
 \usepackage{url}
@@ -382,6 +383,39 @@ public class WriteAndLoadSettings {
 %\subsection*{•}
 %\begin{lstlisting}
 %\end{lstlisting}
+
+
+\chapter{Algorithmen}
+
+\section{Bestimmung des Schnittpunkts einer Blickwinkelgeraden mit dem Oberflächenmodell}
+\subsection*{Globus}
+\begin{figure}[!htb]
+\includegraphics[scale=0.75]{algo/SchnittKugel.eps}
+\end{figure}
+
+\subsection*{Ebene}
+\begin{figure}[!htb]
+\includegraphics[scale=0.75]{algo/SchnittEbene.eps}
+\end{figure}
+
+\newpage
+\section{Bestimmung der Transformation aus einer Mausbewegung}
+\subsection*{Globus}
+\begin{figure}[!htb]
+\includegraphics[scale=0.75]{algo/MausKugel.eps}
+\end{figure}
+
+\subsection*{Ebene}
+\begin{figure}[!htb]
+\includegraphics[scale=0.75]{algo/MausEbene.eps}
+\end{figure}
+
+\section{Bestimmung der prinzipiellen Sichtbarkeit eines Punktes der Oberfläche}
+\begin{figure}[!htb]
+\includegraphics[scale=0.75]{algo/SichtbarKugel.eps}
+\end{figure}
+
+
 
 
 \chapter{Persistente Daten}
@@ -1293,7 +1327,8 @@ Unterkünfte & hotel \\
 
 Da die Umsetzung der Enumerations und Interfaces bereits während der Spezifikationsphase erfolgt ist, ist nur noch die Implementierung der Klassen auf Arbeitspaktete zu verteilen.
 
-Der Implementierungsplan besteht aus drei Meilensteinen. Im folgenden wird eine Übersicht über den Inhalt der einzelnen Pakete gegeben, anschließend folgt der Plan als Gantt-Diagramm.
+Der Implementierungsplan besteht aus drei Meilensteinen. Im folgenden wird eine Übersicht über den Inhalt der einzelnen Pakete gegeben, anschließend folgt der Plan als Gantt-Diagramm.\\[3mm]
+Die \JoglEarth -Entwickler wurden in Programmierteams eingeteilt; Die Zugehörigkeit wird durch die Färbung der Balken im Diagramm wiedergegeben.
 
 \subsection*{UI, Rendering, Settings}
 \begin{itemize}
