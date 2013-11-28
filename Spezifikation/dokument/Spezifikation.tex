@@ -1202,12 +1202,12 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 \section{Einstellungsdatei}
 Die XML-Datei der \texttt{SettingsContract} Klasse muss den hier festgelegten Regeln folgen.
-Sie muss sowohl UTF-8 encoding als auch den XML 1.0 Standard benutzen. \\
+Sie muss sowohl UTF-8 Zeichenkodierung als auch den XML 1.0 Standard benutzen. \\
 \texttt{<?xml version="{}1.0"{} encoding="{}UTF-8"{} ?>} \\
 Sie besitzt ein Wurzelelement \texttt{settings}
 \begin{itemize}
  \item das Element kann null oder mehr Kindelemente des Typs \texttt{entry} oder \texttt{locations} enthalten.
- \item Die Elemente der Typen \texttt{entry} und \texttt{locations} dürfen beliebeig angeordnet sein.
+ \item Die Elemente der Typen \texttt{entry} und \texttt{locations} dürfen beliebig angeordnet sein.
 \end{itemize}
 
 Das \texttt{entry} Element
@@ -1225,16 +1225,16 @@ Das \texttt{entry} Element
  Das \texttt{locations} Element
 \begin{itemize}
  \item kann null oder mehr Elemente des Typs \texttt{location} enthalten.
- \item muss ein Attribut \texttt{key} besitzen, das den Schlüssel des \textit{locationType} enthält, der von der Klasse \texttt{Settings} benutzt wird.
+ \item muss ein Attribut \texttt{key} besitzen, dass den Schlüssel des \textit{locationType} enthält, der von der Klasse \texttt{Settings} benutzt wird.
 \end{itemize}
 
  Das \texttt{location} Element:
 \begin{itemize}
  \item muss die folgenden Attribute besitzen: \texttt{details}, \texttt{type}, \texttt{name}
  \begin{itemize}
-  \item Das Attribut \texttt{details} enthält den Wert des Detail-Attributs des Objekts \textit{de.joglearth.surface.Location}.
+  \item Das Attribut \texttt{details} enthält den Wert des details-Attributs des Objekts \textit{de.joglearth.surface.Location}.
   \item Das Attribut \texttt{type} enthält die String Repräsentation des Typs, welcher durch Aufrufen von \texttt{toString} auf dem Enum \textit{locationType} erzeugt wurde.
-  \item Das Attribut \texttt{name} Namen des Location-Objekts als String.
+  \item Das Attribut \texttt{name} Namen des \texttt{Location}-Objekts als String.
   \end{itemize}
  \item muss genau ein Kindelement des Typs \textit{GeoCoordinates} besitzen, das die Attribute \texttt{longitude} und \texttt{latitude} enthält, deren Werte aus Java double oder Double stammen, die mittels \texttt{Double.toString} zu einem String umgewandelt wurden.
 \end{itemize}
