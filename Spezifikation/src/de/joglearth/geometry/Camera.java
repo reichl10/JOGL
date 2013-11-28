@@ -50,7 +50,7 @@ public class Camera {
     /**
      * Constructor.
      * 
-     * Creates a {@link Camera} with FOV 90°, aspect ratio 1:1, zNear=0.1 and zFar=1000.
+     * Creates a {@link Camera} with FOV 90Â°, aspect ratio 1:1, zNear=0.1 and zFar=1000.
      */
     public Camera() {
         setPerspective((double) Math.PI / 2, 1, 0.1f, 1000);
