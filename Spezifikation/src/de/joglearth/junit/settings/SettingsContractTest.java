@@ -1,6 +1,7 @@
 package de.joglearth.junit.settings;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -33,7 +34,10 @@ public class SettingsContractTest {
     private static final Integer TV_INTEGER = new Integer(-5634);
     private static final Long TV_LONG = new Long(34332423);
     private static final String TV_STRING = "jfsdjfisdf*+3439(&2)(/&";
-    private static final Set<Location> TV_LOCATION = new HashSet<Location>();
+    private static final String TV_LANGUAGE = "GERMAN";
+    private static final Set<Location> TV_LOCATIONS = new HashSet<Location>();
+    private static final Location TV_LOCATION = new Location(new GeoCoordinates(3.32d, 1.45d), LocationType.USER_TAG,
+            "City next to the border", "Passau");
     private static final String TEST_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
             +
             "<settings>\r\n"
@@ -72,10 +76,10 @@ public class SettingsContractTest {
     @Before
     public void setUp() throws Exception {
         String folderName = "joglearth";
-        TV_LOCATION.add(new Location(new GeoCoordinates(3.32d, 1.45d), LocationType.USER_TAG,
-                "Some Details", "Name of Location"));
-        TV_LOCATION.add(new Location(new GeoCoordinates(3.32d, 1.47d), LocationType.USER_TAG,
-                "Some Details", "Name of Location 2"));
+        TV_LOCATIONS.add(new Location(new GeoCoordinates(3.32d, 1.45d), LocationType.USER_TAG,
+                "City next to the Border", "Passau"));
+        TV_LOCATIONS.add(new Location(new GeoCoordinates(3.32d, 1.47d), LocationType.USER_TAG,
+                "City in Bavaria", "Regensburg"));
         String os = System.getProperty("os.name");
         if (os.contains("Windows")) {
             String localAppdata = System.getenv("LOCALAPPDATA");
@@ -119,7 +123,7 @@ public class SettingsContractTest {
         Set<Location> locationSet1 = settings.getLocations("exkey7");
         assertNull(locationSet1);
         for (Location location : locationSet1) {
-            assertTrue(TV_LOCATION.contains(location));
+            assertTrue(TV_LOCATIONS.contains(location));
         }
         Set<Location> locationSet2 = settings.getLocations("exkey9");
         assertTrue(locationSet2.size() == 0);
@@ -127,7 +131,29 @@ public class SettingsContractTest {
 
     @Test
     public void testSaveSettings() {
-
+        Settings settings = Settings.getInstance();
+        settings.putInteger(SettingsContract.CACHE_SIZE_FILESYSTEM, TV_INTEGER);
+        settings.putInteger(SettingsContract.CACHE_SIZE_MEMORY, TV_INTEGER);
+        settings.putBoolean(SettingsContract.ANTIALIASING, TV_BOOLEAN);
+        settings.putString(SettingsContract.LANGUAGE, TV_LANGUAGE);
+        settings.putBoolean(SettingsContract.TEXTURE_FILTER, TV_BOOLEAN);
+        settings.putLocation(SettingsContract.USER_LOCATIONS, TV_LOCATION);
+        SettingsContract.saveSettings();
+        settings.putInteger(SettingsContract.CACHE_SIZE_FILESYSTEM, null);
+        settings.putInteger(SettingsContract.CACHE_SIZE_MEMORY, null);
+        settings.putBoolean(SettingsContract.ANTIALIASING, null);
+        settings.putString(SettingsContract.LANGUAGE, null);
+        settings.putBoolean(SettingsContract.TEXTURE_FILTER, null);
+        SettingsContract.loadSettings();
+        assertEquals(TV_INTEGER, settings.getInteger(SettingsContract.CACHE_SIZE_FILESYSTEM));
+        assertEquals(TV_INTEGER, settings.getInteger(SettingsContract.CACHE_SIZE_MEMORY));
+        assertEquals(TV_BOOLEAN, settings.getBoolean(SettingsContract.ANTIALIASING));
+        assertEquals(TV_LANGUAGE, settings.getString(SettingsContract.LANGUAGE));
+        assertEquals(TV_BOOLEAN, settings.getLong(SettingsContract.TEXTURE_FILTER));
+        Set<Location> locationSet1 = settings.getLocations(SettingsContract.USER_LOCATIONS);
+        assertNotNull(locationSet1);
+        assertTrue(locationSet1.contains(TV_LOCATION));
+        assertTrue(locationSet1.size() == 1);
     }
 
 }
