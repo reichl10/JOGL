@@ -208,78 +208,40 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 \chapter{JUnit Tests}
 
 \section{Getestete Klassen}
-\begin{itemize}
-\item \texttt{de.joglearth.geometry}
- \begin{itemize}
- \item Camera
- \item Matrix4
- \item Tile
- \item PlaneGeometry
- \item SphereGeometry
- \item Vektor3
- \item Vektor4
- \item GeoCoordinates:
- \item ScreenCoordinates
- \end{itemize}
-\item \texttt{de.joglearth.rendering}
- \begin{itemize}
- \item PlaneTesslator
- \item SphereTesslator
- \end{itemize}
- \item \texttt{de.joglearth.settings}
- \begin{itemize}
- \item Settings
- \item SettingsContract
- \end{itemize}
- \item \texttt{de.joglearth.source}
- \begin{itemize}
- \item ProgressManager
- \end{itemize}
- \item \texttt{de.joglearth.source.caching}
- \begin{itemize}
- \item ByteArrayMessurer
- \item MemoryCache
- \item RequestDistributor
- \item UnityMeasure
- \item FileSystemCache
- \item PathTranslator
- \end{itemize}
- \item \texttt{de.joglearth.source.nominatim}
- \begin{itemize}
- \item NominatimManager
- \item NominatimSource
- \end{itemize}
- \item \texttt{de.joglearth.source.opengl}
- \begin{itemize}
- \item TextureCache
- \item TileTextureSource
- \item TileMeshSource
- \item VertexBufferCache
- \end{itemize}
- \item \texttt{de.joglearth.source.osm}
- \begin{itemize}
- \item OSMPathTranslator
- \item OSMTileManager
- \item OSMTile
- \item OSMTileSource
- \end{itemize}
- \item \texttt{de.joglearth.source.srtm}
- \begin{itemize}
- \item SRTMBinarySource
- \item SRTMTileIndex
- \item SRTMPathTranslator
- \item SRTMTileManager
- \item SRTMTileSource
- \end{itemize}
- \item \texttt{de.joglearth.surface}
- \begin{itemize}
- \item HeightMap
- \item TextureManager
- \item Location
- \item TileMeshManage
- \item LocationManager
- \end{itemize}
-\end{itemize}
+
+\begin{tabular}{|p{4cm}|p{11cm}|}
+\hline 
+\rule[-1ex]{0pt}{4ex} \textbf{Klasse} & \textbf{Erläuterung} \\ 
+\hline
+\hline
+\rule[-1ex]{0pt}{4ex} RequestDistributor & Überprüfen ob Anfragen in annehmbarer Zeit beantwortet werden. Prüfen das nicht mehrfache, gleiche Anfragen mehrmals ausgeführt werden \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} FileSystemCache &  \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} MemoryCache & Überprüfen ob eingefügte Objekte wieder gefunden werden können, und ob \textit{null} entsprechend abgefangen wird\\ 
+\hline
+\rule[-1ex]{0pt}{4ex} TextureCache & Überprüfen der \textit{dropObject()} Methode\\ 
+\hline
+\rule[-1ex]{0pt}{4ex} Camera & methoden: isPointVisible, getWindowPosition, getCoordinates \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} PlaneGeometry & \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} SphereGeometry & \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} Settings & Threadsicherheit + Listener testen \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} HTTPUtils & Alle Methoden testen ob sie richtige Ergebnisse liefern für HTTP Anfragen\\ 
+\hline
+\rule[-1ex]{0pt}{4ex} Paket Source insgesamt & Alle Queries überprüfen ob sie richtig konstruiert wurden, Sources ob sie die richten Daten liefern für bestimmte Anfragen, ob das listening auf Sources funktioniert\\ 
+\hline
+\rule[-1ex]{0pt}{4ex} HeightMapManager & Das er richtig auf abschalten des Höhenprofils reagiert (Settingsänderung), das er richtige Daten liefert. \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} LocationManager & Daten für bestimmte Punkte testen, Listener aufrufe prüfen \\ 
+\hline
+\rule[-1ex]{0pt}{4ex} TextureManager & Ob man richtige Textur bekommt, ob er Texturen findet die schon im Grafikspeicher sind \\ 
+\hline
+
+\end{tabular}
 
 \newpage
 \section{Testfälle}
@@ -525,6 +487,16 @@ Im Beispiel ist der Punkt weiter entfernt, es gilt also
 \[\vec{XC} > \sqrt{\vec{CM}^2-1}\]
 Er ist damit prinzipiell nicht sichtbar.\\[5mm]
 Die Sichtbarkeitsabfrage bezüglich Blickrichtung und Bildausschnitt kann auf die Berechnung des Bildpunkts aus einem Raumpunkt und des Raumpunkts aus Koordinaten zurückgeführt werden und ist damit modellunabhängig.
+
+\section{Erzeugung der Projektionsmatrix}
+
+\section{Bestimmung der geographischen Höhe eines Punkts aus SRTM-Daten}
+
+\section{Bestimmung aller sichtbarer Kacheln}
+
+\section{Scheduling des Renderers}
+
+\section{Verwaltung von Elementen in Caches}
 
 \chapter{Persistente Daten}
 
@@ -1244,12 +1216,12 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 \section{Einstellungsdatei}
 Die XML-Datei der \texttt{SettingsContract} Klasse muss den hier festgelegten Regeln folgen.
-Sie muss sowohl UTF-8 Zeichenkodierung als auch den XML 1.0 Standard benutzen. \\
+Sie muss sowohl UTF-8 encoding als auch den XML 1.0 Standard benutzen. \\
 \texttt{<?xml version="{}1.0"{} encoding="{}UTF-8"{} ?>} \\
 Sie besitzt ein Wurzelelement \texttt{settings}
 \begin{itemize}
  \item das Element kann null oder mehr Kindelemente des Typs \texttt{entry} oder \texttt{locations} enthalten.
- \item Die Elemente der Typen \texttt{entry} und \texttt{locations} dürfen beliebig angeordnet sein.
+ \item Die Elemente der Typen \texttt{entry} und \texttt{locations} dürfen beliebeig angeordnet sein.
 \end{itemize}
 
 Das \texttt{entry} Element
@@ -1267,16 +1239,16 @@ Das \texttt{entry} Element
  Das \texttt{locations} Element
 \begin{itemize}
  \item kann null oder mehr Elemente des Typs \texttt{location} enthalten.
- \item muss ein Attribut \texttt{key} besitzen, dass den Schlüssel des \textit{locationType} enthält, der von der Klasse \texttt{Settings} benutzt wird.
+ \item muss ein Attribut \texttt{key} besitzen, das den Schlüssel des \textit{locationType} enthält, der von der Klasse \texttt{Settings} benutzt wird.
 \end{itemize}
 
  Das \texttt{location} Element:
 \begin{itemize}
  \item muss die folgenden Attribute besitzen: \texttt{details}, \texttt{type}, \texttt{name}
  \begin{itemize}
-  \item Das Attribut \texttt{details} enthält den Wert des details-Attributs des Objekts \textit{de.joglearth.surface.Location}.
+  \item Das Attribut \texttt{details} enthält den Wert des Detail-Attributs des Objekts \textit{de.joglearth.surface.Location}.
   \item Das Attribut \texttt{type} enthält die String Repräsentation des Typs, welcher durch Aufrufen von \texttt{toString} auf dem Enum \textit{locationType} erzeugt wurde.
-  \item Das Attribut \texttt{name} Namen des \texttt{Location}-Objekts als String.
+  \item Das Attribut \texttt{name} Namen des Location-Objekts als String.
   \end{itemize}
  \item muss genau ein Kindelement des Typs \textit{GeoCoordinates} besitzen, das die Attribute \texttt{longitude} und \texttt{latitude} enthält, deren Werte aus Java double oder Double stammen, die mittels \texttt{Double.toString} zu einem String umgewandelt wurden.
 \end{itemize}
@@ -1286,13 +1258,21 @@ Inhalt einer Beispiel XML-Datei:
 \begin{lstlisting}[frame=single]
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
-<entry key="LevelOfDetail" type="String" value="MEDIUM"/>
-<entry key="Language" type="String" value="GERMAN"/>
-<entry key="TextureFilter" type="Boolean" value="false"/>
-<locations key="UserLocations">
-  <location name="Passau" details="City next to the border" type="SER_TAG">
-    <geocoordinates longitude="0.84764824586968" latitude="0.23503767841967" />
+<entry key="exkey1" type="Integer" value="-5634"/>
+<entry key="exkey2" type="Long" value="34332423"/>
+<entry key="exkey3" type="String" value="somerandomstring"/>
+<entry key="exkey4" type="Double" value="0.0"/>
+<entry key="exkey5" type="Float" value="0.0"/>
+<entry key="exkey6" type="Boolean" value="true"/>
+<locations key="exkey7">
+  <location name="Name of Location" details="Some Details" type="USERMAKRKING">
+    <geocoordinates longitude="3.32" latitude="4.78" />
   </location>
+  <location name="Name of Location 2" details="Some Details" type="POST">
+    <geocoordinates longitude="3.32" latitude="4.79" />
+  </location>
+</locations>
+<locations key="exjey9">
 </locations>
 </settings>
 \end{lstlisting}
@@ -1323,6 +1303,8 @@ Punkt markieren & mark point\\
 Längengrad & Longitude \\
 \hline
 Breitengrad & Latitude \\
+\hline
+km (Kilometer) & km \\
 \hline
 Globus & globe \\
 \hline
