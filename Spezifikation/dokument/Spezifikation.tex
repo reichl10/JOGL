@@ -208,40 +208,78 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 \chapter{JUnit Tests}
 
 \section{Getestete Klassen}
-
-\begin{tabular}{|p{4cm}|p{11cm}|}
-\hline 
-\rule[-1ex]{0pt}{4ex} \textbf{Klasse} & \textbf{Erläuterung} \\ 
-\hline
-\hline
-\rule[-1ex]{0pt}{4ex} RequestDistributor & Überprüfen ob Anfragen in annehmbarer Zeit beantwortet werden. Prüfen das nicht mehrfache, gleiche Anfragen mehrmals ausgeführt werden \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} FileSystemCache &  \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} MemoryCache & Überprüfen ob eingefügte Objekte wieder gefunden werden können, und ob \textit{null} entsprechend abgefangen wird\\ 
-\hline
-\rule[-1ex]{0pt}{4ex} TextureCache & Überprüfen der \textit{dropObject()} Methode\\ 
-\hline
-\rule[-1ex]{0pt}{4ex} Camera & methoden: isPointVisible, getWindowPosition, getCoordinates \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} PlaneGeometry & \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} SphereGeometry & \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} Settings & Threadsicherheit + Listener testen \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} HTTPUtils & Alle Methoden testen ob sie richtige Ergebnisse liefern für HTTP Anfragen\\ 
-\hline
-\rule[-1ex]{0pt}{4ex} Paket Source insgesamt & Alle Queries überprüfen ob sie richtig konstruiert wurden, Sources ob sie die richten Daten liefern für bestimmte Anfragen, ob das listening auf Sources funktioniert\\ 
-\hline
-\rule[-1ex]{0pt}{4ex} HeightMapManager & Das er richtig auf abschalten des Höhenprofils reagiert (Settingsänderung), das er richtige Daten liefert. \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} LocationManager & Daten für bestimmte Punkte testen, Listener aufrufe prüfen \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} TextureManager & Ob man richtige Textur bekommt, ob er Texturen findet die schon im Grafikspeicher sind \\ 
-\hline
-
-\end{tabular}
+\begin{itemize}
+\item \texttt{de.joglearth.geometry}
+ \begin{itemize}
+ \item Camera
+ \item Matrix4
+ \item Tile
+ \item PlaneGeometry
+ \item SphereGeometry
+ \item Vektor3
+ \item Vektor4
+ \item GeoCoordinates:
+ \item ScreenCoordinates
+ \end{itemize}
+\item \texttt{de.joglearth.rendering}
+ \begin{itemize}
+ \item PlaneTesslator
+ \item SphereTesslator
+ \end{itemize}
+ \item \texttt{de.joglearth.settings}
+ \begin{itemize}
+ \item Settings
+ \item SettingsContract
+ \end{itemize}
+ \item \texttt{de.joglearth.source}
+ \begin{itemize}
+ \item ProgressManager
+ \end{itemize}
+ \item \texttt{de.joglearth.source.caching}
+ \begin{itemize}
+ \item ByteArrayMessurer
+ \item MemoryCache
+ \item RequestDistributor
+ \item UnityMeasure
+ \item FileSystemCache
+ \item PathTranslator
+ \end{itemize}
+ \item \texttt{de.joglearth.source.nominatim}
+ \begin{itemize}
+ \item NominatimManager
+ \item NominatimSource
+ \end{itemize}
+ \item \texttt{de.joglearth.source.opengl}
+ \begin{itemize}
+ \item TextureCache
+ \item TileTextureSource
+ \item TileMeshSource
+ \item VertexBufferCache
+ \end{itemize}
+ \item \texttt{de.joglearth.source.osm}
+ \begin{itemize}
+ \item OSMPathTranslator
+ \item OSMTileManager
+ \item OSMTile
+ \item OSMTileSource
+ \end{itemize}
+ \item \texttt{de.joglearth.source.srtm}
+ \begin{itemize}
+ \item SRTMBinarySource
+ \item SRTMTileIndex
+ \item SRTMPathTranslator
+ \item SRTMTileManager
+ \item SRTMTileSource
+ \end{itemize}
+ \item \texttt{de.joglearth.surface}
+ \begin{itemize}
+ \item HeightMap
+ \item TextureManager
+ \item Location
+ \item TileMeshManage
+ \item LocationManager
+ \end{itemize}
+\end{itemize}
 
 \newpage
 \section{Testfälle}
