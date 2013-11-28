@@ -1453,6 +1453,7 @@ Grüne Balken & Fabian Knorr, Thomas Eder \& Sebastian Reichl\\
 
 \vspace{2mm}
 
+\section{Implementierungspakete der Klassen}
 \subsection*{UI, Rendering, Settings}
 \begin{itemize}
 \item \textbf{Settings}\\
@@ -1556,8 +1557,63 @@ de.joglearth.rendering.Renderer.???
 de.joglearth.JoglEarth.main()
 \end{itemize}
 
-\includepdf[pages={1-3}]{Gantt_JoglEarth.pdf}
+\section{Implementierungspakete der JUnit-Tests}
+\begin{itemize}
+ \item \textbf{Geometrie-Test}\\
+ de.joglearth.geometry.PlaneGeometry\\
+ de.joglearth.geometry.SphereGeometry\\
+ de.joglearth.geometry.Camera\\
+ de.joglearth.geometry.Tile\\
+ de.joglearth.geometry.GeoCoordinates\\
+ de.joglearth.geometry.ScreenCoordinates\\
+ de.joglearth.rendering.PlaneTesslator\\
+ de.joglearth.rendering.SphereTesslator
+ \item \textbf{Kachelmesh-Test}\\
+ de.joglearth.source.opengl.VertexBufferCache\\
+ de.joglearth.source.opengl.TileMeshSource\\
+ de.joglearth.source.osm.OSMPathTranslator\\
+ de.joglearth.source.osm.OSMTileManager\\
+ de.joglearth.source.osm.OSMTile\\
+ de.joglearth.source.osm.OSMTileSource\\
+ de.joglearth.surface.TileMeshManager
+ \item \textbf{Settings-Test}\\
+ de.joglearth.settings.Settings\\
+ de.joglearth.settings.SettingsContract
+ \item \textbf{Matrix- / Vektor-Test}\\
+ de.joglearth.geometry.Matrix4\\
+ de.joglearth.geometry.Vektor3\\
+ de.joglearth.geometry.Vektor4
+ \item \textbf{ProgressManager-Test}\\
+ de.joglearth.source.ProgressManager
+ \item \textbf{HTTPUtils-Test}\\
+ de.joglearth.util.HTTP
+ \item \textbf{HeightMap-Test}\\
+ de.joglearth.surface.HeightMap
+ \item \textbf{Caching-Test}\\
+ de.joglearth.source.caching.MemoryCache\\
+ de.joglearth.source.caching.FileSystemCache\\
+ de.joglearth.source.caching.ByteArrayMessurer\\
+ de.joglearth.source.caching.RequestDistributor\\
+ de.joglearth.source.caching.UnityMeasure\\
+ de.joglearth.source.caching.PathTranslator
+ de.joglearth.source.opengl.TextureCache\\
+ \item \textbf{SRTMTileSource-Test}\\
+ de.joglearth.source.srtm.SRTMTileSource
+ \item \textbf{Texturkachel-Test}\\
+ de.joglearth.surface.TextureManager\\
+ de.joglearth.source.opengl.TileTextureSource\\
+ de.joglearth.source.srtm.STRMBinarySource\\
+ de.joglearth.source.srtm.STRMTileIndex\\
+ de.joglearth.source.srtm.STRMPathTranslator\\
+ de.joglearth.source.srtm.STRMTileManager
+ \item \textbf{Location-Test}\\
+ de.joglearth.surface.Location\\
+ de.joglearth.surface.LocationManager\\
+ de.joglearth.source.nominatim.NominatimManager\\
+ de.joglearth.source.naminatim.NominatimSource
+\end{itemize}
 
+\includepdf[pages={1-3}]{Gantt_JoglEarth.pdf}
 
 \chapter{Änderungen gegenüber dem Entwurf}
 
