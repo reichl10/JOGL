@@ -7,8 +7,14 @@ package de.joglearth.source;
  */
 public class SourceResponse<Value> {
 
-    SourceResponseType response;
-    Value              value;
+    /**
+     * The type of this response.
+     */
+    public SourceResponseType response;
+    /**
+     * The value of this response.
+     */
+    public Value              value;
 
 
     /**
