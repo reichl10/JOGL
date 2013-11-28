@@ -5,18 +5,19 @@ import de.joglearth.source.SourceResponse;
 
 
 /**
- * Implements the {@link Cache} interface in such way that it stores objects in the file system.
+ * Implements the {@link de.joglEarth.source.caching.Cache} interface in such way that it stores
+ * objects in the file system.
  * 
  */
 public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
-    private String              folder;
+    private String folder;
     private PathTranslator<Key> paths;
 
 
     /**
      * Constructor.Initializes a <code>FileSystemCache</code> as it assigns values to the
-     * <code>folder</code> value and the {@link PathTranslator}.
+     * <code>folder</code> value and the {@link de.joglEarth.source.caching.PathTranslator}.
      * 
      * @param folder The name of the folder where the objects should be stored
      * @param p The <code>PathTranslator</code> that is used by the <code>FileSystemCache</code> to

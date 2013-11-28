@@ -6,7 +6,7 @@ package de.joglearth.geometry;
 public interface CameraListener {
     
     /**
-     * Called whenever a setting of {@link Camera} changes.
+     * Is called whenever a setting of the {@link Camera} changes.
      */    
 	void cameraViewChanged();
 }

@@ -17,12 +17,12 @@ import de.joglearth.surface.SurfaceListener;
  */
 public class Camera {
 
-    private GeoCoordinates       position;
-    private double               distance;
-    private double               tiltX;
-    private double               tiltY;
-    private Matrix4              clipMatrix, projectionMatrix;
-    private Geometry             geometry;
+    private GeoCoordinates position;
+    private double distance;
+    private double tiltX;
+    private double tiltY;
+    private Matrix4 clipMatrix, projectionMatrix;
+    private Geometry geometry;
     private List<CameraListener> listeners;
 
 
@@ -64,7 +64,7 @@ public class Camera {
     /**
      * Sets a new {@link Geometry} object for model-specific computations.
      * 
-     * @param g The new Geometry object.
+     * @param g The new Geometry object
      */
     public void setGeometry(Geometry g) {
         this.geometry = g;
@@ -73,7 +73,7 @@ public class Camera {
     /**
      * Sets the position the {@link Camera} is currently over.
      * 
-     * @param coords The {@link GeoCoordinates} of the camera's position.
+     * @param coords The {@link GeoCoordinates} of the camera's position
      */
     public void setPosition(GeoCoordinates coords) {
         this.position = coords;
@@ -83,7 +83,7 @@ public class Camera {
     /**
      * Sets the {@link Camera}'s distance to the surface.
      * 
-     * @param distance The distance.
+     * @param distance The distance
      */
     public void setDistance(double distance) {
         this.distance = distance;
@@ -94,10 +94,10 @@ public class Camera {
      * Sets the parameters for the perspective transformation done by the projection matrix.
      * 
      * @param fov The field of view, in radians. This is the angular distance of the left and right
-     *        clipping plane. 90° (PI/2) by default.
-     * @param aspectRatio The aspect ratio, i.e. the width-to-height ratio. 1 by default.
-     * @param near The distance of the near clipping plane to the camera position. 0.1 by default.
-     * @param far The distance of the far clipping plane to the camera position. 1000.0 by default.
+     *        clipping plane. 90° (PI/2) by default
+     * @param aspectRatio The aspect ratio, i.e. the width-to-height ratio. 1 by default
+     * @param near The distance of the near clipping plane to the camera position. 0.1 by default
+     * @param far The distance of the far clipping plane to the camera position. 1000.0 by default
      */
     public void setPerspective(double fov, double aspectRatio, double near, double far) {
         double f = 1.f / (double) Math.tan(fov * 0.5f);
@@ -120,8 +120,8 @@ public class Camera {
     /**
      * Sets the {@link Camera} tilt to a specific value.
      * 
-     * @param x The tilt around the x axis ("up and down").
-     * @param y The tilt around the y axis ("left and right").
+     * @param x The tilt around the x axis ("up and down")
+     * @param y The tilt around the y axis ("left and right")
      */
     public void setTilt(double x, double y) {
 
@@ -130,8 +130,8 @@ public class Camera {
     /**
      * Changes the tilt by a difference value.
      * 
-     * @param deltaX The tilt difference around the x axis ("up and down").
-     * @param deltaY The tilt difference around the y axis ("left and right").
+     * @param deltaX The tilt difference around the x axis ("up and down")
+     * @param deltaY The tilt difference around the y axis ("left and right")
      */
     public void tilt(double deltaX, double deltaY) {
         this.tiltX += deltaX;
@@ -142,8 +142,8 @@ public class Camera {
     /**
      * Changes the {@link Camera}'s surface position by difference values.
      * 
-     * @param deltaLon The angular distance to move in longitude direction.
-     * @param deltaLat The angular distance to move in latitude direction.
+     * @param deltaLon The angular distance to move in longitude direction
+     * @param deltaLat The angular distance to move in latitude direction
      */
     public void move(double deltaLon, double deltaLat) {
         updateProjectionMatrix();
@@ -160,8 +160,8 @@ public class Camera {
      * limited by both the viewport (the clipping planes) and parts of the scene closer to the
      * camera that might shadow others (the back of the globe, for example).
      * 
-     * @param geo The coordinates to check for.
-     * @return Whether the point is visible.
+     * @param geo The coordinates to check for
+     * @return Whether the point is visible
      */
     public boolean isPointVisible(GeoCoordinates geo) {
         return false;
@@ -171,8 +171,8 @@ public class Camera {
      * Calculates the screen coordinates of a visible point given in longitude and latitude
      * coordinates. If the point is not visible, the result is unspecified.
      * 
-     * @param geo The point's coordinates.
-     * @return The coordinates of the point on the screen.
+     * @param geo The point's coordinates
+     * @return The coordinates of the point on the screen
      */
     public ScreenCoordinates getScreenCoordinates(GeoCoordinates geo) {
         return null;
@@ -182,9 +182,9 @@ public class Camera {
      * Calculates the longitude and latitude coordinates of the point underneath a point on the
      * screen.
      * 
-     * @param screen The screen coordinates.
-     * @return The surface coordinates if the point maps to the surface, null if it points outside
-     *         the plane or globe ("space").
+     * @param screen The screen coordinates
+     * @return The surface coordinates if the point maps to the surface, <code>null</code> if it
+     *         points outside the plane or globe ("space")
      */
     public GeoCoordinates getGeoCoordinates(ScreenCoordinates screen) {
         return null;
@@ -196,7 +196,7 @@ public class Camera {
      * All tiles have the same detail level, which is calculated from the distance and number of
      * visible tiles.
      * 
-     * @return The array of visible tiles.
+     * @return The array of visible tiles
      */
     public Tile[] getVisibleTiles() {
         return null;
@@ -209,7 +209,7 @@ public class Camera {
      * produce a picture corresponding to whatever results the camera visibility and projection
      * methods produced for these settings.
      * 
-     * @return The projection matrix.
+     * @return The projection matrix
      */
     public Matrix4 getProjectionMatrix() {
         return projectionMatrix;
