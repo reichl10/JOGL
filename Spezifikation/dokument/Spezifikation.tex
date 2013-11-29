@@ -56,6 +56,8 @@
 \newcommand{\hyperlink}[2]{#1}
 \usepackage{colortbl}
 
+\renewcommand{\doxyref}[3]{\textbf{#1}}
+
 \makeatletter
 \patchcmd{\@makechapterhead}{\vspace*{50\p@}}{\vspace*{-20\p@}}{}{}
 \patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{\vspace*{7\p@}}{}{}
@@ -471,9 +473,33 @@ Die Verschiebung oder Drehung, die aus einer Mausbewegung folgt, ist modellunabh
 
 Zur Bestimmung des Drehwinkels in Längen- und Breitengradrichtung geschieht durch die Konstruktion zweier Blickwinkelgeraden für Start- und Zielpunkt gemäß Abschnitt 5.1 und Bildung der Differenz.
 
+
 \section{Berechnung der Bildposition eines Punktes im Raum}
 
+Bei der perspektivischen Projektion durch OpenGL wird das pyramidenstumpfförmige Sichtfeld durch Multiplikation mit der Projektionsmatrix $P$ in die Gestalt eines Quaders verzerrt. Nach der Rückrechnung von den entstehenden homogenen in kartesische Koordinaten bestimmen die X- und Y-Komponente des Punktes bereits dessen endgültige Position $u,v$ am Bildschirm.
+
+\[
+\left(\begin{array}{c}x'\\y'\\z'\\w'\end{array}\right)\ =\ P\cdot \left(\begin{array}{c}x\\y\\z\\1\end{array}\right)
+\]
+\[
+\left(\begin{array}{c}u\\v\end{array}\right)\ =\ \frac{1}{w'}\left(\begin{array}{c}x'\\y'\end{array}\right)
+\]
+
+Diese Berechnung kann manuell nachvollzogen werden, um Unabhängig vom Rendervorgang bestimmen zu können, wo ein Punkt auf dem fertigen Bild erscheinen wird.
+
 \section{Berechnung der Raumposition eines Oberflächenpunkts}
+
+\subsection*{Bei der Kartenebene}
+
+Aus der Definition der Ebenengleichung folgt für die Raumposition:
+
+\[\vec{x} = \left(\begin{array}{c}lon\\lat\\0\end{array}\right)\]
+
+\subsection*{Beim Globus}
+
+Der Äquator steht senkrecht zur Y-Achse; der Radius der Kugel ist per definitionem 1. Für die Raumkoordinaten ergeben sich also:
+
+\[\vec{x} = \left(\begin{array}{c}\sin lon\\\sin lat\\\cos lon\end{array}\right)\]
 
 \section{Bestimmung der prinzipiellen Sichtbarkeit eines Punktes der Oberfläche}
 Die prinzipielle Sichtbarkeit eines Punktes sagt aus, ob die Oberfläche dem Betrachter zugewandt ist. Das ist für die Kartenebene trivialerweise immer der Fall, beim Globus muss eine Unterscheidung zwischen Vorder- und Rückseite vorgenommen werden.\\
@@ -490,11 +516,44 @@ Die Sichtbarkeitsabfrage bezüglich Blickrichtung und Bildausschnitt kann auf di
 
 \section{Erzeugung der Projektionsmatrix}
 
+Die Projektionsmatrix $P$, die den Modell- in den Bildbereich transformiert, ist als Produkt aus der Inversen der \textit{View-Matrix} $V$ und der \textit{Clip-Matrix} $C$:
+\[P=C\cdot V^{-1}\]
+Die View-Matrix ist eine Einheitsmatrix, deren Dreh- und Verschiebungsoperationen der Transformation der Kamera entspricht.\\[3mm]
+Die Clip-Matrix verzerrt den sichtbaren Pyramidenstumpf in den Quader des Bildbereichs. Sie ist durch den Blickwinkel $FOV$, das Seitenverhältnis \textit{Breite:Höhe} $aspect$ und den Abstand der Kameraposition zur \textit{Near clipping Plane} $zNear$ und zur \textit{Far clipping plane} $zFar$ gegeben. Dabei bezeichnen \textit{Clipping planes} die vordere und hintere Pyramidenebene.\\[3mm]
+Es gilt:
+\[
+\renewcommand*{\arraystretch}{1.8}
+C=\begin{pmatrix}\frac{zNear}{aspect} & 0 & 0 & 0\\ 0 & zNear & 0 & 0\\0 & 0 & \frac{zFar+zNear}{zFar-zNear} & 1\\0 & 0 & -\frac{2 zNear\cdot zFar}{zFar-zNear} & 0\end{pmatrix}
+\]
+\vspace{2mm}
+
 \section{Bestimmung der geographischen Höhe eines Punkts aus SRTM-Daten}
 
 \section{Bestimmung aller sichtbarer Kacheln}
 
+\begin{wrapfigure}{l}{8cm}
+\includegraphics[scale=0.75]{algo/KachelnDraufsicht.eps}
+\end{wrapfigure}
+
+
+\begin{wrapfigure}{r}{8cm}
+\includegraphics[scale=0.75]{algo/KachelnHorizont.eps}
+\end{wrapfigure}
+
+
+\begin{wrapfigure}{l}{8cm}
+\includegraphics[scale=0.75]{algo/KachelnPole.eps}
+\end{wrapfigure}
+
+
+\begin{wrapfigure}{r}{8cm}
+\includegraphics[scale=0.75]{algo/EbeneHorizont.eps}
+\end{wrapfigure}
+
+
+
 \section{Scheduling des Renderers}
+
 
 \section{Verwaltung von Elementen in Caches}
 
