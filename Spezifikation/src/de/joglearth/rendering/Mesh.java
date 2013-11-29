@@ -26,7 +26,7 @@ public final class Mesh {
 
 
     /**
-     * Constructor. Initializes the {@link Mesh}
+     * Constructor. Initializes the {@link de.joglearth.rendering.Mesh}
      * 
      * @param vertices The array of vertices, normals and texture coordinates according to the
      *        vertex format
@@ -40,7 +40,7 @@ public final class Mesh {
     }
 
     /**
-     * Default constructor. Initializes an empty {@link Mesh}.
+     * Default constructor. Initializes an empty {@link de.joglearth.rendering.Mesh}.
      */
     public Mesh() {
 

@@ -3,7 +3,7 @@ package de.joglearth.source.osm;
 import de.joglearth.source.caching.PathTranslator;
 
 /**
- * Implements the {@link PathTranslator} interface {@link OSMTile}s.
+ * Implements the {@link de.joglearth.source.caching.PathTranslator} interface {@link de.joglearth.source.osm.OSMTile}.
  */
 public class OSMPathTranslator implements PathTranslator<OSMTile> {
 

@@ -24,9 +24,8 @@ public class SRTMBinarySource implements Source<SRTMTileIndex, byte[]> {
 
 
     /**
-     * Constructor. Initializes the {@link SRTMTileSource}.
+     * Constructor. Initializes the {@link de.joglearth.source.srtm.SRTMTileSource}.
      * 
-     * @param servers An array of servers delivered as Strings
      */
     public SRTMBinarySource() {}
 

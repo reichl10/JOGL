@@ -16,10 +16,12 @@ public class SRTMTileSource implements Source<SRTMTileIndex, SRTMTile> {
 
     private Source<SRTMTileIndex, byte[]> binary;
 
+
     /**
-     * Constructor. Initializes the {@link SRTMTileSource} as it assigns a value to the
-     * {@link Source} of <code>SRTMTileSource</code>
-     * @param binarySource The {@link Source} thats assigned
+     * Constructor. Initializes the {@link de.joglearth.source.srtm.SRTMTileSource} as it assigns a
+     * value to the {@link de.joglearth.source.Source} of <code>SRTMTileSource</code>
+     * 
+     * @param binarySource The <code>Source</code> thats assigned
      */
     public SRTMTileSource(Source<SRTMTileIndex, byte[]> binarySource) {
         binary = binarySource;

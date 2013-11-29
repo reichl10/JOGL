@@ -5,7 +5,7 @@
 \item 
 {\bf Vector3} ()
 \item 
-{\bf Vector3} (double x, double y, double z)
+{\bf Vector3} (double {\bf x}, double {\bf y}, double {\bf z})
 \item 
 {\bf Vector3} {\bf clone} ()
 \item 
@@ -34,14 +34,11 @@ boolean {\bfseries equals} (Object obj)\label{classde_1_1joglearth_1_1geometry_1
 \subsection*{Öffentliche Attribute}
 \begin{DoxyCompactItemize}
 \item 
-double {\bfseries x}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a3f2050e4ad0d81adb717429a87246377}
-
+double {\bf x}
 \item 
-double {\bfseries y}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_aa7f5535f1ac0cefcbaf1aa56d17f5f5e}
-
+double {\bf y}
 \item 
-double {\bfseries z}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a18ed3b85836716833940d4fd412ff3e6}
-
+double {\bf z}
 \end{DoxyCompactItemize}
 
 
@@ -112,7 +109,7 @@ An exact copy of the vector
 \item[{{\bf Vector3}}]{v}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_adfb946e7ee59b74a421eba255bd5b504}
-Calculates the cross product of a given \doxyref{Vector3}{S.}{classde_1_1joglearth_1_1geometry_1_1_vector3}.
+Calculates the cross product of a given \doxyref{de.\-joglearth.\-geometry.\-Vector3}{S.}{}.
 
 
 \begin{DoxyParams}{Parameter}
@@ -161,7 +158,7 @@ The difference
 Normalizes the vector, so that \doxyref{length()}{S.}{classde_1_1joglearth_1_1geometry_1_1_vector3_a47bf183b1df757adffdd0991750390c4} == 1.
 
 \begin{DoxyReturn}{Rückgabe}
-A normalized \doxyref{Vector3}{S.}{classde_1_1joglearth_1_1geometry_1_1_vector3} 
+A normalized {\ttfamily \doxyref{Vector3}{S.}{classde_1_1joglearth_1_1geometry_1_1_vector3}} 
 \end{DoxyReturn}
 \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!plus@{plus}}
 \index{plus@{plus}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
@@ -214,3 +211,16 @@ Calculates the difference vector from another \doxyref{Vector3}{S.}{classde_1_1j
 \begin{DoxyReturn}{Rückgabe}
 The difference 
 \end{DoxyReturn}
+
+
+\subsection{Dokumentation der Datenelemente}
+\index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!x@{x}}
+\index{x@{x}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
+\subsubsection[{x}]{\setlength{\rightskip}{0pt plus 5cm}double de.\-joglearth.\-geometry.\-Vector3.\-x}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a3f2050e4ad0d81adb717429a87246377}
+The X (first) component of the vector. \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!y@{y}}
+\index{y@{y}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
+\subsubsection[{y}]{\setlength{\rightskip}{0pt plus 5cm}double de.\-joglearth.\-geometry.\-Vector3.\-y}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_aa7f5535f1ac0cefcbaf1aa56d17f5f5e}
+The Y (second) component of the vector. \index{de\-::joglearth\-::geometry\-::\-Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}!z@{z}}
+\index{z@{z}!de::joglearth::geometry::Vector3@{de\-::joglearth\-::geometry\-::\-Vector3}}
+\subsubsection[{z}]{\setlength{\rightskip}{0pt plus 5cm}double de.\-joglearth.\-geometry.\-Vector3.\-z}\label{classde_1_1joglearth_1_1geometry_1_1_vector3_a18ed3b85836716833940d4fd412ff3e6}
+The Z (third) component of the vector. 

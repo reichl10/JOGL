@@ -18,11 +18,12 @@ import de.joglearth.util.Predicate;
  */
 public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
-    private int[] FreeCacheSpace;
+    private int[]                  FreeCacheSpace;
     private ArrayList<CacheHandle> caches;
-    private HashSet<Key> pendingRequests; // prevent processing multiple requests for same key
-    private Source<Key, Value> source;
-    private ObjectMeasure<Value> measure;
+    private HashSet<Key>           pendingRequests; // prevent processing multiple requests for same
+                                                    // key
+    private Source<Key, Value>     source;
+    private ObjectMeasure<Value>   measure;
 
 
     /**
@@ -45,10 +46,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
     private class CacheHandle {
 
-        public Cache<Key, Value> cache;
+        public Cache<Key, Value>   cache;
         public TreeSet<CacheEntry> tree;
         public HashSet<CacheEntry> hash;
-        public int maxSize;
+        public int                 maxSize;
     }
 
     private class CacheListener implements SourceListener<Key, Value> {
@@ -69,7 +70,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      *        constructor, has to be greater than <code>0</code>
      */
     public void addCache(Cache<Key, Value> cache, int maxSize) {
-        //TODO maxSize should probably have a minimum value
+        // TODO maxSize should probably have a minimum value
 
     }
 
@@ -81,12 +82,12 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * @param maxSize The new maximum size, has to be greater than <code>0</code>
      */
     public void setCacheSize(Cache<Key, Value> cache, int maxSize) {
-        //TODO maxSize should probably have a minimum value
+        // TODO maxSize should probably have a minimum value
 
     }
 
     /**
-     * Replaces the {@link Source}.
+     * Replaces the {@link de.joglearth.source.Source}.
      * 
      * @param source The new source
      */
@@ -95,11 +96,12 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     /**
-     * Tries to retrieve a requested object. Asks {@link Cache}s in the order of their hierarchy, if
-     * the object is not in the <code>Caches</code> it asks its {@link Source}. Objects that are not
-     * found in the primary <code>Cache</code>, but in another <code>Cache</code> or the
-     * <code>Source</code> are stored in the primary <code>Cache</code>. This may lead to
-     * displacements of other objects from the primary <code>Cache</code>.
+     * Tries to retrieve a requested object. Asks {@link de.joglearth.source.caching.Cache} in the
+     * order of their hierarchy, if the object is not in the <code>Caches</code> it asks its
+     * {@link de.joglearth.source.Source}. Objects that are not found in the primary
+     * <code>Cache</code>, but in another <code>Cache</code> or the <code>Source</code> are stored
+     * in the primary <code>Cache</code>. This may lead to displacements of other objects from the
+     * primary <code>Cache</code>.
      * 
      * @param key Identifier of the requested object
      * @param sender Entity to be notified when request is completed asynchronous
@@ -118,7 +120,8 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * exists. Method calls itself recursive if next lower cache is full. When argument is invalid,
      * this method does nothing.
      * 
-     * @param ArrayPositionOfCacheToDropEntry
+     * @param ArrayPositionOfCacheToDropEntry The position of a cache in the <code>caches</code>
+     *        Array
      */
     private void displace(int ArrayPositionOfCacheToDropEntry) {}
 
@@ -140,7 +143,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     /**
      * Constructor.
      * 
-     * @param m The {@link ObjectMeasure} to use
+     * @param m The <code>ObjectMeasure</code> to use
      */
     public RequestDistributor(ObjectMeasure<Value> m) {
         /*
@@ -151,7 +154,8 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     /**
-     * Default constructor. Uses {@link UnityMeasure} as {@link ObjectMeasure}.
+     * Default constructor. Uses {@link de.joglearth.source.caching.UnityMeasure} as
+     * {@link de.joglearth.source.caching.ObjectMeasure}.
      */
     public RequestDistributor() {
         this(new UnityMeasure<Value>());
@@ -165,16 +169,19 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     /**
-     * Removes all objects from the {@link cache}s that fulfill the {@link Predicate}.
+     * Removes all objects from the {@link de.joglearth.source.caching.Cache} that fulfill the
+     * {@link de.joglearth.util.Predicate}.
      * 
-     * @param pred Conformance with that <code>Predicate</code> leads to deletion of that object
+     * @param pred Conformance with that <code>Predicate</code> leads to deletion of
+     *        that object
      */
     public void dropAll(Predicate<Key> pred) {
 
     }
 
     /**
-     * Removes an object stored under a <code>Key</code> from the {@link Cache} that contains it.
+     * Removes an object stored under a <code>Key</code> from the
+     * {@link de.joglearth.source.caching.Cache} that contains it.
      * 
      * @param k The key identifying the object
      */

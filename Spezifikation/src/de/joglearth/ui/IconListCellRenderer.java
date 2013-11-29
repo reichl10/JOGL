@@ -9,12 +9,12 @@ import javax.swing.ListCellRenderer;
 /**
  * Renderer implementation used to render iconized List and ComboBox items.
  *
- * @param E The item type, usually {@link IconizedItem}
+ * @param E The item type, usually {@link de.joglearth.ui.IconizedItem}
  */
 public class IconListCellRenderer<E> extends JLabel implements ListCellRenderer<E> {
 
 	/**
-     * Makes the compiler happy.
+     * SerialVersionUID
      */
     private static final long serialVersionUID = 71902586978221445L;
     

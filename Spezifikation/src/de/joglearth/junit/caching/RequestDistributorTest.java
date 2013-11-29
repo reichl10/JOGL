@@ -1,87 +1,79 @@
 package de.joglearth.junit.caching;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Random;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.joglearth.source.Source;
+import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.source.SourceListener;
+import de.joglearth.source.caching.Cache;
 import de.joglearth.source.caching.RequestDistributor;
 
 
-/**
- * @internal
- */
 public class RequestDistributorTest {
 
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {}
+    @Test
+    public final void testAddCache() {
+        Cache<Integer, Integer> simpleCache = new Cache<Integer, Integer>() {
 
-    @AfterClass
-    public static void tearDownAfterClass() throws Exception {}
-
-    @Before
-    public void setUp() throws Exception {}
-
-    @After
-    public void tearDown() throws Exception {}
-
-    @Test(timeout = 11000)
-    public void testRequestObject() {
-        RequestDistributor<Integer, Integer> t = new RequestDistributor<Integer, Integer>();
-        final Integer[] resultArray = new Integer[5];
-        final Set<Integer> waitList = new HashSet<Integer>();
-
-        /**
-         * Trivial Source
-         */
-        Source<Integer, Integer> source = new Source<Integer, Integer>() {
-
-            private SourceResponse<Integer> responseAsync = new SourceResponse<Integer>(
-                    SourceResponseType.ASYNCHRONOUS, null);
-            private ExecutorService exec = Executors.newFixedThreadPool(5);
+            Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 
 
             @Override
-            public SourceResponse<Integer> requestObject(final Integer key,
-                    final SourceListener<Integer, Integer> sender) {
-                int i = ThreadLocalRandom.current().nextInt(5);
-                if (i == 4) {
-                    return new SourceResponse<Integer>(SourceResponseType.SYNCHRONOUS, 33);
-                } else {
-                    Runnable a = new Runnable() {
-
-                        @Override
-                        public void run() {
-                            try {
-                                this.wait(ThreadLocalRandom.current().nextInt(1000));
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            sender.requestCompleted(key, new Integer(34));
-                        }
-                    };
-                    exec.execute(a);
-                    return responseAsync;
-                }
+            public SourceResponse<Integer> requestObject(Integer key,
+                    SourceListener<Integer, Integer> sender) {
+                return new SourceResponse<Integer>(SourceResponseType.SYNCHRONOUS, map.get(key));
             }
-        };
 
+            @Override
+            public void putObject(Integer k, Integer v) {
+                map.put(k, v);
+            }
+
+            @Override
+            public void dropObject(Integer k) {
+                map.remove(k);
+            }
+
+            @Override
+            public Iterable<Integer> getExistingObjects() {
+                return map.values();
+            }
+
+            @Override
+            public void dropAll() {
+                map.clear();
+            }
+
+        };
+        RequestDistributor<Integer, Integer> t = new RequestDistributor<Integer, Integer>();
+        try {
+            t.addCache(null, 0);
+        } catch (IllegalArgumentException e) {
+            fail("This method does not accept null as cache argument but doesn't state so in its documentation.");
+        }
+        t.addCache(simpleCache, 100);
+    }
+
+    @Test(timeout = 11000)
+    public final void testRequestObject() {
+        RequestDistributor<Integer, Integer> t = new RequestDistributor<Integer, Integer>();
+        final Integer[] resultArray = new Integer[5];
+        final Set<Integer> waitList = new HashSet<Integer>();
+        Source<Integer, Integer> source = new TrivialTestSource();
         t.setSource(source);
         SourceListener<Integer, Integer> listener = new SourceListener<Integer, Integer>() {
 
@@ -104,16 +96,110 @@ public class RequestDistributorTest {
                 waitList.remove(new Integer(c));
             }
         }
-        
+
         while (waitList.size() > 0) {
             try {
                 this.wait(10);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
-        
     }
 
+    @Test
+    public final void testDropAll() {
+        SourceListener<Integer, Integer> listener = new SourceListener<Integer, Integer>() {
+
+            @Override
+            public void requestCompleted(Integer key, Integer value) {}
+        };
+        class MockCache implements Cache<Integer, Integer> {
+
+            Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+
+            @Override
+            public SourceResponse<Integer> requestObject(Integer key,
+                    SourceListener<Integer, Integer> sender) {
+                return new SourceResponse<Integer>(SourceResponseType.SYNCHRONOUS, map.get(key));
+            }
+
+            @Override
+            public void putObject(Integer k, Integer v) {
+                map.put(k, v);
+            }
+
+            @Override
+            public void dropObject(Integer k) {
+                map.remove(k);
+            }
+
+            @Override
+            public Iterable<Integer> getExistingObjects() {
+                return map.values();
+            }
+
+            @Override
+            public void dropAll() {
+                map.clear();
+            }
+
+            public int getSizeOfCache() {
+                return map.size();
+            }
+
+        }
+        ;
+        MockCache simpleCache = new MockCache();
+        RequestDistributor<Integer, Integer> t = new RequestDistributor<Integer, Integer>();
+        t.addCache(simpleCache, 100);
+        t.setSource(new TrivialTestSource());
+        for (int i = 0; i < 100; i++) {
+            t.requestObject(new Integer(i), listener);
+        }
+        assertEquals("The RequestDistributor did not store all the objects.", new Integer(100),
+                new Integer(simpleCache.getSizeOfCache()));
+        t.dropAll();
+        assertTrue("The RequestDistributor did not drop all objects.", 0 == simpleCache.getSizeOfCache());
+    }
+
+    @Test
+    public final void testDropAllPredicateOfKey() {
+        fail("Not yet implemented"); // TODO
+    }
+
+    /**
+     * Trivial Source
+     */
+    private class TrivialTestSource implements Source<Integer, Integer> {
+
+        private SourceResponse<Integer> responseAsync = new SourceResponse<Integer>(
+                SourceResponseType.ASYNCHRONOUS, null);
+        private ExecutorService exec = Executors.newFixedThreadPool(5);
+
+
+        @Override
+        public SourceResponse<Integer> requestObject(final Integer key,
+                final SourceListener<Integer, Integer> sender) {
+            int i = ThreadLocalRandom.current().nextInt(5);
+            if (i == 4) {
+                return new SourceResponse<Integer>(SourceResponseType.SYNCHRONOUS, 33);
+            } else {
+                Runnable a = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            this.wait(ThreadLocalRandom.current().nextInt(1000));
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        sender.requestCompleted(key, new Integer(34));
+                    }
+                };
+                exec.execute(a);
+                return responseAsync;
+            }
+        }
+    };
 }

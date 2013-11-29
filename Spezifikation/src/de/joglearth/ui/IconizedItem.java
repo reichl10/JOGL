@@ -5,7 +5,7 @@ import javax.swing.Icon;
 
 /**
  * An aggregation of a generic value, a caption and a Swing icon, used with a
- * {@link IconListCellRenderer} to display iconized List and ComboBox items.
+ * {@link de.joglearth.ui.IconListCellRenderer} to display iconized List and ComboBox items.
  * 
  * @param E The generic value type.
  */
@@ -16,6 +16,7 @@ public class IconizedItem<E> extends NamedItem<E> {
 
     /**
      * Constructor. Creates an IconizedItem with value <code>null</code>.
+     * 
      * @param name The caption, later returned by toString().
      * @param icon The icon.
      */
@@ -26,6 +27,7 @@ public class IconizedItem<E> extends NamedItem<E> {
 
     /**
      * Constructor.
+     * 
      * @param name The caption, later returned by toString().
      * @param icon The icon.
      * @param value The value.
@@ -37,6 +39,7 @@ public class IconizedItem<E> extends NamedItem<E> {
 
     /**
      * Returns the icon passed to the constructor.
+     * 
      * @return The icon.
      */
     public Icon getIcon() {

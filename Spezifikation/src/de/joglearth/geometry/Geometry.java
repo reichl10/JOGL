@@ -32,6 +32,7 @@ public interface Geometry {
      * point and the model center (The globes center or infinity for the map plane) and the map
      * surface.
      * 
+     * @param cameraPosition The actual position of the camera
      * @param viewVector The origin point
      * @return The surface coordinates
      */

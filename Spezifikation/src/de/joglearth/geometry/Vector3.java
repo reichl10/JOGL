@@ -5,8 +5,19 @@ package de.joglearth.geometry;
  */
 public final class Vector3 implements Cloneable {
 
+    /**
+     * The X (first) component of the vector.
+     */
     public double x;
+    
+    /**
+     * The Y (second) component of the vector.
+     */
     public double y;
+    
+    /**
+     * The Z (third) component of the vector.
+     */
     public double z;
 
 
@@ -102,7 +113,7 @@ public final class Vector3 implements Cloneable {
     /**
      * Normalizes the vector, so that length() == 1.
      * 
-     * @return A normalized {@link Vector3}
+     * @return A normalized <code>Vector3</code>
      */
     public Vector3 normalized() {
         double l = length();
@@ -110,7 +121,7 @@ public final class Vector3 implements Cloneable {
     }
 
     /**
-     * Calculates the cross product of a given {@link Vector3}.
+     * Calculates the cross product of a given {@link de.joglearth.geometry.Vector3}.
      * 
      * @param v The vector, must not be <code>null</code>
      * @return The cross product of the vector

@@ -18,7 +18,7 @@ public final class HeightMap {
 
     /**
      * Tries to determine the height of a point using the SRTM data that contains its
-     * {@link GeoCoordinates} or returns default <code>0</code> if no value was found.
+     * {@link de.joglearth.geometry.GeoCoordinates} or returns default <code>0</code> if no value was found.
      * 
      * @param coords The <code>GeoCoordinates</code> of the point
      * @return The height of the wanted point, <code>0</code> if the height of the point is not yet

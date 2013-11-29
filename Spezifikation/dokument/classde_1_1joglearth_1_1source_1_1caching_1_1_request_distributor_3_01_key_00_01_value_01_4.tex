@@ -53,7 +53,7 @@ Constructor.
 
 
 \begin{DoxyParams}{Parameter}
-{\em m} & The \doxyref{Object\-Measure}{S.}{} to use \\
+{\em m} & The {\ttfamily Object\-Measure} to use \\
 \hline
 \end{DoxyParams}
 \index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!Request\-Distributor@{Request\-Distributor}}
@@ -63,7 +63,7 @@ Constructor.
 {}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a2951a2de7bb7e752b1570991d3419ad4}
-Default constructor. Uses \doxyref{Unity\-Measure}{S.}{} as \doxyref{Object\-Measure}{S.}{}. 
+Default constructor. Uses \doxyref{de.\-joglearth.\-source.\-caching.\-Unity\-Measure}{S.}{} as \doxyref{de.\-joglearth.\-source.\-caching.\-Object\-Measure}{S.}{}. 
 
 \subsection{Dokumentation der Elementfunktionen}
 \index{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$@{de\-::joglearth\-::source\-::caching\-::\-Request\-Distributor$<$ Key, Value $>$}!add\-Cache@{add\-Cache}}
@@ -97,7 +97,7 @@ Drops all cached objects. \index{de\-::joglearth\-::source\-::caching\-::\-Reque
 \item[{Predicate$<$ Key $>$}]{pred}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a9f5c4e8442dad9a5c1f2a9de21fcc13f}
-Removes all objects from the \doxyref{cache}{S.}{}s that fulfill the \doxyref{Predicate}{S.}{}.
+Removes all objects from the \doxyref{de.\-joglearth.\-source.\-caching.\-Cache}{S.}{} that fulfill the \doxyref{de.\-joglearth.\-util.\-Predicate}{S.}{}.
 
 
 \begin{DoxyParams}{Parameter}
@@ -111,7 +111,7 @@ Removes all objects from the \doxyref{cache}{S.}{}s that fulfill the \doxyref{Pr
 \item[{Key}]{k}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a5e40a92cd0440bb2d6ab372e4c718cf4}
-Removes an object stored under a {\ttfamily Key} from the \doxyref{Cache}{S.}{} that contains it.
+Removes an object stored under a {\ttfamily Key} from the \doxyref{de.\-joglearth.\-source.\-caching.\-Cache}{S.}{} that contains it.
 
 
 \begin{DoxyParams}{Parameter}
@@ -126,7 +126,7 @@ Removes an object stored under a {\ttfamily Key} from the \doxyref{Cache}{S.}{} 
 \item[{Source\-Listener$<$ Key, Value $>$}]{sender}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a0dddf19cb7d3f9a9664b7dad36816d89}
-Tries to retrieve a requested object. Asks \doxyref{Cache}{S.}{}s in the order of their hierarchy, if the object is not in the {\ttfamily Caches} it asks its \doxyref{Source}{S.}{}. Objects that are not found in the primary {\ttfamily Cache}, but in another {\ttfamily Cache} or the {\ttfamily Source} are stored in the primary {\ttfamily Cache}. This may lead to displacements of other objects from the primary {\ttfamily Cache}.
+Tries to retrieve a requested object. Asks \doxyref{de.\-joglearth.\-source.\-caching.\-Cache}{S.}{} in the order of their hierarchy, if the object is not in the {\ttfamily Caches} it asks its \doxyref{de.\-joglearth.\-source.\-Source}{S.}{}. Objects that are not found in the primary {\ttfamily Cache}, but in another {\ttfamily Cache} or the {\ttfamily Source} are stored in the primary {\ttfamily Cache}. This may lead to displacements of other objects from the primary {\ttfamily Cache}.
 
 
 \begin{DoxyParams}{Parameter}
@@ -159,7 +159,7 @@ Changes the maximum size of an existing cache, possibly dropping cached objects 
 \item[{Source$<$ Key, Value $>$}]{source}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1source_1_1caching_1_1_request_distributor_3_01_key_00_01_value_01_4_a2961584cee25c3101f7bd849e3bfa6f0}
-Replaces the \doxyref{Source}{S.}{}.
+Replaces the \doxyref{de.\-joglearth.\-source.\-Source}{S.}{}.
 
 
 \begin{DoxyParams}{Parameter}

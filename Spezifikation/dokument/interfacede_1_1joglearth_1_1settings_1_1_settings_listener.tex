@@ -12,7 +12,7 @@ void {\bf settings\-Changed} (String key, Object val\-Old, Object val\-New)
 
 
 \subsection{Ausführliche Beschreibung}
-The listener interface to receive notification about a changed setting. The class interested in listening to settings changes implements this interface. The listener object created from that class can then be registered on a \doxyref{Settings}{S.}{classde_1_1joglearth_1_1settings_1_1_settings} object for a setting using \doxyref{Settings.\-add\-Settings\-Listener(\-String key, Settings\-Listener listener)}{S.}{}. 
+The listener interface to receive notification about a changed setting. The class interested in listening to settings changes implements this interface. The listener object created from that class can then be registered on a \doxyref{de.\-joglearth.\-settings.\-Settings}{S.}{classde_1_1joglearth_1_1settings_1_1_settings} object for a setting using \doxyref{Settings.\-add\-Settings\-Listener(\-String key, Settings\-Listener listener)}{S.}{}. 
 
 \subsection{Dokumentation der Elementfunktionen}
 \index{de\-::joglearth\-::settings\-::\-Settings\-Listener@{de\-::joglearth\-::settings\-::\-Settings\-Listener}!settings\-Changed@{settings\-Changed}}
@@ -30,8 +30,8 @@ Invoked if a setting this listener has be registered on is changed.
 \begin{DoxyParams}{Parameter}
 {\em key} & The key of the changed setting \\
 \hline
-{\em val\-Old} & The old value of the setting, can be {\ttfamily null{\ttfamily  if there wasn't any }}\\
+{\em val\-Old} & The old value of the setting, can be {\ttfamily null} if there wasn't any \\
 \hline
-{\em val\-New} & {\ttfamily {\ttfamily The new value of the setting, can be {\ttfamily null} }}\\
+{\em val\-New} & The new value of the setting, can be {\ttfamily null} \\
 \hline
 \end{DoxyParams}

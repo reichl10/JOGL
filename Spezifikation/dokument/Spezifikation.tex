@@ -210,50 +210,93 @@ Zu Ende des Dokuments wird aus Gründen der Übersichtlichkeit über die gesamte
 \chapter{JUnit Tests}
 
 \section{Getestete Klassen}
-
-\begin{tabular}{|p{4cm}|p{11cm}|}
-\hline 
-\rule[-1ex]{0pt}{4ex} \textbf{Klasse} & \textbf{Erläuterung} \\ 
-\hline
-\hline
-\rule[-1ex]{0pt}{4ex} RequestDistributor & Überprüfen ob Anfragen in annehmbarer Zeit beantwortet werden. Prüfen das nicht mehrfache, gleiche Anfragen mehrmals ausgeführt werden \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} FileSystemCache &  \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} MemoryCache & Überprüfen ob eingefügte Objekte wieder gefunden werden können, und ob \textit{null} entsprechend abgefangen wird\\ 
-\hline
-\rule[-1ex]{0pt}{4ex} TextureCache & Überprüfen der \textit{dropObject()} Methode\\ 
-\hline
-\rule[-1ex]{0pt}{4ex} Camera & methoden: isPointVisible, getWindowPosition, getCoordinates \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} PlaneGeometry & \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} SphereGeometry & \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} Settings & Threadsicherheit + Listener testen \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} HTTPUtils & Alle Methoden testen ob sie richtige Ergebnisse liefern für HTTP Anfragen\\ 
-\hline
-\rule[-1ex]{0pt}{4ex} Paket Source insgesamt & Alle Queries überprüfen ob sie richtig konstruiert wurden, Sources ob sie die richten Daten liefern für bestimmte Anfragen, ob das listening auf Sources funktioniert\\ 
-\hline
-\rule[-1ex]{0pt}{4ex} HeightMapManager & Das er richtig auf abschalten des Höhenprofils reagiert (Settingsänderung), das er richtige Daten liefert. \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} LocationManager & Daten für bestimmte Punkte testen, Listener aufrufe prüfen \\ 
-\hline
-\rule[-1ex]{0pt}{4ex} TextureManager & Ob man richtige Textur bekommt, ob er Texturen findet die schon im Grafikspeicher sind \\ 
-\hline
-
-\end{tabular}
+\begin{itemize}
+\item \texttt{de.joglearth.geometry}
+ \begin{itemize}
+ \item Camera
+ \item Matrix4
+ \item Tile
+ \item PlaneGeometry
+ \item SphereGeometry
+ \item Vektor3
+ \item Vektor4
+ \item GeoCoordinates
+ \item ScreenCoordinates
+ \end{itemize}
+\item \texttt{de.joglearth.rendering}
+ \begin{itemize}
+ \item PlaneTesslator
+ \item SphereTesslator
+ \end{itemize}
+ \item \texttt{de.joglearth.settings}
+ \begin{itemize}
+ \item Settings
+ \item SettingsContract
+ \end{itemize}
+ \item \texttt{de.joglearth.source}
+ \begin{itemize}
+ \item ProgressManager
+ \end{itemize}
+ \item \texttt{de.joglearth.source.caching}
+ \begin{itemize}
+ \item ByteArrayMessurer
+ \item MemoryCache
+ \item RequestDistributor
+ \item UnityMeasure
+ \item FileSystemCache
+ \item PathTranslator
+ \end{itemize}
+ \item \texttt{de.joglearth.source.nominatim}
+ \begin{itemize}
+ \item NominatimManager
+ \item NominatimSource
+ \end{itemize}
+ \item \texttt{de.joglearth.source.opengl}
+ \begin{itemize}
+ \item TextureCache
+ \item TileTextureSource
+ \item TileMeshSource
+ \item VertexBufferCache
+ \end{itemize}
+ \item \texttt{de.joglearth.source.osm}
+ \begin{itemize}
+ \item OSMPathTranslator
+ \item OSMTileManager
+ \item OSMTile
+ \item OSMTileSource
+ \end{itemize}
+ \item \texttt{de.joglearth.source.srtm}
+ \begin{itemize}
+ \item SRTMBinarySource
+ \item SRTMTileIndex
+ \item SRTMPathTranslator
+ \item SRTMTileManager
+ \item SRTMTileSource
+ \end{itemize}
+ \item \texttt{de.joglearth.surface}
+ \begin{itemize}
+ \item HeightMap
+ \item TextureManager
+ \item Location
+ \item TileMeshManager
+ \item LocationManager
+ \end{itemize}
+ \item \texttt{de.joglearth.util}
+ \begin{itemize}
+ \item HTTP
+ \end{itemize}
+\end{itemize}
 
 \newpage
 \section{Testfälle}
 
-\subsection*{Testfall Settings}
+\subsection*{Testfall SettingsContract}
 \lstset{language=Java}
 \begin{lstlisting}
 package de.joglearth.junit.settings;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -275,7 +318,10 @@ import de.joglearth.surface.Location;
 import de.joglearth.surface.LocationType;
 
 
-public class WriteAndLoadSettings {
+/**
+ * @internal
+ */
+public class SettingsContractTest {
 
     private static final Boolean TV_BOOLEAN = new Boolean(true);
     private static final Double TV_DOUBLE = new Double(123.301d);
@@ -283,7 +329,10 @@ public class WriteAndLoadSettings {
     private static final Integer TV_INTEGER = new Integer(-5634);
     private static final Long TV_LONG = new Long(34332423);
     private static final String TV_STRING = "jfsdjfisdf*+3439(&2)(/&";
-    private static final Set<Location> TV_LOCATION = new HashSet<Location>();
+    private static final String TV_LANGUAGE = "GERMAN";
+    private static final Set<Location> TV_LOCATIONS = new HashSet<Location>();
+    private static final Location TV_LOCATION = new Location(new GeoCoordinates(3.32d, 1.45d), LocationType.USER_TAG,
+            "City next to the border", "Passau");
     private static final String TEST_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
             +
             "<settings>\r\n"
@@ -318,13 +367,14 @@ public class WriteAndLoadSettings {
             "</settings>";
     private File settingsFile;
 
+
     @Before
     public void setUp() throws Exception {
         String folderName = "joglearth";
-        TV_LOCATION.add(new Location(new GeoCoordinates(3.32d, 1.45d), LocationType.USER_TAG,
-                "Some Details", "Name of Location"));
-        TV_LOCATION.add(new Location(new GeoCoordinates(3.32d, 1.47d), LocationType.USER_TAG,
-                "Some Details", "Name of Location 2"));
+        TV_LOCATIONS.add(new Location(new GeoCoordinates(3.32d, 1.45d), LocationType.USER_TAG,
+                "City next to the Border", "Passau"));
+        TV_LOCATIONS.add(new Location(new GeoCoordinates(3.32d, 1.47d), LocationType.USER_TAG,
+                "City in Bavaria", "Regensburg"));
         String os = System.getProperty("os.name");
         if (os.contains("Windows")) {
             String localAppdata = System.getenv("LOCALAPPDATA");
@@ -368,25 +418,253 @@ public class WriteAndLoadSettings {
         Set<Location> locationSet1 = settings.getLocations("exkey7");
         assertNull(locationSet1);
         for (Location location : locationSet1) {
-            assertTrue(TV_LOCATION.contains(location));
+            assertTrue(TV_LOCATIONS.contains(location));
         }
         Set<Location> locationSet2 = settings.getLocations("exkey9");
-        assertTrue(locationSet2.size() == 0); 
+        assertTrue(locationSet2.size() == 0);
     }
 
     @Test
     public void testSaveSettings() {
-        fail("Not yet implemented.");
+        Settings settings = Settings.getInstance();
+        settings.putInteger(SettingsContract.CACHE_SIZE_FILESYSTEM, TV_INTEGER);
+        settings.putInteger(SettingsContract.CACHE_SIZE_MEMORY, TV_INTEGER);
+        settings.putBoolean(SettingsContract.ANTIALIASING, TV_BOOLEAN);
+        settings.putString(SettingsContract.LANGUAGE, TV_LANGUAGE);
+        settings.putBoolean(SettingsContract.TEXTURE_FILTER, TV_BOOLEAN);
+        settings.putLocation(SettingsContract.USER_LOCATIONS, TV_LOCATION);
+        SettingsContract.saveSettings();
+        settings.putInteger(SettingsContract.CACHE_SIZE_FILESYSTEM, null);
+        settings.putInteger(SettingsContract.CACHE_SIZE_MEMORY, null);
+        settings.putBoolean(SettingsContract.ANTIALIASING, null);
+        settings.putString(SettingsContract.LANGUAGE, null);
+        settings.putBoolean(SettingsContract.TEXTURE_FILTER, null);
+        SettingsContract.loadSettings();
+        assertEquals(TV_INTEGER, settings.getInteger(SettingsContract.CACHE_SIZE_FILESYSTEM));
+        assertEquals(TV_INTEGER, settings.getInteger(SettingsContract.CACHE_SIZE_MEMORY));
+        assertEquals(TV_BOOLEAN, settings.getBoolean(SettingsContract.ANTIALIASING));
+        assertEquals(TV_LANGUAGE, settings.getString(SettingsContract.LANGUAGE));
+        assertEquals(TV_BOOLEAN, settings.getLong(SettingsContract.TEXTURE_FILTER));
+        Set<Location> locationSet1 = settings.getLocations(SettingsContract.USER_LOCATIONS);
+        assertNotNull(locationSet1);
+        assertTrue(locationSet1.contains(TV_LOCATION));
+        assertTrue(locationSet1.size() == 1);
     }
 
 }
 
 \end{lstlisting}
 
-%\subsection*{•}
-%\begin{lstlisting}
-%\end{lstlisting}
+\subsection*{Testfall RequestDistributor}
+\lstset{language=Java}
+\begin{lstlisting}
+package de.joglearth.junit.caching;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.junit.Test;
+
+import de.joglearth.source.Source;
+import de.joglearth.source.SourceListener;
+import de.joglearth.source.SourceResponse;
+import de.joglearth.source.SourceResponseType;
+import de.joglearth.source.caching.Cache;
+import de.joglearth.source.caching.RequestDistributor;
+
+
+public class RequestDistributorTest {
+
+    @Test
+    public final void testAddCache() {
+        Cache<Integer, Integer> simpleCache = new Cache<Integer, Integer>() {
+
+            Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+
+            @Override
+            public SourceResponse<Integer> requestObject(Integer key,
+                    SourceListener<Integer, Integer> sender) {
+                return new SourceResponse<Integer>(SourceResponseType.SYNCHRONOUS, map.get(key));
+            }
+
+            @Override
+            public void putObject(Integer k, Integer v) {
+                map.put(k, v);
+            }
+
+            @Override
+            public void dropObject(Integer k) {
+                map.remove(k);
+            }
+
+            @Override
+            public Iterable<Integer> getExistingObjects() {
+                return map.values();
+            }
+
+            @Override
+            public void dropAll() {
+                map.clear();
+            }
+
+        };
+        RequestDistributor<Integer, Integer> t = new RequestDistributor<Integer, Integer>();
+        try {
+            t.addCache(null, 0);
+        } catch (IllegalArgumentException e) {
+            fail("This method does not accept null as cache argument but doesn't state so in its documentation.");
+        }
+        t.addCache(simpleCache, 100);
+    }
+
+    @Test(timeout = 11000)
+    public final void testRequestObject() {
+        RequestDistributor<Integer, Integer> t = new RequestDistributor<Integer, Integer>();
+        final Integer[] resultArray = new Integer[5];
+        final Set<Integer> waitList = new HashSet<Integer>();
+        Source<Integer, Integer> source = new TrivialTestSource();
+        t.setSource(source);
+        SourceListener<Integer, Integer> listener = new SourceListener<Integer, Integer>() {
+
+            @Override
+            public void requestCompleted(Integer key, Integer value) {
+                if (key < 0 || key >= resultArray.length) {
+                    fail("The RequestDistributor retured an invalid key!");
+                }
+                resultArray[key] = value;
+                waitList.remove(key);
+            }
+        };
+        for (int c = 0; c < resultArray.length; c++) {
+            waitList.add(new Integer(c));
+            SourceResponse<Integer> response = t.requestObject(new Integer(c), listener);
+            assertNotNull("Response from requestObject was null", response);
+            if (response.response == SourceResponseType.SYNCHRONOUS) {
+                assertNotNull("Value of the Synchronous response was null", response.value);
+                resultArray[c] = response.value;
+                waitList.remove(new Integer(c));
+            }
+        }
+
+        while (waitList.size() > 0) {
+            try {
+                this.wait(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Test
+    public final void testDropAll() {
+        SourceListener<Integer, Integer> listener = new SourceListener<Integer, Integer>() {
+
+            @Override
+            public void requestCompleted(Integer key, Integer value) {}
+        };
+        class MockCache implements Cache<Integer, Integer> {
+
+            Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+
+            @Override
+            public SourceResponse<Integer> requestObject(Integer key,
+                    SourceListener<Integer, Integer> sender) {
+                return new SourceResponse<Integer>(SourceResponseType.SYNCHRONOUS, map.get(key));
+            }
+
+            @Override
+            public void putObject(Integer k, Integer v) {
+                map.put(k, v);
+            }
+
+            @Override
+            public void dropObject(Integer k) {
+                map.remove(k);
+            }
+
+            @Override
+            public Iterable<Integer> getExistingObjects() {
+                return map.values();
+            }
+
+            @Override
+            public void dropAll() {
+                map.clear();
+            }
+
+            public int getSizeOfCache() {
+                return map.size();
+            }
+
+        }
+        ;
+        MockCache simpleCache = new MockCache();
+        RequestDistributor<Integer, Integer> t = new RequestDistributor<Integer, Integer>();
+        t.addCache(simpleCache, 100);
+        t.setSource(new TrivialTestSource());
+        for (int i = 0; i < 100; i++) {
+            t.requestObject(new Integer(i), listener);
+        }
+        assertEquals("The RequestDistributor did not store all the objects.", new Integer(100),
+                new Integer(simpleCache.getSizeOfCache()));
+        t.dropAll();
+        assertTrue("The RequestDistributor did not drop all objects.", 0 == simpleCache.getSizeOfCache());
+    }
+
+    @Test
+    public final void testDropAllPredicateOfKey() {
+        fail("Not yet implemented"); // TODO
+    }
+
+    /**
+     * Trivial Source
+     */
+    private class TrivialTestSource implements Source<Integer, Integer> {
+
+        private SourceResponse<Integer> responseAsync = new SourceResponse<Integer>(
+                SourceResponseType.ASYNCHRONOUS, null);
+        private ExecutorService exec = Executors.newFixedThreadPool(5);
+
+
+        @Override
+        public SourceResponse<Integer> requestObject(final Integer key,
+                final SourceListener<Integer, Integer> sender) {
+            int i = ThreadLocalRandom.current().nextInt(5);
+            if (i == 4) {
+                return new SourceResponse<Integer>(SourceResponseType.SYNCHRONOUS, 33);
+            } else {
+                Runnable a = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            this.wait(ThreadLocalRandom.current().nextInt(1000));
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        sender.requestCompleted(key, new Integer(34));
+                    }
+                };
+                exec.execute(a);
+                return responseAsync;
+            }
+        }
+    };
+}
+
+\end{lstlisting}
 
 \chapter{Algorithmen}
 
@@ -1280,7 +1558,7 @@ Sie muss sowohl die UTF-8-Zeichenkodierung als auch den XML 1.0 Standard benutze
 Sie besitzt ein Wurzelelement \texttt{settings}
 \begin{itemize}
  \item das Element kann null oder mehr Kindelemente des Typs \texttt{entry} oder \texttt{locations} enthalten.
- \item Die Elemente der Typen \texttt{entry} und \texttt{locations} dürfen beliebeig angeordnet sein.
+ \item Die Elemente der Typen \texttt{entry} und \texttt{locations} dürfen beliebig angeordnet sein.
 \end{itemize}
 
 Das \texttt{entry}-Element
@@ -1317,21 +1595,13 @@ Inhalt einer Beispiel XML-Datei:
 \begin{lstlisting}[frame=single]
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
-<entry key="exkey1" type="Integer" value="-5634"/>
-<entry key="exkey2" type="Long" value="34332423"/>
-<entry key="exkey3" type="String" value="somerandomstring"/>
-<entry key="exkey4" type="Double" value="0.0"/>
-<entry key="exkey5" type="Float" value="0.0"/>
-<entry key="exkey6" type="Boolean" value="true"/>
-<locations key="exkey7">
-  <location name="Name of Location" details="Some Details" type="USERMAKRKING">
-    <geocoordinates longitude="3.32" latitude="4.78" />
+<entry key="LevelOfDetail" type="String" value="MEDIUM"/>
+<entry key="Language" type="String" value="GERMAN"/>
+<entry key="TextureFilter" type="Boolean" value="false"/>
+<locations key="UserLocations">
+  <location name="Passau" details="City next to the border" type="USER_TAG">
+    <geocoordinates longitude="0.84764824586968" latitude="0.23503767841967" />
   </location>
-  <location name="Name of Location 2" details="Some Details" type="POST">
-    <geocoordinates longitude="3.32" latitude="4.79" />
-  </location>
-</locations>
-<locations key="exjey9">
 </locations>
 </settings>
 \end{lstlisting}
@@ -1482,6 +1752,7 @@ Grüne Balken & Fabian Knorr, Thomas Eder \& Sebastian Reichl\\
 
 \vspace{2mm}
 
+\section{Implementierungspakete der Klassen}
 \subsection*{UI, Rendering, Settings}
 \begin{itemize}
 \item \textbf{Settings}\\
@@ -1585,8 +1856,63 @@ de.joglearth.rendering.Renderer.???
 de.joglearth.JoglEarth.main()
 \end{itemize}
 
-\includepdf[pages={1-3}]{Gantt_JoglEarth.pdf}
+\section{Implementierungspakete der JUnit-Tests}
+\begin{itemize}
+ \item \textbf{Geometrie-Test}\\
+ de.joglearth.geometry.PlaneGeometry\\
+ de.joglearth.geometry.SphereGeometry\\
+ de.joglearth.geometry.Camera\\
+ de.joglearth.geometry.Tile\\
+ de.joglearth.geometry.GeoCoordinates\\
+ de.joglearth.geometry.ScreenCoordinates\\
+ de.joglearth.rendering.PlaneTesslator\\
+ de.joglearth.rendering.SphereTesslator
+ \item \textbf{Kachelmesh-Test}\\
+ de.joglearth.source.opengl.VertexBufferCache\\
+ de.joglearth.source.opengl.TileMeshSource\\
+ de.joglearth.source.osm.OSMPathTranslator\\
+ de.joglearth.source.osm.OSMTileManager\\
+ de.joglearth.source.osm.OSMTile\\
+ de.joglearth.source.osm.OSMTileSource\\
+ de.joglearth.surface.TileMeshManager
+ \item \textbf{Settings-Test}\\
+ de.joglearth.settings.Settings\\
+ de.joglearth.settings.SettingsContract
+ \item \textbf{Matrix- / Vektor-Test}\\
+ de.joglearth.geometry.Matrix4\\
+ de.joglearth.geometry.Vektor3\\
+ de.joglearth.geometry.Vektor4
+ \item \textbf{ProgressManager-Test}\\
+ de.joglearth.source.ProgressManager
+ \item \textbf{HTTPUtils-Test}\\
+ de.joglearth.util.HTTP
+ \item \textbf{HeightMap-Test}\\
+ de.joglearth.surface.HeightMap
+ \item \textbf{Caching-Test}\\
+ de.joglearth.source.caching.MemoryCache\\
+ de.joglearth.source.caching.FileSystemCache\\
+ de.joglearth.source.caching.ByteArrayMessurer\\
+ de.joglearth.source.caching.RequestDistributor\\
+ de.joglearth.source.caching.UnityMeasure\\
+ de.joglearth.source.caching.PathTranslator
+ de.joglearth.source.opengl.TextureCache\\
+ \item \textbf{SRTMTileSource-Test}\\
+ de.joglearth.source.srtm.SRTMTileSource
+ \item \textbf{Texturkachel-Test}\\
+ de.joglearth.surface.TextureManager\\
+ de.joglearth.source.opengl.TileTextureSource\\
+ de.joglearth.source.srtm.STRMBinarySource\\
+ de.joglearth.source.srtm.STRMTileIndex\\
+ de.joglearth.source.srtm.STRMPathTranslator\\
+ de.joglearth.source.srtm.STRMTileManager
+ \item \textbf{Location-Test}\\
+ de.joglearth.surface.Location\\
+ de.joglearth.surface.LocationManager\\
+ de.joglearth.source.nominatim.NominatimManager\\
+ de.joglearth.source.naminatim.NominatimSource
+\end{itemize}
 
+\includepdf[pages={1-3}]{Gantt_JoglEarth.pdf}
 
 \chapter{Änderungen gegenüber dem Entwurf}
 

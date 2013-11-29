@@ -8,20 +8,27 @@ import de.joglearth.source.caching.RequestDistributor;
 
 /**
  * Executes requests for textures of the {@link Renderer}. Loads textures from a
- * {@link RequestDistrubutor} which accesses a {@link TileTextureSource} and a {@link TextureCache}.
+ * {@link de.joglearth.source.caching.RequestDistrubutor} which accesses a
+ * {@link de.joglearth.source.opengl.TileTextureSource} and a
+ * {@link de.joglearth.source.opengl.TextureCache}.
  */
 public class TextureManager {
 
-    private Integer placeholderTexture;
+    private Integer                           placeholderTexture;
     private RequestDistributor<Tile, Integer> source;
 
 
+    /**
+     * Constructor.
+     * 
+     * @param gl The OpenGL object
+     */
     public TextureManager(GL2 gl) {}
 
     /**
-     * Is called if a texture of a {@link Tile} should be loaded.
+     * Is called if a texture of a {@link de.joglearth.geometry.Tile} should be loaded.
      * 
-     * @param tile The {@link Tile} that should be loaded
+     * @param tile The <code>Tile</code> that should be loaded
      * @return Returns a loaded OpenGl identifier for the texture or if it is not yet loaded, the
      *         method returns a place holder texture
      */

@@ -3,8 +3,7 @@
 \subsection*{Öffentliche Methoden}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries Texture\-Manager} (G\-L2 gl)\label{classde_1_1joglearth_1_1surface_1_1_texture_manager_ab4a96d2d19cd167c7875f9d6002f1237}
-
+{\bf Texture\-Manager} (G\-L2 gl)
 \item 
 Integer {\bf get\-Texture} ({\bf Tile} tile)
 \item 
@@ -15,7 +14,24 @@ void {\bf remove\-Surface\-Listener} ({\bf Surface\-Listener} l)
 
 
 \subsection{Ausführliche Beschreibung}
-Executes requests for textures of the \doxyref{Renderer}{S.}{}. Loads textures from a \doxyref{Request\-Distrubutor}{S.}{} which accesses a \doxyref{Tile\-Texture\-Source}{S.}{} and a \doxyref{Texture\-Cache}{S.}{}. 
+Executes requests for textures of the \doxyref{Renderer}{S.}{}. Loads textures from a \doxyref{de.\-joglearth.\-source.\-caching.\-Request\-Distrubutor}{S.}{} which accesses a \doxyref{de.\-joglearth.\-source.\-opengl.\-Tile\-Texture\-Source}{S.}{classde_1_1joglearth_1_1source_1_1opengl_1_1_tile_texture_source} and a \doxyref{de.\-joglearth.\-source.\-opengl.\-Texture\-Cache}{S.}{classde_1_1joglearth_1_1source_1_1opengl_1_1_texture_cache}. 
+
+\subsection{Beschreibung der Konstruktoren und Destruktoren}
+\index{de\-::joglearth\-::surface\-::\-Texture\-Manager@{de\-::joglearth\-::surface\-::\-Texture\-Manager}!Texture\-Manager@{Texture\-Manager}}
+\index{Texture\-Manager@{Texture\-Manager}!de::joglearth::surface::TextureManager@{de\-::joglearth\-::surface\-::\-Texture\-Manager}}
+\subsubsection[{Texture\-Manager}]{\setlength{\rightskip}{0pt plus 5cm}de.\-joglearth.\-surface.\-Texture\-Manager.\-Texture\-Manager (
+\begin{DoxyParamCaption}
+\item[{G\-L2}]{gl}
+\end{DoxyParamCaption}
+)}\label{classde_1_1joglearth_1_1surface_1_1_texture_manager_ab4a96d2d19cd167c7875f9d6002f1237}
+Constructor.
+
+
+\begin{DoxyParams}{Parameter}
+{\em gl} & The Open\-G\-L object \\
+\hline
+\end{DoxyParams}
+
 
 \subsection{Dokumentation der Elementfunktionen}
 \index{de\-::joglearth\-::surface\-::\-Texture\-Manager@{de\-::joglearth\-::surface\-::\-Texture\-Manager}!add\-Surface\-Listener@{add\-Surface\-Listener}}
@@ -39,11 +55,11 @@ Adds a \doxyref{Surface\-Listener}{S.}{interfacede_1_1joglearth_1_1surface_1_1_s
 \item[{{\bf Tile}}]{tile}
 \end{DoxyParamCaption}
 )}\label{classde_1_1joglearth_1_1surface_1_1_texture_manager_a43db8e62afce691ad798599d61ff034a}
-Is called if a texture of a \doxyref{Tile}{S.}{} should be loaded.
+Is called if a texture of a \doxyref{de.\-joglearth.\-geometry.\-Tile}{S.}{classde_1_1joglearth_1_1geometry_1_1_tile} should be loaded.
 
 
 \begin{DoxyParams}{Parameter}
-{\em tile} & The \doxyref{Tile}{S.}{} that should be loaded \\
+{\em tile} & The {\ttfamily Tile} that should be loaded \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Rückgabe}

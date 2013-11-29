@@ -4,7 +4,7 @@ import de.joglearth.geometry.Tile;
 
 
 /**
- * Generates {@link Mesh}es for a tile on the map plane.
+ * Generates {@link de.joglearth.rendering.Mesh}es for a tile on the map plane.
  */
 public class PlaneTessellator implements Tessellator {
 

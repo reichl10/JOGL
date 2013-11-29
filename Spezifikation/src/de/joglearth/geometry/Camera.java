@@ -50,7 +50,7 @@ public class Camera {
     /**
      * Constructor.
      * 
-     * Creates a {@link Camera} with FOV 90°, aspect ratio 1:1, zNear=0.1 and zFar=1000.
+     * Creates a {@link de.joglearth.geometry.Camera} with FOV 90°, aspect ratio 1:1, zNear=0.1 and zFar=1000.
      */
     public Camera() {
         setPerspective((double) Math.PI / 2, 1, 0.1f, 1000);
@@ -58,7 +58,7 @@ public class Camera {
     }
 
     /**
-     * Sets a new {@link Geometry} object for model-specific computations.
+     * Sets a new {@link de.joglearth.geometry.Geometry} object for model-specific computations.
      * 
      * @param g The new Geometry object
      */
@@ -67,9 +67,9 @@ public class Camera {
     }
 
     /**
-     * Sets the position the {@link Camera} is currently over.
+     * Sets the position the {@link de.joglearth.geometry.Camera} is currently over.
      * 
-     * @param coords The {@link GeoCoordinates} of the camera's position
+     * @param coords The <code>GeoCoordinates</code> of the camera's position
      */
     public void setPosition(GeoCoordinates coords) {
         this.position = coords;
@@ -77,7 +77,7 @@ public class Camera {
     }
 
     /**
-     * Sets the {@link Camera}'s distance to the surface.
+     * Sets the {@link de.joglearth.geometry.Camera}'s distance to the surface.
      * 
      * @param distance The distance
      */
@@ -105,7 +105,7 @@ public class Camera {
     }
 
     /**
-     * Resets the {@link Camera} tilt to x=y=0.
+     * Resets the {@link de.joglearth.geometry.Camera} tilt to x=y=0.
      */
     public void resetTilt() {
         tiltX = 0;
@@ -114,7 +114,7 @@ public class Camera {
     }
 
     /**
-     * Sets the {@link Camera} tilt to a specific value.
+     * Sets the {@link de.joglearth.geometry.Camera} tilt to a specific value.
      * 
      * @param x The tilt around the x axis ("up and down")
      * @param y The tilt around the y axis ("left and right")
@@ -136,7 +136,7 @@ public class Camera {
     }
 
     /**
-     * Changes the surface position of the {@link Camera} by difference values.
+     * Changes the surface position of the {@link de.joglearth.geometry.Camera} by difference values.
      * 
      * @param deltaLon The angular distance to move in longitude direction
      * @param deltaLat The angular distance to move in latitude direction
@@ -152,7 +152,7 @@ public class Camera {
     }
 
     /**
-     * Determines whether a surface point is visible by the {@link Camera}. The visibility is
+     * Determines whether a surface point is visible by the {@link de.joglearth.geometry.Camera}. The visibility is
      * limited by both the viewport (the clipping planes) and parts of the scene closer to the
      * camera that might shadow others (the back of the globe, for example).
      * 
@@ -187,7 +187,7 @@ public class Camera {
     }
 
     /**
-     * Returns an array of tiles visible or partially visible by the {@link Camera}.
+     * Returns an array of tiles visible or partially visible by the {@link de.joglearth.geometry.Camera}.
      * 
      * All tiles have the same detail level, which is calculated from the distance and number of
      * visible tiles.
@@ -212,7 +212,7 @@ public class Camera {
     }
 
     /**
-     * Adds a new {@link CameraListener}.
+     * Adds a new {@link de.joglearth.geometry.CameraListener}.
      * 
      * @param l The new <code>CameraListener</code>
      */
@@ -221,7 +221,7 @@ public class Camera {
     }
 
     /**
-     * Removes a given {@link CameraListener}.
+     * Removes a given {@link de.joglearth.geometry.CameraListener}.
      * 
      * @param l The <code>CameraListener</code> that should be removed
      */
