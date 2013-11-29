@@ -647,7 +647,7 @@ public class RequestDistributorTest {
 \section{Bestimmung des Schnittpunkts einer Blickwinkelgeraden mit dem Oberflächenmodell}
 Um die Koordinaten des Kartenausschnitts unter einem Bildpunkt (wie beispielsweise der Mausposition) zu bestimmen, wird zunächst eine Geradengleichung konstruiert:
 \[\vec{x} = \vec{c}+\lambda\vec{u}\]
-wobei $\vec{c}$ der Kameraursprung und $\vec{u}$ der (Blick-)Richtungsvektor ist. Um die Kippachsen zu erhalten, werden zwei orthogonale Vektoren bestimmt die ihrerseits zum Kamera-Mittelpunkt-Vektor $-\vec{M}-\vec{c}$ orthogonal sind und von denen einer parallel zur Erdachse ist oder sie schneidet:
+wobei $\vec{c}$ der Kameraursprung und $\vec{u}$ der (Blick-)Richtungsvektor ist. Um die Kippachsen zu erhalten, werden zwei orthogonale Vektoren bestimmt die ihrerseits zum Kamera-Mittelpunkt-Vektor $-\vec{M}-\vec{c}$ $\vec{o}$ orthogonal sind und von denen einer parallel zur Erdachse ist oder sie schneidet:
 \[\vec{v} = (\vec{c}-\vec{M})\times\left(\begin{array}{c}0\\1\\0\end{array}\right)\qquad \vec{w} = \vec{v}\times (\vec{c}-\vec{M})\]
 
 
@@ -727,7 +727,7 @@ Die Verschiebung oder Drehung, die aus einer Mausbewegung folgt, ist modellunabh
 
 Zur Bestimmung des Drehwinkels in Längen- und Breitengradrichtung geschieht durch die Konstruktion zweier Blickwinkelgeraden für Start- und Zielpunkt gemäß Abschnitt 5.1 und Bildung der Differenz.
 
-Zuerst wird der Vektor c von der Kamera C zum Mittelpunkt der Erde (3D Ansicht) bzw. zum Mittelpunkt des aktuell betrachteten Kartenausschnitts (2D Ansicht) bestimmt. Zusätzlich wird der Vektor u von der Display-Mitte (Ebene P) zur Cursor-Position benötigt. Diesen erhält man über das Verhältnis der Abstände der Cursor-Position sowie des äußeren Randes des sichtbaren Bereiches im Display jeweils zum Mittelpunkt. Diese äußeren Randpunkte lassen sich mit Hilfe des FOV-Winkels $\varphi$ und des Vektor c (siehe oben) berechnen. Durch die Addition der Vektoren c und u lässt sich der angeklickte Punkt auf der Karte bestimmen. Dieser Punkt muss auch beim Ziehen der Maus bestimmt werden, damit sichergestellt wird, dass sich beim Ziehen stets derselbe Punkt unter dem Cursor befindet, was für eine angenehme und intuitive Bedienung sorgt.
+Zuerst wird der Vektor $\vec{o}$ von der \textit{Camera} C zum Mittelpunkt der Erde (3D Ansicht) bzw. zum Mittelpunkt des aktuell betrachteten Kartenausschnitts (2D Ansicht) bestimmt. Zusätzlich wird der Vektor $\vec{\mu}+\vec{\nu}$ von der Display-Mitte (Ebene P) zur Cursor-Position benötigt. Diesen erhält man über das Verhältnis der Abstände der Cursor-Position sowie des äußeren Randes des sichtbaren Bereiches im Display jeweils zum Mittelpunkt. Diese äußeren Randpunkte lassen sich mit Hilfe des FOV-Winkels $\varphi$ und des Vektor $\vec{o}$ (siehe oben) berechnen. Durch die Addition der Vektoren $\vec{o}$ und $\vec{\mu}+\vec{\nu}$ lässt sich der angeklickte Punkt auf der Karte bestimmen (siehe 5.1). Dieser Punkt muss auch beim Ziehen der Maus bestimmt werden, damit sichergestellt wird, dass sich beim Ziehen stets derselbe Punkt unter dem Cursor befindet (mit Hilfe 5.3), was für eine angenehme und intuitive Bedienung sorgt.
 
 
 
