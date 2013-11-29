@@ -21,7 +21,7 @@ public final class SettingsContract {
     /**
      * Name constant for the level of details setting.
      * You should save a String to settings using this.
-     * Use <code>toString</code> of the Enum.
+     * Use <code>name</code> of the Enum.
      */
     public static final String LEVEL_OF_DETAILS = "LevelOfDetail";
 
@@ -33,7 +33,7 @@ public final class SettingsContract {
     
     /**
      * Name constant for Antialiasing.
-     * You should save a boolean using this key. (Only on/off)
+     * You should save a String of AntialiasingType.name using this key.
      */
     public static final String ANTIALIASING = "Antialiasing";
     
