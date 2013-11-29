@@ -752,6 +752,9 @@ Die Verschiebung oder Drehung, die aus einer Mausbewegung folgt, ist modellunabh
 
 Zur Bestimmung des Drehwinkels in Längen- und Breitengradrichtung geschieht durch die Konstruktion zweier Blickwinkelgeraden für Start- und Zielpunkt gemäß Abschnitt 5.1 und Bildung der Differenz.
 
+Zuerst wird der Vektor c von der Kamera C zum Mittelpunkt der Erde (3D Ansicht) bzw. zum Mittelpunkt des aktuell betrachteten Kartenausschnitts (2D Ansicht) bestimmt. Zusätzlich wird der Vektor u von der Display-Mitte (Ebene P) zur Cursor-Position benötigt. Diesen erhält man über das Verhältnis der Abstände der Cursor-Position sowie des äußeren Randes des sichtbaren Bereiches im Display jeweils zum Mittelpunkt. Diese äußeren Randpunkte lassen sich mit Hilfe des FOV-Winkels $\varphi$ und des Vektor c (siehe oben) berechnen. Durch die Addition der Vektoren c und u lässt sich der angeklickte Punkt auf der Karte bestimmen. Dieser Punkt muss auch beim Ziehen der Maus bestimmt werden, damit sichergestellt wird, dass sich beim Ziehen stets derselbe Punkt unter dem Cursor befindet, was für eine angenehme und intuitive Bedienung sorgt.
+
+
 
 \section{Berechnung der Bildposition eines Punktes im Raum}
 
@@ -780,6 +783,7 @@ Der Äquator steht senkrecht zur Y-Achse; der Radius der Kugel ist per definitio
 
 \[\vec{x} = \left(\begin{array}{c}\sin lon\\\sin lat\\\cos lon\end{array}\right)\]
 
+\newpage
 \section{Bestimmung der prinzipiellen Sichtbarkeit eines Punktes der Oberfläche}
 Die prinzipielle Sichtbarkeit eines Punktes sagt aus, ob die Oberfläche dem Betrachter zugewandt ist. Das ist für die Kartenebene trivialerweise immer der Fall, beim Globus muss eine Unterscheidung zwischen Vorder- und Rückseite vorgenommen werden.\\
 \begin{wrapfigure}{r}{8cm}
@@ -806,37 +810,78 @@ C=\begin{pmatrix}\frac{zNear}{aspect} & 0 & 0 & 0\\ 0 & zNear & 0 & 0\\0 & 0 & \
 \]
 \vspace{2mm}
 
-\section{Bestimmung der geographischen Höhe eines Punkts aus SRTM-Daten}
 
 
 
+%\section{Bestimmung der geographischen Höhe eines Punkts aus SRTM-Daten}
+
+
+
+
+\newpage
 \section{Bestimmung aller sichtbarer Kacheln}
 
-\begin{wrapfigure}{l}{8cm}
+Mithilfe der in Kapitel 5.3 genannten Formeln werden die geografischen Koordinaten der Eckpunkte des FOV bestimmt. Daraus ergeben sich die sichtbaren Tupel von Längen- und Breitengraden und damit auch die sichtbaren Kacheln.\\
+
+\begin{figure}[!htb]
+\centering
 \includegraphics[scale=0.75]{algo/KachelnDraufsicht.eps}
-\end{wrapfigure}
+\end{figure}
 
 
-\begin{wrapfigure}{r}{8cm}
+\subsection*{Kippen der Kamera beim Globus}
+Der Mittelpunkt des FOV muss auf die Oberfläche zeigen. Dies ist durch die Einschränkung der Kamerabewegung sichergestellt. Es werden die Kanten des FOV zur Berechnung des sichtbaren Bereichs herangezogen. Die Berechnung erfolgt analog zu den obigen Formeln.\\
+
+\begin{figure}[!htb]
+\centering
 \includegraphics[scale=0.75]{algo/KachelnHorizont.eps}
-\end{wrapfigure}
+\end{figure}
 
 
-\begin{wrapfigure}{l}{8cm}
+\subsection*{Sonderfall: Pole}
+Der Mittelpunkt des FOV darf auch bei Kippung nie auf die Pole zeigen. Dies ist ebenfalls durch die Einschränkung der Kamerabewegung sichergestellt.\\
+
+\begin{figure}[!htb]
+\centering
 \includegraphics[scale=0.75]{algo/KachelnPole.eps}
-\end{wrapfigure}
+\end{figure}
 
 
-\begin{wrapfigure}{r}{8cm}
+
+\subsection*{Kippen der Kamera in der Kartenebene}
+Aufgrund der Möglichkeit bei einer Kippung der Kamera in der Kartenebene ins Unendliche zu sehen ist eine Beschränkung der geladenen Kacheln bis auf eine gewisse Distanz erforderlich.\\
+
+\begin{figure}[!htb]
+\centering
 \includegraphics[scale=0.75]{algo/EbeneHorizont.eps}
-\end{wrapfigure}
+\end{figure}
 
-
-
-\section{Scheduling des Renderers}
 
 
 \section{Verwaltung von Elementen in Caches}
+\section*{Verdrängungsstrategie}
+
+Die Aufgabe der sinnvollen Verdrängung in den Caches obliegt nicht den Caches selber, sondern der Klasse \textit{RequestDistributor}. Die Caches sind lediglich für das Aufnehmen und Entfernen einzelner Einträge anhand ihrer ID verantwortlich. 
+Der \textit{RequestDistributor} benötigt hierzu: 
+\begin{itemize} 
+\item eine Referenz auf einen \textbf{Cache}, in dem die zu cachenden Objekte gespeichert werden.
+\item eine Datenstruktur A (z.B. \textbf{TreeSet}), die Meta-Daten zu allen im Cache befindlichen Objekten enthält, und die Einträge danach sortiert, wie lange Objekte nicht mehr angefordert wurden (\textit{int lastUsed}).
+\item eine Datenstruktur B (z.B. \textbf{HashSet}), aus dem man über eine weitere ID (z.B. Hashcode) der Objekte den zugehörigen \textit{lastUsed}-Eintrag abfragen kann.
+\end{itemize}
+Soll ein neues Objekt zu einem bereits vollen Cache hinzugefügt werden, kann über das TreeSet ohne großen Aufwand der am längsten nicht mehr verwendete Eintrag bestimmt werden. Im TreeSet finden sich zu dem Eintrag außerdem Daten über dessen Größe im Cache, dessen Hashcode und dessen Key. Über den Key wird das Objekt aus dem Cache gelöscht. Über den Hashcode wird der entsprechende Eintrag aus dem HashSet entfernt. 
+Es wird somit stets der am längsten nicht mehr angeforderte Eintrag aus den Caches verdrängt. 
+Hierbei ist zu beachten, dass unterschiedliche Arten von Objekten in verschiedenen Caches mit jeweils eigenem \textit{RequestDistributor} voneinander unabhängig verdrängt werden.
+Die parallele Verwaltung aller Objekte in Cache, TreeSet und HashSet muss bei jeder Anforderung eines Objektes berücksichtigt werden: Die Anfragen geschehen über den eindeutigen Key der Objekte. Diese können mit dem Key einfach aus dem Cache abgerufen werden. Zusätzlich muss jedoch im HashSet der zum Key gehörige \textit{lastUsed}-Eintrag abgefragt und aktualisiert werden. Mit diesem (vor der Aktualisierung) bestimmten Wert kann der entsprechende Eintrag im TreeSet gefunden, aktualisiert, und das TreeSet neu sortiert werden. 
+
+
+
+
+
+
+
+
+
+
 
 \chapter{Persistente Daten}
 
@@ -1593,6 +1638,7 @@ Das \texttt{entry}-Element
  \item muss genau ein Kindelement des Typs \textit{GeoCoordinates} besitzen, das die Attribute \texttt{longitude} und \texttt{latitude} enthält, deren Werte aus Java double oder Double stammen, die mittels \texttt{Double.toString} zu einem String umgewandelt wurden.
 \end{itemize}
 
+\vspace{5mm}
 Inhalt einer Beispiel XML-Datei:
 \lstset{language=XML}
 \begin{lstlisting}[frame=single]
