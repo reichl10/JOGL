@@ -212,7 +212,6 @@ public final class SettingsContract {
         }
         while(reader.hasNext() && reader.next() != END_ELEMENT && !reader.getLocalName().equals(XML_ELEMENT_ENTRY));
     }
-
     private static void readLocations(XMLStreamReader reader) throws XMLStreamException {
         reader.require(START_ELEMENT, null, XML_ELEMENT_LOCS);
         Settings settings = Settings.getInstance();
@@ -328,6 +327,8 @@ public final class SettingsContract {
             return;
         }
     }
+        }
+    }
 
     private static void writeStart(XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartDocument();
@@ -337,6 +338,35 @@ public final class SettingsContract {
     private static void writeEnd(XMLStreamWriter writer) throws XMLStreamException {
         writer.writeEndElement();// END ROOT
         writer.writeEndDocument();
+    private static void writeEntry(XMLStreamWriter writer, String key, Object value) throws XMLStreamException {
+        String valueS = "";
+        String type = "";
+        writer.writeStartElement(XML_ELEMENT_ENTRY);
+        writer.writeAttribute(XML_ATTR_KEY, key);
+        if (value instanceof Integer) {
+            type = XML_ATTR_TYPE_INTEGER;
+            valueS = String.valueOf((Integer) value);
+        } else if (value instanceof String) {
+            type = XML_ATTR_TYPE_STRING;
+            valueS = (String) value;
+        } else if (value instanceof Double) {
+            type = XML_ATTR_TYPE_DOUBLE;
+            valueS = String.valueOf((Double) value);
+        } else if (value instanceof Boolean) {
+            type = XML_ATTR_TYPE_BOOLEAN;
+            valueS = String.valueOf((Boolean) value);
+        } else if (value instanceof Float) {
+            type = XML_ATTR_TYPE_FLOAT;
+            valueS = String.valueOf((Float) value);
+        } else {
+            // TODO: Error out :P
+        }
+        writer.writeAttribute(XML_ATTR_TYPE, type);
+        writer.writeAttribute(XML_ATTR_VALUE, valueS);
+        writer.writeEndElement(); // END ENTRY
+    }
+    private static void writeLocationSet(XMLStreamWriter writer, String key, Set<Location> set) throws XMLStreamException {
+        // TODO: Implent this shit
     }
 
     private static void writeEntry(XMLStreamWriter writer, String key, Object value)
