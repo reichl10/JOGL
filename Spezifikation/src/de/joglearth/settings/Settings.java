@@ -1,6 +1,8 @@
 package de.joglearth.settings;
 
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
 import de.joglearth.surface.Location;
 
 
@@ -11,7 +13,9 @@ import de.joglearth.surface.Location;
  * This class is thread-safe.
  */
 public final class Settings {
-
+    private final Map<String, Object> valueMap;
+    private final Map<String, List<SettingsListener>> listenerMap;
+    private final Map<String, Set<Location>> locationMap;
     /**
      * Class to store settings.
      */
@@ -23,7 +27,9 @@ public final class Settings {
      * instead.
      */
     private Settings() {
-
+        valueMap = new ConcurrentHashMap<String, Object>();
+        listenerMap = new ConcurrentHashMap<String, List<SettingsListener>>();
+        locationMap = new ConcurrentHashMap<String, Set<Location>>();
     }
 
     /**
@@ -45,7 +51,12 @@ public final class Settings {
      * @param listener The listener to be called
      */
     public void addSettingsListener(final String key, final SettingsListener listener) {
-
+        List l = listenerMap.get(key);
+        if (l == null) {
+            l = new LinkedList<SettingsListener>();
+            listenerMap.put(key, l);
+        }
+        l.add(listener);
     }
 
     /**
@@ -56,7 +67,11 @@ public final class Settings {
      * @param listener The listener to remove
      */
     public void removeSettingsListener(final String key, final SettingsListener listener) {
-
+        java.util.List l = listenerMap.get(key);
+        if (l == null) {
+            return;
+        }
+        while(l.remove(listener) == true);
     }
 
     /**
@@ -66,7 +81,7 @@ public final class Settings {
      * @param value The value of the setting
      */
     public synchronized void putInteger(final String key, final Integer value) {
-
+        putObjectAndCallListeners(key, value);
     }
 
     /**
@@ -76,7 +91,7 @@ public final class Settings {
      * @param value The value of the setting
      */
     public synchronized void putDouble(final String key, final Double value) {
-
+        putObjectAndCallListeners(key, value);
     }
 
     /**
@@ -86,7 +101,7 @@ public final class Settings {
      * @param value The value of the setting
      */
     public synchronized void putFloat(final String key, final Float value) {
-
+        putObjectAndCallListeners(key, value);
     }
 
     /**
@@ -96,7 +111,7 @@ public final class Settings {
      * @param value The value of the setting
      */
     public synchronized void putLong(final String key, final Long value) {
-
+        putObjectAndCallListeners(key, value);
     }
 
     /**
@@ -106,7 +121,13 @@ public final class Settings {
      * @param value The location to add to this key
      */
     public synchronized void putLocation(final String key, final Location value) {
-
+        Set<Location> set = locationMap.get(key);
+        if (set == null) {
+            set = new HashSet<Location>();
+            locationMap.put(key, set);
+        }
+        set.add(value);
+        callListenersForKey(key, set, value);
     }
 
     /**
@@ -116,7 +137,13 @@ public final class Settings {
      * @param key The key the {@link de.joglearth.surface.Location} should be removed from
      * @param value The <code>Location</code> to remove
      */
-    public synchronized void dropLocation(final String key, final Location value) {}
+    public synchronized void dropLocation(final String key, final Location value) {
+        Set<Location> set = locationMap.get(key);
+        if (set == null)
+            return;
+        set.remove(value);
+        callListenersForKey(key, set, value);
+    }
 
     /**
      * Stores a setting of type <code>Boolean</code> using a given key.
@@ -125,7 +152,7 @@ public final class Settings {
      * @param value The value of the setting
      */
     public synchronized void putBoolean(final String key, final Boolean value) {
-
+        putObjectAndCallListeners(key, value);
     }
 
     /**
@@ -135,7 +162,7 @@ public final class Settings {
      * @param value The value of the setting
      */
     public synchronized void putString(final String key, final String value) {
-
+        putObjectAndCallListeners(key, value);
     }
 
     /**
@@ -147,7 +174,12 @@ public final class Settings {
      *         <code>Boolean</code>
      */
     public synchronized Boolean getBoolean(final String key) {
-        return null;
+        Object val = valueMap.get(key);
+        if (val == null)
+            return null;
+        if (val.getClass() != Boolean.class)
+            return null;
+        return (Boolean) val;
     }
 
     /**
@@ -158,7 +190,12 @@ public final class Settings {
      *         found with given name or the setting is no instance of <code>String</code>
      */
     public synchronized String getString(final String key) {
-        return null;
+        Object val = valueMap.get(key);
+        if (val == null)
+            return null;
+        if (val.getClass() != String.class)
+            return null;
+        return (String) val;
     }
 
     /**
@@ -169,7 +206,12 @@ public final class Settings {
      *         no setting found with given name or the setting is no instance of <code>Long</code>
      */
     public synchronized Long getLong(final String key) {
-        return null;
+        Object val = valueMap.get(key);
+        if (val == null)
+            return null;
+        if (val.getClass() != Long.class)
+            return null;
+        return (Long) val;
     }
 
     /**
@@ -180,7 +222,12 @@ public final class Settings {
      *         no setting found with given name or the setting is no instance of <code>Float</code>
      */
     public synchronized Float getFloat(final String key) {
-        return null;
+        Object val = valueMap.get(key);
+        if (val == null)
+            return null;
+        if (val.getClass() != Float.class)
+            return null;
+        return (Float) val;
     }
 
     /**
@@ -191,7 +238,12 @@ public final class Settings {
      *         no setting found with given name or the setting is no instance of <code>Double</code>
      */
     public synchronized Double getDouble(final String key) {
-        return null;
+        Object val = valueMap.get(key);
+        if (val == null)
+            return null;
+        if (val.getClass() != Double.class)
+            return null;
+        return (Double) val;
     }
 
     /**
@@ -203,7 +255,12 @@ public final class Settings {
      *         <code>Integer</code>
      */
     public synchronized Integer getInteger(final String key) {
-        return null;
+        Object val = valueMap.get(key);
+        if (val == null)
+            return null;
+        if (val.getClass() != Integer.class)
+            return null;
+        return (Integer) val;
     }
 
     /**
@@ -214,7 +271,19 @@ public final class Settings {
      *         <code>null</code> if no <code>Location</code> object is found using this key
      */
     public synchronized Set<Location> getLocations(final String key) {
-        return null;
+        return locationMap.get(key);
+    }
+
+    private void putObjectAndCallListeners(final String key, final Object value) {
+        Object oldval = valueMap.put(key, value);
+        callListenersForKey(key, oldval, value);
+    }
+
+    private void callListenersForKey(String key, Object valueOld, Object valueNew) {
+        List<SettingsListener> listeners = listenerMap.get(key);
+        for (SettingsListener l : listeners) {
+            l.settingsChanged(key, valueOld, valueNew);
+        }
     }
 
 }
