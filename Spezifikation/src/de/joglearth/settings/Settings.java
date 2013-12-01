@@ -1,6 +1,10 @@
 package de.joglearth.settings;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import de.joglearth.surface.Location;
@@ -13,6 +17,7 @@ import de.joglearth.surface.Location;
  * This class is thread-safe.
  */
 public final class Settings {
+
     private final Map<String, Object> valueMap;
     private final Map<String, List<SettingsListener>> listenerMap;
     private final Map<String, Set<Location>> locationMap;
@@ -23,8 +28,7 @@ public final class Settings {
 
 
     /**
-     * Private Constructor to prevent creating an instance. Use {@link #getInstance()}
-     * instead.
+     * Private Constructor to prevent creating an instance. Use {@link #getInstance()} instead.
      */
     private Settings() {
         valueMap = new ConcurrentHashMap<String, Object>();
@@ -45,7 +49,8 @@ public final class Settings {
     }
 
     /**
-     * Add a {@link de.joglearth.settings.SettingsListener} to be called if the setting with the given name is changed.
+     * Add a {@link de.joglearth.settings.SettingsListener} to be called if the setting with the
+     * given name is changed.
      * 
      * @param key The key of the setting
      * @param listener The listener to be called
@@ -60,8 +65,8 @@ public final class Settings {
     }
 
     /**
-     * Unregisters the given {@link de.joglearth.settings.SettingsListener} from being called if the setting with the
-     * given name changes.
+     * Unregisters the given {@link de.joglearth.settings.SettingsListener} from being called if the
+     * setting with the given name changes.
      * 
      * @param key The key of the setting
      * @param listener The listener to remove
@@ -71,7 +76,8 @@ public final class Settings {
         if (l == null) {
             return;
         }
-        while(l.remove(listener) == true);
+        while (l.remove(listener) == true)
+            ;
     }
 
     /**
@@ -131,8 +137,8 @@ public final class Settings {
     }
 
     /**
-     * Removes the given {@link de.joglearth.surface.Location} from the given key.
-     * The Location that is removed is found by <code>this == value || this.equals(value)</code>
+     * Removes the given {@link de.joglearth.surface.Location} from the given key. The Location that
+     * is removed is found by <code>this == value || this.equals(value)</code>
      * 
      * @param key The key the {@link de.joglearth.surface.Location} should be removed from
      * @param value The <code>Location</code> to remove
