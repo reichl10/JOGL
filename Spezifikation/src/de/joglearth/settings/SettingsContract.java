@@ -186,11 +186,19 @@ public final class SettingsContract {
         writer.writeEndElement()
     }
 
-    private static void writeLocation(XMLStreamWriter writer, Location l) {
-        // TODO: Implement this shit
+    private static void writeLocation(XMLStreamWriter writer, Location l) throws XMLStreamException {
+        writer.writeStartElement(XML_ELEMENT_LOC);
+        writer.writeAttribute(XML_ATTR_LOC_DETAILS, l.details);
+        writer.writeAttribute(XML_ATTR_LOC_NAME, l.name);
+        writer.writeAttribute(XML_ATTR_LOC_TYPE, l.type.name());
+        writeGeoCoordinate(writer, l.point);
+        writer.writeEndElement();
     }
 
-    private static void writeGeoCoordinate(XMLStreamWriter writer, GeoCoordinates geo) {
-        // TODO: Implement this shit
+    private static void writeGeoCoordinate(XMLStreamWriter writer, GeoCoordinates geo) throws XMLStreamException {
+        writer.writeStartElement(XML_ELEMENT_GEO);
+        writer.writeAttribute(XML_ATTR_LONG, new Double(geo.getLongitude()).toString());
+        writer.writeAttribute(XML_ATTR_LAT, new Double(geo.getLatitude()).toString());
+        writer.writeEndElement();
     }
 }
