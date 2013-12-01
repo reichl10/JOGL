@@ -74,6 +74,15 @@ public final class SettingsContract {
     private static final String XML_ATTR_KEY = "key";
     private static final String XML_ATTR_TYPE = "type";
     private static final String XML_ATTR_VALUE = "value";
+    private static final String XML_ELEMENT_LOCS = "locations";
+    private static final String XML_ATTR_LOCS_KEY = "key";
+    private static final String XML_ELEMENT_LOC = "location";
+    private static final String XML_ATTR_LOC_DETAILS = "details";
+    private static final String XML_ATTR_LOC_NAME = "name";
+    private static final String XML_ATTR_LOC_TYPE = "type";
+    private static final String XML_ELEMENT_GEO = "GeoCoordinates";
+    private static final String XML_ATTR_LONG = "longitude";
+    private static final String XML_ATTR_LAT = "latitude";
 
     /**
      * Private constructor to prevent creating instances of this class.
@@ -170,7 +179,18 @@ public final class SettingsContract {
         writer.writeEndElement(); // END ENTRY
     }
     private static void writeLocationSet(XMLStreamWriter writer, String key, Set<Location> set) throws XMLStreamException {
-        // TODO: Implent this shit
+        writer.writeStartElement(XML_ELEMENT_LOCS);
+        writer.writeAttribute(XML_ATTR_LOCS_KEY, key);
+        for(Location l : set)
+             writeLocation(writer, l);
+        writer.writeEndElement()
     }
 
+    private static void writeLocation(XMLStreamWriter writer, Location l) {
+        // TODO: Implement this shit
+    }
+
+    private static void writeGeoCoordinate(XMLStreamWriter writer, GeoCoordinates geo) {
+        // TODO: Implement this shit
+    }
 }
