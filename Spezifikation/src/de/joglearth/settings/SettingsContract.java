@@ -183,7 +183,7 @@ public final class SettingsContract {
         writer.writeAttribute(XML_ATTR_LOCS_KEY, key);
         for(Location l : set)
              writeLocation(writer, l);
-        writer.writeEndElement()
+        writer.writeEndElement();
     }
 
     private static void writeLocation(XMLStreamWriter writer, Location l) throws XMLStreamException {
