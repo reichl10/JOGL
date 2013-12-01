@@ -1,20 +1,17 @@
 package de.joglearth.settings;
 
-import de.joglearth.rendering.AntialiasingType;
-import de.joglearth.rendering.LevelOfDetail;
-import de.joglearth.surface.Location;
-import org.xml.sax.helpers.XMLReaderFactory;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.Set;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.AbstractMap;
-import java.util.Map;
-import java.util.Set;
+
+import de.joglearth.geometry.GeoCoordinates;
+import de.joglearth.rendering.AntialiasingType;
+import de.joglearth.rendering.LevelOfDetail;
+import de.joglearth.surface.Location;
 
 /**
  * Class that contains Constants and static methods to work with the
