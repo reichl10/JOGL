@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import de.joglearth.surface.Location;
@@ -16,6 +17,7 @@ import de.joglearth.surface.Location;
  * This class is thread-safe.
  */
 public final class Settings {
+
     private final Map<String, Object> valueMap;
     private final Map<String, Object> valueMap;
     private final Map<String, List<SettingsListener>> listenerMap;

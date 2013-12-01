@@ -24,6 +24,7 @@ import de.joglearth.surface.Location;
 import de.joglearth.surface.LocationType;
 
 
+
 /**
  * Class that contains Constants and static methods to work with the
  * {@link de.joglearth.settings.Settings Settings} class.
@@ -93,6 +94,7 @@ public final class SettingsContract {
     private static final String FILE_LOCATION = "test.xml";
 
 
+
     /**
      * Private constructor to prevent creating instances of this class.
      */
@@ -115,7 +117,7 @@ public final class SettingsContract {
      * Loads the values for the settings defined in this contract from a file. This loads from the
      * same files the {@link #saveSettings()} saves to.
      */
-    public static void loadSettings() {
+    public static void loadSettings() {}
         Settings settings = Settings.getInstance();
         try {
             XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(
@@ -272,7 +274,6 @@ public final class SettingsContract {
             }
         }
         return null;
-    }
 
     private static GeoCoordinates readGeo(XMLStreamReader reader) throws XMLStreamException {
         reader.require(START_ELEMENT, null, XML_ELEMENT_GEO);
@@ -337,7 +338,9 @@ public final class SettingsContract {
     private static void writeEnd(XMLStreamWriter writer) throws XMLStreamException {
         writer.writeEndElement();// END ROOT
         writer.writeEndDocument();
-    private static void writeEntry(XMLStreamWriter writer, String key, Object value) throws XMLStreamException {
+
+    private static void writeEntry(XMLStreamWriter writer, String key, Object value)
+            throws XMLStreamException {
         String valueS = "";
         String type = "";
         writer.writeStartElement(XML_ELEMENT_ENTRY);
@@ -364,11 +367,13 @@ public final class SettingsContract {
         writer.writeAttribute(XML_ATTR_VALUE, valueS);
         writer.writeEndElement(); // END ENTRY
     }
-    private static void writeLocationSet(XMLStreamWriter writer, String key, Set<Location> set) throws XMLStreamException {
+
+    private static void writeLocationSet(XMLStreamWriter writer, String key, Set<Location> set)
+            throws XMLStreamException {
         writer.writeStartElement(XML_ELEMENT_LOCS);
         writer.writeAttribute(XML_ATTR_LOCS_KEY, key);
-        for(Location l : set)
-             writeLocation(writer, l);
+        for (Location l : set)
+            writeLocation(writer, l);
         writer.writeEndElement();
     }
 
