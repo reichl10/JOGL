@@ -366,7 +366,11 @@ public final class SettingsContract {
         writer.writeEndElement(); // END ENTRY
     }
     private static void writeLocationSet(XMLStreamWriter writer, String key, Set<Location> set) throws XMLStreamException {
-        // TODO: Implent this shit
+        writer.writeStartElement(XML_ELEMENT_LOCS);
+        writer.writeAttribute(XML_ATTR_LOCS_KEY, key);
+        for(Location l : set)
+             writeLocation(writer, l);
+        writer.writeEndElement()
     }
 
     private static void writeEntry(XMLStreamWriter writer, String key, Object value)
