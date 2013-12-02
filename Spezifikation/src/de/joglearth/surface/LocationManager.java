@@ -1,5 +1,6 @@
 package de.joglearth.surface;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import de.joglearth.geometry.ScreenCoordinates;
@@ -35,7 +36,9 @@ public class LocationManager {
     /**
      * Constructor. Initializes the {@link LocationManager} and its underlying caches.
      */
-    public LocationManager() {}
+    public LocationManager() {
+        
+    }
 
     /**
      * Changes the visibility of a given {@link de.joglearth.surface.LocationType}.
@@ -54,7 +57,9 @@ public class LocationManager {
      * @return A collection of active locations
      */
     public Collection<Location> getActiveLocations(Iterable<Tile> area) {
-        return null;
+        Collection<Location> locations = new ArrayList<Location>();
+        
+        return locations;
     }
 
     /**

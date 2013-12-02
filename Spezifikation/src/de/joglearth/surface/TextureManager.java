@@ -1,8 +1,17 @@
 package de.joglearth.surface;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import javax.media.opengl.GL2;
+import javax.media.opengl.GLProfile;
+
+import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.TextureData;
+import com.jogamp.opengl.util.texture.TextureIO;
 
 import de.joglearth.geometry.Tile;
+import de.joglearth.rendering.Renderer;
 import de.joglearth.source.caching.RequestDistributor;
 
 
@@ -14,16 +23,31 @@ import de.joglearth.source.caching.RequestDistributor;
  */
 public class TextureManager {
 
-    private Integer                           placeholderTexture;
+    private Integer placeholderTexture;
     private RequestDistributor<Tile, Integer> source;
-
+    private Texture placeholder;
 
     /**
      * Constructor.
      * 
      * @param gl The OpenGL object
      */
-    public TextureManager(GL2 gl) {}
+    public TextureManager(GL2 gl) {
+        //TODO: Laden der Platzhaltertextur für Meilenstein 1.
+        
+        /* Loads placeholder-texture */
+        try {
+            InputStream stream = getClass().getResourceAsStream("icons/placeholder.png");
+            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
+                    stream, false, "png");
+            placeholder = TextureIO.newTexture(data);
+        } catch (IOException ioExc) {
+            ioExc.printStackTrace();
+            System.exit(1);
+        }
+        
+        placeholderTexture = new Integer(placeholder.getTextureObject(gl));
+    }
 
     /**
      * Is called if a texture of a {@link de.joglearth.geometry.Tile} should be loaded.
