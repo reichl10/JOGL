@@ -1,0 +1,55 @@
+UI, Rendering, Settings
+
+Settings                Constantin 5:00
+ProgressManager         Gabi 1:00   Christof 3:00
+GeoCoordinates, Tile    Tom 1:30    Sebastian  6:30     Fabian  1:30 
+TextureManager          Gabi 1:00   Christof 0:30
+Matrix/Vektor           Tom 0:30    Sebastian  4:00     Fabian  0:15
+SphereGeometry          Tom 4:00    Sebastian  8:00     Fabian 12:00
+PlaneGeometry           Tom 4:00    Sebastian  8:00     Fabian  8:00
+Camera                  Tom 4:00    Sebastian  9:00     Fabian 15:00
+LocationManager         Gabi 0:30   Christof 0:30
+Swing-UI                Constantin 10:00
+Renderer-Main           Gabi 1:00   Christof 2:00
+Vertex Buffer Objects   Tom 4:00    Sebastian  5:00     Fabian  3:00
+SphereTesselator        Tom 3:30    Sebastian 27:00     Fabian  6:00
+PlaneTesselator         Tom 3:30    Sebastian 27:00     Fabian  4:00
+Renderer-Scheduling     Gabi 1:30   Christof 1:00
+HTTPUtils               Gabi 3:00   Christof 4:00
+Geometrie-Test          Gabi 6:00   Christof 8:00
+Kachelmesh-Test         Constantin 18:00
+Settings-Test           Gabi 3:00   Christof 6:00
+Matrix/Vektor-Test      Constantin 6:00
+ProgressManager-Test    Constantin 1:00
+HTTPUtils-Test          Constantin 2:00
+
+
+Externe Daten
+
+SRTMBinarySource        Gabi 8:00   Christof 15:00
+SRTMTileSource          Tom 5:00    Sebastian  8:00     Fabian 3:00
+HeightMap               Tom 4:00    Sebastian 12:00     Fabian 5:00
+OSMTileSource           Gabi 18:00  Christof 15:00
+RequestDistributor      Constantin 8:30
+TextureSource           Tom 4:00    Sebastian  6:00     Fabian 3:00
+FileSystemCache         Constantin 6:00
+MemoryCache             Gabi 5:00   Christof 10:00
+TextureManager          Tom 4:00    Sebastian 12:00     Fabian 1:00
+HeightMapTest           Constantin 5:30
+Caching-Test            Tom 3:00    Sebastian 14:00     Fabian 6:00
+SRTMTileSource-Test     Gabi 15:00  Christof 5:00
+Texturkachel-Test       Constantin 12:00
+
+
+Suche, POIs
+
+NominatimSource         Gabi 30:00  Christof 15:00
+OverpassSource          Gabi 25:00  Christof 20:00
+LocationManager         Constantin 5:00
+Renderer-Overlays       Tom 4:00    Sebastian 16:00     Fabian 5:00
+JoglEarth-Main          Constantin 0:30
+Location-Test           Constantin 8:00
+
+
+Benutzerhandbuch        Gabi 180:00 Christof 120:00
+
