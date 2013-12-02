@@ -1,8 +1,5 @@
 package de.joglearth.geometry;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -63,7 +60,8 @@ public final class GeoCoordinates implements Cloneable {
     
     
     private static final Pattern coordinatePattern = Pattern.compile(
-            "\\s*(\\d{1,3})\\s*°\\s*((\\d{1,2})\\s*'\\s*((\\d{1,2}(\\.\\d+)?)\\s*\"\\s*)?)?([NSEOW])\\s*");
+            "\\s*(\\d{1,3})\\s*°\\s*((\\d{1,2})\\s*'\\s*" +
+            "((\\d{1,2}(\\.\\d+)?)\\s*\"\\s*)?)?([NSEOW])\\s*");
     
     
 
@@ -196,15 +194,4 @@ public final class GeoCoordinates implements Cloneable {
         return this.longitude == other.longitude && this.latitude == other.latitude;
     }
     
-    
-    public static void main(String[] args) {
-        BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            System.out.println(parseCoordinates(bufferRead.readLine(), bufferRead.readLine()));
-        } catch (IOException e) {
-            // TODO Automatisch generierter Erfassungsblock
-            e.printStackTrace();
-        }
-    }
-
 }

@@ -1,0 +1,11 @@
+Geometry
+- isPointVisible Parameter für Kameraposition
+- getSurfaceCoordinates Rückgabetyp GeoCoordinates statt ScreenCoordinates
+
+PlaneGeometry
+- isPointVisible Parameter für Kameraposition
+- getSurfaceCoordinates Rückgabetyp GeoCoordinates statt ScreenCoordinates
+
+SphereGeometry
+- isPointVisible Parameter für Kameraposition
+- getSurfaceCoordinates Rückgabetyp GeoCoordinates statt ScreenCoordinates
