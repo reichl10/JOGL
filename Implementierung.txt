@@ -1,0 +1,7 @@
+- JUnit-Testfälle nach Spezifikation, nicht Code
+- Tests nur JUnit, keine komplexeren (Validierungsphase)
+- Arbeitspakete protokollieren (Zeit in Viertelstunden, Personen)
+- Fehler in der Spezifikation (Abhängigkeiten, nicht erreichbare Deadlines) für den Implementierungsbericht notieren
+- Änderungen zum Entwurf / zur Spezifikation notieren -> Bericht
+- Pro Milestone das Ausführbare Programm, Quelltext und JUnit-Tests abgeben (am Milestone-Endtermin)
+- Feinschliff (Parameter-Tuning, Optimierung) kann auch in der Testphase erfolgen
