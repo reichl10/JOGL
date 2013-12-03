@@ -3,6 +3,7 @@ package de.joglearth.geometry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
  * Structure holding longitude and latitude coordinates.
  */
@@ -20,6 +21,10 @@ public final class GeoCoordinates implements Cloneable {
      * @param lat Latitude, in the interval [-pi/2, pi/2]
      */
     public GeoCoordinates(double lon, double lat) {
+        if (Double.isInfinite(lon) || Double.isNaN(lon) || Double.isInfinite(lat)
+                || Double.isNaN(lat)) {
+            throw new IllegalArgumentException("Longitude and latitude must be finite numbers");
+        }
         if (lat < -Math.PI / 2 || lat > Math.PI / 2) {
             throw new IllegalArgumentException("Latitude must be between -pi/2 and pi/2");
         }
@@ -38,7 +43,7 @@ public final class GeoCoordinates implements Cloneable {
      * @param rad The value in radians
      * @return The value in degrees
      */
-    public static double radToDeg(double rad) {
+    private static double radToDeg(double rad) {
         return rad * 180 / Math.PI;
     }
 
@@ -48,22 +53,19 @@ public final class GeoCoordinates implements Cloneable {
      * @param rad The value in radians
      * @return A converted value in the interval [0, 2pi)
      */
-    public static double limitRad(double rad) {
-        while (rad <= -Math.PI) {
-            rad += 2 * Math.PI;
-        }
-        while (rad > Math.PI) {
-            rad -= 2 * Math.PI;
+    private static double limitRad(double rad) {
+        rad = rad % (2*Math.PI);
+        if (rad < 0) {
+            rad += 2*Math.PI;
         }
         return rad;
     }
-    
-    
+
+
     private static final Pattern coordinatePattern = Pattern.compile(
             "\\s*(\\d{1,3})\\s*°\\s*((\\d{1,2})\\s*'\\s*" +
-            "((\\d{1,2}(\\.\\d+)?)\\s*\"\\s*)?)?([NSEOW])\\s*");
-    
-    
+                    "((\\d{1,2}(\\.\\d+)?)\\s*\"\\s*)?)?([NSEOW])\\s*");
+
 
     // TODO Allow different decimal separators
     private static double parseSingleCoordinate(String coord) {
@@ -71,10 +73,11 @@ public final class GeoCoordinates implements Cloneable {
         if (!matcher.matches()) {
             throw new NumberFormatException();
         }
-        
+
         assert matcher.groupCount() == 8;
-        
-        for (int i=0; i<=matcher.groupCount(); ++i) System.out.println(matcher.group(i));
+
+        for (int i = 0; i <= matcher.groupCount(); ++i)
+            System.out.println(matcher.group(i));
         double deg = Double.parseDouble(matcher.group(1));
         if (matcher.group(3) != null) {
             deg += Double.parseDouble(matcher.group(3)) / 60;
@@ -98,8 +101,12 @@ public final class GeoCoordinates implements Cloneable {
      * @throws NumberFormatException One of the parameters was not a valid coordinate
      */
     public static GeoCoordinates parseCoordinates(String lon, String lat) {
-        double longitude = limitRad(parseSingleCoordinate(lon)), 
-               latitude = parseSingleCoordinate(lat);
+        if (lon == null || lat == null) {
+            throw new IllegalArgumentException();
+        }
+        
+        double longitude = limitRad(parseSingleCoordinate(lon));
+        double latitude = parseSingleCoordinate(lat);
 
         if (latitude < -Math.PI || latitude > Math.PI) {
             throw new NumberFormatException();
@@ -146,7 +153,6 @@ public final class GeoCoordinates implements Cloneable {
      * 
      * @return The longitude in string representation
      */
-    // TODO Details?
     public String getLongitudeString() {
         boolean west = longitude > Math.PI;
         return getCoordinateString(west ? 2 * Math.PI - longitude : longitude)
@@ -193,5 +199,5 @@ public final class GeoCoordinates implements Cloneable {
         GeoCoordinates other = (GeoCoordinates) obj;
         return this.longitude == other.longitude && this.latitude == other.latitude;
     }
-    
+
 }

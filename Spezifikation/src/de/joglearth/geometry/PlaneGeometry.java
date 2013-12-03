@@ -15,28 +15,55 @@ public class PlaneGeometry implements Geometry {
 
     @Override
     public boolean isPointVisible(Vector3 cameraPosition, GeoCoordinates geo) {
+        if (cameraPosition == null || geo == null) {
+            throw new IllegalArgumentException();
+        }
+
+        /*
+         * A point is visible if the intersection of the camera position's perpendicular with the
+         * plane ("ground position") is not farther away from it than the distance of camera and
+         * plane times the DISTANCE_LIMIT.
+         */
+
+        if (cameraPosition.z <= 0) {
+            return false;
+        }
+
         Vector3 surfacePosition = cameraPosition.clone();
         surfacePosition.z = 0;
-        return surfacePosition.to(getSpacePosition(geo)).length() <= DISTANCE_LIMIT;
+        return surfacePosition.to(getSpacePosition(geo)).length()
+        <= cameraPosition.z * DISTANCE_LIMIT;
     }
 
     @Override
     public Vector3 getSpacePosition(GeoCoordinates geo) {
-        return new Vector3(geo.getLongitude() / Math.PI,
-                           geo.getLatitude() / Math.PI,
-                           0);
+        /*
+         * The plane is laid out to be 2 units wide, 1 unit high and perpendicular to the Z axis,
+         * with lon=0/lat=0 being the center (0, 0, 0).
+         */
+        return new Vector3(geo.getLongitude() / Math.PI, geo.getLatitude() / Math.PI, 0);
     }
 
     @Override
     public GeoCoordinates getSurfaceCoordinates(Vector3 cameraPosition, Vector3 viewVector) {
-        if (viewVector.z >= 0 || cameraPosition.z <= 0 || cameraPosition.equals(viewVector)) {
+        if (cameraPosition == null || viewVector == null) {
+            throw new IllegalArgumentException();
+        }
+
+        /*
+         * If the viewer looks in positive Z direction, the camera has a negative Z coordinate, or
+         * the view vector is the zero vector, he is not looking down on the plane. Therefore, there
+         * is no intersection.
+         */
+        if (viewVector.z >= 0 || cameraPosition.z <= 0 || viewVector.length() == 0) {
             return null;
         }
-        
-        double lon = (cameraPosition.x-cameraPosition.z/viewVector.z*viewVector.x) * Math.PI;
-        double lat = (cameraPosition.y-cameraPosition.z/viewVector.z*viewVector.y) * Math.PI;
-        
-        if (lon > -Math.PI && lon <= Math.PI && lat >= -Math.PI/2 && lat <= Math.PI/2) {
+
+        double lon = (cameraPosition.x - cameraPosition.z / viewVector.z * viewVector.x) * Math.PI;
+        double lat = (cameraPosition.y - cameraPosition.z / viewVector.z * viewVector.y) * Math.PI;
+
+        // These conditions hold if and only if the centered point is on the plane.
+        if (lon > -Math.PI && lon <= Math.PI && lat >= -Math.PI / 2 && lat <= Math.PI / 2) {
             return new GeoCoordinates(lon, lat);
         } else {
             return null;
@@ -45,8 +72,17 @@ public class PlaneGeometry implements Geometry {
 
     @Override
     public Matrix4 getViewMatrix(GeoCoordinates position, double altitude) {
+        if (position == null || altitude <= 0 || Double.isInfinite(altitude)
+                || Double.isNaN(altitude)) {
+            throw new IllegalArgumentException();
+        }
+
+        /*
+         * Assumes that the default looking direction is (0, 0, -1). Might have to be corrected by
+         * adding a rotate()ion.
+         */
         Matrix4 mat = new Matrix4();
-        mat.translate(position.getLongitude()/Math.PI, position.getLatitude()/Math.PI, altitude);
+        mat.translate(position.getLongitude() / Math.PI, position.getLatitude() / Math.PI, altitude);
         return mat;
     }
 
