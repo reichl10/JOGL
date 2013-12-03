@@ -71,6 +71,7 @@ public final class HTTP {
 
             response = out.toByteArray();
 
+            out.close();
             in.close();
         } catch (IOException ioe) {
             return null;
@@ -150,6 +151,7 @@ public final class HTTP {
 
             response = out.toByteArray();
 
+            out.close();
             in.close();
         } catch (IOException ioe) {
             return null;
