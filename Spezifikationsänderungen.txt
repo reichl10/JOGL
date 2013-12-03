@@ -12,3 +12,4 @@ SphereGeometry
 
 Camera
 - Konstruktorargumente hinzugefügt
+- getVisibleTiles() gibt jetzt Iterable zurück
