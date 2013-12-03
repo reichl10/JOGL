@@ -33,7 +33,7 @@ public class TextureManager {
      * @param gl The OpenGL object
      */
     public TextureManager(GL2 gl) {
-        //TODO: Laden der Platzhaltertextur für Meilenstein 1.
+        //TODO: Laden der Platzhaltertextur für Meilenstein 1. Muss evtl. später ersetzt werden.
         
         /* Loads placeholder-texture */
         try {
@@ -66,7 +66,7 @@ public class TextureManager {
      * @param l The new listener
      */
     public void addSurfaceListener(SurfaceListener l) {
-
+        
     }
 
     /**
@@ -75,6 +75,6 @@ public class TextureManager {
      * @param l The listener that should be removed
      */
     public void removeSurfaceListener(SurfaceListener l) {
-
+        
     }
 }

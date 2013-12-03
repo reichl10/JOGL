@@ -42,13 +42,17 @@ public class Renderer {
 
         @Override
         public void run() {
-            /*
-             * while (!isQuit()) { if (isRunning() || isPosted()) {
-             * 
-             * // code render();
-             * 
-             * synchronized (this) { posted = false; } } }
-             */
+
+            while (!quit) {
+                if (running || posted) {
+
+                    // code render();
+
+                    synchronized (this) {
+                        posted = false;
+                    }
+                }
+            }
         }
     }
 
@@ -83,8 +87,8 @@ public class Renderer {
      * Constructor initializes the OpenGL functionalities.
      * 
      * @param canv GLCanvas object of the GUI
-     * @param locationManager <code>LocationManager</code> that provides the information about Overlays
-     *        to be displayed
+     * @param locationManager <code>LocationManager</code> that provides the information about
+     *        Overlays to be displayed
      * @param camera <code>Camera</code> object
      */
     public Renderer(GLCanvas canv, LocationManager locationManager, Camera camera) {
@@ -141,7 +145,7 @@ public class Renderer {
     }
 
     // Beginnt mit einer konstanten FPS-Zahl zu rendern, zB. 60.
-    // Asynchron, kehrt sofort zur�ck.
+    // Asynchron, kehrt sofort zurück.
     /**
      * Starts the render loop with 60 FPS.
      */
@@ -149,8 +153,8 @@ public class Renderer {
         running = true;
     }
 
-    // Beendet eine Renderschleife, die mit start() angesto�en wurde.
-    // U.U. wird trotzdem noch ein Frame gerendert, falls w�hrenddessen
+    // Beendet eine Renderschleife, die mit start() angestoßen wurde.
+    // U.U. wird trotzdem noch ein Frame gerendert, falls währenddessen
     // post() aufgerufen wurde.
     /**
      * Stops the render loop. When <code>post()</code> is called a new frame will be rendered.
