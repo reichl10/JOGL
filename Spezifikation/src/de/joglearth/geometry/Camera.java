@@ -1,37 +1,67 @@
 package de.joglearth.geometry;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.surface.HeightMap;
 import de.joglearth.surface.SurfaceListener;
+import static java.lang.Math.*;
+import static java.lang.Double.*;
 
 
 /**
  * Administers geometric calculations for the viewport perspective.
- *
+ * 
  */
 public class Camera {
 
-    private GeoCoordinates position;
-    private double distance;
-    private double tiltX;
-    private double tiltY;
+    private GeoCoordinates position = new GeoCoordinates(0, 0);
+    private double distance = 0.5;
+    private double tiltX = 0;
+    private double tiltY = 0;
+    private double fov, aspectRatio, zNear, zFar;
     private Matrix4 clipMatrix, projectionMatrix;
-    private Geometry geometry;
-    private List<CameraListener> listeners;
+    private Geometry geometry = null;
+    private Matrix4 cameraMatrix = null;
+    private List<CameraListener> listeners = new ArrayList<CameraListener>();
 
 
-    private void notifyListeners() {
+    private boolean updateCamera() {
+        // TODO sign!
+        Matrix4 newCameraMatrix = geometry.getViewMatrix(position,
+                (HeightMap.getHeight(position) + 1) / 1000 + distance);
 
-    }
+        Vector3 zAxis = newCameraMatrix.transform(new Vector3(0, 0, -1)).divide();
 
-    private void updateProjectionMatrix() {
-        Matrix4 cameraMatrix = new Matrix4();
-        
-        projectionMatrix = cameraMatrix.inverse();
-        projectionMatrix.mult(clipMatrix);
+        if (zAxis.x == 0 && zAxis.z == 0) {
+            return false;
+        }
+
+        Vector3 xAxis = zAxis.crossProduct(new Vector3(0, 1, 0)).normalized();
+        Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
+
+        newCameraMatrix.rotate(xAxis, tiltX);
+        newCameraMatrix.rotate(yAxis, tiltY);
+
+        Vector3 cameraPosition = newCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
+        Vector3 viewVector = newCameraMatrix.transform(new Vector3(0, 0, -1)).divide();
+
+        if (geometry.getSurfaceCoordinates(cameraPosition, viewVector) != null) {
+
+            projectionMatrix = newCameraMatrix.inverse();
+            projectionMatrix.mult(clipMatrix);
+
+            for (CameraListener l : listeners) {
+                l.cameraViewChanged();
+            }
+            cameraMatrix = newCameraMatrix;
+            return true;
+
+        } else {
+            return false;
+        }
     }
 
 
@@ -39,9 +69,12 @@ public class Camera {
 
         @Override
         public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
+
             if (position.getLatitude() >= latFrom && position.getLatitude() <= latTo
                     && position.getLongitude() >= lonFrom && position.getLongitude() <= lonTo) {
-                notifyListeners();
+                if (!updateCamera()) {
+                    throw new IllegalStateException();
+                }
             }
         }
     }
@@ -50,11 +83,20 @@ public class Camera {
     /**
      * Constructor.
      * 
-     * Creates a {@link de.joglearth.geometry.Camera} with FOV 90°, aspect ratio 1:1, zNear=0.1 and zFar=1000.
+     * Creates a {@link de.joglearth.geometry.Camera} with FOV 90°, aspect ratio 1:1, zNear=0.1 and
+     * zFar=1000.
+     * 
+     * @param geo The {@link Geometry} object
      */
-    public Camera() {
-        setPerspective((double) Math.PI / 2, 1, 0.1f, 1000);
+    public Camera(Geometry geo) {
+        if (geo == null) {
+            throw new IllegalArgumentException();
+        }
+
+        geometry = geo;
+        setPerspective((double) PI / 2, 1, 0.1, 1000);
         HeightMap.addSurfaceListener(new SurfaceHeightListener());
+
     }
 
     /**
@@ -63,7 +105,21 @@ public class Camera {
      * @param g The new Geometry object
      */
     public void setGeometry(Geometry g) {
+        if (g == null) {
+            throw new IllegalArgumentException();
+        }
+
         this.geometry = g;
+
+        if (!updateCamera()) {
+
+            // a tilt that might be valid for a plane might not be valid for a sphere model!
+            tiltX = 0;
+            tiltY = 0;
+            if (!updateCamera()) {
+                throw new IllegalStateException();
+            }
+        }
     }
 
     /**
@@ -72,8 +128,15 @@ public class Camera {
      * @param coords The <code>GeoCoordinates</code> of the camera's position
      */
     public void setPosition(GeoCoordinates coords) {
+        if (coords == null) {
+            throw new IllegalArgumentException();
+        }
+
+        GeoCoordinates oldPosition = position;
         this.position = coords;
-        updateProjectionMatrix();
+        if (!updateCamera()) {
+            position = oldPosition;
+        }
     }
 
     /**
@@ -82,8 +145,15 @@ public class Camera {
      * @param distance The distance
      */
     public void setDistance(double distance) {
+        if (isInfinite(distance) || isNaN(distance) || distance <= 0) {
+            throw new IllegalArgumentException();
+        }
+
+        double oldDistance = this.distance;
         this.distance = distance;
-        updateProjectionMatrix();
+        if (!updateCamera()) {
+            this.distance = oldDistance;
+        }
     }
 
     /**
@@ -96,12 +166,28 @@ public class Camera {
      * @param far The distance of the far clipping plane to the camera position. 1000.0 by default
      */
     public void setPerspective(double fov, double aspectRatio, double near, double far) {
-        double f = 1.f / (double) Math.tan(fov * 0.5f);
+
+        if (isNaN(fov) || fov <= 0 || fov < PI || isNaN(aspectRatio) || isInfinite(aspectRatio)
+                || aspectRatio <= 0 || isNaN(near) || isInfinite(near) || isNaN(far)
+                || isInfinite(far) || near >= far) {
+            throw new IllegalArgumentException();
+        }
+
+        this.fov = fov;
+        this.aspectRatio = aspectRatio;
+        this.zNear = near;
+        this.zFar = far;
+
+        double f = 1.f / (double) tan(fov * 0.5f);
         double[] d = { f * aspectRatio, 0, 0, 0,
-                0, f, 0, 0,
-                0, 0, (far + near) / (far - near), 1,
+                0, -f, 0, 0,
+                0, 0, -(far + near) / (far - near), -1,
                 0, 0, (2.f * near * far) / (near - far), 0 };
         clipMatrix = new Matrix4(d);
+
+        if (!updateCamera()) {
+            throw new IllegalStateException();
+        }
     }
 
     /**
@@ -110,7 +196,10 @@ public class Camera {
     public void resetTilt() {
         tiltX = 0;
         tiltY = 0;
-        updateProjectionMatrix();
+
+        if (!updateCamera()) {
+            throw new IllegalStateException();
+        }
     }
 
     /**
@@ -121,6 +210,20 @@ public class Camera {
      */
     public void setTilt(double x, double y) {
 
+        if (isNaN(x) || isNaN(y) || x < -PI / 2 || x > PI / 2 || y < -PI / 2 || y > PI / 2) {
+            throw new IllegalArgumentException();
+        }
+
+        double oldX = tiltX;
+        double oldY = tiltY;
+
+        tiltX = x;
+        tiltY = y;
+
+        if (!updateCamera()) {
+            tiltX = oldX;
+            tiltY = oldY;
+        }
     }
 
     /**
@@ -130,37 +233,58 @@ public class Camera {
      * @param deltaY The tilt difference around the y axis ("left and right")
      */
     public void tilt(double deltaX, double deltaY) {
+
+        if (isNaN(deltaX) || isNaN(deltaY) || deltaX < -PI / 2 || deltaX > PI / 2
+                || deltaY < -PI / 2 || deltaY > PI / 2) {
+            throw new IllegalArgumentException();
+        }
+
+        double oldX = tiltX;
+        double oldY = tiltY;
+
         this.tiltX += deltaX;
         this.tiltY += deltaY;
-        updateProjectionMatrix();
+
+        if (!updateCamera()) {
+            tiltX = oldX;
+            tiltY = oldY;
+        }
     }
 
     /**
-     * Changes the surface position of the {@link de.joglearth.geometry.Camera} by difference values.
+     * Changes the surface position of the {@link de.joglearth.geometry.Camera} by difference
+     * values.
      * 
      * @param deltaLon The angular distance to move in longitude direction
      * @param deltaLat The angular distance to move in latitude direction
      */
     public void move(double deltaLon, double deltaLat) {
-        updateProjectionMatrix();
+        setPosition(new GeoCoordinates(position.getLongitude() + deltaLon,
+                position.getLatitude() + deltaLat));
     }
 
-    private boolean isPointVisisble(Vector3 point) {
-        // Sichtbar, wenn: Transformierter Vektor in [0, 1] x [0, 1] x [0, inf]
-        // und, falls Kugel, z <= Abstand zu (0, 0, 0) [?!]
-        return false;
+    private boolean isPointVisible(Vector3 point) {
+        Vector3 t = projectionMatrix.transform(point).divide();
+        return ((t.x >= -1 && t.x <= 1) && (t.y >= -1 && t.y <= 1) && (t.z >= -1 && t.z <= 1));
     }
 
     /**
-     * Determines whether a surface point is visible by the {@link de.joglearth.geometry.Camera}. The visibility is
-     * limited by both the viewport (the clipping planes) and parts of the scene closer to the
-     * camera that might shadow others (the back of the globe, for example).
+     * Determines whether a surface point is visible by the {@link de.joglearth.geometry.Camera}.
+     * The visibility is limited by both the viewport (the clipping planes) and parts of the scene
+     * closer to the camera that might shadow others (the back of the globe, for example).
      * 
      * @param geo The coordinates to check for
      * @return Whether the point is visible
      */
     public boolean isPointVisible(GeoCoordinates geo) {
-        return false;
+        if (geo == null) {
+            throw new IllegalArgumentException();
+        }
+        
+        Vector3 cameraPosition = cameraMatrix.transform(new Vector3(0, 0, 0)).divide();
+
+        return isPointVisible(geometry.getSpacePosition(geo))
+                && geometry.isPointVisible(cameraPosition, geo);
     }
 
     /**
@@ -171,7 +295,17 @@ public class Camera {
      * @return The coordinates of the point on the screen
      */
     public ScreenCoordinates getScreenCoordinates(GeoCoordinates geo) {
-        return null;
+        if (geo == null) {
+            throw new IllegalArgumentException();
+        }
+        
+        Vector3 t = projectionMatrix.transform(geometry.getSpacePosition(geo)).divide();
+
+        if ((t.x >= -1 && t.x <= 1) && (t.y >= -1 && t.y <= 1)) {
+            return new ScreenCoordinates((t.x + 1) / 2, (t.y + 1) / 2);
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -183,11 +317,33 @@ public class Camera {
      *         points outside the plane or globe ("space")
      */
     public GeoCoordinates getGeoCoordinates(ScreenCoordinates screen) {
-        return null;
+        
+        if (screen == null) {
+            throw new IllegalArgumentException();
+        }
+
+        if (screen.x < 0 || screen.x > 1 || screen.y < 0 || screen.y > 1) {
+            return null;
+        }
+        
+        Matrix4 directionMatrix = cameraMatrix.clone();
+
+        Vector3 zAxis = directionMatrix.transform(new Vector3(0, 0, -1)).divide();
+        Vector3 xAxis = zAxis.crossProduct(new Vector3(0, 1, 0)).normalized();
+        Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
+
+        directionMatrix.rotate(xAxis, (screen.x - 0.5) * fov);
+        directionMatrix.rotate(yAxis, (screen.y - 0.5) * fov);
+
+        Vector3 viewVector = directionMatrix.transform(new Vector3(0, 0, -1)).divide();
+        Vector3 cameraPosition = directionMatrix.transform(new Vector3(0, 0, 0)).divide();
+
+        return geometry.getSurfaceCoordinates(cameraPosition, viewVector);
     }
 
     /**
-     * Returns an array of tiles visible or partially visible by the {@link de.joglearth.geometry.Camera}.
+     * Returns an array of tiles visible or partially visible by the
+     * {@link de.joglearth.geometry.Camera}.
      * 
      * All tiles have the same detail level, which is calculated from the distance and number of
      * visible tiles.
@@ -217,7 +373,11 @@ public class Camera {
      * @param l The new <code>CameraListener</code>
      */
     public void addCameraListener(CameraListener l) {
-
+        if (l == null) {
+            throw new IllegalArgumentException();
+        }
+        
+        listeners.add(l);
     }
 
     /**
@@ -226,7 +386,10 @@ public class Camera {
      * @param l The <code>CameraListener</code> that should be removed
      */
     public void removeCameraListener(CameraListener l) {
-
+        if (l == null) {
+            throw new IllegalArgumentException();
+        }
+        
+        listeners.remove(l);
     }
-
 }

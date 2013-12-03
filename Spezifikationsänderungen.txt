@@ -9,3 +9,6 @@ PlaneGeometry
 SphereGeometry
 - isPointVisible Parameter für Kameraposition
 - getSurfaceCoordinates Rückgabetyp GeoCoordinates statt ScreenCoordinates
+
+Camera
+- Konstruktorargumente hinzugefügt
