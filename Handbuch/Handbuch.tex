@@ -1,0 +1,213 @@
+\documentclass[10pt]{scrreprt}
+\usepackage[a4paper, top=30mm, left=25mm, right=25mm, bottom=30mm]{geometry}
+\usepackage[utf8]{inputenc}
+
+\usepackage[Bjornstrup]{fncychap}
+\usepackage{pdfpages}
+\usepackage{ngerman}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{etoolbox}
+\usepackage{wrapfig}
+\usepackage{enumitem}
+\usepackage{tabu}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{numprint}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{rotating}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{textcomp}
+\usepackage{calc}
+
+
+\newcommand{\JoglEarth}{\raisebox{-1.2mm}{\includegraphics[scale=0.33]{Logo-Text.eps}} }
+\newcommand{\textref}[1]{\mbox{\raisebox{0.1ex}{\small$\rightarrow$ }\textit{#1}}}
+
+
+\begin{document}
+
+\thispagestyle{empty}
+\sffamily
+ 
+\title{Handbuch}
+
+\begin{figure}
+\begin{flushright}
+	\includegraphics[scale=0.4]{uniLogo.eps}
+\vspace{2.0 cm}
+\end{flushright}
+\end{figure}
+
+\begin{center}
+\vspace{2.0 cm}
+{\LARGE SEP – Wintersemester 2013/14}
+
+\vspace{1.0 cm}
+\textbf{{\Huge Handbuch}}
+
+\vspace{0.4 cm}
+\begin{figure}[!htb]
+\begin{center}
+	\includegraphics[scale=1.5]{Logo-Print.eps}
+\end{center}
+\end{figure}
+
+\vspace{0.2 cm}
+\textbf{{\huge OpenStreetMap: Die Welt in 3D}}
+
+\vspace{1.5 cm}
+03.12.2013
+
+\vspace{0.5 cm}
+Version: 1.0
+
+\vspace{1.5 cm}
+{\Large Projektbetreuer: Peter Barth}
+
+\vspace{1.5 cm}
+\begin{tabular}{|c|c|c|}
+\hline 
+\rule[-1ex]{0pt}{4ex} \textbf{Phase} & \textbf{Verantwortlicher} & \textbf{E-Mail Adresse} \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Pflichtenheft & Gabriele Haas & haasgab@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Entwurf & Thomas Eder & ederthom@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Spezifikation & Christof Blauberger & blauberg@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Implementierung & Fabian Knorr & knorrfab@fim.uni-passau.de \\ 
+\hline \hline 
+\rule[-1ex]{0pt}{4ex} Testing & Constantin Wenger & wengerco@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Präsentation & Sebastian Reichl & reichlse@fim.uni-passau.de \\ 
+\hline 
+\end{tabular}
+
+\end{center}
+
+
+\pagebreak
+\rmfamily
+\tableofcontents
+
+
+\chapter{Vorwort / Einleitung}
+
+Beim Erstellen des Handbuchs kann man vier verschiedene Ansätze unterscheiden:
+
+- der produktorientierte Ansatz,
+
+- der anwendungs- oder funktionsorientierte Ansatz,
+
+- der benutzerorientierte öder chronologische Ansatz,
+
+- der lernlogische oder erwartungsorientierte Ansatz.
+
+
+\chapter{Zur Benutzung dieses Handbuchs}
+Bitte beachten Sie die folgenden Hinweise zu diesem Handbuch:\\
+
+Im vorliegenden Handbuch werden wichtige Begriffe hervorgehoben. Hierbei sind insbesondere die folgenden Formatierungen von Wichtigkeit:
+
+\begin{itemize}
+\item kursiv: 
+\item fett:
+\item farbig:
+\item unterstrichen:
+\end{itemize}
+
+Es werden im Handbuch einige Symbole verwendet, welche die Arbeit mit dem Handbuch erleichtern sollen:
+
+\begin{tabular}{|c|c|}
+\hline 
+Symbol & Erläuterung \\ 
+\hline
+\hline
+\includegraphics[scale=0.5]{images/info.eps} & Erklärung \\ 
+\hline
+\textref Text & Hinweis auf ein weiterführendes Kapitel im Handbuch \\
+\hline
+\end{tabular} 
+
+
+\vspace{5mm}
+Die im Handbuch abgebildeten Screenshots können von \JoglEarth Erscheinungsbild auf Ihrem PC abweichen, was durch das von Ihnen verwendete Betriebssystem bedingt ist. Die Funktionalitäten und Anordnungen der Schaltflächen sind jedoch unter allen Betriebssystemen identisch. Die in diesem Handbuch abgebildeten Screenshots wurden teilweise unter Windows und teilweise unter Linux erstellt.\\
+
+Der Inhalt des Handbuchs beschränkt sich zur Erleichterung der Lektüre auf die Erklärung der wesentlichsten Programmfunktionen.\\
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Installation}
+
+\chapter{Systemvoraussetzungen}
+\section{Hardware}
+\section{Software}
+\section{Zusatzsoftware}
+\subsection{PDF-Betrachter}
+Ein PDF-Betrachter wird benötigt, um beispielsweise dieses Handbuch auf Ihrem Bildschirm darzustellen. Es wird ... empfohlen.
+
+
+\chapter{Allgemeines}
+
+\chapter{JoglEarth starten}
+
+\chapter{Module/ Funktionen}
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Gliederung}
+
+
+1. Leistungsbeschreibung
+- Was leistet das Produkt?
+- Welche Anforderungen erfüllt das Produkt?
+- Was kann der Benutzer mit dem Produkt tun und was nicht?
+
+2. Produktbeschreibung
+- Wie ist die Benutzeroberfläche aufgebaut?
+- Welche Aktionen führen zu welchen Reaktionen?
+- Welche Bezeichnungen tragen die Einzelteile des Produktes und wozu dienen sie?
+
+3. Tätigkeitsbeschreibung
+- Was soll der Benutzer in welcher Reihenfolge tun?
+- Wie soll er es tun?
+
+Die Tätigkeitsbeschreibung gliedert sich sinnvollerweise in:
+- Ziel der Handlung
+- Zusammenfassung der Handlung
+- Beschreibung der Handlung (Schritt für Schritt)
+- Resultat der Handlung
+
+4. Funktionsbeschreibung
+- Wie funktionieren einzelne Abläufe des Produktes?
+- Welche Technologien beinhaltet das Produkt?
+
+
+
+\chapter*{Glossar / Index}
+
+
+
+\end{document}
