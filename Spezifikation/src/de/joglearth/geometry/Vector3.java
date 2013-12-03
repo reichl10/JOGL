@@ -158,4 +158,9 @@ public final class Vector3 implements Cloneable {
         return this.x == other.x && this.y == other.y && this.z == other.z;
     }
 
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ", " + z + ")";
+    }
+
 }
