@@ -140,7 +140,7 @@ public final class GeoCoordinates implements Cloneable {
 
     private String getCoordinateString(double coord) {
         double deg = radToDeg(Math.abs(coord)), ideg = Math.floor(deg), imin = Math
-                .floor((deg - ideg) * 60), isec = Math.floor((deg - ideg - imin) * 3600);
+                .floor((deg - ideg) * 60), isec = Math.floor((deg - ideg - (imin/60)) * 3600);
         if (isec == (int) isec) {
             return String.format("%d° %d' %d\"", (int) ideg, (int) imin, (int) isec);
         } else {

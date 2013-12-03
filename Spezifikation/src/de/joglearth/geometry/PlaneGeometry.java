@@ -1,5 +1,6 @@
 package de.joglearth.geometry;
 
+import static java.lang.Math.PI;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.Vector3;
 
@@ -32,7 +33,7 @@ public class PlaneGeometry implements Geometry {
         Vector3 surfacePosition = cameraPosition.clone();
         surfacePosition.z = 0;
         return surfacePosition.to(getSpacePosition(geo)).length()
-        <= cameraPosition.z * DISTANCE_LIMIT;
+                <= cameraPosition.z * DISTANCE_LIMIT;
     }
 
     @Override
@@ -82,8 +83,8 @@ public class PlaneGeometry implements Geometry {
          * adding a rotate()ion.
          */
         Matrix4 mat = new Matrix4();
-        mat.translate(position.getLongitude() / Math.PI, position.getLatitude() / Math.PI, altitude);
+        mat.translate(position.getLongitude() / Math.PI, position.getLatitude() / Math.PI,
+                altitude);
         return mat;
     }
-
 }
