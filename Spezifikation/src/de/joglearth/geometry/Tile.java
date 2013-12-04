@@ -1,5 +1,8 @@
 package de.joglearth.geometry;
 
+import static java.lang.Math.*;
+
+
 /**
  * A structure identifying a single OpenStreetMap surface tile.
  */
@@ -28,7 +31,7 @@ public final class Tile implements Cloneable {
 
     // Returns the angle for the step given, in radians
     private double angle(int steps) {
-        return Math.pow(0.5, detailLevel) * steps % 1 * 2 * Math.PI;
+        return pow(0.5, detailLevel) * steps % 1 * 2 * PI;
     }
 
     /**
@@ -102,7 +105,9 @@ public final class Tile implements Cloneable {
      * @return A tile
      */
     public static Tile getContainingTile(int detailLevel, GeoCoordinates coords) {
-        return null;
+        double angle = PI / pow(2, detailLevel);
+        return new Tile(detailLevel, (int) floor(coords.getLongitude() / (2 * angle)),
+                (int) floor(coords.getLatitude() / angle));
     }
 
     /**
@@ -155,5 +160,11 @@ public final class Tile implements Cloneable {
         double lon = coords.getLongitude(), lat = coords.getLatitude();
         return lon >= longitudeFrom() && lon <= longitudeTo() && lat >= latitudeFrom()
                 && lat <= latitudeTo();
+    }
+    
+    public static void main(String[] args) {
+        Camera cam = new Camera(new PlaneGeometry());
+        GeoCoordinates geo = new GeoCoordinates((-1/3)*PI, (-1/8)*PI);
+        System.out.println(getContainingTile(2, geo));
     }
 }
