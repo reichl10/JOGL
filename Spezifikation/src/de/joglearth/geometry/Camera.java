@@ -150,6 +150,17 @@ public class Camera {
         }
     }
 
+    
+    /**
+     * Returns the position the camera is currently over.
+     * 
+     * @return The position.
+     */
+    public GeoCoordinates getPosition() {
+        return position;
+    }
+    
+    
     /**
      * Sets the {@link de.joglearth.geometry.Camera}'s distance to the surface.
      * 
@@ -165,6 +176,15 @@ public class Camera {
         if (!updateCamera()) {
             this.distance = oldDistance;
         }
+    }
+    
+    /**
+     * Returns the camera's distance to the surface.
+     * 
+     * @return The distance.
+     */
+    public double getDistance() {
+        return distance;
     }
 
     /**
@@ -352,194 +372,6 @@ public class Camera {
 
         return geometry.getSurfaceCoordinates(cameraPosition, viewVector);
     }
-
-    /**
-     * Returns an array of tiles visible or partially visible by the
-     * {@link de.joglearth.geometry.Camera}.
-     * 
-     * All tiles have the same detail level, which is calculated from the distance and number of
-     * visible tiles.
-     * 
-     * @return The array of visible tiles
-     */
-    public Iterable<Tile> getVisibleTiles() {
-        int zoomLevel = getOptimalZoomLevel();
-        
-        Tile centerTile = Tile.getContainingTile(zoomLevel,
-                getGeoCoordinates(new ScreenCoordinates(0.5, 0.5)));
-        
-        GridPoint center = new GridPoint(centerTile.getLongitudeIndex(),
-                centerTile.getLatitudeIndex());
-        // TODO Andere center points finden, wenn fail -> centerTile zurückgeben
-        
-        Set<GridPoint> visiblePoints = getVisibleGridPoints(center, zoomLevel);
-        
-        return null;
-    }
-
-    private int getOptimalZoomLevel() {
-        return 0;
-    }
-
-    private Set<GridPoint> getVisibleGridPoints(GridPoint center, int zoomLevel) {
-        Set<GridPoint> visiblePoints = new HashSet<GridPoint>();
-
-        // Start at center point
-        GridWalker walker = new GridWalker(center, zoomLevel);
-
-        // Walk to the (any) border
-        while (walker.step());
-        GridPoint start = walker.getPoint();
-        visiblePoints.add(start);
-        int lonMin = start.getLongitudeIndex(), lonMax = lonMin, 
-            latMin = start.getLatitudeIndex(), latMax = latMin;
-
-        // Step "onto the border"
-        walker.turnRight();
-        do {
-            // Try turning outside if possible, else try stepping straight, turning right or back
-            walker.turnLeft();
-            int turns = 0;
-            while (turns < 4 && !walker.step()) {
-                walker.turnRight();
-                ++turns;
-            }
-            
-            // If there's nowhere to go (Only a single visible point), stop
-            if (turns == 4) {
-                break;
-            }
-            
-            // Find minimum and maximum to get a surrounding rectangle
-            GridPoint p = walker.getPoint();
-            lonMin = min(lonMin, p.getLongitudeIndex());
-            lonMax = max(lonMax, p.getLongitudeIndex());
-            latMin = min(latMin, p.getLatitudeIndex());
-            latMax = max(latMax, p.getLatitudeIndex());
-            visiblePoints.add(p);
-        // Until the start point is hit again
-        } while (!walker.getPoint().equals(start));
-
-        
-        // Fill each line...
-        for (int lat = latMin; lat <= latMax; ++lat) {
-            int lineMin = lonMin, lineMax = lonMax;
-            // Find the left and right border on that line
-            while (!visiblePoints.contains(new GridPoint(lineMin, lat))) {
-                ++lineMin;
-            }
-            while (!visiblePoints.contains(new GridPoint(lineMax, lat))) {
-                --lineMax;
-            }
-            
-            // Fill everything inbetween
-            for (int lon = lineMin+1; lon < lineMax; ++lon) {
-                visiblePoints.add(new GridPoint(lon, lat));
-            }
-        }
-        
-        return visiblePoints;
-    }
-
-
-    private final class GridPoint {
-
-        private int lon, lat;
-
-
-        public int getLongitudeIndex() {
-            return lon;
-        }
-
-        public int getLatitudeIndex() {
-            return lat;
-        }
-
-        public GridPoint(int longitude, int latitude) {
-            lon = longitude;
-            lat = latitude;
-        }
-
-        public boolean equals(GridPoint other) {
-            return lon == other.lon && lat == other.lat;
-        }
-    }
-
-    private class GridWalker {
-
-        private final int RIGHT = 0, DOWN = 1, LEFT = 2, UP = 3;
-        private GridPoint pos;
-        private int direction, maxIndex;
-        private double angle;
-
-
-        public GridWalker(GridPoint start, int zoomLevel) {
-            this.direction = UP;
-            this.pos = start;
-            this.angle = pow(2, -zoomLevel) * PI;
-            this.maxIndex = (int) pow(2, zoomLevel - 1);
-        }
-
-        private GridPoint peekPoint() {
-            int peekLon = pos.getLongitudeIndex(), peekLat = pos.getLatitudeIndex();
-            switch (direction) {
-                case RIGHT:
-                    peekLon += 1;
-                    break;
-                case DOWN:
-                    peekLat -= 1;
-                    break;
-                case LEFT:
-                    peekLon -= 1;
-                    break;
-                case UP:
-                    peekLat += 1;
-                    break;
-            }
-            if (peekLat > maxIndex) {
-                peekLat = 2 * maxIndex - peekLat;
-            } else if (peekLat < -maxIndex) {
-                peekLat = -2 * maxIndex - peekLat;
-            }
-
-            if (peekLon > maxIndex) {
-                peekLon = 2 * maxIndex - peekLon;
-            } else if (peekLon < -maxIndex) {
-                peekLon = -2 * maxIndex - peekLon;
-            }
-
-            if (isPointVisible(new GeoCoordinates(peekLon * angle * 2, peekLat * angle))) {
-                return new GridPoint(peekLon, peekLat);
-            } else {
-                return null;
-            }
-        }
-
-        public void turnLeft() {
-            direction -= 1;
-            if (direction < 0) {
-                direction = 3;
-            }
-        }
-
-        public void turnRight() {
-            direction += 1;
-            if (direction > 3) {
-                direction = 0;
-            }
-        }
-
-        public boolean step() {
-            pos = peekPoint();
-            return pos != null;
-        }
-
-        public GridPoint getPoint() {
-            return pos;
-        }
-
-    }
-
 
     /**
      * Returns the projection matrix derived from the current camera settings.
