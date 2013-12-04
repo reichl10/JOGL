@@ -24,14 +24,16 @@ public final class HTTP {
     private HTTP() {
 
     }
-
+    
     /**
      * Gathers information via a HTTP get-request and is used for synchronous HTTP queries.
      * 
      * @param url Address of a server
-     * @return Content of the HTTP response
+     * @return Content of the HTTP response. Null if no content is available or a HTTP Error
+     *         occurred.
+     * @throws IllegalArgumentException If the url is not well formed, e.g. <code>null</code>
      */
-    public static byte[] get(String url) {
+    public static byte[] get(String url) throws IllegalArgumentException {
         if (url == null) {
             throw new IllegalArgumentException("URL was null!");
         }
@@ -85,11 +87,17 @@ public final class HTTP {
      * 
      * @param url Address of a server
      * @param request Post request
-     * @return Content of the HTTP response
+     * @return Content of the HTTP response. Null if no content is available or a HTTP Error
+     *         occurred.
+     * @throws IllegalArgumentException If the url or request is not well formed, e.g.
+     *         <code>null</code>
      */
-    public static byte[] post(String url, String request) {
+    public static byte[] post(String url, String request) throws IllegalArgumentException {
         if (url == null) {
             throw new IllegalArgumentException("URL was null!");
+        }
+        if (request == null) {
+            throw new IllegalArgumentException("Request was null!");
         }
 
         URL serverUrl;
