@@ -12,4 +12,10 @@ SphereGeometry
 
 Camera
 - Konstruktorargumente hinzugefügt
-- getVisibleTiles() gibt jetzt Iterable zurück
+- getPosition() gibt die Position unter der Kamera zurück
+- getDistance() Gegenpart zu setDistance()
+- getScale() für den Maßstab der Karte
+- getVisibleTiles() ist nun Teil der CameraUtils
+
+CameraUtils (alles)
+- mehrere Methoden aus Camera portiert

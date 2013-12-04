@@ -187,6 +187,10 @@ public class Camera {
         return distance;
     }
 
+    public double getScale() {
+        return (distance * tan(fov/2)) / PI;
+    }
+
     /**
      * Sets the parameters for the perspective transformation done by the projection matrix.
      * 
