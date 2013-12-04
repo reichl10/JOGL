@@ -23,6 +23,8 @@
 \usepackage{multirow}
 \usepackage{textcomp}
 \usepackage{calc}
+\usepackage{makeidx}
+\makeindex
 
 
 \newcommand{\JoglEarth}{\raisebox{-1.2mm}{\includegraphics[scale=0.33]{Logo-Text.eps}} }
@@ -123,18 +125,21 @@ Im vorliegenden Handbuch werden wichtige Begriffe hervorgehoben. Hierbei sind in
 
 Es werden im Handbuch einige Symbole verwendet, welche die Arbeit mit dem Handbuch erleichtern sollen:
 
+\begin{center}
 \begin{tabular}{|c|c|}
 \hline 
-Symbol & Erläuterung \\ 
+\textbf{Symbol} & \textbf{Erläuterung} \\ 
 \hline
 \hline
-\includegraphics[scale=0.5]{images/info.eps} & Erklärung \\ 
+\includegraphics[scale=0.5]{images/info.eps} & Tipps \& Tricks  \\ 
 \hline
-Übungstag & Übungen für den Anwender \\
+\includegraphics[scale=0.5]{images/quest.eps} & Übungen \\
 \hline
-\textref Text & Hinweis auf ein weiterführendes Kapitel im Handbuch \\
+\textref Kap. & Hinweis auf ein weiterführendes Kapitel im Handbuch \\
 \hline
-\end{tabular} 
+\end{tabular}
+\end{center}
+
 
 
 \vspace{5mm}
@@ -142,6 +147,11 @@ Die im Handbuch abgebildeten Screenshots können von \JoglEarth Erscheinungsbild
 
 Der Inhalt des Handbuchs beschränkt sich zur Erleichterung der Lektüre auf die Erklärung der wesentlichsten Programmfunktionen.\\
 
+
+
+
+
+\chapter{Allgemeines}
 
 \section{Anwendungsbereich}
 \JoglEarth soll eine dreidimensionale Ansicht der Welt sowie eine ebene Kartenansicht bieten. Beides erfolgt auf Basis des OpenStreetMap-Projekts und den Satellitendaten der NASA. \\
@@ -158,10 +168,6 @@ Auch soll die Anwendung wissbegierige Kinder ansprechen. Voraussetzung ist ledig
 
 
 
-
-
-
-\chapter{Installation}
 
 \chapter{Systemvoraussetzungen}
 \section{Software}
@@ -188,9 +194,13 @@ Wie schon bei der Software der Fall sollte die Anwendung auch mit nahezu allen m
 \section{Orgware}
 Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. Um die Wartezeiten akzeptabel zu halten wird mindestens 1MBit/s empfohlen.
 
-\section{Zusatzsoftware}
-\subsection{PDF-Betrachter}
-Ein PDF-Betrachter wird benötigt, um beispielsweise dieses Handbuch auf Ihrem Bildschirm darzustellen. Es wird ... empfohlen.
+
+
+
+
+\chapter{Erste Schritte...}
+Öffnen der Jar usw.
+
 
 \chapter{Benutzeroberfläche}
 \section{Bildschirmaufbau / Fensteransichten / Fenstertypen}
@@ -203,18 +213,18 @@ Ein PDF-Betrachter wird benötigt, um beispielsweise dieses Handbuch auf Ihrem B
 \end{itemize}
 
 \vspace{1cm}
-\begin{figure}[h]
+\begin{figure}[!htb]
 	\centering
 	\includegraphics[scale=0.9]{GUI-Sonnensystem.eps}
 	\caption{Die Benutzeroberfläche mit geöffnetem Ansichts-Tab im Sonnensystemmodus}
 \end{figure}
 
-
+\newpage
 \section{Navigation}
 
 \vspace{3mm}
 \subsection*{Mausbelegung}
-\begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{9cm}|}
+\begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline
 \includegraphics[scale=1.0]{images/mouseDrag_left.eps} & Drehen der Erdkugel / Verschieben der Karte \\ 
 \hline 
@@ -230,7 +240,7 @@ Ein PDF-Betrachter wird benötigt, um beispielsweise dieses Handbuch auf Ihrem B
 
 \vspace{5mm}
 \subsection*{Tastaturbelegung}
-\begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{9cm}|}
+\begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline
 \rule[-1ex]{0pt}{7ex}\includegraphics[scale=0.08]{images/key_arrow_up.eps}& \multirow{3}{*}{Drehen der Erdkugel / Verschieben der Karte}\\
 \includegraphics[scale=0.08] {images/key_arrow_left.eps} \includegraphics[scale=0.08]{images/key_arrow_down.eps} \includegraphics[scale=0.08]{images/key_arrow_right.eps} &  \\
@@ -263,19 +273,19 @@ Ein PDF-Betrachter wird benötigt, um beispielsweise dieses Handbuch auf Ihrem B
 \hline
 \rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.2]{Logo.eps}} & Programm-Icon \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{Hinzufugen.eps}} &  Stecknadel zum markieren eines Punktes \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{images/Hinzufugen.eps}} &  Stecknadel zum markieren eines Punktes \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{Entfernen.eps}} & Stecknadel zum entfernen eines Punktes \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{images/Entfernen.eps}} & Stecknadel zum entfernen eines Punktes \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{Zoom_plus.eps}} & Plus beim Zoomen \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{images/Zoom_plus.eps}} & Plus beim Zoomen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{Zoom_minus.eps}} & Minus beim Zoomen \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{images/Zoom_minus.eps}} & Minus beim Zoomen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.6]{Massstab.eps}} & Maßstab \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.6]{images/Massstab.eps}} & Maßstab \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{Handbuch.eps}} &  Handbuch-Icon \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/Handbuch.eps}} &  Handbuch-Icon \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{Info.eps}} &  About-Icon \\ 
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/Info.eps}} &  About-Icon \\ 
 \hline
 \end{tabular}
 
@@ -321,50 +331,48 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 
 
-\chapter{Allgemeines}
 
-\chapter{JoglEarth starten}
+\chapter{Funktionen}
+%inkl. Übungsaufgaben/ Szenarien, wie was funktioniert Wichtig: Tipps \& Tricks nennen
 
-\chapter{Module/ Funktionen}
-inkl. Übungsaufgaben/ Szenarien, wie was funktioniert
+\section{Suchfunkion}
+Die Suchfunktion wird über Nominatim ausgeführt. Bei den Suchanfragen ist ein Limit gesetzt. Wundern Sie sich daher nicht, wenn ein gesuchter Ort nicht gefunden werden kann. \\
+
+\vspace{3mm}
+\begin{tabular}{p{1cm} p{10cm}}
+\includegraphics[scale=0.5]{images/info.eps} &  Die Suchbegriffe werden von links nach rechts (vom Speziellen zum Allgemeinen) abgearbeitet und dann von rechts nach links, wenn das fehlschlägt. \\ 
+\end{tabular} 
+
+\vspace{3mm}
+Beispiele: \textit{Brandenburger Tor, Berlin} als auch \textit{Berlin, Brandenburger Tor} wird ein Ergebnis liefern.\\
+
+\vspace{3mm}
+\begin{tabular}{p{1cm} p{10cm}}
+\includegraphics[scale=0.5]{images/info.eps} &  Kommas sind nicht notwendig, verbessern aber die Suchgeschwindigkeit durch Reduzierung der Komplexität der Suchanfrage.  \\ 
+\end{tabular} 
+
+\vspace{3mm}
+Beispiel:
+Es wird auch nachfolgende Abfrage funktionieren: \textit{Brandenburger Tor Berlin}
 
 
 
 
+\chapter{Datenorganisation}
+% Wo werden die Daten gespeichert. Im MemoryCache und FileSystemCache.
 
 
 
+\chapter{FAQ}
 
-\chapter{Gliederung}
-
-
-1. Leistungsbeschreibung
-- Was leistet das Produkt?
-- Welche Anforderungen erfüllt das Produkt?
-- Was kann der Benutzer mit dem Produkt tun und was nicht?
-
-2. Produktbeschreibung
-- Wie ist die Benutzeroberfläche aufgebaut?
-- Welche Aktionen führen zu welchen Reaktionen?
-- Welche Bezeichnungen tragen die Einzelteile des Produktes und wozu dienen sie?
-
-3. Tätigkeitsbeschreibung
-- Was soll der Benutzer in welcher Reihenfolge tun?
-- Wie soll er es tun?
-
-Die Tätigkeitsbeschreibung gliedert sich sinnvollerweise in:
-- Ziel der Handlung
-- Zusammenfassung der Handlung
-- Beschreibung der Handlung (Schritt für Schritt)
-- Resultat der Handlung
-
-4. Funktionsbeschreibung
-- Wie funktionieren einzelne Abläufe des Produktes?
-- Welche Technologien beinhaltet das Produkt?
-
+\index{FAQ}
 
 
 \chapter*{Glossar / Index}
+% Nach ABC und Seitennummern gliedern
+
+
+\printindex
 
 
 
