@@ -120,7 +120,17 @@ public final class Tile implements Cloneable {
      * @return True if the rectangle intersects, else false
      */
     public boolean intersects(double lonFrom, double latFrom, double lonTo, double latTo) {
-        return false;
+        double tileLonFrom = this.longitudeFrom(), tileLatFrom = this.latitudeFrom(),
+                            tileLonTo = this.longitudeTo(), tileLatTo = this.latitudeTo();
+        return ((tileLonFrom < lonFrom && lonFrom < tileLonTo)
+                    || (tileLonFrom < lonTo && lonTo < tileLonTo)
+                    || (lonFrom < tileLonFrom && tileLonFrom < lonTo)
+                    || (lonFrom < tileLonTo && tileLonTo < lonTo))
+                &&
+                ((tileLatFrom < latFrom && latFrom < tileLatTo)
+                        || (tileLatFrom < latTo && latTo < tileLatTo)
+                        || (latFrom < tileLatFrom && tileLatFrom < latTo)
+                        || (latFrom < tileLatTo && tileLatTo < latTo));
     }
 
     @Override
