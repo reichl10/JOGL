@@ -20,7 +20,6 @@ public final class Settings {
 
     private final Map<String, Object> valueMap;
     private final Map<String, List<SettingsListener>> listenerMap;
-    private final Map<String, Set<Location>> locationMap;
     /**
      * Class to store settings.
      */
@@ -33,7 +32,6 @@ public final class Settings {
     private Settings() {
         valueMap = new ConcurrentHashMap<String, Object>();
         listenerMap = new ConcurrentHashMap<String, List<SettingsListener>>();
-        locationMap = new ConcurrentHashMap<String, Set<Location>>();
     }
 
     /**
@@ -56,7 +54,7 @@ public final class Settings {
      * @param listener The listener to be called
      */
     public void addSettingsListener(final String key, final SettingsListener listener) {
-        List l = listenerMap.get(key);
+        List<SettingsListener> l = listenerMap.get(key);
         if (l == null) {
             l = new LinkedList<SettingsListener>();
             listenerMap.put(key, l);
@@ -72,7 +70,7 @@ public final class Settings {
      * @param listener The listener to remove
      */
     public void removeSettingsListener(final String key, final SettingsListener listener) {
-        java.util.List l = listenerMap.get(key);
+        List<SettingsListener> l = listenerMap.get(key);
         if (l == null) {
             return;
         }
@@ -127,10 +125,14 @@ public final class Settings {
      * @param value The location to add to this key
      */
     public synchronized void putLocation(final String key, final Location value) {
-        Set<Location> set = locationMap.get(key);
+        Object val = valueMap.get(key);
+        if (val == null || !(value instanceof Set<?>)) {
+            val = new HashSet<Location>();
+        }
+        Set<Location> set = (Set<Location>) val;
         if (set == null) {
             set = new HashSet<Location>();
-            locationMap.put(key, set);
+            valueMap.put(key, set);
         }
         set.add(value);
         callListenersForKey(key, set, value);
@@ -144,9 +146,11 @@ public final class Settings {
      * @param value The <code>Location</code> to remove
      */
     public synchronized void dropLocation(final String key, final Location value) {
-        Set<Location> set = locationMap.get(key);
-        if (set == null)
+        Object val = valueMap.get(key);
+        if (val == null || !(val instanceof Set<?>)) {
             return;
+        }
+        Set<Location> set = (Set<Location>) val;
         set.remove(value);
         callListenersForKey(key, set, value);
     }
@@ -277,7 +281,10 @@ public final class Settings {
      *         <code>null</code> if no <code>Location</code> object is found using this key
      */
     public synchronized Set<Location> getLocations(final String key) {
-        return locationMap.get(key);
+        Object val = valueMap.get(key);
+        if (val == null || !(val instanceof Set<?>))
+            return null;
+        return (Set<Location>) val;
     }
 
     private void putObjectAndCallListeners(final String key, final Object value) {
@@ -287,9 +294,10 @@ public final class Settings {
 
     private void callListenersForKey(String key, Object valueOld, Object valueNew) {
         List<SettingsListener> listeners = listenerMap.get(key);
-        for (SettingsListener l : listeners) {
-            l.settingsChanged(key, valueOld, valueNew);
-        }
+        if (listeners != null)
+            for (SettingsListener l : listeners) {
+                l.settingsChanged(key, valueOld, valueNew);
+            }
     }
 
 }
