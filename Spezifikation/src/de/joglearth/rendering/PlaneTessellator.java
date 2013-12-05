@@ -1,6 +1,8 @@
 package de.joglearth.rendering;
 
+import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Tile;
+import de.joglearth.surface.HeightMap;
 import static java.lang.Math.*;
 import static de.joglearth.rendering.MeshUtils.*;
 
@@ -20,11 +22,13 @@ public class PlaneTessellator implements Tessellator {
 
         for (int line = 0; line < nVertices; ++line) {
             for (int col = 0; col < nVertices; ++col) {
-                writeVertex(vertices, vertIndex, (float) lon, (float) lat, 0);
+                writeVertex(vertices, vertIndex, (float) lon, (float) lat,
+                        (float) HeightMap.getHeight(new GeoCoordinates(lon, lat)));
                 writeTextureCoordinates(vertices, vertIndex, (float) col / nVertices, (float) line
                         / nVertices);
                 lon += lonStep;
                 lat += latStep;
+                vertIndex += VERTEX_SIZE;
             }
         }
 
@@ -41,11 +45,11 @@ public class PlaneTessellator implements Tessellator {
         int indIndex = 0;
 
         for (int line = 0; line < nVertices - 1; ++line) {
-            for (int col = 0; col < nVertices - 1; ++col) 
+            for (int col = 0; col < nVertices - 1; ++col)
             {
-                indices[indIndex+0] = 0;
-                indices[indIndex+1] = 0;
-                indices[indIndex+2] = 0;
+                indices[indIndex + 0] = 0;
+                indices[indIndex + 1] = 0;
+                indices[indIndex + 2] = 0;
                 indIndex += 3;
             }
         }
