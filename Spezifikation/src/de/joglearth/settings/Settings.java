@@ -19,7 +19,6 @@ import de.joglearth.surface.Location;
 public final class Settings {
 
     private final Map<String, Object> valueMap;
-    private final Map<String, Object> valueMap;
     private final Map<String, List<SettingsListener>> listenerMap;
     /**
      * Class to store settings.

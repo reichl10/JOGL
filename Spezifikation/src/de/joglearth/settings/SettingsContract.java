@@ -6,8 +6,9 @@ import static javax.xml.stream.XMLStreamConstants.END_ELEMENT;
 import static javax.xml.stream.XMLStreamConstants.START_ELEMENT;
 
 import java.io.FileInputStream;
-
-import de.joglearth.geometry.GeoCoordinates;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.Set;
 
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLInputFactory;
@@ -22,7 +23,6 @@ import de.joglearth.rendering.AntialiasingType;
 import de.joglearth.rendering.LevelOfDetail;
 import de.joglearth.surface.Location;
 import de.joglearth.surface.LocationType;
-
 
 
 /**
@@ -92,7 +92,6 @@ public final class SettingsContract {
     private static final String XML_ATTR_GEO_LONG = "longitude";
     private static final String XML_ATTR_GEO_LAT = "latitude";
     private static final String FILE_LOCATION = "test.xml";
-
 
 
     /**
@@ -190,35 +189,37 @@ public final class SettingsContract {
         if (keyString != null && typeString != null && valueString != null) {
             Object value = null;
             if (typeString.equals(XML_ATTR_TYPE_INTEGER)) {
-                    value = Integer.valueOf(valueString);
-                    settings.putInteger(keyString, (Integer)value);
+                value = Integer.valueOf(valueString);
+                settings.putInteger(keyString, (Integer) value);
             } else if (typeString.equals(XML_ATTR_TYPE_STRING)) {
-                    value = valueString;
-                    settings.putString(keyString, (String)value);
+                value = valueString;
+                settings.putString(keyString, (String) value);
             } else if (typeString.equals(XML_ATTR_TYPE_DOUBLE)) {
-                    value = Double.valueOf(valueString);
-                    settings.putDouble(keyString, (Double)value);
+                value = Double.valueOf(valueString);
+                settings.putDouble(keyString, (Double) value);
             } else if (typeString.equals(XML_ATTR_TYPE_BOOLEAN)) {
-                    value = Boolean.valueOf(valueString);
-                    settings.putBoolean(keyString, (Boolean)value);
+                value = Boolean.valueOf(valueString);
+                settings.putBoolean(keyString, (Boolean) value);
             } else if (typeString.equals(XML_ATTR_TYPE_FLOAT)) {
-                    value = Float.valueOf(valueString);
-                    settings.putFloat(keyString, (Float)value);
+                value = Float.valueOf(valueString);
+                settings.putFloat(keyString, (Float) value);
             } else if (typeString.equals(XML_ATTR_TYPE_LONG)) {
-                    value = Long.valueOf(valueString);
-                    settings.putLong(keyString, (Long)value);
+                value = Long.valueOf(valueString);
+                settings.putLong(keyString, (Long) value);
             } else {
                 value = null;
             }
         }
-        while(reader.hasNext() && reader.next() != END_ELEMENT && !reader.getLocalName().equals(XML_ELEMENT_ENTRY));
+        while (reader.hasNext() && reader.next() != END_ELEMENT
+                && !reader.getLocalName().equals(XML_ELEMENT_ENTRY))
+            ;
     }
+
     private static void readLocations(XMLStreamReader reader) throws XMLStreamException {
         reader.require(START_ELEMENT, null, XML_ELEMENT_LOCS);
         Settings settings = Settings.getInstance();
         String keyString = reader.getAttributeValue(null, XML_ATTR_LOCS_KEY);
-        endloop:
-        while (reader.hasNext()) {
+        endloop: while (reader.hasNext()) {
             int event = reader.next();
             switch (event) {
                 case START_ELEMENT:
@@ -239,14 +240,14 @@ public final class SettingsContract {
             }
         }
     }
+
     private static Location readLocation(XMLStreamReader reader) throws XMLStreamException {
         reader.require(START_ELEMENT, null, XML_ELEMENT_LOC);
         GeoCoordinates geoCoordinates = null;
         String typeString = reader.getAttributeValue(null, XML_ATTR_LOC_TYPE);
         String detailsString = reader.getAttributeValue(null, XML_ATTR_LOC_DETAILS);
         String nameString = reader.getAttributeValue(null, XML_ATTR_LOC_NAME);
-        endloop:
-        while (reader.hasNext()) {
+        endloop: while (reader.hasNext()) {
             int event = reader.next();
             switch (event) {
                 case START_ELEMENT:
@@ -264,76 +265,8 @@ public final class SettingsContract {
                     break;
             }
         }
-        if (geoCoordinates != null && typeString != null && detailsString != null && nameString != null) {
-            try {
-                LocationType type = Enum.valueOf(LocationType.class, typeString);
-                Location l = new Location(geoCoordinates, type, detailsString, nameString);
-                return l;
-            } catch (IllegalArgumentException e) {
-                return null;
-            }
-        }
-        return null;
-
-    private static GeoCoordinates readGeo(XMLStreamReader reader) throws XMLStreamException {
-        reader.require(START_ELEMENT, null, XML_ELEMENT_GEO);
-        String latString = reader.getAttributeValue(null, XML_ATTR_GEO_LAT);
-        String longString = reader.getAttributeValue(null, XML_ATTR_GEO_LONG);
-        // go to end of element
-        while(reader.hasNext() && reader.next() != END_ELEMENT && reader.getLocalName().equals(XML_ELEMENT_GEO)) {
-            
-        }
-        if (latString == null || longString == null) {
-            return null;
-        }
-        Double lon = null;
-        Double lat = null;
-        try {
-            lon = Double.valueOf(longString);
-            lat = Double.valueOf(latString);
-        } catch (NumberFormatException e) {
-            return null;
-        }
-        return new GeoCoordinates(lon, lat);
-    }
-                    }
-                    break;
-                case END_ELEMENT:
-                    if (reader.getLocalName().equals(XML_ELEMENT_LOCS)) {
-                        break endloop;
-                    }
-                    break;
-                default:
-                    break;// ignore other things that don't belong here
-            }
-        }
-    }
-    private static Location readLocation(XMLStreamReader reader) throws XMLStreamException {
-        reader.require(START_ELEMENT, null, XML_ELEMENT_LOC);
-        GeoCoordinates geoCoordinates = null;
-        String typeString = reader.getAttributeValue(null, XML_ATTR_LOC_TYPE);
-        String detailsString = reader.getAttributeValue(null, XML_ATTR_LOC_DETAILS);
-        String nameString = reader.getAttributeValue(null, XML_ATTR_LOC_NAME);
-        endloop:
-        while (reader.hasNext()) {
-            int event = reader.next();
-            switch (event) {
-                case START_ELEMENT:
-                    if (reader.getLocalName().equals(XML_ELEMENT_GEO)) {
-                        geoCoordinates = readGeo(reader);
-                        reader.require(END_ELEMENT, null, XML_ELEMENT_GEO);
-                    }
-                    break;
-                case END_ELEMENT:
-                    if (reader.getLocalName().equals(XML_ELEMENT_LOC)) {
-                        break endloop;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-        if (geoCoordinates != null && typeString != null && detailsString != null && nameString != null) {
+        if (geoCoordinates != null && typeString != null && detailsString != null
+                && nameString != null) {
             try {
                 LocationType type = Enum.valueOf(LocationType.class, typeString);
                 Location l = new Location(geoCoordinates, type, detailsString, nameString);
@@ -350,8 +283,9 @@ public final class SettingsContract {
         String latString = reader.getAttributeValue(null, XML_ATTR_GEO_LAT);
         String longString = reader.getAttributeValue(null, XML_ATTR_GEO_LONG);
         // go to end of element
-        while(reader.hasNext() && reader.next() != END_ELEMENT && reader.getLocalName().equals(XML_ELEMENT_GEO)) {
-            
+        while (reader.hasNext() && reader.next() != END_ELEMENT
+                && reader.getLocalName().equals(XML_ELEMENT_GEO)) {
+
         }
         if (latString == null || longString == null) {
             return null;
@@ -366,6 +300,7 @@ public final class SettingsContract {
         }
         return new GeoCoordinates(lon, lat);
     }
+
     /**
      * Saves the settings defined in this contract to a file. This saves to the same files the
      * {@link #loadSettings()} loads them from.
@@ -397,8 +332,6 @@ public final class SettingsContract {
             return;
         }
     }
-        }
-    }
 
     private static void writeStart(XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartDocument();
@@ -408,43 +341,6 @@ public final class SettingsContract {
     private static void writeEnd(XMLStreamWriter writer) throws XMLStreamException {
         writer.writeEndElement();// END ROOT
         writer.writeEndDocument();
-
-    private static void writeEntry(XMLStreamWriter writer, String key, Object value)
-            throws XMLStreamException {
-        String valueS = "";
-        String type = "";
-        writer.writeStartElement(XML_ELEMENT_ENTRY);
-        writer.writeAttribute(XML_ATTR_ENTRY_KEY, key);
-        if (value instanceof Integer) {
-            type = XML_ATTR_TYPE_INTEGER;
-            valueS = String.valueOf((Integer) value);
-        } else if (value instanceof String) {
-            type = XML_ATTR_TYPE_STRING;
-            valueS = (String) value;
-        } else if (value instanceof Double) {
-            type = XML_ATTR_TYPE_DOUBLE;
-            valueS = String.valueOf((Double) value);
-        } else if (value instanceof Boolean) {
-            type = XML_ATTR_TYPE_BOOLEAN;
-            valueS = String.valueOf((Boolean) value);
-        } else if (value instanceof Float) {
-            type = XML_ATTR_TYPE_FLOAT;
-            valueS = String.valueOf((Float) value);
-        } else {
-            // TODO: Error out :P
-        }
-        writer.writeAttribute(XML_ATTR_ENTRY_TYPE, type);
-        writer.writeAttribute(XML_ATTR_ENTRY_VALUE, valueS);
-        writer.writeEndElement(); // END ENTRY
-    }
-
-    private static void writeLocationSet(XMLStreamWriter writer, String key, Set<Location> set)
-            throws XMLStreamException {
-        writer.writeStartElement(XML_ELEMENT_LOCS);
-        writer.writeAttribute(XML_ATTR_LOCS_KEY, key);
-        for (Location l : set)
-            writeLocation(writer, l);
-        writer.writeEndElement();
     }
 
     private static void writeEntry(XMLStreamWriter writer, String key, Object value)
