@@ -5,6 +5,7 @@ import static javax.xml.stream.XMLStreamConstants.END_DOCUMENT;
 import static javax.xml.stream.XMLStreamConstants.END_ELEMENT;
 import static javax.xml.stream.XMLStreamConstants.START_ELEMENT;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -91,7 +92,7 @@ public final class SettingsContract {
     private static final String XML_ELEMENT_GEO = "GeoCoordinates";
     private static final String XML_ATTR_GEO_LONG = "longitude";
     private static final String XML_ATTR_GEO_LAT = "latitude";
-    private static final String FILE_LOCATION = "test.xml";
+    private static String FILE_LOCATION = getFileLocation();
 
 
     /**
@@ -396,5 +397,20 @@ public final class SettingsContract {
         writer.writeAttribute(XML_ATTR_GEO_LONG, new Double(geo.getLongitude()).toString());
         writer.writeAttribute(XML_ATTR_GEO_LAT, new Double(geo.getLatitude()).toString());
         writer.writeEndElement();
+    }
+    
+    private static String getFileLocation() {
+        String folderName = "joglearth";
+        String os = System.getProperty("os.name");
+        if (os.contains("Windows")) {
+            String localAppdata = System.getenv("LOCALAPPDATA");
+            return (localAppdata + "\\" + folderName + "\\" + "settings.xml");
+        } else if (os.contains("Linux")) {
+            String userHome = System.getProperty("user.home");
+            return (userHome + File.separator + "." + folderName + File.separator
+                    + "settings.xml");
+        } else {
+            return null;
+        }
     }
 }
