@@ -25,6 +25,7 @@ public class PlaneTessellator implements Tessellator {
                         / nVertices);
                 lon += lonStep;
                 lat += latStep;
+                // fehlt hier ein vertIndex += 8; ?
             }
         }
 
@@ -34,6 +35,7 @@ public class PlaneTessellator implements Tessellator {
                 writeNormal(vertices, vertIndex, 0, 0, 1);
                 lon += lonStep;
                 lat += latStep;
+                // fehlt hier ein vertIndex += 8; ?
             }
         }
 
@@ -43,10 +45,20 @@ public class PlaneTessellator implements Tessellator {
         for (int line = 0; line < nVertices - 1; ++line) {
             for (int col = 0; col < nVertices - 1; ++col) 
             {
-                indices[indIndex+0] = 0;
-                indices[indIndex+1] = 0;
-                indices[indIndex+2] = 0;
-                indIndex += 3;
+                //Annahme: Angabe der Dreieck-Eckpunkte im Uhrzeigersinn
+                //wenn falsch -> 2. und 3. Eckpunkt bitte vertauschen!
+                
+                //Dreieck 'eins' (in rechteckiger Subdivision)
+                indices[indIndex+0] = indIndex;
+                indices[indIndex+1] = indIndex+1; // (2.Eckpunkt)
+                indices[indIndex+2] = indIndex+nVertices; // (3.Eckpunkt)
+                
+                //Dreieck 'zwei'
+                indices[indIndex+3] = indIndex+1;
+                indices[indIndex+4] = indIndex+nVertices+1; // (2.Eckpunkt)
+                indices[indIndex+5] = indIndex+nVertices; // (3.Eckpunkt)
+                
+                indIndex += 6;
             }
         }
 
