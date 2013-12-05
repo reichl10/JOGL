@@ -117,7 +117,7 @@ public final class SettingsContract {
      * Loads the values for the settings defined in this contract from a file. This loads from the
      * same files the {@link #saveSettings()} saves to.
      */
-    public static void loadSettings() {}
+    public static void loadSettings() {
         Settings settings = Settings.getInstance();
         try {
             XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(
@@ -296,6 +296,76 @@ public final class SettingsContract {
         }
         return new GeoCoordinates(lon, lat);
     }
+                    }
+                    break;
+                case END_ELEMENT:
+                    if (reader.getLocalName().equals(XML_ELEMENT_LOCS)) {
+                        break endloop;
+                    }
+                    break;
+                default:
+                    break;// ignore other things that don't belong here
+            }
+        }
+    }
+    private static Location readLocation(XMLStreamReader reader) throws XMLStreamException {
+        reader.require(START_ELEMENT, null, XML_ELEMENT_LOC);
+        GeoCoordinates geoCoordinates = null;
+        String typeString = reader.getAttributeValue(null, XML_ATTR_LOC_TYPE);
+        String detailsString = reader.getAttributeValue(null, XML_ATTR_LOC_DETAILS);
+        String nameString = reader.getAttributeValue(null, XML_ATTR_LOC_NAME);
+        endloop:
+        while (reader.hasNext()) {
+            int event = reader.next();
+            switch (event) {
+                case START_ELEMENT:
+                    if (reader.getLocalName().equals(XML_ELEMENT_GEO)) {
+                        geoCoordinates = readGeo(reader);
+                        reader.require(END_ELEMENT, null, XML_ELEMENT_GEO);
+                    }
+                    break;
+                case END_ELEMENT:
+                    if (reader.getLocalName().equals(XML_ELEMENT_LOC)) {
+                        break endloop;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (geoCoordinates != null && typeString != null && detailsString != null && nameString != null) {
+            try {
+                LocationType type = Enum.valueOf(LocationType.class, typeString);
+                Location l = new Location(geoCoordinates, type, detailsString, nameString);
+                return l;
+            } catch (IllegalArgumentException e) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    private static GeoCoordinates readGeo(XMLStreamReader reader) throws XMLStreamException {
+        reader.require(START_ELEMENT, null, XML_ELEMENT_GEO);
+        String latString = reader.getAttributeValue(null, XML_ATTR_GEO_LAT);
+        String longString = reader.getAttributeValue(null, XML_ATTR_GEO_LONG);
+        // go to end of element
+        while(reader.hasNext() && reader.next() != END_ELEMENT && reader.getLocalName().equals(XML_ELEMENT_GEO)) {
+            
+        }
+        if (latString == null || longString == null) {
+            return null;
+        }
+        Double lon = null;
+        Double lat = null;
+        try {
+            lon = Double.valueOf(longString);
+            lat = Double.valueOf(latString);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+        return new GeoCoordinates(lon, lat);
+    }
     /**
      * Saves the settings defined in this contract to a file. This saves to the same files the
      * {@link #loadSettings()} loads them from.
@@ -344,7 +414,7 @@ public final class SettingsContract {
         String valueS = "";
         String type = "";
         writer.writeStartElement(XML_ELEMENT_ENTRY);
-        writer.writeAttribute(XML_ATTR_KEY, key);
+        writer.writeAttribute(XML_ATTR_ENTRY_KEY, key);
         if (value instanceof Integer) {
             type = XML_ATTR_TYPE_INTEGER;
             valueS = String.valueOf((Integer) value);
@@ -363,8 +433,8 @@ public final class SettingsContract {
         } else {
             // TODO: Error out :P
         }
-        writer.writeAttribute(XML_ATTR_TYPE, type);
-        writer.writeAttribute(XML_ATTR_VALUE, valueS);
+        writer.writeAttribute(XML_ATTR_ENTRY_TYPE, type);
+        writer.writeAttribute(XML_ATTR_ENTRY_VALUE, valueS);
         writer.writeEndElement(); // END ENTRY
     }
 
