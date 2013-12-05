@@ -127,7 +127,9 @@ public final class Vector3 implements Cloneable {
      * @return The cross product of the vector
      */
     public Vector3 crossProduct(Vector3 v) {
-        return null;
+        return new Vector3(this.y*v.z - this.z*v.y,
+                           this.z*v.x - this.x*v.z,
+                           this.x*v.y - this.y*v.x);
     }
     
     @Override
@@ -154,6 +156,11 @@ public final class Vector3 implements Cloneable {
         }
         Vector3 other = (Vector3) obj;
         return this.x == other.x && this.y == other.y && this.z == other.z;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ", " + z + ")";
     }
 
 }

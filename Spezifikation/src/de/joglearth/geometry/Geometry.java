@@ -16,7 +16,7 @@ public interface Geometry {
      * @param geo The surface point
      * @return Whether the point might be visible
      */
-    public boolean isPointVisible(GeoCoordinates geo);
+    public boolean isPointVisible(Vector3 cameraPosition, GeoCoordinates geo);
 
     /**
      * Determines the three-dimensional position of a surface point in model space. The height map
@@ -36,7 +36,7 @@ public interface Geometry {
      * @param viewVector The origin point
      * @return The surface coordinates
      */
-    public ScreenCoordinates getSurfaceCoordinates(Vector3 cameraPosition, Vector3 viewVector);
+    public GeoCoordinates getSurfaceCoordinates(Vector3 cameraPosition, Vector3 viewVector);
 
     /**
      * Returns the view matrix performing translations and rotations incurred by the camera
@@ -44,6 +44,6 @@ public interface Geometry {
      * 
      * @return The view matrix
      */
-    public Matrix4 getViewMatrix();
+    public Matrix4 getViewMatrix(GeoCoordinates position, double altitude);
 
 }
