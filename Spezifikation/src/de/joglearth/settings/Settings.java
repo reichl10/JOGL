@@ -33,7 +33,6 @@ public final class Settings {
     private Settings() {
         valueMap = new ConcurrentHashMap<String, Object>();
         listenerMap = new ConcurrentHashMap<String, List<SettingsListener>>();
-        locationMap = new ConcurrentHashMap<String, Set<Location>>();
     }
 
     /**
