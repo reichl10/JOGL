@@ -68,11 +68,5 @@ public class SettingsTest {
             fail("An IllegalArgumentException occurred!");
         }
         
-        try {
-            s.putString(null, TEST_STRING);
-        } catch(IllegalArgumentException e) {
-            fail("An IllegalArgumentException occurred!");
-        }
-        
     }
 }

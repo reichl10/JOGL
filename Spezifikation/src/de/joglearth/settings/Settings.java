@@ -288,8 +288,13 @@ public final class Settings {
     }
 
     private void putObjectAndCallListeners(final String key, final Object value) {
-        Object oldval = valueMap.put(key, value);
-        callListenersForKey(key, oldval, value);
+    	Object oldval;
+    	if (value == null) {
+    		oldval = valueMap.remove(key);
+    	} else {
+    		oldval = valueMap.put(key, value);
+    	}
+    	callListenersForKey(key, oldval, value);
     }
 
     private void callListenersForKey(String key, Object valueOld, Object valueNew) {
