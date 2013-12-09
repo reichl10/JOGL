@@ -2,6 +2,7 @@ package de.joglearth.rendering;
 
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Tile;
+import de.joglearth.geometry.Vector3;
 import de.joglearth.surface.HeightMap;
 import static java.lang.Math.*;
 import static de.joglearth.rendering.MeshUtils.*;
@@ -26,10 +27,23 @@ public class PlaneTessellator implements Tessellator {
                         (float) HeightMap.getHeight(new GeoCoordinates(lon, lat)));
                 writeTextureCoordinates(vertices, vertIndex, (float) col / nVertices, (float) line
                         / nVertices);
-                writeNormal(vertices, vertIndex, 0, 0, 1);
+                
+                double heightEast = HeightMap.getHeight(new GeoCoordinates(lon + lonStep, lat));
+                double heightWest = HeightMap.getHeight(new GeoCoordinates(lon - lonStep, lat));
+                double heightSouth = HeightMap.getHeight(new GeoCoordinates(lon, lat + latStep));
+                double heightNorth = HeightMap.getHeight(new GeoCoordinates(lon, lat - latStep));
+                
+                Vector3 westEast = new Vector3(2 * lonStep, heightEast - heightWest,0);
+                Vector3 northSouth = new Vector3(0, heightNorth - heightSouth, 2 * latStep);
+                
+                //TODO sign!
+                Vector3 normal = westEast.crossProduct(northSouth);
+                writeNormal(vertices, vertIndex, normal.x, normal.y, normal.z);
+                
                 lon += lonStep;
                 lat += latStep;
                 vertIndex += VERTEX_SIZE;
+                
             }
         }
 
