@@ -126,13 +126,13 @@ public final class Settings {
      */
     public synchronized void putLocation(final String key, final Location value) {
         Object val = valueMap.get(key);
+        Set<Location> set = null;
         if (val == null || !(value instanceof Set<?>)) {
             val = new HashSet<Location>();
-        }
-        Set<Location> set = (Set<Location>) val;
-        if (set == null) {
-            set = new HashSet<Location>();
+            set = (Set<Location>) val;
             valueMap.put(key, set);
+        } else {
+            set = (Set<Location>) val;
         }
         set.add(value);
         callListenersForKey(key, set, value);
