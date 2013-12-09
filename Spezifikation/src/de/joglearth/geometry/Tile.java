@@ -171,10 +171,4 @@ public final class Tile implements Cloneable {
         return lon >= longitudeFrom() && lon <= longitudeTo() && lat >= latitudeFrom()
                 && lat <= latitudeTo();
     }
-    
-    public static void main(String[] args) {
-        Camera cam = new Camera(new PlaneGeometry());
-        GeoCoordinates geo = new GeoCoordinates((-1/3)*PI, (-1/8)*PI);
-        System.out.println(getContainingTile(2, geo));
-    }
 }

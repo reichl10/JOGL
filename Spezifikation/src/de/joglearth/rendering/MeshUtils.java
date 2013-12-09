@@ -32,4 +32,12 @@ public final class MeshUtils {
         vertices[index + 1] = (float) textureV;
     }
 
+    public static void interpolateVertex(float[] vertices, int iLeft, int iRight, int iOut,
+            double leftFactor) {
+        for (int i = 0; i < VERTEX_SIZE; ++i) {
+            vertices[iOut + i] = vertices[iLeft + i] * (float) leftFactor + vertices[iRight + i]
+                    * (float) (1 - leftFactor);
+        }
+    }
+
 }
