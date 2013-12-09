@@ -14,7 +14,7 @@ import static de.joglearth.rendering.MeshUtils.*;
 public class PlaneTessellator implements Tessellator {
 
     @Override
-    public Mesh tessellateTile(Tile tile, int subdivisions, boolean heightMap) {
+    public Mesh tessellateTile(Tile tile, int subdivisions, boolean useHeightMap) {
         int nVertices = subdivisions + 2;
         double latStep = PI / pow(2, tile.getDetailLevel()), lonStep = 2 * latStep;
         float[] vertices = new float[8 * nVertices * nVertices];
@@ -23,27 +23,35 @@ public class PlaneTessellator implements Tessellator {
 
         for (int line = 0; line < nVertices; ++line) {
             for (int col = 0; col < nVertices; ++col) {
-                writeVertex(vertices, vertIndex, (float) lon, (float) lat,
-                        (float) HeightMap.getHeight(new GeoCoordinates(lon, lat)));
                 writeTextureCoordinates(vertices, vertIndex, (float) col / nVertices, (float) line
                         / nVertices);
-                
-                double heightEast = HeightMap.getHeight(new GeoCoordinates(lon + lonStep, lat));
-                double heightWest = HeightMap.getHeight(new GeoCoordinates(lon - lonStep, lat));
-                double heightSouth = HeightMap.getHeight(new GeoCoordinates(lon, lat + latStep));
-                double heightNorth = HeightMap.getHeight(new GeoCoordinates(lon, lat - latStep));
-                
-                Vector3 westEast = new Vector3(2 * lonStep, heightEast - heightWest,0);
-                Vector3 northSouth = new Vector3(0, heightNorth - heightSouth, 2 * latStep);
-                
-                //TODO sign!
-                Vector3 normal = westEast.crossProduct(northSouth);
-                writeNormal(vertices, vertIndex, normal.x, normal.y, normal.z);
-                
+
+                if (useHeightMap) {
+                    writeVertex(vertices, vertIndex, (float) lon, (float) lat,
+                            (float) HeightMap.getHeight(new GeoCoordinates(lon, lat)));
+
+                    double heightEast = HeightMap.getHeight(new GeoCoordinates(lon + lonStep, lat));
+                    double heightWest = HeightMap.getHeight(new GeoCoordinates(lon - lonStep, lat));
+                    double heightSouth = HeightMap
+                            .getHeight(new GeoCoordinates(lon, lat + latStep));
+                    double heightNorth = HeightMap
+                            .getHeight(new GeoCoordinates(lon, lat - latStep));
+
+                    Vector3 westEast = new Vector3(2 * lonStep, 0, heightEast - heightWest);
+                    Vector3 northSouth = new Vector3(0, 2 * latStep, heightNorth - heightSouth);
+
+                    // TODO sign!
+                    Vector3 normal = westEast.crossProduct(northSouth).normalized();
+                    writeNormal(vertices, vertIndex, normal.x, normal.y, normal.z);
+                } else {
+                    writeVertex(vertices, vertIndex, lon, lat, 0);
+                    writeNormal(vertices, vertIndex, 0, 0, 1);
+                }
+
                 lon += lonStep;
                 lat += latStep;
                 vertIndex += VERTEX_SIZE;
-                
+
             }
         }
 
@@ -53,18 +61,18 @@ public class PlaneTessellator implements Tessellator {
         for (int line = 0; line < nVertices - 1; ++line) {
             for (int col = 0; col < nVertices - 1; ++col)
             {
-                //Annahme: Angabe der Dreieck-Eckpunkte gegen den Uhrzeigersinn
-                
-                //Dreieck 'eins' (in rechteckiger Subdivision)
-                indices[indIndex+0] = indIndex;
-                indices[indIndex+1] = indIndex + nVertices;
-                indices[indIndex+2] = indIndex + 1;
-                
-                //Dreieck 'zwei'
-                indices[indIndex+3] = indIndex + 1;
-                indices[indIndex+4] = indIndex + nVertices;
-                indices[indIndex+5] = indIndex + nVertices + 1;
-                
+                // Annahme: Angabe der Dreieck-Eckpunkte gegen den Uhrzeigersinn
+
+                // Dreieck 'eins' (in rechteckiger Subdivision)
+                indices[indIndex + 0] = indIndex;
+                indices[indIndex + 1] = indIndex + nVertices;
+                indices[indIndex + 2] = indIndex + 1;
+
+                // Dreieck 'zwei'
+                indices[indIndex + 3] = indIndex + 1;
+                indices[indIndex + 4] = indIndex + nVertices;
+                indices[indIndex + 5] = indIndex + nVertices + 1;
+
                 indIndex += 6;
             }
         }
