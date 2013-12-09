@@ -1,6 +1,6 @@
 package de.joglearth.geometry;
 
-import static java.lang.Math.PI;
+import static java.lang.Math.*;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.Vector3;
 
@@ -33,7 +33,7 @@ public class PlaneGeometry implements Geometry {
         Vector3 surfacePosition = cameraPosition.clone();
         surfacePosition.z = 0;
         return surfacePosition.to(getSpacePosition(geo)).length()
-                <= cameraPosition.z * DISTANCE_LIMIT;
+                                <= cameraPosition.z * DISTANCE_LIMIT;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class PlaneGeometry implements Geometry {
          * The plane is laid out to be 2 units wide, 1 unit high and perpendicular to the Z axis,
          * with lon=0/lat=0 being the center (0, 0, 0).
          */
-        return new Vector3(geo.getLongitude() / Math.PI, geo.getLatitude() / Math.PI, 0);
+        return new Vector3(geo.getLongitude(), geo.getLatitude(), 0);
     }
 
     @Override
@@ -60,11 +60,11 @@ public class PlaneGeometry implements Geometry {
             return null;
         }
 
-        double lon = (cameraPosition.x - cameraPosition.z / viewVector.z * viewVector.x) * Math.PI;
-        double lat = (cameraPosition.y - cameraPosition.z / viewVector.z * viewVector.y) * Math.PI;
+        double lon = (cameraPosition.x - cameraPosition.z / viewVector.z * viewVector.x);
+        double lat = (cameraPosition.y - cameraPosition.z / viewVector.z * viewVector.y);
 
         // These conditions hold if and only if the centered point is on the plane.
-        if (lon > -Math.PI && lon <= Math.PI && lat >= -Math.PI / 2 && lat <= Math.PI / 2) {
+        if (lon > -PI && lon <= PI && lat >= -PI / 2 && lat <= PI / 2) {
             return new GeoCoordinates(lon, lat);
         } else {
             return null;
@@ -83,8 +83,7 @@ public class PlaneGeometry implements Geometry {
          * adding a rotate()ion.
          */
         Matrix4 mat = new Matrix4();
-        mat.translate(position.getLongitude() / Math.PI, position.getLatitude() / Math.PI,
-                altitude);
+        mat.translate(position.getLongitude(), position.getLatitude(), altitude);
         return mat;
     }
 }

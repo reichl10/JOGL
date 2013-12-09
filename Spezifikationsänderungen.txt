@@ -9,3 +9,13 @@ PlaneGeometry
 SphereGeometry
 - isPointVisible Parameter für Kameraposition
 - getSurfaceCoordinates Rückgabetyp GeoCoordinates statt ScreenCoordinates
+
+Camera
+- Konstruktorargumente hinzugefügt
+- getPosition() gibt die Position unter der Kamera zurück
+- getDistance() Gegenpart zu setDistance()
+- getScale() für den Maßstab der Karte
+- getVisibleTiles() ist nun Teil der CameraUtils
+
+CameraUtils (alles)
+- mehrere Methoden aus Camera portiert

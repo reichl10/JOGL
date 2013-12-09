@@ -5,7 +5,7 @@ import de.joglearth.geometry.Tile;
 
 /**
  * An implementation of the {@link de.joglearth.rendering.Tesselator} interface provides the
- * occastion to generate a {@link de.joglearth.rendering.Mesh}.
+ * occasion to generate a {@link de.joglearth.rendering.Mesh}.
  * 
  */
 public interface Tessellator {
@@ -24,3 +24,4 @@ public interface Tessellator {
      */
     Mesh tessellateTile(Tile tile, int subdivisions, boolean heightMap);
 }
+
