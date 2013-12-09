@@ -22,7 +22,6 @@ import de.joglearth.surface.LocationType;
 public class SettingsTest {
 
     private static final Integer  TEST_INTEGER  = new Integer(32789);
-    private static final String TEST_STRING = new String("abc");
     private static final Location TEST_LOCATION = new Location(new GeoCoordinates(3.32d, 1.45d),
                                                         LocationType.USER_TAG,
                                                         "City next to the border", "Passau");
@@ -67,6 +66,5 @@ public class SettingsTest {
         } catch(IllegalArgumentException e) {
             fail("An IllegalArgumentException occurred!");
         }
-        
     }
 }
