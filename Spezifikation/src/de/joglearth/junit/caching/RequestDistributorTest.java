@@ -63,7 +63,8 @@ public class RequestDistributorTest {
         try {
             t.addCache(null, 0);
         } catch (IllegalArgumentException e) {
-            fail("This method does not accept null as cache argument but doesn't state so in its documentation.");
+            fail("This method does not accept null as cache argument but it's not in " +
+            		"the documentation.");
         }
         t.addCache(simpleCache, 100);
     }
@@ -80,7 +81,7 @@ public class RequestDistributorTest {
             @Override
             public void requestCompleted(Integer key, Integer value) {
                 if (key < 0 || key >= resultArray.length) {
-                    fail("The RequestDistributor retured an invalid key!");
+                    fail("The RequestDistributor returned an invalid key!");
                 }
                 resultArray[key] = value;
                 waitList.remove(key);
@@ -91,7 +92,7 @@ public class RequestDistributorTest {
             SourceResponse<Integer> response = t.requestObject(new Integer(c), listener);
             assertNotNull("Response from requestObject was null", response);
             if (response.response == SourceResponseType.SYNCHRONOUS) {
-                assertNotNull("Value of the Synchronous response was null", response.value);
+                assertNotNull("Value of the synchronous response was null", response.value);
                 resultArray[c] = response.value;
                 waitList.remove(new Integer(c));
             }
@@ -148,8 +149,8 @@ public class RequestDistributorTest {
                 return map.size();
             }
 
-        }
-        ;
+        };
+        
         MockCache simpleCache = new MockCache();
         RequestDistributor<Integer, Integer> t = new RequestDistributor<Integer, Integer>();
         t.addCache(simpleCache, 100);
@@ -157,10 +158,11 @@ public class RequestDistributorTest {
         for (int i = 0; i < 100; i++) {
             t.requestObject(new Integer(i), listener);
         }
-        assertEquals("The RequestDistributor did not store all the objects.", new Integer(100),
+        assertEquals("The RequestDistributor did not store all objects.", new Integer(100),
                 new Integer(simpleCache.getSizeOfCache()));
         t.dropAll();
-        assertTrue("The RequestDistributor did not drop all objects.", 0 == simpleCache.getSizeOfCache());
+        assertTrue("The RequestDistributor did not drop all objects.",
+                0 == simpleCache.getSizeOfCache());
     }
 
     @Test
@@ -168,14 +170,15 @@ public class RequestDistributorTest {
         fail("Not yet implemented"); // TODO
     }
 
+
     /**
      * Trivial Source
      */
     private class TrivialTestSource implements Source<Integer, Integer> {
 
         private SourceResponse<Integer> responseAsync = new SourceResponse<Integer>(
-                SourceResponseType.ASYNCHRONOUS, null);
-        private ExecutorService exec = Executors.newFixedThreadPool(5);
+                                                              SourceResponseType.ASYNCHRONOUS, null);
+        private ExecutorService         exec          = Executors.newFixedThreadPool(5);
 
 
         @Override

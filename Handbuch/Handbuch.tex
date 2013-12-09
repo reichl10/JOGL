@@ -1,0 +1,391 @@
+\documentclass[10pt]{scrreprt}
+\usepackage[a4paper, top=30mm, left=25mm, right=25mm, bottom=30mm]{geometry}
+\usepackage[utf8]{inputenc}
+
+\usepackage[Bjornstrup]{fncychap}
+\usepackage{pdfpages}
+\usepackage{ngerman}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{etoolbox}
+\usepackage{wrapfig}
+\usepackage{enumitem}
+\usepackage{tabu}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{numprint}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{rotating}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{textcomp}
+\usepackage{calc}
+\usepackage{makeidx}
+\makeindex
+
+
+\newcommand{\JoglEarth}{\raisebox{-1.2mm}{\includegraphics[scale=0.33]{Logo-Text.eps}} }
+\newcommand{\textref}[1]{\mbox{\raisebox{0.1ex}{\small$\rightarrow$ }\textit{#1}}}
+
+
+\begin{document}
+
+\thispagestyle{empty}
+\sffamily
+ 
+\title{Handbuch}
+
+\begin{figure}
+\begin{flushright}
+	\includegraphics[scale=0.4]{uniLogo.eps}
+\vspace{2.0 cm}
+\end{flushright}
+\end{figure}
+
+\begin{center}
+\vspace{2.0 cm}
+{\LARGE SEP – Wintersemester 2013/14}
+
+\vspace{1.0 cm}
+\textbf{{\Huge Handbuch}}
+
+\vspace{0.4 cm}
+\begin{figure}[!htb]
+\begin{center}
+	\includegraphics[scale=1.5]{Logo-Print.eps}
+\end{center}
+\end{figure}
+
+\vspace{0.2 cm}
+\textbf{{\huge OpenStreetMap: Die Welt in 3D}}
+
+\vspace{1.5 cm}
+03.12.2013
+
+\vspace{0.5 cm}
+Version: 1.0
+
+\vspace{1.5 cm}
+{\Large Projektbetreuer: Peter Barth}
+
+\vspace{1.5 cm}
+\begin{tabular}{|c|c|c|}
+\hline 
+\rule[-1ex]{0pt}{4ex} \textbf{Phase} & \textbf{Verantwortlicher} & \textbf{E-Mail Adresse} \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Pflichtenheft & Gabriele Haas & haasgab@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Entwurf & Thomas Eder & ederthom@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Spezifikation & Christof Blauberger & blauberg@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Implementierung & Fabian Knorr & knorrfab@fim.uni-passau.de \\ 
+\hline \hline 
+\rule[-1ex]{0pt}{4ex} Testing & Constantin Wenger & wengerco@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Präsentation & Sebastian Reichl & reichlse@fim.uni-passau.de \\ 
+\hline 
+\end{tabular}
+
+\end{center}
+
+
+\pagebreak
+\rmfamily
+\tableofcontents
+
+
+\chapter{Vorwort}
+
+Beim Erstellen des Handbuchs kann man vier verschiedene Ansätze unterscheiden:
+
+- der produktorientierte Ansatz,
+
+- der anwendungs- oder funktionsorientierte Ansatz,
+
+- der benutzerorientierte öder chronologische Ansatz,
+
+- der lernlogische oder erwartungsorientierte Ansatz.
+
+
+\chapter{Zur Benutzung dieses Handbuchs}
+Bitte beachten Sie die folgenden Hinweise zu diesem Handbuch:\\
+
+Im vorliegenden Handbuch werden wichtige Begriffe hervorgehoben. Hierbei sind insbesondere die folgenden Formatierungen von Wichtigkeit:
+
+\begin{itemize}
+\item kursiv: 
+\item fett:
+\item farbig:
+\item unterstrichen:
+\end{itemize}
+
+Es werden im Handbuch einige Symbole verwendet, welche die Arbeit mit dem Handbuch erleichtern sollen:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline 
+\textbf{Symbol} & \textbf{Erläuterung} \\ 
+\hline
+\hline
+\includegraphics[scale=0.5]{images/info.eps} & Tipps \& Tricks  \\ 
+\hline
+\includegraphics[scale=0.5]{images/quest.eps} & Übungen \\
+\hline
+\textref Kap. & Hinweis auf ein weiterführendes Kapitel im Handbuch \\
+\hline
+\end{tabular}
+\end{center}
+
+
+
+\vspace{5mm}
+Die im Handbuch abgebildeten Screenshots können von \JoglEarth Erscheinungsbild auf Ihrem PC abweichen, was durch das von Ihnen verwendete Betriebssystem bedingt ist. Die Funktionalitäten und Anordnungen der Schaltflächen sind jedoch unter allen Betriebssystemen identisch. Die in diesem Handbuch abgebildeten Screenshots wurden teilweise unter Windows und teilweise unter Linux erstellt.\\
+
+Der Inhalt des Handbuchs beschränkt sich zur Erleichterung der Lektüre auf die Erklärung der wesentlichsten Programmfunktionen.\\
+
+
+
+
+
+\chapter{Allgemeines}
+
+\section{Anwendungsbereich}
+\JoglEarth soll eine dreidimensionale Ansicht der Welt sowie eine ebene Kartenansicht bieten. Beides erfolgt auf Basis des OpenStreetMap-Projekts und den Satellitendaten der NASA. \\
+
+Die grafische Benutzeroberfläche zeigt dafür im dreidimensionalen Modus eine Weltkugel, die frei gedreht und gezoomt werden kann, und im zweidimensionalen einen Ausschnitt der Weltkarte. Die Karte kann aus verschiedenen Kategorien wie Satellitenbildern oder Straßenkarten gewählt werden. Die Steuerung erfolgt mit Tastatur und Maus. \\
+
+Mit einer Suchfunktion kann im Umkreis oder global nach Orten gesucht werden. Punkte besonderen Interesses wie Tankstellen oder Banken können über dem Kartenbild eingeblendet werden.
+
+\section{Zielgruppe}
+Primäre Zielgruppe des Systems sind Privatanwender, die eine andere Art der Kartendarstellung als die der typischen Onlinekarten bevorzugen. \\
+
+Auch soll die Anwendung wissbegierige Kinder ansprechen. Voraussetzung ist lediglich der geübte Umgang mit der Maus und/ oder Tastatur.
+
+
+
+
+
+\chapter{Systemvoraussetzungen}
+\section{Software}
+Da das Projekt auf Java setzt, ist es betriebssystemunabhängig. Es muss lediglich das Java Runtime Environment (JRE) in Version 7 sowie ein Fenstersystem und Netzwerkunterstützung zur Verfügung stehen. Um das Handbuch über die Hilfefunktion anzeigen zu können, muss auf dem System außerdem ein PDF-Betrachter installiert sein. Zusätzliche Programmbibliotheken, die zum Ausführen des Softwarepakets nötig sind, werden mitgeliefert.\\
+
+Da die Software von Seiten der Entwickler nur auf einem kleinen Teil der möglichen Umgebungen getestet werden kann, sollen mindestens folgende Konfigurationen unterstützt werden:
+\begin{itemize}
+\item Windows 7 und 8 auf x86{\_}64 mit den Herstellertreibern von nVidia und AMD
+\item Linux auf x86{\_}64 mit X.org und proprietären Treibern von nVidia / AMD sowie den freien radeon-Treibern für AMD
+\end{itemize}
+
+
+\section{Hardware}
+Wie schon bei der Software der Fall sollte die Anwendung auch mit nahezu allen modernen Desktopsystemen kompatibel sein. Folgende (oder eine gleichwertige) Konfiguration wird jedoch für ein optimales Benutzererlebnis mindestens empfohlen:
+\begin{itemize}
+\item Dual-Core-Prozessor mit 1 GHz Taktfrequenz
+\item 2 Gigabyte RAM
+\item 200 Megabyte freier Speicherplatz
+\item Grafikkarte: Onboard-Grafik mit OpenGL 2.0-Unterstützung
+\item Bildschirm mit 1024x768 Pixeln Auflösung und 24 Bit Farbtiefe
+\item Standard-Tastatur und Maus
+\end{itemize}
+
+\section{Orgware}
+Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. Um die Wartezeiten akzeptabel zu halten wird mindestens 1MBit/s empfohlen.
+
+
+
+
+
+\chapter{Erste Schritte...}
+Öffnen der JAR, Jogl-Earth
+
+Standard-Einstellungen: Cachegrößen usw.
+
+
+\chapter{Benutzeroberfläche}
+\section{Bildschirmaufbau / Fensteransichten / Fenstertypen}
+
+\begin{itemize}
+	\item Das Hauptelement der Benutzeroberfläche ist das \textit{Ansichtsfenster} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/1.eps}}, das sich in der Fenstermitte befindet. Darin wird der Globus, die Kartenebene oder eine Sonnensystemansicht angezeigt. Der sichtbare Kartenausschnitt kann interaktiv mit Maus oder Tastatur verschoben, gedreht gezoomt und gekippt werden.
+	\item Am linken Rand des Fensters befindet sich die \textit{Seitenleiste} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/2.eps}}, die die meisten Steuerungsoptionen bereitstellt. Der obere Teil ist in Tabs unterteilt, mit denen Funktionen gruppiert werden; der untere Teil zeigt Details zum momentan zentrierten Punkt an. Um den sichtbaren Kartenbereich zu vergrößern, ist sie ausblendbar.
+	\item Am rechten Rand \raisebox{-1pt}{\includegraphics[scale=0.45]{images/3.eps}} befindet sich ein Schieber, mit dem das Zoomlevel angezeigt und geändert werden kann.
+	\item Die \textit{Statusleiste} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/4.eps}} am unteren Rand beinhaltet Informationen über den zentrierten Punkt, wie Koordinaten und Maßstab. Außerdem wird der Fortschritt im Hintergrund geladener Daten angezeigt.
+\end{itemize}
+
+\vspace{1cm}
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.9]{GUI-Sonnensystem.eps}
+	\caption{Die Benutzeroberfläche mit geöffnetem Ansichts-Tab im Sonnensystemmodus}
+\end{figure}
+
+\newpage
+\section{Navigation}
+
+\vspace{3mm}
+\subsection*{Mausbelegung}
+\begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
+\hline
+\includegraphics[scale=1.0]{images/mouseDrag_left.eps} & Drehen der Erdkugel / Verschieben der Karte \\ 
+\hline 
+\includegraphics[scale=1.0]{images/mouseDoubleClick_left.eps} & Punkt unter dem Mauszeiger im Kartenfenster zentrieren \\
+\hline
+\includegraphics[scale=1.0]{images/mouseDrag_right.eps} & Kippen der Kamera \\
+\hline
+\includegraphics[scale=1.0]{images/mouse_scrollen.eps} & Zoomen der Ansicht \\
+\hline
+\end{tabular} 
+
+
+
+\vspace{5mm}
+\subsection*{Tastaturbelegung}
+\begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
+\hline
+\rule[-1ex]{0pt}{7ex}\includegraphics[scale=0.08]{images/key_arrow_up.eps}& \multirow{3}{*}{Drehen der Erdkugel / Verschieben der Karte}\\
+\includegraphics[scale=0.08] {images/key_arrow_left.eps} \includegraphics[scale=0.08]{images/key_arrow_down.eps} \includegraphics[scale=0.08]{images/key_arrow_right.eps} &  \\
+\hline
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{images/key_Bild_Auf.eps}  \includegraphics[scale=0.08]{images/key_Bild_Ab.eps} & Kippen der Kamera nach oben / unten\\
+\hline
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{images/key_Pos1.eps} \includegraphics[scale=0.08]{images/key_Ende.eps} & Kippen der Kamera nach links / rechts \\
+\hline
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{images/key_Plus.eps}  \includegraphics[scale=0.08]{images/key_Minus.eps} & Zoomen der Ansicht \\
+\hline
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{images/key_0.eps} & Rücksetzen des Kippens \\ 
+\hline
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{images/key_F1.eps} & Anzeige des Benutzerhandbuchs \\ 
+\hline
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{images/key_Strg.eps} \rule[-1ex]{0pt}{7ex}\raisebox{0.7em}{\textbf{+}} \includegraphics[scale=0.08]{images/key_Q.eps} & Beenden der Anwendung \\ 
+\hline
+\end{tabular}
+
+
+
+\section{Programm-Icons}
+
+\vspace{5mm}
+\begin{tabular}{|p{3cm}|p{10cm}|}
+\hline 
+\rule[-1ex]{0pt}{4ex} \textbf{Symbol} & \textbf{Erläuterung} \\ 
+\hline
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.6]{Logo-Print.eps}} &  Logo von \JoglEarth \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.2]{Logo.eps}} & Programm-Icon \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{images/Hinzufugen.eps}} &  Stecknadel zum markieren eines Punktes \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{images/Entfernen.eps}} & Stecknadel zum entfernen eines Punktes \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{images/Zoom_plus.eps}} & Plus beim Zoomen \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{images/Zoom_minus.eps}} & Minus beim Zoomen \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.6]{images/Massstab.eps}} & Maßstab \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/Handbuch.eps}} &  Handbuch-Icon \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/Info.eps}} &  About-Icon \\ 
+\hline
+\end{tabular}
+
+
+\section{Liste der POIs}
+Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann im Rahmen dieses Projekts nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den  Antworten der OverpassAPI vorgenommen.\\
+
+\vspace{5 mm}
+
+\begin{tabular}{|p{3cm}|p{10cm}|}
+\hline 
+\rule[-1ex]{0pt}{4ex} \textbf{Symbol} & \textbf{ENUM \textit{LocationType}} \\ 
+\hline
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Shop.eps}} &  SHOPS \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Restaurant.eps}} & RESTAURANTS \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_nightlife.eps}} &  NIGHTLIFE \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Bank.eps}} & BANK \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Toilets.eps}} & TOILETS \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Grocery.eps}} & GROCERY \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Activity.eps}} & ACTIVITY \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_hiking_cycling.eps}} & HIKING\_CYCLING \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_education.eps}} &  EDUCATION \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_health.eps}} &  HEALTH \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_post.eps}} &  POST \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_hotels.eps}} &  HOTELS \\ 
+\hline
+
+
+\end{tabular}
+
+
+
+
+
+\chapter{Funktionen}
+%inkl. Übungsaufgaben/ Szenarien, wie was funktioniert Wichtig: Tipps \& Tricks nennen
+
+\section{Höhenprofil}
+Die Höhenprofile werden anhand von NASA SRTM Daten ermittelt.
+
+\vspace{3mm}
+\begin{tabular}{p{1cm} p{10cm}}
+\includegraphics[scale=0.5]{images/info.eps} &  Zur optimalen Darstellung des Höhenprofils empfiehlt sich Zoomlevel ... \\ 
+\end{tabular} 
+
+
+\section{Suchfunkion}
+Die Suchfunktion wird über Nominatim ausgeführt. Bei den Suchanfragen ist ein Limit gesetzt. Wundern Sie sich daher nicht, wenn ein gesuchter Ort nicht gefunden werden kann. \\
+
+\vspace{3mm}
+\begin{tabular}{p{1cm} p{10cm}}
+\includegraphics[scale=0.5]{images/info.eps} &  Die Suchbegriffe werden von links nach rechts (vom Speziellen zum Allgemeinen) abgearbeitet und dann von rechts nach links, wenn das fehlschlägt. \\ 
+\end{tabular} 
+
+\vspace{3mm}
+Beispiele: \textit{Brandenburger Tor, Berlin} als auch \textit{Berlin, Brandenburger Tor} wird ein Ergebnis liefern.\\
+
+\vspace{3mm}
+\begin{tabular}{p{1cm} p{10cm}}
+\includegraphics[scale=0.5]{images/info.eps} &  Kommas sind nicht notwendig, verbessern aber die Suchgeschwindigkeit durch Reduzierung der Komplexität der Suchanfrage.  \\ 
+\end{tabular} 
+
+\vspace{3mm}
+Beispiel:
+Es wird auch nachfolgende Abfrage funktionieren: \textit{Brandenburger Tor Berlin}
+
+
+
+
+
+\chapter{Datenorganisation}
+% Wo werden die Daten gespeichert. Im MemoryCache und FileSystemCache.
+% Welche Benutzereinstellungen werden in Settings gespeichert - Tabelle machen
+
+
+
+
+
+\chapter{FAQ}
+
+
+
+\chapter{Index}
+% Nach ABC und Seitennummern gliedern
+\printindex
+
+
+
+\end{document}

@@ -39,15 +39,17 @@ public class PlaneTessellator implements Tessellator {
         for (int line = 0; line < nVertices - 1; ++line) {
             for (int col = 0; col < nVertices - 1; ++col)
             {
+                //Annahme: Angabe der Dreieck-Eckpunkte gegen den Uhrzeigersinn
+                
                 //Dreieck 'eins' (in rechteckiger Subdivision)
                 indices[indIndex+0] = indIndex;
-                indices[indIndex+1] = indIndex+nVertices; // (2.Eckpunkt)
-                indices[indIndex+2] = indIndex+1; // (3.Eckpunkt)
+                indices[indIndex+1] = indIndex + nVertices;
+                indices[indIndex+2] = indIndex + 1;
                 
                 //Dreieck 'zwei'
-                indices[indIndex+3] = indIndex+1;
-                indices[indIndex+4] = indIndex+nVertices; // (2.Eckpunkt)
-                indices[indIndex+5] = indIndex+nVertices+1; // (3.Eckpunkt)
+                indices[indIndex+3] = indIndex + 1;
+                indices[indIndex+4] = indIndex + nVertices;
+                indices[indIndex+5] = indIndex + nVertices + 1;
                 
                 indIndex += 6;
             }
