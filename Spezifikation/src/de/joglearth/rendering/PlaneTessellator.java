@@ -41,13 +41,13 @@ public class PlaneTessellator implements Tessellator {
             {
                 //Dreieck 'eins' (in rechteckiger Subdivision)
                 indices[indIndex+0] = indIndex;
-                indices[indIndex+1] = indIndex+1; // (2.Eckpunkt)
-                indices[indIndex+2] = indIndex+nVertices; // (3.Eckpunkt)
+                indices[indIndex+1] = indIndex+nVertices; // (2.Eckpunkt)
+                indices[indIndex+2] = indIndex+1; // (3.Eckpunkt)
                 
                 //Dreieck 'zwei'
                 indices[indIndex+3] = indIndex+1;
-                indices[indIndex+4] = indIndex+nVertices+1; // (2.Eckpunkt)
-                indices[indIndex+5] = indIndex+nVertices; // (3.Eckpunkt)
+                indices[indIndex+4] = indIndex+nVertices; // (2.Eckpunkt)
+                indices[indIndex+5] = indIndex+nVertices+1; // (3.Eckpunkt)
                 
                 indIndex += 6;
             }
