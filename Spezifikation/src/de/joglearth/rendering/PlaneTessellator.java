@@ -26,15 +26,6 @@ public class PlaneTessellator implements Tessellator {
                         (float) HeightMap.getHeight(new GeoCoordinates(lon, lat)));
                 writeTextureCoordinates(vertices, vertIndex, (float) col / nVertices, (float) line
                         / nVertices);
-                lon += lonStep;
-                lat += latStep;
-                vertIndex += VERTEX_SIZE;
-            }
-        }
-
-        vertIndex = 0;
-        for (int line = 0; line < nVertices; ++line) {
-            for (int col = 0; col < nVertices; ++col) {
                 writeNormal(vertices, vertIndex, 0, 0, 1);
                 lon += lonStep;
                 lat += latStep;
