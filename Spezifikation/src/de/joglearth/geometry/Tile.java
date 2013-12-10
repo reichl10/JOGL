@@ -119,8 +119,8 @@ public final class Tile implements Cloneable {
      * @return True if the rectangle intersects, else false
      */
     public boolean intersects(double lonFrom, double latFrom, double lonTo, double latTo) {
-        double tileLonFrom = this.getLongitudeFrom(), tileLatFrom = this.getLatitudeFrom(),
-                            tileLonTo = this.getLongitudeTo(), tileLatTo = this.getLatitudeTo();
+        double tileLonFrom = this.getLongitudeFrom(), tileLatFrom = this.getLatitudeFrom(), tileLonTo = this
+                .getLongitudeTo(), tileLatTo = this.getLatitudeTo();
         return ((tileLonFrom < lonFrom && lonFrom < tileLonTo)
                 || (tileLonFrom < lonTo && lonTo < tileLonTo)
                 || (lonFrom < tileLonFrom && tileLonFrom < lonTo)
@@ -167,10 +167,16 @@ public final class Tile implements Cloneable {
             throw new IllegalArgumentException();
         }
         double lon = coords.getLongitude(), lat = coords.getLatitude();
-        return lon >= getLongitudeFrom() && lon <= getLongitudeTo() && lat >= getLatitudeFrom()
-                && lat <= getLatitudeTo();
+        return (lon >= getLongitudeFrom()
+                        && lon <= getLongitudeTo()
+                        && lat >= getLatitudeFrom()
+                        && lat <= getLatitudeTo())
+            ||
+                (lon <= getLongitudeFrom() && lon >= getLongitudeTo()
+                        && lat <= getLatitudeFrom()
+                        && lat >= getLatitudeTo());
     }
-    
+
     @Override
     public String toString() {
         return "Tile [detailLevel=" + detailLevel + ", lonIndex=" + lonIndex + ", latIndex="
@@ -178,5 +184,5 @@ public final class Tile implements Cloneable {
                 + getLongitudeTo() + ", latitudeFrom()=" + getLatitudeFrom() + ", latitudeTo()="
                 + getLatitudeTo() + "]";
     }
-    
+
 }
