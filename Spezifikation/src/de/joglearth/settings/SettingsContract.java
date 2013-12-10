@@ -24,6 +24,7 @@ import de.joglearth.rendering.AntialiasingType;
 import de.joglearth.rendering.LevelOfDetail;
 import de.joglearth.surface.Location;
 import de.joglearth.surface.LocationType;
+import de.joglearth.surface.SingleMapType;
 
 
 /**
@@ -69,6 +70,17 @@ public final class SettingsContract {
     public static final String CACHE_SIZE_MEMORY = "CacheSizeMemory";
 
     /**
+     * Name constant for the HeightMap setting. You should save a boolean using this key.
+     */
+    public static final String HEIGHT_MAP_ENABLED = "HeightMap";
+    
+    /**
+     * Name constant for the MapType setting. You should save a String using this key.
+     * The String should be created using the #name of {@link SingleMapType} or {@link TildMapType}.
+     */
+    public static final String MAP_TYPE = "MapType";
+
+    /**
      * Name constant for the file system cache's size. You should save an integer using this key.
      */
     public static final String CACHE_SIZE_FILESYSTEM = "CacheSizeFileSystem";
@@ -92,6 +104,7 @@ public final class SettingsContract {
     private static final String XML_ELEMENT_GEO = "GeoCoordinates";
     private static final String XML_ATTR_GEO_LONG = "longitude";
     private static final String XML_ATTR_GEO_LAT = "latitude";
+
     private static String FILE_LOCATION = getFileLocation();
 
 
