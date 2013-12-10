@@ -1,21 +1,20 @@
 package de.joglearth.ui;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
-
-import de.joglearth.surface.Location;
-
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
 import java.awt.FlowLayout;
 
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
+
+import de.joglearth.surface.Location;
 
 
 /**
@@ -30,9 +29,9 @@ public class LocationEditDialog extends JDialog {
      */
     private static final long serialVersionUID = -8715326019757123990L;
 
-    private JTextField        nameTextField;
+    private JTextField nameTextField;
 
-    private JTextField        descriptionTextField;
+    private JTextField descriptionTextField;
 
 
     /**

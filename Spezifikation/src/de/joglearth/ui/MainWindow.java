@@ -1,10 +1,45 @@
 package de.joglearth.ui;
 
+import static de.joglearth.util.Resource.loadIcon;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Collection;
+
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JSlider;
+import javax.swing.JSpinner;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
+
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 
 import de.joglearth.JoglEarth;
 import de.joglearth.geometry.Camera;
@@ -17,54 +52,8 @@ import de.joglearth.surface.LocationListener;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.surface.MapLayout;
 import de.joglearth.surface.SingleMapType;
-import de.joglearth.surface.TiledMapType;
 import de.joglearth.surface.SurfaceListener;
-
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
-import javax.swing.JButton;
-
-import java.awt.FlowLayout;
-
-import javax.swing.UIManager;
-
-import com.jgoodies.forms.factories.FormFactory;
-
-import javax.swing.JProgressBar;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.BorderFactory;
-import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.JRadioButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.JSlider;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Collection;
-
-import static de.joglearth.util.Resource.loadIcon;
-
-import javax.swing.JSpinner;
-import javax.swing.border.TitledBorder;
+import de.joglearth.surface.TiledMapType;
 
 
 /**
@@ -87,48 +76,48 @@ public class MainWindow extends JFrame {
     }
 
 
-    private static ImageIcon                     hideIcon         = loadIcon("icons/hide.png");
-    private static ImageIcon                     showIcon         = loadIcon("icons/show.png");
+    private static ImageIcon hideIcon = loadIcon("icons/hide.png");
+    private static ImageIcon showIcon = loadIcon("icons/show.png");
 
     /**
      * SerialVersionUID
      */
-    private static final long                    serialVersionUID = -7540009258222187987L;
+    private static final long serialVersionUID = -7540009258222187987L;
 
     /**
      * Default minimum width of the window.
      */
-    private static final int                     MIN_WIDTH        = 900;
+    private static final int MIN_WIDTH = 900;
 
     /**
      * Default minimum height of the window.
      */
-    private static final int                     MIN_HEIGHT       = 600;
+    private static final int MIN_HEIGHT = 600;
 
     /**
      * Stores the reference to the <code>LocationManager</code> that it gets through the
      * Constructor.
      */
-    private LocationManager                      locationManager;
+    private LocationManager locationManager;
 
     /**
      * Stores the reference to the <code>ViewEventListener</code> that is created on initialization.
      */
-    private ViewEventListener                    viewEventListener;
+    private ViewEventListener viewEventListener;
 
     /**
      * Stores the reference to the <code>Camera</code> that it gets through the constructor.
      */
-    private Camera                               camera;
-    private JTextField                           latitudeTextField;
-    private JTextField                           longitudeTextField;
-    private JTextField                           textField;
-    private JLabel                               sidebarHideIconLabel;
-    private JPanel                               sideBarHideLinePanel;
-    private JPanel                               mapOptionsPanel;
-    private JComboBox<?>                         mapTypeComboBox;
+    private Camera camera;
+    private JTextField latitudeTextField;
+    private JTextField longitudeTextField;
+    private JTextField textField;
+    private JLabel sidebarHideIconLabel;
+    private JPanel sideBarHideLinePanel;
+    private JPanel mapOptionsPanel;
+    private JComboBox<?> mapTypeComboBox;
     private JComboBox<IconizedItem<DisplayMode>> displayModeComboBox;
-    private JPanel                               viewTab, placesTab, settingsTab, detailsPanel,
+    private JPanel viewTab, placesTab, settingsTab, detailsPanel,
             viewPanel;
 
 
@@ -161,7 +150,7 @@ public class MainWindow extends JFrame {
     private class MapTypePair {
 
         public MapLayout layout;
-        public Object    type;
+        public Object type;
 
 
         public MapTypePair(SingleMapType s) {

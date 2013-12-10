@@ -9,7 +9,7 @@ package de.joglearth.ui;
 public class NamedItem<E> {
 
     private String caption;
-    private E      value;
+    private E value;
 
 
     /**
