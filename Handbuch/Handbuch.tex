@@ -3,33 +3,44 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage[Bjornstrup]{fncychap}
-\usepackage{pdfpages}
 \usepackage{ngerman}
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \usepackage{etoolbox}
-\usepackage{wrapfig}
 \usepackage{enumitem}
-\usepackage{tabu}
-\usepackage{amsmath}
 \usepackage{url}
 \usepackage{numprint}
 \usepackage{longtable}
-\usepackage{caption}
-\usepackage{rotating}
-\usepackage{array}
-\usepackage{listings}
-\usepackage{amssymb}
+\usepackage{tabu}
 \usepackage{multirow}
-\usepackage{textcomp}
-\usepackage{calc}
-\usepackage{makeidx}
-\makeindex
+\usepackage{caption}
+\usepackage{array}
+\usepackage{amssymb}
 
 
+\makeatletter
+\patchcmd{\@makechapterhead}{\vspace*{50\p@}}{\vspace*{-20\p@}}{}{}
+\patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{\vspace*{7\p@}}{}{}
+\patchcmd{\DOTIS}{\vskip 40\p@}{\vskip -12\p@} 
+\makeatother
+  
+\captionsetup[figure]{labelfont={sf,bf},textfont={sf}}
+\deffootnotemark{[\thefootnotemark]}
+\deffootnote{1.5em}{1em}{[\thefootnotemark] }
+\setlength{\parindent}{0pt}
+\renewcommand{\labelitemi}{ \raisebox{0.3ex}{\small$\blacktriangleright$} }
+
+\newcommand{\sfbf}[1]{\textbf{\sffamily #1}}
+\newcommand{\sfit}[1]{\textit{\sffamily #1}}
+\newcommand{\W}{\sfbf{W}}
+\newcommand{\ziellabel}{Z}
 \newcommand{\JoglEarth}{\raisebox{-1.2mm}{\includegraphics[scale=0.33]{Logo-Text.eps}} }
 \newcommand{\textref}[1]{\mbox{\raisebox{0.1ex}{\small$\rightarrow$ }\textit{#1}}}
 
+\newenvironment{details}[1][6pt]{%
+  \parskip#1 \parindent6mm \raggedright%
+  \def\item{\par\ignorespaces\hangindent=5mm \hangafter1}}{%
+  \par\ignorespaces} 
 
 \begin{document}
 
@@ -112,15 +123,15 @@ Beim Erstellen des Handbuchs kann man vier verschiedene Ansätze unterscheiden:
 
 
 \chapter{Zur Benutzung dieses Handbuchs}
-Bitte beachten Sie die folgenden Hinweise zu diesem Handbuch:\\
 
+\section*{Hinweise und Symbole}
 Im vorliegenden Handbuch werden wichtige Begriffe hervorgehoben. Hierbei sind insbesondere die folgenden Formatierungen von Wichtigkeit:
 
 \begin{itemize}
-\item kursiv: 
-\item fett:
+\item \textit{kursiv}: 
+\item \textbf{fett}:
 \item farbig:
-\item unterstrichen:
+\item \underline{unterstrichen}:
 \end{itemize}
 
 Es werden im Handbuch einige Symbole verwendet, welche die Arbeit mit dem Handbuch erleichtern sollen:
@@ -158,7 +169,8 @@ Der Inhalt des Handbuchs beschränkt sich zur Erleichterung der Lektüre auf die
 
 Die grafische Benutzeroberfläche zeigt dafür im dreidimensionalen Modus eine Weltkugel, die frei gedreht und gezoomt werden kann, und im zweidimensionalen einen Ausschnitt der Weltkarte. Die Karte kann aus verschiedenen Kategorien wie Satellitenbildern oder Straßenkarten gewählt werden. Die Steuerung erfolgt mit Tastatur und Maus. \\
 
-Mit einer Suchfunktion kann im Umkreis oder global nach Orten gesucht werden. Punkte besonderen Interesses wie Tankstellen oder Banken können über dem Kartenbild eingeblendet werden.
+Mit einer Suchfunktion kann im Umkreis oder global nach Orten gesucht werden. Punkte besonderen Interesses wie Gaststätten oder Banken können über dem Kartenbild eingeblendet werden.
+
 
 \section{Zielgruppe}
 Primäre Zielgruppe des Systems sind Privatanwender, die eine andere Art der Kartendarstellung als die der typischen Onlinekarten bevorzugen. \\
@@ -202,6 +214,45 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 Öffnen der JAR, Jogl-Earth
 
 Standard-Einstellungen: Cachegrößen usw.
+
+Einstellung der Sprache
+
+
+\section{Programm-Icons}
+
+\vspace{5mm}
+\begin{tabular}{|p{3cm}|p{10cm}|}
+\hline 
+\rule[-1ex]{0pt}{4ex} \textbf{Symbol} & \textbf{Erläuterung} \\ 
+\hline
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.6]{Logo-Print.eps}} &  Logo von \JoglEarth \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.2]{Logo.eps}} & Programm-Icon \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{images/Hinzufugen.eps}} &  Stecknadel zum markieren eines Punktes \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{images/Entfernen.eps}} & Stecknadel zum entfernen eines Punktes \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{images/Zoom_plus.eps}} & Plus beim Zoomen \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{images/Zoom_minus.eps}} & Minus beim Zoomen \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.6]{images/Massstab.eps}} & Maßstab \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/Handbuch.eps}} &  Handbuch-Icon \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/infoButton.eps}} &  About-Icon \\ 
+\hline
+\end{tabular}
+
+
+
+
+
+
+
+
 
 
 \chapter{Benutzeroberfläche}
@@ -263,72 +314,6 @@ Standard-Einstellungen: Cachegrößen usw.
 
 
 
-\section{Programm-Icons}
-
-\vspace{5mm}
-\begin{tabular}{|p{3cm}|p{10cm}|}
-\hline 
-\rule[-1ex]{0pt}{4ex} \textbf{Symbol} & \textbf{Erläuterung} \\ 
-\hline
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.6]{Logo-Print.eps}} &  Logo von \JoglEarth \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.2]{Logo.eps}} & Programm-Icon \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{images/Hinzufugen.eps}} &  Stecknadel zum markieren eines Punktes \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{images/Entfernen.eps}} & Stecknadel zum entfernen eines Punktes \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{images/Zoom_plus.eps}} & Plus beim Zoomen \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{images/Zoom_minus.eps}} & Minus beim Zoomen \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.6]{images/Massstab.eps}} & Maßstab \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/Handbuch.eps}} &  Handbuch-Icon \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/infoButton.eps}} &  About-Icon \\ 
-\hline
-\end{tabular}
-
-
-\section{Liste der POIs}
-Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann im Rahmen dieses Projekts nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den  Antworten der OverpassAPI vorgenommen.\\
-
-\vspace{5 mm}
-
-\begin{tabular}{|p{3cm}|p{10cm}|}
-\hline 
-\rule[-1ex]{0pt}{4ex} \textbf{Symbol} & \textbf{ENUM \textit{LocationType}} \\ 
-\hline
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Shop.eps}} &  SHOPS \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Restaurant.eps}} & RESTAURANTS \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_nightlife.eps}} &  NIGHTLIFE \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Bank.eps}} & BANK \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Toilets.eps}} & TOILETS \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Grocery.eps}} & GROCERY \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Activity.eps}} & ACTIVITY \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_hiking_cycling.eps}} & HIKING\_CYCLING \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_education.eps}} &  EDUCATION \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_health.eps}} &  HEALTH \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_post.eps}} &  POST \\ 
-\hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_hotels.eps}} &  HOTELS \\ 
-\hline
-
-
-\end{tabular}
 
 
 
@@ -369,10 +354,53 @@ Es wird auch nachfolgende Abfrage funktionieren: \textit{Brandenburger Tor Berli
 
 
 
+\section{Punkte markieren (POIs)}
+\subsection*{Liste der POIs}
+Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann im Rahmen dieses Projekts nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den  Antworten der OverpassAPI vorgenommen.\\
+
+\vspace{5 mm}
+\begin{tabular}{|p{3cm}|p{10cm}|}
+\hline 
+\rule[-1ex]{0pt}{4ex} \textbf{Symbol} & \textbf{Erläuterung} \\ 
+\hline
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Shop.eps}} &  SHOPS \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Restaurant.eps}} & RESTAURANTS \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_nightlife.eps}} &  NIGHTLIFE \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Bank.eps}} & BANK \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Toilets.eps}} & TOILETS \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Grocery.eps}} & GROCERY \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Activity.eps}} & ACTIVITY \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_hiking_cycling.eps}} & HIKING\_CYCLING \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_education.eps}} &  EDUCATION \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_health.eps}} &  HEALTH \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_post.eps}} &  POST \\ 
+\hline
+\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_hotels.eps}} &  HOTELS \\ 
+\hline
+\end{tabular}
+
+
+
+
+
+
 
 \chapter{Datenorganisation}
+
 % Wo werden die Daten gespeichert. Im MemoryCache und FileSystemCache.
 % Welche Benutzereinstellungen werden in Settings gespeichert - Tabelle machen
+% Vom Benutzer markierte Punkte werden gespeichert.
 
 
 
@@ -384,7 +412,7 @@ Es wird auch nachfolgende Abfrage funktionieren: \textit{Brandenburger Tor Berli
 
 \chapter{Index}
 % Nach ABC und Seitennummern gliedern
-\printindex
+
 
 
 
