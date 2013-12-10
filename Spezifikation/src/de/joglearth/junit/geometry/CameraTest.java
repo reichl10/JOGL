@@ -40,7 +40,7 @@ public class CameraTest {
         }
         
         try {
-            cam.setTilt(45.9382, 711.9363);
+            cam.setTilt(-1.09382, 0.9363);
         } catch (IllegalArgumentException e) {
             fail("An IllegalArgumentException occurred!");
         }

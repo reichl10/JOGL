@@ -238,8 +238,10 @@ public class Camera {
     /**
      * Sets the {@link de.joglearth.geometry.Camera} tilt to a specific value.
      * 
-     * @param x The tilt around the x axis ("up and down")
-     * @param y The tilt around the y axis ("left and right")
+     * @param x The tilt around the x axis ("up and down"). Must be inside the interval [-pi/2,
+     *        pi/2].
+     * @param y The tilt around the y axis ("left and right"). Must be inside the interval [-pi/2,
+     *        pi/2].
      */
     public synchronized void setTilt(double x, double y) {
 

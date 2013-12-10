@@ -13,15 +13,15 @@ public class TileTest {
 
     @Test
     public void test() {
-        Tile testTile1 = new Tile(1, 3, 5);
-        Tile testTile2 = new Tile(1, 3, 5);
+        Tile testTile1 = new Tile(3, 3, 5);
+        Tile testTile2 = new Tile(3, 3, 5);
         
         assertNotNull(testTile1);
 
         assertTrue(testTile1.getLongitudeIndex() == 3);
         assertTrue(testTile1.getLongitudeIndex() == testTile2.getLongitudeIndex());
         assertTrue(testTile1.getLatitudeIndex() == 5);
-        assertTrue(testTile1.getDetailLevel() == 1);
+        assertTrue(testTile1.getDetailLevel() == 3);
         assertTrue(testTile1.equals(testTile2));
 
         /*
