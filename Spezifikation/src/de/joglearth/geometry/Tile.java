@@ -22,8 +22,7 @@ public final class Tile implements Cloneable {
      * @param latIndex The number of tiles to skip, starting from latitude 0, to reach the left
      *        bound of the tile
      */
-    public Tile(int detailLevel, int lonIndex, int latIndex)
-    {
+    public Tile(int detailLevel, int lonIndex, int latIndex) {
         this.detailLevel = detailLevel;
         this.lonIndex = lonIndex;
         this.latIndex = latIndex;
@@ -123,9 +122,9 @@ public final class Tile implements Cloneable {
         double tileLonFrom = this.getLongitudeFrom(), tileLatFrom = this.getLatitudeFrom(),
                             tileLonTo = this.getLongitudeTo(), tileLatTo = this.getLatitudeTo();
         return ((tileLonFrom < lonFrom && lonFrom < tileLonTo)
-                    || (tileLonFrom < lonTo && lonTo < tileLonTo)
-                    || (lonFrom < tileLonFrom && tileLonFrom < lonTo)
-                    || (lonFrom < tileLonTo && tileLonTo < lonTo))
+                || (tileLonFrom < lonTo && lonTo < tileLonTo)
+                || (lonFrom < tileLonFrom && tileLonFrom < lonTo)
+                || (lonFrom < tileLonTo && tileLonTo < lonTo))
                 &&
                 ((tileLatFrom < latFrom && latFrom < tileLatTo)
                         || (tileLatFrom < latTo && latTo < tileLatTo)
@@ -172,12 +171,19 @@ public final class Tile implements Cloneable {
                 && lat <= getLatitudeTo();
     }
 
+<<<<<<< HEAD
     @Override
     public String toString() {
         return "Tile [detailLevel=" + detailLevel + ", lonIndex=" + lonIndex + ", latIndex="
                 + latIndex + ", longitudeFrom()=" + getLongitudeFrom() + ", longitudeTo()="
                 + getLongitudeTo() + ", latitudeFrom()=" + getLatitudeFrom() + ", latitudeTo()="
                 + getLatitudeTo() + "]";
+=======
+    public static void main(String[] args) {
+        Camera cam = new Camera(new PlaneGeometry());
+        GeoCoordinates geo = new GeoCoordinates((-1 / 3) * PI, (-1 / 8) * PI);
+        System.out.println(getContainingTile(2, geo));
+>>>>>>> 5bdc54f8deb98ce18005af82bd82cd24e885083e
     }
     
 }
