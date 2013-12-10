@@ -1,12 +1,14 @@
 package de.joglearth.source.caching;
 
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.TreeSet;
 
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
+import de.joglearth.source.SourceResponseType;
 import de.joglearth.util.Predicate;
 
 
@@ -18,12 +20,11 @@ import de.joglearth.util.Predicate;
  */
 public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
-    private int[]                  FreeCacheSpace;
-    private ArrayList<CacheHandle> caches;
-    private HashSet<Key>           pendingRequests; // prevent processing multiple requests for same
-                                                    // key
-    private Source<Key, Value>     source;
-    private ObjectMeasure<Value>   measure;
+    private List<CacheHandle> caches;
+    private HashSet<Key> pendingRequests; // prevent processing multiple requests for same
+                                          // key
+    private Source<Key, Value> source;
+    private ObjectMeasure<Value> measure;
 
 
     /**
@@ -46,10 +47,18 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
     private class CacheHandle {
 
-        public Cache<Key, Value>   cache;
+        public Cache<Key, Value> cache;
         public TreeSet<CacheEntry> tree;
         public HashSet<CacheEntry> hash;
-        public int                 maxSize;
+        public int maxSize;
+
+
+        public CacheHandle(Cache<Key, Value> cache, int maxSize) {
+            this.cache = cache;
+            this.maxSize = maxSize;
+            this.tree = new TreeSet<CacheEntry>();
+            this.hash = new HashSet<CacheEntry>();
+        }
     }
 
     private class CacheListener implements SourceListener<Key, Value> {
@@ -71,7 +80,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      */
     public void addCache(Cache<Key, Value> cache, int maxSize) {
         // TODO maxSize should probably have a minimum value
-
+        caches.add(new CacheHandle(cache, maxSize));
     }
 
     /**
@@ -108,11 +117,26 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      */
     @Override
     public SourceResponse<Value> requestObject(Key key,
-            SourceListener<Key, Value> sender) {
-        for (CacheHandle c : caches) {
-            // Abklappern
+            final SourceListener<Key, Value> sender) {
+        
+        // TODO Billig-Implementierung. Sollte komplett neugseschrieben werden.
+        
+        for (CacheHandle handle : caches) {
+            SourceResponse<Value> cacheResponse = handle.cache.requestObject(key, null);
+            if (cacheResponse.response == SourceResponseType.SYNCHRONOUS) {
+                return cacheResponse;
+            }
         }
-        return null;
+        
+        return source.requestObject(key, new SourceListener<Key, Value>() {
+            @Override
+            public void requestCompleted(Key key, Value value) {
+                if (caches.size() > 0) {
+                    caches.get(0).cache.putObject(key, value);
+                    sender.requestCompleted(key, value);
+                }
+            }
+        });
     }
 
     /**
@@ -151,6 +175,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
          * compare(CacheEntry a, CacheEntry b) { //a.lastUsed < b.lastUsed return } });
          */
         measure = m;
+        caches = new LinkedList<CacheHandle>();
     }
 
     /**
@@ -172,8 +197,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * Removes all objects from the {@link de.joglearth.source.caching.Cache} that fulfill the
      * {@link de.joglearth.util.Predicate}.
      * 
-     * @param pred Conformance with that <code>Predicate</code> leads to deletion of
-     *        that object
+     * @param pred Conformance with that <code>Predicate</code> leads to deletion of that object
      */
     public void dropAll(Predicate<Key> pred) {
 

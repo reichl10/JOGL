@@ -1,24 +1,30 @@
 package de.joglearth.source.opengl;
 
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+
 import javax.media.opengl.GL2;
 
+import static javax.media.opengl.GL2.*;
 import de.joglearth.geometry.Tile;
+import de.joglearth.rendering.Mesh;
 import de.joglearth.rendering.Tessellator;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
+import de.joglearth.source.SourceResponseType;
 
 
 /**
  * Adapter for a {@link de.joglearth.rendering.Tessellator} to use it as a
  * {@link de.joglearth.source.Source}.
  */
-public class TileMeshSource implements Source<Tile, Integer> {
+public class TileMeshSource implements Source<Tile, VertexBuffer> {
 
     private Tessellator tess;
-    private GL2         gl;
-    private int         subdivisions;
-    private boolean     heightMap;
+    private GL2 gl;
+    private int subdivisions;
+    private boolean heightMap;
 
 
     /**
@@ -62,9 +68,18 @@ public class TileMeshSource implements Source<Tile, Integer> {
     }
 
     @Override
-    public SourceResponse<Integer> requestObject(Tile key,
-            SourceListener<Tile, Integer> sender) {
-        return null;
-
+    public SourceResponse<VertexBuffer> requestObject(Tile key,
+            SourceListener<Tile, VertexBuffer> sender) {
+        Mesh m = tess.tessellateTile(key, subdivisions, heightMap);
+        int[] buffers = new int[2];
+        gl.glGenBuffers(2, buffers, 0);
+        VertexBuffer vbo = new VertexBuffer(buffers[0], buffers[1]);
+        gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
+        gl.glBufferData(GL_ARRAY_BUFFER, 4 * m.vertices.length, FloatBuffer.wrap(m.vertices),
+                GL_STATIC_DRAW);
+        gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.indices);
+        gl.glBufferData(GL_ARRAY_BUFFER, 4 * m.indices.length, IntBuffer.wrap(m.indices),
+                GL_STATIC_DRAW);
+        return new SourceResponse<VertexBuffer>(SourceResponseType.SYNCHRONOUS, vbo);
     }
 }
