@@ -21,6 +21,10 @@ import de.joglearth.settings.SettingsListener;
 /**
  * Handles the OpenGL rendering.
  */
+/**
+ * @author trion
+ *
+ */
 public class Renderer {
 
     private GL2             gl;
@@ -43,14 +47,15 @@ public class Renderer {
         @Override
         public void run() {
 
-            while (!quit) {
-                if (running || posted) {
+            while (!isQuit()) {
+                if (isRunning() || isPosted()) {
 
                     // code render();
 
                     synchronized (this) {
                         posted = false;
                     }
+                    //beide false -> wait() aufrufen
                 }
             }
         }
@@ -77,8 +82,7 @@ public class Renderer {
 
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
-            // TODO Automatisch generierter Methodenstub
-
+            post();
         }
     }
 
@@ -111,25 +115,25 @@ public class Renderer {
         });
     }
 
-    /*
-     * TODO Returns if the window is quit.
-     * 
-     * @return Is the window quit?
-     * 
-     * private synchronized boolean isQuit() { return quit; }
-     * 
-     * /** Returns if the OpenGL rendering loop is running.
-     * 
-     * @return Is OpenGL rendering loop running?
-     * 
-     * private synchronized boolean isRunning() { return running; }
-     * 
-     * /** Returns if the surface has changed and a new render process is needed.
-     * 
-     * @return Should the window be re-rendered.
-     * 
-     * private synchronized boolean isPosted() { return posted; }
-     */
+    
+      //TODO Returns if the window is quit.
+      
+      //@return Is the window quit?
+      
+      private synchronized boolean isQuit() { return quit; }
+      
+      /* 
+       * Returns if the OpenGL rendering loop is running.
+       * @return Is OpenGL rendering loop running?
+       */
+      private synchronized boolean isRunning() { return running; }
+      
+      /*
+       * Returns if the surface has changed and a new render process is needed.
+       * @return Should the window be re-rendered.
+       */
+      private synchronized boolean isPosted() { return posted; }
+     
 
     // Benachrichtigt den Renderer, dass mindestens ein Frame gerendert
     // werden muss. Wenn vorher start() aufgerufen wurde, hat die
@@ -163,31 +167,37 @@ public class Renderer {
         running = false;
     }
 
-    /*
-     * Re-renders the OpenGL view.
-     * 
-     * private void render() {
-     * 
-     * }
-     * 
-     * /** TODO
-     * 
-     * Initializes the OpenGL settings.
-     * 
-     * private void initialize() {
-     * 
-     * }
-     */
+    
+      //Re-renders the OpenGL view.
+      private void render() {
+          /* glClear()
+           * if (!sonnensystem)
+           *    getVisibleTiles()
+           * else
+           *    visibleTile = {zoom = 0, lon = 0, lat = 0}
+           * TileMeshSource.request(visibleTile)
+           * 
+           * for (...)
+           *    textur setzen
+           *    vbo rendern
+           */
+      }
+      
+      // TODO Initializes the OpenGL settings.
+      private void initialize() {
+          //Texturen laden
+      }
+     
 
     /**
      * Quits the {@link de.joglearth.rendering.Renderer} thread.
      */
-    public void quit() {
+    public synchronized void quit() {
         quit = true;
     }
 
 
-    /**
+    /*
      * A Listener to handle events for OpenGL rendering.
      */
     private class RendererEventListener implements GLEventListener {
@@ -207,7 +217,7 @@ public class Renderer {
 
         @Override
         public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-
+            //camera.setPerspective();
         }
     }
 
@@ -219,6 +229,7 @@ public class Renderer {
      */
     public void setDisplayMode(DisplayMode m) {
         displayMode = m;
+        //camera.setGeometry(newGeo);
         post();
     }
 
