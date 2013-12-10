@@ -170,20 +170,13 @@ public final class Tile implements Cloneable {
         return lon >= getLongitudeFrom() && lon <= getLongitudeTo() && lat >= getLatitudeFrom()
                 && lat <= getLatitudeTo();
     }
-
-<<<<<<< HEAD
+    
     @Override
     public String toString() {
         return "Tile [detailLevel=" + detailLevel + ", lonIndex=" + lonIndex + ", latIndex="
                 + latIndex + ", longitudeFrom()=" + getLongitudeFrom() + ", longitudeTo()="
                 + getLongitudeTo() + ", latitudeFrom()=" + getLatitudeFrom() + ", latitudeTo()="
                 + getLatitudeTo() + "]";
-=======
-    public static void main(String[] args) {
-        Camera cam = new Camera(new PlaneGeometry());
-        GeoCoordinates geo = new GeoCoordinates((-1 / 3) * PI, (-1 / 8) * PI);
-        System.out.println(getContainingTile(2, geo));
->>>>>>> 5bdc54f8deb98ce18005af82bd82cd24e885083e
     }
     
 }
