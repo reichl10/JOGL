@@ -78,10 +78,10 @@ public class ProgressManagerTest {
         manager.requestArrived();
         int updateCount = listener.getUpdateCount();
         assertTrue("RequestArrived seems to fail.", listener.getUpdateCount() > 0);
-        assertEquals("RequestArrived seems to fail.", 1.0d, listener.getLastProgress(), 0.0001d);
+        assertEquals("RequestArrived seems to fail.", 0.0d, listener.getLastProgress(), 0.0001d);
         manager.requestCompleted();
         assertTrue("RequestCompleted seems to fail.", listener.getUpdateCount() > updateCount);
-        assertEquals("RequestCompleted seems to fail.", 0.0d, listener.getLastProgress(), 0.0001d);
+        assertEquals("RequestCompleted seems to fail.", 1.0d, listener.getLastProgress(), 0.0001d);
     }
 
     private class TestProgressListener implements ProgressListener {
