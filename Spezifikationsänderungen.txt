@@ -1,4 +1,4 @@
-Geometry
+﻿Geometry
 - isPointVisible Parameter für Kameraposition
 - getSurfaceCoordinates Rückgabetyp GeoCoordinates statt ScreenCoordinates
 
@@ -19,3 +19,9 @@ Camera
 
 CameraUtils (alles)
 - mehrere Methoden aus Camera portiert
+
+VertexBufferCache
+- extends MemoryCache statt implements Cache
+
+Tile
+- longitudeFrom(), -To(), latitudeFrom(), -To() in get... geändert
