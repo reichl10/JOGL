@@ -1,5 +1,8 @@
 package de.joglearth.surface;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.media.opengl.GL2;
 
 import de.joglearth.geometry.Tile;
@@ -9,6 +12,7 @@ import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.caching.RequestDistributor;
 import de.joglearth.source.opengl.TileMeshSource;
+import de.joglearth.source.opengl.VertexBuffer;
 import de.joglearth.source.opengl.VertexBufferCache;
 import de.joglearth.util.Predicate;
 
@@ -16,16 +20,14 @@ import de.joglearth.util.Predicate;
 /**
  * Creates and cashes tile meshes as OpenGL vertex buffer objects.
  */
-public class TileMeshManager implements Source<Tile, Integer> {
+public class TileMeshManager implements Source<Tile, VertexBuffer> {
 
     private final int                         VERTEX_BUFFER_CACHE_SIZE = 50;
 
-    private Tessellator                       tess;
-    private int                               subdivisions;
-    private RequestDistributor<Tile, Integer> dist;
+    private RequestDistributor<Tile, VertexBuffer> dist;
     private VertexBufferCache                 cache;
     private TileMeshSource                    source;
-
+    private List<SurfaceListener> listeners;
 
     /**
      * Creates a new {@link TileMeshManager} as it initializes the source, the cache, sets the
@@ -37,26 +39,27 @@ public class TileMeshManager implements Source<Tile, Integer> {
     public TileMeshManager(GL2 gl, Tessellator t) {
         source = new TileMeshSource(gl, t);
         cache = new VertexBufferCache(gl);
-        dist = new RequestDistributor<Tile, Integer>();
+        dist = new RequestDistributor<Tile, VertexBuffer>();
         dist.setSource(source);
         dist.addCache(cache, VERTEX_BUFFER_CACHE_SIZE);
 
         HeightMap.addSurfaceListener(
-                new SurfaceListener() {
+            new SurfaceListener() {
 
-                    @Override
-                    public void surfaceChanged(final double lonFrom, final double latFrom,
-                            final double lonTo, final double latTo) {
-                        dist.dropAll(new Predicate<Tile>() {
+                @Override
+                public void surfaceChanged(final double lonFrom, final double latFrom,
+                        final double lonTo, final double latTo) {
+                    dist.dropAll(new Predicate<Tile>() {
 
-                            @Override
-                            public boolean test(Tile t) {
-                                return t.intersects(lonFrom, latFrom, lonTo, latTo);
-                            }
-                        });
-                        // notify listeners!
-                    }
-                });
+                        @Override
+                        public boolean test(Tile t) {
+                            return t.intersects(lonFrom, latFrom, lonTo, latTo);
+                        }
+                    });
+                    // notify listeners!
+                }
+            });
+        listeners = new LinkedList<SurfaceListener>();
     }
 
     /**
@@ -91,9 +94,9 @@ public class TileMeshManager implements Source<Tile, Integer> {
     }
 
     @Override
-    public SourceResponse<Integer> requestObject(Tile key,
-            SourceListener<Tile, Integer> sender) {
-        return null;
+    public SourceResponse<VertexBuffer> requestObject(Tile key,
+            SourceListener<Tile, VertexBuffer> sender) {
+        return dist.requestObject(key, sender);
     }
 
     /**
@@ -102,7 +105,7 @@ public class TileMeshManager implements Source<Tile, Integer> {
      * @param l The new listener
      */
     public void addSurfaceListener(SurfaceListener l) {
-
+        listeners.add(l);
     }
 
     /**
@@ -111,7 +114,7 @@ public class TileMeshManager implements Source<Tile, Integer> {
      * @param l The listener that should be removed
      */
     public void removeSurfaceListener(SurfaceListener l) {
-
+        listeners.remove(l);
     }
 
 }
