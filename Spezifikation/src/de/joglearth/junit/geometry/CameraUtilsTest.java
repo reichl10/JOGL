@@ -9,7 +9,10 @@ public class CameraUtilsTest {
 
     @Test
     public void test() {
-        fail("Not yet implemented");
+        
+        // zu testen: getVisibleTiles, getOptimalZoomLevel
+        
+        
     }
 
 }

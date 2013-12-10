@@ -13,7 +13,7 @@ public class ScreenCoordinatesTest {
     @Test
     public void test() {
         ScreenCoordinates testCoord1 = new ScreenCoordinates(0, 0);
-        ScreenCoordinates testCoord2= new ScreenCoordinates(2.33, 5.88);
+        ScreenCoordinates testCoord2= new ScreenCoordinates(0.33, 0.88);
         
         assertFalse(testCoord1.equals(testCoord2));
         testCoord2 = testCoord1.clone();

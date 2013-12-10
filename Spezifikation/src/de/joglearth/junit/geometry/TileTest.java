@@ -1,11 +1,11 @@
 package de.joglearth.junit.geometry;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
+import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Tile;
 
 
@@ -28,6 +28,12 @@ public class TileTest {
          * Wir brauchen ein Tile, wo wir die Begrenzungen von Längen & Breitengrad kennen und 1
          * Punkt der darin liegt
          */
+        double lon = (testTile1.getLongitudeFrom() + testTile1.getLongitudeTo()) / 2;
+        double lat = (testTile1.getLatitudeFrom() + testTile1.getLatitudeTo()) / 2;
+        
+        GeoCoordinates coords = new GeoCoordinates(lon, lat);
+        
+        assertTrue(testTile1.contains(coords));
         
     }
 }

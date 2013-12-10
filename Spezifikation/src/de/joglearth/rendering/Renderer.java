@@ -37,7 +37,7 @@ public class Renderer {
     private TiledMapType    tiledMapType;
     private DisplayMode     displayMode;
 
-
+    
     private class Worker implements Runnable {
 
         @Override
