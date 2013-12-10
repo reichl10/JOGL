@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
+import java.util.Locale;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
@@ -46,6 +47,8 @@ import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.rendering.DisplayMode;
 import de.joglearth.rendering.LevelOfDetail;
+import de.joglearth.settings.Settings;
+import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
 import de.joglearth.surface.Location;
 import de.joglearth.surface.LocationListener;
@@ -480,7 +483,23 @@ public class MainWindow extends JFrame {
         languageComboBox.addItem(new IconizedItem<String>("Deutsch", loadIcon("icons/flagGer.png"),
                 "de"));
         languagePanel.add(languageComboBox, "2, 2, fill, top");
-
+        languageComboBox.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JComboBox<IconizedItem<String>> cBox = (JComboBox<IconizedItem<String>>) e.getSource();
+                IconizedItem<String> item = (IconizedItem<String>) cBox.getSelectedItem();
+                String language = item.getValue();
+                Locale theLang;
+                if (language.equals("Deutsch")) {
+                    theLang = Locale.GERMAN;
+                } else {
+                    theLang = Locale.ENGLISH;
+                }
+                Settings.getInstance().putString(SettingsContract.LANGUAGE, theLang.getLanguage());
+                // TODO: Update Userinterface
+            }
+        });
         JPanel graphicsPanel = new JPanel();
         graphicsPanel.setBorder(BorderFactory.createTitledBorder("Graphics settings"));
         settingsTab.add(graphicsPanel, "2, 4");
