@@ -1,17 +1,15 @@
 package de.joglearth.geometry;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import static java.lang.Double.isInfinite;
+import static java.lang.Double.isNaN;
+import static java.lang.Math.PI;
+import static java.lang.Math.tan;
 
-import de.joglearth.geometry.Matrix4;
-import de.joglearth.geometry.Vector3;
+import java.util.ArrayList;
+import java.util.List;
+
 import de.joglearth.surface.HeightMap;
 import de.joglearth.surface.SurfaceListener;
-import static java.lang.Math.*;
-import static java.lang.Double.*;
 
 
 /**
@@ -97,7 +95,7 @@ public class Camera {
      * Creates a {@link de.joglearth.geometry.Camera} with FOV 90°, aspect ratio 1:1, zNear=0.1 and
      * zFar=1000.
      * 
-     * @param geo The {@link Geometry} object
+     * @param geo The Geometry object
      */
     public Camera(Geometry geo) {
         if (geo == null) {

@@ -22,8 +22,7 @@ public final class Tile implements Cloneable {
      * @param latIndex The number of tiles to skip, starting from latitude 0, to reach the left
      *        bound of the tile
      */
-    public Tile(int detailLevel, int lonIndex, int latIndex)
-    {
+    public Tile(int detailLevel, int lonIndex, int latIndex) {
         this.detailLevel = detailLevel;
         this.lonIndex = lonIndex;
         this.latIndex = latIndex;
@@ -120,12 +119,12 @@ public final class Tile implements Cloneable {
      * @return True if the rectangle intersects, else false
      */
     public boolean intersects(double lonFrom, double latFrom, double lonTo, double latTo) {
-        double tileLonFrom = this.longitudeFrom(), tileLatFrom = this.latitudeFrom(),
-                            tileLonTo = this.longitudeTo(), tileLatTo = this.latitudeTo();
+        double tileLonFrom = this.longitudeFrom(), tileLatFrom = this.latitudeFrom(), tileLonTo = this
+                .longitudeTo(), tileLatTo = this.latitudeTo();
         return ((tileLonFrom < lonFrom && lonFrom < tileLonTo)
-                    || (tileLonFrom < lonTo && lonTo < tileLonTo)
-                    || (lonFrom < tileLonFrom && tileLonFrom < lonTo)
-                    || (lonFrom < tileLonTo && tileLonTo < lonTo))
+                || (tileLonFrom < lonTo && lonTo < tileLonTo)
+                || (lonFrom < tileLonFrom && tileLonFrom < lonTo)
+                || (lonFrom < tileLonTo && tileLonTo < lonTo))
                 &&
                 ((tileLatFrom < latFrom && latFrom < tileLatTo)
                         || (tileLatFrom < latTo && latTo < tileLatTo)
@@ -171,10 +170,10 @@ public final class Tile implements Cloneable {
         return lon >= longitudeFrom() && lon <= longitudeTo() && lat >= latitudeFrom()
                 && lat <= latitudeTo();
     }
-    
+
     public static void main(String[] args) {
         Camera cam = new Camera(new PlaneGeometry());
-        GeoCoordinates geo = new GeoCoordinates((-1/3)*PI, (-1/8)*PI);
+        GeoCoordinates geo = new GeoCoordinates((-1 / 3) * PI, (-1 / 8) * PI);
         System.out.println(getContainingTile(2, geo));
     }
 }
