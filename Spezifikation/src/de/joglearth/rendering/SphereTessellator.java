@@ -42,6 +42,7 @@ public class SphereTessellator implements Tessellator {
         for (int i = 0; i < count; ++i) {
             writeSingleVertex(vertices, vIndex, lon, lat, lonStep, latStep, useHeightMap);
             vIndex += VERTEX_SIZE;
+            lon += lonStep;
         }
     }
 
@@ -136,7 +137,7 @@ public class SphereTessellator implements Tessellator {
     
     public static void main(String[] args) {
 
-        PlaneTessellator p = new PlaneTessellator();
+        SphereTessellator p = new SphereTessellator();
         Tile t = new Tile(2, 1, 0);
         int subdivision = 2;
         Mesh m = p.tessellateTile(t, subdivision, false);

@@ -15,16 +15,17 @@ public class PlaneTessellator implements Tessellator {
 
     @Override
     public Mesh tessellateTile(Tile tile, int subdivisions, boolean useHeightMap) {
-        int nVertices = subdivisions + 2;
-        double latStep = PI / pow(2, tile.getDetailLevel()), lonStep = 2 * latStep;
+        int nVertices = subdivisions + 2, nQuads = subdivisions + 1;
+        double latStep = abs(tile.getLatitudeTo() - tile.getLatitudeFrom()) / nQuads, 
+               lonStep = abs(tile.getLongitudeTo() - tile.getLongitudeFrom()) / nQuads;
         float[] vertices = new float[8 * nVertices * nVertices];
         int vertIndex = 0;
         double lon = tile.getLongitudeFrom(), lat = tile.getLatitudeFrom();
 
         for (int line = 0; line < nVertices; ++line) {
             for (int col = 0; col < nVertices; ++col) {
-                writeTextureCoordinates(vertices, vertIndex, (float) col / nVertices, (float) line
-                        / nVertices);
+                writeTextureCoordinates(vertices, vertIndex, (float) col / (nVertices - 1), 
+                        1 - (float) line / (nVertices - 1));
 
                 if (useHeightMap) {
                     writeVertex(vertices, vertIndex, (float) lon, (float) lat,
@@ -49,10 +50,10 @@ public class PlaneTessellator implements Tessellator {
                 }
 
                 lon += lonStep;
-                lat += latStep;
                 vertIndex += VERTEX_SIZE;
-
             }
+            lat += latStep;
+            lon = tile.getLongitudeFrom();
         }
 
         int[] indices = new int[6 * (nVertices - 1) * (nVertices - 1)];
@@ -87,6 +88,7 @@ public class PlaneTessellator implements Tessellator {
 
         PlaneTessellator p = new PlaneTessellator();
         Tile t = new Tile(2, 1, 0);
+        System.out.println(t);
         int subdivision = 1;
         Mesh m = p.tessellateTile(t, subdivision, false);
         int count = 0;
@@ -94,7 +96,7 @@ public class PlaneTessellator implements Tessellator {
             System.out.print(m.vertices[i] + "    ");
             count +=1;
             if (count == 8) {
-                System.out.println();
+                System.out.println(); 
                 count = 0;
             }
         }
