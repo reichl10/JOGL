@@ -13,8 +13,11 @@
    height="17.781252"
    id="svg3339"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="POI_post.svg">
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="POI_nightlife.svg"
+   inkscape:export-filename="/home/gabi/SEP/JoglEarth/Spezifikation/dokument/images/POI_nightlife.png"
+   inkscape:export-xdpi="2556"
+   inkscape:export-ydpi="2556">
   <defs
      id="defs3341" />
   <sodipodi:namedview
@@ -22,7 +25,7 @@
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="19.883939"
      inkscape:cx="13.745148"
@@ -34,10 +37,10 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1920"
-     inkscape:window-height="1145"
-     inkscape:window-x="-3"
-     inkscape:window-y="-3"
+     inkscape:window-width="1306"
+     inkscape:window-height="744"
+     inkscape:window-x="60"
+     inkscape:window-y="24"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata3344">
@@ -114,6 +117,15 @@
            inkscape:connector-curvature="0"
            style="fill:#ffffff;stroke-width:30.18252884;stroke-miterlimit:4;stroke-dasharray:none" />
       </g>
+      <path
+         style="fill:#ffffff;fill-opacity:1;stroke-width:1.35000002;stroke-miterlimit:10;stroke-dasharray:none"
+         d="M 7.7453308,15.137475 C 6.3803336,14.906834 5.1476197,14.288153 4.1673003,13.341712 2.4071521,11.642393 1.7606099,9.1298663 2.4935781,6.8374642 3.2090793,4.5996914 5.0578379,2.9398461 7.4184338,2.4158493 7.9940702,2.2880715 9.1990845,2.2609585 9.8338857,2.3615013 c 2.1021203,0.3329433 3.9496763,1.6856864 4.8887063,3.5794119 0.291057,0.5869704 0.487386,1.2119755 0.593972,1.8908878 0.0914,0.5821598 0.03998,1.7632286 -0.102518,2.354709 -0.716115,2.972536 -3.406628,5.052038 -6.5002663,5.024065 -0.3113628,-0.0028 -0.7471648,-0.03571 -0.9684489,-0.0731 l 0,0 z m 4.0163282,-0.859016 c 0.217342,-0.02979 0.305216,-0.118823 0.188482,-0.190968 -0.05414,-0.03346 -1.291778,-0.26753 -1.627353,-0.307774 l -0.238886,-0.02865 0,-0.922328 0,-0.922329 0.955545,-1.18398 c 0.525549,-0.651189 0.955545,-1.1965859 0.955545,-1.2119933 0,-0.015407 -0.89273,-0.028013 -1.983846,-0.028013 l -1.9838444,0 L 8.0120455,7.9293788 7.99679,6.3763343 7.8063629,6.1062995 C 7.7016282,5.9577804 7.5205775,5.7265254 7.4040282,5.5923995 L 7.1921205,5.3485341 7.1669745,4.2345196 7.1418286,3.1205051 6.6263372,3.1061728 6.1108458,3.0918405 l 0,0.8999933 c 0,1.2782898 -0.00124,1.2839269 -0.3833439,1.7416916 -0.5483171,0.6568913 -0.4967634,0.2334086 -0.4967634,4.0806218 0,2.7789848 0.012126,3.3889948 0.068723,3.4572038 0.1235446,0.148892 0.4610983,0.201159 1.3143025,0.203509 0.8217919,0.0023 1.2620191,-0.05976 1.3466024,-0.189728 0.020033,-0.03078 0.047739,-0.730972 0.061569,-1.55598 l 0.025146,-1.500014 0.6915129,0.856032 0.6915129,0.856033 0,0.904932 0,0.904932 -0.2388863,0.03065 c -1.4188853,0.182068 -2.0397965,0.37734 -1.5423252,0.485051 0.1951485,0.04225 3.8147209,0.05254 4.1127629,0.01169 l 0,0 z"
+         id="path2993"
+         inkscape:connector-curvature="0"
+         transform="translate(34.28125,569.375)"
+         inkscape:export-filename="/home/gabi/SEP/JoglEarth/Spezifikation/res/iconsPoi/POI_Nightlife.png"
+         inkscape:export-xdpi="2556"
+         inkscape:export-ydpi="2556" />
     </g>
   </g>
 </svg>

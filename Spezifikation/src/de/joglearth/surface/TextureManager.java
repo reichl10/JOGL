@@ -37,7 +37,7 @@ public class TextureManager {
         
         /* Loads placeholder-texture */
         try {
-            InputStream stream = getClass().getResourceAsStream("icons/placeholder.png");
+            InputStream stream = getClass().getResourceAsStream("textures/placeholder.png");
             TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
                     stream, false, "png");
             placeholder = TextureIO.newTexture(data);
