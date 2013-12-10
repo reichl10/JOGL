@@ -48,6 +48,8 @@ import com.jgoodies.forms.layout.RowSpec;
 import de.joglearth.JoglEarth;
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
+import de.joglearth.geometry.PlaneGeometry;
+import de.joglearth.geometry.SphereGeometry;
 import de.joglearth.rendering.AntialiasingType;
 import de.joglearth.rendering.DisplayMode;
 import de.joglearth.rendering.LevelOfDetail;
@@ -85,6 +87,7 @@ public class MainWindow extends JFrame {
 
     private static ImageIcon hideIcon = loadIcon("icons/hide.png");
     private static ImageIcon showIcon = loadIcon("icons/show.png");
+    private GLCanvas glCanvas;
 
     /**
      * SerialVersionUID
@@ -157,6 +160,9 @@ public class MainWindow extends JFrame {
     private class MapTypePair {
 
         public MapLayout layout;
+        /**
+         * Can be {@link SingleMapType} or {@link TildMapType}.
+         */
         public Object type;
 
 
@@ -178,8 +184,6 @@ public class MainWindow extends JFrame {
         setTitle(JoglEarth.PRODUCT_NAME);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
-        this.locationManager = locationManager;
-        this.camera = camera;
         this.viewEventListener = new ViewEventListener(camera);
         getContentPane().setLayout(
                 new FormLayout(new ColumnSpec[] {
@@ -701,7 +705,7 @@ public class MainWindow extends JFrame {
                 RowSpec.decode("default:grow"), RowSpec.decode("1dlu"),
                 RowSpec.decode("20dlu"), RowSpec.decode("1dlu"), }));
 
-        GLCanvas glCanvas = new GLCanvas();
+        glCanvas = new GLCanvas();
         glCanvas.addGLEventListener(new GLEventListener() {
 
             @Override
@@ -812,6 +816,8 @@ public class MainWindow extends JFrame {
      * @param camera The <code>Camera</code> used by this window
      */
     public MainWindow(final LocationManager locationManager, final Camera camera) {
+        this.camera = camera;
+        this.locationManager = locationManager;
         initializeWindow();
         initializeViewTab();
         initializePlacesTab();
@@ -826,7 +832,7 @@ public class MainWindow extends JFrame {
      * @return The GLCanvas used in this window
      */
     public final GLCanvas getGLCanvas() {
-        return null;
+        return glCanvas;
     }
 
 
