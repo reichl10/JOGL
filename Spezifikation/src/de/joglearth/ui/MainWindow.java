@@ -45,6 +45,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import de.joglearth.JoglEarth;
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
+import de.joglearth.rendering.AntialiasingType;
 import de.joglearth.rendering.DisplayMode;
 import de.joglearth.rendering.LevelOfDetail;
 import de.joglearth.settings.Settings;
@@ -521,10 +522,24 @@ public class MainWindow extends JFrame {
         JLabel antialiasingLabel = new JLabel("Antialiasing:");
         graphicsPanel.add(antialiasingLabel, "2, 2, left, default");
 
-        JComboBox<NamedItem<Integer>> antialiasingComboBox = new JComboBox<NamedItem<Integer>>();
-        antialiasingComboBox.addItem(new NamedItem<Integer>("Off", 0));
-        antialiasingComboBox.addItem(new NamedItem<Integer>("2x MSAA", 2));
-        antialiasingComboBox.addItem(new NamedItem<Integer>("4x MSAA", 4));
+        JComboBox<NamedItem<AntialiasingType>> antialiasingComboBox = new JComboBox<NamedItem<AntialiasingType>>();
+        antialiasingComboBox.addItem(new NamedItem<AntialiasingType>("Off", null));
+        antialiasingComboBox.addItem(new NamedItem<AntialiasingType>("2x MSAA", AntialiasingType.MSAA_2));
+        antialiasingComboBox.addItem(new NamedItem<AntialiasingType>("4x MSAA", AntialiasingType.MSAA_4));
+        antialiasingComboBox.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JComboBox<NamedItem<AntialiasingType>> comboBox = (JComboBox<NamedItem<AntialiasingType>>) e.getSource();
+                NamedItem<AntialiasingType> item = (NamedItem<AntialiasingType>) comboBox.getSelectedItem();
+                AntialiasingType type = item.getValue();
+                if (type == null) {
+                    Settings.getInstance().putString(SettingsContract.ANTIALIASING, null);
+                } else {
+                    Settings.getInstance().putString(SettingsContract.ANTIALIASING, type.name());
+                }
+            }
+        });
         graphicsPanel.add(antialiasingComboBox, "4, 2, fill, default");
 
         JLabel texfilterLabel = new JLabel("Texture Filter:");
