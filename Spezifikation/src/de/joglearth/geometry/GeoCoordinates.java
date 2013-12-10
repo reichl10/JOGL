@@ -2,6 +2,7 @@ package de.joglearth.geometry;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import static java.lang.Math.*;
 
 
 /**
@@ -15,7 +16,8 @@ public final class GeoCoordinates implements Cloneable {
 
 
     /**
-     * Constructor. Initializes coordinates by their values in radians.
+     * Constructor. Initializes coordinates by their values in radians. If a value is out of range,
+     * it is automatically wrapped around.
      * 
      * @param lon Longitude, in the interval (-pi, pi]
      * @param lat Latitude, in the interval [-pi/2, pi/2]
@@ -25,16 +27,24 @@ public final class GeoCoordinates implements Cloneable {
                 || Double.isNaN(lat)) {
             throw new IllegalArgumentException("Longitude and latitude must be finite numbers");
         }
-        if (lat < -Math.PI / 2 || lat > Math.PI / 2) {
-            throw new IllegalArgumentException("Latitude must be between -pi/2 and pi/2");
+
+        // Wrap latitude around
+        while (lat < -PI / 2 || lat > PI / 2) {
+            if (lat < -PI / 2) {
+                lat = -PI - lat;
+            } else if (lat > PI / 2) {
+                lat = PI - lat;
+            }
+            lon += PI;
         }
+
         longitude = limitRad(lon);
         latitude = lat;
     }
 
     // Converts an angle, given in degrees, to radians.
     private static double degToRad(double deg) {
-        return deg / 180 * Math.PI;
+        return deg / 180 * PI;
     }
 
     /**
@@ -44,7 +54,7 @@ public final class GeoCoordinates implements Cloneable {
      * @return The value in degrees
      */
     private static double radToDeg(double rad) {
-        return rad * 180 / Math.PI;
+        return rad * 180 / PI;
     }
 
     /**
@@ -54,9 +64,9 @@ public final class GeoCoordinates implements Cloneable {
      * @return A converted value in the interval [0, 2pi)
      */
     private static double limitRad(double rad) {
-        rad = rad % (2*Math.PI);
+        rad = rad % (2 * PI);
         if (rad < 0) {
-            rad += 2*Math.PI;
+            rad += 2 * PI;
         }
         return rad;
     }
@@ -104,11 +114,11 @@ public final class GeoCoordinates implements Cloneable {
         if (lon == null || lat == null) {
             throw new IllegalArgumentException();
         }
-        
+
         double longitude = limitRad(parseSingleCoordinate(lon));
         double latitude = parseSingleCoordinate(lat);
 
-        if (latitude < -Math.PI || latitude > Math.PI) {
+        if (latitude < -PI || latitude > PI) {
             throw new NumberFormatException();
         }
 
@@ -139,8 +149,8 @@ public final class GeoCoordinates implements Cloneable {
     }
 
     private String getCoordinateString(double coord) {
-        double deg = radToDeg(Math.abs(coord)), ideg = Math.floor(deg), imin = Math
-                .floor((deg - ideg) * 60), isec = Math.floor((deg - ideg - (imin/60)) * 3600);
+        double deg = radToDeg(abs(coord)), ideg = floor(deg), imin = Math
+                .floor((deg - ideg) * 60), isec = floor((deg - ideg - (imin / 60)) * 3600);
         if (isec == (int) isec) {
             return String.format("%d° %d' %d\"", (int) ideg, (int) imin, (int) isec);
         } else {
@@ -154,8 +164,8 @@ public final class GeoCoordinates implements Cloneable {
      * @return The longitude in string representation
      */
     public String getLongitudeString() {
-        boolean west = longitude > Math.PI;
-        return getCoordinateString(west ? 2 * Math.PI - longitude : longitude)
+        boolean west = longitude > PI;
+        return getCoordinateString(west ? 2 * PI - longitude : longitude)
                 + (west ? " W" : " E");
     }
 

@@ -30,7 +30,7 @@ public final class Tile implements Cloneable {
     }
 
     // Returns the angle for the step given, in radians
-    private double angle(int steps) {
+    private double getAngle(int steps) {
         return pow(0.5, detailLevel) * steps % 1 * 2 * PI;
     }
 
@@ -39,8 +39,8 @@ public final class Tile implements Cloneable {
      * 
      * @return The longitude, in radians
      */
-    public double longitudeFrom() {
-        return angle(lonIndex);
+    public double getLongitudeFrom() {
+        return getAngle(lonIndex);
     }
 
     /**
@@ -48,8 +48,8 @@ public final class Tile implements Cloneable {
      * 
      * @return The longitude, in radians
      */
-    public double longitudeTo() {
-        return angle(lonIndex + 1);
+    public double getLongitudeTo() {
+        return getAngle(lonIndex + 1);
     }
 
     /**
@@ -57,8 +57,8 @@ public final class Tile implements Cloneable {
      * 
      * @return The latitude, in radians
      */
-    public double latitudeFrom() {
-        return angle(latIndex);
+    public double getLatitudeFrom() {
+        return getAngle(latIndex);
     }
 
     /**
@@ -66,8 +66,8 @@ public final class Tile implements Cloneable {
      * 
      * @return The latitude, in radians.
      */
-    public double latitudeTo() {
-        return angle(latIndex + 1);
+    public double getLatitudeTo() {
+        return getAngle(latIndex + 1);
     }
 
     /**
@@ -120,7 +120,17 @@ public final class Tile implements Cloneable {
      * @return True if the rectangle intersects, else false
      */
     public boolean intersects(double lonFrom, double latFrom, double lonTo, double latTo) {
-        return false;
+        double tileLonFrom = this.getLongitudeFrom(), tileLatFrom = this.getLatitudeFrom(),
+                            tileLonTo = this.getLongitudeTo(), tileLatTo = this.getLatitudeTo();
+        return ((tileLonFrom < lonFrom && lonFrom < tileLonTo)
+                    || (tileLonFrom < lonTo && lonTo < tileLonTo)
+                    || (lonFrom < tileLonFrom && tileLonFrom < lonTo)
+                    || (lonFrom < tileLonTo && tileLonTo < lonTo))
+                &&
+                ((tileLatFrom < latFrom && latFrom < tileLatTo)
+                        || (tileLatFrom < latTo && latTo < tileLatTo)
+                        || (latFrom < tileLatFrom && tileLatFrom < latTo)
+                        || (latFrom < tileLatTo && tileLatTo < latTo));
     }
 
     @Override
@@ -158,13 +168,16 @@ public final class Tile implements Cloneable {
             throw new IllegalArgumentException();
         }
         double lon = coords.getLongitude(), lat = coords.getLatitude();
-        return lon >= longitudeFrom() && lon <= longitudeTo() && lat >= latitudeFrom()
-                && lat <= latitudeTo();
+        return lon >= getLongitudeFrom() && lon <= getLongitudeTo() && lat >= getLatitudeFrom()
+                && lat <= getLatitudeTo();
+    }
+
+    @Override
+    public String toString() {
+        return "Tile [detailLevel=" + detailLevel + ", lonIndex=" + lonIndex + ", latIndex="
+                + latIndex + ", longitudeFrom()=" + getLongitudeFrom() + ", longitudeTo()="
+                + getLongitudeTo() + ", latitudeFrom()=" + getLatitudeFrom() + ", latitudeTo()="
+                + getLatitudeTo() + "]";
     }
     
-    public static void main(String[] args) {
-        Camera cam = new Camera(new PlaneGeometry());
-        GeoCoordinates geo = new GeoCoordinates((-1/3)*PI, (-1/8)*PI);
-        System.out.println(getContainingTile(2, geo));
-    }
 }

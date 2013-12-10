@@ -11,15 +11,22 @@ import java.util.List;
 public class ProgressManager {
 
     private static ProgressManager instance = null;
-
     private List<ProgressListener> listeners;
 
-    private int                    pending;        // Number of unfinished requests
-    private int                    maxPending;     // Total number of requests added since the last
-                                                    // pending == 0
+    /**
+     * Number of unfinished requests
+     */
+    private int                    pending;
+
+    /**
+     * Total number of request added since the last pending == 0
+     */
+    private int                    maxPending;
 
 
-    // Constructor. Should only called by getInstance().
+    /**
+     * Constructor. Should only called by getInstance()
+     */
     private ProgressManager() {
         listeners = new LinkedList<ProgressListener>();
         pending = 0;
@@ -32,8 +39,10 @@ public class ProgressManager {
      * @return The instance
      */
     public static synchronized ProgressManager getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new ProgressManager();
+        }
+
         return instance;
     }
 
@@ -64,16 +73,22 @@ public class ProgressManager {
         for (ProgressListener l : listeners) {
             l.abortPendingRequests();
         }
-        pending = maxPending = 0;
+
+        pending = 0;
+        maxPending = 0;
         updateProgress();
     }
 
-    // Calculates the current progress, notifying all listeners of the change.
+    /**
+     * Calculates the current progress, notifying all listeners of the change.
+     */
     private void updateProgress() {
         double progress = 1.0;
+
         if (maxPending > 0) {
             progress = 1.0 - (double) pending / maxPending;
         }
+
         for (ProgressListener l : listeners) {
             l.updateProgress(progress);
         }
@@ -92,10 +107,16 @@ public class ProgressManager {
      * Marks a pending request as completed, notifying all listeners of the change.
      */
     public synchronized void requestCompleted() {
-        assert pending > 0;
-        --pending;
-        if (pending == 0)
+        if (pending > 0) {
+            --pending;
+        } else if (pending == 0) {
             maxPending = 0;
+        } else {
+            //TODO: Request completed wird ausgeführt aber pending = 0. Error Exception...
+            pending = 0;
+            maxPending = 0;
+        }
+
         updateProgress();
     }
 }

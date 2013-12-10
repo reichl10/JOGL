@@ -1,8 +1,11 @@
 package de.joglearth.rendering;
 
+import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Tile;
+import de.joglearth.geometry.Vector3;
+import de.joglearth.surface.HeightMap;
+import static de.joglearth.rendering.MeshUtils.*;
 import static java.lang.Math.*;
-import static javax.media.opengl.GL2.*;
 
 
 /**
@@ -11,29 +14,130 @@ import static javax.media.opengl.GL2.*;
  */
 public class SphereTessellator implements Tessellator {
 
-    // Each vertex consists of 8 floats:
-    // texture coordinates (u, v), normal (x, y), position (x, y, z)
-    private final static int vertexFormat = GL_T2F_N3F_V3F;
-
-
-    private void writeVertex(float[] vertices, Integer index, float vertexX, float vertexY,
-            float vertexZ, float normalX, float normalY, float normalZ, float textureU,
-            float textureV) {
-        // The layout is determined by vertexFormat
-        vertices[index + 0] = textureU;
-        vertices[index + 1] = textureV;
-        vertices[index + 2] = normalX;
-        vertices[index + 3] = normalY;
-        vertices[index + 4] = normalZ;
-        vertices[index + 5] = vertexX;
-        vertices[index + 6] = vertexY;
-        vertices[index + 7] = vertexZ;
-        index += 8;
+    private static Vector3 getSurfaceVector(double lon, double lat, boolean useHeightMap) {
+        // The earth axis is equal to the y axis, lon=0, lat=0 has the coordinates (0, 0, 1).
+        Vector3 vec = new Vector3(cos(lat) * sin(lon), sin(lat), cos(lat) * cos(lon));
+        if (useHeightMap) {
+            return vec.times(1 + HeightMap.getHeight(new GeoCoordinates(lon, lat)));
+        } else {
+            return vec;
+        }
     }
+
+    private static void writeSingleVertex(float[] vertices, int vIndex, double lon, double lat,
+            double lonStep, double latStep, boolean useHeightMap) {
+        Vector3 vertex = getSurfaceVector(lon, lat, useHeightMap),
+                east = getSurfaceVector(lon + lonStep, lat, useHeightMap),
+                north = getSurfaceVector(lon, lat + latStep, useHeightMap),
+                west = getSurfaceVector(lon - lonStep, lat, useHeightMap),
+                south = getSurfaceVector(lon, lat - latStep, useHeightMap);
+
+        Vector3 normal = east.minus(west).crossProduct(south.minus(north)).normalized();
+        writeVertex(vertices, vIndex, vertex.x, vertex.y, vertex.z);
+        writeNormal(vertices, vIndex, normal.x, normal.y, normal.z);
+    }
+
+    private static void writeVertexLine(float[] vertices, int vIndex, double lon, double lat,
+            double lonStep, double latStep, boolean useHeightMap, int count) {
+        for (int i = 0; i < count; ++i) {
+            writeSingleVertex(vertices, vIndex, lon, lat, lonStep, latStep, useHeightMap);
+            vIndex += VERTEX_SIZE;
+        }
+    }
+
+    private static void writeInterpolatedVertexLine(float[] vertices, int vIndex, double lon,
+            double lat, double largeLonStep, int groupSize, double latStep, boolean useHeightMap,
+            int largeCount) {
+
+        if (largeCount > 0) {
+            writeSingleVertex(vertices, vIndex, lon, lat, largeLonStep, latStep, useHeightMap);
+            vIndex += VERTEX_SIZE;
+            lon += largeLonStep;
+        }
+
+        for (int i = 0; i < largeCount; ++i) {
+            writeSingleVertex(vertices, vIndex + groupSize * VERTEX_SIZE, lon, lat, largeLonStep,
+                    latStep, useHeightMap);
+
+            for (int j = 0; i < groupSize - 1; ++i) {
+                interpolateVertex(vertices, vIndex, vIndex + groupSize * VERTEX_SIZE, vIndex + j
+                        * VERTEX_SIZE, (j + 1) / groupSize);
+            }
+
+            vIndex += groupSize * VERTEX_SIZE;
+            lon += largeLonStep;
+        }
+    }
+
+    private static void writeIndicesLine(int[] indices, int iIndex, int vIndex, int width) {
+        for (int i = 0; i < width; ++i) {
+            indices[iIndex + 0] = vIndex - width + 1 + i;
+            indices[iIndex + 1] = vIndex - width + i;
+            indices[iIndex + 2] = vIndex - 2 * width;
+            indices[iIndex + 3] = vIndex - width + 1;
+            indices[iIndex + 4] = vIndex - 2 * width;
+            indices[iIndex + 5] = vIndex - 2 * width + 1;
+            iIndex += 6;
+        }
+    }
+
+    private static int getShrinkCount(double lat) {
+        if (abs(lat) >= PI / 2) {
+            return 0;
+        } else {
+            return (int) (log(1 / cos(lat)));
+        }
+    }
+
     
     @Override
-    public Mesh tessellateTile(Tile tile, int subdivisions, boolean heightMap) {
-        return null;
+    public Mesh tessellateTile(Tile tile, int subdivisions, boolean useHeightMap) {
+        int nRows = subdivisions + 2, 
+            direction = tile.getLatitudeFrom() >= 0 ? +1 : -1;
+        double lat = direction > 0 ? tile.getLatitudeFrom() : tile.getLatitudeTo(),
+               lon = tile.getLongitudeFrom();
+        int shrinkCount = getShrinkCount(lat),
+            rowWidth = (subdivisions + 2) / (int) pow(2, shrinkCount),
+            vIndex = 0, 
+            iIndex = 0;
+        double lonStep = 2 * PI / ((rowWidth - 1) * pow(2, tile.getDetailLevel())),
+               latStep = 2 * PI / ((1 + subdivisions) * pow(2, tile.getDetailLevel()));
+        float[] vertices = new float[nRows * rowWidth * VERTEX_SIZE * 2];
+        int[] indices = new int[(nRows-1) * (rowWidth-1) * 6];
+        
+        writeVertexLine(vertices, vIndex, lon, lat, lonStep, latStep, useHeightMap, rowWidth);
+        vIndex += rowWidth * VERTEX_SIZE;
+        
+        for (int i = 0; i < nRows; ++i) {
+            lat += latStep;
+            int newRowWidth = (subdivisions + 2) / (int) pow(2, getShrinkCount(lat));
+            if (newRowWidth < rowWidth) {
+                int groupSize = rowWidth / newRowWidth;
+                writeInterpolatedVertexLine(vertices, vIndex, lon, lat, lonStep, groupSize, latStep,
+                        useHeightMap, newRowWidth);
+                vIndex += rowWidth * VERTEX_SIZE;
+                writeIndicesLine(indices, iIndex, vIndex, rowWidth);
+                iIndex += 6 * rowWidth;
+                rowWidth = newRowWidth;
+                writeVertexLine(vertices, vIndex, lon,
+                        lat, lonStep, latStep, useHeightMap, rowWidth);
+                vIndex += rowWidth * VERTEX_SIZE;
+            } else {
+                writeVertexLine(vertices, vIndex, lon, lat, lonStep,
+                        latStep, useHeightMap, rowWidth);
+                vIndex += rowWidth * VERTEX_SIZE;
+                writeIndicesLine(indices, iIndex, vIndex, rowWidth);
+            }
+        }
+
+        return new Mesh(vertices, VERTEX_FORMAT, indices);
     }
+    
+    
+    public static void main(String[] args) {
+        Tile t = new Tile(2, 1, 0);
+        System.out.println(t);
+    }
+    
 
 }

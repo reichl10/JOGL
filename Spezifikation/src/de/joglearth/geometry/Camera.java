@@ -30,14 +30,6 @@ public class Camera {
     private Matrix4 cameraMatrix = null;
     private List<CameraListener> listeners = new ArrayList<CameraListener>();
 
-    public double penetration;
-    private double fist;
-    short bread;
-    float ingShit;
-    short dick;
-    long dong;
-    String g;
-
 
     private boolean updateCamera() {
         // TODO sign!

@@ -38,10 +38,10 @@ public final class CameraUtils {
                 camera.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5)));
 
         GeoCoordinates[] corners = {
-                new GeoCoordinates(centerTile.longitudeFrom(), centerTile.latitudeFrom()),
-                new GeoCoordinates(centerTile.longitudeTo(), centerTile.latitudeFrom()),
-                new GeoCoordinates(centerTile.longitudeFrom(), centerTile.latitudeTo()),
-                new GeoCoordinates(centerTile.longitudeTo(), centerTile.latitudeTo())
+                new GeoCoordinates(centerTile.getLongitudeFrom(), centerTile.getLatitudeFrom()),
+                new GeoCoordinates(centerTile.getLongitudeTo(), centerTile.getLatitudeFrom()),
+                new GeoCoordinates(centerTile.getLongitudeFrom(), centerTile.getLatitudeTo()),
+                new GeoCoordinates(centerTile.getLongitudeTo(), centerTile.getLatitudeTo())
         };
 
         // Pick an arbitrary corner as the center point (if possible)
@@ -49,12 +49,12 @@ public final class CameraUtils {
         for (GeoCoordinates corner : corners) {
             if (camera.isPointVisible(corner)) {
                 int lon = centerTile.getLongitudeIndex();
-                if (corner.getLongitude() == centerTile.longitudeTo()) {
+                if (corner.getLongitude() == centerTile.getLongitudeTo()) {
                     ++lon;
                 }
 
                 int lat = centerTile.getLatitudeIndex();
-                if (corner.getLatitude() == centerTile.latitudeTo()) {
+                if (corner.getLatitude() == centerTile.getLatitudeTo()) {
                     ++lat;
                 }
 
