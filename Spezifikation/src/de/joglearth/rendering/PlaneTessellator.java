@@ -57,27 +57,47 @@ public class PlaneTessellator implements Tessellator {
 
         int[] indices = new int[6 * (nVertices - 1) * (nVertices - 1)];
         int indIndex = 0;
+        int index = 0;
 
         for (int line = 0; line < nVertices - 1; ++line) {
+            index = line * nVertices;
             for (int col = 0; col < nVertices - 1; ++col)
             {
                 // Annahme: Angabe der Dreieck-Eckpunkte gegen den Uhrzeigersinn
 
                 // Dreieck 'eins' (in rechteckiger Subdivision)
-                indices[indIndex + 0] = indIndex;
-                indices[indIndex + 1] = indIndex + nVertices;
-                indices[indIndex + 2] = indIndex + 1;
+                indices[indIndex + 0] = index;
+                indices[indIndex + 1] = index + nVertices;
+                indices[indIndex + 2] = index + 1;
 
                 // Dreieck 'zwei'
-                indices[indIndex + 3] = indIndex + 1;
-                indices[indIndex + 4] = indIndex + nVertices;
-                indices[indIndex + 5] = indIndex + nVertices + 1;
+                indices[indIndex + 3] = index + 1;
+                indices[indIndex + 4] = index + nVertices;
+                indices[indIndex + 5] = index + nVertices + 1;
 
                 indIndex += 6;
+                ++index;
             }
         }
 
         return new Mesh(vertices, VERTEX_FORMAT, indices);
     }
 
+    public static void main(String[] args) {
+
+        PlaneTessellator p = new PlaneTessellator();
+        Tile t = new Tile(2, 1, 0);
+        int subdivision = 1;
+        Mesh m = p.tessellateTile(t, subdivision, false);
+        int count = 0;
+        for (int i = 0; i < m.vertices.length; ++i) {
+            System.out.print(m.vertices[i] + "    ");
+            count +=1;
+            if (count == 8) {
+                System.out.println();
+                count = 0;
+            }
+        }
+        System.out.println(m.vertices.length / 8);
+    }
 }
