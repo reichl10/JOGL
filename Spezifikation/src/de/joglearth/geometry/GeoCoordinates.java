@@ -65,8 +65,11 @@ public final class GeoCoordinates implements Cloneable {
      */
     private static double limitRad(double rad) {
         rad = rad % (2 * PI);
-        if (rad < 0) {
+        if (rad <= -PI) {
             rad += 2 * PI;
+        }
+        if (rad > PI) {
+            rad -= 2 * PI;
         }
         return rad;
     }
