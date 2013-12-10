@@ -305,8 +305,23 @@ public class MainWindow extends JFrame {
                 IconizedItem<DisplayMode> selected = null;
                 if (displayModeComboBox.getSelectedItem() instanceof IconizedItem<?>)
                     selected = ((IconizedItem<DisplayMode>) displayModeComboBox.getSelectedItem());
-                mapOptionsPanel.setVisible(selected != null
-                        && selected.getValue() != DisplayMode.SOLAR_SYSTEM);
+                if (selected != null) {
+                    DisplayMode mode = selected.getValue();
+                    mapOptionsPanel.setVisible(mode != DisplayMode.SOLAR_SYSTEM);
+                    switch (mode) {
+                        case SOLAR_SYSTEM:
+                        case GLOBE_MAP:
+                            camera.setGeometry(new SphereGeometry());
+                            break;
+                        case PLANE_MAP:
+                            camera.setGeometry(new PlaneGeometry());
+                            break;
+                        default:
+                            // TODO: prob remove this line
+                            System.err.println("Unknown DisplayMode in comboBox!");
+                            break;
+                    }
+                }
             }
         });
         displayModeComboBox.addItem(new IconizedItem<DisplayMode>("Solar System",
@@ -335,8 +350,30 @@ public class MainWindow extends JFrame {
         mapTypeComboBox = paraMapTypeComboBox;
         mapOptionsPanel.add(paraMapTypeComboBox, "1, 3");
         paraMapTypeComboBox.setRenderer(new IconListCellRenderer<IconizedItem<MapTypePair>>());
-
+        paraMapTypeComboBox.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JComboBox<IconizedItem<MapTypePair>> comboBox = (JComboBox<IconizedItem<MapTypePair>>) e.getSource();
+                MapTypePair mtp = ((IconizedItem<MapTypePair>)comboBox.getSelectedItem()).getValue();
+                if (mtp.type instanceof SingleMapType) {
+                    SingleMapType mapType = (SingleMapType) mtp.type;
+                    Settings.getInstance().putString(SettingsContract.MAP_TYPE, mapType.name());
+                } else if (mtp.type instanceof TiledMapType) {
+                    TiledMapType type = (TiledMapType) mtp.type;
+                    Settings.getInstance().putString(SettingsContract.MAP_TYPE, type.name());
+                }
+            }
+        });
         JCheckBox heightMapCheckBox = new JCheckBox("Enable height map");
+        heightMapCheckBox.addChangeListener(new ChangeListener() {
+            
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                JCheckBox box = (JCheckBox) e.getSource();
+                Settings.getInstance().putBoolean(SettingsContract.HEIGHT_MAP_ENABLED, new Boolean(box.isSelected()));
+            }
+        });
         mapOptionsPanel.add(heightMapCheckBox, "1, 5");
 
         JLabel logoLabel = new JLabel("");
@@ -570,6 +607,15 @@ public class MainWindow extends JFrame {
         lodComboBox.addItem(new NamedItem<LevelOfDetail>("Low", LevelOfDetail.LOW));
         lodComboBox.addItem(new NamedItem<LevelOfDetail>("Medium", LevelOfDetail.MEDIUM));
         lodComboBox.addItem(new NamedItem<LevelOfDetail>("High", LevelOfDetail.HIGH));
+        lodComboBox.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JComboBox<NamedItem<LevelOfDetail>> lodComboBox = (JComboBox<NamedItem<LevelOfDetail>>) e.getSource();
+                LevelOfDetail detail = ((NamedItem<LevelOfDetail>) lodComboBox.getSelectedItem()).getValue();
+                Settings.getInstance().putString(SettingsContract.LEVEL_OF_DETAILS, detail.name());
+            }
+        });
         graphicsPanel.add(lodComboBox, "4, 6, fill, default");
 
         JPanel cachePanel = new JPanel();
@@ -636,6 +682,14 @@ public class MainWindow extends JFrame {
         manualButton.setIcon(loadIcon("icons/manual.png"));
 
         JButton aboutButton = new JButton("About");
+        aboutButton.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AboutBox aboutBox = new AboutBox();
+                aboutBox.setVisible(true);
+            }
+        });
         manualAboutPanel.add(aboutButton, "3, 1");
         aboutButton.setIcon(loadIcon("icons/info.png"));
     }
