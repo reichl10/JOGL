@@ -22,8 +22,7 @@ public final class Tile implements Cloneable {
      * @param latIndex The number of tiles to skip, starting from latitude 0, to reach the left
      *        bound of the tile
      */
-    public Tile(int detailLevel, int lonIndex, int latIndex)
-    {
+    public Tile(int detailLevel, int lonIndex, int latIndex) {
         this.detailLevel = detailLevel;
         this.lonIndex = lonIndex;
         this.latIndex = latIndex;
@@ -123,9 +122,9 @@ public final class Tile implements Cloneable {
         double tileLonFrom = this.getLongitudeFrom(), tileLatFrom = this.getLatitudeFrom(),
                             tileLonTo = this.getLongitudeTo(), tileLatTo = this.getLatitudeTo();
         return ((tileLonFrom < lonFrom && lonFrom < tileLonTo)
-                    || (tileLonFrom < lonTo && lonTo < tileLonTo)
-                    || (lonFrom < tileLonFrom && tileLonFrom < lonTo)
-                    || (lonFrom < tileLonTo && tileLonTo < lonTo))
+                || (tileLonFrom < lonTo && lonTo < tileLonTo)
+                || (lonFrom < tileLonFrom && tileLonFrom < lonTo)
+                || (lonFrom < tileLonTo && tileLonTo < lonTo))
                 &&
                 ((tileLatFrom < latFrom && latFrom < tileLatTo)
                         || (tileLatFrom < latTo && latTo < tileLatTo)
@@ -171,7 +170,7 @@ public final class Tile implements Cloneable {
         return lon >= getLongitudeFrom() && lon <= getLongitudeTo() && lat >= getLatitudeFrom()
                 && lat <= getLatitudeTo();
     }
-
+    
     @Override
     public String toString() {
         return "Tile [detailLevel=" + detailLevel + ", lonIndex=" + lonIndex + ", latIndex="

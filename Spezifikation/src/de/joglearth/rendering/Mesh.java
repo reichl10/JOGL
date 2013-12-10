@@ -1,5 +1,7 @@
 package de.joglearth.rendering;
 
+import java.util.Arrays;
+
 import javax.media.opengl.GL2;
 
 
@@ -8,6 +10,12 @@ import javax.media.opengl.GL2;
  * tile.
  */
 public final class Mesh {
+
+    @Override
+    public String toString() {
+        return "Mesh [vertices=" + Arrays.toString(vertices) + "\n" +", glVertexFormat="+ glVertexFormat
+                + "\n" + ", indices=" + Arrays.toString(indices) + "]";
+    }
 
     /**
      * The array of vertices. Elements are treated as dictated by the <code>glVertexFormat</code>.
@@ -37,6 +45,7 @@ public final class Mesh {
     public Mesh(float[] vertices, int glVertexFormat, int[] indices) {
         this.vertices = vertices;
         this.glVertexFormat = glVertexFormat;
+        this.indices = indices;
     }
 
     /**

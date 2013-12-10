@@ -1,17 +1,15 @@
 package de.joglearth.geometry;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import static java.lang.Double.isInfinite;
+import static java.lang.Double.isNaN;
+import static java.lang.Math.PI;
+import static java.lang.Math.tan;
 
-import de.joglearth.geometry.Matrix4;
-import de.joglearth.geometry.Vector3;
+import java.util.ArrayList;
+import java.util.List;
+
 import de.joglearth.surface.HeightMap;
 import de.joglearth.surface.SurfaceListener;
-import static java.lang.Math.*;
-import static java.lang.Double.*;
 
 
 /**
@@ -89,7 +87,7 @@ public class Camera {
      * Creates a {@link de.joglearth.geometry.Camera} with FOV 90°, aspect ratio 1:1, zNear=0.1 and
      * zFar=1000.
      * 
-     * @param geo The {@link Geometry} object
+     * @param geo The Geometry object
      */
     public Camera(Geometry geo) {
         if (geo == null) {
@@ -107,7 +105,7 @@ public class Camera {
      * 
      * @param g The new Geometry object
      */
-    public void setGeometry(Geometry g) {
+    public synchronized void setGeometry(Geometry g) {
         if (g == null) {
             throw new IllegalArgumentException();
         }
@@ -130,7 +128,7 @@ public class Camera {
      * 
      * @param coords The <code>GeoCoordinates</code> of the camera's position
      */
-    public void setPosition(GeoCoordinates coords) {
+    public synchronized void setPosition(GeoCoordinates coords) {
         if (coords == null) {
             throw new IllegalArgumentException();
         }
@@ -158,7 +156,7 @@ public class Camera {
      * 
      * @param distance The distance
      */
-    public void setDistance(double distance) {
+    public synchronized void setDistance(double distance) {
         if (isInfinite(distance) || isNaN(distance) || distance <= 0) {
             throw new IllegalArgumentException();
         }
@@ -179,6 +177,10 @@ public class Camera {
         return distance;
     }
 
+    /**
+     * Returns the camera's scale
+     * @return
+     */
     public double getScale() {
         return (distance * tan(fov/2)) / PI;
     }
@@ -192,7 +194,8 @@ public class Camera {
      * @param near The distance of the near clipping plane to the camera position. 0.1 by default
      * @param far The distance of the far clipping plane to the camera position. 1000.0 by default
      */
-    public void setPerspective(double fov, double aspectRatio, double near, double far) {
+    public synchronized void setPerspective(double fov, double aspectRatio,
+                                                double near, double far) {
 
         if (isNaN(fov) || fov <= 0 || fov < PI || isNaN(aspectRatio) || isInfinite(aspectRatio)
                 || aspectRatio <= 0 || isNaN(near) || isInfinite(near) || isNaN(far)
@@ -221,7 +224,7 @@ public class Camera {
     /**
      * Resets the {@link de.joglearth.geometry.Camera} tilt to x=y=0.
      */
-    public void resetTilt() {
+    public synchronized void resetTilt() {
         tiltX = 0;
         tiltY = 0;
 
@@ -236,7 +239,7 @@ public class Camera {
      * @param x The tilt around the x axis ("up and down")
      * @param y The tilt around the y axis ("left and right")
      */
-    public void setTilt(double x, double y) {
+    public synchronized void setTilt(double x, double y) {
 
         if (isNaN(x) || isNaN(y) || x < -PI / 2 || x > PI / 2 || y < -PI / 2 || y > PI / 2) {
             throw new IllegalArgumentException();
@@ -260,7 +263,7 @@ public class Camera {
      * @param deltaX The tilt difference around the x axis ("up and down")
      * @param deltaY The tilt difference around the y axis ("left and right")
      */
-    public void tilt(double deltaX, double deltaY) {
+    public synchronized void tilt(double deltaX, double deltaY) {
 
         if (isNaN(deltaX) || isNaN(deltaY) || deltaX < -PI / 2 || deltaX > PI / 2
                 || deltaY < -PI / 2 || deltaY > PI / 2) {
@@ -322,7 +325,7 @@ public class Camera {
      * @param geo The point's coordinates
      * @return The coordinates of the point on the screen
      */
-    public ScreenCoordinates getScreenCoordinates(GeoCoordinates geo) {
+    public synchronized ScreenCoordinates getScreenCoordinates(GeoCoordinates geo) {
         if (geo == null) {
             throw new IllegalArgumentException();
         }
@@ -344,7 +347,7 @@ public class Camera {
      * @return The surface coordinates if the point maps to the surface, <code>null</code> if it
      *         points outside the plane or globe ("space")
      */
-    public GeoCoordinates getGeoCoordinates(ScreenCoordinates screen) {
+    public synchronized GeoCoordinates getGeoCoordinates(ScreenCoordinates screen) {
 
         if (screen == null) {
             throw new IllegalArgumentException();

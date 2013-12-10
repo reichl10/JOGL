@@ -135,9 +135,20 @@ public class SphereTessellator implements Tessellator {
     
     
     public static void main(String[] args) {
-        Tile t = new Tile(2, 1, 0);
-        System.out.println(t);
-    }
-    
 
+        PlaneTessellator p = new PlaneTessellator();
+        Tile t = new Tile(2, 1, 0);
+        int subdivision = 2;
+        Mesh m = p.tessellateTile(t, subdivision, false);
+        int count = 0;
+        for (int i = 0; i < m.vertices.length; ++i) {
+            System.out.print(m.vertices[i] + "    ");
+            count +=1;
+            if (count == 8) {
+                System.out.print(m.vertices[i]*m.vertices[i] + m.vertices[i-1]*m.vertices[i-1] + m.vertices[i-2]*m.vertices[i-2]);
+                System.out.println();
+                count = 0;
+            }
+        }
+    }
 }

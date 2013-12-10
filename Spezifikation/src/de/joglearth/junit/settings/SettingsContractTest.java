@@ -29,11 +29,7 @@ import de.joglearth.surface.LocationType;
 public class SettingsContractTest {
 
     private static final Boolean TV_BOOLEAN = new Boolean(true);
-    private static final Double TV_DOUBLE = new Double(123.301d);
-    private static final Float TV_FLOAT = new Float(32.35f);
     private static final Integer TV_INTEGER = new Integer(-5634);
-    private static final Long TV_LONG = new Long(34332423);
-    private static final String TV_STRING = "jfsdjfisdf*+3439(&2)(/&";
     private static final String TV_LANGUAGE = "GERMAN";
     private static final Set<Location> TV_LOCATIONS = new HashSet<Location>();
     private static final Location TV_LOCATION = new Location(new GeoCoordinates(3.32d, 1.45d),
