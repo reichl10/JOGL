@@ -33,9 +33,12 @@ import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -545,12 +548,19 @@ public class MainWindow extends JFrame {
         JLabel texfilterLabel = new JLabel("Texture Filter:");
         graphicsPanel.add(texfilterLabel, "2, 4, left, default");
 
-        JComboBox<NamedItem<Integer>> texfilterComboBox = new JComboBox<NamedItem<Integer>>();
-        texfilterComboBox.addItem(new NamedItem<Integer>("Off", 0));
-        texfilterComboBox.addItem(new NamedItem<Integer>("2x AA", 2));
-        texfilterComboBox.addItem(new NamedItem<Integer>("4x AA", 4));
-        texfilterComboBox.addItem(new NamedItem<Integer>("8x AA", 8));
-        texfilterComboBox.addItem(new NamedItem<Integer>("16x AA", 16));
+        JComboBox<NamedItem<Boolean>> texfilterComboBox = new JComboBox<NamedItem<Boolean>>();
+        texfilterComboBox.addItem(new NamedItem<Boolean>("Off", new Boolean(false)));
+        texfilterComboBox.addItem(new NamedItem<Boolean>("On", new Boolean(true)));
+        texfilterComboBox.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JComboBox<NamedItem<Boolean>> comboBox = (JComboBox<NamedItem<Boolean>>) e.getSource();
+                NamedItem<Boolean> item = (NamedItem<Boolean>) comboBox.getSelectedItem();
+                Boolean valueBoolean = item.getValue();
+                Settings.getInstance().putBoolean(SettingsContract.TEXTURE_FILTER, valueBoolean);
+            }
+        });
         graphicsPanel.add(texfilterComboBox, "4, 4, fill, default");
 
         JLabel lodLabel = new JLabel("Level of Detail:");
@@ -582,12 +592,30 @@ public class MainWindow extends JFrame {
         cachePanel.add(memCacheLabel, "2, 2");
 
         JSpinner memCacheSpinner = new JSpinner();
+        memCacheSpinner.setModel(new SpinnerNumberModel(new Integer(100), new Integer(100), null, new Integer(1)));
+        memCacheSpinner.addChangeListener(new ChangeListener() {
+            
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                JSpinner spinner = (JSpinner) e.getSource();
+                Settings.getInstance().putInteger(SettingsContract.CACHE_SIZE_MEMORY, (Integer)spinner.getValue());
+            }
+        });
         cachePanel.add(memCacheSpinner, "4, 2");
 
         JLabel fsCacheLabel = new JLabel("File Sytem");
         cachePanel.add(fsCacheLabel, "2, 4");
 
         JSpinner fsCacheSpinner = new JSpinner();
+        fsCacheSpinner.setModel(new SpinnerNumberModel(new Integer(100), new Integer(100), null, new Integer(1)));
+        fsCacheSpinner.addChangeListener(new ChangeListener() {
+            
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                JSpinner spinner = (JSpinner) e.getSource();
+                Settings.getInstance().putInteger(SettingsContract.CACHE_SIZE_FILESYSTEM, (Integer)spinner.getValue());
+            }
+        });
         cachePanel.add(fsCacheSpinner, "4, 4");
 
         JPanel manualAboutPanel = new JPanel();
