@@ -1,6 +1,8 @@
 package de.joglearth;
 
 import de.joglearth.geometry.Camera;
+import de.joglearth.geometry.Geometry;
+import de.joglearth.geometry.PlaneGeometry;
 import de.joglearth.rendering.Renderer;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.ui.MainWindow;
@@ -28,7 +30,8 @@ public final class JoglEarth {
      * @param args Command line arguments (unused)
      */
     public static void main(String[] args) {
-        Camera camera = new Camera();
+        Geometry geometry = new PlaneGeometry();
+        Camera camera = new Camera(geometry);
         LocationManager locationManager = new LocationManager();
         MainWindow gui = new MainWindow(locationManager, camera);
         Renderer r = new Renderer(gui.getGLCanvas(), locationManager, camera);
