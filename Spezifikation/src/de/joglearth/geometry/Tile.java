@@ -30,7 +30,7 @@ public final class Tile implements Cloneable {
 
     // Returns the angle for the step given, in radians
     private double getAngle(int steps) {
-        return pow(0.5, detailLevel) * steps % 1 * 2 * PI;
+        return pow(0.5, detailLevel) * steps % 1 * PI;
     }
 
     /**
@@ -39,7 +39,7 @@ public final class Tile implements Cloneable {
      * @return The longitude, in radians
      */
     public double getLongitudeFrom() {
-        return getAngle(lonIndex);
+        return getAngle(lonIndex) * 2;
     }
 
     /**
@@ -48,7 +48,7 @@ public final class Tile implements Cloneable {
      * @return The longitude, in radians
      */
     public double getLongitudeTo() {
-        return getAngle(lonIndex + 1);
+        return getAngle(lonIndex + 1) * 2;
     }
 
     /**
