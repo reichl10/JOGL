@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import de.joglearth.geometry.Tile;
 import de.joglearth.junit.GLTestWindow;
+import de.joglearth.rendering.GLError;
 import de.joglearth.rendering.PlaneTessellator;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
@@ -29,10 +30,12 @@ public class VertexBufferWhiteBoxTest {
     @Before
     public void setUp() throws Exception {
         window = new GLTestWindow();
+        window.beginFrame();
     }
 
     @After
     public void tearDown() throws Exception {
+        window.endFrame();
         if (window != null) {
             window.dispose();
         }
