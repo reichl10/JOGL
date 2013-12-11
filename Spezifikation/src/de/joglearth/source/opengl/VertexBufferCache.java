@@ -2,17 +2,16 @@ package de.joglearth.source.opengl;
 
 import javax.media.opengl.GL2;
 
-import de.joglearth.geometry.Tile;
+import de.joglearth.rendering.GLError;
 import de.joglearth.source.caching.MemoryCache;
 
 
 /**
  * Manages and displaces vertex buffer objects in OpenGl graphics memory.
  */
-public class VertexBufferCache extends MemoryCache<Tile, VertexBuffer> {
+public class VertexBufferCache<Key> extends MemoryCache<Key, VertexBuffer> {
 
     private GL2 gl;
-
 
     /**
      * Constructor. Initializes the {@link de.joglearth.source.opengl.VertexBufferCache} and assigns
@@ -25,11 +24,12 @@ public class VertexBufferCache extends MemoryCache<Tile, VertexBuffer> {
     }
 
     @Override
-    public void dropObject(Tile k) {
+    public void dropObject(Key k) {
         VertexBuffer vboID = requestObject(k, null).value;
 
         if (vboID != null) {
             gl.glDeleteBuffers(1, new int[] { vboID.vertices, vboID.indices }, 0);
+            GLError.throwIfActive(gl);
         }
     }
 }

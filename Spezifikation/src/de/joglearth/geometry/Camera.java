@@ -32,22 +32,26 @@ public class Camera {
     private boolean updateCamera() {
         // TODO sign!
         Matrix4 newCameraMatrix = geometry.getViewMatrix(position,
-                (HeightMap.getHeight(position) + 1) / 1000 + distance);
+                HeightMap.getHeight(position) / 1000 + distance);
 
-        Vector3 zAxis = newCameraMatrix.transform(new Vector3(0, 0, -1)).divide();
+        Vector3 center = newCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
+        Vector3 zAxis = newCameraMatrix.transform(new Vector3(0, 0, -1)).divide().minus(center)
+                .normalized();
 
         if (zAxis.x == 0 && zAxis.z == 0) {
             return false;
         }
 
-        Vector3 xAxis = zAxis.crossProduct(new Vector3(0, 1, 0)).normalized();
+        Vector3 earthAxis = newCameraMatrix.transform(new Vector3(0, 1, 0)).divide().minus(center);
+        Vector3 xAxis = zAxis.crossProduct(earthAxis).normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
 
         newCameraMatrix.rotate(xAxis, tiltX);
         newCameraMatrix.rotate(yAxis, tiltY);
 
         Vector3 cameraPosition = newCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
-        Vector3 viewVector = newCameraMatrix.transform(new Vector3(0, 0, -1)).divide();
+        Vector3 viewVector = newCameraMatrix.transform(new Vector3(0, 0, -1)).divide()
+                .minus(cameraPosition);
 
         if (geometry.getSurfaceCoordinates(cameraPosition, viewVector) != null) {
 
@@ -97,13 +101,12 @@ public class Camera {
         geometry = geo;
         setPerspective((double) PI / 2, 1, 0.1, 1000);
         HeightMap.addSurfaceListener(new SurfaceHeightListener());
-
     }
 
     /**
      * Sets a new {@link de.joglearth.geometry.Geometry} object for model-specific computations.
      * 
-     * @param g The new Geometry object
+     * @param g The new Geometry object. Must not be null.
      */
     public synchronized void setGeometry(Geometry g) {
         if (g == null) {
@@ -126,7 +129,7 @@ public class Camera {
     /**
      * Sets the position the {@link de.joglearth.geometry.Camera} is currently over.
      * 
-     * @param coords The <code>GeoCoordinates</code> of the camera's position
+     * @param coords The <code>GeoCoordinates</code> of the camera's position. Must not be null.
      */
     public synchronized void setPosition(GeoCoordinates coords) {
         if (coords == null) {
@@ -140,7 +143,6 @@ public class Camera {
         }
     }
 
-    
     /**
      * Returns the position the camera is currently over.
      * 
@@ -149,12 +151,11 @@ public class Camera {
     public GeoCoordinates getPosition() {
         return position;
     }
-    
-    
+
     /**
      * Sets the {@link de.joglearth.geometry.Camera}'s distance to the surface.
      * 
-     * @param distance The distance
+     * @param distance The distance. Must be positive and finite.
      */
     public synchronized void setDistance(double distance) {
         if (isInfinite(distance) || isNaN(distance) || distance <= 0) {
@@ -167,7 +168,7 @@ public class Camera {
             this.distance = oldDistance;
         }
     }
-    
+
     /**
      * Returns the camera's distance to the surface.
      * 
@@ -179,10 +180,11 @@ public class Camera {
 
     /**
      * Returns the camera's scale
+     * 
      * @return
      */
     public double getScale() {
-        return (distance * tan(fov/2)) / PI;
+        return (distance * tan(fov / 2)) / PI;
     }
 
     /**
@@ -195,9 +197,9 @@ public class Camera {
      * @param far The distance of the far clipping plane to the camera position. 1000.0 by default
      */
     public synchronized void setPerspective(double fov, double aspectRatio,
-                                                double near, double far) {
+            double near, double far) {
 
-        if (isNaN(fov) || fov <= 0 || fov < PI || isNaN(aspectRatio) || isInfinite(aspectRatio)
+        if (isNaN(fov) || fov <= 0 || fov > PI || isNaN(aspectRatio) || isInfinite(aspectRatio)
                 || aspectRatio <= 0 || isNaN(near) || isInfinite(near) || isNaN(far)
                 || isInfinite(far) || near >= far) {
             RuntimeException up = new IllegalArgumentException();
@@ -236,8 +238,10 @@ public class Camera {
     /**
      * Sets the {@link de.joglearth.geometry.Camera} tilt to a specific value.
      * 
-     * @param x The tilt around the x axis ("up and down")
-     * @param y The tilt around the y axis ("left and right")
+     * @param x The tilt around the x axis ("up and down"). Must be inside the interval [-pi/2,
+     *        pi/2].
+     * @param y The tilt around the y axis ("left and right"). Must be inside the interval [-pi/2,
+     *        pi/2].
      */
     public synchronized void setTilt(double x, double y) {
 
