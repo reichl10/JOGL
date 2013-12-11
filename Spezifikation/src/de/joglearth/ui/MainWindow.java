@@ -18,6 +18,7 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -457,7 +458,7 @@ public class MainWindow extends JFrame {
         searchResultScrollPane.setMinimumSize(new Dimension(0, 0));
         searchPanel.add(searchResultScrollPane, "2, 5, fill, fill");
 
-        JList searchResultList = new JList();
+        JList<Location> searchResultList = new JList<Location>(new DefaultListModel<Location>());
         searchResultScrollPane.setViewportView(searchResultList);
 
         JPanel userTagPanel = new JPanel();
@@ -606,10 +607,11 @@ public class MainWindow extends JFrame {
         texfilterComboBox.addItem(new NamedItem<Boolean>("Off", new Boolean(false)));
         texfilterComboBox.addItem(new NamedItem<Boolean>("On", new Boolean(true)));
         texfilterComboBox.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                JComboBox<NamedItem<Boolean>> comboBox = (JComboBox<NamedItem<Boolean>>) e.getSource();
+                JComboBox<NamedItem<Boolean>> comboBox = (JComboBox<NamedItem<Boolean>>) e
+                        .getSource();
                 NamedItem<Boolean> item = (NamedItem<Boolean>) comboBox.getSelectedItem();
                 Boolean valueBoolean = item.getValue();
                 Settings.getInstance().putBoolean(SettingsContract.TEXTURE_FILTER, valueBoolean);
@@ -706,7 +708,7 @@ public class MainWindow extends JFrame {
 
         JButton aboutButton = new JButton("About");
         aboutButton.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 AboutBox aboutBox = new AboutBox();
@@ -783,8 +785,10 @@ public class MainWindow extends JFrame {
         zoomPanel.add(zoomMinusLabel, "1, 6");
 
         JLabel zoomLevelLabel = new JLabel("0");
+        zoomSlider.addChangeListener(new SliderWatcher(zoomLevelLabel));
         zoomPanel.add(zoomLevelLabel, "1, 8");
-
+        zoomPlusLabel.addMouseListener(new ZoomAdapter(zoomSlider, true));
+        zoomMinusLabel.addMouseListener(new ZoomAdapter(zoomSlider, false));
         JPanel scalePanel = new JPanel();
         statusBar.add(scalePanel, "2, 1, fill, fill");
         scalePanel.setLayout(new FormLayout(new ColumnSpec[] { ColumnSpec
@@ -858,10 +862,7 @@ public class MainWindow extends JFrame {
     private class UISettingsListener implements SettingsListener {
 
         @Override
-        public void settingsChanged(String key, Object valOld, Object valNew) {
-            // TODO Automatisch generierter Methodenstub
-
-        }
+        public void settingsChanged(String key, Object valOld, Object valNew) {}
 
     }
 
@@ -869,7 +870,7 @@ public class MainWindow extends JFrame {
 
         @Override
         public void cameraViewChanged() {
-            // TODO Automatisch generierter Methodenstub
+            // TODO: What should I do with this?
 
         }
 
@@ -877,10 +878,20 @@ public class MainWindow extends JFrame {
 
     private class UILocationListener implements LocationListener {
 
+        private JList<Location> list;
+
+
+        public UILocationListener(JList<Location> list) {
+            this.list = list;
+        }
+
         @Override
         public void searchResultsAvailable(Collection<Location> results) {
-            // TODO Automatisch generierter Methodenstub
-
+            DefaultListModel<Location> model = (DefaultListModel<Location>) list.getModel();
+            model.clear();
+            for (Location l : results) {
+                model.addElement(l);
+            }
         }
 
     }
@@ -889,9 +900,70 @@ public class MainWindow extends JFrame {
 
         @Override
         public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
-            // TODO Automatisch generierter Methodenstub
+            // TODO: Do I really care about this?
 
         }
 
+    }
+
+    private class ZoomAdapter extends MouseAdapter {
+
+        private boolean increase;
+        private JSlider slider;
+
+
+        public ZoomAdapter(JSlider slider, boolean increase) {
+            this.increase = increase;
+            this.slider = slider;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
+            int current = slider.getValue();
+            if (increase) {
+                if (current < slider.getMaximum()) {
+                    slider.setValue(current + 1);
+                }
+            } else {
+                if (current > slider.getMinimum()) {
+                    slider.setValue(current - 1);
+                }
+            }
+        }
+    }
+
+    private class SliderWatcher implements ChangeListener {
+
+        private JLabel label;
+
+
+        public SliderWatcher(JLabel label) {
+            this.label = label;
+        }
+
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            JSlider slider = (JSlider) e.getSource();
+            label.setText(Integer.toString(slider.getValue()));
+        }
+
+    }
+
+    private class AddUsertagButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // TODO Auto-generated method stub
+            
+        }
+    }
+    private class RemoveUsertagButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // TODO Auto-generated method stub
+            
+        }
     }
 }
