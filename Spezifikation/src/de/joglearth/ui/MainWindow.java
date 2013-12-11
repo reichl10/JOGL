@@ -883,27 +883,10 @@ public class MainWindow extends JFrame {
     }
 
     private class GlMouseListener extends MouseAdapter {
+    	double currentTiltX = 0.0d;
+    	double currentTiltY = 0.0d;
+    	private static final double SCALE_TILT = 0.001d
     	Point lastPos;
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            
-            // Change position TODO: Change to use dragging i guess
-            if (e.getButton() == MouseEvent.BUTTON1) {
-                GLCanvas gl = (GLCanvas) e.getSource();
-                
-                Dimension dimension = gl.getSize();
-                int x = e.getX();
-                int y = e.getY();
-                double xscreen = dimension.width/x;
-                double yscreen = dimension.height/y;
-                // 0,0 - 1,1
-               GeoCoordinates cod = camera.getGeoCoordinates(new ScreenCoordinates(xscreen, yscreen));
-               camera.setPosition(cod);
-            } else if (e.getButton() == MouseEvent.BUTTON2) { // change inclination
-                
-            }
-            super.mouseClicked(e);
-        }
         @Override
         public void mouseDragged(MouseEvent e) {
         	Point p = e.getPoint();
@@ -923,6 +906,22 @@ public class MainWindow extends JFrame {
         		Dimension dimension = gl.getSize();
         		double diffX = p.getX() - lastPos.getX();
         		double diffY = p.getY() - lastPos.getY();
+        		//-pi/2,pi/2
+        		currentTiltX += (diffX*SCALE_TILT);
+        		currentTiltY += (diffY*SCALE_TILT);
+        		if (currentTiltX < -(Math.PI/2)) {
+        			currentTiltX = -(Math.PI/2);
+        		}
+        		if (currentTiltY < -(Math.PI/2)) {
+        			currentTiltY = -(Math.PI/2);
+        		}
+        		if (currentTiltX > (Math.PI/2)) {
+        			currentTiltX = (Math.PI/2);
+        		}
+        		if (currentTiltY > (Math.PI/2)) {
+        			currentTiltY = (Math.PI/2);
+        		}
+        		camera.setTilt(currentTiltX, currentTiltY);
         	}
         	lastPos = p;
         	super.mouseDragged(e);
