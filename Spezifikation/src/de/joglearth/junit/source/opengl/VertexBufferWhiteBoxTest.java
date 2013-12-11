@@ -40,7 +40,7 @@ public class VertexBufferWhiteBoxTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void test() {
+    public void test() throws Throwable {
         final GL2 gl = window.getGL();
         final TileMeshSource source = new TileMeshSource(gl, new PlaneTessellator());
         source.setTileSubdivisions(19);
@@ -73,8 +73,10 @@ public class VertexBufferWhiteBoxTest {
         assertEquals(response.value, vbo);
 
         AWTInvoker.invoke(new Runnable() {
+
             @Override
-            public void run() {                
+            public void run() {
+
                 gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
                 assertEquals(gl.glGetError(), GL_NO_ERROR);
 
@@ -84,7 +86,8 @@ public class VertexBufferWhiteBoxTest {
                 gl.glVertexPointer(3, GL_FLOAT, 0, 0);
                 assertEquals(gl.glGetError(), GL_NO_ERROR);
 
-                gl.glDrawElements(vbo.primitiveType, vbo.primitiveCount, GL_UNSIGNED_INT, vbo.indices);
+                gl.glDrawElements(vbo.primitiveType, vbo.primitiveCount, GL_UNSIGNED_INT,
+                        vbo.indices);
                 assertEquals(gl.glGetError(), GL_NO_ERROR);
 
                 gl.glDisableClientState(GL_VERTEX_ARRAY);
@@ -100,7 +103,7 @@ public class VertexBufferWhiteBoxTest {
                 assertNotEquals(gl.glGetError(), GL_NO_ERROR);
 
                 gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
-                assertNotEquals(gl.glGetError(), GL_NO_ERROR);                
+                assertNotEquals(gl.glGetError(), GL_NO_ERROR);
             }
         });
     }

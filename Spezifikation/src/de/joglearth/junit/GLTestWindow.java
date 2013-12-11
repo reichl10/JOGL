@@ -20,9 +20,9 @@ import de.joglearth.util.AWTInvoker;
  */
 public class GLTestWindow {
 
-    private JFrame frame;
+    private JFrame   frame;
     private GLCanvas canvas;
-    private boolean ready;
+    private boolean  ready;
 
 
     /**
@@ -33,45 +33,50 @@ public class GLTestWindow {
      */
     public GLTestWindow() {
         ClearableEventQueue.impose();
-        AWTInvoker.invoke(new Runnable() {
+        try {
+            AWTInvoker.invoke(new Runnable() {
 
-            @Override
-            public void run() {
-                frame = new JFrame("GL Test Window");
-                frame.setSize(400, 300);
+                @Override
+                public void run() {
+                    frame = new JFrame("GL Test Window");
+                    frame.setSize(400, 300);
 
-                ready = false;
-                canvas = new GLCanvas(new GLCapabilities(GLProfile.getGL2ES1()));
+                    ready = false;
+                    canvas = new GLCanvas(new GLCapabilities(GLProfile.getGL2ES1()));
 
-                canvas.addGLEventListener(new GLEventListener() {
+                    canvas.addGLEventListener(new GLEventListener() {
 
-                    @Override
-                    public void reshape(GLAutoDrawable arg0, int arg1, int arg2, int arg3, int arg4) {}
+                        @Override
+                        public void reshape(GLAutoDrawable arg0, int arg1, int arg2, int arg3,
+                                int arg4) {}
 
-                    @Override
-                    public void init(GLAutoDrawable arg0) {}
+                        @Override
+                        public void init(GLAutoDrawable arg0) {}
 
-                    @Override
-                    public void dispose(GLAutoDrawable arg0) {}
+                        @Override
+                        public void dispose(GLAutoDrawable arg0) {}
 
-                    @Override
-                    public void display(GLAutoDrawable arg0) {
-                        GL2 gl = canvas.getGL().getGL2();
-                        gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
-                        GLError.throwIfActive(gl);
-                        ready = true;
+                        @Override
+                        public void display(GLAutoDrawable arg0) {
+                            GL2 gl = canvas.getGL().getGL2();
+                            gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
+                            GLError.throwIfActive(gl);
+                            ready = true;
+                        }
+                    });
+
+                    frame.add(canvas);
+                    frame.setVisible(true);
+
+                    while (!ready) {
+                        ClearableEventQueue.getInstance().clear();
                     }
-                });
-
-                frame.add(canvas);
-                frame.setVisible(true);
-
-                while (!ready) {
-                    ClearableEventQueue.getInstance().clear();
                 }
-            }
 
-        });
+            });
+        } catch (Throwable e) {
+            throw new RuntimeException("GLTestWindow initialization failed", e);
+        }
     }
 
     /**
