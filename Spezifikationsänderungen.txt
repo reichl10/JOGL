@@ -21,7 +21,12 @@ CameraUtils (alles)
 - mehrere Methoden aus Camera portiert
 
 VertexBufferCache
+- Jetzt Generisch
 - extends MemoryCache statt implements Cache
 
 Tile
 - longitudeFrom(), -To(), latitudeFrom(), -To() in get... geändert
+
+Mesh
+- primitiveTpye, primitiveCount
+

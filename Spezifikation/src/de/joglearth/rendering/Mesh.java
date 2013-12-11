@@ -3,6 +3,7 @@ package de.joglearth.rendering;
 import java.util.Arrays;
 
 import javax.media.opengl.GL2;
+import static javax.media.opengl.GL2.*;
 
 
 /**
@@ -13,7 +14,7 @@ public final class Mesh {
 
     @Override
     public String toString() {
-        return "Mesh [vertices=" + Arrays.toString(vertices) + "\n" +", glVertexFormat="+ glVertexFormat
+        return "Mesh [vertices=" + Arrays.toString(vertices) + "\n" +", glVertexFormat="+ vertexFormat
                 + "\n" + ", indices=" + Arrays.toString(indices) + "]";
     }
 
@@ -25,12 +26,24 @@ public final class Mesh {
     /**
      * The vertex format, as specified by OpenGL.
      */
-    public int     glVertexFormat = GL2.GL_T2F_N3F_V3F;
+    public int     vertexFormat = GL_T2F_N3F_V3F;
 
     /**
      * The array of indices used to iterate over the vertex array.
      */
     public int[]   indices        = null;
+    
+    /**
+     * The type of primitive, as given by the GL constants GL_POINTS, GL_LINE_STRIP, GL_LINE_LOOP,
+     * GL_LINES, GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, GL_TRIANGLES, GL_QUAD_STRIP, GL_QUADS and
+     * GL_POLYGON.
+     */
+    public int primitiveType = GL_TRIANGLES;
+    
+    /**
+     * The number of primitives to draw from the index array.
+     */
+    public int primitiveCount = 0;
 
 
     /**
@@ -42,9 +55,10 @@ public final class Mesh {
      *        array.
      * @param indices The array of indices
      */
-    public Mesh(float[] vertices, int glVertexFormat, int[] indices) {
+    public Mesh(int glVertexFormat, float[] vertices, int primitiveType, int[] indices,
+            int primitiveCount) {
         this.vertices = vertices;
-        this.glVertexFormat = glVertexFormat;
+        this.vertexFormat = glVertexFormat;
         this.indices = indices;
     }
 

@@ -5,8 +5,8 @@ import java.nio.IntBuffer;
 
 import javax.media.opengl.GL2;
 
-import static javax.media.opengl.GL2.*;
 import de.joglearth.geometry.Tile;
+import de.joglearth.rendering.GLError;
 import de.joglearth.rendering.Mesh;
 import de.joglearth.rendering.Tessellator;
 import de.joglearth.source.Source;
@@ -14,6 +14,7 @@ import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
 
+import static javax.media.opengl.GL2.*;
 
 /**
  * Adapter for a {@link de.joglearth.rendering.Tessellator} to use it as a
@@ -70,16 +71,33 @@ public class TileMeshSource implements Source<Tile, VertexBuffer> {
     @Override
     public SourceResponse<VertexBuffer> requestObject(Tile key,
             SourceListener<Tile, VertexBuffer> sender) {
-        Mesh m = tess.tessellateTile(key, subdivisions, heightMap);
+        Mesh mesh = tess.tessellateTile(key, subdivisions, heightMap);
+        
+        // Allocate vertex and index buffer
         int[] buffers = new int[2];
         gl.glGenBuffers(2, buffers, 0);
-        VertexBuffer vbo = new VertexBuffer(buffers[0], buffers[1]);
+        GLError.throwIfActive(gl);
+        
+        VertexBuffer vbo = new VertexBuffer(mesh.primitiveType, mesh.primitiveCount, buffers[0], buffers[1]);
+        
+        // Bind vertex buffer
         gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
-        gl.glBufferData(GL_ARRAY_BUFFER, 4 * m.vertices.length, FloatBuffer.wrap(m.vertices),
+        GLError.throwIfActive(gl);
+        
+        // Write vertex data
+        gl.glBufferData(GL_ARRAY_BUFFER, 4 * mesh.vertices.length, FloatBuffer.wrap(mesh.vertices),
                 GL_STATIC_DRAW);
+        GLError.throwIfActive(gl);
+        
+        // Bind index buffer
         gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.indices);
-        gl.glBufferData(GL_ARRAY_BUFFER, 4 * m.indices.length, IntBuffer.wrap(m.indices),
+        GLError.throwIfActive(gl);
+        
+        // Write index array
+        gl.glBufferData(GL_ARRAY_BUFFER, 4 * mesh.indices.length, IntBuffer.wrap(mesh.indices),
                 GL_STATIC_DRAW);
+        GLError.throwIfActive(gl);
+        
         return new SourceResponse<VertexBuffer>(SourceResponseType.SYNCHRONOUS, vbo);
     }
 }
