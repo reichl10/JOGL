@@ -77,6 +77,7 @@ public class TileMeshSource implements Source<Tile, VertexBuffer> {
         int[] buffers = new int[2];
         gl.glGenBuffers(2, buffers, 0);
         GLError.throwIfActive(gl);
+
         
         VertexBuffer vbo = new VertexBuffer(mesh.primitiveType, mesh.primitiveCount, buffers[0], buffers[1]);
         

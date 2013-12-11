@@ -52,33 +52,32 @@ import de.joglearth.surface.TiledMapType;
  */
 public class Renderer {
 
-    private GLCanvas        canvas;
-    private GL2             gl;
-    private boolean         quit      = false;
-    private boolean         running;
-    private boolean         posted;
-    private int             leastHorizontalTiles;
-    private int             levelOfDetail;
-    private boolean         heightMapEnabled;
-    private int             TILE_SIZE = 256;
+    private GLCanvas canvas;
+    private GL2 gl;
+    private boolean quit = false;
+    private boolean running;
+    private boolean posted;
+    private int leastHorizontalTiles;
+    private int levelOfDetail;
+    private boolean heightMapEnabled;
+    private int TILE_SIZE = 256;
     private LocationManager locationManager;
-    private TextureManager  textureManager;
-    private Camera          camera;
-    private DisplayMode     activeDisplayMode;
-    private TiledMapType    activeMapType;
-    private MapLayout       mapLayout;
-    private SingleMapType   singleMapType;
-    private TiledMapType    tiledMapType;
-    private Texture         kidsWorldMap;
-    private Texture         satellite;
-    private Texture         moon;
-    private Texture         sun;
-    private Texture         poiActivity, poiBank, poiEducation, poiGrocery, poiHealth,
-                            poiHikingCycling, poiHotel, poiNightlife, poiPost, poiRestaurant,
-                            poiShop, poiToilets;
-    private Tessellator     tessellator;
+    private TextureManager textureManager;
+    private Camera camera;
+    private DisplayMode activeDisplayMode;
+    private TiledMapType activeMapType;
+    private MapLayout mapLayout;
+    private SingleMapType singleMapType;
+    private TiledMapType tiledMapType;
+    private Texture kidsWorldMap;
+    private Texture satellite;
+    private Texture moon;
+    private Texture sun;
+    private Texture poiActivity, poiBank, poiEducation, poiGrocery, poiHealth,
+            poiHikingCycling, poiHotel, poiNightlife, poiPost, poiRestaurant,
+            poiShop, poiToilets;
+    private Tessellator tessellator;
     private TileMeshManager tileMeshManager;
-
 
 
     private class Worker implements Runnable {
@@ -245,7 +244,7 @@ public class Renderer {
 
         ArrayList<VertexBuffer> meshes = new ArrayList<VertexBuffer>();
         tileMeshManager.setTessellator(tessellator);
-        
+
         for (Tile t : tile) {
             meshes.add(tileMeshManager.requestObject(t, new SourceChanged()).value);
         }
@@ -320,7 +319,6 @@ public class Renderer {
             System.exit(1);
         }
     }
-
 
     /* Loads all POI-textures */
     private void loadPoi() {
@@ -534,15 +532,15 @@ public class Renderer {
 
         }
     }
-    
+
     private class SourceChanged implements SourceListener<Tile, VertexBuffer> {
 
         @Override
         public void requestCompleted(Tile key, VertexBuffer value) {
-            //TODO
-            
+            // TODO
+
         }
-        
+
     }
 
     private class SurfaceValidator implements SurfaceListener {

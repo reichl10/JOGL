@@ -50,21 +50,22 @@ public class VertexBufferWhiteBoxTest {
         final VertexBufferCache<Tile> cache = new VertexBufferCache<Tile>(gl);
         final Tile tile = new Tile(1, 1, 1);
 
+
         SourceResponse<VertexBuffer> response;
 
         response = (SourceResponse<VertexBuffer>) AWTInvoker.invoke(new RunnableWithResult() {
 
             @Override
             public Object run() {
-                System.out.println(source.requestObject(tile, null).value.toString());
                 return source.requestObject(tile, null);
             }
         });
+
         assertEquals(response.response, SourceResponseType.SYNCHRONOUS);
         assertNotNull(response.value);
 
         final VertexBuffer vbo = response.value;
-        System.out.print(response.value.toString());
+
         assertTrue(vbo.indices > 0);
         assertTrue(vbo.vertices > 0);
         assertEquals(vbo.primitiveType, GL_TRIANGLES);
