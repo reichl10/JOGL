@@ -62,7 +62,7 @@ public class VertexBufferWhiteBoxTest {
                 assertTrue(vbo.indices > 0);
                 assertTrue(vbo.vertices > 0);
                 assertEquals(vbo.primitiveType, GL_TRIANGLES);
-                assertEquals(vbo.primitiveCount, 400);
+                assertEquals(vbo.primitiveCount, 800);
 
                 cache.putObject(tile, vbo);
                 assertTrue(cache.getExistingObjects().iterator().hasNext());
