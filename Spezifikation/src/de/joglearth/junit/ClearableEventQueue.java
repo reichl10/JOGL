@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.lang.reflect.InvocationTargetException;
 
+import de.joglearth.util.AWTInvoker;
+
 
 /**
  * Extends the default AWT EventQueue class with the ability to dispatch all pending events.
@@ -33,23 +35,13 @@ public final class ClearableEventQueue extends EventQueue {
         // TODO Auto-generated method stub
         if (instance == null) {
             instance = new ClearableEventQueue();
-            Runnable replacer = new Runnable() {
+            AWTInvoker.invoke(new Runnable() {
 
                 @Override
                 public void run() {
                     Toolkit.getDefaultToolkit().getSystemEventQueue().push(instance);
                 }
-            };
-
-            if (isDispatchThread()) {
-                replacer.run();
-            } else {
-                try {
-                    invokeAndWait(replacer);
-                } catch (InvocationTargetException | InterruptedException e) {
-                    throw new RuntimeException("ClearableEventQueue.impose() failed");
-                }
-            }
+            });
         }
     }
 
@@ -62,4 +54,5 @@ public final class ClearableEventQueue extends EventQueue {
         impose();
         return instance;
     }
+
 }
