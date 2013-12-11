@@ -60,9 +60,9 @@ public class PlaneTessellator implements Tessellator {
         int indIndex = 0;
         int index = 0;
 
-        for (int line = 0; line < nVertices - 1; ++line) {
+        for (int line = 0; line < nVertices - 2; ++line) {
             index = line * nVertices;
-            for (int col = 0; col < nVertices - 1; ++col)
+            for (int col = 0; col < nVertices - 2; ++col)
             {
                 // Annahme: Angabe der Dreieck-Eckpunkte gegen den Uhrzeigersinn
 
@@ -81,7 +81,7 @@ public class PlaneTessellator implements Tessellator {
             }
         }
 
-        return new Mesh(VERTEX_FORMAT, vertices, GL_TRIANGLES, indices, indIndex);
+        return new Mesh(VERTEX_FORMAT, vertices, GL_TRIANGLES, indices, (nVertices-1)*(nVertices-1)*2);
     }
 
     public static void main(String[] args) {
