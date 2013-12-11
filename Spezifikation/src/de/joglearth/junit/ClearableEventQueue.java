@@ -35,13 +35,18 @@ public final class ClearableEventQueue extends EventQueue {
         // TODO Auto-generated method stub
         if (instance == null) {
             instance = new ClearableEventQueue();
-            AWTInvoker.invoke(new Runnable() {
 
-                @Override
-                public void run() {
-                    Toolkit.getDefaultToolkit().getSystemEventQueue().push(instance);
-                }
-            });
+            try {
+                AWTInvoker.invoke(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        Toolkit.getDefaultToolkit().getSystemEventQueue().push(instance);
+                    }
+                });
+            } catch (Throwable e) {
+                throw new RuntimeException("ClearableEventQueue.impose() failed", e);
+            }
         }
     }
 

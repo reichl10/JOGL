@@ -39,54 +39,55 @@ public class GLTestWindow {
      */
     public GLTestWindow() {
         ClearableEventQueue.impose();
-        insideFrame = false;
         final GLTestWindow that = this;
-        AWTInvoker.invoke(new Runnable() {
+        try {
+            AWTInvoker.invoke(new Runnable() {
 
-            @Override
-            public void run() {
-                frame = new JFrame("GL Test Window");
-                frame.setSize(400, 300);
+                @Override
+                public void run() {
+                    frame = new JFrame("GL Test Window");
+                    frame.setSize(400, 300);
 
-                quit = false;
-                canvas = new GLCanvas(new GLCapabilities(GLProfile.getDefault()));
+                    quit = false;
+                    canvas = new GLCanvas(new GLCapabilities(GLProfile.getDefault()));
+                    canvas.addGLEventListener(new GLEventListener() {
 
-                canvas.addGLEventListener(new GLEventListener() {
+                        @Override
+                        public void reshape(GLAutoDrawable arg0, int arg1, int arg2, int arg3,
+                                int arg4) {}
 
-                    @Override
-                    public void reshape(GLAutoDrawable arg0, int arg1, int arg2, int arg3, int arg4) {}
+                        @Override
+                        public void init(GLAutoDrawable arg0) {}
 
-                    @Override
-                    public void init(GLAutoDrawable arg0) {
-                        anim = new Animator(arg0);
-                    }
+                        @Override
+                        public void dispose(GLAutoDrawable arg0) {}
 
-                    @Override
-                    public void dispose(GLAutoDrawable arg0) {}
-
-                    @Override
-                    public void display(GLAutoDrawable arg0) {
-                        synchronized (frameMonitor) {
-                            frameMonitor.notify();
-                        }
-                        synchronized (that) {
-                            try {
-                                that.wait();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+                        @Override
+                        public void display(GLAutoDrawable arg0) {
+                            synchronized (frameMonitor) {
+                                frameMonitor.notify();
                             }
-                            if (!quit) {
-                                arg0.display();
+                            synchronized (that) {
+                                try {
+                                    that.wait();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                if (!quit) {
+                                    arg0.display();
+                                }
                             }
                         }
-                    }
-                });
+                    });
 
-                frame.add(canvas);
-                frame.setVisible(true);
-            }
+                    frame.add(canvas);
+                    frame.setVisible(true);
+                }
 
-        });
+            });
+        } catch (Throwable e) {
+            throw new RuntimeException("GLTestWindow initialization failed", e);
+        }
     }
 
     /**
