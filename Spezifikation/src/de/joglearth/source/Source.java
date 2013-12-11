@@ -13,8 +13,8 @@ public interface Source<Key, Value> {
      * Tries to load and return an object if it is available locally. Otherwise it is attempted to load
      * the object in an asynchronous way.
      * 
-     * @param key Identifier for the objects
-     * @param sender Receiver of the response
+     * @param key Identifier for the objects. Must not be null
+     * @param sender Receiver of the response. May be null
      * @return A <code>SourceResponse</code> that contains either <code>ASYNCHRONOUS</code> or
      *         <code>SYNCHRONOUS</code> or <code>MISSING</code>
      */

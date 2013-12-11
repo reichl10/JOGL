@@ -133,7 +133,9 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             public void requestCompleted(Key key, Value value) {
                 if (caches.size() > 0) {
                     caches.get(0).cache.putObject(key, value);
-                    sender.requestCompleted(key, value);
+                    if (sender != null) {
+                        sender.requestCompleted(key, value);
+                    }
                 }
             }
         });

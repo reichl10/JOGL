@@ -6,7 +6,7 @@ import de.joglearth.geometry.Vector3;
 import de.joglearth.surface.HeightMap;
 import static java.lang.Math.*;
 import static de.joglearth.rendering.MeshUtils.*;
-
+import static javax.media.opengl.GL2.*;
 
 /**
  * Generates {@link de.joglearth.rendering.Mesh}es for a tile on the map plane.
@@ -81,7 +81,7 @@ public class PlaneTessellator implements Tessellator {
             }
         }
 
-        return new Mesh(vertices, VERTEX_FORMAT, indices);
+        return new Mesh(VERTEX_FORMAT, vertices, GL_TRIANGLES, indices, indIndex);
     }
 
     public static void main(String[] args) {

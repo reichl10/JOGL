@@ -6,6 +6,7 @@ import de.joglearth.geometry.Vector3;
 import de.joglearth.surface.HeightMap;
 import static de.joglearth.rendering.MeshUtils.*;
 import static java.lang.Math.*;
+import static javax.media.opengl.GL.GL_TRIANGLES;
 
 
 /**
@@ -131,7 +132,7 @@ public class SphereTessellator implements Tessellator {
             }
         }
 
-        return new Mesh(vertices, VERTEX_FORMAT, indices);
+        return new Mesh(VERTEX_FORMAT, vertices, GL_TRIANGLES, indices, iIndex);
     }
     
     
