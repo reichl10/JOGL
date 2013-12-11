@@ -4,6 +4,7 @@ import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.Geometry;
 import de.joglearth.geometry.PlaneGeometry;
 import de.joglearth.rendering.Renderer;
+import de.joglearth.settings.SettingsContract;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.ui.MainWindow;
 
@@ -30,6 +31,7 @@ public final class JoglEarth {
      * @param args Command line arguments (unused)
      */
     public static void main(String[] args) {
+        SettingsContract.loadSettings();
         Geometry geometry = new PlaneGeometry();
         Camera camera = new Camera(geometry);
         LocationManager locationManager = new LocationManager();
