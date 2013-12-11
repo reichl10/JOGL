@@ -45,7 +45,7 @@ public class VertexBufferWhiteBoxTest {
         final TileMeshSource source = new TileMeshSource(gl, new PlaneTessellator());
         source.setTileSubdivisions(19);
         final VertexBufferCache<Tile> cache = new VertexBufferCache<Tile>(gl);
-        final Tile tile = new Tile(0, 0, 0);
+        final Tile tile = new Tile(1, 1, 1);
 
         SourceResponse<VertexBuffer> response;
 
@@ -53,6 +53,7 @@ public class VertexBufferWhiteBoxTest {
 
             @Override
             public Object run() {
+                System.out.println(source.requestObject(tile, null).value.toString());
                 return source.requestObject(tile, null);
             }
         });
@@ -60,6 +61,7 @@ public class VertexBufferWhiteBoxTest {
         assertNotNull(response.value);
 
         final VertexBuffer vbo = response.value;
+        System.out.print(response.value.toString());
         assertTrue(vbo.indices > 0);
         assertTrue(vbo.vertices > 0);
         assertEquals(vbo.primitiveType, GL_TRIANGLES);
