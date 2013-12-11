@@ -31,24 +31,24 @@ import de.joglearth.surface.TiledMapType;
  */
 public class Renderer {
 
-    private GL2             gl;
-    private boolean         quit = false;
-    private boolean         running;
-    private boolean         posted;
+    private GL2 gl;
+    private boolean quit = false;
+    private boolean running;
+    private boolean posted;
     private LocationManager locationManager;
-    private TextureManager  textureManager;
-    private Camera          camera;
-    private DisplayMode     activeDisplayMode;
-    private TiledMapType    activeMapType;
-    private MapLayout       mapLayout;
-    private SingleMapType   singleMapType;
-    private TiledMapType    tiledMapType;
-    private DisplayMode     displayMode;
-    private Texture         kidsWorldMap;
-    private Texture         satellite;
-    private Texture         moon;
-    private Texture         sun;
-    private Texture         poiActivity, poiBank, poiEducation, poiGrocery, poiHealth,
+    private TextureManager textureManager;
+    private Camera camera;
+    private DisplayMode activeDisplayMode;
+    private TiledMapType activeMapType;
+    private MapLayout mapLayout;
+    private SingleMapType singleMapType;
+    private TiledMapType tiledMapType;
+    private DisplayMode displayMode;
+    private Texture kidsWorldMap;
+    private Texture satellite;
+    private Texture moon;
+    private Texture sun;
+    private Texture poiActivity, poiBank, poiEducation, poiGrocery, poiHealth,
             poiHikingCycling, poiHotel, poiNightlife, poiPost, poiRestaurant, poiShop, poiToilets;
 
 
@@ -201,17 +201,17 @@ public class Renderer {
 
     // TODO Initializes the OpenGL settings.
     private void initialize() {
-        
+
         /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
         loadMaps();
 
         /* Loads all POI-textures */
         loadPoi();
-        
+
         // Zuweisen des activeDisplayMode aus den Settings?
     }
-    
-    private void loadMaps(){
+
+    private void loadMaps() {
         /* Loads texture: kidsWorldMap */
         try {
             InputStream stream = getClass().getResourceAsStream("textures/kidsWorldMap.jpg");
@@ -256,8 +256,8 @@ public class Renderer {
             System.exit(1);
         }
     }
-    
-    private void loadPoi(){
+
+    private void loadPoi() {
         /* Loads POI-texture: Activity */
         try {
             InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Activity.png");
@@ -268,7 +268,7 @@ public class Renderer {
             ioExc.printStackTrace();
             System.exit(1);
         }
-        
+
         /* Loads POI-texture: Bank */
         try {
             InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Bank.png");
@@ -279,7 +279,7 @@ public class Renderer {
             ioExc.printStackTrace();
             System.exit(1);
         }
-        
+
         /* Loads POI-texture: Education */
         try {
             InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Education.png");
@@ -290,7 +290,7 @@ public class Renderer {
             ioExc.printStackTrace();
             System.exit(1);
         }
-        
+
         /* Loads POI-texture: Grocery */
         try {
             InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Grocery.png");
@@ -301,7 +301,7 @@ public class Renderer {
             ioExc.printStackTrace();
             System.exit(1);
         }
-        
+
         /* Loads POI-texture: Health */
         try {
             InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Health.png");
@@ -312,7 +312,7 @@ public class Renderer {
             ioExc.printStackTrace();
             System.exit(1);
         }
-        
+
         /* Loads POI-texture: HikingCycling */
         try {
             InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_HikingCycling.png");
@@ -334,7 +334,7 @@ public class Renderer {
             ioExc.printStackTrace();
             System.exit(1);
         }
-        
+
         /* Loads POI-texture: Nightlife */
         try {
             InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Nightlife.png");
@@ -345,7 +345,7 @@ public class Renderer {
             ioExc.printStackTrace();
             System.exit(1);
         }
-        
+
         /* Loads POI-texture: Post */
         try {
             InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Post.png");
@@ -356,7 +356,7 @@ public class Renderer {
             ioExc.printStackTrace();
             System.exit(1);
         }
-        
+
         /* Loads POI-texture: Restaurant */
         try {
             InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Restaurant.png");
@@ -367,7 +367,7 @@ public class Renderer {
             ioExc.printStackTrace();
             System.exit(1);
         }
-        
+
         /* Loads POI-texture: Shop */
         try {
             InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Shop.png");
@@ -378,7 +378,7 @@ public class Renderer {
             ioExc.printStackTrace();
             System.exit(1);
         }
-        
+
         /* Loads POI-texture: Toilets */
         try {
             InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Toilets.png");
