@@ -63,6 +63,7 @@ import de.joglearth.geometry.SphereGeometry;
 import de.joglearth.rendering.AntialiasingType;
 import de.joglearth.rendering.DisplayMode;
 import de.joglearth.rendering.LevelOfDetail;
+import de.joglearth.rendering.Renderer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
@@ -129,6 +130,7 @@ public class MainWindow extends JFrame {
 	 * constructor.
 	 */
 	private Camera camera;
+	private Renderer renderer;
 	private JTextField latitudeTextField;
 	private JTextField longitudeTextField;
 	private JTextField textField;
@@ -744,6 +746,9 @@ public class MainWindow extends JFrame {
 						RowSpec.decode("20dlu"), RowSpec.decode("1dlu"), })); //$NON-NLS-1$ //$NON-NLS-2$
 
 		glCanvas = new GLCanvas();
+		if (glCanvas == null) {
+			System.err.println("Couldn't create Canvas!");
+		}
 		glCanvas.addGLEventListener(new GLEventListener() {
 
 			@Override
@@ -1035,6 +1040,7 @@ public class MainWindow extends JFrame {
 		initializeSettingsTab();
 		initializeDetailsPanel();
 		initializeViewPanel();
+		renderer = new Renderer(glCanvas, locationManager, camera);
 		if (l.getLanguage().equals(Locale.GERMAN.getLanguage())) {
 			System.err.println("Set Lang to German at start!");
 			languageComboBox.setSelectedIndex(1);
