@@ -24,6 +24,11 @@ public final class Tile implements Cloneable {
      */
     public Tile(int detailLevel, int lonIndex, int latIndex) {
         this.detailLevel = detailLevel;
+        int maxIndex = (int) pow(2, detailLevel);
+        
+        if (lonIndex >= maxIndex || lonIndex < 0 || latIndex >= maxIndex || lonIndex < 0) {
+            throw new IllegalArgumentException();
+        }
         this.lonIndex = lonIndex;
         this.latIndex = latIndex;
     }
@@ -128,13 +133,17 @@ public final class Tile implements Cloneable {
      * @return True if the rectangle intersects, else false
      */
     public boolean intersects(double lonFrom, double latFrom, double lonTo, double latTo) {
-        double tileLonFrom = this.getLongitudeFrom(), tileLatFrom = this.getLatitudeFrom(), tileLonTo = this
-                .getLongitudeTo(), tileLatTo = this.getLatitudeTo();
-        return ((tileLonFrom < lonFrom && lonFrom < tileLonTo)
-                || (tileLonFrom < lonTo && lonTo < tileLonTo)
-                || (lonFrom < tileLonFrom && tileLonFrom < lonTo)
-                || (lonFrom < tileLonTo && tileLonTo < lonTo))
-                &&
+        double tileLonFrom = this.getLongitudeFrom(),
+                tileLatFrom = this.getLatitudeFrom(),
+                tileLonTo = this.getLongitudeTo(),
+                tileLatTo = this.getLatitudeTo();
+        
+        rectangleLongitudeContains(tileLonFrom, tileLonTo, lonTo);
+        return (rectangleLongitudeContains(tileLonFrom, tileLonTo, lonTo)
+                        || rectangleLongitudeContains(lonFrom, lonTo, tileLonTo)
+                        || rectangleLongitudeContains(lonFrom, lonTo, tileLonFrom)
+                        || rectangleLongitudeContains(tileLonFrom, tileLonTo, lonFrom))
+                        &&
                 ((tileLatFrom < latFrom && latFrom < tileLatTo)
                         || (tileLatFrom < latTo && latTo < tileLatTo)
                         || (latFrom < tileLatFrom && tileLatFrom < latTo)
@@ -178,6 +187,12 @@ public final class Tile implements Cloneable {
         double lon = coords.getLongitude(), lat = coords.getLatitude();
         double lonFrom = getLongitudeFrom(), latFrom = getLatitudeFrom(), 
                lonTo = getLongitudeTo(), latTo = getLatitudeTo();
+        
+        return rectangleLongitudeContains(lonFrom, lonTo, lon)
+                && ((lat >= latFrom && lat <= latTo) || (lat <= latFrom && lat >= latTo));
+    }
+    
+    private boolean rectangleLongitudeContains(double lonFrom, double lonTo, double lon) {
 
         if (lonTo <= lonFrom) {
             // TODO > 0 oder >= 0?
@@ -187,9 +202,7 @@ public final class Tile implements Cloneable {
                 lonFrom -= 2*PI;
             }
         }
-        
-        return (lon >= lonFrom && lon <= lonTo && lat >= latFrom && lat <= latTo)
-                || (lon <= lonFrom && lon >= lonTo && lat <= latFrom && lat >= latTo);
+        return ((lon >= lonFrom && lon <= lonTo) || (lon <= lonFrom && lon >= lonTo));
     }
 
     @Override
@@ -198,11 +211,6 @@ public final class Tile implements Cloneable {
                 + latIndex + ", longitudeFrom()=" + getLongitudeFrom() + ", longitudeTo()="
                 + getLongitudeTo() + ", latitudeFrom()=" + getLatitudeFrom() + ", latitudeTo()="
                 + getLatitudeTo() + "]";
-    }
-    
-    
-    public static void main(String[] args) {
-        System.out.println(new Tile(1, 0, 0));
     }
 
 }
