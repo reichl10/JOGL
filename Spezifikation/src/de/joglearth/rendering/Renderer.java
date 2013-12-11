@@ -1,13 +1,24 @@
 package de.joglearth.rendering;
 
+import static javax.media.opengl.GL.GL_ARRAY_BUFFER;
+import static javax.media.opengl.GL.GL_FLOAT;
+import static javax.media.opengl.GL.GL_NO_ERROR;
+import static javax.media.opengl.GL.GL_UNSIGNED_INT;
+import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_VERTEX_ARRAY;
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
+import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
+
+import jogamp.opengl.GLVersionNumber;
 
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureData;
@@ -15,13 +26,23 @@ import com.jogamp.opengl.util.texture.TextureIO;
 
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
+import de.joglearth.geometry.CameraUtils;
 import de.joglearth.geometry.GeoCoordinates;
+import de.joglearth.geometry.PlaneGeometry;
+import de.joglearth.geometry.SphereGeometry;
+import de.joglearth.geometry.Tile;
+import de.joglearth.settings.Settings;
+import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
+import de.joglearth.source.SourceListener;
+import de.joglearth.source.opengl.VertexBuffer;
+import de.joglearth.surface.HeightMap;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.surface.MapLayout;
 import de.joglearth.surface.SingleMapType;
 import de.joglearth.surface.SurfaceListener;
 import de.joglearth.surface.TextureManager;
+import de.joglearth.surface.TileMeshManager;
 import de.joglearth.surface.TiledMapType;
 
 
@@ -31,25 +52,33 @@ import de.joglearth.surface.TiledMapType;
  */
 public class Renderer {
 
-    private GL2 gl;
-    private boolean quit = false;
-    private boolean running;
-    private boolean posted;
+    private GLCanvas        canvas;
+    private GL2             gl;
+    private boolean         quit      = false;
+    private boolean         running;
+    private boolean         posted;
+    private int             leastHorizontalTiles;
+    private int             levelOfDetail;
+    private boolean         heightMapEnabled;
+    private int             TILE_SIZE = 256;
     private LocationManager locationManager;
-    private TextureManager textureManager;
-    private Camera camera;
-    private DisplayMode activeDisplayMode;
-    private TiledMapType activeMapType;
-    private MapLayout mapLayout;
-    private SingleMapType singleMapType;
-    private TiledMapType tiledMapType;
-    private DisplayMode displayMode;
-    private Texture kidsWorldMap;
-    private Texture satellite;
-    private Texture moon;
-    private Texture sun;
-    private Texture poiActivity, poiBank, poiEducation, poiGrocery, poiHealth,
-            poiHikingCycling, poiHotel, poiNightlife, poiPost, poiRestaurant, poiShop, poiToilets;
+    private TextureManager  textureManager;
+    private Camera          camera;
+    private DisplayMode     activeDisplayMode;
+    private TiledMapType    activeMapType;
+    private MapLayout       mapLayout;
+    private SingleMapType   singleMapType;
+    private TiledMapType    tiledMapType;
+    private Texture         kidsWorldMap;
+    private Texture         satellite;
+    private Texture         moon;
+    private Texture         sun;
+    private Texture         poiActivity, poiBank, poiEducation, poiGrocery, poiHealth,
+                            poiHikingCycling, poiHotel, poiNightlife, poiPost, poiRestaurant,
+                            poiShop, poiToilets;
+    private Tessellator     tessellator;
+    private TileMeshManager tileMeshManager;
+
 
 
     private class Worker implements Runnable {
@@ -75,31 +104,6 @@ public class Renderer {
         }
     }
 
-    private class SurfaceValidator implements SurfaceListener {
-
-        @Override
-        public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
-            GeoCoordinates[] edges = { new GeoCoordinates(lonFrom, latFrom),
-                    new GeoCoordinates(lonFrom, latTo),
-                    new GeoCoordinates(lonTo, latFrom),
-                    new GeoCoordinates(lonTo, latTo) };
-            for (GeoCoordinates geo : edges) {
-                if (camera.isPointVisible(geo)) {
-                    post();
-                    break;
-                }
-            }
-        }
-    }
-
-    private class GraphicsSettingsListener implements SettingsListener {
-
-        @Override
-        public void settingsChanged(String key, Object valOld, Object valNew) {
-            post();
-        }
-    }
-
 
     /**
      * Constructor initializes the OpenGL functionalities.
@@ -112,6 +116,7 @@ public class Renderer {
     public Renderer(GLCanvas canv, LocationManager locationManager, Camera camera) {
         this.locationManager = locationManager;
         this.camera = camera;
+        this.canvas = canv;
         this.gl = canv.getGL().getGL2();
         canv.addGLEventListener(new RendererEventListener());
         this.textureManager = new TextureManager(gl);
@@ -156,10 +161,6 @@ public class Renderer {
         return posted;
     }
 
-    // Benachrichtigt den Renderer, dass mindestens ein Frame gerendert
-    // werden muss. Wenn vorher start() aufgerufen wurde, hat die
-    // Methode u.U. keine Auswirkung. Asynchron, wartet nicht bis der
-    // Frame gezeichnet wurde.
     /**
      * Notifies the {@link de.joglearth.rendering.Renderer} that a new frame should be rendered. If
      * <code>start()</code> is called this method may have no effect. Asynchronous method, does not
@@ -169,7 +170,6 @@ public class Renderer {
         posted = true;
     }
 
-    // Beginnt mit einer konstanten FPS-Zahl zu rendern, zB. 60.
     // Asynchron, kehrt sofort zurück.
     /**
      * Starts the render loop with 60 FPS.
@@ -178,9 +178,6 @@ public class Renderer {
         running = true;
     }
 
-    // Beendet eine Renderschleife, die mit start() angestoßen wurde.
-    // U.U. wird trotzdem noch ein Frame gerendert, falls währenddessen
-    // post() aufgerufen wurde.
     /**
      * Stops the render loop. When <code>post()</code> is called a new frame will be rendered.
      */
@@ -191,27 +188,94 @@ public class Renderer {
     // TODO Re-renders the OpenGL view.
     private void render() {
 
+        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+        gl.glMatrixMode(GL2.GL_PROJECTION);
+
+        int zoomLevel = CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles);
+
+        if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
+            startSolarSystem();
+        } else if (activeDisplayMode == DisplayMode.GLOBE_MAP) {
+
+            Iterable<Tile> tile = CameraUtils.getVisibleTiles(camera, zoomLevel);
+
+            renderMeshes(tile);
+
+        } else if (activeDisplayMode == DisplayMode.PLANE_MAP) {
+
+            Iterable<Tile> tile = CameraUtils.getVisibleTiles(camera, zoomLevel);
+            renderMeshes(tile);
+
+        } else {
+            // TODO
+        }
+
         // glClear();
         // if (!sonnensystem) getVisibleTiles() else visibleTile = {zoom = 0, lon = 0, lat
-        // = 0} TileMeshSource.request(visibleTile)
+        // = 0}
+
+        // TileMeshSource.request(visibleTile)
         //
         // for (...) textur setzen vbo rendern
 
     }
 
-    // TODO Initializes the OpenGL settings.
     private void initialize() {
 
         /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
-        loadMaps();
+        loadTextures();
 
         /* Loads all POI-textures */
         loadPoi();
 
-        // Zuweisen des activeDisplayMode aus den Settings?
+        /* Get DisplayMode from Settings */
+        Settings.getInstance().addSettingsListener(SettingsContract.DISPLAY_MODE,
+                new SettingsChanged());
+
+        leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
+        tileMeshManager = new TileMeshManager(gl, tessellator);
+
     }
 
-    private void loadMaps() {
+    private void startSolarSystem() {
+        // TODO Fabian's Sonnensystem einbinden
+    }
+
+    private void renderMeshes(Iterable<Tile> tile) {
+
+        ArrayList<VertexBuffer> meshes = new ArrayList<VertexBuffer>();
+        tileMeshManager.setTessellator(tessellator);
+        
+        for (Tile t : tile) {
+            meshes.add(tileMeshManager.requestObject(t, new SourceChanged()).value);
+        }
+
+        for (VertexBuffer vbo : meshes) {
+
+            gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
+            GLError.throwIfActive(gl);
+
+            gl.glEnableClientState(GL_VERTEX_ARRAY);
+            GLError.throwIfActive(gl);
+
+            gl.glVertexPointer(3, GL_FLOAT, 0, 0);
+            GLError.throwIfActive(gl);
+
+            gl.glDrawElements(vbo.primitiveType, vbo.primitiveCount, GL_UNSIGNED_INT, vbo.indices);
+            GLError.throwIfActive(gl);
+
+            gl.glDisableClientState(GL_VERTEX_ARRAY);
+            GLError.throwIfActive(gl);
+
+            gl.glBindBuffer(GL_ARRAY_BUFFER, 0);
+            GLError.throwIfActive(gl);
+        }
+
+    }
+
+    /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
+    private void loadTextures() {
+
         /* Loads texture: kidsWorldMap */
         try {
             InputStream stream = getClass().getResourceAsStream("textures/kidsWorldMap.jpg");
@@ -257,6 +321,8 @@ public class Renderer {
         }
     }
 
+
+    /* Loads all POI-textures */
     private void loadPoi() {
         /* Loads POI-texture: Activity */
         try {
@@ -399,6 +465,44 @@ public class Renderer {
     }
 
 
+    /* SettingsListener */
+    private class SettingsChanged implements SettingsListener {
+
+        @Override
+        public void settingsChanged(String key, Object valOld, Object valNew) {
+
+            if (key.equals(SettingsContract.DISPLAY_MODE)) {
+                setDisplayMode((DisplayMode) valNew);
+            } else if (key.equals(SettingsContract.LEVEL_OF_DETAILS)) {
+                setLevelOfDetail((LevelOfDetail) valNew);
+            } else if (key.equals(SettingsContract.HEIGHT_MAP_ENABLED)) {
+                setHeightMapEnabled((Boolean) valNew);
+            }
+
+            post();
+        }
+
+        private synchronized void setHeightMapEnabled(Boolean valNew) {
+            heightMapEnabled = valNew;
+
+        }
+
+        private synchronized void setLevelOfDetail(LevelOfDetail valNew) {
+            switch (valNew) {
+                case LOW:
+                    levelOfDetail = 0;
+                    break;
+                case MEDIUM:
+                    levelOfDetail = 5;
+                    break;
+                case HIGH:
+                    levelOfDetail = 10;
+            }
+
+        }
+
+    }
+
     /*
      * A Listener to handle events for OpenGL rendering.
      */
@@ -421,7 +525,40 @@ public class Renderer {
 
         @Override
         public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-            // camera.setPerspective();
+            leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
+            double aspectRatio = (double) width / (double) height;
+            double fov = (double) Math.PI / 2; // TODO
+            double near = 0.1; // TODO
+            double far = 1000.0; // TODO
+            camera.setPerspective(fov, aspectRatio, near, far);
+
+        }
+    }
+    
+    private class SourceChanged implements SourceListener<Tile, VertexBuffer> {
+
+        @Override
+        public void requestCompleted(Tile key, VertexBuffer value) {
+            //TODO
+            
+        }
+        
+    }
+
+    private class SurfaceValidator implements SurfaceListener {
+
+        @Override
+        public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
+            GeoCoordinates[] edges = { new GeoCoordinates(lonFrom, latFrom),
+                    new GeoCoordinates(lonFrom, latTo),
+                    new GeoCoordinates(lonTo, latFrom),
+                    new GeoCoordinates(lonTo, latTo) };
+            for (GeoCoordinates geo : edges) {
+                if (camera.isPointVisible(geo)) {
+                    post();
+                    break;
+                }
+            }
         }
     }
 
@@ -431,9 +568,21 @@ public class Renderer {
      * 
      * @param m The new <code>DisplayMode</code>
      */
-    public void setDisplayMode(DisplayMode m) {
-        displayMode = m;
-        // camera.setGeometry(newGeo);
+    private synchronized void setDisplayMode(DisplayMode m) {
+        // TODO Braucht man das hier?
+        activeDisplayMode = m;
+
+        if (activeDisplayMode == DisplayMode.GLOBE_MAP) {
+            camera.setGeometry(new SphereGeometry());
+            tessellator = new SphereTessellator();
+        } else if (activeDisplayMode == DisplayMode.PLANE_MAP) {
+            camera.setGeometry(new PlaneGeometry());
+            tessellator = new PlaneTessellator();
+        } else {
+            camera.setGeometry(new SphereGeometry());
+            tessellator = new SphereTessellator();
+        }
+
         post();
     }
 

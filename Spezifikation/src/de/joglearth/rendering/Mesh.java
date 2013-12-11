@@ -60,6 +60,8 @@ public final class Mesh {
         this.vertices = vertices;
         this.vertexFormat = glVertexFormat;
         this.indices = indices;
+        this.primitiveType = primitiveType;
+        this.primitiveCount = primitiveCount;
     }
 
     /**

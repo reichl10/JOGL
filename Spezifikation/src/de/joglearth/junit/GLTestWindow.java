@@ -23,8 +23,10 @@ public class GLTestWindow {
     private GLCanvas canvas;
     private Animator anim;
     private boolean quit;
+    private Runnable nextDisplay = null;
     private boolean insideFrame;
-    private Object frameMonitor = new Object();
+    private Object done = new Object();
+    private Throwable lastException = null;
 
 
     private synchronized boolean isInsideFrame() {
@@ -64,18 +66,8 @@ public class GLTestWindow {
 
                         @Override
                         public void display(GLAutoDrawable arg0) {
-                            synchronized (frameMonitor) {
-                                frameMonitor.notify();
-                            }
-                            synchronized (that) {
-                                try {
-                                    that.wait();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                if (!quit) {
-                                    arg0.display();
-                                }
+                            if (nextDisplay != null) {
+                                nextDisplay.run();
                             }
                         }
                     });
@@ -108,23 +100,20 @@ public class GLTestWindow {
         return canvas.getGL().getGL2();
     }
 
-    public void beginFrame() {
-        synchronized (frameMonitor) {
-            try {
-                frameMonitor.wait();
-            } catch (InterruptedException e) {}
-        }
-    }
-
-    public synchronized void endFrame() {
-        notify();
+    public void display(Runnable r) throws Throwable {
+        nextDisplay = r;
+        AWTInvoker.invoke(new Runnable() {
+            @Override
+            public void run() {
+                canvas.display();
+            }
+        });
     }
 
     /**
      * Disposes the frame.
      */
     public void dispose() {
-        beginFrame();
         synchronized (this) {
             quit = true;
             notify();
