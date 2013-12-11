@@ -30,12 +30,10 @@ public class VertexBufferWhiteBoxTest {
     @Before
     public void setUp() throws Exception {
         window = new GLTestWindow();
-        window.beginFrame();
     }
 
     @After
     public void tearDown() throws Exception {
-        window.endFrame();
         if (window != null) {
             window.dispose();
         }
@@ -82,6 +80,30 @@ public class VertexBufferWhiteBoxTest {
 
             @Override
             public void run() {
+                final GL2 gl = window.getGL();
+                final TileMeshSource source = new TileMeshSource(gl, new PlaneTessellator());
+                source.setTileSubdivisions(19);
+                final VertexBufferCache<Tile> cache = new VertexBufferCache<Tile>(gl);
+                final Tile tile = new Tile(0, 0, 0);
+
+                SourceResponse<VertexBuffer> response;
+
+                response = source.requestObject(tile, null);
+                assertEquals(response.response, SourceResponseType.SYNCHRONOUS);
+                assertNotNull(response.value);
+
+                final VertexBuffer vbo = response.value;
+                assertTrue(vbo.indices > 0);
+                assertTrue(vbo.vertices > 0);
+                assertEquals(vbo.primitiveType, GL_TRIANGLES);
+                assertEquals(vbo.primitiveCount, 800);
+
+                cache.putObject(tile, vbo);
+                assertTrue(cache.getExistingObjects().iterator().hasNext());
+
+                response = cache.requestObject(tile, null);
+                assertEquals(response.response, SourceResponseType.SYNCHRONOUS);
+                assertEquals(response.value, vbo);
 
                 gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
                 assertEquals(gl.glGetError(), GL_NO_ERROR);
