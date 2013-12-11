@@ -78,7 +78,6 @@ public final class SettingsContract {
     /**
      * Name constant for the HeightMap setting. You should save a boolean using this key.
      */
-<<<<<<< HEAD
     public static final String  HEIGHT_MAP_ENABLED    = "HeightMap";
 
     /**
@@ -90,13 +89,6 @@ public final class SettingsContract {
     /**
      * Name constant for the DisplayMode setting. You should save a String using this key. The
      * String should be created using the #name of {@link DisplayMode}.
-=======
-    public static final String HEIGHT_MAP_ENABLED = "HeightMap";
-
-    /**
-     * Name constant for the MapType setting. You should save a String using this key. The String
-     * should be created using the #name of {@link SingleMapType} or {@link TildMapType}.
->>>>>>> 7fdb3142154ae3c96aad3c4cd9cbcd1b7b785587
      */
     public static final String  DISPLAY_MODE          = "DisplayMode";
 
@@ -468,13 +460,8 @@ public final class SettingsContract {
             return (localAppdata + "\\" + folderName + "\\" + "settings.xml");
         } else if (os.contains("Linux")) {
             String userHome = System.getProperty("user.home");
-<<<<<<< HEAD
             return (userHome + File.separator + "." + folderName + File.separator
             + "settings.xml");
-=======
-            return (userHome + File.separator + "." + folderName
-                    + File.separator + "settings.xml");
->>>>>>> 7fdb3142154ae3c96aad3c4cd9cbcd1b7b785587
         } else {
             return null;
         }
