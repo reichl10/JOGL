@@ -306,25 +306,30 @@ public class MainWindow extends JFrame {
 
             @SuppressWarnings("unchecked")
             public void actionPerformed(ActionEvent arg0) {
-                IconizedItem<DisplayMode> selected = null;
-                if (displayModeComboBox.getSelectedItem() instanceof IconizedItem<?>)
-                    selected = ((IconizedItem<DisplayMode>) displayModeComboBox.getSelectedItem());
-                if (selected != null) {
-                    DisplayMode mode = selected.getValue();
-                    mapOptionsPanel.setVisible(mode != DisplayMode.SOLAR_SYSTEM);
-                    switch (mode) {
-                        case SOLAR_SYSTEM:
-                        case GLOBE_MAP:
-                            camera.setGeometry(new SphereGeometry());
-                            break;
-                        case PLANE_MAP:
-                            camera.setGeometry(new PlaneGeometry());
-                            break;
-                        default:
-                            // TODO: prob remove this line
-                            System.err.println("Unknown DisplayMode in comboBox!");
-                            break;
+                if (camera != null) {
+                    IconizedItem<DisplayMode> selected = null;
+                    if (displayModeComboBox.getSelectedItem() instanceof IconizedItem<?>)
+                        selected = ((IconizedItem<DisplayMode>) displayModeComboBox
+                                .getSelectedItem());
+                    if (selected != null) {
+                        DisplayMode mode = selected.getValue();
+                        mapOptionsPanel.setVisible(mode != DisplayMode.SOLAR_SYSTEM);
+                        switch (mode) {
+                            case SOLAR_SYSTEM:
+                            case GLOBE_MAP:
+                                camera.setGeometry(new SphereGeometry());
+                                break;
+                            case PLANE_MAP:
+                                camera.setGeometry(new PlaneGeometry());
+                                break;
+                            default:
+                                // TODO: prob remove this line
+                                System.err.println("Unknown DisplayMode in comboBox!");
+                                break;
+                        }
                     }
+                } else {
+                    System.err.println("No Camera Set!");
                 }
             }
         });
