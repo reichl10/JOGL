@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Collection;
 import java.util.Locale;
 
@@ -848,6 +850,7 @@ public class MainWindow extends JFrame {
         initializeSettingsTab();
         initializeDetailsPanel();
         initializeViewPanel();
+        camera.addCameraListener(new UICameraListener());
     }
 
     /**
@@ -985,6 +988,14 @@ public class MainWindow extends JFrame {
         public void actionPerformed(ActionEvent e) {
             // TODO Auto-generated method stub
             
+        }
+    }
+
+    private class UIWindowListener extends WindowAdapter {
+        @Override
+        public void windowClosed(WindowEvent e) {
+            SettingsContract.saveSettings();
+            super.windowClosed(e);
         }
     }
 }
