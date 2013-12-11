@@ -50,6 +50,7 @@ import de.joglearth.JoglEarth;
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.PlaneGeometry;
+import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.SphereGeometry;
 import de.joglearth.rendering.AntialiasingType;
 import de.joglearth.rendering.DisplayMode;
@@ -870,10 +871,30 @@ public class MainWindow extends JFrame {
 
         @Override
         public void cameraViewChanged() {
-            // TODO: What should I do with this?
-
+            // TODO: Update info at bottom
         }
 
+    }
+
+    private class GlMouseListener extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
+            // Change position TODO: Change to use dragging i guess
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                GLCanvas gl = (GLCanvas) e.getSource();
+                
+                Dimension dimension = gl.getSize();
+                int x = e.getX();
+                int y = e.getY();
+                double xscreen = dimension.width/x;
+                double yscreen = dimension.height/y;
+                // 0,0 - 1,1
+                camera.getGeoCoordinates(new ScreenCoordinates(xscreen, yscreen));
+            } else if (e.getButton() == MouseEvent.BUTTON2) { // change inclination
+                
+            }
+        }
     }
 
     private class UILocationListener implements LocationListener {
