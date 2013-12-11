@@ -885,7 +885,7 @@ public class MainWindow extends JFrame {
     private class GlMouseListener extends MouseAdapter {
     	double currentTiltX = 0.0d;
     	double currentTiltY = 0.0d;
-    	private static final double SCALE_TILT = 0.001d
+    	private static final double SCALE_TILT = 0.001d;
     	Point lastPos;
         @Override
         public void mouseDragged(MouseEvent e) {
