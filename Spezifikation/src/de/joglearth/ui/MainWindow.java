@@ -890,6 +890,8 @@ public class MainWindow extends JFrame {
 									.setVisible(mode != DisplayMode.SOLAR_SYSTEM);
 							switch (mode) {
 							case SOLAR_SYSTEM:
+							    // TODO: push to settings
+							    // Settings.getInstance().putString(SettingsContract., value);
 							case GLOBE_MAP:
 								camera.setGeometry(new SphereGeometry());
 								break;
