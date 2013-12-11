@@ -3,6 +3,8 @@ package de.joglearth.junit.source.opengl;
 import static org.junit.Assert.*;
 import static javax.media.opengl.GL2.*;
 
+import java.awt.EventQueue;
+
 import javax.media.opengl.GL2;
 
 import org.junit.After;
@@ -30,7 +32,9 @@ public class VertexBufferWhiteBoxTest {
 
     @After
     public void tearDown() throws Exception {
-        window.dispose();
+        if (window != null) {
+            window.dispose();
+        }
     }
 
     @Test
@@ -38,7 +42,7 @@ public class VertexBufferWhiteBoxTest {
         GL2 gl = window.getGL();
         TileMeshSource source = new TileMeshSource(gl, new PlaneTessellator());
         source.setTileSubdivisions(19);
-        VertexBufferCache cache = new VertexBufferCache(gl);
+        VertexBufferCache<Tile> cache = new VertexBufferCache<Tile>(gl);
         Tile tile = new Tile(0, 0, 0);
         
         SourceResponse<VertexBuffer> response = source.requestObject(tile, null);        

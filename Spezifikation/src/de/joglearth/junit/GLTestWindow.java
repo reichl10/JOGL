@@ -1,5 +1,8 @@
 package de.joglearth.junit;
 
+import java.awt.EventQueue;
+import java.lang.reflect.InvocationTargetException;
+
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
@@ -16,7 +19,6 @@ public class GLTestWindow {
     
     private JFrame frame;
     private GLCanvas canvas;
-    private GL2 gl;
     private boolean ready;
     
     /**
@@ -26,37 +28,48 @@ public class GLTestWindow {
      * in the event queue.
      */
     public GLTestWindow() {
-        frame = new JFrame("GL Test Window");
-        frame.setSize(400, 300);
-        
-        ready = false;
-        canvas = new GLCanvas(new GLCapabilities(GLProfile.getDefault()));
-        
-        canvas.addGLEventListener(new GLEventListener() {
-            
-            @Override
-            public void reshape(GLAutoDrawable arg0, int arg1, int arg2, int arg3, int arg4) {
-            }
-            
-            @Override
-            public void init(GLAutoDrawable arg0) {
-            }
-            
-            @Override
-            public void dispose(GLAutoDrawable arg0) {
-            }
-            
-            @Override
-            public void display(GLAutoDrawable arg0) {
-                ready = true;
-            }
-        });
-        
-        frame.add(canvas);        
-        frame.setVisible(true);  
-        
-        while (!ready) {
-            ClearableEventQueue.getInstance().clear();
+        ClearableEventQueue.impose();
+        try {
+            EventQueue.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    frame = new JFrame("GL Test Window");
+                    frame.setSize(400, 300);
+                    
+                    ready = false;
+                    canvas = new GLCanvas(new GLCapabilities(GLProfile.getDefault()));
+                    
+                    canvas.addGLEventListener(new GLEventListener() {
+                        
+                        @Override
+                        public void reshape(GLAutoDrawable arg0, int arg1, int arg2, int arg3, int arg4) {
+                        }
+                        
+                        @Override
+                        public void init(GLAutoDrawable arg0) {
+                        }
+                        
+                        @Override
+                        public void dispose(GLAutoDrawable arg0) {
+                        }
+                        
+                        @Override
+                        public void display(GLAutoDrawable arg0) {
+                            ready = true;
+                        }
+                    });
+                    
+                    frame.add(canvas);        
+                    frame.setVisible(true);  
+                    
+                    while (!ready) {
+                        ClearableEventQueue.getInstance().clear();
+                    }
+                }
+                
+            });
+        } catch (InvocationTargetException | InterruptedException e) {
+            throw new RuntimeException("GLTestWindow setup failed");
         }
     }
     
@@ -73,7 +86,7 @@ public class GLTestWindow {
      * @return The context
      */
     public GL2 getGL() {
-        return gl;
+        return canvas.getGL().getGL2();
     }
     
     /**
