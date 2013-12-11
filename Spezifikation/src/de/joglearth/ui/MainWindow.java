@@ -355,11 +355,13 @@ public class MainWindow extends JFrame {
         mapOptionsPanel.add(paraMapTypeComboBox, "1, 3");
         paraMapTypeComboBox.setRenderer(new IconListCellRenderer<IconizedItem<MapTypePair>>());
         paraMapTypeComboBox.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                JComboBox<IconizedItem<MapTypePair>> comboBox = (JComboBox<IconizedItem<MapTypePair>>) e.getSource();
-                MapTypePair mtp = ((IconizedItem<MapTypePair>)comboBox.getSelectedItem()).getValue();
+                JComboBox<IconizedItem<MapTypePair>> comboBox = (JComboBox<IconizedItem<MapTypePair>>) e
+                        .getSource();
+                MapTypePair mtp = ((IconizedItem<MapTypePair>) comboBox.getSelectedItem())
+                        .getValue();
                 if (mtp.type instanceof SingleMapType) {
                     SingleMapType mapType = (SingleMapType) mtp.type;
                     Settings.getInstance().putString(SettingsContract.MAP_TYPE, mapType.name());
@@ -371,11 +373,12 @@ public class MainWindow extends JFrame {
         });
         JCheckBox heightMapCheckBox = new JCheckBox("Enable height map");
         heightMapCheckBox.addChangeListener(new ChangeListener() {
-            
+
             @Override
             public void stateChanged(ChangeEvent e) {
                 JCheckBox box = (JCheckBox) e.getSource();
-                Settings.getInstance().putBoolean(SettingsContract.HEIGHT_MAP_ENABLED, new Boolean(box.isSelected()));
+                Settings.getInstance().putBoolean(SettingsContract.HEIGHT_MAP_ENABLED,
+                        new Boolean(box.isSelected()));
             }
         });
         mapOptionsPanel.add(heightMapCheckBox, "1, 5");
@@ -529,10 +532,11 @@ public class MainWindow extends JFrame {
                 "de"));
         languagePanel.add(languageComboBox, "2, 2, fill, top");
         languageComboBox.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                JComboBox<IconizedItem<String>> cBox = (JComboBox<IconizedItem<String>>) e.getSource();
+                JComboBox<IconizedItem<String>> cBox = (JComboBox<IconizedItem<String>>) e
+                        .getSource();
                 IconizedItem<String> item = (IconizedItem<String>) cBox.getSelectedItem();
                 String language = item.getValue();
                 Locale theLang;
@@ -568,14 +572,18 @@ public class MainWindow extends JFrame {
 
         JComboBox<NamedItem<AntialiasingType>> antialiasingComboBox = new JComboBox<NamedItem<AntialiasingType>>();
         antialiasingComboBox.addItem(new NamedItem<AntialiasingType>("Off", null));
-        antialiasingComboBox.addItem(new NamedItem<AntialiasingType>("2x MSAA", AntialiasingType.MSAA_2));
-        antialiasingComboBox.addItem(new NamedItem<AntialiasingType>("4x MSAA", AntialiasingType.MSAA_4));
+        antialiasingComboBox.addItem(new NamedItem<AntialiasingType>("2x MSAA",
+                AntialiasingType.MSAA_2));
+        antialiasingComboBox.addItem(new NamedItem<AntialiasingType>("4x MSAA",
+                AntialiasingType.MSAA_4));
         antialiasingComboBox.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                JComboBox<NamedItem<AntialiasingType>> comboBox = (JComboBox<NamedItem<AntialiasingType>>) e.getSource();
-                NamedItem<AntialiasingType> item = (NamedItem<AntialiasingType>) comboBox.getSelectedItem();
+                JComboBox<NamedItem<AntialiasingType>> comboBox = (JComboBox<NamedItem<AntialiasingType>>) e
+                        .getSource();
+                NamedItem<AntialiasingType> item = (NamedItem<AntialiasingType>) comboBox
+                        .getSelectedItem();
                 AntialiasingType type = item.getValue();
                 if (type == null) {
                     Settings.getInstance().putString(SettingsContract.ANTIALIASING, null);
@@ -612,11 +620,13 @@ public class MainWindow extends JFrame {
         lodComboBox.addItem(new NamedItem<LevelOfDetail>("Medium", LevelOfDetail.MEDIUM));
         lodComboBox.addItem(new NamedItem<LevelOfDetail>("High", LevelOfDetail.HIGH));
         lodComboBox.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                JComboBox<NamedItem<LevelOfDetail>> lodComboBox = (JComboBox<NamedItem<LevelOfDetail>>) e.getSource();
-                LevelOfDetail detail = ((NamedItem<LevelOfDetail>) lodComboBox.getSelectedItem()).getValue();
+                JComboBox<NamedItem<LevelOfDetail>> lodComboBox = (JComboBox<NamedItem<LevelOfDetail>>) e
+                        .getSource();
+                LevelOfDetail detail = ((NamedItem<LevelOfDetail>) lodComboBox.getSelectedItem())
+                        .getValue();
                 Settings.getInstance().putString(SettingsContract.LEVEL_OF_DETAILS, detail.name());
             }
         });
@@ -642,13 +652,15 @@ public class MainWindow extends JFrame {
         cachePanel.add(memCacheLabel, "2, 2");
 
         JSpinner memCacheSpinner = new JSpinner();
-        memCacheSpinner.setModel(new SpinnerNumberModel(new Integer(100), new Integer(100), null, new Integer(1)));
+        memCacheSpinner.setModel(new SpinnerNumberModel(new Integer(100), new Integer(100), null,
+                new Integer(1)));
         memCacheSpinner.addChangeListener(new ChangeListener() {
-            
+
             @Override
             public void stateChanged(ChangeEvent e) {
                 JSpinner spinner = (JSpinner) e.getSource();
-                Settings.getInstance().putInteger(SettingsContract.CACHE_SIZE_MEMORY, (Integer)spinner.getValue());
+                Settings.getInstance().putInteger(SettingsContract.CACHE_SIZE_MEMORY,
+                        (Integer) spinner.getValue());
             }
         });
         cachePanel.add(memCacheSpinner, "4, 2");
@@ -657,13 +669,15 @@ public class MainWindow extends JFrame {
         cachePanel.add(fsCacheLabel, "2, 4");
 
         JSpinner fsCacheSpinner = new JSpinner();
-        fsCacheSpinner.setModel(new SpinnerNumberModel(new Integer(100), new Integer(100), null, new Integer(1)));
+        fsCacheSpinner.setModel(new SpinnerNumberModel(new Integer(100), new Integer(100), null,
+                new Integer(1)));
         fsCacheSpinner.addChangeListener(new ChangeListener() {
-            
+
             @Override
             public void stateChanged(ChangeEvent e) {
                 JSpinner spinner = (JSpinner) e.getSource();
-                Settings.getInstance().putInteger(SettingsContract.CACHE_SIZE_FILESYSTEM, (Integer)spinner.getValue());
+                Settings.getInstance().putInteger(SettingsContract.CACHE_SIZE_FILESYSTEM,
+                        (Integer) spinner.getValue());
             }
         });
         cachePanel.add(fsCacheSpinner, "4, 4");
