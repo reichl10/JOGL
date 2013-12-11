@@ -136,6 +136,35 @@ public class MainWindow extends JFrame {
     private JComboBox<IconizedItem<DisplayMode>> displayModeComboBox;
     private JPanel viewTab, placesTab, settingsTab, detailsPanel,
             viewPanel;
+    private JCheckBox heightMapCheckBox;
+    private JComboBox<IconizedItem<String>> languageComboBox;
+    private JComboBox<NamedItem<AntialiasingType>> antialiasingComboBox;
+    private JComboBox<NamedItem<Boolean>> texfilterComboBox;
+    private JComboBox<NamedItem<LevelOfDetail>> lodComboBox_1;
+    private JPanel graphicsPanel;
+    private JLabel antialiasingLabel;
+    private JLabel texfilterLabel;
+    private JLabel lodLabel;
+    private JSpinner memCacheSpinner;
+    private JLabel memCacheLabel;
+    private JPanel cachePanel;
+    private JLabel fsCacheLabel;
+    private JButton aboutButton;
+    private JButton manualButton;
+    private JPanel languagePanel;
+    private JPanel searchPanel;
+    private JPanel userTagPanel;
+    private JPanel overlayPanel;
+    private JLabel detailNameLabel;
+    private JLabel detailDescriptionLabel;
+    private JButton userTagButton;
+    private JLabel latitudeLabel;
+    private JLabel longitudeLabel;
+    private JRadioButton localSearchRadioButton;
+    private JRadioButton globalSearchRadioButton;
+    private JLabel displayModeLabel;
+    private JLabel mapTypeLabel;
+    private JComboBox<IconizedItem<MapTypePair>> paraMapTypeComboBox;
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -272,10 +301,10 @@ public class MainWindow extends JFrame {
                         FormFactory.DEFAULT_ROWSPEC,
                         FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
 
-        JLabel detailNameLabel = new JLabel("Unknown location");
+        detailNameLabel = new JLabel("Unknown location");
         detailsPanel.add(detailNameLabel, "2, 2");
 
-        JButton userTagButton = new JButton("Add user tag");
+        userTagButton = new JButton("Add user tag");
         userTagButton.setHorizontalAlignment(SwingConstants.LEFT);
         userTagButton.setIcon(loadIcon("icons/addTag.png"));
         userTagButton.addActionListener(new ActionListener() {
@@ -283,7 +312,7 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent arg0) {}
         });
 
-        JLabel detailDescriptionLabel = new JLabel("No description available.");
+        detailDescriptionLabel = new JLabel("No description available.");
         detailsPanel.add(detailDescriptionLabel, "2, 4, default, top");
         detailsPanel.add(userTagButton, "2, 6");
     }
@@ -303,7 +332,7 @@ public class MainWindow extends JFrame {
                         FormFactory.RELATED_GAP_ROWSPEC,
                         RowSpec.decode("bottom:default:grow"), }));
 
-        JLabel displayModeLabel = new JLabel("Display mode:");
+        displayModeLabel = new JLabel("Display mode:");
         viewTab.add(displayModeLabel, "2, 2");
         mapOptionsPanel = new JPanel();
 
@@ -359,10 +388,10 @@ public class MainWindow extends JFrame {
                         RowSpec.decode("8dlu"),
                         FormFactory.DEFAULT_ROWSPEC, }));
 
-        JLabel mapTypeLabel = new JLabel("Map type:");
+        mapTypeLabel = new JLabel("Map type:");
         mapOptionsPanel.add(mapTypeLabel, "1, 1");
 
-        JComboBox<IconizedItem<MapTypePair>> paraMapTypeComboBox = new JComboBox<IconizedItem<MapTypePair>>();
+        paraMapTypeComboBox = new JComboBox<IconizedItem<MapTypePair>>();
         mapTypeComboBox = paraMapTypeComboBox;
         mapOptionsPanel.add(paraMapTypeComboBox, "1, 3");
         paraMapTypeComboBox.setRenderer(new IconListCellRenderer<IconizedItem<MapTypePair>>());
@@ -383,7 +412,7 @@ public class MainWindow extends JFrame {
                 }
             }
         });
-        JCheckBox heightMapCheckBox = new JCheckBox("Enable height map");
+        heightMapCheckBox = new JCheckBox("Enable height map");
         heightMapCheckBox.addChangeListener(new ChangeListener() {
 
             @Override
@@ -421,7 +450,7 @@ public class MainWindow extends JFrame {
                         RowSpec.decode("default:grow"),
                         FormFactory.RELATED_GAP_ROWSPEC, }));
 
-        JPanel searchPanel = new JPanel();
+        searchPanel = new JPanel();
         searchPanel.setBorder(BorderFactory.createTitledBorder("Search"));
         placesTab.add(searchPanel, "2, 2, fill, fill");
         searchPanel
@@ -454,10 +483,10 @@ public class MainWindow extends JFrame {
         searchPanel.add(panel, "2, 3, fill, fill");
         panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 2));
 
-        JRadioButton localSearchRadioButton = new JRadioButton("Nearby");
+        localSearchRadioButton = new JRadioButton("Nearby");
         panel.add(localSearchRadioButton);
 
-        JRadioButton globalSearchRadioButton = new JRadioButton("Global");
+        globalSearchRadioButton = new JRadioButton("Global");
         panel.add(globalSearchRadioButton);
 
         JScrollPane searchResultScrollPane = new JScrollPane();
@@ -467,7 +496,7 @@ public class MainWindow extends JFrame {
         JList<Location> searchResultList = new JList<Location>(new DefaultListModel<Location>());
         searchResultScrollPane.setViewportView(searchResultList);
 
-        JPanel userTagPanel = new JPanel();
+        userTagPanel = new JPanel();
         userTagPanel.setBorder(BorderFactory.createTitledBorder("User Tags"));
         placesTab.add(userTagPanel, "2, 4, fill, fill");
         userTagPanel.setLayout(new FormLayout(new ColumnSpec[] {
@@ -486,7 +515,7 @@ public class MainWindow extends JFrame {
         JList userTagList = new JList();
         userTagScrollPane.setViewportView(userTagList);
 
-        JPanel overlayPanel = new JPanel();
+        overlayPanel = new JPanel();
         overlayPanel.setBorder(BorderFactory.createTitledBorder("Overlays"));
         placesTab.add(overlayPanel, "2, 6, fill, fill");
         overlayPanel.setLayout(new FormLayout(new ColumnSpec[] {
@@ -523,7 +552,7 @@ public class MainWindow extends JFrame {
                         FormFactory.DEFAULT_ROWSPEC,
                         FormFactory.RELATED_GAP_ROWSPEC, }));
 
-        JPanel languagePanel = new JPanel();
+        languagePanel = new JPanel();
         languagePanel.setBorder(new TitledBorder(null, "Language", TitledBorder.LEADING,
                 TitledBorder.TOP, null, null));
         settingsTab.add(languagePanel, "2, 2");
@@ -536,7 +565,7 @@ public class MainWindow extends JFrame {
                         RowSpec.decode("default:grow"),
                         FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
 
-        JComboBox<IconizedItem<String>> languageComboBox = new JComboBox<IconizedItem<String>>();
+        languageComboBox = new JComboBox<IconizedItem<String>>();
         languageComboBox.setRenderer(new IconListCellRenderer<IconizedItem<String>>());
         languageComboBox.addItem(new IconizedItem<String>("English", loadIcon("icons/flagEng.png"),
                 "en"));
@@ -561,7 +590,7 @@ public class MainWindow extends JFrame {
                 // TODO: Update Userinterface
             }
         });
-        JPanel graphicsPanel = new JPanel();
+        graphicsPanel = new JPanel();
         graphicsPanel.setBorder(BorderFactory.createTitledBorder("Graphics settings"));
         settingsTab.add(graphicsPanel, "2, 4");
         graphicsPanel.setLayout(new FormLayout(new ColumnSpec[] {
@@ -579,10 +608,10 @@ public class MainWindow extends JFrame {
                         FormFactory.DEFAULT_ROWSPEC,
                         FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
 
-        JLabel antialiasingLabel = new JLabel("Antialiasing:");
+        antialiasingLabel = new JLabel("Antialiasing:");
         graphicsPanel.add(antialiasingLabel, "2, 2, left, default");
 
-        JComboBox<NamedItem<AntialiasingType>> antialiasingComboBox = new JComboBox<NamedItem<AntialiasingType>>();
+        antialiasingComboBox = new JComboBox<NamedItem<AntialiasingType>>();
         antialiasingComboBox.addItem(new NamedItem<AntialiasingType>("Off", null));
         antialiasingComboBox.addItem(new NamedItem<AntialiasingType>("2x MSAA",
                 AntialiasingType.MSAA_2));
@@ -606,10 +635,10 @@ public class MainWindow extends JFrame {
         });
         graphicsPanel.add(antialiasingComboBox, "4, 2, fill, default");
 
-        JLabel texfilterLabel = new JLabel("Texture Filter:");
+        texfilterLabel = new JLabel("Texture Filter:");
         graphicsPanel.add(texfilterLabel, "2, 4, left, default");
 
-        JComboBox<NamedItem<Boolean>> texfilterComboBox = new JComboBox<NamedItem<Boolean>>();
+        texfilterComboBox = new JComboBox<NamedItem<Boolean>>();
         texfilterComboBox.addItem(new NamedItem<Boolean>("Off", new Boolean(false)));
         texfilterComboBox.addItem(new NamedItem<Boolean>("On", new Boolean(true)));
         texfilterComboBox.addActionListener(new ActionListener() {
@@ -625,14 +654,14 @@ public class MainWindow extends JFrame {
         });
         graphicsPanel.add(texfilterComboBox, "4, 4, fill, default");
 
-        JLabel lodLabel = new JLabel("Level of Detail:");
+        lodLabel = new JLabel("Level of Detail:");
         graphicsPanel.add(lodLabel, "2, 6, left, default");
 
-        JComboBox<NamedItem<LevelOfDetail>> lodComboBox = new JComboBox<NamedItem<LevelOfDetail>>();
-        lodComboBox.addItem(new NamedItem<LevelOfDetail>("Low", LevelOfDetail.LOW));
-        lodComboBox.addItem(new NamedItem<LevelOfDetail>("Medium", LevelOfDetail.MEDIUM));
-        lodComboBox.addItem(new NamedItem<LevelOfDetail>("High", LevelOfDetail.HIGH));
-        lodComboBox.addActionListener(new ActionListener() {
+        lodComboBox_1 = new JComboBox<NamedItem<LevelOfDetail>>();
+        lodComboBox_1.addItem(new NamedItem<LevelOfDetail>("Low", LevelOfDetail.LOW));
+        lodComboBox_1.addItem(new NamedItem<LevelOfDetail>("Medium", LevelOfDetail.MEDIUM));
+        lodComboBox_1.addItem(new NamedItem<LevelOfDetail>("High", LevelOfDetail.HIGH));
+        lodComboBox_1.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -643,9 +672,9 @@ public class MainWindow extends JFrame {
                 Settings.getInstance().putString(SettingsContract.LEVEL_OF_DETAILS, detail.name());
             }
         });
-        graphicsPanel.add(lodComboBox, "4, 6, fill, default");
+        graphicsPanel.add(lodComboBox_1, "4, 6, fill, default");
 
-        JPanel cachePanel = new JPanel();
+        cachePanel = new JPanel();
         cachePanel.setBorder(new TitledBorder(null, "Cache size", TitledBorder.LEADING,
                 TitledBorder.TOP, null, null));
         settingsTab.add(cachePanel, "2, 6, fill, top");
@@ -661,10 +690,10 @@ public class MainWindow extends JFrame {
                         FormFactory.DEFAULT_ROWSPEC,
                         FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
 
-        JLabel memCacheLabel = new JLabel("Memory");
+        memCacheLabel = new JLabel("Memory");
         cachePanel.add(memCacheLabel, "2, 2");
 
-        JSpinner memCacheSpinner = new JSpinner();
+        memCacheSpinner = new JSpinner();
         memCacheSpinner.setModel(new SpinnerNumberModel(new Integer(100), new Integer(100), null,
                 new Integer(1)));
         memCacheSpinner.addChangeListener(new ChangeListener() {
@@ -678,7 +707,7 @@ public class MainWindow extends JFrame {
         });
         cachePanel.add(memCacheSpinner, "4, 2");
 
-        JLabel fsCacheLabel = new JLabel("File Sytem");
+        fsCacheLabel = new JLabel("File Sytem");
         cachePanel.add(fsCacheLabel, "2, 4");
 
         JSpinner fsCacheSpinner = new JSpinner();
@@ -704,7 +733,7 @@ public class MainWindow extends JFrame {
                 new RowSpec[] {
                         FormFactory.DEFAULT_ROWSPEC, }));
 
-        JButton manualButton = new JButton("Manual");
+        manualButton = new JButton("Manual");
         manualAboutPanel.add(manualButton, "1, 1");
         manualButton.addActionListener(new ActionListener() {
 
@@ -712,7 +741,7 @@ public class MainWindow extends JFrame {
         });
         manualButton.setIcon(loadIcon("icons/manual.png"));
 
-        JButton aboutButton = new JButton("About");
+        aboutButton = new JButton("About");
         aboutButton.addActionListener(new ActionListener() {
 
             @Override
@@ -818,14 +847,14 @@ public class MainWindow extends JFrame {
                 ColumnSpec.decode("default:grow"), }, new RowSpec[] { RowSpec
                 .decode("default:grow"), }));
 
-        JLabel latitudeLabel = new JLabel("Latitude:");
+        latitudeLabel = new JLabel("Latitude:");
         coordPanel.add(latitudeLabel, "1, 1, right, default");
 
         latitudeTextField = new JTextField();
         coordPanel.add(latitudeTextField, "3, 1, fill, default");
         latitudeTextField.setColumns(10);
 
-        JLabel longitudeLabel = new JLabel("Longitude:");
+        longitudeLabel = new JLabel("Longitude:");
         coordPanel.add(longitudeLabel, "5, 1, right, default");
 
         longitudeTextField = new JTextField();
