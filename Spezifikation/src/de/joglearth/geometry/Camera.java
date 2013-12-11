@@ -269,8 +269,7 @@ public class Camera {
      */
     public synchronized void tilt(double deltaX, double deltaY) {
 
-        if (isNaN(deltaX) || isNaN(deltaY) || deltaX < -PI / 2 || deltaX > PI / 2
-                || deltaY < -PI / 2 || deltaY > PI / 2) {
+        if (isNaN(deltaX) || isNaN(deltaY) || isInfinite(deltaY) || isInfinite(deltaX)) {
             throw new IllegalArgumentException();
         }
 
@@ -280,6 +279,19 @@ public class Camera {
         this.tiltX += deltaX;
         this.tiltY += deltaY;
 
+        if (tiltX > PI / 2) {
+            tiltX = PI / 2;
+        }
+        if (tiltY > PI / 2) {
+            tiltY = PI / 2;
+        }
+        if (tiltX < -PI / 2) {
+            tiltX = -PI / 2;
+        }
+        if (tiltY < -PI / 2) {
+            tiltY = -PI / 2;
+        }
+        
         if (!updateCamera()) {
             tiltX = oldX;
             tiltY = oldY;

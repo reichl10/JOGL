@@ -1,8 +1,5 @@
 package de.joglearth.junit;
 
-import java.awt.EventQueue;
-import java.lang.reflect.InvocationTargetException;
-
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
@@ -10,6 +7,8 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.JFrame;
+
+import com.jogamp.opengl.util.Animator;
 
 import de.joglearth.rendering.GLError;
 import de.joglearth.util.AWTInvoker;
@@ -20,10 +19,17 @@ import de.joglearth.util.AWTInvoker;
  */
 public class GLTestWindow {
 
-    private JFrame   frame;
+    private JFrame frame;
     private GLCanvas canvas;
-    private boolean  ready;
+    private Animator anim;
+    private boolean quit;
+    private boolean insideFrame;
+    private Object frameMonitor = new Object();
 
+
+    private synchronized boolean isInsideFrame() {
+        return insideFrame;
+    }
 
     /**
      * Constructor.
@@ -33,6 +39,7 @@ public class GLTestWindow {
      */
     public GLTestWindow() {
         ClearableEventQueue.impose();
+        final GLTestWindow that = this;
         try {
             AWTInvoker.invoke(new Runnable() {
 
@@ -41,9 +48,8 @@ public class GLTestWindow {
                     frame = new JFrame("GL Test Window");
                     frame.setSize(400, 300);
 
-                    ready = false;
-                    canvas = new GLCanvas(new GLCapabilities(GLProfile.getGL2ES1()));
-
+                    quit = false;
+                    canvas = new GLCanvas(new GLCapabilities(GLProfile.getDefault()));
                     canvas.addGLEventListener(new GLEventListener() {
 
                         @Override
@@ -58,19 +64,24 @@ public class GLTestWindow {
 
                         @Override
                         public void display(GLAutoDrawable arg0) {
-                            GL2 gl = canvas.getGL().getGL2();
-                            gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
-                            GLError.throwIfActive(gl);
-                            ready = true;
+                            synchronized (frameMonitor) {
+                                frameMonitor.notify();
+                            }
+                            synchronized (that) {
+                                try {
+                                    that.wait();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                if (!quit) {
+                                    arg0.display();
+                                }
+                            }
                         }
                     });
 
                     frame.add(canvas);
                     frame.setVisible(true);
-
-                    while (!ready) {
-                        ClearableEventQueue.getInstance().clear();
-                    }
                 }
 
             });
@@ -97,10 +108,27 @@ public class GLTestWindow {
         return canvas.getGL().getGL2();
     }
 
+    public void beginFrame() {
+        synchronized (frameMonitor) {
+            try {
+                frameMonitor.wait();
+            } catch (InterruptedException e) {}
+        }
+    }
+
+    public synchronized void endFrame() {
+        notify();
+    }
+
     /**
      * Disposes the frame.
      */
     public void dispose() {
+        beginFrame();
+        synchronized (this) {
+            quit = true;
+            notify();
+        }
         frame.dispose();
     }
 

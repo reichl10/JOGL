@@ -5,6 +5,12 @@ package de.joglearth.source.opengl;
  */
 public class VertexBuffer {
 
+    @Override
+    public String toString() {
+        return "VertexBuffer [vertices=" + vertices + ", indices=" + indices + ", primitiveType="
+                + primitiveType + ", primitiveCount=" + primitiveCount + "]";
+    }
+
     /**
      * The vertex buffer handle.
      */
