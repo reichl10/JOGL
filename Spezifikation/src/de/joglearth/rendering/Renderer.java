@@ -80,6 +80,7 @@ public class Renderer {
     private TileMeshManager tileMeshManager;
 
 
+
     private class Worker implements Runnable {
 
         @Override
@@ -274,6 +275,7 @@ public class Renderer {
 
     /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
     private void loadTextures() {
+
         /* Loads texture: kidsWorldMap */
         try {
             InputStream stream = getClass().getResourceAsStream("textures/kidsWorldMap.jpg");
@@ -318,6 +320,7 @@ public class Renderer {
             System.exit(1);
         }
     }
+
 
     /* Loads all POI-textures */
     private void loadPoi() {

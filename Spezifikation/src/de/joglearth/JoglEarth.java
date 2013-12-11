@@ -1,5 +1,8 @@
 package de.joglearth;
 
+import javax.media.opengl.awt.GLCanvas;
+import javax.swing.SwingUtilities;
+
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.Geometry;
 import de.joglearth.geometry.PlaneGeometry;
@@ -32,12 +35,17 @@ public final class JoglEarth {
      */
     public static void main(String[] args) {
         SettingsContract.loadSettings();
-        Geometry geometry = new PlaneGeometry();
-        Camera camera = new Camera(geometry);
-        LocationManager locationManager = new LocationManager();
-        MainWindow gui = new MainWindow(locationManager, camera);
-        Renderer r = new Renderer(gui.getGLCanvas(), locationManager, camera);
-        gui.setVisible(true);
+        SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				Geometry geometry = new PlaneGeometry();
+		        Camera camera = new Camera(geometry);
+		        LocationManager locationManager = new LocationManager();
+		        MainWindow gui = new MainWindow(locationManager, camera);
+		        gui.setVisible(true);
+			}
+		});
     }
     
 }
