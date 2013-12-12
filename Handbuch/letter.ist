@@ -1,0 +1,26 @@
+%%
+%% This is file `Letter.ist',
+%%
+headings_flag       1		% headings yes
+heading_prefix   "\\textbf{" 	% boldfont
+heading_suffix   "}\\nopagebreak\n"		% newline
+quote		'<'
+%%level		'>'
+symhead_positive "Symbole"
+preamble
+  "\\begin{theindex}\n"
+item_1
+  "\\par\\leavevmode\\hangindent10pt\\makebox[10pt][l]{--}"
+item_01
+  "\\par\\leavevmode\\hangindent10pt\\makebox[10pt][l]{--}"
+item_x1
+  "\\par\\leavevmode\\hangindent10pt\\makebox[10pt][l]{--}"
+item_2
+  "\\par\\leavevmode\\hangindent20pt\\makebox[20pt][l]{-- -- }"
+item_12
+  "\\par\\leavevmode\\hangindent20pt\\makebox[20pt][l]{-- -- }"
+item_x2
+  "\\par\\leavevmode\\hangindent20pt\\makebox[20pt][l]{-- -- }"
+%% 
+%%
+%% End of file `Letter.ist'.

@@ -16,6 +16,9 @@
 \usepackage{caption}
 \usepackage{array}
 \usepackage{amssymb}
+\usepackage{makeidx}
+\makeindex
+
 
 
 \makeatletter
@@ -36,6 +39,7 @@
 \newcommand{\ziellabel}{Z}
 \newcommand{\JoglEarth}{\raisebox{-1.2mm}{\includegraphics[scale=0.33]{Logo-Text.eps}} }
 \newcommand{\textref}[1]{\mbox{\raisebox{0.1ex}{\small$\rightarrow$ }\textit{#1}}}
+
 
 \newenvironment{details}[1][6pt]{%
   \parskip#1 \parindent6mm \raggedright%
@@ -123,15 +127,27 @@ und wünscht viel Erfolg bei der Nutzung von \JoglEarth.
 \chapter{Zur Benutzung dieses Handbuchs}
 
 \section*{Hinweise und Symbole}
-Im vorliegenden Handbuch werden wichtige Begriffe hervorgehoben. Hierbei sind insbesondere die folgenden Formatierungen von Wichtigkeit:
+Im vorliegenden Handbuch werden wichtige Begriffe hervorgehoben.\\
 
-\begin{itemize}
-\item \textit{kursiv}: 
-\item \textbf{fett}:
-\item farbig:
-\item \underline{unterstrichen}:
-\end{itemize}
+Die folgende Formatierungen sind im Handbuch zu finden:
 
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline 
+\textbf{Formatierung} & \textbf{Erläuterung} \\
+\hline
+\hline
+\textit{kursiv} &   \\
+\hline
+\textbf{fett} &  \\
+\hline
+\underline{unterstrichen} &  \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\vspace{5mm}
 Es werden im Handbuch einige Symbole verwendet, welche die Arbeit mit dem Handbuch erleichtern sollen:
 
 \begin{center}
@@ -150,9 +166,8 @@ Es werden im Handbuch einige Symbole verwendet, welche die Arbeit mit dem Handbu
 \end{center}
 
 
-
 \vspace{5mm}
-Die im Handbuch abgebildeten Screenshots können von \JoglEarth Erscheinungsbild auf Ihrem PC abweichen, was durch das von Ihnen verwendete Betriebssystem bedingt ist. Die Funktionalitäten und Anordnungen der Schaltflächen sind jedoch unter allen Betriebssystemen identisch. Die in diesem Handbuch abgebildeten Screenshots wurden teilweise unter Windows und teilweise unter Linux erstellt.\\
+Die im Handbuch abgebildeten Screenshots können vom \JoglEarth Erscheinungsbild auf Ihrem PC abweichen, was durch das jeweils verwendete Betriebssystem bedingt ist. Die Funktionalitäten und Anordnungen der Schaltflächen sind jedoch unter allen Betriebssystemen identisch. Die in diesem Handbuch abgebildeten Screenshots wurden teilweise unter Windows und teilweise unter Linux erstellt.\\
 
 Der Inhalt des Handbuchs beschränkt sich zur Erleichterung der Lektüre auf die Erklärung der wesentlichsten Programmfunktionen.\\
 
@@ -161,15 +176,31 @@ Der Inhalt des Handbuchs beschränkt sich zur Erleichterung der Lektüre auf die
 
 
 \chapter{Allgemeines}
+\section{Ausgangssituation}
+Die Karten des OpenStreetMap-Projekts erfreuen sich immer größerer Beliebtheit. Der Detailgrad, die Menge an verschiedenen Merkmalen und die Genauigkeit der Daten sind denen ihrer Konkurrenz in den meisten Regionen der Welt weit voraus. Durch die große Auswahl an Informationen und die Flexibilität in der Darstellung eröffnen sich unzählige Anwendungsmöglichkeiten.
 
+\vspace{0.5cm}
+Die Projektion einer Straßenkarte auf einen dreidimensionalen Globus ist die intuitivste und geographisch korrekteste Darstellung. Bei \JoglEarth wurden folgende Schwerpunkte gesetzt:
+\begin{itemize}
+\item Verwendung der freien Kartendaten des OpenStreetMap-Projekts
+\item Realisierung einer dreidimensionalen Globusoberfläche mit den Höhendaten der NASA
+\item Intuitive Bedienung der Anwendung ohne Einarbeitungszeit
+\item Die Möglichkeit der spielerischen Benutzung durch Kinder ohne nennenswerte PC-Kenntnisse
+\item Vollständige Plattformunabhängigkeit durch Java
+\item Effiziente Speicher- und Bandbreitennutzung
+\end{itemize}
+
+
+\vspace{2mm}
 \section{Anwendungsbereich}
-\JoglEarth soll eine dreidimensionale Ansicht der Welt sowie eine ebene Kartenansicht bieten. Beides erfolgt auf Basis des OpenStreetMap-Projekts und den Satellitendaten der NASA. \\
+\JoglEarth bietet eine dreidimensionale Ansicht der Welt sowie eine ebene Kartenansicht. Beides erfolgt auf Basis des OpenStreetMap-Projekts und den Satellitendaten der NASA. \\
 
 Die grafische Benutzeroberfläche zeigt dafür im dreidimensionalen Modus eine Weltkugel, die frei gedreht und gezoomt werden kann, und im zweidimensionalen einen Ausschnitt der Weltkarte. Die Karte kann aus verschiedenen Kategorien wie Satellitenbildern oder Straßenkarten gewählt werden. Die Steuerung erfolgt mit Tastatur und Maus. \\
 
 Mit einer Suchfunktion kann im Umkreis oder global nach Orten gesucht werden. Punkte besonderen Interesses wie Gaststätten oder Banken können über dem Kartenbild eingeblendet werden.
 
 
+\vspace{3mm}
 \section{Zielgruppe}
 Primäre Zielgruppe des Systems sind Privatanwender, die eine andere Art der Kartendarstellung als die der typischen Onlinekarten bevorzugen. \\
 
@@ -181,9 +212,9 @@ Auch soll die Anwendung wissbegierige Kinder ansprechen. Voraussetzung ist ledig
 
 \chapter{Systemvoraussetzungen}
 \section{Software}
-Da das Projekt auf Java setzt, ist es betriebssystemunabhängig. Es muss lediglich das Java Runtime Environment (JRE) in Version 7 sowie ein Fenstersystem und Netzwerkunterstützung zur Verfügung stehen. Um das Handbuch über die Hilfefunktion anzeigen zu können, muss auf dem System außerdem ein PDF-Betrachter installiert sein. Zusätzliche Programmbibliotheken, die zum Ausführen des Softwarepakets nötig sind, werden mitgeliefert.\\
+Da das Projekt auf Java setzt, ist es betriebssystemunabhängig. Es muss lediglich das Java Runtime Environment (JRE) in Version 7 sowie ein Fenstersystem und Netzwerkunterstützung zur Verfügung stehen. Um dieses Handbuch über die Hilfefunktion anzeigen zu können, muss auf dem System außerdem ein PDF-Betrachter installiert sein. Zusätzliche Programmbibliotheken, die zum Ausführen des Softwarepakets nötig sind, wurden mitgeliefert.\\
 
-Da die Software von Seiten der Entwickler nur auf einem kleinen Teil der möglichen Umgebungen getestet werden kann, sollen mindestens folgende Konfigurationen unterstützt werden:
+Folgende Konfigurationen sollen mindestens unterstützt werden:
 \begin{itemize}
 \item Windows 7 und 8 auf x86{\_}64 mit den Herstellertreibern von nVidia und AMD
 \item Linux auf x86{\_}64 mit X.org und proprietären Treibern von nVidia / AMD sowie den freien radeon-Treibern für AMD
@@ -208,17 +239,35 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 
 
-\chapter{Erste Schritte...}
-Öffnen der JAR, Jogl-Earth
-
-Standard-Einstellungen: Cachegrößen usw.
-
-Einstellung der Sprache
+\chapter{Erste Schritte}
 
 
-\section{Programm-Icons}
+\section{Starten von JoglEarth}
+%Öffnen der JAR, Jogl-Earth
 
-\vspace{5mm}
+
+
+\section{Benutzeroberfläche}
+\index{Benutzeroberfläche}
+\subsection{Bildschirmaufbau / Fensteransichten / Fenstertypen}
+\begin{itemize}
+	\item Das Hauptelement der Benutzeroberfläche ist das \textit{Ansichtsfenster} \index{Ansichtsfenster} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/1.eps}}, das sich in der Fenstermitte befindet. Darin wird der Globus, die Kartenebene oder eine Sonnensystemansicht angezeigt. Der sichtbare Kartenausschnitt kann interaktiv mit Maus oder Tastatur verschoben, gedreht gezoomt und gekippt werden.
+	\item Am linken Rand des Fensters befindet sich die \textit{Seitenleiste} \index{Seitenleiste} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/2.eps}}, die die meisten Steuerungsoptionen bereitstellt. Der obere Teil ist in Tabs unterteilt, mit denen Funktionen gruppiert werden; der untere Teil zeigt Details zum momentan zentrierten Punkt an. Um den sichtbaren Kartenbereich zu vergrößern, ist sie ausblendbar.
+	\item Am rechten Rand \raisebox{-1pt}{\includegraphics[scale=0.45]{images/3.eps}} befindet sich ein Schieber, mit dem das Zoomlevel angezeigt und geändert werden kann.
+	\item Die \textit{Statusleiste} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/4.eps}} am unteren Rand beinhaltet Informationen über den zentrierten Punkt, wie Koordinaten und Maßstab. Außerdem wird der Fortschritt im Hintergrund geladener Daten angezeigt.
+\end{itemize}
+
+\vspace{1cm}
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.9]{GUI-Sonnensystem.eps}
+	\caption{Die Benutzeroberfläche mit geöffnetem Ansichts-Tab im Sonnensystemmodus}
+\end{figure}
+
+
+\newpage
+\subsection{Programm-Icons}
+\vspace{2mm}
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline 
 \rule[-1ex]{0pt}{4ex} \textbf{Symbol} & \textbf{Erläuterung} \\ 
@@ -245,36 +294,11 @@ Einstellung der Sprache
 \end{tabular}
 
 
-
-
-
-
-
-
-
-
-\chapter{Benutzeroberfläche}
-\section{Bildschirmaufbau / Fensteransichten / Fenstertypen}
-
-\begin{itemize}
-	\item Das Hauptelement der Benutzeroberfläche ist das \textit{Ansichtsfenster} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/1.eps}}, das sich in der Fenstermitte befindet. Darin wird der Globus, die Kartenebene oder eine Sonnensystemansicht angezeigt. Der sichtbare Kartenausschnitt kann interaktiv mit Maus oder Tastatur verschoben, gedreht gezoomt und gekippt werden.
-	\item Am linken Rand des Fensters befindet sich die \textit{Seitenleiste} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/2.eps}}, die die meisten Steuerungsoptionen bereitstellt. Der obere Teil ist in Tabs unterteilt, mit denen Funktionen gruppiert werden; der untere Teil zeigt Details zum momentan zentrierten Punkt an. Um den sichtbaren Kartenbereich zu vergrößern, ist sie ausblendbar.
-	\item Am rechten Rand \raisebox{-1pt}{\includegraphics[scale=0.45]{images/3.eps}} befindet sich ein Schieber, mit dem das Zoomlevel angezeigt und geändert werden kann.
-	\item Die \textit{Statusleiste} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/4.eps}} am unteren Rand beinhaltet Informationen über den zentrierten Punkt, wie Koordinaten und Maßstab. Außerdem wird der Fortschritt im Hintergrund geladener Daten angezeigt.
-\end{itemize}
-
-\vspace{1cm}
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[scale=0.9]{GUI-Sonnensystem.eps}
-	\caption{Die Benutzeroberfläche mit geöffnetem Ansichts-Tab im Sonnensystemmodus}
-\end{figure}
-
 \newpage
-\section{Navigation}
+\subsection{Navigation}
 
 \vspace{3mm}
-\subsection*{Mausbelegung}
+\subsubsection*{Mausbelegung}
 \begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline
 \includegraphics[scale=1.0]{images/mouseDrag_left.eps} & Drehen der Erdkugel / Verschieben der Karte \\ 
@@ -288,9 +312,8 @@ Einstellung der Sprache
 \end{tabular} 
 
 
-
 \vspace{5mm}
-\subsection*{Tastaturbelegung}
+\subsubsection*{Tastaturbelegung}
 \begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline
 \rule[-1ex]{0pt}{7ex}\includegraphics[scale=0.08]{images/key_arrow_up.eps}& \multirow{3}{*}{Drehen der Erdkugel / Verschieben der Karte}\\
@@ -312,6 +335,41 @@ Einstellung der Sprache
 
 
 
+\section{Ansichtsmodi \& Kartentypen}
+\index{Ansichtsmodi} \index{Kartentypen}
+\subsection{Sonnensystem}
+\index{Ansichtsmodi!Sonnensystem}
+
+\subsection{Globus}
+\index{Ansichtsmodi!Globus}
+
+\subsection*{Kartentypen}
+\begin{itemize}
+\item Satellit \index{Kartentypen!Satellit}
+\item OpenStreetMap \index{Kartentypen!OpenStreetMap}
+\item Kinderweltkarte \index{Kartentypen!Kinderweltkarte}
+\end{itemize}
+
+
+
+\subsection{Karte}
+\index{Ansichtsmodi!Karte}
+\subsection*{Kartentypen}
+\begin{itemize}
+\item Satellit \index{Kartentypen!Satellit}
+\item OpenStreetMap \index{Kartentypen!OpenStreetMap}
+\item Kinderweltkarte \index{Kartentypen!Kinderweltkarte}
+\end{itemize}
+
+
+\section{Standard-Einstellungen}
+Cachegrößen usw.
+
+
+
+
+
+
 
 
 
@@ -320,13 +378,37 @@ Einstellung der Sprache
 \chapter{Funktionen}
 %inkl. Übungsaufgaben/ Szenarien, wie was funktioniert Wichtig: Tipps \& Tricks nennen
 
+
+\section{Sprache der Benutzeroberfläche}
+Einstellen der Benutzeroberfläche \index{Benutzeroberfläche}:
+
+
 \section{Höhenprofil}
-Die Höhenprofile werden anhand von NASA SRTM Daten ermittelt.
+\index{Höhenprofil}
+Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten ermittelt.
 
 \vspace{3mm}
 \begin{tabular}{p{1cm} p{10cm}}
 \includegraphics[scale=0.5]{images/info.eps} &  Zur optimalen Darstellung des Höhenprofils empfiehlt sich Zoomlevel ... \\ 
 \end{tabular} 
+
+
+
+\section{Eingabe von Längen- und Breitengraden}
+
+
+\section{Ändern des Zoomlevels}
+
+
+\section{Markierungen setzen}
+
+
+\section{Benutzermarkierungen}
+Das Feld der Benutzermarkierungen befindet sich im Orte-Tab.
+Übung: Markierungen einblenden / ausblenden
+
+
+\section{Markierungen entfernen}
 
 
 \section{Suchfunkion}
@@ -349,10 +431,12 @@ Beispiele: \textit{Brandenburger Tor, Berlin} als auch \textit{Berlin, Brandenbu
 Beispiel:
 Es wird auch nachfolgende Abfrage funktionieren: \textit{Brandenburger Tor Berlin}
 
+Die Suchergebnisse werden im Orte-Tab angezeigt.
+Übung: Suche Passau...
 
 
-
-\section{Punkte markieren (POIs)}
+\section{POIs}
+\index{POIs}
 \subsection*{Liste der POIs}
 Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann im Rahmen dieses Projekts nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den  Antworten der OverpassAPI vorgenommen.\\
 
@@ -388,6 +472,22 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 \hline
 \end{tabular}
 
+Übung: POIs einblenden / ausblenden
+
+
+\section{Grafikeinstellungen}
+\subsection{Antialiasing}
+\index{Antialiasing}
+\subsection{Detaillevel}
+
+
+\section{Cachegrößen}
+\index{Cachegrößen}
+\subsection{Arbeitsspeicher}
+\subsection{Dateisystem}
+
+
+
 
 
 
@@ -400,18 +500,28 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 % Welche Benutzereinstellungen werden in Settings gespeichert - Tabelle machen
 % Vom Benutzer markierte Punkte werden gespeichert.
 
+\section{Verwaltung der Kartendaten}
+% Bildchen einfügen, welches zeigt, wo die Daten auf der Festplatte gespeichert werden
 
+\section{Settings}
+% Welche Settings werden gespeichert. Grafische Darstellung
 
 
 
 \chapter{FAQ}
+\section*{Was ist Antialiasing?}
+\index{Antialiasing}
+\section*{Wie groß sollte man die Cachegrößen wählen?}
+\index{Cachegrößen}
+\section*{Wo findet man die Kinderweltkarte?}
+\index{Kinderweltkarte}
 
 
 
-\chapter{Index}
-% Nach ABC und Seitennummern gliedern
 
-
+\cleardoublepage
+\addcontentsline{toc}{chapter}{\indexname}
+\printindex
 
 
 \end{document}
