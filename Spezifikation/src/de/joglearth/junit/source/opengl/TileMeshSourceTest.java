@@ -29,16 +29,6 @@ public class TileMeshSourceTest {
         assertTrue(tessl.lastHeightMap);
     }
 
-    @Test
-    public void testSetTileSubdivisions() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testRequestObject() {
-        fail("Not yet implemented");
-    }
-
     private class TestTessellator implements Tessellator {
         public int lastSubDiv = 0;
         public boolean lastHeightMap = false;
