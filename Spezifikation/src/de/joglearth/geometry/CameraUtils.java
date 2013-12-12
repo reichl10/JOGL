@@ -34,8 +34,15 @@ public final class CameraUtils {
          * The tile below (0.5, 0.5) is always visible. Either it it the only tile on the screen, or
          * one of its corners can be used as a starting point by the grid walking algorithm.
          */
+        System.out.println(zoomLevel);
+        ScreenCoordinates s = new ScreenCoordinates(0.5, 0.5);
+        System.out.println("COORDS" + s);
+        GeoCoordinates g = camera.getGeoCoordinates(s);
+        System.out.println("GEO: " + camera.geometry);
+        System.out.println("GEOCOORDS: " + g);
         Tile centerTile = Tile.getContainingTile(zoomLevel,
-                camera.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5)));
+                camera.getGeoCoordinates(s));
+        
 
         GeoCoordinates[] corners = {
                 new GeoCoordinates(centerTile.getLongitudeFrom(), centerTile.getLatitudeFrom()),

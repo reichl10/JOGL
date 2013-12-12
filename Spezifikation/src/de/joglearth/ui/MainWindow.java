@@ -87,7 +87,7 @@ public class MainWindow extends JFrame {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            MainWindow dialog = new MainWindow(null, null);
+            MainWindow dialog = new MainWindow(null);
             dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             dialog.setVisible(true);
         } catch (Exception e) {
@@ -1058,10 +1058,8 @@ public class MainWindow extends JFrame {
      * Constructor.
      * 
      * @param locationManager The <code>LocationManager</code> associated with this window.
-     * @param camera The <code>Camera</code> used by this window
      */
-    public MainWindow(final LocationManager locationManager, final Camera camera) {
-        this.camera = camera;
+    public MainWindow(final LocationManager locationManager) {
         this.locationManager = locationManager;
         String lang = Settings.getInstance().getString(
                 SettingsContract.LANGUAGE);
@@ -1083,7 +1081,10 @@ public class MainWindow extends JFrame {
         initializeDetailsPanel();
         initializeViewPanel();
         loadLanguage();
-        renderer = new Renderer(glCanvas, locationManager, camera);
+        
+        renderer = new Renderer(glCanvas, locationManager);
+        camera = renderer.getCamera();
+        
         if (l.getLanguage().equals(Locale.GERMAN.getLanguage())) {
             System.err.println("Set Lang to German at start!"); //$NON-NLS-1$
             languageComboBox.setSelectedIndex(1);
