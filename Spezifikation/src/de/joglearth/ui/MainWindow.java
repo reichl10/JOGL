@@ -415,6 +415,22 @@ public class MainWindow extends JFrame {
                         Messages.getString("MainWindow.72"), //$NON-NLS-1$
                         loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK))); //$NON-NLS-1$
         paraMapTypeComboBox
+        .addItem(new IconizedItem<MapTypePair>(
+                Messages.getString("OpenStreetMap Cycling"),
+                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.CYCLING))); //$NON-NLS-1$
+        paraMapTypeComboBox
+        .addItem(new IconizedItem<MapTypePair>(
+                Messages.getString("OpenStreetMap Hiking"),
+                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.HIKING))); //$NON-NLS-1$
+        paraMapTypeComboBox
+        .addItem(new IconizedItem<MapTypePair>(
+                Messages.getString("OpenStreetMap Skiing"),
+                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.SKIING))); //$NON-NLS-1$
+        paraMapTypeComboBox
+        .addItem(new IconizedItem<MapTypePair>(
+                Messages.getString("OpenStreetMap OSM2World"),
+                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM2WORLD))); //$NON-NLS-1$
+        paraMapTypeComboBox
                 .addItem(new IconizedItem<MapTypePair>(
                         Messages.getString("MainWindow.74"), //$NON-NLS-1$
                         loadIcon("icons/mapChildren.png"), new MapTypePair(SingleMapType.CHILDREN))); //$NON-NLS-1$
