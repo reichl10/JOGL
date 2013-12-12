@@ -19,8 +19,12 @@ import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
+import javax.media.opengl.glu.GLU;
+import javax.media.opengl.glu.GLUquadric;
 
 import com.jogamp.opengl.util.FPSAnimator;
+import com.jogamp.opengl.util.ImmModeSink;
+import com.jogamp.opengl.util.awt.TextRenderer;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
@@ -45,6 +49,8 @@ import de.joglearth.surface.TileMeshManager;
 import de.joglearth.surface.TiledMapType;
 import de.joglearth.util.AWTInvoker;
 import de.joglearth.util.Resource;
+
+import java.awt.Font;
 
 
 /**
@@ -153,14 +159,28 @@ public class Renderer {
     public synchronized void stop() {
         animator.stop();
     }
+    
+    GLU glu = new GLU();
+    GLUquadric q = null;
 
     // TODO Re-renders the OpenGL view.
     private void render(GL2 gl) {
 
+        gl.glPolygonMode(GL2.GL_FRONT_AND_BACK,  GL2.GL_LINE);
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         gl.glMatrixMode(GL2.GL_PROJECTION);
-        gl.glLoadMatrixd(camera.getProjectionMatrix().doubles(), 0);
-
+        gl.glLoadIdentity();
+        GLU glu = new GLU();
+        glu.gluPerspective(45, 1, 0.1, 100);
+        //gl.glLoadMatrixd(camera.getProjectionMatrix().doubles(), 0);
+        
+        gl.glMatrixMode(GL2.GL_MODELVIEW);
+        gl.glLoadIdentity();
+        gl.glTranslatef(0,  -1.5f,  -3);
+        /*d
+        if (q == null)q=glu.gluNewQuadric();
+        glu.gluSphere(q, 1, 20, 10);
+        */
         int zoomLevel = CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles);
 
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
@@ -176,7 +196,6 @@ public class Renderer {
         // TileMeshSource.request(visibleTile)
         //
         // for (...) textur setzen vbo rendern
-
     }
     
     public Camera getCamera() {
@@ -184,9 +203,12 @@ public class Renderer {
     }
 
     private void initialize(GL2 gl) {
+        
+        gl.glEnable(GL2.GL_DEPTH_TEST);
+        //gl.glEnable(GL2.GL_CULL_FACE);        
 
         this.textureManager = new TextureManager(gl);
-        textureManager.addSurfaceListener(new SurfaceValidator());
+        ///textureManager.addSurfaceListener(new SurfaceValidator());
 
         /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
         loadTextures();
@@ -200,7 +222,7 @@ public class Renderer {
 
         leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
         tileMeshManager = new TileMeshManager(gl, new SphereTessellator());
-        tileMeshManager.setTileSubdivisions(31);
+        tileMeshManager.setTileSubdivisions(3);
                 
         animator = new FPSAnimator(60);
     }
@@ -242,7 +264,7 @@ public class Renderer {
             GLError.throwIfActive(gl);
 
             // Draw
-            gl.glDrawElements(vbo.primitiveType, vbo.primitiveCount, GL_UNSIGNED_INT, 0);
+            gl.glDrawElements(vbo.primitiveType, vbo.indexCount, GL_UNSIGNED_INT, 0);
             GLError.throwIfActive(gl);
 
             // Disable pointers
