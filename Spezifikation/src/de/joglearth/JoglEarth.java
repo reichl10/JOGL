@@ -50,10 +50,8 @@ public final class JoglEarth {
                     | UnsupportedLookAndFeelException e) {
                 }
 	            
-				Geometry geometry = new SphereGeometry();
-		        Camera camera = new Camera(geometry);
-		        LocationManager locationManager = new LocationManager();
-		        MainWindow gui = new MainWindow(locationManager, camera);
+	            LocationManager locationManager = new LocationManager();
+		        MainWindow gui = new MainWindow(locationManager);
 		        gui.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		        gui.setVisible(true);
 			}

@@ -24,7 +24,7 @@ public class Camera {
     private double tiltY = 0;
     private double fov, aspectRatio, zNear, zFar;
     private Matrix4 clipMatrix, projectionMatrix;
-    private Geometry geometry = null;
+    /*TODO reset visibility*/ public Geometry geometry = null;
     private Matrix4 cameraMatrix = null;
     private List<CameraListener> listeners = new ArrayList<CameraListener>();
 
@@ -373,16 +373,18 @@ public class Camera {
         }
 
         Matrix4 directionMatrix = cameraMatrix.clone();
-
-        Vector3 zAxis = directionMatrix.transform(new Vector3(0, 0, -1)).divide();
-        Vector3 xAxis = zAxis.crossProduct(new Vector3(0, 1, 0)).normalized();
+        
+        Vector3 cameraPosition = directionMatrix.transform(new Vector3(0, 0, 0)).divide();
+        
+        Vector3 zAxis = directionMatrix.transform(new Vector3(0, 0, -1)).divide().minus(cameraPosition).normalized();
+        Vector3 xAxis = zAxis.crossProduct(directionMatrix.transform(new Vector3(0, 1, 0)).divide().minus(cameraPosition)).normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
 
         directionMatrix.rotate(xAxis, (screen.x - 0.5) * fov);
         directionMatrix.rotate(yAxis, (screen.y - 0.5) * fov);
 
-        Vector3 viewVector = directionMatrix.transform(new Vector3(0, 0, -1)).divide();
-        Vector3 cameraPosition = directionMatrix.transform(new Vector3(0, 0, 0)).divide();
+        Vector3 viewVector = directionMatrix.transform(new Vector3(0, 0, -1)).divide()
+                .minus(cameraPosition);
 
         return geometry.getSurfaceCoordinates(cameraPosition, viewVector);
     }
@@ -424,5 +426,12 @@ public class Camera {
         }
 
         listeners.remove(l);
+    }
+    
+    public static void main(String[] args) {
+        SphereGeometry s = new SphereGeometry();
+        Camera c = new Camera(s);
+        System.out.println(Tile.getContainingTile(4,
+                c.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5))));
     }
 }
