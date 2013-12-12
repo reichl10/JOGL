@@ -416,19 +416,19 @@ public class MainWindow extends JFrame {
                         loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString("OpenStreetMap Cycling"),
+                Messages.getString(Messages.getString("MainWindow.4")), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.CYCLING))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString("OpenStreetMap Hiking"),
+                Messages.getString(Messages.getString("MainWindow.5")), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.HIKING))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString("OpenStreetMap Skiing"),
+                Messages.getString(Messages.getString("MainWindow.6")), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.SKIING))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString("OpenStreetMap OSM2World"),
+                Messages.getString(Messages.getString("MainWindow.7")), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM2WORLD))); //$NON-NLS-1$
         paraMapTypeComboBox
                 .addItem(new IconizedItem<MapTypePair>(
@@ -763,7 +763,7 @@ public class MainWindow extends JFrame {
 
         glCanvas = new GLCanvas();
         if (glCanvas == null) {
-            System.err.println("Couldn't create Canvas!");
+            System.err.println("Couldn't create Canvas!"); //$NON-NLS-1$
         }
         glCanvas.addGLEventListener(new GLEventListener() {
 
@@ -887,7 +887,7 @@ public class MainWindow extends JFrame {
                 Settings.getInstance().putString(SettingsContract.LANGUAGE,
                         language.getLanguage());
                 loadLanguage();
-                System.err.println("Change Language!");
+                System.err.println("Change Language!"); //$NON-NLS-1$
             }
         });
         displayModeComboBox.addItemListener(new ItemListener() {
@@ -952,25 +952,44 @@ public class MainWindow extends JFrame {
                 searchPanel.setBorder(BorderFactory.createTitledBorder(Messages
                         .getString("MainWindow.82"))); //$NON-NLS-1$
                 localSearchRadioButton.setText(Messages
-                        .getString("MainWindow.96"));
+                        .getString("MainWindow.96")); //$NON-NLS-1$
                 globalSearchRadioButton.setText(Messages
-                        .getString("MainWindow.97"));
+                        .getString("MainWindow.97")); //$NON-NLS-1$
                 languagePanel.setBorder(new TitledBorder(null, Messages
                         .getString("MainWindow.110"), TitledBorder.LEADING, //$NON-NLS-1$
                         TitledBorder.TOP, null, null));
                 int index = paraMapTypeComboBox.getSelectedIndex();
                 paraMapTypeComboBox.removeAllItems();
-                paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>(
+                paraMapTypeComboBox
+                .addItem(new IconizedItem<MapTypePair>(
                         Messages.getString("MainWindow.70"), //$NON-NLS-1$
                         loadIcon("icons/mapSatellite.png"), new MapTypePair(SingleMapType.SATELLITE))); //$NON-NLS-1$
-                paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>(
+        paraMapTypeComboBox
+                .addItem(new IconizedItem<MapTypePair>(
                         Messages.getString("MainWindow.72"), //$NON-NLS-1$
                         loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK))); //$NON-NLS-1$
-                paraMapTypeComboBox.addItem(new IconizedItem<MapTypePair>(
+        paraMapTypeComboBox
+        .addItem(new IconizedItem<MapTypePair>(
+                Messages.getString(Messages.getString("MainWindow.4")), //$NON-NLS-1$
+                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.CYCLING))); //$NON-NLS-1$
+        paraMapTypeComboBox
+        .addItem(new IconizedItem<MapTypePair>(
+                Messages.getString(Messages.getString("MainWindow.5")), //$NON-NLS-1$
+                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.HIKING))); //$NON-NLS-1$
+        paraMapTypeComboBox
+        .addItem(new IconizedItem<MapTypePair>(
+                Messages.getString(Messages.getString("MainWindow.6")), //$NON-NLS-1$
+                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.SKIING))); //$NON-NLS-1$
+        paraMapTypeComboBox
+        .addItem(new IconizedItem<MapTypePair>(
+                Messages.getString(Messages.getString("MainWindow.7")), //$NON-NLS-1$
+                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM2WORLD))); //$NON-NLS-1$
+        paraMapTypeComboBox
+                .addItem(new IconizedItem<MapTypePair>(
                         Messages.getString("MainWindow.74"), //$NON-NLS-1$
                         loadIcon("icons/mapChildren.png"), new MapTypePair(SingleMapType.CHILDREN))); //$NON-NLS-1$
                 paraMapTypeComboBox.setSelectedIndex(index);
-                antialiasingLabel.setText(Messages.getString("MainWindow.126"));
+                antialiasingLabel.setText(Messages.getString("MainWindow.126")); //$NON-NLS-1$
                 index = antialiasingComboBox.getSelectedIndex();
                 antialiasingComboBox.removeAllItems();
                 antialiasingComboBox.addItem(new NamedItem<AntialiasingType>(
@@ -982,7 +1001,7 @@ public class MainWindow extends JFrame {
                         Messages.getString("MainWindow.130"), //$NON-NLS-1$
                         AntialiasingType.MSAA_4));
                 antialiasingComboBox.setSelectedIndex(index);
-                texfilterLabel.setText(Messages.getString("MainWindow.132"));
+                texfilterLabel.setText(Messages.getString("MainWindow.132")); //$NON-NLS-1$
                 index = texfilterComboBox.getSelectedIndex();
                 texfilterComboBox.removeAllItems();
                 texfilterComboBox.addItem(new NamedItem<Boolean>(Messages
@@ -990,7 +1009,7 @@ public class MainWindow extends JFrame {
                 texfilterComboBox.addItem(new NamedItem<Boolean>(Messages
                         .getString("MainWindow.135"), new Boolean(true))); //$NON-NLS-1$
                 texfilterComboBox.setSelectedIndex(index);
-                lodLabel.setText(Messages.getString("MainWindow.137"));
+                lodLabel.setText(Messages.getString("MainWindow.137")); //$NON-NLS-1$
                 index = lodComboBox_1.getSelectedIndex();
                 lodComboBox_1.removeAllItems();
                 lodComboBox_1.addItem(new NamedItem<LevelOfDetail>(Messages
@@ -1003,16 +1022,16 @@ public class MainWindow extends JFrame {
                 cachePanel.setBorder(new TitledBorder(null, Messages
                         .getString("MainWindow.143"), TitledBorder.LEADING, //$NON-NLS-1$
                         TitledBorder.TOP, null, null));
-                memCacheLabel.setText(Messages.getString("MainWindow.146"));
-                fsCacheLabel.setText(Messages.getString("MainWindow.149"));
-                manualButton.setText(Messages.getString("MainWindow.156"));
-                aboutButton.setText(Messages.getString("MainWindow.159"));
+                memCacheLabel.setText(Messages.getString("MainWindow.146")); //$NON-NLS-1$
+                fsCacheLabel.setText(Messages.getString("MainWindow.149")); //$NON-NLS-1$
+                manualButton.setText(Messages.getString("MainWindow.156")); //$NON-NLS-1$
+                aboutButton.setText(Messages.getString("MainWindow.159")); //$NON-NLS-1$
                 detailsPanel.setBorder(BorderFactory.createTitledBorder(Messages
                         .getString("MainWindow.35"))); //$NON-NLS-1$
                 detailNameLabel.setText(Messages.getString("MainWindow.3")); //$NON-NLS-1$
-                detailDescriptionLabel.setText(Messages.getString("MainWindow.42"));
-                userTagButton.setText(Messages.getString("MainWindow.40"));
-                displayModeLabel.setText(Messages.getString("MainWindow.48"));
+                detailDescriptionLabel.setText(Messages.getString("MainWindow.42")); //$NON-NLS-1$
+                userTagButton.setText(Messages.getString("MainWindow.40")); //$NON-NLS-1$
+                displayModeLabel.setText(Messages.getString("MainWindow.48")); //$NON-NLS-1$
                 index = displayModeComboBox.getSelectedIndex();
                 displayModeComboBox.removeAllItems();
                 displayModeComboBox.addItem(new IconizedItem<DisplayMode>(Messages
@@ -1025,11 +1044,11 @@ public class MainWindow extends JFrame {
                         .getString("MainWindow.56"), //$NON-NLS-1$
                         loadIcon("icons/modePlane.png"), DisplayMode.PLANE_MAP)); //$NON-NLS-1$
                 displayModeComboBox.setSelectedIndex(index);
-                mapTypeLabel.setText(Messages.getString("MainWindow.62"));
-                heightMapCheckBox.setText(Messages.getString("MainWindow.65"));
-                sideBarTabs.setTitleAt(0, Messages.getString("MainWindow.16"));
-                sideBarTabs.setTitleAt(1, Messages.getString("MainWindow.18"));
-                sideBarTabs.setTitleAt(2, Messages.getString("MainWindow.20"));
+                mapTypeLabel.setText(Messages.getString("MainWindow.62")); //$NON-NLS-1$
+                heightMapCheckBox.setText(Messages.getString("MainWindow.65")); //$NON-NLS-1$
+                sideBarTabs.setTitleAt(0, Messages.getString("MainWindow.16")); //$NON-NLS-1$
+                sideBarTabs.setTitleAt(1, Messages.getString("MainWindow.18")); //$NON-NLS-1$
+                sideBarTabs.setTitleAt(2, Messages.getString("MainWindow.20")); //$NON-NLS-1$
             }
         });
 
@@ -1050,10 +1069,10 @@ public class MainWindow extends JFrame {
         builder.setLanguage(lang);
         Locale l = builder.build();
         if (l.getLanguage().equals(Locale.GERMAN.getLanguage())) {
-            System.err.println("Set Lang to German at start!");
+            System.err.println("Set Lang to German at start!"); //$NON-NLS-1$
             Messages.setLocale(Locale.GERMAN);
         } else {
-            System.err.println("Set Lang to English at start!");
+            System.err.println("Set Lang to English at start!"); //$NON-NLS-1$
             Messages.setLocale(Locale.ENGLISH);
         }
         initializeWindow();
@@ -1064,10 +1083,10 @@ public class MainWindow extends JFrame {
         initializeViewPanel();
         renderer = new Renderer(glCanvas, locationManager, camera);
         if (l.getLanguage().equals(Locale.GERMAN.getLanguage())) {
-            System.err.println("Set Lang to German at start!");
+            System.err.println("Set Lang to German at start!"); //$NON-NLS-1$
             languageComboBox.setSelectedIndex(1);
         } else {
-            System.err.println("Set Lang to English at start!");
+            System.err.println("Set Lang to English at start!"); //$NON-NLS-1$
             languageComboBox.setSelectedIndex(0);
         }
         registerListeners();
