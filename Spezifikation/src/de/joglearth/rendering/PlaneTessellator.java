@@ -15,6 +15,7 @@ public class PlaneTessellator implements Tessellator {
 
     @Override
     public Mesh tessellateTile(Tile tile, int subdivisions, boolean useHeightMap) {
+        System.out.println(tile);
         int nVertices = subdivisions + 2, nQuads = subdivisions + 1;
         double latStep = abs(tile.getLatitudeTo() - tile.getLatitudeFrom()) / nQuads, 
                lonStep = abs(tile.getLongitudeTo() - tile.getLongitudeFrom()) / nQuads;

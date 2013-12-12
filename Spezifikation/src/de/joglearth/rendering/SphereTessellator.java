@@ -72,7 +72,7 @@ public class SphereTessellator implements Tessellator {
     }
 
     private static void writeIndicesLine(int[] indices, int iIndex, int vIndex, int width) {
-        for (int i = 0; i < width; ++i) {
+        for (int i = 0; i < width-1; ++i) {
             indices[iIndex + 0] = vIndex - width + 1 + i;
             indices[iIndex + 1] = vIndex - width + i;
             indices[iIndex + 2] = vIndex - 2 * width;
@@ -94,7 +94,7 @@ public class SphereTessellator implements Tessellator {
     
     @Override
     public Mesh tessellateTile(Tile tile, int subdivisions, boolean useHeightMap) {
-        int nRows = subdivisions + 2, 
+        int nRows = subdivisions + 1, 
             direction = tile.getLatitudeFrom() >= 0 ? +1 : -1;
         double lat = direction > 0 ? tile.getLatitudeFrom() : tile.getLatitudeTo(),
                lon = tile.getLongitudeFrom();
@@ -102,11 +102,11 @@ public class SphereTessellator implements Tessellator {
             rowWidth = max(2, (subdivisions + 2) / (int) pow(2, shrinkCount)),
             vIndex = 0, 
             iIndex = 0;
-        System.out.println(rowWidth);
+
         double lonStep = 2 * PI / ((rowWidth - 1) * pow(2, tile.getDetailLevel())),
                latStep = 2 * PI / ((1 + subdivisions) * pow(2, tile.getDetailLevel()));
         float[] vertices = new float[nRows * rowWidth * VERTEX_SIZE * 2];
-        int[] indices = new int[(nRows-1) * (rowWidth-1) * 6];
+        int[] indices = new int[nRows * (rowWidth-1) * 6];
         
         writeVertexLine(vertices, vIndex, lon, lat, lonStep, latStep, useHeightMap, rowWidth);
         vIndex += rowWidth * VERTEX_SIZE;
@@ -121,7 +121,7 @@ public class SphereTessellator implements Tessellator {
                 vIndex += rowWidth * VERTEX_SIZE;
                 writeIndicesLine(indices, iIndex, vIndex, rowWidth);
                 iIndex += 6 * rowWidth;
-                System.out.println("indices: " + indices + "\n" + "iIndex: " + iIndex + "\n" + "vIndex: " + vIndex + "\n" + "rowWidth: " + rowWidth);
+
                 rowWidth = newRowWidth;
                 writeVertexLine(vertices, vIndex, lon,
                         lat, lonStep, latStep, useHeightMap, rowWidth);
@@ -130,7 +130,7 @@ public class SphereTessellator implements Tessellator {
                 writeVertexLine(vertices, vIndex, lon, lat, lonStep,
                         latStep, useHeightMap, rowWidth);
                 vIndex += rowWidth * VERTEX_SIZE;
-                System.out.println("indices: " + indices + "\n" + "iIndex: " + iIndex + "\n" + "vIndex: " + vIndex + "\n" + "rowWidth: " + rowWidth);
+
                 writeIndicesLine(indices, iIndex, vIndex, rowWidth);
             }
         }
@@ -145,15 +145,5 @@ public class SphereTessellator implements Tessellator {
         Tile t = new Tile(2, 1, 0);
         int subdivision = 2;
         Mesh m = p.tessellateTile(t, subdivision, false);
-        int count = 0;
-        for (int i = 0; i < m.vertices.length; ++i) {
-            System.out.print(m.vertices[i] + "    ");
-            count +=1;
-            if (count == 8) {
-                System.out.print(m.vertices[i]*m.vertices[i] + m.vertices[i-1]*m.vertices[i-1] + m.vertices[i-2]*m.vertices[i-2]);
-                System.out.println();
-                count = 0;
-            }
-        }
     }
 }

@@ -119,14 +119,16 @@ public final class Tile implements Cloneable {
      */
     public static Tile getContainingTile(int detailLevel, GeoCoordinates coords) {
         double angle = PI / pow(2, detailLevel);
-        System.out.println("ANGLE: " +angle);
-        System.out.println("LON: " + coords.getLongitude());
-        int a = (int) floor(coords.getLongitude() / (2 * angle));
-        System.out.println("LAT: " + coords.getLatitude());
-        int b = (int) floor(coords.getLatitude() / angle);
-        Tile tile = new Tile(detailLevel, a,
-                b);
-        System.out.println("TILE: " + tile);
+        int lon = (int) (coords.getLongitude() / (2 * angle));
+        if (lon < 0) {
+            lon = (int) pow(2, detailLevel) + lon;
+        }
+        int lat = (int) pow(2, detailLevel-1) - (int) (coords.getLatitude() / angle) - 1;
+        if (lat < 0) {
+            lat = 0;
+        }
+        Tile tile = new Tile(detailLevel, lon, lat);
+        System.out.println(tile.toString() + " contains " + coords.toString());
         return tile;
     }
 

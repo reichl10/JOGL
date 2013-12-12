@@ -34,14 +34,8 @@ public final class CameraUtils {
          * The tile below (0.5, 0.5) is always visible. Either it it the only tile on the screen, or
          * one of its corners can be used as a starting point by the grid walking algorithm.
          */
-        System.out.println(zoomLevel);
-        ScreenCoordinates s = new ScreenCoordinates(0.5, 0.5);
-        System.out.println("COORDS" + s);
-        GeoCoordinates g = camera.getGeoCoordinates(s);
-        System.out.println("GEO: " + camera.geometry);
-        System.out.println("GEOCOORDS: " + g);
         Tile centerTile = Tile.getContainingTile(zoomLevel,
-                camera.getGeoCoordinates(s));
+                camera.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5)));
         
 
         GeoCoordinates[] corners = {
@@ -59,11 +53,15 @@ public final class CameraUtils {
                 if (corner.getLongitude() == centerTile.getLongitudeTo()) {
                     ++lon;
                 }
+                if (lon >= (int) pow(2, zoomLevel-1)) {
+                    lon = - (int) pow(2, zoomLevel) + lon;
+                }
 
                 int lat = centerTile.getLatitudeIndex();
                 if (corner.getLatitude() == centerTile.getLatitudeTo()) {
                     ++lat;
                 }
+                lat = (int) pow(2, zoomLevel-1) - 1 - lat;
 
                 center = new GridPoint(lon, lat);
                 break;
@@ -75,9 +73,11 @@ public final class CameraUtils {
 
         if (center != null) {
             Set<GridPoint> visiblePoints = getVisibleGridPoints(center, zoomLevel, camera);
+            System.out.println(visiblePoints);
             TileWalker walker = new TileWalker(visiblePoints, center, zoomLevel);
             while (walker.step()) {
                 visibleTiles.add(walker.getTile());
+                System.out.println(walker.getTile());
             }
         }
 
@@ -108,10 +108,10 @@ public final class CameraUtils {
         GridWalker walker = new GridWalker(center, zoomLevel, camera);
 
         // Walk to the border
-        while (walker.step())
-            ;
+        while (walker.step());
         GridPoint start = walker.getPoint();
         visiblePoints.add(start);
+        
         int lonMin = start.longitude(), lonMax = lonMin, latMin = start.latitude(), latMax = latMin;
 
         // Step "onto the border"
@@ -203,6 +203,11 @@ public final class CameraUtils {
             if (lon != other.lon)
                 return false;
             return true;
+        }
+
+        @Override
+        public String toString() {
+            return "GridPoint [lon=" + lon + ", lat=" + lat + "]";
         }
     }
 
@@ -306,8 +311,13 @@ public final class CameraUtils {
         }
 
         public boolean step() {
-            pos = peekPoint();
-            return pos != null;
+            GridPoint newPos = peekPoint();
+            if (newPos != null) {
+                pos = newPos;
+                return true;
+            } else {
+                return false;
+            }
         }
 
         public GridPoint getPoint() {
@@ -333,6 +343,8 @@ public final class CameraUtils {
 
         // The total number of steps to do in the current direction until the next turn.
         private int maxSteps = 1;
+        private int maxIndex;
+        private int maxTurns;
 
         // The number of steps that were performed in this direction so far.
         private int stepNo = 0;
@@ -347,16 +359,30 @@ public final class CameraUtils {
             this.lon = center.longitude();
             this.lat = center.latitude();
             this.zoomLevel = zoomLevel;
+            this.currentTile = new Tile(zoomLevel, center.lon, center.lat);
+            this.maxIndex = (int) pow(2, zoomLevel);
         }
 
+        private int index(int ind) {
+            int r = ind % maxIndex;
+            if (r < 0) {
+                r = maxIndex + r;
+            }
+            return r;            
+        }
+        
         public boolean step() {
             assert stepNo < maxSteps;
+            
+            if (currentTile == null) {
+                return false;
+            }
 
-            currentTile = null;
-
+            Tile nextTile = null;
+            
             // If four turns have been made without finding a tile that is visible, the walker has
             // left the visible area
-            while (currentTile == null && turnsSinceLastTile < 4) {
+            while (nextTile == null && turnsSinceLastTile < 4 && maxSteps-1 <= maxIndex) {
                 ++stepNo;
                 
                 //Make a step
@@ -385,6 +411,7 @@ public final class CameraUtils {
 
                 //The tile is visible if any corner is visible.
                 boolean visible = false;
+                
                 for (GridPoint corner : corners) {
                     if (points.contains(corner)) {
                         visible = true;
@@ -393,12 +420,13 @@ public final class CameraUtils {
                 }
 
                 if (visible) {
-                    currentTile = new Tile(zoomLevel, lon, lat);
+                    nextTile = new Tile(zoomLevel, index(lon), index(maxIndex / 2 - 1 - lat));
                     turnsSinceLastTile = 0;
                 }
 
                 //Make a turn if necessary.
                 if (stepNo == maxSteps) {
+                    stepNo = 0;
                     ++turnsSinceLastTile;
                     direction = turnRight(direction);
                     if (!firstTurn) {
@@ -407,8 +435,14 @@ public final class CameraUtils {
                     firstTurn = !firstTurn;
                 }
             }
-
-            return currentTile != null;
+            
+            if (nextTile != null) {
+                currentTile = nextTile;
+                return true;
+            } else {
+                return false;
+            }
+            
         }
 
         Tile getTile() {
