@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
@@ -20,6 +21,7 @@ import javax.media.opengl.awt.GLCanvas;
 
 import jogamp.opengl.GLVersionNumber;
 
+import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureData;
 import com.jogamp.opengl.util.texture.TextureIO;
@@ -44,6 +46,8 @@ import de.joglearth.surface.SurfaceListener;
 import de.joglearth.surface.TextureManager;
 import de.joglearth.surface.TileMeshManager;
 import de.joglearth.surface.TiledMapType;
+import de.joglearth.util.AWTInvoker;
+import de.joglearth.util.Resource;
 
 
 /**
@@ -53,10 +57,7 @@ import de.joglearth.surface.TiledMapType;
 public class Renderer {
 
     private GLCanvas canvas;
-    private GL2 gl;
-    private boolean quit = false;
-    private boolean running;
-    private boolean posted;
+    private FPSAnimator animator;
     private int leastHorizontalTiles;
     private int levelOfDetail;
     private boolean heightMapEnabled;
@@ -73,35 +74,13 @@ public class Renderer {
     private Texture satellite;
     private Texture moon;
     private Texture sun;
-    private Texture poiActivity, poiBank, poiEducation, poiGrocery, poiHealth,
-            poiHikingCycling, poiHotel, poiNightlife, poiPost, poiRestaurant,
-            poiShop, poiToilets;
     private Tessellator tessellator;
     private TileMeshManager tileMeshManager;
 
-
-    private class Worker implements Runnable {
-
-        @Override
-        public void run() {
-
-            while (!isQuit()) {
-                if (isRunning() || isPosted()) {
-                    render();
-
-                    synchronized (this) {
-                        posted = false;
-                    }
-                } else {
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        // TODO
-                    }
-                }
-            }
-        }
-    }
+    private Map<String, Texture> poiTextures;
+    private final String[] POI_NAMES = new String[] { "Activity", "Bank", "Education", "Grocery",
+            "Health", "HikingCycling", "Hotel", "Nightlife", "Post", "Restaurant", "Shop",
+            "Toilets" };
 
 
     /**
@@ -116,13 +95,9 @@ public class Renderer {
         this.locationManager = locationManager;
         this.camera = camera;
         this.canvas = canv;
-        this.gl = canv.getGL().getGL2();
         canv.addGLEventListener(new RendererEventListener());
-        this.textureManager = new TextureManager(gl);
 
-        SurfaceValidator surfaceValidator = new SurfaceValidator();
-        textureManager.addSurfaceListener(surfaceValidator);
-        locationManager.addSurfaceListener(surfaceValidator);
+        locationManager.addSurfaceListener(new SurfaceValidator());
 
         camera.addCameraListener(new CameraListener() {
 
@@ -133,40 +108,19 @@ public class Renderer {
         });
     }
 
-    /*
-     * Returns if the window is quit.
-     * 
-     * @return Is the window quit?
-     */
-    private synchronized boolean isQuit() {
-        return quit;
-    }
-
-    /*
-     * Returns if the OpenGL rendering loop is running.
-     * 
-     * @return Is OpenGL rendering loop running?
-     */
-    private synchronized boolean isRunning() {
-        return running;
-    }
-
-    /*
-     * Returns if the surface has changed and a new render process is needed.
-     * 
-     * @return Should the window be re-rendered.
-     */
-    private synchronized boolean isPosted() {
-        return posted;
-    }
-
     /**
      * Notifies the {@link de.joglearth.rendering.Renderer} that a new frame should be rendered. If
      * <code>start()</code> is called this method may have no effect. Asynchronous method, does not
      * wait until a frame is drawn.
      */
     public synchronized void post() {
-        posted = true;
+        AWTInvoker.invoke(new Runnable() {
+
+            @Override
+            public void run() {
+                canvas.display();
+            }
+        });
     }
 
     // Asynchron, kehrt sofort zurück.
@@ -174,18 +128,18 @@ public class Renderer {
      * Starts the render loop with 60 FPS.
      */
     public synchronized void start() {
-        running = true;
+        animator.start();
     }
 
     /**
      * Stops the render loop. When <code>post()</code> is called a new frame will be rendered.
      */
     public synchronized void stop() {
-        running = false;
+        animator.stop();
     }
 
     // TODO Re-renders the OpenGL view.
-    private void render() {
+    private void render(GL2 gl) {
 
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         gl.glMatrixMode(GL2.GL_PROJECTION);
@@ -198,12 +152,12 @@ public class Renderer {
 
             Iterable<Tile> tile = CameraUtils.getVisibleTiles(camera, zoomLevel);
 
-            renderMeshes(tile);
+            renderMeshes(gl, tile);
 
         } else if (activeDisplayMode == DisplayMode.PLANE_MAP) {
 
             Iterable<Tile> tile = CameraUtils.getVisibleTiles(camera, zoomLevel);
-            renderMeshes(tile);
+            renderMeshes(gl, tile);
 
         } else {
             // TODO
@@ -219,7 +173,10 @@ public class Renderer {
 
     }
 
-    private void initialize() {
+    private void initialize(GL2 gl) {
+
+        this.textureManager = new TextureManager(gl);
+        textureManager.addSurfaceListener(new SurfaceValidator());
 
         /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
         loadTextures();
@@ -234,13 +191,14 @@ public class Renderer {
         leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
         tileMeshManager = new TileMeshManager(gl, tessellator);
 
+        animator = new FPSAnimator(60);
     }
 
     private void startSolarSystem() {
         // TODO Fabian's Sonnensystem einbinden
     }
 
-    private void renderMeshes(Iterable<Tile> tile) {
+    private void renderMeshes(GL2 gl, Iterable<Tile> tile) {
 
         ArrayList<VertexBuffer> meshes = new ArrayList<VertexBuffer>();
         tileMeshManager.setTessellator(tessellator);
@@ -276,190 +234,22 @@ public class Renderer {
     private void loadTextures() {
 
         /* Loads texture: kidsWorldMap */
-        try {
-            InputStream stream = getClass().getResourceAsStream("textures/kidsWorldMap.jpg");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "jpg");
-            kidsWorldMap = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads texture: earth */
-        try {
-            InputStream stream = getClass().getResourceAsStream("textures/earth.jpg");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "jpg");
-            satellite = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads texture: moon */
-        try {
-            InputStream stream = getClass().getResourceAsStream("textures/moon.jpg");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "jpg");
-            moon = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads texture: sun */
-        try {
-            InputStream stream = getClass().getResourceAsStream("textures/sun.jpg");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "jpg");
-            sun = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
+        kidsWorldMap = TextureIO.newTexture(Resource.loadTextureData(
+                "textures/kidsWorldMap.jpg", "jpg"));
+        satellite = TextureIO.newTexture(Resource.loadTextureData(
+                "textures/earth.jpg", "jpg"));
+        moon = TextureIO.newTexture(Resource.loadTextureData(
+                "textures/moon.jpg", "jpg"));
+        // sun = TextureIO.newTexture(Resource.loadTextureData(
+        // "textures/sun.jpg", "jpg"));
     }
 
     /* Loads all POI-textures */
     private void loadPoi() {
-        /* Loads POI-texture: Activity */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Activity.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiActivity = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
+        for (String name : POI_NAMES) {
+            poiTextures.put(name, TextureIO.newTexture(Resource.loadTextureData("iconsPoi/POI_" 
+                    + name + ".png", "png")));
         }
-
-        /* Loads POI-texture: Bank */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Bank.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiBank = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Education */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Education.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiEducation = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Grocery */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Grocery.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiGrocery = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Health */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Health.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiHealth = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: HikingCycling */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_HikingCycling.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiHikingCycling = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Hotel */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Hotel.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiHotel = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Nightlife */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Nightlife.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiNightlife = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Post */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Post.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiPost = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Restaurant */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Restaurant.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiRestaurant = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Shop */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Shop.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiShop = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Toilets */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Toilets.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiToilets = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-    }
-
-    /**
-     * Quits the {@link de.joglearth.rendering.Renderer} thread.
-     */
-    public synchronized void quit() {
-        quit = true;
     }
 
 
@@ -508,17 +298,17 @@ public class Renderer {
 
         @Override
         public void display(GLAutoDrawable drawable) {
-            post();
+            render(drawable.getGL().getGL2());
         }
 
         @Override
         public void dispose(GLAutoDrawable drawable) {
-
+            stop();
         }
 
         @Override
         public void init(GLAutoDrawable drawable) {
-            initialize();
+            initialize(drawable.getGL().getGL2());
         }
 
         @Override
@@ -529,7 +319,6 @@ public class Renderer {
             double near = 0.1; // TODO
             double far = 1000.0; // TODO
             camera.setPerspective(fov, aspectRatio, near, far);
-
         }
     }
 
