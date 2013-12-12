@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.media.opengl.GL;
@@ -61,6 +62,7 @@ public class Renderer {
     private int leastHorizontalTiles;
     private int levelOfDetail;
     private boolean heightMapEnabled;
+    private boolean isPosted = false;
     private int TILE_SIZE = 256;
     private LocationManager locationManager;
     private TextureManager textureManager;
@@ -113,12 +115,24 @@ public class Renderer {
      * <code>start()</code> is called this method may have no effect. Asynchronous method, does not
      * wait until a frame is drawn.
      */
-    public synchronized void post() {
+    public void post() {
+        synchronized (this) {
+            if (isPosted || animator.isAnimating()) {
+                return;
+            }
+            isPosted = true;
+        }
         AWTInvoker.invoke(new Runnable() {
 
             @Override
             public void run() {
-                canvas.display();
+                boolean isPostedCopy;
+                do {
+                    canvas.display();
+                    synchronized (this) {
+                        isPostedCopy = isPosted;
+                    }
+                } while (isPostedCopy && !animator.isAnimating());
             }
         });
     }
@@ -246,6 +260,7 @@ public class Renderer {
 
     /* Loads all POI-textures */
     private void loadPoi() {
+        poiTextures = new LinkedHashMap<>();
         for (String name : POI_NAMES) {
             poiTextures.put(name, TextureIO.newTexture(Resource.loadTextureData("iconsPoi/POI_" 
                     + name + ".png", "png")));
