@@ -281,17 +281,16 @@ public class Camera {
 
         if (tiltX > PI / 2) {
             tiltX = PI / 2;
-        }
-        if (tiltY > PI / 2) {
-            tiltY = PI / 2;
-        }
-        if (tiltX < -PI / 2) {
+        } else if (tiltX < -PI / 2) {
             tiltX = -PI / 2;
         }
-        if (tiltY < -PI / 2) {
+
+        if (tiltY > PI / 2) {
+            tiltY = PI / 2;
+        } else if (tiltY < -PI / 2) {
             tiltY = -PI / 2;
         }
-        
+
         if (!updateCamera()) {
             tiltX = oldX;
             tiltY = oldY;
