@@ -1,16 +1,10 @@
 package de.joglearth;
 
-import javax.media.opengl.awt.GLCanvas;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import de.joglearth.geometry.Camera;
-import de.joglearth.geometry.Geometry;
-import de.joglearth.geometry.PlaneGeometry;
-import de.joglearth.geometry.SphereGeometry;
-import de.joglearth.rendering.Renderer;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.ui.MainWindow;

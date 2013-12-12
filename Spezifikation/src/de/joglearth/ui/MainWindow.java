@@ -55,7 +55,6 @@ import com.jgoodies.forms.layout.RowSpec;
 import de.joglearth.JoglEarth;
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
-import de.joglearth.geometry.CameraUtils;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.PlaneGeometry;
 import de.joglearth.geometry.ScreenCoordinates;
