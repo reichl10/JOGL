@@ -1187,6 +1187,7 @@ public class MainWindow extends JFrame {
 					slider.setValue(current - 1);
 				}
 			}
+			camera.setDistance(current+1);
 		}
 	}
 
