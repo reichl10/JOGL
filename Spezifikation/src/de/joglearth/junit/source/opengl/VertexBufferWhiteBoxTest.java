@@ -54,16 +54,18 @@ public class VertexBufferWhiteBoxTest {
 
                 SourceResponse<VertexBuffer> response;
 
+                // Acquire Mesh
                 response = source.requestObject(tile, null);
                 assertEquals(response.response, SourceResponseType.SYNCHRONOUS);
                 assertNotNull(response.value);
 
-                final VertexBuffer vbo = response.value;
+                VertexBuffer vbo = response.value;
                 assertTrue(vbo.indices > 0);
                 assertTrue(vbo.vertices > 0);
                 assertEquals(vbo.primitiveType, GL_TRIANGLES);
                 assertEquals(vbo.primitiveCount, 800);
 
+                // Put into cache
                 cache.putObject(tile, vbo);
                 assertTrue(cache.getExistingObjects().iterator().hasNext());
 
@@ -71,33 +73,53 @@ public class VertexBufferWhiteBoxTest {
                 assertEquals(response.response, SourceResponseType.SYNCHRONOUS);
                 assertEquals(response.value, vbo);
 
+                // Bind vertex buffer
                 gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
                 assertEquals(gl.glGetError(), GL_NO_ERROR);
 
+                // Set vertex / normal / texcoord pointers
                 gl.glEnableClientState(GL_VERTEX_ARRAY);
                 assertEquals(gl.glGetError(), GL_NO_ERROR);
 
-                gl.glVertexPointer(3, GL_FLOAT, 0, 0);
+                gl.glVertexPointer(3, GL_FLOAT, 8*4, 5*4);
                 assertEquals(gl.glGetError(), GL_NO_ERROR);
 
-                gl.glDrawElements(vbo.primitiveType, vbo.primitiveCount, GL_UNSIGNED_INT,
-                        vbo.indices);
+                gl.glEnableClientState(GL_NORMAL_ARRAY);
                 assertEquals(gl.glGetError(), GL_NO_ERROR);
 
+                gl.glNormalPointer(GL_FLOAT, 8*4, 2*4);
+                assertEquals(gl.glGetError(), GL_NO_ERROR);
+
+                gl.glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+                assertEquals(gl.glGetError(), GL_NO_ERROR);
+
+                gl.glTexCoordPointer(2, GL_FLOAT, 8*4, 0);
+                assertEquals(gl.glGetError(), GL_NO_ERROR);
+                
+                // Bind index buffer
+                gl.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.indices);
+                assertEquals(gl.glGetError(), GL_NO_ERROR);
+
+                // Draw
+                gl.glDrawElements(vbo.primitiveType, vbo.primitiveCount, GL_UNSIGNED_INT, 0);
+                assertEquals(gl.glGetError(), GL_NO_ERROR);
+
+                // Disable pointers
+                gl.glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+                assertEquals(gl.glGetError(), GL_NO_ERROR);
+                
+                gl.glDisableClientState(GL_NORMAL_ARRAY);
+                assertEquals(gl.glGetError(), GL_NO_ERROR);
+                
                 gl.glDisableClientState(GL_VERTEX_ARRAY);
                 assertEquals(gl.glGetError(), GL_NO_ERROR);
 
                 gl.glBindBuffer(GL_ARRAY_BUFFER, 0);
                 assertEquals(gl.glGetError(), GL_NO_ERROR);
 
+                // Drop all meshes
                 cache.dropAll();
                 assertFalse(cache.getExistingObjects().iterator().hasNext());
-
-                gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.indices);
-                assertNotEquals(gl.glGetError(), GL_NO_ERROR);
-
-                gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
-                assertNotEquals(gl.glGetError(), GL_NO_ERROR);
             }
         });
     }
