@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
@@ -73,11 +74,13 @@ public class Renderer {
     private Texture satellite;
     private Texture moon;
     private Texture sun;
-    private Texture poiActivity, poiBank, poiEducation, poiGrocery, poiHealth,
-            poiHikingCycling, poiHotel, poiNightlife, poiPost, poiRestaurant,
-            poiShop, poiToilets;
     private Tessellator tessellator;
     private TileMeshManager tileMeshManager;
+
+    private Map<String, Texture> poiTextures;
+    private final String[] POI_NAMES = new String[] { "Activity", "Bank", "Education", "Grocery",
+            "Health", "HikingCycling", "Hotel", "Nightlife", "Post", "Restaurant", "Shop",
+            "Toilets" };
 
 
     /**
@@ -237,142 +240,15 @@ public class Renderer {
                 "textures/earth.jpg", "jpg"));
         moon = TextureIO.newTexture(Resource.loadTextureData(
                 "textures/moon.jpg", "jpg"));
-        //sun = TextureIO.newTexture(Resource.loadTextureData(
-        //        "textures/sun.jpg", "jpg"));
+        // sun = TextureIO.newTexture(Resource.loadTextureData(
+        // "textures/sun.jpg", "jpg"));
     }
 
     /* Loads all POI-textures */
     private void loadPoi() {
-        /* Loads POI-texture: Activity */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Activity.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiActivity = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Bank */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Bank.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiBank = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Education */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Education.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiEducation = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Grocery */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Grocery.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiGrocery = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Health */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Health.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiHealth = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: HikingCycling */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_HikingCycling.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiHikingCycling = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Hotel */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Hotel.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiHotel = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Nightlife */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Nightlife.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiNightlife = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Post */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Post.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiPost = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Restaurant */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Restaurant.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiRestaurant = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Shop */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Shop.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiShop = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-
-        /* Loads POI-texture: Toilets */
-        try {
-            InputStream stream = getClass().getResourceAsStream("iconsPoi/POI_Toilets.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            poiToilets = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
+        for (String name : POI_NAMES) {
+            poiTextures.put(name, TextureIO.newTexture(Resource.loadTextureData("iconsPoi/POI_" 
+                    + name + ".png", "png")));
         }
     }
 
