@@ -33,79 +33,91 @@ import de.joglearth.surface.SingleMapType;
  */
 public final class SettingsContract {
 
-    private static final String XML_ENCODING = "UTF-8";
+    private static final String XML_ENCODING          = "UTF-8";
 
     /**
      * Name constant for the Language setting. You should save a string to settings using this.
      */
-    public static final String LANGUAGE = "Language";
+    public static final String  LANGUAGE              = "Language";
 
     /**
      * Name constant for the texture filter setting. You should save a boolean to settings using
      * this. (Only on/off)
      */
-    public static final String TEXTURE_FILTER = "TextureFilter";
+    public static final String  TEXTURE_FILTER        = "TextureFilter";
 
     /**
      * Name constant for the level of details setting. You should save a String to settings using
      * this. Use <code>name</code> of the Enum.
      */
-    public static final String LEVEL_OF_DETAILS = "LevelOfDetail";
+    public static final String  LEVEL_OF_DETAILS      = "LevelOfDetail";
+
+    /**
+     * Name constant for the zoom level setting. You should save an int to settings using this.
+     * (Only 0-18 are possible zoom levels.)
+     */
+    public static final String     ZOOM_LEVEL            = "ZoomLevel";
 
     /**
      * Name constant for the users Locations. You should save {@link de.joglearth.surface.Location}
      * objects using this key.
      */
-    public static final String USER_LOCATIONS = "UserLocations";
+    public static final String  USER_LOCATIONS        = "UserLocations";
 
     /**
      * Name constant for Antialiasing. You should save a String of AntialiasingType.name using this
      * key.
      */
-    public static final String ANTIALIASING = "Antialiasing";
+    public static final String  ANTIALIASING          = "Antialiasing";
 
     /**
      * Name constant for the memory cache's size. You should save an integer using this key.
      */
-    public static final String CACHE_SIZE_MEMORY = "CacheSizeMemory";
+    public static final String  CACHE_SIZE_MEMORY     = "CacheSizeMemory";
 
     /**
      * Name constant for the HeightMap setting. You should save a boolean using this key.
      */
-    public static final String HEIGHT_MAP_ENABLED = "HeightMap";
-    
+    public static final String  HEIGHT_MAP_ENABLED    = "HeightMap";
+
     /**
-     * Name constant for the MapType setting. You should save a String using this key.
-     * The String should be created using the #name of {@link SingleMapType} or {@link TildMapType}.
+     * Name constant for the MapType setting. You should save a String using this key. The String
+     * should be created using the #name of {@link SingleMapType} or {@link TildMapType}.
      */
-    public static final String MAP_TYPE = "MapType";
+    public static final String  MAP_TYPE              = "MapType";
+
+    /**
+     * Name constant for the DisplayMode setting. You should save a String using this key. The
+     * String should be created using the #name of {@link DisplayMode}.
+     */
+    public static final String  DISPLAY_MODE          = "DisplayMode";
 
     /**
      * Name constant for the file system cache's size. You should save an integer using this key.
      */
-    public static final String CACHE_SIZE_FILESYSTEM = "CacheSizeFileSystem";
-    private static final String XML_ELEMENT_SETTINGS = "settings";
+    public static final String  CACHE_SIZE_FILESYSTEM = "CacheSizeFileSystem";
+    private static final String XML_ELEMENT_SETTINGS  = "settings";
     private static final String XML_ATTR_TYPE_BOOLEAN = "Boolean";
-    private static final String XML_ATTR_TYPE_DOUBLE = "Double";
-    private static final String XML_ATTR_TYPE_STRING = "String";
+    private static final String XML_ATTR_TYPE_DOUBLE  = "Double";
+    private static final String XML_ATTR_TYPE_STRING  = "String";
     private static final String XML_ATTR_TYPE_INTEGER = "Integer";
-    private static final String XML_ATTR_TYPE_LONG = "Long";
-    private static final String XML_ATTR_TYPE_FLOAT = "Float";
-    private static final String XML_ELEMENT_ENTRY = "entry";
-    private static final String XML_ATTR_ENTRY_KEY = "key";
-    private static final String XML_ATTR_ENTRY_TYPE = "type";
-    private static final String XML_ATTR_ENTRY_VALUE = "value";
-    private static final String XML_ELEMENT_LOCS = "locations";
-    private static final String XML_ATTR_LOCS_KEY = "key";
-    private static final String XML_ELEMENT_LOC = "location";
-    private static final String XML_ATTR_LOC_DETAILS = "details";
-    private static final String XML_ATTR_LOC_NAME = "name";
-    private static final String XML_ATTR_LOC_TYPE = "type";
-    private static final String XML_ELEMENT_GEO = "GeoCoordinates";
-    private static final String XML_ATTR_GEO_LONG = "longitude";
-    private static final String XML_ATTR_GEO_LAT = "latitude";
+    private static final String XML_ATTR_TYPE_LONG    = "Long";
+    private static final String XML_ATTR_TYPE_FLOAT   = "Float";
+    private static final String XML_ELEMENT_ENTRY     = "entry";
+    private static final String XML_ATTR_ENTRY_KEY    = "key";
+    private static final String XML_ATTR_ENTRY_TYPE   = "type";
+    private static final String XML_ATTR_ENTRY_VALUE  = "value";
+    private static final String XML_ELEMENT_LOCS      = "locations";
+    private static final String XML_ATTR_LOCS_KEY     = "key";
+    private static final String XML_ELEMENT_LOC       = "location";
+    private static final String XML_ATTR_LOC_DETAILS  = "details";
+    private static final String XML_ATTR_LOC_NAME     = "name";
+    private static final String XML_ATTR_LOC_TYPE     = "type";
+    private static final String XML_ELEMENT_GEO       = "GeoCoordinates";
+    private static final String XML_ATTR_GEO_LONG     = "longitude";
+    private static final String XML_ATTR_GEO_LAT      = "latitude";
 
-    private static String FILE_LOCATION = getFileLocation();
+    private static String       FILE_LOCATION         = getFileLocation();
 
 
     /**
@@ -132,43 +144,51 @@ public final class SettingsContract {
      */
     public static void loadSettings() {
         Settings settings = Settings.getInstance();
-        try {
-            XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(
-                    new FileInputStream(FILE_LOCATION), XML_ENCODING);
-            while (xmlReader.hasNext()) {
-                int event = xmlReader.next();
-                switch (event) {
-                    case END_DOCUMENT:
-                        xmlReader.close();
-                        break;
-                    case START_ELEMENT:
-                        if (xmlReader.getLocalName().equals(XML_ELEMENT_SETTINGS)) {
-                            readSettings(xmlReader);
-                            xmlReader.require(END_ELEMENT, null,
-                                    XML_ELEMENT_SETTINGS);
-                        }
-                    case END_ELEMENT:
-                    case CHARACTERS:
-                        break;
+        File sFile = new File(FILE_LOCATION);
+        if (sFile.exists()) {
+            try {
+                XMLStreamReader xmlReader = XMLInputFactory.newInstance()
+                        .createXMLStreamReader(
+                                new FileInputStream(FILE_LOCATION),
+                                XML_ENCODING);
+                while (xmlReader.hasNext()) {
+                    int event = xmlReader.next();
+                    switch (event) {
+                        case END_DOCUMENT:
+                            xmlReader.close();
+                            break;
+                        case START_ELEMENT:
+                            if (xmlReader.getLocalName().equals(
+                                    XML_ELEMENT_SETTINGS)) {
+                                readSettings(xmlReader);
+                                xmlReader.require(END_ELEMENT, null,
+                                        XML_ELEMENT_SETTINGS);
+                            }
+                        case END_ELEMENT:
+                        case CHARACTERS:
+                            break;
 
-                    default:// We don't need the other stuff
-                        break;
+                        default:// We don't need the other stuff
+                            break;
+                    }
                 }
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (XMLStreamException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (FactoryConfigurationError e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (XMLStreamException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (FactoryConfigurationError e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
     }
 
-    private static boolean readSettings(XMLStreamReader reader) throws XMLStreamException {
-        reader.require(XMLStreamConstants.START_ELEMENT, null, XML_ELEMENT_SETTINGS);
+    private static boolean readSettings(XMLStreamReader reader)
+            throws XMLStreamException {
+        reader.require(XMLStreamConstants.START_ELEMENT, null,
+                XML_ELEMENT_SETTINGS);
         while (reader.hasNext()) {
             int event = reader.next();
             switch (event) {
@@ -193,12 +213,14 @@ public final class SettingsContract {
         return true;
     }
 
-    private static void readEntry(XMLStreamReader reader) throws XMLStreamException {
+    private static void readEntry(XMLStreamReader reader)
+            throws XMLStreamException {
         reader.require(START_ELEMENT, null, XML_ELEMENT_ENTRY);
         Settings settings = Settings.getInstance();
         String keyString = reader.getAttributeValue(null, XML_ATTR_ENTRY_KEY);
         String typeString = reader.getAttributeValue(null, XML_ATTR_ENTRY_TYPE);
-        String valueString = reader.getAttributeValue(null, XML_ATTR_ENTRY_VALUE);
+        String valueString = reader.getAttributeValue(null,
+                XML_ATTR_ENTRY_VALUE);
         // TODO: convert and add to settings
         if (keyString != null && typeString != null && valueString != null) {
             Object value = null;
@@ -229,7 +251,8 @@ public final class SettingsContract {
             ;
     }
 
-    private static void readLocations(XMLStreamReader reader) throws XMLStreamException {
+    private static void readLocations(XMLStreamReader reader)
+            throws XMLStreamException {
         reader.require(START_ELEMENT, null, XML_ELEMENT_LOCS);
         Settings settings = Settings.getInstance();
         String keyString = reader.getAttributeValue(null, XML_ATTR_LOCS_KEY);
@@ -255,11 +278,13 @@ public final class SettingsContract {
         }
     }
 
-    private static Location readLocation(XMLStreamReader reader) throws XMLStreamException {
+    private static Location readLocation(XMLStreamReader reader)
+            throws XMLStreamException {
         reader.require(START_ELEMENT, null, XML_ELEMENT_LOC);
         GeoCoordinates geoCoordinates = null;
         String typeString = reader.getAttributeValue(null, XML_ATTR_LOC_TYPE);
-        String detailsString = reader.getAttributeValue(null, XML_ATTR_LOC_DETAILS);
+        String detailsString = reader.getAttributeValue(null,
+                XML_ATTR_LOC_DETAILS);
         String nameString = reader.getAttributeValue(null, XML_ATTR_LOC_NAME);
         endloop: while (reader.hasNext()) {
             int event = reader.next();
@@ -279,11 +304,13 @@ public final class SettingsContract {
                     break;
             }
         }
-        if (geoCoordinates != null && typeString != null && detailsString != null
-                && nameString != null) {
+        if (geoCoordinates != null && typeString != null
+                && detailsString != null && nameString != null) {
             try {
-                LocationType type = Enum.valueOf(LocationType.class, typeString);
-                Location l = new Location(geoCoordinates, type, detailsString, nameString);
+                LocationType type = Enum
+                        .valueOf(LocationType.class, typeString);
+                Location l = new Location(geoCoordinates, type, detailsString,
+                        nameString);
                 return l;
             } catch (IllegalArgumentException e) {
                 return null;
@@ -292,7 +319,8 @@ public final class SettingsContract {
         return null;
     }
 
-    private static GeoCoordinates readGeo(XMLStreamReader reader) throws XMLStreamException {
+    private static GeoCoordinates readGeo(XMLStreamReader reader)
+            throws XMLStreamException {
         reader.require(START_ELEMENT, null, XML_ELEMENT_GEO);
         String latString = reader.getAttributeValue(null, XML_ATTR_GEO_LAT);
         String longString = reader.getAttributeValue(null, XML_ATTR_GEO_LONG);
@@ -320,24 +348,31 @@ public final class SettingsContract {
      * {@link #loadSettings()} loads them from.
      */
     public static void saveSettings() {
+        System.err.println("SaveSettings!");
         Settings s = Settings.getInstance();
+        File f = new File(FILE_LOCATION);
+        f.mkdirs();
         XMLStreamWriter xmlWriter = null;
         try {
-            xmlWriter = XMLOutputFactory.newInstance()
-                    .createXMLStreamWriter(new FileOutputStream(FILE_LOCATION), XML_ENCODING);
+            xmlWriter = XMLOutputFactory.newInstance().createXMLStreamWriter(
+                    new FileOutputStream(f), XML_ENCODING);
             writeStart(xmlWriter);
             writeEntry(xmlWriter, LANGUAGE, s.getString(LANGUAGE));
             writeEntry(xmlWriter, TEXTURE_FILTER, s.getBoolean(TEXTURE_FILTER));
-            writeEntry(xmlWriter, LEVEL_OF_DETAILS, s.getString(LEVEL_OF_DETAILS));
+            writeEntry(xmlWriter, LEVEL_OF_DETAILS,
+                    s.getString(LEVEL_OF_DETAILS));
             writeEntry(xmlWriter, ANTIALIASING, s.getString(ANTIALIASING));
-            writeEntry(xmlWriter, CACHE_SIZE_FILESYSTEM, s.getInteger(CACHE_SIZE_FILESYSTEM));
-            writeEntry(xmlWriter, CACHE_SIZE_MEMORY, s.getInteger(CACHE_SIZE_MEMORY));
+            writeEntry(xmlWriter, CACHE_SIZE_FILESYSTEM,
+                    s.getInteger(CACHE_SIZE_FILESYSTEM));
+            writeEntry(xmlWriter, CACHE_SIZE_MEMORY,
+                    s.getInteger(CACHE_SIZE_MEMORY));
             /**
              * Field[] fields = Settings.class.getDeclaredFields(); for (Field f : fields) { int mod
              * = f.getModifiers(); if (Modifier.isPrivate(mod) && Modifier.isFinal(mod) &&
              * Modifier.isStatic(mod)) { // TODO: Write to as Entry. } }
              **/
-            writeLocationSet(xmlWriter, USER_LOCATIONS, s.getLocations(USER_LOCATIONS));
+            writeLocationSet(xmlWriter, USER_LOCATIONS,
+                    s.getLocations(USER_LOCATIONS));
             writeEnd(xmlWriter);
             xmlWriter.close();
         } catch (FileNotFoundException fex) {
@@ -347,18 +382,20 @@ public final class SettingsContract {
         }
     }
 
-    private static void writeStart(XMLStreamWriter writer) throws XMLStreamException {
+    private static void writeStart(XMLStreamWriter writer)
+            throws XMLStreamException {
         writer.writeStartDocument();
         writer.writeStartElement(XML_ELEMENT_SETTINGS);// START ROOT
     }
 
-    private static void writeEnd(XMLStreamWriter writer) throws XMLStreamException {
+    private static void writeEnd(XMLStreamWriter writer)
+            throws XMLStreamException {
         writer.writeEndElement();// END ROOT
         writer.writeEndDocument();
     }
 
-    private static void writeEntry(XMLStreamWriter writer, String key, Object value)
-            throws XMLStreamException {
+    private static void writeEntry(XMLStreamWriter writer, String key,
+            Object value) throws XMLStreamException {
         String valueS = "";
         String type = "";
         writer.writeStartElement(XML_ELEMENT_ENTRY);
@@ -386,8 +423,8 @@ public final class SettingsContract {
         writer.writeEndElement(); // END ENTRY
     }
 
-    private static void writeLocationSet(XMLStreamWriter writer, String key, Set<Location> set)
-            throws XMLStreamException {
+    private static void writeLocationSet(XMLStreamWriter writer, String key,
+            Set<Location> set) throws XMLStreamException {
         writer.writeStartElement(XML_ELEMENT_LOCS);
         writer.writeAttribute(XML_ATTR_LOCS_KEY, key);
         for (Location l : set)
@@ -395,7 +432,8 @@ public final class SettingsContract {
         writer.writeEndElement();
     }
 
-    private static void writeLocation(XMLStreamWriter writer, Location l) throws XMLStreamException {
+    private static void writeLocation(XMLStreamWriter writer, Location l)
+            throws XMLStreamException {
         writer.writeStartElement(XML_ELEMENT_LOC);
         writer.writeAttribute(XML_ATTR_LOC_DETAILS, l.details);
         writer.writeAttribute(XML_ATTR_LOC_NAME, l.name);
@@ -404,14 +442,16 @@ public final class SettingsContract {
         writer.writeEndElement();
     }
 
-    private static void writeGeoCoordinate(XMLStreamWriter writer, GeoCoordinates geo)
-            throws XMLStreamException {
+    private static void writeGeoCoordinate(XMLStreamWriter writer,
+            GeoCoordinates geo) throws XMLStreamException {
         writer.writeStartElement(XML_ELEMENT_GEO);
-        writer.writeAttribute(XML_ATTR_GEO_LONG, new Double(geo.getLongitude()).toString());
-        writer.writeAttribute(XML_ATTR_GEO_LAT, new Double(geo.getLatitude()).toString());
+        writer.writeAttribute(XML_ATTR_GEO_LONG,
+                new Double(geo.getLongitude()).toString());
+        writer.writeAttribute(XML_ATTR_GEO_LAT,
+                new Double(geo.getLatitude()).toString());
         writer.writeEndElement();
     }
-    
+
     private static String getFileLocation() {
         String folderName = "joglearth";
         String os = System.getProperty("os.name");
@@ -421,7 +461,7 @@ public final class SettingsContract {
         } else if (os.contains("Linux")) {
             String userHome = System.getProperty("user.home");
             return (userHome + File.separator + "." + folderName + File.separator
-                    + "settings.xml");
+            + "settings.xml");
         } else {
             return null;
         }
