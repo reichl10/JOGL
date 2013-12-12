@@ -67,7 +67,7 @@ public final class Matrix4 implements Cloneable {
         for (int i = 0; i < 4; ++i) {
             for (int j = 0; j < 4; ++j) {
                 for (int k = 0; k < 4; ++k) {
-                    r[4 * i + j] += m[4 * i + k] * rhs[4 * k + j];
+                    r[4 * i + j] += m[4 * k + i] * rhs[4 * j + k];
                 }
             }
         }
@@ -278,7 +278,7 @@ public final class Matrix4 implements Cloneable {
     public String toString() {
         String s = "";
         for (int i = 0; i < 4; ++i) {
-            s += String.format("%3.1f %3.1f %3.1f %3.1f\n", m[i], m[i + 4],
+            s += String.format("%3.0f %3.0f %3.0f %3.0f\n", m[i], m[i + 4],
                     m[i + 8], m[i + 12]);
         }
         return s;
@@ -322,14 +322,6 @@ public final class Matrix4 implements Cloneable {
         }
         final Matrix4 other = (Matrix4) obj;
         return Arrays.equals(m, other.m);
-    }
-    
-    
-    public static void main(String[] args) {
-        Matrix4 m = new Matrix4(new double[] { 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16 });
-        System.out.println(m);
-        m.mult(m);
-        System.out.println(m);
     }
 
 }
