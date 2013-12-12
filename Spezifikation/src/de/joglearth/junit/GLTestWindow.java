@@ -80,6 +80,8 @@ public class GLTestWindow {
         } catch (Throwable e) {
             throw new RuntimeException("GLTestWindow initialization failed", e);
         }
+        
+        ClearableEventQueue.getInstance().clear();
     }
 
     /**
