@@ -753,7 +753,6 @@ public class MainWindow extends JFrame {
 
 			@Override
 			public void display(GLAutoDrawable arg0) {
-				arg0.getGL().getGL2().glClear(GL2.GL_COLOR_BUFFER_BIT);
 			}
 
 			@Override

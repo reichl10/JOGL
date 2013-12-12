@@ -63,6 +63,7 @@ public class Renderer {
     private int levelOfDetail;
     private boolean heightMapEnabled;
     private boolean isPosted = false;
+    private boolean isRunning = false;
     private int TILE_SIZE = 256;
     private LocationManager locationManager;
     private TextureManager textureManager;
@@ -117,22 +118,29 @@ public class Renderer {
      */
     public void post() {
         synchronized (this) {
-            if (isPosted || animator.isAnimating()) {
+            if (isRunning) {
                 return;
             }
-            isPosted = true;
+            isRunning = true;
         }
+        
         AWTInvoker.invoke(new Runnable() {
 
             @Override
             public void run() {
-                boolean isPostedCopy;
+                boolean doContinue;
                 do {
+                    synchronized (this) {
+                        isPosted = false;
+                    }
                     canvas.display();
                     synchronized (this) {
-                        isPostedCopy = isPosted;
+                        doContinue = isPosted && !animator.isAnimating();
                     }
-                } while (isPostedCopy && !animator.isAnimating());
+                } while (doContinue);
+                synchronized(this) {
+                    isRunning = false;
+                }
             }
         });
     }

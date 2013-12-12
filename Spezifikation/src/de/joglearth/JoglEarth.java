@@ -2,6 +2,8 @@ package de.joglearth;
 
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.Geometry;
@@ -39,6 +41,13 @@ public final class JoglEarth {
 			
 			@Override
 			public void run() {
+	            try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (
+                    ClassNotFoundException | InstantiationException | IllegalAccessException
+                    | UnsupportedLookAndFeelException e) {
+                }
+	            
 				Geometry geometry = new PlaneGeometry();
 		        Camera camera = new Camera(geometry);
 		        LocationManager locationManager = new LocationManager();
