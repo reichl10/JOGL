@@ -1,0 +1,151 @@
+package de.joglearth.junit.geometry;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.fail;
+
+import org.junit.AfterClass;
+import org.junit.Test;
+
+import de.joglearth.geometry.Matrix4;
+import de.joglearth.geometry.Vector3;
+
+
+public class Matrix4Test {
+
+    @AfterClass
+    public static void tearDownAfterClass() throws Exception {
+
+    }
+
+    @Test
+    public final void testClone() {
+        /* it says column-first (i guess it should be column-major) */
+        double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
+        Matrix4 matrix4 = new Matrix4(init);
+        Matrix4 clonedMatrix4 = matrix4.clone();
+        assertNotSame(matrix4, clonedMatrix4);
+        assertArrayEquals(matrix4.doubles(), clonedMatrix4.doubles(), 0d);
+    }
+
+    @Test
+    public final void testMatrix4DoubleArray() {
+        double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
+        Matrix4 matrix4 = new Matrix4(init);
+        assertArrayEquals(matrix4.doubles(), init, 0d);
+    }
+
+    @Test
+    public final void testMultDoubleArray() {
+        double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
+        double[] multArray = { 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d };
+        double[] result = {90.000d, 202.000d, 314.000d, 426.000d, 100.000d, 228.000d, 356.000d, 484.000d, 110.000d, 254.000d, 398.000d, 542.000d, 120.000d, 280.000d, 440.000d, 600.000d};
+        // TODO: finish
+        Matrix4 matrix4 = new Matrix4(init);
+        matrix4.mult(multArray);
+        
+        double[] res = matrix4.doubles();
+        /*
+        System.out.print("{");
+        for (int i = 0; i < res.length; i++)
+            System.out.print(res[i]+",");
+        System.out.println("}");
+        */
+        assertArrayEquals(result, matrix4.doubles(), 0.0001d);
+    }
+
+    @Test
+    public final void testMultMatrix4() {
+        double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
+        double[] multArray = { 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d };
+        double[] result = {90.000d, 202.000d, 314.000d, 426.000d, 100.000d, 228.000d, 356.000d, 484.000d, 110.000d, 254.000d, 398.000d, 542.000d, 120.000d, 280.000d, 440.000d, 600.000d};
+        // TODO: finish
+        Matrix4 matrix4 = new Matrix4(init);
+        Matrix4 matrix2 = new Matrix4(multArray);
+        matrix4.mult(matrix2);
+        
+        /*
+        System.out.print("{");
+        for (int i = 0; i < res.length; i++)
+            System.out.print(res[i]+",");
+        System.out.println("}");
+        */
+        assertArrayEquals(result, matrix4.doubles(), 0.0001d);
+    }
+
+    @Test
+    public final void testAddDoubleArray() {
+        double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
+        double[] addArray = { 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d };
+        double[] result = {4.000d, 8.000d, 12.000d, 16.000d, 5.000d, 9.000d, 13.000d, 17.000d, 6.000d, 10.000d, 14.000d, 18.000d, 7.000d, 11.000d, 15.000d, 19.000d};
+        Matrix4 m1 = new Matrix4(init);
+        m1.add(addArray);
+        assertArrayEquals(result, m1.doubles(), 0.0001d);
+    }
+
+    @Test
+    public final void testAddMatrix4() {
+        double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
+        double[] addArray = { 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d };
+        double[] result = {4.000d, 8.000d, 12.000d, 16.000d, 5.000d, 9.000d, 13.000d, 17.000d, 6.000d, 10.000d, 14.000d, 18.000d, 7.000d, 11.000d, 15.000d, 19.000d};
+        Matrix4 m1 = new Matrix4(init);
+        Matrix4 m2 = new Matrix4(addArray);
+        m1.add(m2);
+        assertArrayEquals(result, m1.doubles(), 0.0001d);
+    }
+
+    @Test
+    public final void testDoubles() {
+        double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
+        Matrix4 matrix4 = new Matrix4(init);
+        assertArrayEquals(init, matrix4.doubles(), 0.0d);
+    }
+
+    @Test
+    public final void testTranslateDoubleDoubleDouble() {
+        double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
+        double[] addArray = { 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d };
+        Matrix4 m1 = new Matrix4(init);
+        m1.translate(0, 0, 0);
+        fail("Not yet implemented"); // TODO
+    }
+
+    @Test
+    public final void testTranslateVector3() {
+        fail("Not yet implemented"); // TODO
+    }
+
+    @Test
+    public final void testRotate() {
+        fail("Not yet implemented"); // TODO
+    }
+
+    @Test
+    public final void testScaleDoubleDoubleDouble() {
+        double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
+        double[] result = {0.300000000000000d, 1.500000000000000d, 2.700000000000000d, 3.900000000000000d, 0.200000000000000d, 0.600000000000000d, 1.000000000000000d, 1.400000000000000d, 0.600000000000000d, 1.400000000000000d, 2.200000000000000d, 3.000000000000000d, 4.000000000000000d, 8.000000000000000d, 12.000000000000000d, 16.000000000000000d};
+        Matrix4 m1 = new Matrix4(init);
+        m1.scale(0.3, 0.1, 0.2);
+        assertArrayEquals(result, m1.doubles(), 0.000001d);
+    }
+
+    @Test
+    public final void testScaleVector3() {
+        double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
+        double[] result = {0.300000000000000d, 1.500000000000000d, 2.700000000000000d, 3.900000000000000d, 0.200000000000000d, 0.600000000000000d, 1.000000000000000d, 1.400000000000000d, 0.600000000000000d, 1.400000000000000d, 2.200000000000000d, 3.000000000000000d, 4.000000000000000d, 8.000000000000000d, 12.000000000000000d, 16.000000000000000d};
+        Matrix4 m2 = new Matrix4(init);
+        m2.scale(new Vector3(0.3, 0.1, 0.2));
+        assertArrayEquals(result, m2.doubles(), 0.00001d);
+    }
+
+    @Test
+    public final void testInverse() {
+        fail("Not yet implemented"); // TODO
+    }
+
+    @Test
+    public final void testTransform() {
+        fail("Not yet implemented"); // TODO
+    }
+
+}
