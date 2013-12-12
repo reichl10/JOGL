@@ -6,17 +6,20 @@ import java.lang.reflect.InvocationTargetException;
 
 public final class AWTInvoker {
 
-    public static void invoke(Runnable runnable) throws Throwable {
+    public static void invoke(Runnable runnable) {
         if (EventQueue.isDispatchThread()) {
             runnable.run();
         } else {
             try {
-                EventQueue.invokeAndWait(runnable);
-            } catch (InvocationTargetException e) {
-                throw e.getTargetException();
-            } catch (InterruptedException e) {
-                throw new RuntimeException("invokeWithResult failed");
-
+                try {
+                    EventQueue.invokeAndWait(runnable);
+                } catch (InvocationTargetException e) {
+                    throw e.getTargetException();
+                }
+            } catch (RuntimeException e) {
+                throw e;
+            } catch (Throwable e) {
+                throw new RuntimeException("Exception in AWTInvoker.invoke()", e);
             }
         }
     }

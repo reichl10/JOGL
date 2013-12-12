@@ -30,3 +30,6 @@ Tile
 Mesh
 - primitiveTpye, primitiveCount
 
+Renderer
+- quit() weg
+
