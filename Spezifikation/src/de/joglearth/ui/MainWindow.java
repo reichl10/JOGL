@@ -936,6 +936,7 @@ public class MainWindow extends JFrame {
         });
         if (camera != null)
             camera.addCameraListener(new UICameraListener());
+        this.addWindowListener(new UIWindowListener());
     }
 
     private void loadLanguage() {
