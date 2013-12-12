@@ -237,8 +237,8 @@ public class Renderer {
                 "textures/earth.jpg", "jpg"));
         moon = TextureIO.newTexture(Resource.loadTextureData(
                 "textures/moon.jpg", "jpg"));
-        sun = TextureIO.newTexture(Resource.loadTextureData(
-                "textures/sun.jpg", "jpg"));
+        //sun = TextureIO.newTexture(Resource.loadTextureData(
+        //        "textures/sun.jpg", "jpg"));
     }
 
     /* Loads all POI-textures */
