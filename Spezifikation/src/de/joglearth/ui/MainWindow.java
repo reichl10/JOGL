@@ -1110,7 +1110,9 @@ public class MainWindow extends JFrame {
 
         @Override
         public void cameraViewChanged() {
-            // TODO: Update info at bottom
+            // TODO: DO, Show Coords usw.
+           GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
+           
         }
 
     }
