@@ -1065,6 +1065,7 @@ public class MainWindow extends JFrame {
         this.locationManager = locationManager;
         String lang = Settings.getInstance().getString(
                 SettingsContract.LANGUAGE);
+        System.err.println("LangSetting At Start:"+lang);
         Locale.Builder builder = new Locale.Builder();
         builder.setLanguage(lang);
         Locale l = builder.build();
@@ -1081,6 +1082,7 @@ public class MainWindow extends JFrame {
         initializeSettingsTab();
         initializeDetailsPanel();
         initializeViewPanel();
+        loadLanguage();
         renderer = new Renderer(glCanvas, locationManager, camera);
         if (l.getLanguage().equals(Locale.GERMAN.getLanguage())) {
             System.err.println("Set Lang to German at start!"); //$NON-NLS-1$
