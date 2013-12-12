@@ -415,19 +415,19 @@ public class MainWindow extends JFrame {
                         loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.4")), //$NON-NLS-1$
+                Messages.getString("MainWindow.4"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.CYCLING))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.5")), //$NON-NLS-1$
+                Messages.getString("MainWindow.5"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.HIKING))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.6")), //$NON-NLS-1$
+                Messages.getString("MainWindow.6"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.SKIING))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.7")), //$NON-NLS-1$
+               Messages.getString("MainWindow.7"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM2WORLD))); //$NON-NLS-1$
         paraMapTypeComboBox
                 .addItem(new IconizedItem<MapTypePair>(
@@ -970,19 +970,19 @@ public class MainWindow extends JFrame {
                         loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.4")), //$NON-NLS-1$
+                Messages.getString("MainWindow.4"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.CYCLING))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.5")), //$NON-NLS-1$
+                Messages.getString("MainWindow.5"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.HIKING))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.6")), //$NON-NLS-1$
+                Messages.getString("MainWindow.6"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.SKIING))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.7")), //$NON-NLS-1$
+                Messages.getString("MainWindow.7"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM2WORLD))); //$NON-NLS-1$
         paraMapTypeComboBox
                 .addItem(new IconizedItem<MapTypePair>(
