@@ -13,6 +13,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Collection;
@@ -169,6 +171,7 @@ public class MainWindow extends JFrame {
     private JLabel mapTypeLabel;
     private JComboBox<IconizedItem<MapTypePair>> paraMapTypeComboBox;
     private JTabbedPane sideBarTabs;
+    private JSlider zoomSlider;
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -815,7 +818,7 @@ public class MainWindow extends JFrame {
         zoomPlusLabel.setIcon(loadIcon("icons/zoomPlus.png")); //$NON-NLS-1$
         zoomPanel.add(zoomPlusLabel, "1, 2"); //$NON-NLS-1$
 
-        JSlider zoomSlider = new JSlider();
+        zoomSlider = new JSlider();
         zoomSlider.setMajorTickSpacing(1);
         zoomSlider.setOrientation(SwingConstants.VERTICAL);
         zoomPanel.add(zoomSlider, "1, 4, default, fill"); //$NON-NLS-1$
@@ -936,6 +939,7 @@ public class MainWindow extends JFrame {
         if (camera != null)
             camera.addCameraListener(new UICameraListener());
         this.addWindowListener(new UIWindowListener());
+        glCanvas.addMouseWheelListener(new ZoomAdapter(zoomSlider, true));
     }
 
     private void loadLanguage() {
@@ -1212,6 +1216,7 @@ public class MainWindow extends JFrame {
 
         private boolean increase;
         private JSlider slider;
+        private final Double ZOOM_FACTOR = new Double(0.2d);
 
 
         public ZoomAdapter(JSlider slider, boolean increase) {
@@ -1232,7 +1237,19 @@ public class MainWindow extends JFrame {
                     slider.setValue(current - 1);
                 }
             }
-            camera.setDistance(current + 1);
+            camera.setDistance((current + 1)*ZOOM_FACTOR);
+        }
+
+        @Override
+        public void mouseWheelMoved(MouseWheelEvent e) {
+            int current = slider.getValue();
+            int newCount =  current + e.getWheelRotation();
+            if (newCount < slider.getMinimum())
+                newCount = slider.getMinimum();
+            else if (newCount > slider.getMaximum())
+                newCount = slider.getMaximum();
+            slider.setValue(newCount);
+            camera.setDistance((newCount+1)*ZOOM_FACTOR);
         }
     }
 
