@@ -2,13 +2,9 @@ package de.joglearth.rendering;
 
 import static javax.media.opengl.GL.GL_ARRAY_BUFFER;
 import static javax.media.opengl.GL.GL_FLOAT;
-import static javax.media.opengl.GL.GL_NO_ERROR;
 import static javax.media.opengl.GL.GL_UNSIGNED_INT;
 import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_VERTEX_ARRAY;
-import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -17,14 +13,10 @@ import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
-import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
-
-import jogamp.opengl.GLVersionNumber;
 
 import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.texture.Texture;
-import com.jogamp.opengl.util.texture.TextureData;
 import com.jogamp.opengl.util.texture.TextureIO;
 
 import de.joglearth.geometry.Camera;
@@ -39,7 +31,6 @@ import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.opengl.VertexBuffer;
-import de.joglearth.surface.HeightMap;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.surface.MapLayout;
 import de.joglearth.surface.SingleMapType;
@@ -283,9 +274,9 @@ public class Renderer {
         public void settingsChanged(String key, Object valOld, Object valNew) {
 
             if (key.equals(SettingsContract.DISPLAY_MODE)) {
-                setDisplayMode((DisplayMode) valNew);
+                setDisplayMode(Enum.valueOf(DisplayMode.class, (String) valNew));
             } else if (key.equals(SettingsContract.LEVEL_OF_DETAILS)) {
-                setLevelOfDetail((LevelOfDetail) valNew);
+                setLevelOfDetail(Enum.valueOf(LevelOfDetail.class, (String) valNew));
             } else if (key.equals(SettingsContract.HEIGHT_MAP_ENABLED)) {
                 setHeightMapEnabled((Boolean) valNew);
             }
