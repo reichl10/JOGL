@@ -43,7 +43,7 @@ public final class Mesh {
     /**
      * The number of primitives to draw from the index array.
      */
-    public int primitiveCount = 0;
+    public int indexCount = 0;
 
 
     /**
@@ -61,7 +61,7 @@ public final class Mesh {
         this.vertexFormat = glVertexFormat;
         this.indices = indices;
         this.primitiveType = primitiveType;
-        this.primitiveCount = primitiveCount;
+        this.indexCount = primitiveCount;
     }
 
     /**

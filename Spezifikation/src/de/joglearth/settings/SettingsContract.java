@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Set;
 
+import javax.management.RuntimeErrorException;
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLOutputFactory;
@@ -349,9 +350,10 @@ public final class SettingsContract {
      */
     public static void saveSettings() {
         System.err.println("SaveSettings!");
+        System.err.println("Saving to SettingsLocation:" +FILE_LOCATION);
         Settings s = Settings.getInstance();
         File f = new File(FILE_LOCATION);
-        f.mkdirs();
+        f.getParentFile().mkdirs();
         XMLStreamWriter xmlWriter = null;
         try {
             xmlWriter = XMLOutputFactory.newInstance().createXMLStreamWriter(
@@ -396,6 +398,8 @@ public final class SettingsContract {
 
     private static void writeEntry(XMLStreamWriter writer, String key,
             Object value) throws XMLStreamException {
+        if (value == null)
+            return;
         String valueS = "";
         String type = "";
         writer.writeStartElement(XML_ELEMENT_ENTRY);
@@ -425,10 +429,14 @@ public final class SettingsContract {
 
     private static void writeLocationSet(XMLStreamWriter writer, String key,
             Set<Location> set) throws XMLStreamException {
+        if (writer == null)
+            System.err.println("Writer is fucking null!");
         writer.writeStartElement(XML_ELEMENT_LOCS);
         writer.writeAttribute(XML_ATTR_LOCS_KEY, key);
+        if (set != null) {
         for (Location l : set)
             writeLocation(writer, l);
+        }
         writer.writeEndElement();
     }
 
@@ -457,13 +465,13 @@ public final class SettingsContract {
         String os = System.getProperty("os.name");
         if (os.contains("Windows")) {
             String localAppdata = System.getenv("LOCALAPPDATA");
-            return (localAppdata + "\\" + folderName + "\\" + "settings.xml");
+            return (localAppdata + File.separator + folderName + File.separator + "settings.xml");
         } else if (os.contains("Linux")) {
             String userHome = System.getProperty("user.home");
             return (userHome + File.separator + "." + folderName + File.separator
             + "settings.xml");
         } else {
-            return null;
+            throw new RuntimeException("System not supported!");
         }
     }
 }

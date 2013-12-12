@@ -1,9 +1,14 @@
 package de.joglearth.rendering;
 
 import static javax.media.opengl.GL.GL_ARRAY_BUFFER;
+import static javax.media.opengl.GL.GL_ELEMENT_ARRAY_BUFFER;
 import static javax.media.opengl.GL.GL_FLOAT;
+import static javax.media.opengl.GL.GL_NO_ERROR;
 import static javax.media.opengl.GL.GL_UNSIGNED_INT;
+import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_NORMAL_ARRAY;
+import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_TEXTURE_COORD_ARRAY;
 import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_VERTEX_ARRAY;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -14,8 +19,12 @@ import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
+import javax.media.opengl.glu.GLU;
+import javax.media.opengl.glu.GLUquadric;
 
 import com.jogamp.opengl.util.FPSAnimator;
+import com.jogamp.opengl.util.ImmModeSink;
+import com.jogamp.opengl.util.awt.TextRenderer;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
@@ -40,6 +49,8 @@ import de.joglearth.surface.TileMeshManager;
 import de.joglearth.surface.TiledMapType;
 import de.joglearth.util.AWTInvoker;
 import de.joglearth.util.Resource;
+
+import java.awt.Font;
 
 
 /**
@@ -68,7 +79,6 @@ public class Renderer {
     private Texture satellite;
     private Texture moon;
     private Texture sun;
-    private Tessellator tessellator;
     private TileMeshManager tileMeshManager;
 
     private Map<String, Texture> poiTextures;
@@ -83,16 +93,15 @@ public class Renderer {
      * @param canv GLCanvas object of the GUI
      * @param locationManager <code>LocationManager</code> that provides the information about
      *        Overlays to be displayed
-     * @param camera <code>Camera</code> object
      */
-    public Renderer(GLCanvas canv, LocationManager locationManager, Camera camera) {
+    public Renderer(GLCanvas canv, LocationManager locationManager) {
         this.locationManager = locationManager;
-        this.camera = camera;
         this.canvas = canv;
         canv.addGLEventListener(new RendererEventListener());
 
         locationManager.addSurfaceListener(new SurfaceValidator());
 
+        camera = new Camera(new SphereGeometry());
         camera.addCameraListener(new CameraListener() {
 
             @Override
@@ -150,32 +159,36 @@ public class Renderer {
     public synchronized void stop() {
         animator.stop();
     }
+    
+    GLU glu = new GLU();
+    GLUquadric q = null;
 
     // TODO Re-renders the OpenGL view.
     private void render(GL2 gl) {
 
+        gl.glPolygonMode(GL2.GL_FRONT_AND_BACK,  GL2.GL_LINE);
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         gl.glMatrixMode(GL2.GL_PROJECTION);
-
+        gl.glLoadIdentity();
+        GLU glu = new GLU();
+        glu.gluPerspective(45, 1, 0.1, 100);
+        //gl.glLoadMatrixd(camera.getProjectionMatrix().doubles(), 0);
+        
+        gl.glMatrixMode(GL2.GL_MODELVIEW);
+        gl.glLoadIdentity();
+        gl.glTranslatef(0,  -1.5f,  -3);
+        /*d
+        if (q == null)q=glu.gluNewQuadric();
+        glu.gluSphere(q, 1, 20, 10);
+        */
         int zoomLevel = CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles);
 
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
             startSolarSystem();
-        } else if (activeDisplayMode == DisplayMode.GLOBE_MAP) {
-
-            Iterable<Tile> tile = CameraUtils.getVisibleTiles(camera, zoomLevel);
-
-            renderMeshes(gl, tile);
-
-        } else if (activeDisplayMode == DisplayMode.PLANE_MAP) {
-
-            Iterable<Tile> tile = CameraUtils.getVisibleTiles(camera, zoomLevel);
-            renderMeshes(gl, tile);
-
         } else {
-            // TODO
-        }
-
+            Iterable<Tile> tile = CameraUtils.getVisibleTiles(camera, zoomLevel);
+            renderMeshes(gl, tile);
+        } 
         // glClear();
         // if (!sonnensystem) getVisibleTiles() else visibleTile = {zoom = 0, lon = 0, lat
         // = 0}
@@ -183,13 +196,19 @@ public class Renderer {
         // TileMeshSource.request(visibleTile)
         //
         // for (...) textur setzen vbo rendern
-
+    }
+    
+    public Camera getCamera() {
+        return camera;
     }
 
     private void initialize(GL2 gl) {
+        
+        gl.glEnable(GL2.GL_DEPTH_TEST);
+        //gl.glEnable(GL2.GL_CULL_FACE);        
 
         this.textureManager = new TextureManager(gl);
-        textureManager.addSurfaceListener(new SurfaceValidator());
+        ///textureManager.addSurfaceListener(new SurfaceValidator());
 
         /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
         loadTextures();
@@ -202,8 +221,9 @@ public class Renderer {
                 new SettingsChanged());
 
         leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
-        tileMeshManager = new TileMeshManager(gl, tessellator);
-
+        tileMeshManager = new TileMeshManager(gl, new SphereTessellator());
+        tileMeshManager.setTileSubdivisions(3);
+                
         animator = new FPSAnimator(60);
     }
 
@@ -213,27 +233,47 @@ public class Renderer {
 
     private void renderMeshes(GL2 gl, Iterable<Tile> tile) {
 
-        ArrayList<VertexBuffer> meshes = new ArrayList<VertexBuffer>();
-        tileMeshManager.setTessellator(tessellator);
-
         for (Tile t : tile) {
-            meshes.add(tileMeshManager.requestObject(t, new SourceChanged()).value);
-        }
+            VertexBuffer vbo = tileMeshManager.requestObject(t, null).value;
 
-        for (VertexBuffer vbo : meshes) {
-
+            // Bind vertex buffer
             gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
             GLError.throwIfActive(gl);
 
+            // Set vertex / normal / texcoord pointers
             gl.glEnableClientState(GL_VERTEX_ARRAY);
             GLError.throwIfActive(gl);
 
-            gl.glVertexPointer(3, GL_FLOAT, 0, 0);
+            gl.glVertexPointer(3, GL_FLOAT, 8*4, 5*4);
             GLError.throwIfActive(gl);
 
-            gl.glDrawElements(vbo.primitiveType, vbo.primitiveCount, GL_UNSIGNED_INT, vbo.indices);
+            gl.glEnableClientState(GL_NORMAL_ARRAY);
             GLError.throwIfActive(gl);
 
+            gl.glNormalPointer(GL_FLOAT, 8*4, 2*4);
+            GLError.throwIfActive(gl);
+
+            gl.glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            GLError.throwIfActive(gl);
+
+            gl.glTexCoordPointer(2, GL_FLOAT, 8*4, 0);
+            GLError.throwIfActive(gl);
+            
+            // Bind index buffer
+            gl.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.indices);
+            GLError.throwIfActive(gl);
+
+            // Draw
+            gl.glDrawElements(vbo.primitiveType, vbo.indexCount, GL_UNSIGNED_INT, 0);
+            GLError.throwIfActive(gl);
+
+            // Disable pointers
+            gl.glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+            GLError.throwIfActive(gl);
+            
+            gl.glDisableClientState(GL_NORMAL_ARRAY);
+            GLError.throwIfActive(gl);
+            
             gl.glDisableClientState(GL_VERTEX_ARRAY);
             GLError.throwIfActive(gl);
 
@@ -374,14 +414,14 @@ public class Renderer {
         activeDisplayMode = m;
 
         if (activeDisplayMode == DisplayMode.GLOBE_MAP) {
+            tileMeshManager.setTessellator(new SphereTessellator());
             camera.setGeometry(new SphereGeometry());
-            tessellator = new SphereTessellator();
         } else if (activeDisplayMode == DisplayMode.PLANE_MAP) {
+            tileMeshManager.setTessellator(new PlaneTessellator());
             camera.setGeometry(new PlaneGeometry());
-            tessellator = new PlaneTessellator();
         } else {
+            tileMeshManager.setTessellator(new SphereTessellator());
             camera.setGeometry(new SphereGeometry());
-            tessellator = new SphereTessellator();
         }
 
         post();

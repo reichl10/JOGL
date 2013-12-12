@@ -13,6 +13,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Collection;
@@ -55,7 +57,6 @@ import com.jgoodies.forms.layout.RowSpec;
 import de.joglearth.JoglEarth;
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
-import de.joglearth.geometry.CameraUtils;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.PlaneGeometry;
 import de.joglearth.geometry.ScreenCoordinates;
@@ -87,7 +88,7 @@ public class MainWindow extends JFrame {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            MainWindow dialog = new MainWindow(null, null);
+            MainWindow dialog = new MainWindow(null);
             dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             dialog.setVisible(true);
         } catch (Exception e) {
@@ -170,6 +171,7 @@ public class MainWindow extends JFrame {
     private JLabel mapTypeLabel;
     private JComboBox<IconizedItem<MapTypePair>> paraMapTypeComboBox;
     private JTabbedPane sideBarTabs;
+    private JSlider zoomSlider;
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -416,19 +418,19 @@ public class MainWindow extends JFrame {
                         loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.4")), //$NON-NLS-1$
+                Messages.getString("MainWindow.4"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.CYCLING))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.5")), //$NON-NLS-1$
+                Messages.getString("MainWindow.5"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.HIKING))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.6")), //$NON-NLS-1$
+                Messages.getString("MainWindow.6"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.SKIING))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.7")), //$NON-NLS-1$
+               Messages.getString("MainWindow.7"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM2WORLD))); //$NON-NLS-1$
         paraMapTypeComboBox
                 .addItem(new IconizedItem<MapTypePair>(
@@ -816,7 +818,7 @@ public class MainWindow extends JFrame {
         zoomPlusLabel.setIcon(loadIcon("icons/zoomPlus.png")); //$NON-NLS-1$
         zoomPanel.add(zoomPlusLabel, "1, 2"); //$NON-NLS-1$
 
-        JSlider zoomSlider = new JSlider();
+        zoomSlider = new JSlider();
         zoomSlider.setMajorTickSpacing(1);
         zoomSlider.setOrientation(SwingConstants.VERTICAL);
         zoomPanel.add(zoomSlider, "1, 4, default, fill"); //$NON-NLS-1$
@@ -905,18 +907,8 @@ public class MainWindow extends JFrame {
                                     .setVisible(mode != DisplayMode.SOLAR_SYSTEM);
                             switch (mode) {
                                 case SOLAR_SYSTEM:
-                                    // TODO: push to settings
-                                    camera.setGeometry(new SphereGeometry());
-                                    Settings.getInstance().putString(SettingsContract.DISPLAY_MODE,
-                                            mode.name());
-                                    break;
                                 case GLOBE_MAP:
-                                    camera.setGeometry(new SphereGeometry());
-                                    Settings.getInstance().putString(SettingsContract.DISPLAY_MODE,
-                                            mode.name());
-                                    break;
                                 case PLANE_MAP:
-                                    camera.setGeometry(new PlaneGeometry());
                                     Settings.getInstance().putString(SettingsContract.DISPLAY_MODE,
                                             mode.name());
                                     break;
@@ -936,6 +928,8 @@ public class MainWindow extends JFrame {
         });
         if (camera != null)
             camera.addCameraListener(new UICameraListener());
+        this.addWindowListener(new UIWindowListener());
+        glCanvas.addMouseWheelListener(new ZoomAdapter(zoomSlider, true));
     }
 
     private void loadLanguage() {
@@ -970,19 +964,19 @@ public class MainWindow extends JFrame {
                         loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.4")), //$NON-NLS-1$
+                Messages.getString("MainWindow.4"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.CYCLING))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.5")), //$NON-NLS-1$
+                Messages.getString("MainWindow.5"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.HIKING))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.6")), //$NON-NLS-1$
+                Messages.getString("MainWindow.6"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.SKIING))); //$NON-NLS-1$
         paraMapTypeComboBox
         .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString(Messages.getString("MainWindow.7")), //$NON-NLS-1$
+                Messages.getString("MainWindow.7"), //$NON-NLS-1$
                 loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM2WORLD))); //$NON-NLS-1$
         paraMapTypeComboBox
                 .addItem(new IconizedItem<MapTypePair>(
@@ -1058,10 +1052,8 @@ public class MainWindow extends JFrame {
      * Constructor.
      * 
      * @param locationManager The <code>LocationManager</code> associated with this window.
-     * @param camera The <code>Camera</code> used by this window
      */
-    public MainWindow(final LocationManager locationManager, final Camera camera) {
-        this.camera = camera;
+    public MainWindow(final LocationManager locationManager) {
         this.locationManager = locationManager;
         String lang = Settings.getInstance().getString(
                 SettingsContract.LANGUAGE);
@@ -1083,7 +1075,10 @@ public class MainWindow extends JFrame {
         initializeDetailsPanel();
         initializeViewPanel();
         loadLanguage();
-        renderer = new Renderer(glCanvas, locationManager, camera);
+        
+        renderer = new Renderer(glCanvas, locationManager);
+        camera = renderer.getCamera();
+        
         if (l.getLanguage().equals(Locale.GERMAN.getLanguage())) {
             System.err.println("Set Lang to German at start!"); //$NON-NLS-1$
             languageComboBox.setSelectedIndex(1);
@@ -1115,7 +1110,9 @@ public class MainWindow extends JFrame {
 
         @Override
         public void cameraViewChanged() {
-            // TODO: Update info at bottom
+            // TODO: DO, Show Coords usw.
+           GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
+           
         }
 
     }
@@ -1211,6 +1208,7 @@ public class MainWindow extends JFrame {
 
         private boolean increase;
         private JSlider slider;
+        private final Double ZOOM_FACTOR = new Double(0.2d);
 
 
         public ZoomAdapter(JSlider slider, boolean increase) {
@@ -1231,7 +1229,19 @@ public class MainWindow extends JFrame {
                     slider.setValue(current - 1);
                 }
             }
-            camera.setDistance(current + 1);
+            camera.setDistance((current + 1)*ZOOM_FACTOR);
+        }
+
+        @Override
+        public void mouseWheelMoved(MouseWheelEvent e) {
+            int current = slider.getValue();
+            int newCount =  current + e.getWheelRotation();
+            if (newCount < slider.getMinimum())
+                newCount = slider.getMinimum();
+            else if (newCount > slider.getMaximum())
+                newCount = slider.getMaximum();
+            slider.setValue(newCount);
+            camera.setDistance((newCount+1)*ZOOM_FACTOR);
         }
     }
 

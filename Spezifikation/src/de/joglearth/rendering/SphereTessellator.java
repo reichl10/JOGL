@@ -99,9 +99,10 @@ public class SphereTessellator implements Tessellator {
         double lat = direction > 0 ? tile.getLatitudeFrom() : tile.getLatitudeTo(),
                lon = tile.getLongitudeFrom();
         int shrinkCount = getShrinkCount(lat),
-            rowWidth = (subdivisions + 2) / (int) pow(2, shrinkCount),
+            rowWidth = max(2, (subdivisions + 2) / (int) pow(2, shrinkCount)),
             vIndex = 0, 
             iIndex = 0;
+        System.out.println(rowWidth);
         double lonStep = 2 * PI / ((rowWidth - 1) * pow(2, tile.getDetailLevel())),
                latStep = 2 * PI / ((1 + subdivisions) * pow(2, tile.getDetailLevel()));
         float[] vertices = new float[nRows * rowWidth * VERTEX_SIZE * 2];
@@ -112,7 +113,7 @@ public class SphereTessellator implements Tessellator {
         
         for (int i = 0; i < nRows; ++i) {
             lat += latStep;
-            int newRowWidth = (subdivisions + 2) / (int) pow(2, getShrinkCount(lat));
+            int newRowWidth = max(2, (subdivisions + 2) / (int) pow(2, getShrinkCount(lat)));
             if (newRowWidth < rowWidth) {
                 int groupSize = rowWidth / newRowWidth;
                 writeInterpolatedVertexLine(vertices, vIndex, lon, lat, lonStep, groupSize, latStep,
@@ -120,6 +121,7 @@ public class SphereTessellator implements Tessellator {
                 vIndex += rowWidth * VERTEX_SIZE;
                 writeIndicesLine(indices, iIndex, vIndex, rowWidth);
                 iIndex += 6 * rowWidth;
+                System.out.println("indices: " + indices + "\n" + "iIndex: " + iIndex + "\n" + "vIndex: " + vIndex + "\n" + "rowWidth: " + rowWidth);
                 rowWidth = newRowWidth;
                 writeVertexLine(vertices, vIndex, lon,
                         lat, lonStep, latStep, useHeightMap, rowWidth);
@@ -128,6 +130,7 @@ public class SphereTessellator implements Tessellator {
                 writeVertexLine(vertices, vIndex, lon, lat, lonStep,
                         latStep, useHeightMap, rowWidth);
                 vIndex += rowWidth * VERTEX_SIZE;
+                System.out.println("indices: " + indices + "\n" + "iIndex: " + iIndex + "\n" + "vIndex: " + vIndex + "\n" + "rowWidth: " + rowWidth);
                 writeIndicesLine(indices, iIndex, vIndex, rowWidth);
             }
         }
