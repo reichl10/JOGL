@@ -930,6 +930,7 @@ public class MainWindow extends JFrame {
             camera.addCameraListener(new UICameraListener());
         this.addWindowListener(new UIWindowListener());
         glCanvas.addMouseWheelListener(new ZoomAdapter(zoomSlider, true));
+        glCanvas.addMouseMotionListener(new GlMouseListener());
     }
 
     private void loadLanguage() {
