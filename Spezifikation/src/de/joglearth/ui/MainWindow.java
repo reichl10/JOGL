@@ -1115,11 +1115,11 @@ public class MainWindow extends JFrame {
         public void cameraViewChanged() {
            GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
            if (geo != null) {
-               latitudeLabel.setText(geo.getLatitudeString());
-               longitudeLabel.setText(geo.getLongitudeString());
+               latitudeTextField.setText(geo.getLatitudeString());
+               longitudeTextField.setText(geo.getLongitudeString());
            } else {
-               latitudeLabel.setText("");
-               longitudeLabel.setText("");
+               latitudeTextField.setText("");
+               longitudeTextField.setText("");
            }
            // TODO: Other sutuff like asking Nomination for Details as soon as it is implemented
         }
