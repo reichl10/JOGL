@@ -155,9 +155,6 @@ public class Renderer {
         animator.stop();
     }
     
-    GLU glu = new GLU();
-    GLUquadric q = null;
-
     // TODO Re-renders the OpenGL view.
     private void render(GL2 gl) {
         System.out.println("------------- NEW FRAME -------------");
@@ -173,7 +170,7 @@ public class Renderer {
         int zoomLevel = CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles);
 
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
-            startSolarSystem();
+            renderSolarSystem();
         } else {
             Iterable<Tile> tile = CameraUtils.getVisibleTiles(camera, zoomLevel);
             renderMeshes(gl, tile);
@@ -213,13 +210,22 @@ public class Renderer {
 
         leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
         tileMeshManager = new TileMeshManager(gl, new SphereTessellator());
-        tileMeshManager.setTileSubdivisions(0);
+        tileMeshManager.setTileSubdivisions(7);
+        
+        activeDisplayMode = DisplayMode.SOLAR_SYSTEM;
                 
         animator = new FPSAnimator(60);
     }
-
-    private void startSolarSystem() {
-        // TODO Fabian's Sonnensystem einbinden
+    
+    
+    GLU glu = new GLU();
+    GLUquadric quadric;
+    private void renderSolarSystem() {
+        if (quadric==null) {
+            quadric=glu.gluNewQuadric();
+            glu.gluQuadricOrientation(quadric, GLU.GLU_OUTSIDE);
+        }
+        glu.gluSphere(quadric, 1, 100, 50);
     }
 
     private void renderMeshes(GL2 gl, Iterable<Tile> tiles) {
