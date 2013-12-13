@@ -40,7 +40,7 @@ public class Matrix4Test {
     public final void testMultDoubleArray() {
         double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
         double[] multArray = { 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d };
-        double[] result = {90.000d, 202.000d, 314.000d, 426.000d, 100.000d, 228.000d, 356.000d, 484.000d, 110.000d, 254.000d, 398.000d, 542.000d, 120.000d, 280.000d, 440.000d, 600.000d};
+        double[] result = {30.000000000000000d, 78.000000000000000d, 126.000000000000000d, 174.000000000000000d, 30.000000000000000d, 78.000000000000000d, 126.000000000000000d, 174.000000000000000d, 30.000000000000000d, 78.000000000000000d, 126.000000000000000d, 174.000000000000000d, 30.000000000000000d, 78.000000000000000d, 126.000000000000000d, 174.000000000000000d};
         // TODO: finish
         Matrix4 matrix4 = new Matrix4(init);
         matrix4.mult(multArray);
@@ -59,7 +59,7 @@ public class Matrix4Test {
     public final void testMultMatrix4() {
         double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
         double[] multArray = { 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d };
-        double[] result = {90.000d, 202.000d, 314.000d, 426.000d, 100.000d, 228.000d, 356.000d, 484.000d, 110.000d, 254.000d, 398.000d, 542.000d, 120.000d, 280.000d, 440.000d, 600.000d};
+        double[] result = {30.000000000000000d, 78.000000000000000d, 126.000000000000000d, 174.000000000000000d, 30.000000000000000d, 78.000000000000000d, 126.000000000000000d, 174.000000000000000d, 30.000000000000000d, 78.000000000000000d, 126.000000000000000d, 174.000000000000000d, 30.000000000000000d, 78.000000000000000d, 126.000000000000000d, 174.000000000000000d};
         // TODO: finish
         Matrix4 matrix4 = new Matrix4(init);
         Matrix4 matrix2 = new Matrix4(multArray);
@@ -114,7 +114,13 @@ public class Matrix4Test {
 
     @Test
     public final void testTranslateVector3() {
-        fail("Not yet implemented"); // TODO
+        double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
+        double[] trans = { 0.23, 0.12, 0.1342 };
+        double[] result = {1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4.8726d, 10.8094d, 17.4946d, 22.323d};
+        Vector3 v3 = new Vector3(trans[0], trans[1], trans[2]);
+        Matrix4 m1 = new Matrix4(init);
+        m1.translate(v3);
+        assertArrayEquals(result, m1.doubles(), 0.00001d);
     }
 
     @Test
