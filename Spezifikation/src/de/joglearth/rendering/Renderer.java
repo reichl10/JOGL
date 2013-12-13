@@ -1,13 +1,7 @@
 package de.joglearth.rendering;
 
-import static javax.media.opengl.GL.GL_ARRAY_BUFFER;
-import static javax.media.opengl.GL.GL_ELEMENT_ARRAY_BUFFER;
-import static javax.media.opengl.GL.GL_FLOAT;
-import static javax.media.opengl.GL.GL_NO_ERROR;
-import static javax.media.opengl.GL.GL_UNSIGNED_INT;
-import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_NORMAL_ARRAY;
-import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_TEXTURE_COORD_ARRAY;
-import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_VERTEX_ARRAY;
+import static javax.media.opengl.GL2.*;
+import static java.lang.Math.*;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -32,6 +26,7 @@ import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.CameraUtils;
 import de.joglearth.geometry.GeoCoordinates;
+import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.PlaneGeometry;
 import de.joglearth.geometry.SphereGeometry;
 import de.joglearth.geometry.Tile;
@@ -165,22 +160,16 @@ public class Renderer {
 
     // TODO Re-renders the OpenGL view.
     private void render(GL2 gl) {
-
-        gl.glPolygonMode(GL2.GL_FRONT_AND_BACK,  GL2.GL_LINE);
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-        gl.glMatrixMode(GL2.GL_PROJECTION);
-        gl.glLoadIdentity();
-        GLU glu = new GLU();
-        glu.gluPerspective(45, 1, 0.1, 100);
-        //gl.glLoadMatrixd(camera.getProjectionMatrix().doubles(), 0);
+        System.out.println("------------- NEW FRAME -------------");
         
-        gl.glMatrixMode(GL2.GL_MODELVIEW);
-        gl.glLoadIdentity();
-        gl.glTranslatef(0,  -1.5f,  -3);
-        /*d
-        if (q == null)q=glu.gluNewQuadric();
-        glu.gluSphere(q, 1, 20, 10);
-        */
+        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+        
+        gl.glMatrixMode(GL_PROJECTION);
+        gl.glLoadMatrixd(camera.getProjectionMatrix().doubles(), 0);
+        
+        gl.glMatrixMode(GL_MODELVIEW);
+        gl.glLoadMatrixd(camera.getModelViewMatrix().doubles(), 0);
+        
         int zoomLevel = CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles);
 
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
@@ -204,8 +193,10 @@ public class Renderer {
 
     private void initialize(GL2 gl) {
         
-        gl.glEnable(GL2.GL_DEPTH_TEST);
-        //gl.glEnable(GL2.GL_CULL_FACE);        
+        gl.glEnable(GL_DEPTH_TEST);
+        gl.glEnable(GL_CULL_FACE);     
+        gl.glEnable(GL_TEXTURE_2D);
+        gl.glPolygonMode(GL_FRONT_AND_BACK,  GL_FILL);
 
         this.textureManager = new TextureManager(gl);
         ///textureManager.addSurfaceListener(new SurfaceValidator());
@@ -222,7 +213,7 @@ public class Renderer {
 
         leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
         tileMeshManager = new TileMeshManager(gl, new SphereTessellator());
-        tileMeshManager.setTileSubdivisions(3);
+        tileMeshManager.setTileSubdivisions(0);
                 
         animator = new FPSAnimator(60);
     }
@@ -231,10 +222,14 @@ public class Renderer {
         // TODO Fabian's Sonnensystem einbinden
     }
 
-    private void renderMeshes(GL2 gl, Iterable<Tile> tile) {
+    private void renderMeshes(GL2 gl, Iterable<Tile> tiles) {
 
-        for (Tile t : tile) {
-            VertexBuffer vbo = tileMeshManager.requestObject(t, null).value;
+        for (Tile tile : tiles) {
+            Integer texture = textureManager.getTexture(tile);
+            
+            gl.glBindTexture(GL_TEXTURE_2D, texture);
+            
+            VertexBuffer vbo = tileMeshManager.requestObject(tile, null).value;
 
             // Bind vertex buffer
             gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
@@ -286,13 +281,13 @@ public class Renderer {
     /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
     private void loadTextures() {
 
-        /* Loads texture: kidsWorldMap */
+        /* Loads texture: kidsWorldMap 
         kidsWorldMap = TextureIO.newTexture(Resource.loadTextureData(
                 "textures/kidsWorldMap.jpg", "jpg"));
         satellite = TextureIO.newTexture(Resource.loadTextureData(
                 "textures/earth.jpg", "jpg"));
         moon = TextureIO.newTexture(Resource.loadTextureData(
-                "textures/moon.jpg", "jpg"));
+                "textures/moon.jpg", "jpg"));*/
         // sun = TextureIO.newTexture(Resource.loadTextureData(
         // "textures/sun.jpg", "jpg"));
     }
@@ -352,27 +347,37 @@ public class Renderer {
 
         @Override
         public void display(GLAutoDrawable drawable) {
+            camera.setUpdatesEnabled(false);
             render(drawable.getGL().getGL2());
+            camera.setUpdatesEnabled(true);
         }
 
         @Override
         public void dispose(GLAutoDrawable drawable) {
+            camera.setUpdatesEnabled(false);
             stop();
+            camera.setUpdatesEnabled(true);
         }
 
         @Override
         public void init(GLAutoDrawable drawable) {
+            camera.setUpdatesEnabled(false);
             initialize(drawable.getGL().getGL2());
+            camera.setUpdatesEnabled(true);
         }
 
         @Override
         public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
+            camera.setUpdatesEnabled(false);
+            
             leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
             double aspectRatio = (double) width / (double) height;
-            double fov = (double) Math.PI / 2; // TODO
+            double fov = (double) PI / 2; // TODO
             double near = 0.1; // TODO
-            double far = 1000.0; // TODO
+            double far = 100.0; // TODO
             camera.setPerspective(fov, aspectRatio, near, far);
+            
+            camera.setUpdatesEnabled(true);
         }
     }
 

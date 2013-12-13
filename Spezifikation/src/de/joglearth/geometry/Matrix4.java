@@ -1,6 +1,7 @@
 package de.joglearth.geometry;
 
 import java.util.Arrays;
+import static java.lang.Math.*;
 
 
 /**
@@ -67,7 +68,7 @@ public final class Matrix4 implements Cloneable {
         for (int i = 0; i < 4; ++i) {
             for (int j = 0; j < 4; ++j) {
                 for (int k = 0; k < 4; ++k) {
-                    r[4 * i + j] += m[4 * i + k] * rhs[4 * k + j];
+                    r[4 * j + i] += m[4 * k + i] * rhs[4 * j + k];
                 }
             }
         }
@@ -156,8 +157,13 @@ public final class Matrix4 implements Cloneable {
      * @param rad The rotation angle, in radians
      */
     public void rotate(Vector3 axis, double rad) {
-        final double c = Math.cos(rad), s = Math.sin(rad);
-        mult(new double[] { 1, 0, 0, 0, 0, c, s, 0, 0, -s, c, 0, 0, 0, 0, 1 });
+        final double n1 = axis.x, n2 = axis.y, n3 = axis.z, c = cos(rad), s = sin(rad);
+        mult(new double[] { 
+                n1*n1*(1-c)+c, n2*n1*(1-c)+n3*s, n3*n1*(1-c)-n2*s, 0,
+                n1*n2*(1-c)-n3*s, n2*n2*(1-c)+c, n3*n2*(1-c)+n1*s, 0,
+                n1*n3*(1-c)+n2*s, n2*n3*(1-c)-n1*s, n3*n3*(1-c)+c, 0,
+                0, 0, 0, 1
+        });
     }
 
     /**
@@ -277,9 +283,9 @@ public final class Matrix4 implements Cloneable {
     @Override
     public String toString() {
         String s = "";
-        for (int i = 0; i < 16; i += 4) {
-            s += String.format("%.3e %.3e %.3e %.3e\n", m[i], m[i + 1],
-                    m[i + 2], m[i + 3]);
+        for (int i = 0; i < 4; ++i) {
+            s += String.format("%.3e %.3e %.3e %.3e\n", m[i], m[i + 4],
+                    m[i + 8], m[i + 12]);
         }
         return s;
     }
@@ -323,5 +329,6 @@ public final class Matrix4 implements Cloneable {
         final Matrix4 other = (Matrix4) obj;
         return Arrays.equals(m, other.m);
     }
-
+    
+    
 }

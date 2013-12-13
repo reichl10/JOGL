@@ -38,8 +38,6 @@ public class SphereGeometry implements Geometry {
          * set equal to the linear equation and solved for lambda.
          * If no real solution exists, the line does not intersect the sphere.
          */
-        System.out.println("POS: " + c);
-        System.out.println("VIEW: " + v);
         double denom = 1 / (v.x * v.x + v.y * v.y + v.z * v.z);
         double sqrt_arg = pow(c.x * v.x + c.y * v.y + c.z * v.z, 2)
                 - (c.x * c.x + c.y * c.y + c.z * c.z - 1) * (v.x * v.x + v.y * v.y + v.z * v.z);
