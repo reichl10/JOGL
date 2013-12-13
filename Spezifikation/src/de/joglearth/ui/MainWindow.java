@@ -1132,7 +1132,7 @@ public class MainWindow extends JFrame {
 
         double currentTiltX = 0.0d;
         double currentTiltY = 0.0d;
-        private static final double SCALE_TILT = 0.001d;
+        private static final double SCALE_TILT = 0.1d;
         ScreenCoordinates lastPos;
 
 
@@ -1158,9 +1158,9 @@ public class MainWindow extends JFrame {
                         System.out.format("Move: deltaX=%g,  deltaY=%g, deltaLon=%g, deltaLat=%g\n", newPos.x - lastPos.x, newPos.y - lastPos.y, newGeo.getLongitude() - lastGeo.getLongitude(), newGeo.getLatitude() - lastGeo.getLatitude());
                     }
                 }
-            } /*else if (SwingUtilities.isRightMouseButton(e)) {
-                double diffX = p.getX() - lastPos.getX();
-                double diffY = p.getY() - lastPos.getY();
+            } else if (SwingUtilities.isRightMouseButton(e)) {
+                double diffY = newPos.x - lastPos.x;
+                double diffX = newPos.y - lastPos.y;
                 // -pi/2,pi/2
                 currentTiltX += (diffX * SCALE_TILT);
                 currentTiltY += (diffY * SCALE_TILT);
@@ -1177,7 +1177,7 @@ public class MainWindow extends JFrame {
                     currentTiltY = (Math.PI / 2);
                 }
                 camera.setTilt(currentTiltX, currentTiltY);
-            }*/
+            }
             lastPos = newPos;
             super.mouseDragged(e);
         }
