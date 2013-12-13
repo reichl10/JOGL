@@ -73,11 +73,9 @@ public final class CameraUtils {
 
         if (center != null) {
             Set<GridPoint> visiblePoints = getVisibleGridPoints(center, zoomLevel, camera);
-            System.out.println(visiblePoints);
             TileWalker walker = new TileWalker(visiblePoints, center, zoomLevel);
             while (walker.step()) {
                 visibleTiles.add(walker.getTile());
-                System.out.println(walker.getTile());
             }
         }
 
@@ -359,8 +357,8 @@ public final class CameraUtils {
             this.lon = center.longitude();
             this.lat = center.latitude();
             this.zoomLevel = zoomLevel;
-            this.currentTile = new Tile(zoomLevel, center.lon, center.lat);
             this.maxIndex = (int) pow(2, zoomLevel);
+            this.currentTile = new Tile(zoomLevel, index(center.lon), index(center.lat));
         }
 
         private int index(int ind) {

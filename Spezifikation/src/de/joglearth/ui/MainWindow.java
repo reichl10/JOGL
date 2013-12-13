@@ -1,7 +1,9 @@
 package de.joglearth.ui;
 
 import static de.joglearth.util.Resource.loadIcon;
+import static java.lang.Math.*;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -1131,26 +1133,32 @@ public class MainWindow extends JFrame {
         double currentTiltX = 0.0d;
         double currentTiltY = 0.0d;
         private static final double SCALE_TILT = 0.001d;
-        Point lastPos;
+        ScreenCoordinates lastPos;
 
+
+        private ScreenCoordinates getScreenCoordinates(Point p) {
+            return new ScreenCoordinates(p.getX() / glCanvas.getWidth(), 
+                    p.getY() / glCanvas.getHeight());
+        }
 
         @Override
         public void mouseDragged(MouseEvent e) {
             Point p = e.getPoint();
+            ScreenCoordinates newPos = getScreenCoordinates(e.getPoint());
             if (SwingUtilities.isLeftMouseButton(e)) {
-                GLCanvas gl = (GLCanvas) e.getSource();
-                Dimension dimension = gl.getSize();
-                double diffX = p.getX() - lastPos.getX();
-                double diffY = p.getY() - lastPos.getY();
-                // 0,0 - 1,1
-                double xscreen = dimension.width / (p.getX() + diffX);
-                double yscreen = dimension.height / (p.getY() + diffY);
-                GeoCoordinates newpos = camera
-                        .getGeoCoordinates(new ScreenCoordinates(xscreen,
-                                yscreen));
-                if (newpos != null)
-                    camera.setPosition(newpos);
-            } else if (SwingUtilities.isRightMouseButton(e)) {
+                if (lastPos != null && newPos != null) {
+                    GeoCoordinates lastGeo = camera.getGeoCoordinates(lastPos);
+                    GeoCoordinates newGeo = camera.getGeoCoordinates(newPos);
+                    if (lastGeo != null && newGeo != null) {
+                        double deltaLon = -signum(newPos.x - lastPos.x)
+                                * abs(newGeo.getLongitude() - lastGeo.getLongitude());
+                        double deltaLat = signum(newPos.y - lastPos.y)
+                                * abs(newGeo.getLatitude() - lastGeo.getLatitude());
+                        camera.move(deltaLon, deltaLat);
+                        System.out.format("Move: deltaX=%g,  deltaY=%g, deltaLon=%g, deltaLat=%g\n", newPos.x - lastPos.x, newPos.y - lastPos.y, newGeo.getLongitude() - lastGeo.getLongitude(), newGeo.getLatitude() - lastGeo.getLatitude());
+                    }
+                }
+            } /*else if (SwingUtilities.isRightMouseButton(e)) {
                 double diffX = p.getX() - lastPos.getX();
                 double diffY = p.getY() - lastPos.getY();
                 // -pi/2,pi/2
@@ -1169,14 +1177,14 @@ public class MainWindow extends JFrame {
                     currentTiltY = (Math.PI / 2);
                 }
                 camera.setTilt(currentTiltX, currentTiltY);
-            }
-            lastPos = p;
+            }*/
+            lastPos = newPos;
             super.mouseDragged(e);
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            lastPos = e.getPoint();
+            lastPos = getScreenCoordinates(e.getPoint());
             super.mousePressed(e);
         }
     }

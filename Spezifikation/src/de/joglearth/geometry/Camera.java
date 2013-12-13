@@ -399,11 +399,14 @@ public class Camera {
                 .normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
 
-        directionMatrix.rotate(xAxis, (screen.x - 0.5) * fov);
-        directionMatrix.rotate(yAxis, (screen.y - 0.5) * fov);
+        directionMatrix.rotate(yAxis, (screen.x - 0.5) * fov);
+        directionMatrix.rotate(xAxis, (screen.y - 0.5) * fov);
 
         Vector3 viewVector = directionMatrix.transform(new Vector3(0, 0, -1)).divide()
                 .minus(cameraPosition);
+
+        System.out.println("Screen: " + screen + ", Camera: " + cameraPosition + ", zAxis: " + zAxis
+                + ", xAxis: " + xAxis + ", yAxis: " + yAxis + ", view: " + viewVector);
 
         return geometry.getSurfaceCoordinates(cameraPosition, viewVector);
     }

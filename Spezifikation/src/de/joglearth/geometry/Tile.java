@@ -35,16 +35,24 @@ public final class Tile implements Cloneable {
 
     // Returns the angle for the step given, in radians
     private double getLongitudeAngle(int steps) {
-        double angle = pow(0.5, detailLevel) * steps % 1 * 2 * PI;
-        if (angle > PI) {
-            angle -= 2 * PI;
+        if (detailLevel > 0) {
+            double angle = pow(0.5, detailLevel) * steps % 1 * 2 * PI;
+            if (angle > PI) {
+                angle -= 2 * PI;
+            }
+            return angle;
+        } else {
+            return (-1+2*steps)*PI;
         }
-        return angle;
     }
     
     // Returns the angle for the step given, in radians
     private double getLatitudeAngle(int steps) {
-        return PI/2 - pow(0.5, detailLevel) * steps * PI;
+        if (detailLevel > 0) {
+            return PI/2 - pow(0.5, detailLevel) * steps * PI;
+        } else {
+            return (0.5-steps)*PI;
+        }
     }
 
     /**
@@ -128,7 +136,6 @@ public final class Tile implements Cloneable {
             lat = 0;
         }
         Tile tile = new Tile(detailLevel, lon, lat);
-        System.out.println(tile.toString() + " contains " + coords.toString());
         return tile;
     }
 
