@@ -1092,6 +1092,7 @@ public class MainWindow extends JFrame {
             languageComboBox.setSelectedIndex(0);
         }
         registerListeners();
+        displayModeComboBox.setSelectedIndex(2);
     }
 
     /**
