@@ -1132,7 +1132,7 @@ public class MainWindow extends JFrame {
 
         double currentTiltX = 0.0d;
         double currentTiltY = 0.0d;
-        private static final double SCALE_TILT = 0.1d;
+        private static final double SCALE_TILT = 0.3d;
         ScreenCoordinates lastPos;
 
 

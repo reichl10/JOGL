@@ -96,7 +96,7 @@ public class Renderer {
 
         locationManager.addSurfaceListener(new SurfaceValidator());
 
-        camera = new Camera(new SphereGeometry());
+        camera = new Camera(new PlaneGeometry());
         camera.addCameraListener(new CameraListener() {
 
             @Override
@@ -209,10 +209,10 @@ public class Renderer {
                 new SettingsChanged());
 
         leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
-        tileMeshManager = new TileMeshManager(gl, new SphereTessellator());
+        tileMeshManager = new TileMeshManager(gl, new PlaneTessellator());
         tileMeshManager.setTileSubdivisions(7);
         
-        activeDisplayMode = DisplayMode.SOLAR_SYSTEM;
+        activeDisplayMode = DisplayMode.PLANE_MAP;
                 
         animator = new FPSAnimator(60);
     }
@@ -422,18 +422,18 @@ public class Renderer {
      */
     private synchronized void setDisplayMode(DisplayMode m) {
         // TODO Braucht man das hier?
-        activeDisplayMode = m;
-
+        activeDisplayMode = DisplayMode.PLANE_MAP;
+/*
         if (activeDisplayMode == DisplayMode.GLOBE_MAP) {
             tileMeshManager.setTessellator(new SphereTessellator());
             camera.setGeometry(new SphereGeometry());
-        } else if (activeDisplayMode == DisplayMode.PLANE_MAP) {
+        } else if (activeDisplayMode == DisplayMode.PLANE_MAP) {*/
             tileMeshManager.setTessellator(new PlaneTessellator());
-            camera.setGeometry(new PlaneGeometry());
+            camera.setGeometry(new PlaneGeometry());/*
         } else {
             tileMeshManager.setTessellator(new SphereTessellator());
             camera.setGeometry(new SphereGeometry());
-        }
+        }*/
 
         post();
     }
