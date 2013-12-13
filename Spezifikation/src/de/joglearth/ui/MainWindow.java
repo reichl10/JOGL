@@ -1117,11 +1117,11 @@ public class MainWindow extends JFrame {
         public void cameraViewChanged() {
            GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
            if (geo != null) {
-               latitudeLabel.setText(geo.getLatitudeString());
-               longitudeLabel.setText(geo.getLongitudeString());
+               latitudeTextField.setText(geo.getLatitudeString());
+               longitudeTextField.setText(geo.getLongitudeString());
            } else {
-               latitudeLabel.setText("");
-               longitudeLabel.setText("");
+               latitudeTextField.setText("");
+               longitudeTextField.setText("");
            }
            // TODO: Other sutuff like asking Nomination for Details as soon as it is implemented
         }
@@ -1225,7 +1225,7 @@ public class MainWindow extends JFrame {
 
         private boolean increase;
         private JSlider slider;
-        private final Double ZOOM_FACTOR = new Double(0.2d);
+        private final Double ZOOM_FACTOR = new Double(1.1d/100d);
 
 
         public ZoomAdapter(JSlider slider, boolean increase) {
@@ -1246,7 +1246,7 @@ public class MainWindow extends JFrame {
                     slider.setValue(current - 1);
                 }
             }
-            camera.setDistance((current + 1)*ZOOM_FACTOR);
+            camera.setDistance((current)*ZOOM_FACTOR+0.1);
         }
 
         @Override
@@ -1258,7 +1258,7 @@ public class MainWindow extends JFrame {
             else if (newCount > slider.getMaximum())
                 newCount = slider.getMaximum();
             slider.setValue(newCount);
-            camera.setDistance((newCount+1)*ZOOM_FACTOR);
+            camera.setDistance((newCount)*ZOOM_FACTOR+0.1);
         }
     }
 
