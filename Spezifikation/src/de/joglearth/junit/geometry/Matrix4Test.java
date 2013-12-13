@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.Vector3;
+import de.joglearth.geometry.Vector4;
 
 
 public class Matrix4Test {
@@ -104,10 +105,11 @@ public class Matrix4Test {
     @Test
     public final void testTranslateDoubleDoubleDouble() {
         double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
-        double[] addArray = { 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d, 3d };
+        double[] trans = { 0.23, 0.12, 0.1342 };
+        double[] result = {1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4.8726d, 10.8094d, 17.4946d, 22.323d};
         Matrix4 m1 = new Matrix4(init);
-        m1.translate(0, 0, 0);
-        fail("Not yet implemented"); // TODO
+        m1.translate(trans[0], trans[1], trans[2]);
+        assertArrayEquals(result, m1.doubles(), 0.00001d);
     }
 
     @Test
@@ -140,12 +142,28 @@ public class Matrix4Test {
 
     @Test
     public final void testInverse() {
-        fail("Not yet implemented"); // TODO
+        double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 14d, 11d, 3d, 7d, 13d, 15d, 4d, 8d, 12d, 16d };
+        double[] result = {-0.833333333333334d, -0.666666666666667d, 1.833333333333340d, -0.583333333333334d, 0.666666666666668d, 1.000000000000000d, -3.000000000000000d, 1.583333333333340d, -0.166666666666667d, 0.000000000000000d, 0.500000000000001d, -0.333333333333334d, 0.000000000000000d, -0.333333333333334d, 0.666666666666668d, -0.333333333333334d };
+        Matrix4 m1 = new Matrix4(init);
+        Matrix4 m2 = m1.inverse();
+        double[] res = m2.doubles();
+        
+        /*System.out.print("iverse {");
+        for (int i = 0; i < res.length; i++)
+            System.out.print(res[i]+",");
+        System.out.println("}");*/
+        assertArrayEquals(result, res, 0.00000001d);
     }
 
     @Test
     public final void testTransform() {
-        fail("Not yet implemented"); // TODO
+        double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
+        double[] result = {5.4d, 11.8d, 19.6d, 24};
+        Matrix4 m1 = new Matrix4(init);
+        // transform with 0.1,0.2,0.3,1
+        Vector4 vector4 = m1.transform(new Vector3(0.1,0.2,0.3));
+        double[] got = {vector4.x, vector4.y, vector4.z, vector4.w};
+        assertArrayEquals(result, got, 0.00001d);
     }
 
 }
