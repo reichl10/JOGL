@@ -1,6 +1,7 @@
 package de.joglearth.rendering;
 
 import static javax.media.opengl.GL2.*;
+import static java.lang.Math.*;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.CameraUtils;
 import de.joglearth.geometry.GeoCoordinates;
+import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.PlaneGeometry;
 import de.joglearth.geometry.SphereGeometry;
 import de.joglearth.geometry.Tile;
@@ -159,20 +161,15 @@ public class Renderer {
     // TODO Re-renders the OpenGL view.
     private void render(GL2 gl) {
         System.out.println("------------- NEW FRAME -------------");
+        
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+        
         gl.glMatrixMode(GL_PROJECTION);
-        gl.glLoadIdentity();
-        GLU glu = new GLU();
-        glu.gluPerspective(90, (double) canvas.getWidth() / canvas.getHeight(), 0.1, 100);
-        //gl.glLoadMatrixd(camera.getProjectionMatrix().doubles(), 0);
+        gl.glLoadMatrixd(camera.getProjectionMatrix().doubles(), 0);
         
         gl.glMatrixMode(GL_MODELVIEW);
-        gl.glLoadIdentity();
-        gl.glTranslatef(0, 0, -3f);
-        /*d
-        if (q == null)q=glu.gluNewQuadric();
-        glu.gluSphere(q, 1, 20, 10);
-        */
+        gl.glLoadMatrixd(camera.getModelViewMatrix().doubles(), 0);
+        
         int zoomLevel = CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles);
 
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
@@ -350,27 +347,37 @@ public class Renderer {
 
         @Override
         public void display(GLAutoDrawable drawable) {
+            camera.setUpdatesEnabled(false);
             render(drawable.getGL().getGL2());
+            camera.setUpdatesEnabled(true);
         }
 
         @Override
         public void dispose(GLAutoDrawable drawable) {
+            camera.setUpdatesEnabled(false);
             stop();
+            camera.setUpdatesEnabled(true);
         }
 
         @Override
         public void init(GLAutoDrawable drawable) {
+            camera.setUpdatesEnabled(false);
             initialize(drawable.getGL().getGL2());
+            camera.setUpdatesEnabled(true);
         }
 
         @Override
         public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
+            camera.setUpdatesEnabled(false);
+            
             leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
             double aspectRatio = (double) width / (double) height;
-            double fov = (double) Math.PI / 2; // TODO
+            double fov = (double) PI / 2; // TODO
             double near = 0.1; // TODO
-            double far = 1000.0; // TODO
+            double far = 100.0; // TODO
             camera.setPerspective(fov, aspectRatio, near, far);
+            
+            camera.setUpdatesEnabled(true);
         }
     }
 

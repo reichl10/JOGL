@@ -23,11 +23,26 @@ public class Camera {
     private double tiltX = 0;
     private double tiltY = 0;
     private double fov, aspectRatio, zNear, zFar;
-    private Matrix4 clipMatrix, projectionMatrix;
-    /*TODO reset visibility*/ public Geometry geometry = null;
-    private Matrix4 cameraMatrix = null;
+    private Matrix4 projectionMatrix, cameraMatrix = new Matrix4(), modelViewMatrix = new Matrix4();
+    /* TODO reset visibility */public Geometry geometry = null;
     private List<CameraListener> listeners = new ArrayList<CameraListener>();
 
+    
+    private boolean updatesEnabled = false;
+    
+    public synchronized void setUpdatesEnabled(boolean enabled) {
+        updatesEnabled = enabled;
+    }
+    
+    private void postUpdate() {
+        if (updatesEnabled) {
+            for (CameraListener l : listeners) {
+                l.cameraViewChanged();
+            }
+        }
+    }
+    
+    
 
     private boolean updateCamera() {
         // TODO sign!
@@ -54,16 +69,10 @@ public class Camera {
                 .minus(cameraPosition);
 
         if (geometry.getSurfaceCoordinates(cameraPosition, viewVector) != null) {
-
-            projectionMatrix = newCameraMatrix.inverse();
-            projectionMatrix.mult(clipMatrix);
-
-            for (CameraListener l : listeners) {
-                l.cameraViewChanged();
-            }
             cameraMatrix = newCameraMatrix;
+            modelViewMatrix = cameraMatrix.inverse();
+            postUpdate();
             return true;
-
         } else {
             return false;
         }
@@ -101,6 +110,7 @@ public class Camera {
         geometry = geo;
         setPerspective((double) PI / 2, 1, 0.1, 1000);
         HeightMap.addSurfaceListener(new SurfaceHeightListener());
+        updatesEnabled = true;
     }
 
     /**
@@ -211,16 +221,16 @@ public class Camera {
         this.zNear = near;
         this.zFar = far;
 
-        double f = 1.f / (double) tan(fov * 0.5f);
-        double[] d = { f * aspectRatio, 0, 0, 0,
-                0, -f, 0, 0,
-                0, 0, -(far + near) / (far - near), -1,
-                0, 0, (2.f * near * far) / (near - far), 0 };
-        clipMatrix = new Matrix4(d);
+        double f = 1 / tan(fov * 0.5);
 
-        if (!updateCamera()) {
-            throw new IllegalStateException();
-        }
+        projectionMatrix = new Matrix4(new double[] {
+                f / aspectRatio, 0, 0, 0,
+                0, f, 0, 0,
+                0, 0, (far + near) / (near - far), -1,
+                0, 0, (2 * near * far) / (near - far), 0
+        });
+        
+        postUpdate();
     }
 
     /**
@@ -373,11 +383,14 @@ public class Camera {
         }
 
         Matrix4 directionMatrix = cameraMatrix.clone();
-        
+
         Vector3 cameraPosition = directionMatrix.transform(new Vector3(0, 0, 0)).divide();
-        
-        Vector3 zAxis = directionMatrix.transform(new Vector3(0, 0, -1)).divide().minus(cameraPosition).normalized();
-        Vector3 xAxis = zAxis.crossProduct(directionMatrix.transform(new Vector3(0, 1, 0)).divide().minus(cameraPosition)).normalized();
+
+        Vector3 zAxis = directionMatrix.transform(new Vector3(0, 0, -1)).divide()
+                .minus(cameraPosition).normalized();
+        Vector3 xAxis = zAxis.crossProduct(
+                directionMatrix.transform(new Vector3(0, 1, 0)).divide().minus(cameraPosition))
+                .normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
 
         directionMatrix.rotate(xAxis, (screen.x - 0.5) * fov);
@@ -400,6 +413,10 @@ public class Camera {
      */
     public Matrix4 getProjectionMatrix() {
         return projectionMatrix;
+    }
+    
+    public Matrix4 getModelViewMatrix() {
+        return modelViewMatrix;
     }
 
     /**
@@ -427,7 +444,7 @@ public class Camera {
 
         listeners.remove(l);
     }
-    
+
     public static void main(String[] args) {
         SphereGeometry s = new SphereGeometry();
         Camera c = new Camera(s);
