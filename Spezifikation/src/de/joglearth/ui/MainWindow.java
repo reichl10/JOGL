@@ -1110,9 +1110,15 @@ public class MainWindow extends JFrame {
 
         @Override
         public void cameraViewChanged() {
-            // TODO: DO, Show Coords usw.
            GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
-           
+           if (geo != null) {
+               latitudeLabel.setText(geo.getLatitudeString());
+               longitudeLabel.setText(geo.getLongitudeString());
+           } else {
+               latitudeLabel.setText("");
+               longitudeLabel.setText("");
+           }
+           // TODO: Other sutuff like asking Nomination for Details as soon as it is implemented
         }
 
     }
