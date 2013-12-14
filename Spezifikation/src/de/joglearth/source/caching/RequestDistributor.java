@@ -196,7 +196,8 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         caches = Collections.synchronizedList(new ArrayList<Cache<Key, Value>>(2));
         cacheSizeMap = new Hashtable<Cache<Key, Value>, Integer>();
         waitingRequestsMap = new Hashtable<Key, Set<SourceListener<Key, Value>>>();
-        // TODO: Init lastUsedMap
+        lastUsedMap = new Hashtable<Cache<Key, Value>, Map<Key, BigInteger>>();
+        usedSizeMap = new Hashtable<Cache<Key, Value>, Integer>();
         lastStamp = new BigInteger("0");
     }
 
