@@ -11,7 +11,7 @@ import de.joglearth.source.SourceResponse;
  */
 public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
-    private String              folder;
+    private String folder;
     private PathTranslator<Key> paths;
 
 
