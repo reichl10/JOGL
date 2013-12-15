@@ -1,9 +1,9 @@
 package de.joglearth.ui;
 
 import static de.joglearth.util.Resource.loadIcon;
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
+import static java.lang.Math.signum;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -16,7 +16,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Collection;
@@ -24,7 +23,9 @@ import java.util.Locale;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
+import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -60,9 +61,7 @@ import de.joglearth.JoglEarth;
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.geometry.PlaneGeometry;
 import de.joglearth.geometry.ScreenCoordinates;
-import de.joglearth.geometry.SphereGeometry;
 import de.joglearth.rendering.AntialiasingType;
 import de.joglearth.rendering.DisplayMode;
 import de.joglearth.rendering.LevelOfDetail;
@@ -765,7 +764,7 @@ public class MainWindow extends JFrame {
                 RowSpec.decode("default:grow"), RowSpec.decode("1dlu"), //$NON-NLS-1$ //$NON-NLS-2$
                         RowSpec.decode("20dlu"), RowSpec.decode("1dlu"), })); //$NON-NLS-1$ //$NON-NLS-2$
 
-        glCanvas = new GLCanvas();
+        glCanvas = new GLCanvas(new GLCapabilities(GLProfile.get(GLProfile.GL2)));
         if (glCanvas == null) {
             System.err.println("Couldn't create Canvas!"); //$NON-NLS-1$
         }
