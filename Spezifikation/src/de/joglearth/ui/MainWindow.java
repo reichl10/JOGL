@@ -100,7 +100,9 @@ public class MainWindow extends JFrame {
 
     private static ImageIcon hideIcon = loadIcon("icons/hide.png"); //$NON-NLS-1$
     private static ImageIcon showIcon = loadIcon("icons/show.png"); //$NON-NLS-1$
-    private GLCanvas glCanvas;
+    // To get the GUI Editor to work
+    // private GLCanvas glCanvas;
+    private Component glCanvas;
 
     /**
      * SerialVersionUID
@@ -230,10 +232,12 @@ public class MainWindow extends JFrame {
         setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
         this.viewEventListener = new ViewEventListener(camera);
         getContentPane().setLayout(
-                new FormLayout(new ColumnSpec[] { ColumnSpec.decode("130dlu"), //$NON-NLS-1$
-                        ColumnSpec.decode("15px"), //$NON-NLS-1$
-                        ColumnSpec.decode("default:grow"), }, //$NON-NLS-1$
-                        new RowSpec[] { RowSpec.decode("default:grow"), })); //$NON-NLS-1$
+                new FormLayout(new ColumnSpec[] {
+                        ColumnSpec.decode("right:180dlu"),
+                        ColumnSpec.decode("15px"),
+                        ColumnSpec.decode("default:grow"), },
+                        new RowSpec[] {
+                                RowSpec.decode("default:grow"), })); //$NON-NLS-1$
 
         JPanel sideBar = new JPanel();
         getContentPane().add(sideBar, "1, 1, left, fill"); //$NON-NLS-1$
@@ -418,21 +422,21 @@ public class MainWindow extends JFrame {
                         Messages.getString("MainWindow.72"), //$NON-NLS-1$
                         loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK))); //$NON-NLS-1$
         paraMapTypeComboBox
-        .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString("MainWindow.4"), //$NON-NLS-1$
-                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.CYCLING))); //$NON-NLS-1$
+                .addItem(new IconizedItem<MapTypePair>(
+                        Messages.getString("MainWindow.4"), //$NON-NLS-1$
+                        loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.CYCLING))); //$NON-NLS-1$
         paraMapTypeComboBox
-        .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString("MainWindow.5"), //$NON-NLS-1$
-                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.HIKING))); //$NON-NLS-1$
+                .addItem(new IconizedItem<MapTypePair>(
+                        Messages.getString("MainWindow.5"), //$NON-NLS-1$
+                        loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.HIKING))); //$NON-NLS-1$
         paraMapTypeComboBox
-        .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString("MainWindow.6"), //$NON-NLS-1$
-                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.SKIING))); //$NON-NLS-1$
+                .addItem(new IconizedItem<MapTypePair>(
+                        Messages.getString("MainWindow.6"), //$NON-NLS-1$
+                        loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.SKIING))); //$NON-NLS-1$
         paraMapTypeComboBox
-        .addItem(new IconizedItem<MapTypePair>(
-               Messages.getString("MainWindow.7"), //$NON-NLS-1$
-                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM2WORLD))); //$NON-NLS-1$
+                .addItem(new IconizedItem<MapTypePair>(
+                        Messages.getString("MainWindow.7"), //$NON-NLS-1$
+                        loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM2WORLD))); //$NON-NLS-1$
         paraMapTypeComboBox
                 .addItem(new IconizedItem<MapTypePair>(
                         Messages.getString("MainWindow.74"), //$NON-NLS-1$
@@ -764,42 +768,52 @@ public class MainWindow extends JFrame {
                 RowSpec.decode("default:grow"), RowSpec.decode("1dlu"), //$NON-NLS-1$ //$NON-NLS-2$
                         RowSpec.decode("20dlu"), RowSpec.decode("1dlu"), })); //$NON-NLS-1$ //$NON-NLS-2$
 
+        // TODO: Remove remplacement for working with GUIEditor
+        // glCanvas = new JPanel();
         glCanvas = new GLCanvas(new GLCapabilities(GLProfile.get(GLProfile.GL2)));
         if (glCanvas == null) {
             System.err.println("Couldn't create Canvas!"); //$NON-NLS-1$
         }
-        glCanvas.addGLEventListener(new GLEventListener() {
+        // TODO: remove this hack for the GUIEditor
+        if (glCanvas instanceof GLCanvas) {
+            ((GLCanvas) glCanvas).addGLEventListener(new GLEventListener() {
 
-            @Override
-            public void display(GLAutoDrawable arg0) {
-                arg0.getGL().getGL2().glClear(GL2.GL_COLOR_BUFFER_BIT);
-            }
+                @Override
+                public void display(GLAutoDrawable arg0) {
+                    arg0.getGL().getGL2().glClear(GL2.GL_COLOR_BUFFER_BIT);
+                }
 
-            @Override
-            public void dispose(GLAutoDrawable arg0) {
+                @Override
+                public void dispose(GLAutoDrawable arg0) {
 
-            }
+                }
 
-            @Override
-            public void init(GLAutoDrawable arg0) {}
+                @Override
+                public void init(GLAutoDrawable arg0) {}
 
-            @Override
-            public void reshape(GLAutoDrawable arg0, int arg1, int arg2,
-                    int arg3, int arg4) {
-                ((Component) arg0).setMinimumSize(new Dimension(0, 0));
-            }
+                @Override
+                public void reshape(GLAutoDrawable arg0, int arg1, int arg2,
+                        int arg3, int arg4) {
+                    ((Component) arg0).setMinimumSize(new Dimension(0, 0));
+                }
 
-        });
+            });
+        }
+
         viewPanel.add(glCanvas, "1, 1, fill, fill"); //$NON-NLS-1$
 
         JPanel statusBar = new JPanel();
         viewPanel.add(statusBar, "1, 3, 2, 1, fill, fill"); //$NON-NLS-1$
         statusBar.setLayout(new FormLayout(new ColumnSpec[] {
-                FormFactory.RELATED_GAP_COLSPEC, ColumnSpec.decode("50dlu"), //$NON-NLS-1$
-                ColumnSpec.decode("default:grow"), ColumnSpec.decode("150dlu"), //$NON-NLS-1$ //$NON-NLS-2$
-                ColumnSpec.decode("default:grow"), ColumnSpec.decode("70dlu"), //$NON-NLS-1$ //$NON-NLS-2$
-                FormFactory.RELATED_GAP_COLSPEC, }, new RowSpec[] { RowSpec
-                .decode("default:grow"), })); //$NON-NLS-1$
+                FormFactory.RELATED_GAP_COLSPEC,
+                ColumnSpec.decode("50dlu"),
+                FormFactory.UNRELATED_GAP_COLSPEC,
+                ColumnSpec.decode("max(220dlu;pref)"),
+                ColumnSpec.decode("7dlu:grow"),
+                ColumnSpec.decode("right:70dlu"),
+                FormFactory.RELATED_GAP_COLSPEC, },
+                new RowSpec[] {
+                        RowSpec.decode("default:grow"), })); //$NON-NLS-1$
 
         JPanel zoomPanel = new JPanel();
         viewPanel.add(zoomPanel, "2, 1, center, fill"); //$NON-NLS-1$
@@ -850,11 +864,15 @@ public class MainWindow extends JFrame {
         JPanel coordPanel = new JPanel();
         statusBar.add(coordPanel, "4, 1, fill, fill"); //$NON-NLS-1$
         coordPanel.setLayout(new FormLayout(new ColumnSpec[] {
-                ColumnSpec.decode("default:grow"), ColumnSpec.decode("2dlu"), //$NON-NLS-1$ //$NON-NLS-2$
-                ColumnSpec.decode("default:grow"), ColumnSpec.decode("5dlu"), //$NON-NLS-1$ //$NON-NLS-2$
-                ColumnSpec.decode("default:grow"), ColumnSpec.decode("2dlu"), //$NON-NLS-1$ //$NON-NLS-2$
-                ColumnSpec.decode("default:grow"), }, new RowSpec[] { RowSpec //$NON-NLS-1$
-                .decode("default:grow"), })); //$NON-NLS-1$
+                ColumnSpec.decode("default:grow"),
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                ColumnSpec.decode("max(20dlu;pref):grow"),
+                ColumnSpec.decode("5dlu"),
+                ColumnSpec.decode("default:grow"),
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                ColumnSpec.decode("max(20dlu;pref):grow"), },
+                new RowSpec[] {
+                        RowSpec.decode("default:grow"), })); //$NON-NLS-1$
 
         latitudeLabel = new JLabel(Messages.getString("MainWindow.2")); //$NON-NLS-1$
         coordPanel.add(latitudeLabel, "1, 1, right, default"); //$NON-NLS-1$
@@ -959,33 +977,33 @@ public class MainWindow extends JFrame {
                 int index = paraMapTypeComboBox.getSelectedIndex();
                 paraMapTypeComboBox.removeAllItems();
                 paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
-                        Messages.getString("MainWindow.70"), //$NON-NLS-1$
-                        loadIcon("icons/mapSatellite.png"), new MapTypePair(SingleMapType.SATELLITE))); //$NON-NLS-1$
-        paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
-                        Messages.getString("MainWindow.72"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK))); //$NON-NLS-1$
-        paraMapTypeComboBox
-        .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString("MainWindow.4"), //$NON-NLS-1$
-                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.CYCLING))); //$NON-NLS-1$
-        paraMapTypeComboBox
-        .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString("MainWindow.5"), //$NON-NLS-1$
-                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.HIKING))); //$NON-NLS-1$
-        paraMapTypeComboBox
-        .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString("MainWindow.6"), //$NON-NLS-1$
-                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.SKIING))); //$NON-NLS-1$
-        paraMapTypeComboBox
-        .addItem(new IconizedItem<MapTypePair>(
-                Messages.getString("MainWindow.7"), //$NON-NLS-1$
-                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM2WORLD))); //$NON-NLS-1$
-        paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
-                        Messages.getString("MainWindow.74"), //$NON-NLS-1$
-                        loadIcon("icons/mapChildren.png"), new MapTypePair(SingleMapType.CHILDREN))); //$NON-NLS-1$
+                        .addItem(new IconizedItem<MapTypePair>(
+                                Messages.getString("MainWindow.70"), //$NON-NLS-1$
+                                loadIcon("icons/mapSatellite.png"), new MapTypePair(SingleMapType.SATELLITE))); //$NON-NLS-1$
+                paraMapTypeComboBox
+                        .addItem(new IconizedItem<MapTypePair>(
+                                Messages.getString("MainWindow.72"), //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK))); //$NON-NLS-1$
+                paraMapTypeComboBox
+                        .addItem(new IconizedItem<MapTypePair>(
+                                Messages.getString("MainWindow.4"), //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.CYCLING))); //$NON-NLS-1$
+                paraMapTypeComboBox
+                        .addItem(new IconizedItem<MapTypePair>(
+                                Messages.getString("MainWindow.5"), //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.HIKING))); //$NON-NLS-1$
+                paraMapTypeComboBox
+                        .addItem(new IconizedItem<MapTypePair>(
+                                Messages.getString("MainWindow.6"), //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.SKIING))); //$NON-NLS-1$
+                paraMapTypeComboBox
+                        .addItem(new IconizedItem<MapTypePair>(
+                                Messages.getString("MainWindow.7"), //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM2WORLD))); //$NON-NLS-1$
+                paraMapTypeComboBox
+                        .addItem(new IconizedItem<MapTypePair>(
+                                Messages.getString("MainWindow.74"), //$NON-NLS-1$
+                                loadIcon("icons/mapChildren.png"), new MapTypePair(SingleMapType.CHILDREN))); //$NON-NLS-1$
                 paraMapTypeComboBox.setSelectedIndex(index);
                 antialiasingLabel.setText(Messages.getString("MainWindow.126")); //$NON-NLS-1$
                 index = antialiasingComboBox.getSelectedIndex();
@@ -1061,7 +1079,7 @@ public class MainWindow extends JFrame {
         this.locationManager = locationManager;
         String lang = Settings.getInstance().getString(
                 SettingsContract.LANGUAGE);
-        System.err.println("LangSetting At Start:"+lang);
+        System.err.println("LangSetting At Start:" + lang);
         Locale.Builder builder = new Locale.Builder();
         builder.setLanguage(lang);
         Locale l = builder.build();
@@ -1079,10 +1097,13 @@ public class MainWindow extends JFrame {
         initializeDetailsPanel();
         initializeViewPanel();
         loadLanguage();
-        
-        renderer = new Renderer(glCanvas, locationManager);
+
+        // TODO: remove this hack for the GUIEditor
+        if (glCanvas instanceof GLCanvas) {
+            renderer = new Renderer(((GLCanvas) glCanvas), locationManager);
+        }
         camera = renderer.getCamera();
-        
+
         if (l.getLanguage().equals(Locale.GERMAN.getLanguage())) {
             System.err.println("Set Lang to German at start!"); //$NON-NLS-1$
             languageComboBox.setSelectedIndex(1);
@@ -1100,7 +1121,10 @@ public class MainWindow extends JFrame {
      * @return The GLCanvas used in this window
      */
     public final GLCanvas getGLCanvas() {
-        return glCanvas;
+        // TODO: Remove this hack for the GUIEditor
+        if (glCanvas instanceof GLCanvas)
+            return ((GLCanvas) glCanvas);
+        return null;
     }
 
 
@@ -1115,15 +1139,15 @@ public class MainWindow extends JFrame {
 
         @Override
         public void cameraViewChanged() {
-           GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
-           if (geo != null) {
-               latitudeTextField.setText(geo.getLatitudeString());
-               longitudeTextField.setText(geo.getLongitudeString());
-           } else {
-               latitudeTextField.setText("");
-               longitudeTextField.setText("");
-           }
-           // TODO: Other sutuff like asking Nomination for Details as soon as it is implemented
+            GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
+            if (geo != null) {
+                latitudeTextField.setText(geo.getLatitudeString());
+                longitudeTextField.setText(geo.getLongitudeString());
+            } else {
+                latitudeTextField.setText("");
+                longitudeTextField.setText("");
+            }
+            // TODO: Other sutuff like asking Nomination for Details as soon as it is implemented
         }
 
     }
@@ -1137,7 +1161,7 @@ public class MainWindow extends JFrame {
 
 
         private ScreenCoordinates getScreenCoordinates(Point p) {
-            return new ScreenCoordinates(p.getX() / glCanvas.getWidth(), 
+            return new ScreenCoordinates(p.getX() / glCanvas.getWidth(),
                     p.getY() / glCanvas.getHeight());
         }
 
@@ -1155,7 +1179,11 @@ public class MainWindow extends JFrame {
                         double deltaLat = signum(newPos.y - lastPos.y)
                                 * abs(newGeo.getLatitude() - lastGeo.getLatitude());
                         camera.move(deltaLon, deltaLat);
-                        System.out.format("Move: deltaX=%g,  deltaY=%g, deltaLon=%g, deltaLat=%g\n", newPos.x - lastPos.x, newPos.y - lastPos.y, newGeo.getLongitude() - lastGeo.getLongitude(), newGeo.getLatitude() - lastGeo.getLatitude());
+                        System.out.format(
+                                "Move: deltaX=%g,  deltaY=%g, deltaLon=%g, deltaLat=%g\n", newPos.x
+                                        - lastPos.x, newPos.y - lastPos.y, newGeo.getLongitude()
+                                        - lastGeo.getLongitude(),
+                                newGeo.getLatitude() - lastGeo.getLatitude());
                     }
                 }
             } else if (SwingUtilities.isRightMouseButton(e)) {
@@ -1225,7 +1253,7 @@ public class MainWindow extends JFrame {
 
         private boolean increase;
         private JSlider slider;
-        private final Double ZOOM_FACTOR = new Double(1.1d/100d);
+        private final Double ZOOM_FACTOR = new Double(1.1d / 100d);
 
 
         public ZoomAdapter(JSlider slider, boolean increase) {
@@ -1246,19 +1274,19 @@ public class MainWindow extends JFrame {
                     slider.setValue(current - 1);
                 }
             }
-            camera.setDistance((current)*ZOOM_FACTOR+0.1);
+            camera.setDistance((current) * ZOOM_FACTOR + 0.1);
         }
 
         @Override
         public void mouseWheelMoved(MouseWheelEvent e) {
             int current = slider.getValue();
-            int newCount =  current + e.getWheelRotation();
+            int newCount = current + e.getWheelRotation();
             if (newCount < slider.getMinimum())
                 newCount = slider.getMinimum();
             else if (newCount > slider.getMaximum())
                 newCount = slider.getMaximum();
             slider.setValue(newCount);
-            camera.setDistance((newCount)*ZOOM_FACTOR+0.1);
+            camera.setDistance((newCount) * ZOOM_FACTOR + 0.1);
         }
     }
 
