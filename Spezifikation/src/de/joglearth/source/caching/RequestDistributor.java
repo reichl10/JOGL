@@ -27,8 +27,13 @@ import de.joglearth.util.Predicate;
  */
 public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
-    /* TODO Warum ist CacheHandle weg? Listen für jedes einzelne Attribut wirkt etwas 
-     * spaghettiesque. Das Design hatte schon einen Sinn so wie es war.
+    /*
+     * TODO Warum ist CacheHandle weg? Listen für jedes einzelne Attribut wirkt etwas
+     * spaghettiesque. Das Design hatte schon einen Sinn so wie es war. ----- Ist das so? Ich komme
+     * mit dem was ich da gemacht habe ganz gut zu recht. Und der einfall mit dem TreeSet würde so
+     * wie wir uns das vorgestellt hätten nicht funktionieren. Da man vor jedem Löschen aus dem
+     * Cache das TreeSet neu aufbauen müsste oder sogar bei jedem Zugrif auf ein Element. (Je
+     * nachdem wann es einem Lieber ist die Zeit aufzuwedenen)
      */
 
     /**
@@ -46,6 +51,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     private Map<Cache<Key, Value>, Integer> usedSizeMap;
     private Map<Cache<Key, Value>, Map<Key, BigInteger>> lastUsedMap;
     private BigInteger lastStamp;
+
 
     /**
      * Appends a new cache, which will have the lowest priority of any cache added so far.
@@ -108,38 +114,39 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     @Override
     public synchronized SourceResponse<Value> requestObject(Key key,
             final SourceListener<Key, Value> sender) {
-        Cache<Key, Value> cache = null;
-        if (caches.size() > 0) {
+        Cache<Key, Value> cache;
+        try {
             cache = caches.get(0);
+        } catch (IndexOutOfBoundsException e) {
+            if (source == null)
+                return new SourceResponse<Value>(SourceResponseType.MISSING, null);
+            if (!addRegisterRequest(key, sender)) {
+                return askSource(key, sender);
+            } else {
+                return new SourceResponse<Value>(SourceResponseType.ASYNCHRONOUS, null);
+            }
         }
-        if (cache == null && source == null) {
-            return new SourceResponse<Value>(SourceResponseType.MISSING, null);
-        }
-        SourceResponse<Value> response = null;
-        if (cache != null) {
-            response = askCaches(0, key, sender);
-        } 
-        if (response != null && response.response != SourceResponseType.MISSING) {
-            return response;
-        } else {
-            return askSource(key, sender);
-        }
+        SourceResponse<Value> response = askCaches(0, key, sender);
+        return response;
     }
 
     private SourceResponse<Value> askSource(Key k, SourceListener<Key, Value> listener) {
         SourceResponse<Value> response = source.requestObject(k, new SourceAsker(this));
-        if (response.response == SourceResponseType.ASYNCHRONOUS) {
-            addRegisterRequest(k, listener);
+        if (response.response == SourceResponseType.SYNCHRONOUS
+                || response.response == SourceResponseType.MISSING) {
+            removeRegistredRequest(k);
+            if (response.response == SourceResponseType.SYNCHRONOUS) {
+                requestCompleted(k, response.value);
+            }
         }
         return response;
     }
 
     private SourceResponse<Value> askCaches(int index, Key key, SourceListener<Key, Value> listener) {
-        Cache<Key, Value> cache = null;
-        if (caches.size() > index) {
+        Cache<Key, Value> cache;
+        try {
             cache = caches.get(index);
-        }
-        if (cache == null) {
+        } catch (IndexOutOfBoundsException e) {
             return new SourceResponse<Value>(SourceResponseType.MISSING, null);
         }
         if (!addRegisterRequest(key, listener)) {
@@ -252,8 +259,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         }
     }
 
-
-
     private void requestCompleted(Key k, Value v) {
         addToCaches(k, v);
         Set<SourceListener<Key, Value>> listeners = waitingRequestsMap.remove(k);
@@ -271,7 +276,13 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     private void addToCache(int index, Key k, Value v) {
-        Cache<Key, Value> cache = caches.get(index);
+        Cache<Key, Value> cache;
+        try {
+            cache = caches.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+            return;
+        }
         Integer freeSpace = getFreeSpaceInCache(cache);
         Integer sizeOfValue = measure.getSize(v);
         if (sizeOfValue > freeSpace) {
@@ -286,25 +297,32 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         Integer usedSizeOfCache = usedSizeMap.get(cache);
         return sizeOfCache - usedSizeOfCache;
     }
-    
+
     private void addUsedSpace(Cache<Key, Value> cache, Integer space) {
         Integer usedSizeOfCache = usedSizeMap.get(cache);
-        usedSizeMap.put(cache, usedSizeOfCache+space);
+        usedSizeMap.put(cache, usedSizeOfCache + space);
     }
+
     private void removeUsedSpace(Cache<Key, Value> cache, Integer space) {
         Integer usedSizeOfCache = usedSizeMap.get(cache);
-        usedSizeMap.put(cache, usedSizeOfCache-space);
+        usedSizeMap.put(cache, usedSizeOfCache - space);
     }
+
     private void makeSpaceInCache(Cache<Key, Value> c, int spaceToMake) {
         int index = caches.indexOf(c);
         if (index == -1)
             return;
         makeSpaceInCache(index, spaceToMake);
     }
+
     private void makeSpaceInCache(int index, Integer space) {
-        Cache<Key, Value> cache = caches.get(index);
-        if (cache == null)
+        Cache<Key, Value> cache;
+        try {
+            cache = caches.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
             return;
+        }
         Map<Key, BigInteger> lastUsed = lastUsedMap.get(cache);
         Set<Entry<Key, BigInteger>> entrySet = lastUsed.entrySet();
         LinkedList<Entry<Key, BigInteger>> list = new LinkedList<Entry<Key, BigInteger>>(entrySet);
@@ -314,7 +332,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             public int compare(Entry<Key, BigInteger> o1, Entry<Key, BigInteger> o2) {
                 return o1.getValue().compareTo(o2.getValue());
             }
-            
+
         });
         int spaceMade = 0;
         Set<CacheEntry> removedSet = new HashSet<CacheEntry>();
@@ -324,7 +342,8 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             if (response.response != SourceResponseType.SYNCHRONOUS) {
                 System.err.println("This must be changed or it gets to slow!");
             } else {
-                CacheEntry cEntry = new CacheEntry(entry.getKey(), response.value, lastUsed.remove(entry.getKey()));
+                CacheEntry cEntry = new CacheEntry(entry.getKey(), response.value,
+                        lastUsed.remove(entry.getKey()));
                 Integer sizeOfRemovedEntry = measure.getSize(response.value);
                 removedSet.add(cEntry);
                 cache.dropObject(entry.getKey());
@@ -332,14 +351,18 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             }
         }
         removeUsedSpace(cache, spaceMade);
-        Cache<Key, Value> s2Cache = caches.get(index+1);
-        if (s2Cache != null) {
-            makeSpaceInCache(index+1, spaceMade);
-            for (CacheEntry ce : removedSet) {
-                addToCache(index+1, ce.key, ce.value);
-                Map<Key, BigInteger> usedMap = lastUsedMap.get(s2Cache);
-                usedMap.put(ce.key, ce.lastUsed);
-            }
+        Cache<Key, Value> s2Cache;
+        try {
+            s2Cache = caches.get(index + 1);
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+            return;
+        }
+        makeSpaceInCache(index + 1, spaceMade);
+        for (CacheEntry ce : removedSet) {
+            addToCache(index + 1, ce.key, ce.value);
+            Map<Key, BigInteger> usedMap = lastUsedMap.get(s2Cache);
+            usedMap.put(ce.key, ce.lastUsed);
         }
     }
 
@@ -365,7 +388,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             synchronized (RequestDistributor.this) {
                 if (value == null) {
                     // ask next cache
-                    Cache<Key, Value> nextCache = _caches.get(cIndex + 1);
+                    Cache<Key, Value> nextCache = null;
+                    try {
+                        nextCache = _caches.get(cIndex + 1);
+                    } catch (IndexOutOfBoundsException e) {}
                     if (nextCache != null) {
                         nextCache.requestObject(key, new ObjectRequestListener(_caches, cIndex + 1,
                                 _source, _rd));
@@ -401,10 +427,14 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         }
 
     }
+
     private class CacheEntry {
+
         public Key key;
         public Value value;
         public BigInteger lastUsed;
+
+
         public CacheEntry(Key k, Value v, BigInteger l) {
             key = k;
             value = v;
