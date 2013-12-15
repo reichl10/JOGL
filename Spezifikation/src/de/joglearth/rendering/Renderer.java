@@ -192,7 +192,7 @@ public class Renderer {
         gl.glEnable(GL_DEPTH_TEST);
         gl.glEnable(GL_CULL_FACE);     
         gl.glEnable(GL_TEXTURE_2D);
-        gl.glPolygonMode(GL_FRONT_AND_BACK,  GL_LINE);
+        //gl.glPolygonMode(GL_FRONT_AND_BACK,  GL_LINE);
 
         this.textureManager = new TextureManager(gl);
         ///textureManager.addSurfaceListener(new SurfaceValidator());
