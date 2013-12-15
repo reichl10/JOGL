@@ -27,8 +27,13 @@ import de.joglearth.util.Predicate;
  */
 public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
-    /* TODO Warum ist CacheHandle weg? Listen für jedes einzelne Attribut wirkt etwas 
-     * spaghettiesque. Das Design hatte schon einen Sinn so wie es war.
+    /*
+     * TODO Warum ist CacheHandle weg? Listen für jedes einzelne Attribut wirkt etwas
+     * spaghettiesque. Das Design hatte schon einen Sinn so wie es war. ----- Ist das so? Ich komme
+     * mit dem was ich da gemacht habe ganz gut zu recht. Und der einfall mit dem TreeSet würde so
+     * wie wir uns das vorgestellt hätten nicht funktionieren. Da man vor jedem Löschen aus dem
+     * Cache das TreeSet neu aufbauen müsste oder sogar bei jedem Zugrif auf ein Element. (Je
+     * nachdem wann es einem Lieber ist die Zeit aufzuwedenen)
      */
 
     /**
