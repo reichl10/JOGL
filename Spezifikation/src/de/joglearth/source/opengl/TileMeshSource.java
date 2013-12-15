@@ -52,6 +52,10 @@ public class TileMeshSource implements Source<Tile, VertexBuffer> {
     public void setTessellator(Tessellator t) {
         tess = t;
     }
+    
+    public Tessellator getTessellator() {
+        return tess;
+    }
 
     /**
      * Sets the level of detail of the {@link de.joglearth.rendering.Tessellator}.
@@ -65,6 +69,10 @@ public class TileMeshSource implements Source<Tile, VertexBuffer> {
                 
         subdivisions = sub;
     }
+    
+    public int getTileSubdivisions() {
+        return subdivisions;
+    }
 
     /**
      * Enables or disables the {@link de.joglearth.surface.HeightMap}.
@@ -73,6 +81,10 @@ public class TileMeshSource implements Source<Tile, VertexBuffer> {
      */
     public void setHeightMapEnabled(boolean enable) {
         heightMap = enable;
+    }
+    
+    public boolean isHeightMapEnabled() {
+        return heightMap;
     }
 
     @Override

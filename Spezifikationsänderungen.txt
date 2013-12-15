@@ -33,3 +33,5 @@ Mesh
 Renderer
 - quit() weg
 
+TileMeshSource
++ getTileSubdivisions, isHeightMapEnabled, getTessellator

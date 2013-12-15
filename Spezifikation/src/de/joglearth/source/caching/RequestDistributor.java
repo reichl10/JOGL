@@ -27,6 +27,10 @@ import de.joglearth.util.Predicate;
  */
 public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
+    /* TODO Warum ist CacheHandle weg? Listen für jedes einzelne Attribut wirkt etwas 
+     * spaghettiesque. Das Design hatte schon einen Sinn so wie es war.
+     */
+
     /**
      * Holds my caches.
      */
@@ -104,36 +108,37 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     @Override
     public synchronized SourceResponse<Value> requestObject(Key key,
             final SourceListener<Key, Value> sender) {
-        Cache<Key, Value> cache = caches.get(0);
+        Cache<Key, Value> cache = null;
+        if (caches.size() > 0) {
+            cache = caches.get(0);
+        }
         if (cache == null && source == null) {
             return new SourceResponse<Value>(SourceResponseType.MISSING, null);
         }
-        if (cache == null) {
-            if (!addRegisterRequest(key, sender)) {
-                return askSource(key, sender);
-            } else {
-                return new SourceResponse<Value>(SourceResponseType.ASYNCHRONOUS, null);
-            }
-        } else {
-            SourceResponse<Value> response = askCaches(0, key, sender);
+        SourceResponse<Value> response = null;
+        if (cache != null) {
+            response = askCaches(0, key, sender);
+        } 
+        if (response != null && response.response != SourceResponseType.MISSING) {
             return response;
+        } else {
+            return askSource(key, sender);
         }
     }
 
     private SourceResponse<Value> askSource(Key k, SourceListener<Key, Value> listener) {
         SourceResponse<Value> response = source.requestObject(k, new SourceAsker(this));
-        if (response.response == SourceResponseType.SYNCHRONOUS
-                || response.response == SourceResponseType.MISSING) {
-            removeRegistredRequest(k);
-            if (response.response == SourceResponseType.SYNCHRONOUS) {
-                requestCompleted(k, response.value);
-            }
+        if (response.response == SourceResponseType.ASYNCHRONOUS) {
+            addRegisterRequest(k, listener);
         }
         return response;
     }
 
     private SourceResponse<Value> askCaches(int index, Key key, SourceListener<Key, Value> listener) {
-        Cache<Key, Value> cache = caches.get(index);
+        Cache<Key, Value> cache = null;
+        if (caches.size() > index) {
+            cache = caches.get(index);
+        }
         if (cache == null) {
             return new SourceResponse<Value>(SourceResponseType.MISSING, null);
         }

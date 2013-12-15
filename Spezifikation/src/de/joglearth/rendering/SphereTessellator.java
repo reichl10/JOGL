@@ -82,15 +82,29 @@ public class SphereTessellator implements Tessellator {
             iIndex += 6;
         }
     }
-
-    private static int getShrinkCount(double lat) {
-        if (abs(lat) >= PI / 2) {
-            return 0;
-        } else {
-            return (int) (log(1 / cos(lat)));
+    
+    private int getMaxShrinkCount(int subdivisions) {
+        int max = 0;
+        double s = subdivisions;
+        for (;;) {
+            s /= 2;
+            if (s % 1 == 0) {
+                ++max;
+            } else {
+                break;
+            }
         }
+        return max;
     }
 
+    private static int getShrinkCount(double lat, int maxShrinkCount) {
+        if (abs(lat) >= PI / 2) {
+            return maxShrinkCount;
+        } else {
+            int exponent = (int) (log(1 / cos(lat)) / log(2));
+            return min(exponent, maxShrinkCount);
+        }
+    }
     
     @Override
     public Mesh tessellateTile(Tile tile, int subdivisions, boolean useHeightMap) {
@@ -98,7 +112,8 @@ public class SphereTessellator implements Tessellator {
             direction = tile.getLatitudeFrom() >= 0 ? +1 : -1;
         double lat = direction > 0 ? tile.getLatitudeFrom() : tile.getLatitudeTo(),
                lon = tile.getLongitudeFrom();
-        int shrinkCount = getShrinkCount(lat),
+        int maxShrinkCount = getMaxShrinkCount(subdivisions),
+            shrinkCount = getShrinkCount(lat, maxShrinkCount),
             rowWidth = max(2, (subdivisions + 2) / (int) pow(2, shrinkCount)),
             vIndex = 0, 
             iIndex = 0;
@@ -113,7 +128,7 @@ public class SphereTessellator implements Tessellator {
         
         for (int i = 0; i < nRows; ++i) {
             lat += latStep;
-            int newRowWidth = max(2, (subdivisions + 2) / (int) pow(2, getShrinkCount(lat)));
+            int newRowWidth = max(2, (subdivisions + 2) / (int) pow(2, getShrinkCount(lat, maxShrinkCount)));
             if (newRowWidth < rowWidth) {
                 int groupSize = rowWidth / newRowWidth;
                 writeInterpolatedVertexLine(vertices, vIndex * VERTEX_SIZE, lon, lat, lonStep, groupSize, latStep,
@@ -137,13 +152,10 @@ public class SphereTessellator implements Tessellator {
 
         return new Mesh(VERTEX_FORMAT, vertices, GL_TRIANGLES, indices, iIndex);
     }
-    
-    
-    public static void main(String[] args) {
 
-        SphereTessellator p = new SphereTessellator();
-        Tile t = new Tile(2, 1, 0);
-        int subdivision = 2;
-        Mesh m = p.tessellateTile(t, subdivision, false);
+    @Override
+    public boolean equals(Object other) {
+        return other != null && other.getClass() == this.getClass();
     }
+        
 }

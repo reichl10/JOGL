@@ -73,8 +73,10 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
      * @param t The new <code>Tesselator</code>
      */
     public void setTessellator(Tessellator t) {
-        source.setTessellator(t);
-        dist.dropAll();
+        if (t == null || !t.equals(source.getTessellator())) {
+            source.setTessellator(t);
+            dist.dropAll();
+        }
     }
 
     /**
@@ -83,8 +85,10 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
      * @param sub The new <code>level of detail</code>
      */
     public void setTileSubdivisions(int sub) {
-        source.setTileSubdivisions(sub);
-        dist.dropAll();
+        if (sub != source.getTileSubdivisions()) {
+            source.setTileSubdivisions(sub);
+            dist.dropAll();            
+        }
     }
 
     /**
@@ -93,14 +97,17 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
      * @param enable Whether to enable or disable the <code>HeightMap</code>
      */
     public void setHeightMapEnabled(boolean enable) {
-        source.setHeightMapEnabled(enable);
-        dist.dropAll();
+        if (enable != source.isHeightMapEnabled()) {
+            source.setHeightMapEnabled(enable);
+            dist.dropAll();
+        }
     }
 
     @Override
     public SourceResponse<VertexBuffer> requestObject(Tile key,
             SourceListener<Tile, VertexBuffer> sender) {
-        return dist.requestObject(key, sender);
+        //return dist.requestObject(key, sender);
+        return source.requestObject(key, sender);
     }
 
     /**

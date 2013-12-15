@@ -243,6 +243,7 @@ public final class CameraUtils {
         private int zoomLevel;
         private double angle;
         private int maxIndex;
+        private int horizontalCrossings = 0, verticalCrossings = 0;
 
 
         public GridWalker(GridPoint start, int zoomLevel, Camera camera) {
@@ -293,7 +294,8 @@ public final class CameraUtils {
             }
 
             GridPoint peek = new GridPoint(peekLon, peekLat);
-            if (isGridPointVisible(peek)) {
+            if (isGridPointVisible(peek) && peekLon >= -2 * maxIndex && peekLon <= 2 * maxIndex
+                    && peekLat >= -2 * maxIndex && peekLat <= 2 * maxIndex) {
                 return peek;
             } else {
                 return null;

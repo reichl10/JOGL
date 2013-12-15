@@ -57,7 +57,7 @@ public class Renderer {
     private GLCanvas canvas;
     private FPSAnimator animator;
     private int leastHorizontalTiles;
-    private int tileSubdivisions = 0;
+    private int tileSubdivisions = 5;
     private boolean isPosted = false;
     private boolean isRunning = false;
     private int TILE_SIZE = 256;
@@ -209,7 +209,7 @@ public class Renderer {
         
         leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
         tileMeshManager = new TileMeshManager(gl, null);
-        tileMeshManager.setTileSubdivisions(7);
+        tileMeshManager.setTileSubdivisions(tileSubdivisions);
         applyDisplayMode();
                 
         animator = new FPSAnimator(60);
@@ -329,8 +329,8 @@ public class Renderer {
             }
         }
 
-        private synchronized void setLevelOfDetail(LevelOfDetail valNew) {
-            switch (valNew) {
+        private synchronized void setLevelOfDetail(LevelOfDetail lod) {
+            switch (lod) {
                 case LOW:
                     tileSubdivisions = 0;
                     break;

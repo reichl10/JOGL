@@ -76,12 +76,8 @@ public class SphereGeometry implements Geometry {
                 || Double.isNaN(altitude)) {
             throw new IllegalArgumentException();
         }
-
-        /* Assumes that the default looking direction is (0, 0, -1). Might have to be corrected by
-         * adding a rotate()ion.
-         */
                 
-        Vector3 earthAxis = new Vector3(0,1,0);        
+        Vector3 earthAxis = new Vector3(0, 1, 0);        
         
         Matrix4 mat = new Matrix4();
         mat.rotate(earthAxis, position.getLongitude());
@@ -89,10 +85,10 @@ public class SphereGeometry implements Geometry {
         
         Vector3 cameraPosition = mat.transform(new Vector3(0, 0, 0)).divide(),
                 viewVector = mat.transform(new Vector3(0, 0, -1)).divide().minus(cameraPosition),
-                xAxis = earthAxis.crossProduct(viewVector).normalized();
+                cameraXAxis = earthAxis.crossProduct(viewVector).normalized();
         
         mat = new Matrix4();
-        mat.rotate(xAxis, position.getLatitude());
+        mat.rotate(cameraXAxis, position.getLatitude());
         mat.rotate(earthAxis, position.getLongitude());
         mat.translate(0, 0, 1 + altitude);
         return mat;
