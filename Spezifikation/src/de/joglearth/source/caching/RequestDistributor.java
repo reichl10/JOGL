@@ -27,6 +27,10 @@ import de.joglearth.util.Predicate;
  */
 public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
+    /* TODO Warum ist CacheHandle weg? Listen für jedes einzelne Attribut wirkt etwas 
+     * spaghettiesque. Das Design hatte schon einen Sinn so wie es war.
+     */
+
     /**
      * Holds my caches.
      */

@@ -85,22 +85,8 @@ public class PlaneTessellator implements Tessellator {
         return new Mesh(VERTEX_FORMAT, vertices, GL_TRIANGLES, indices, indIndex);
     }
 
-    public static void main(String[] args) {
-
-        PlaneTessellator p = new PlaneTessellator();
-        Tile t = new Tile(1, 0, 0);
-        System.out.println(t);
-        int subdivision = 1;
-        Mesh m = p.tessellateTile(t, subdivision, false);
-        int count = 0;
-        for (int i = 0; i < m.vertices.length; ++i) {
-            System.out.print(m.vertices[i] + "    ");
-            count +=1;
-            if (count == 8) {
-                System.out.println(); 
-                count = 0;
-            }
-        }
-        System.out.println(m.vertices.length / 8);
+    @Override
+    public boolean equals(Object other) {
+        return other != null && other.getClass() == this.getClass();
     }
 }
