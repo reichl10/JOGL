@@ -20,6 +20,10 @@ public class VertexBufferCache<Key> extends MemoryCache<Key, VertexBuffer> {
      * @param gl The GL context
      */
     public VertexBufferCache(GL2 gl) {
+        if (gl == null) {
+            throw new IllegalArgumentException();
+        }
+        
         this.gl = gl;
     }
 

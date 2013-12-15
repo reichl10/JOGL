@@ -13,7 +13,6 @@ import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-
 import static javax.media.opengl.GL2.*;
 
 /**
@@ -32,10 +31,14 @@ public class TileMeshSource implements Source<Tile, VertexBuffer> {
      * Constructor. Initializes the {@link de.joglearth.source.opengl.TileMeshSource} as it assign
      * values to its GL context and {@link de.joglearth.rendering.Tesselator}.
      * 
-     * @param gl The GL context of <code>TileMeshManager</code>
-     * @param t The <code>Tesselator</code> of the <code>TileMeshManager</code>
+     * @param gl The GL context of <code>TileMeshManager</code>. Must not be null.
+     * @param t The <code>Tesselator</code> of the <code>TileMeshManager</code>. May be null.
      */
     public TileMeshSource(GL2 gl, Tessellator t) {
+        if (gl == null) {
+            throw new IllegalArgumentException();
+        }
+        
         this.gl = gl;
         tess = t;
     }
@@ -44,7 +47,7 @@ public class TileMeshSource implements Source<Tile, VertexBuffer> {
      * Sets the {@link de.joglearth.rendering.Tessellator} of the
      * {@link de.joglearth.source.opengl.TileMeshSource}
      * 
-     * @param t The new <code>Tesselator</code>
+     * @param t The new <code>Tesselator</code>. May be null.
      */
     public void setTessellator(Tessellator t) {
         tess = t;
@@ -56,6 +59,10 @@ public class TileMeshSource implements Source<Tile, VertexBuffer> {
      * @param sub The new level of detail
      */
     public void setTileSubdivisions(int sub) {
+        if (subdivisions < 0) {
+            throw new IllegalArgumentException();
+        }
+                
         subdivisions = sub;
     }
 
@@ -71,6 +78,15 @@ public class TileMeshSource implements Source<Tile, VertexBuffer> {
     @Override
     public SourceResponse<VertexBuffer> requestObject(Tile key,
             SourceListener<Tile, VertexBuffer> sender) {
+        
+        if (key == null) {
+            throw new IllegalArgumentException();
+        }
+        
+        if (tess == null) {
+            throw new IllegalStateException("Requested tile from null tessellator");
+        }
+        
         Mesh mesh = tess.tessellateTile(key, subdivisions, heightMap);
         
         // Allocate vertex and index buffer

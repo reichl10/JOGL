@@ -75,10 +75,10 @@ public class SphereTessellator implements Tessellator {
         for (int i = 0; i < width-1; ++i) {
             indices[iIndex + 0] = vIndex - width + 1 + i;
             indices[iIndex + 1] = vIndex - width + i;
-            indices[iIndex + 2] = vIndex - 2 * width;
-            indices[iIndex + 3] = vIndex - width + 1;
-            indices[iIndex + 4] = vIndex - 2 * width;
-            indices[iIndex + 5] = vIndex - 2 * width + 1;
+            indices[iIndex + 2] = vIndex - 2 * width + i;
+            indices[iIndex + 3] = vIndex - width + i + 1;
+            indices[iIndex + 4] = vIndex - 2 * width + i;
+            indices[iIndex + 5] = vIndex - 2 * width + i + 1;
             iIndex += 6;
         }
     }
@@ -103,36 +103,36 @@ public class SphereTessellator implements Tessellator {
             vIndex = 0, 
             iIndex = 0;
 
-        double lonStep = 2 * PI / ((rowWidth - 1) * pow(2, tile.getDetailLevel())),
-               latStep = 2 * PI / ((1 + subdivisions) * pow(2, tile.getDetailLevel()));
+        double lonStep = (tile.getLongitudeTo() - tile.getLongitudeFrom()) / (rowWidth - 1),
+               latStep = (tile.getLatitudeTo() - tile.getLatitudeFrom()) / nRows;
         float[] vertices = new float[nRows * rowWidth * VERTEX_SIZE * 2];
         int[] indices = new int[nRows * (rowWidth-1) * 6];
         
-        writeVertexLine(vertices, vIndex, lon, lat, lonStep, latStep, useHeightMap, rowWidth);
-        vIndex += rowWidth * VERTEX_SIZE;
+        writeVertexLine(vertices, 0, lon, lat, lonStep, latStep, useHeightMap, rowWidth);
+        vIndex += rowWidth;
         
         for (int i = 0; i < nRows; ++i) {
             lat += latStep;
             int newRowWidth = max(2, (subdivisions + 2) / (int) pow(2, getShrinkCount(lat)));
             if (newRowWidth < rowWidth) {
                 int groupSize = rowWidth / newRowWidth;
-                writeInterpolatedVertexLine(vertices, vIndex, lon, lat, lonStep, groupSize, latStep,
+                writeInterpolatedVertexLine(vertices, vIndex * VERTEX_SIZE, lon, lat, lonStep, groupSize, latStep,
                         useHeightMap, newRowWidth);
-                vIndex += rowWidth * VERTEX_SIZE;
+                vIndex += rowWidth;
                 writeIndicesLine(indices, iIndex, vIndex, rowWidth);
-                iIndex += 6 * rowWidth;
 
                 rowWidth = newRowWidth;
-                writeVertexLine(vertices, vIndex, lon,
+                writeVertexLine(vertices, vIndex * VERTEX_SIZE, lon,
                         lat, lonStep, latStep, useHeightMap, rowWidth);
-                vIndex += rowWidth * VERTEX_SIZE;
+                vIndex += rowWidth;
             } else {
-                writeVertexLine(vertices, vIndex, lon, lat, lonStep,
+                writeVertexLine(vertices, vIndex * VERTEX_SIZE, lon, lat, lonStep,
                         latStep, useHeightMap, rowWidth);
-                vIndex += rowWidth * VERTEX_SIZE;
+                vIndex += rowWidth;
 
                 writeIndicesLine(indices, iIndex, vIndex, rowWidth);
             }
+            iIndex += 6 * (rowWidth-1);
         }
 
         return new Mesh(VERTEX_FORMAT, vertices, GL_TRIANGLES, indices, iIndex);

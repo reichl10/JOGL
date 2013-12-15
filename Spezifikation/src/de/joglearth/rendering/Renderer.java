@@ -57,18 +57,17 @@ public class Renderer {
     private GLCanvas canvas;
     private FPSAnimator animator;
     private int leastHorizontalTiles;
-    private int levelOfDetail;
-    private boolean heightMapEnabled;
+    private int tileSubdivisions = 0;
     private boolean isPosted = false;
     private boolean isRunning = false;
     private int TILE_SIZE = 256;
     private LocationManager locationManager;
     private TextureManager textureManager;
     private Camera camera;
-    private DisplayMode activeDisplayMode;
-    private TiledMapType activeMapType;
-    private MapLayout mapLayout;
-    private SingleMapType singleMapType;
+    private DisplayMode activeDisplayMode = DisplayMode.SOLAR_SYSTEM;
+    private TiledMapType activeMapType = TiledMapType.OSM2WORLD;
+    private MapLayout mapLayout = MapLayout.TILED;
+    private SingleMapType singleMapType = SingleMapType.SATELLITE;
     private TiledMapType tiledMapType;
     private Texture kidsWorldMap;
     private Texture satellite;
@@ -193,7 +192,7 @@ public class Renderer {
         gl.glEnable(GL_DEPTH_TEST);
         gl.glEnable(GL_CULL_FACE);     
         gl.glEnable(GL_TEXTURE_2D);
-        gl.glPolygonMode(GL_FRONT_AND_BACK,  GL_FILL);
+        gl.glPolygonMode(GL_FRONT_AND_BACK,  GL_LINE);
 
         this.textureManager = new TextureManager(gl);
         ///textureManager.addSurfaceListener(new SurfaceValidator());
@@ -202,17 +201,16 @@ public class Renderer {
         loadTextures();
 
         /* Loads all POI-textures */
-        loadPoi();
+        loadPOITextures();
 
         /* Get DisplayMode from Settings */
         Settings.getInstance().addSettingsListener(SettingsContract.DISPLAY_MODE,
                 new SettingsChanged());
-
-        leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
-        tileMeshManager = new TileMeshManager(gl, new PlaneTessellator());
-        tileMeshManager.setTileSubdivisions(7);
         
-        activeDisplayMode = DisplayMode.PLANE_MAP;
+        leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
+        tileMeshManager = new TileMeshManager(gl, null);
+        tileMeshManager.setTileSubdivisions(7);
+        applyDisplayMode();
                 
         animator = new FPSAnimator(60);
     }
@@ -299,7 +297,7 @@ public class Renderer {
     }
 
     /* Loads all POI-textures */
-    private void loadPoi() {
+    private void loadPOITextures() {
         poiTextures = new LinkedHashMap<>();
         for (String name : POI_NAMES) {
             poiTextures.put(name, TextureIO.newTexture(Resource.loadTextureData("iconsPoi/POI_" 
@@ -326,22 +324,25 @@ public class Renderer {
         }
 
         private synchronized void setHeightMapEnabled(Boolean valNew) {
-            heightMapEnabled = valNew;
-
+            if (tileMeshManager != null) {
+                tileMeshManager.setHeightMapEnabled(valNew);
+            }
         }
 
         private synchronized void setLevelOfDetail(LevelOfDetail valNew) {
             switch (valNew) {
                 case LOW:
-                    levelOfDetail = 0;
+                    tileSubdivisions = 0;
                     break;
                 case MEDIUM:
-                    levelOfDetail = 5;
+                    tileSubdivisions = 5;
                     break;
                 case HIGH:
-                    levelOfDetail = 10;
+                    tileSubdivisions = 10;
             }
-
+            if (tileMeshManager != null) {
+                tileMeshManager.setTileSubdivisions(tileSubdivisions);
+            }
         }
 
     }
@@ -414,28 +415,39 @@ public class Renderer {
         }
     }
 
+    
+    private void applyDisplayMode() {
+        switch (activeDisplayMode) {
+            case GLOBE_MAP:
+                if (tileMeshManager != null) {
+                    tileMeshManager.setTessellator(new SphereTessellator());
+                }
+                // fall through
+                
+            case SOLAR_SYSTEM:            
+                camera.setGeometry(new SphereGeometry());
+                break;
+                
+            case PLANE_MAP:
+                if (tileMeshManager != null)  {
+                    tileMeshManager.setTessellator(new PlaneTessellator());
+                }
+                camera.setGeometry(new PlaneGeometry());
+        }
+    }
+    
 
     /**
      * Sets the {@link de.joglearth.rendering.DisplayMode} to a given value.
      * 
      * @param m The new <code>DisplayMode</code>
      */
-    private synchronized void setDisplayMode(DisplayMode m) {
-        // TODO Braucht man das hier?
-        activeDisplayMode = DisplayMode.PLANE_MAP;
-/*
-        if (activeDisplayMode == DisplayMode.GLOBE_MAP) {
-            tileMeshManager.setTessellator(new SphereTessellator());
-            camera.setGeometry(new SphereGeometry());
-        } else if (activeDisplayMode == DisplayMode.PLANE_MAP) {*/
-            tileMeshManager.setTessellator(new PlaneTessellator());
-            camera.setGeometry(new PlaneGeometry());/*
-        } else {
-            tileMeshManager.setTessellator(new SphereTessellator());
-            camera.setGeometry(new SphereGeometry());
-        }*/
-
-        post();
+    public synchronized void setDisplayMode(DisplayMode m) {
+        if (m != activeDisplayMode) {
+            activeDisplayMode = m;
+            applyDisplayMode();
+            post();
+        }
     }
 
     /**

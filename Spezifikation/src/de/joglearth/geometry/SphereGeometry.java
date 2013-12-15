@@ -80,10 +80,21 @@ public class SphereGeometry implements Geometry {
         /* Assumes that the default looking direction is (0, 0, -1). Might have to be corrected by
          * adding a rotate()ion.
          */
+                
+        Vector3 earthAxis = new Vector3(0,1,0);        
+        
         Matrix4 mat = new Matrix4();
-        mat.translate(position.getLongitude() / Math.PI, position.getLatitude() / Math.PI,
-                1 + altitude);
-        mat.rotate(new Vector3(0,1,0), position.getLongitude());
+        mat.rotate(earthAxis, position.getLongitude());
+        mat.translate(0, 0, 1);
+        
+        Vector3 cameraPosition = mat.transform(new Vector3(0, 0, 0)).divide(),
+                viewVector = mat.transform(new Vector3(0, 0, -1)).divide().minus(cameraPosition),
+                xAxis = earthAxis.crossProduct(viewVector).normalized();
+        
+        mat = new Matrix4();
+        mat.rotate(xAxis, position.getLatitude());
+        mat.rotate(earthAxis, position.getLongitude());
+        mat.translate(0, 0, 1 + altitude);
         return mat;
     }
 }

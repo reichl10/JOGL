@@ -63,8 +63,8 @@ public class Camera {
         Vector3 xAxis = zAxis.crossProduct(earthAxis).normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
 
+        newCameraMatrix.rotate(zAxis, -tiltY);
         newCameraMatrix.rotate(xAxis, tiltX);
-        newCameraMatrix.rotate(yAxis, tiltY);
 
         Vector3 cameraPosition = newCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
         Vector3 viewVector = newCameraMatrix.transform(new Vector3(0, 0, -1)).divide()
