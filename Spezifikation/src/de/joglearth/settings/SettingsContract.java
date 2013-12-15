@@ -11,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Set;
 
-import javax.management.RuntimeErrorException;
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLOutputFactory;
@@ -368,11 +367,6 @@ public final class SettingsContract {
                     s.getInteger(CACHE_SIZE_FILESYSTEM));
             writeEntry(xmlWriter, CACHE_SIZE_MEMORY,
                     s.getInteger(CACHE_SIZE_MEMORY));
-            /**
-             * Field[] fields = Settings.class.getDeclaredFields(); for (Field f : fields) { int mod
-             * = f.getModifiers(); if (Modifier.isPrivate(mod) && Modifier.isFinal(mod) &&
-             * Modifier.isStatic(mod)) { // TODO: Write to as Entry. } }
-             **/
             writeLocationSet(xmlWriter, USER_LOCATIONS,
                     s.getLocations(USER_LOCATIONS));
             writeEnd(xmlWriter);
@@ -429,8 +423,6 @@ public final class SettingsContract {
 
     private static void writeLocationSet(XMLStreamWriter writer, String key,
             Set<Location> set) throws XMLStreamException {
-        if (writer == null)
-            System.err.println("Writer is fucking null!");
         writer.writeStartElement(XML_ELEMENT_LOCS);
         writer.writeAttribute(XML_ATTR_LOCS_KEY, key);
         if (set != null) {
