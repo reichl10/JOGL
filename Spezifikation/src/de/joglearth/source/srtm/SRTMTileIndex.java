@@ -49,7 +49,6 @@ public final class SRTMTileIndex {
 
     @Override
     public String toString() {
-        return String.format("%c%0.2d%c%0.2d", latitude >= 0 ? 'N' : 'S', Math.abs(latitude),
-                longitude >= 0 ? 'E' : 'W', Math.abs(longitude));
+        return "SRTMTileIndex [longitude=" + longitude + ", latitude=" + latitude + "]";
     }
 }
