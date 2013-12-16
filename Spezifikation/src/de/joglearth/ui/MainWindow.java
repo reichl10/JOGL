@@ -85,7 +85,9 @@ public class MainWindow extends JFrame {
 
     private static ImageIcon hideIcon = loadIcon("icons/hide.png"); //$NON-NLS-1$
     private static ImageIcon showIcon = loadIcon("icons/show.png"); //$NON-NLS-1$
-    private GLCanvas glCanvas;
+    // To get the GUI Editor to work
+    // private GLCanvas glCanvas;
+    private Component glCanvas;
 
     /**
      * SerialVersionUID
@@ -215,10 +217,12 @@ public class MainWindow extends JFrame {
         setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
         this.viewEventListener = new ViewEventListener(camera);
         getContentPane().setLayout(
-                new FormLayout(new ColumnSpec[] { ColumnSpec.decode("130dlu"), //$NON-NLS-1$
-                        ColumnSpec.decode("15px"), //$NON-NLS-1$
-                        ColumnSpec.decode("default:grow"), }, //$NON-NLS-1$
-                        new RowSpec[] { RowSpec.decode("default:grow"), })); //$NON-NLS-1$
+                new FormLayout(new ColumnSpec[] {
+                        ColumnSpec.decode("right:180dlu"),
+                        ColumnSpec.decode("15px"),
+                        ColumnSpec.decode("default:grow"), },
+                        new RowSpec[] {
+                                RowSpec.decode("default:grow"), })); //$NON-NLS-1$
 
         JPanel sideBar = new JPanel();
         getContentPane().add(sideBar, "1, 1, left, fill"); //$NON-NLS-1$
@@ -749,42 +753,52 @@ public class MainWindow extends JFrame {
                 RowSpec.decode("default:grow"), RowSpec.decode("1dlu"), //$NON-NLS-1$ //$NON-NLS-2$
                         RowSpec.decode("20dlu"), RowSpec.decode("1dlu"), })); //$NON-NLS-1$ //$NON-NLS-2$
 
+        // TODO: Remove remplacement for working with GUIEditor
+        // glCanvas = new JPanel();
         glCanvas = new GLCanvas(new GLCapabilities(GLProfile.get(GLProfile.GL2)));
         if (glCanvas == null) {
             System.err.println("Couldn't create Canvas!"); //$NON-NLS-1$
         }
-        glCanvas.addGLEventListener(new GLEventListener() {
+        // TODO: remove this hack for the GUIEditor
+        if (glCanvas instanceof GLCanvas) {
+            ((GLCanvas) glCanvas).addGLEventListener(new GLEventListener() {
 
-            @Override
-            public void display(GLAutoDrawable arg0) {
-                arg0.getGL().getGL2().glClear(GL2.GL_COLOR_BUFFER_BIT);
-            }
+                @Override
+                public void display(GLAutoDrawable arg0) {
+                    arg0.getGL().getGL2().glClear(GL2.GL_COLOR_BUFFER_BIT);
+                }
 
-            @Override
-            public void dispose(GLAutoDrawable arg0) {
+                @Override
+                public void dispose(GLAutoDrawable arg0) {
 
-            }
+                }
 
-            @Override
-            public void init(GLAutoDrawable arg0) {}
+                @Override
+                public void init(GLAutoDrawable arg0) {}
 
-            @Override
-            public void reshape(GLAutoDrawable arg0, int arg1, int arg2,
-                    int arg3, int arg4) {
-                ((Component) arg0).setMinimumSize(new Dimension(0, 0));
-            }
+                @Override
+                public void reshape(GLAutoDrawable arg0, int arg1, int arg2,
+                        int arg3, int arg4) {
+                    ((Component) arg0).setMinimumSize(new Dimension(0, 0));
+                }
 
-        });
+            });
+        }
+
         viewPanel.add(glCanvas, "1, 1, fill, fill"); //$NON-NLS-1$
 
         JPanel statusBar = new JPanel();
         viewPanel.add(statusBar, "1, 3, 2, 1, fill, fill"); //$NON-NLS-1$
         statusBar.setLayout(new FormLayout(new ColumnSpec[] {
-                FormFactory.RELATED_GAP_COLSPEC, ColumnSpec.decode("50dlu"), //$NON-NLS-1$
-                ColumnSpec.decode("default:grow"), ColumnSpec.decode("160dlu"), //$NON-NLS-1$ //$NON-NLS-2$
-                ColumnSpec.decode("default:grow"), ColumnSpec.decode("70dlu"), //$NON-NLS-1$ //$NON-NLS-2$
-                FormFactory.RELATED_GAP_COLSPEC, }, new RowSpec[] { RowSpec
-                .decode("default:grow"), })); //$NON-NLS-1$
+                FormFactory.RELATED_GAP_COLSPEC,
+                ColumnSpec.decode("50dlu"),
+                FormFactory.UNRELATED_GAP_COLSPEC,
+                ColumnSpec.decode("max(220dlu;pref)"),
+                ColumnSpec.decode("7dlu:grow"),
+                ColumnSpec.decode("right:70dlu"),
+                FormFactory.RELATED_GAP_COLSPEC, },
+                new RowSpec[] {
+                        RowSpec.decode("default:grow"), })); //$NON-NLS-1$
 
         JPanel zoomPanel = new JPanel();
         viewPanel.add(zoomPanel, "2, 1, center, fill"); //$NON-NLS-1$
@@ -835,11 +849,15 @@ public class MainWindow extends JFrame {
         JPanel coordPanel = new JPanel();
         statusBar.add(coordPanel, "4, 1, fill, fill"); //$NON-NLS-1$
         coordPanel.setLayout(new FormLayout(new ColumnSpec[] {
-                ColumnSpec.decode("default:grow"), ColumnSpec.decode("2dlu"), //$NON-NLS-1$ //$NON-NLS-2$
-                ColumnSpec.decode("default:grow"), ColumnSpec.decode("5dlu"), //$NON-NLS-1$ //$NON-NLS-2$
-                ColumnSpec.decode("default:grow"), ColumnSpec.decode("2dlu"), //$NON-NLS-1$ //$NON-NLS-2$
-                ColumnSpec.decode("default:grow"), }, new RowSpec[] { RowSpec //$NON-NLS-1$
-                .decode("default:grow"), })); //$NON-NLS-1$
+                ColumnSpec.decode("default:grow"),
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                ColumnSpec.decode("max(20dlu;pref):grow"),
+                ColumnSpec.decode("5dlu"),
+                ColumnSpec.decode("default:grow"),
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+                ColumnSpec.decode("max(20dlu;pref):grow"), },
+                new RowSpec[] {
+                        RowSpec.decode("default:grow"), })); //$NON-NLS-1$
 
         latitudeLabel = new JLabel(Messages.getString("MainWindow.2")); //$NON-NLS-1$
         coordPanel.add(latitudeLabel, "1, 1, right, default"); //$NON-NLS-1$
@@ -1066,8 +1084,10 @@ public class MainWindow extends JFrame {
         initializeDetailsPanel();
         initializeViewPanel();
         loadLanguage();
-
-        renderer = new Renderer(glCanvas, locationManager);
+        // TODO: remove this hack for the GUIEditor
+        if (glCanvas instanceof GLCanvas) {
+            renderer = new Renderer(((GLCanvas) glCanvas), locationManager);
+        }
         camera = renderer.getCamera();
 
         if (l.getLanguage().equals(Locale.GERMAN.getLanguage())) {
@@ -1086,7 +1106,10 @@ public class MainWindow extends JFrame {
      * @return The GLCanvas used in this window
      */
     public final GLCanvas getGLCanvas() {
-        return glCanvas;
+        // TODO: Remove this hack for the GUIEditor
+        if (glCanvas instanceof GLCanvas)
+            return ((GLCanvas) glCanvas);
+        return null;
     }
 
 
