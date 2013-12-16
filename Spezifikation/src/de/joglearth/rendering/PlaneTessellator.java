@@ -15,17 +15,24 @@ public class PlaneTessellator implements Tessellator {
 
     @Override
     public Mesh tessellateTile(Tile tile, int subdivisions, boolean useHeightMap) {
-        int nVertices = subdivisions + 2, nQuads = subdivisions + 1;
-        double latStep = abs(tile.getLatitudeTo() - tile.getLatitudeFrom()) / nQuads, 
-               lonStep = abs(tile.getLongitudeTo() - tile.getLongitudeFrom()) / nQuads;
-        float[] vertices = new float[8 * nVertices * nVertices];
+        System.out.println(tile);
+        int nHorizontalVertices = subdivisions + 2, nHorizontalQuads = subdivisions + 1,
+            nVerticalQuads = max(nHorizontalQuads / 2, 1), nVerticalVertices = nVerticalQuads + 1;
+        float[] vertices = new float[8 * nVerticalVertices * nHorizontalVertices];
         int vertIndex = 0;
-        double lon = tile.getLongitudeFrom(), lat = tile.getLatitudeFrom();
+        
+        double lonStart = tile.getLongitudeFrom();
+        if (lonStart > tile.getLongitudeTo()) {
+            lonStart -= 2 * PI;
+        }
+        double lon = lonStart, lat = tile.getLatitudeTo();
+        double latStep = abs(tile.getLatitudeTo() - tile.getLatitudeFrom()) / nVerticalQuads, 
+               lonStep = abs(tile.getLongitudeTo() - lonStart) / nHorizontalQuads;
 
-        for (int line = 0; line < nVertices; ++line) {
-            for (int col = 0; col < nVertices; ++col) {
-                writeTextureCoordinates(vertices, vertIndex, (float) col / (nVertices - 1), 
-                        1 - (float) line / (nVertices - 1));
+        for (int line = 0; line < nVerticalVertices; ++line) {
+            for (int col = 0; col < nHorizontalVertices; ++col) {
+                writeTextureCoordinates(vertices, vertIndex, (float) col / nHorizontalQuads, 
+                        1 - (float) line / nVerticalQuads);
 
                 if (useHeightMap) {
                     writeVertex(vertices, vertIndex, (float) lon, (float) lat,
@@ -52,54 +59,40 @@ public class PlaneTessellator implements Tessellator {
                 lon += lonStep;
                 vertIndex += VERTEX_SIZE;
             }
-            lat += latStep;
-            lon = tile.getLongitudeFrom();
+            lat -= latStep;
+            lon = lonStart;
         }
 
-        int[] indices = new int[6 * (nVertices - 1) * (nVertices - 1)];
+        int[] indices = new int[6 * (nHorizontalVertices - 1) * (nHorizontalVertices - 1)];
         int indIndex = 0;
         int index = 0;
 
-        for (int line = 0; line < nVertices - 2; ++line) {
-            index = line * nVertices;
-            for (int col = 0; col < nVertices - 2; ++col)
+        for (int line = 0; line < nVerticalQuads; ++line) {
+            index = line * nHorizontalVertices;
+            for (int col = 0; col < nHorizontalQuads; ++col)
             {
                 // Annahme: Angabe der Dreieck-Eckpunkte gegen den Uhrzeigersinn
 
                 // Dreieck 'eins' (in rechteckiger Subdivision)
                 indices[indIndex + 0] = index;
-                indices[indIndex + 1] = index + nVertices;
+                indices[indIndex + 1] = index + nHorizontalVertices;
                 indices[indIndex + 2] = index + 1;
 
                 // Dreieck 'zwei'
                 indices[indIndex + 3] = index + 1;
-                indices[indIndex + 4] = index + nVertices;
-                indices[indIndex + 5] = index + nVertices + 1;
+                indices[indIndex + 4] = index + nHorizontalVertices;
+                indices[indIndex + 5] = index + nHorizontalVertices + 1;
 
                 indIndex += 6;
                 ++index;
             }
         }
 
-        return new Mesh(VERTEX_FORMAT, vertices, GL_TRIANGLES, indices, (nVertices-1)*(nVertices-1)*2);
+        return new Mesh(VERTEX_FORMAT, vertices, GL_TRIANGLES, indices, indIndex);
     }
 
-    public static void main(String[] args) {
-
-        PlaneTessellator p = new PlaneTessellator();
-        Tile t = new Tile(2, 1, 0);
-        System.out.println(t);
-        int subdivision = 1;
-        Mesh m = p.tessellateTile(t, subdivision, false);
-        int count = 0;
-        for (int i = 0; i < m.vertices.length; ++i) {
-            System.out.print(m.vertices[i] + "    ");
-            count +=1;
-            if (count == 8) {
-                System.out.println(); 
-                count = 0;
-            }
-        }
-        System.out.println(m.vertices.length / 8);
+    @Override
+    public boolean equals(Object other) {
+        return other != null && other.getClass() == this.getClass();
     }
 }

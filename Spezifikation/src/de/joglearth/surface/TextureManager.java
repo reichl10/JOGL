@@ -13,6 +13,7 @@ import com.jogamp.opengl.util.texture.TextureIO;
 import de.joglearth.geometry.Tile;
 import de.joglearth.rendering.Renderer;
 import de.joglearth.source.caching.RequestDistributor;
+import de.joglearth.util.Resource;
 
 
 /**
@@ -27,25 +28,19 @@ public class TextureManager {
     private RequestDistributor<Tile, Integer> source;
     private Texture placeholder;
 
+
     /**
      * Constructor.
      * 
      * @param gl The OpenGL object
      */
     public TextureManager(GL2 gl) {
-        //TODO: Laden der Platzhaltertextur für Meilenstein 1. Muss evtl. später ersetzt werden.
-        
+        // TODO: Laden der Platzhaltertextur für Meilenstein 1. Muss evtl. später ersetzt werden.
+
         /* Loads placeholder-texture */
-        try {
-            InputStream stream = getClass().getResourceAsStream("textures/placeholder.png");
-            TextureData data = TextureIO.newTextureData(GLProfile.getDefault(),
-                    stream, false, "png");
-            placeholder = TextureIO.newTexture(data);
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-            System.exit(1);
-        }
-        
+        placeholder = TextureIO.newTexture(Resource.loadTextureData("textures/placeholder.png",
+                "png"));
+
         placeholderTexture = new Integer(placeholder.getTextureObject(gl));
     }
 
@@ -66,7 +61,7 @@ public class TextureManager {
      * @param l The new listener
      */
     public void addSurfaceListener(SurfaceListener l) {
-        
+
     }
 
     /**
@@ -75,6 +70,6 @@ public class TextureManager {
      * @param l The listener that should be removed
      */
     public void removeSurfaceListener(SurfaceListener l) {
-        
+
     }
 }

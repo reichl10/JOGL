@@ -24,7 +24,7 @@ import com.jogamp.opengl.util.texture.TextureIO;
 public final class Resource {
 
     private Resource() {}
-
+    
     private static InputStream openResourceStream(String name) throws IOException {
         URL url = Thread.currentThread().getContextClassLoader().getResource(name);
         if (url == null) {
@@ -36,6 +36,7 @@ public final class Resource {
 
     /**
      * Loads a Swing <code>ImageIcon</code> from an image resource.
+     * 
      * @param name The resource file name
      * @return The icon if successfully loaded, else <code>null</code>
      */

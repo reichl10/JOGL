@@ -63,7 +63,7 @@ public class VertexBufferWhiteBoxTest {
                 assertTrue(vbo.indices > 0);
                 assertTrue(vbo.vertices > 0);
                 assertEquals(vbo.primitiveType, GL_TRIANGLES);
-                assertEquals(vbo.primitiveCount, 800);
+                assertEquals(vbo.indexCount, 800);
 
                 // Put into cache
                 cache.putObject(tile, vbo);
@@ -101,7 +101,7 @@ public class VertexBufferWhiteBoxTest {
                 assertEquals(gl.glGetError(), GL_NO_ERROR);
 
                 // Draw
-                gl.glDrawElements(vbo.primitiveType, vbo.primitiveCount, GL_UNSIGNED_INT, 0);
+                gl.glDrawElements(vbo.primitiveType, vbo.indexCount, GL_UNSIGNED_INT, 0);
                 assertEquals(gl.glGetError(), GL_NO_ERROR);
 
                 // Disable pointers

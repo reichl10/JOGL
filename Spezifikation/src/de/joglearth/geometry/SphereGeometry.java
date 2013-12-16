@@ -38,7 +38,6 @@ public class SphereGeometry implements Geometry {
          * set equal to the linear equation and solved for lambda.
          * If no real solution exists, the line does not intersect the sphere.
          */
-        
         double denom = 1 / (v.x * v.x + v.y * v.y + v.z * v.z);
         double sqrt_arg = pow(c.x * v.x + c.y * v.y + c.z * v.z, 2)
                 - (c.x * c.x + c.y * c.y + c.z * c.z - 1) * (v.x * v.x + v.y * v.y + v.z * v.z);
@@ -77,14 +76,21 @@ public class SphereGeometry implements Geometry {
                 || Double.isNaN(altitude)) {
             throw new IllegalArgumentException();
         }
-
-        /* Assumes that the default looking direction is (0, 0, -1). Might have to be corrected by
-         * adding a rotate()ion.
-         */
+                
+        Vector3 earthAxis = new Vector3(0, 1, 0);        
+        
         Matrix4 mat = new Matrix4();
-        mat.translate(position.getLongitude() / Math.PI, position.getLatitude() / Math.PI,
-                1 + altitude);
-        mat.rotate(new Vector3(0,1,0), position.getLongitude());
+        mat.rotate(earthAxis, position.getLongitude());
+        mat.translate(0, 0, 1);
+        
+        Vector3 cameraPosition = mat.transform(new Vector3(0, 0, 0)).divide(),
+                viewVector = mat.transform(new Vector3(0, 0, -1)).divide().minus(cameraPosition),
+                cameraXAxis = earthAxis.crossProduct(viewVector).normalized();
+        
+        mat = new Matrix4();
+        mat.rotate(cameraXAxis, position.getLatitude());
+        mat.rotate(earthAxis, position.getLongitude());
+        mat.translate(0, 0, 1 + altitude);
         return mat;
     }
 }

@@ -8,7 +8,7 @@ public class VertexBuffer {
     @Override
     public String toString() {
         return "VertexBuffer [vertices=" + vertices + ", indices=" + indices + ", primitiveType="
-                + primitiveType + ", primitiveCount=" + primitiveCount + "]";
+                + primitiveType + ", primitiveCount=" + indexCount + "]";
     }
 
     /**
@@ -31,7 +31,7 @@ public class VertexBuffer {
     /**
      * The number of primitives drawn from the index buffer.
      */
-    public int primitiveCount;
+    public int indexCount;
 
 
     /**
@@ -44,7 +44,7 @@ public class VertexBuffer {
         this.indices = indices;
         this.vertices = vertices;
         primitiveType = type;
-        primitiveCount = count;
+        indexCount = count;
     }
 
     /**

@@ -35,16 +35,24 @@ public final class Tile implements Cloneable {
 
     // Returns the angle for the step given, in radians
     private double getLongitudeAngle(int steps) {
-        double angle = pow(0.5, detailLevel) * steps % 1 * 2 * PI;
-        if (angle > PI) {
-            angle -= 2 * PI;
+        if (detailLevel > 0) {
+            double angle = pow(0.5, detailLevel) * steps % 1 * 2 * PI;
+            if (angle > PI) {
+                angle -= 2 * PI;
+            }
+            return angle;
+        } else {
+            return (-1+2*steps)*PI;
         }
-        return angle;
     }
     
     // Returns the angle for the step given, in radians
     private double getLatitudeAngle(int steps) {
-        return PI/2 - pow(0.5, detailLevel) * steps * PI;
+        if (detailLevel > 0) {
+            return PI/2 - pow(0.5, detailLevel) * steps * PI;
+        } else {
+            return (0.5-steps)*PI;
+        }
     }
 
     /**
@@ -118,9 +126,20 @@ public final class Tile implements Cloneable {
      * @return A tile
      */
     public static Tile getContainingTile(int detailLevel, GeoCoordinates coords) {
+        if (detailLevel < 0 || coords == null) {
+            throw new IllegalArgumentException();
+        }
+        
         double angle = PI / pow(2, detailLevel);
-        return new Tile(detailLevel, (int) floor(coords.getLongitude() / (2 * angle)),
-                (int) floor(coords.getLatitude() / angle));
+        int lon = (int) floor(coords.getLongitude() / (2 * angle));
+        if (lon < 0) {
+            lon = (int) pow(2, detailLevel) + lon;
+        }
+        int lat = (int) pow(2, detailLevel-1) - (int) floor((coords.getLatitude() / angle)) - 1;
+        if (lat < 0) {
+            lat = 0;
+        }
+        return new Tile(detailLevel, lon, lat);
     }
 
     /**
@@ -212,5 +231,5 @@ public final class Tile implements Cloneable {
                 + getLongitudeTo() + ", latitudeFrom()=" + getLatitudeFrom() + ", latitudeTo()="
                 + getLatitudeTo() + "]";
     }
-
+    
 }

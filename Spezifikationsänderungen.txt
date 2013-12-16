@@ -30,3 +30,8 @@ Tile
 Mesh
 - primitiveTpye, primitiveCount
 
+Renderer
+- quit() weg
+
+TileMeshSource
++ getTileSubdivisions, isHeightMapEnabled, getTessellator

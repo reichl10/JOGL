@@ -23,11 +23,28 @@ public class Camera {
     private double tiltX = 0;
     private double tiltY = 0;
     private double fov, aspectRatio, zNear, zFar;
-    private Matrix4 clipMatrix, projectionMatrix;
-    private Geometry geometry = null;
-    private Matrix4 cameraMatrix = null;
+    private Matrix4 projectionMatrix, cameraMatrix = new Matrix4(), modelViewMatrix = new Matrix4(), transformationMatrix;
+    /* TODO reset visibility */public Geometry geometry = null;
     private List<CameraListener> listeners = new ArrayList<CameraListener>();
 
+    
+    private boolean updatesEnabled = false;
+    
+    public synchronized void setUpdatesEnabled(boolean enabled) {
+        updatesEnabled = enabled;
+    }
+    
+    private void updateCameraTransformation() {
+        transformationMatrix = projectionMatrix.clone();
+        transformationMatrix.mult(modelViewMatrix);
+        if (updatesEnabled) {
+            for (CameraListener l : listeners) {
+                l.cameraViewChanged();
+            }
+        }
+    }
+    
+    
 
     private boolean updateCamera() {
         // TODO sign!
@@ -46,24 +63,18 @@ public class Camera {
         Vector3 xAxis = zAxis.crossProduct(earthAxis).normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
 
+        newCameraMatrix.rotate(zAxis, -tiltY);
         newCameraMatrix.rotate(xAxis, tiltX);
-        newCameraMatrix.rotate(yAxis, tiltY);
 
         Vector3 cameraPosition = newCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
         Vector3 viewVector = newCameraMatrix.transform(new Vector3(0, 0, -1)).divide()
                 .minus(cameraPosition);
 
         if (geometry.getSurfaceCoordinates(cameraPosition, viewVector) != null) {
-
-            projectionMatrix = newCameraMatrix.inverse();
-            projectionMatrix.mult(clipMatrix);
-
-            for (CameraListener l : listeners) {
-                l.cameraViewChanged();
-            }
             cameraMatrix = newCameraMatrix;
+            modelViewMatrix = cameraMatrix.inverse();
+            updateCameraTransformation();
             return true;
-
         } else {
             return false;
         }
@@ -99,8 +110,13 @@ public class Camera {
         }
 
         geometry = geo;
-        setPerspective((double) PI / 2, 1, 0.1, 1000);
+        setPerspective((double) PI / 2, 1, 0.01, 100);
+        if (!updateCamera()) {
+            throw new IllegalStateException();
+        }
         HeightMap.addSurfaceListener(new SurfaceHeightListener());
+        
+        updatesEnabled = true;
     }
 
     /**
@@ -211,16 +227,16 @@ public class Camera {
         this.zNear = near;
         this.zFar = far;
 
-        double f = 1.f / (double) tan(fov * 0.5f);
-        double[] d = { f * aspectRatio, 0, 0, 0,
-                0, -f, 0, 0,
-                0, 0, -(far + near) / (far - near), -1,
-                0, 0, (2.f * near * far) / (near - far), 0 };
-        clipMatrix = new Matrix4(d);
+        double f = 1 / tan(fov * 0.5);
 
-        if (!updateCamera()) {
-            throw new IllegalStateException();
-        }
+        projectionMatrix = new Matrix4(new double[] {
+                f / aspectRatio, 0, 0, 0,
+                0, f, 0, 0,
+                0, 0, (far + near) / (near - far), -1,
+                0, 0, (2 * near * far) / (near - far), 0
+        });
+        
+        updateCameraTransformation();
     }
 
     /**
@@ -310,7 +326,7 @@ public class Camera {
     }
 
     private boolean isPointVisible(Vector3 point) {
-        Vector3 t = projectionMatrix.transform(point).divide();
+        Vector3 t = transformationMatrix.transform(point).divide();
         return ((t.x >= -1 && t.x <= 1) && (t.y >= -1 && t.y <= 1) && (t.z >= -1 && t.z <= 1));
     }
 
@@ -345,7 +361,7 @@ public class Camera {
             throw new IllegalArgumentException();
         }
 
-        Vector3 t = projectionMatrix.transform(geometry.getSpacePosition(geo)).divide();
+        Vector3 t = transformationMatrix.transform(geometry.getSpacePosition(geo)).divide();
 
         if ((t.x >= -1 && t.x <= 1) && (t.y >= -1 && t.y <= 1)) {
             return new ScreenCoordinates((t.x + 1) / 2, (t.y + 1) / 2);
@@ -374,15 +390,23 @@ public class Camera {
 
         Matrix4 directionMatrix = cameraMatrix.clone();
 
-        Vector3 zAxis = directionMatrix.transform(new Vector3(0, 0, -1)).divide();
-        Vector3 xAxis = zAxis.crossProduct(new Vector3(0, 1, 0)).normalized();
+        Vector3 cameraPosition = directionMatrix.transform(new Vector3(0, 0, 0)).divide();
+
+        Vector3 zAxis = directionMatrix.transform(new Vector3(0, 0, -1)).divide()
+                .minus(cameraPosition).normalized();
+        Vector3 xAxis = zAxis.crossProduct(
+                directionMatrix.transform(new Vector3(0, 1, 0)).divide().minus(cameraPosition))
+                .normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
 
-        directionMatrix.rotate(xAxis, (screen.x - 0.5) * fov);
-        directionMatrix.rotate(yAxis, (screen.y - 0.5) * fov);
+        directionMatrix.rotate(yAxis, (screen.x - 0.5) * fov);
+        directionMatrix.rotate(xAxis, (screen.y - 0.5) * fov);
 
-        Vector3 viewVector = directionMatrix.transform(new Vector3(0, 0, -1)).divide();
-        Vector3 cameraPosition = directionMatrix.transform(new Vector3(0, 0, 0)).divide();
+        Vector3 viewVector = directionMatrix.transform(new Vector3(0, 0, -1)).divide()
+                .minus(cameraPosition);
+
+        System.out.println("Screen: " + screen + ", Camera: " + cameraPosition + ", zAxis: " + zAxis
+                + ", xAxis: " + xAxis + ", yAxis: " + yAxis + ", view: " + viewVector);
 
         return geometry.getSurfaceCoordinates(cameraPosition, viewVector);
     }
@@ -398,6 +422,14 @@ public class Camera {
      */
     public Matrix4 getProjectionMatrix() {
         return projectionMatrix;
+    }
+    
+    public Matrix4 getModelViewMatrix() {
+        return modelViewMatrix;
+    }
+    
+    public Matrix4 getTransformationMatrix() {
+        return transformationMatrix;
     }
 
     /**
@@ -424,5 +456,12 @@ public class Camera {
         }
 
         listeners.remove(l);
+    }
+
+    public static void main(String[] args) {
+        SphereGeometry s = new SphereGeometry();
+        Camera c = new Camera(s);
+        System.out.println(Tile.getContainingTile(4,
+                c.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5))));
     }
 }

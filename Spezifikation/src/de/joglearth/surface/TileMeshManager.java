@@ -33,10 +33,14 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
      * Creates a new {@link TileMeshManager} as it initializes the source, the cache, sets the
      * {@link de.joglearth.source.caching.RequestDistributor} and adds a surface listener from {@link de.joglearth.surface.HeightMap}.
      * 
-     * @param gl The GL context
-     * @param t The <code>Tessellator</code> that should be used
+     * @param gl The GL context. May not be null.
+     * @param t The <code>Tessellator</code> that should be used. May be null.
      */
     public TileMeshManager(GL2 gl, Tessellator t) {
+        if (gl == null) {
+            throw new IllegalArgumentException();
+        }
+        
         source = new TileMeshSource(gl, t);
         cache = new VertexBufferCache(gl);
         dist = new RequestDistributor<Tile, VertexBuffer>();
@@ -69,8 +73,10 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
      * @param t The new <code>Tesselator</code>
      */
     public void setTessellator(Tessellator t) {
-        source.setTessellator(t);
-        dist.dropAll();
+        if (t == null || !t.equals(source.getTessellator())) {
+            source.setTessellator(t);
+            dist.dropAll();
+        }
     }
 
     /**
@@ -79,8 +85,10 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
      * @param sub The new <code>level of detail</code>
      */
     public void setTileSubdivisions(int sub) {
-        source.setTileSubdivisions(sub);
-        dist.dropAll();
+        if (sub != source.getTileSubdivisions()) {
+            source.setTileSubdivisions(sub);
+            dist.dropAll();            
+        }
     }
 
     /**
@@ -88,15 +96,18 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
      * 
      * @param enable Whether to enable or disable the <code>HeightMap</code>
      */
-    public void enableHeightMap(boolean enable) {
-        source.setHeightMapEnabled(enable);
-        dist.dropAll();
+    public void setHeightMapEnabled(boolean enable) {
+        if (enable != source.isHeightMapEnabled()) {
+            source.setHeightMapEnabled(enable);
+            dist.dropAll();
+        }
     }
 
     @Override
     public SourceResponse<VertexBuffer> requestObject(Tile key,
             SourceListener<Tile, VertexBuffer> sender) {
-        return dist.requestObject(key, sender);
+        //return dist.requestObject(key, sender);
+        return source.requestObject(key, sender);
     }
 
     /**
@@ -105,6 +116,10 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
      * @param l The new listener
      */
     public void addSurfaceListener(SurfaceListener l) {
+        if (l == null) {
+            throw new IllegalArgumentException();
+        }
+        
         listeners.add(l);
     }
 
@@ -114,6 +129,10 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
      * @param l The listener that should be removed
      */
     public void removeSurfaceListener(SurfaceListener l) {
+        if (l == null) {
+            throw new IllegalArgumentException();
+        }
+        
         listeners.remove(l);
     }
 

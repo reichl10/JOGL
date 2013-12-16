@@ -15,7 +15,7 @@
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="POI_Grocery.svg"
-   inkscape:export-filename="/home/gabi/SEP/JoglEarth/Spezifikation/res/iconsPoi/POI_Grocery.png"
+   inkscape:export-filename="/home/christof/SEP/JoglEarth/Spezifikation/res/iconsPoi/POI_Grocery.png"
    inkscape:export-xdpi="2556"
    inkscape:export-ydpi="2556">
   <defs
@@ -298,7 +298,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="90.509668"
      inkscape:cx="7.9551705"
-     inkscape:cy="10.076105"
+     inkscape:cy="4.3557233"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -306,10 +306,10 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1306"
-     inkscape:window-height="744"
-     inkscape:window-x="60"
-     inkscape:window-y="24"
+     inkscape:window-width="1024"
+     inkscape:window-height="552"
+     inkscape:window-x="0"
+     inkscape:window-y="26"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata3344">
@@ -575,5 +575,11 @@
        inkscape:export-filename="/home/gabi/SEP/JoglEarth/Spezifikation/res/iconsPoi/POI_Grocery.png"
        inkscape:export-xdpi="2556"
        inkscape:export-ydpi="2556" />
+    <path
+       style="fill:#ffffff;stroke:none;stroke-width:0.13921164999999999;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="M 8.2954734,15.224732 C 6.7041924,15.105243 5.2370015,14.445148 4.1169065,13.344778 l -0.1712524,-0.168237 1.160097,-0.0017 c 0.6380534,-9.15e-4 1.162583,-0.0013 1.1656214,-9.06e-4 0.00304,4.17e-4 0.070158,0.02896 0.1491553,0.06343 0.5078721,0.221607 1.1376523,0.360643 1.9334951,0.426856 0.2483875,0.02067 0.9553047,0.01702 1.2136517,-0.0063 0.7517604,-0.06774 1.3471414,-0.212225 1.8171404,-0.440995 l 0.09595,-0.0467 1.071708,0.0055 1.071709,0.0055 -0.149155,0.148077 c -0.938484,0.931702 -2.179239,1.57376 -3.4914904,1.806754 -0.5390656,0.09571 -1.1593273,0.128248 -1.6880592,0.08854 l 0,0 z"
+       id="path3068"
+       inkscape:connector-curvature="0"
+       transform="translate(341.24097,523.42468)" />
   </g>
 </svg>

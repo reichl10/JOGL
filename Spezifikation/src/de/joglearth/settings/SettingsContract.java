@@ -349,9 +349,10 @@ public final class SettingsContract {
      */
     public static void saveSettings() {
         System.err.println("SaveSettings!");
+        System.err.println("Saving to SettingsLocation:" +FILE_LOCATION);
         Settings s = Settings.getInstance();
         File f = new File(FILE_LOCATION);
-        f.mkdirs();
+        f.getParentFile().mkdirs();
         XMLStreamWriter xmlWriter = null;
         try {
             xmlWriter = XMLOutputFactory.newInstance().createXMLStreamWriter(
@@ -366,11 +367,6 @@ public final class SettingsContract {
                     s.getInteger(CACHE_SIZE_FILESYSTEM));
             writeEntry(xmlWriter, CACHE_SIZE_MEMORY,
                     s.getInteger(CACHE_SIZE_MEMORY));
-            /**
-             * Field[] fields = Settings.class.getDeclaredFields(); for (Field f : fields) { int mod
-             * = f.getModifiers(); if (Modifier.isPrivate(mod) && Modifier.isFinal(mod) &&
-             * Modifier.isStatic(mod)) { // TODO: Write to as Entry. } }
-             **/
             writeLocationSet(xmlWriter, USER_LOCATIONS,
                     s.getLocations(USER_LOCATIONS));
             writeEnd(xmlWriter);
@@ -396,6 +392,8 @@ public final class SettingsContract {
 
     private static void writeEntry(XMLStreamWriter writer, String key,
             Object value) throws XMLStreamException {
+        if (value == null)
+            return;
         String valueS = "";
         String type = "";
         writer.writeStartElement(XML_ELEMENT_ENTRY);
@@ -427,8 +425,10 @@ public final class SettingsContract {
             Set<Location> set) throws XMLStreamException {
         writer.writeStartElement(XML_ELEMENT_LOCS);
         writer.writeAttribute(XML_ATTR_LOCS_KEY, key);
+        if (set != null) {
         for (Location l : set)
             writeLocation(writer, l);
+        }
         writer.writeEndElement();
     }
 
@@ -457,13 +457,13 @@ public final class SettingsContract {
         String os = System.getProperty("os.name");
         if (os.contains("Windows")) {
             String localAppdata = System.getenv("LOCALAPPDATA");
-            return (localAppdata + "\\" + folderName + "\\" + "settings.xml");
+            return (localAppdata + File.separator + folderName + File.separator + "settings.xml");
         } else if (os.contains("Linux")) {
             String userHome = System.getProperty("user.home");
             return (userHome + File.separator + "." + folderName + File.separator
             + "settings.xml");
         } else {
-            return null;
+            throw new RuntimeException("System not supported!");
         }
     }
 }
