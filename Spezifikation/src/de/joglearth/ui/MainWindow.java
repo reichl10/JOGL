@@ -160,7 +160,8 @@ public class MainWindow extends JFrame {
     private JComboBox<IconizedItem<MapTypePair>> paraMapTypeComboBox;
     private JTabbedPane sideBarTabs;
     private JSlider zoomSlider;
-
+    private static final double ZOOM_FACTOR = new Double(1.1d / 2d);;
+    private static final double MIN_DIST = 0.1d;
 
     private class HideSideBarListener extends MouseAdapter {
 
@@ -1098,6 +1099,7 @@ public class MainWindow extends JFrame {
             languageComboBox.setSelectedIndex(0);
         }
         registerListeners();
+        camera.setDistance(zoomSlider.getValue() * ZOOM_FACTOR + MIN_DIST);
     }
 
     /**
@@ -1238,7 +1240,6 @@ public class MainWindow extends JFrame {
 
         private boolean increase;
         private JSlider slider;
-        private final Double ZOOM_FACTOR = new Double(1.1d / 2d);
 
 
         public ZoomAdapter(JSlider slider, boolean increase) {
@@ -1271,7 +1272,7 @@ public class MainWindow extends JFrame {
             else if (newCount > slider.getMaximum())
                 newCount = slider.getMaximum();
             slider.setValue(newCount);
-            camera.setDistance((newCount) * ZOOM_FACTOR + 0.1);
+            camera.setDistance((newCount) * ZOOM_FACTOR + MIN_DIST);
         }
     }
 
