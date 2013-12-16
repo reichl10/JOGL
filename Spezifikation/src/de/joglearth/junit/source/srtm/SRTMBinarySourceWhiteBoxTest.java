@@ -30,7 +30,7 @@ public class SRTMBinarySourceWhiteBoxTest {
         
         SRTMListener listener = new SRTMListener();
         
-        srtm.requestObject(new SRTMTileIndex(0,  0), listener);
+        srtm.requestObject(new SRTMTileIndex(61,  36), listener);
         
         synchronized (this) {
             //wait();
