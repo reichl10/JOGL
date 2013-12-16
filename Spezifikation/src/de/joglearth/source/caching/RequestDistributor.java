@@ -359,8 +359,8 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         boolean hasNextCache = caches.size() > index + 1;
         while (spaceMade < space) {
             Entry<Key, BigInteger> entry = list.pop();
-            SourceResponse<Value> response = cache.requestObject(entry.getKey(), null);
-            // TODO: Handle ASYNC
+            CacheMoveListener listener = new CacheMoveListener(Thread.currentThread());
+            SourceResponse<Value> response = cache.requestObject(entry.getKey(), listener);
             if (response.response == SourceResponseType.SYNCHRONOUS) {
                 if (hasNextCache) {
                     CacheEntry cEntry = new CacheEntry(entry.getKey(), response.value,
@@ -370,8 +370,24 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                 Integer sizeOfRemovedEntry = measure.getSize(response.value);
                 cache.dropObject(entry.getKey());
                 spaceMade += sizeOfRemovedEntry;
+            } else if (response.response == SourceResponseType.ASYNCHRONOUS) {
+                synchronized (this) {
+                    try {
+                        wait();
+                        if (hasNextCache) {
+                            CacheEntry cEntry = new CacheEntry(listener.key, listener.value,
+                                    lastUsed.remove(listener.key));
+                            removedSet.add(cEntry);
+                        }
+                        Integer sizeOfRemovedEntry = measure.getSize(response.value);
+                        cache.dropObject(entry.getKey());
+                        spaceMade += sizeOfRemovedEntry;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             } else {
-                // TODO: Implement!
+                throw new RuntimeException("Cache Failed");
             }
         }
         removeUsedSpace(cache, spaceMade);
@@ -486,5 +502,22 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             value = v;
             lastUsed = l;
         }
+    }
+    
+    private class CacheMoveListener implements SourceListener<Key, Value> {
+
+        Thread waiterThread;
+        public Key key;
+        public Value value;
+        public CacheMoveListener(Thread t) {
+            waiterThread = t;
+        }
+        @Override
+        public void requestCompleted(Key key, Value value) {
+            this.key = key;
+            this.value = value;
+            waiterThread.notify();
+        }
+        
     }
 }
