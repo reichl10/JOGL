@@ -1,7 +1,9 @@
 package de.joglearth.geometry;
 
 import java.util.Arrays;
+
 import static java.lang.Math.*;
+import static java.lang.Double.*;
 
 
 /**
@@ -157,6 +159,12 @@ public final class Matrix4 implements Cloneable {
      * @param rad The rotation angle, in radians
      */
     public void rotate(Vector3 axis, double rad) {
+        if (axis == null || axis.length() == 0 || isNaN(axis.length()) || isInfinite(axis.length())
+                || isNaN(rad) || isInfinite(rad)) {
+            throw new IllegalArgumentException();
+        }
+        
+        axis = axis.normalized();
         final double n1 = axis.x, n2 = axis.y, n3 = axis.z, c = cos(rad), s = sin(rad);
         mult(new double[] { 
                 n1*n1*(1-c)+c, n2*n1*(1-c)+n3*s, n3*n1*(1-c)-n2*s, 0,

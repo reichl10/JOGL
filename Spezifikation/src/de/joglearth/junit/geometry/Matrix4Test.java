@@ -188,7 +188,7 @@ public class Matrix4Test {
                         + init[15] * rotMatrix[15]
         };
         Matrix4 m1 = new Matrix4(init);
-        m1.rotate(new Vector3(x, x, x), rotation);
+        m1.rotate(new Vector3(x, y, z).normalized(), rotation);
         assertArrayEquals(resultMatrix, m1.doubles(), 0.000000001d);
     }
 
@@ -240,7 +240,7 @@ public class Matrix4Test {
     @Test
     public final void testTransform() {
         double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
-        double[] result = { 5.4d, 11.8d, 19.6d, 24 };
+        double[] result = { 5.4d, 11.8d, 18.2d, 24.6 };
         Matrix4 m1 = new Matrix4(init);
         // transform with 0.1,0.2,0.3,1
         Vector4 vector4 = m1.transform(new Vector3(0.1, 0.2, 0.3));
