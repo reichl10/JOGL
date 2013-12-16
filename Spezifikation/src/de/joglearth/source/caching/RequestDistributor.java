@@ -116,20 +116,19 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     @Override
     public synchronized SourceResponse<Value> requestObject(Key key,
             final SourceListener<Key, Value> sender) {
-        Cache<Key, Value> cache;
-        try {
-            cache = caches.get(0);
-        } catch (IndexOutOfBoundsException e) {
-            if (source == null)
+        SourceResponse<Value> cacheResponse = askCaches(0, key, sender);
+        if (cacheResponse.response != SourceResponseType.MISSING) {
+            return cacheResponse;
+        } else {
+            if (source == null) {
                 return new SourceResponse<Value>(SourceResponseType.MISSING, null);
+            }
             if (!addRegisterRequest(key, sender)) {
                 return askSource(key, sender);
             } else {
                 return new SourceResponse<Value>(SourceResponseType.ASYNCHRONOUS, null);
             }
         }
-        SourceResponse<Value> response = askCaches(0, key, sender);
-        return response;
     }
 
     private SourceResponse<Value> askSource(Key k, SourceListener<Key, Value> listener) {
@@ -146,11 +145,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
     private SourceResponse<Value> askCaches(int index, Key key, SourceListener<Key, Value> listener) {
         Cache<Key, Value> cache;
-        try {
-            cache = caches.get(index);
-        } catch (IndexOutOfBoundsException e) {
+        if (caches.size() > index) {
             return new SourceResponse<Value>(SourceResponseType.MISSING, null);
         }
+        cache = caches.get(index);
         if (!addRegisterRequest(key, listener)) {
             SourceResponse<Value> response = cache.requestObject(key, new ObjectRequestListener(
                     caches, 0, source, this));
@@ -168,13 +166,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         } else {
             return new SourceResponse<Value>(SourceResponseType.ASYNCHRONOUS, null);
         }
-    }
-
-    private boolean doesRequestExist(Key k) {
-        Set<SourceListener<Key, Value>> set = waitingRequestsMap.get(k);
-        if (set != null)
-            return true;
-        return false;
     }
 
     /**
@@ -261,7 +252,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         }
     }
 
-    private void requestCompleted(Key k, Value v) {
+    private synchronized void requestCompleted(Key k, Value v) {
         addToCaches(k, v);
         Set<SourceListener<Key, Value>> listeners = waitingRequestsMap.remove(k);
         if (listeners != null) {
@@ -390,11 +381,8 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             synchronized (RequestDistributor.this) {
                 if (value == null) {
                     // ask next cache
-                    Cache<Key, Value> nextCache = null;
-                    try {
-                        nextCache = _caches.get(cIndex + 1);
-                    } catch (IndexOutOfBoundsException e) {}
-                    if (nextCache != null) {
+                    if (_caches.size() > cIndex+1) {
+                        Cache<Key, Value> nextCache = _caches.get(cIndex + 1);
                         nextCache.requestObject(key, new ObjectRequestListener(_caches, cIndex + 1,
                                 _source, _rd));
                     } else {
