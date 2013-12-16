@@ -84,10 +84,12 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         if (maxSize < 1) {
             throw new IllegalArgumentException("Cache size should be > 0");
         }
-        Integer preVal = cacheSizeMap.put(cache, new Integer(maxSize));
-        int pre = preVal.intValue();
-        if (maxSize < pre) {
-            makeSpaceInCache(cache, pre - maxSize);
+        if (caches.contains(cache)) {
+            Integer preVal = cacheSizeMap.put(cache, new Integer(maxSize));
+            int pre = preVal.intValue();
+            if (maxSize < pre) {
+                makeSpaceInCache(cache, pre - maxSize);
+            }
         }
     }
 
