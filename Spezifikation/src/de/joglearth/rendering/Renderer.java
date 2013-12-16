@@ -58,8 +58,8 @@ public class Renderer {
     private FPSAnimator animator;
     private int leastHorizontalTiles;
     private int tileSubdivisions = 7;
-    private boolean isPosted = false;
-    private boolean isRunning = false;
+    private volatile boolean isPosted = false;
+    private volatile boolean isRunning = false;
     private int TILE_SIZE = 256;
     private LocationManager locationManager;
     private TextureManager textureManager;
@@ -112,6 +112,7 @@ public class Renderer {
      */
     public void post() {
         synchronized (this) {
+            isPosted = true;
             if (isRunning) {
                 return;
             }
@@ -124,17 +125,13 @@ public class Renderer {
             public void run() {
                 boolean doContinue;
                 do {
-                    synchronized (this) {
-                        isPosted = false;
-                    }
+                    isPosted = false;
                     canvas.display();
-                    synchronized (this) {
+                    synchronized (Renderer.this) {
                         doContinue = isPosted && !animator.isAnimating();
                     }
                 } while (doContinue);
-                synchronized(this) {
-                    isRunning = false;
-                }
+                isRunning = false;
             }
         });
     }
