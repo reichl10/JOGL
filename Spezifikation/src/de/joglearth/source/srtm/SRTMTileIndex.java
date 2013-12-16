@@ -1,5 +1,8 @@
 package de.joglearth.source.srtm;
 
+import static java.lang.Math.*;
+
+
 /**
  * Structure identifying single SRTM height data tiles.
  */
@@ -9,7 +12,7 @@ public final class SRTMTileIndex {
      * The longitude index, as described by the SRTM standard.
      */
     public int longitude;
-    
+
     /**
      * The latitude index, as described by the SRTM standard.
      */
@@ -18,6 +21,7 @@ public final class SRTMTileIndex {
 
     /**
      * Constructor.
+     * 
      * @param lon The longitude index
      * @param lat The latitude index
      */
@@ -49,7 +53,7 @@ public final class SRTMTileIndex {
 
     @Override
     public String toString() {
-        return String.format("%c%0.2d%c%0.2d", latitude >= 0 ? 'N' : 'S', Math.abs(latitude),
-                longitude >= 0 ? 'E' : 'W', Math.abs(longitude));
+        return String.format("%c%02d%c%03d", latitude >= 0 ? 'N' : 'S', abs(latitude),
+                longitude >= 0 ? 'E' : 'W', abs(longitude));
     }
 }
