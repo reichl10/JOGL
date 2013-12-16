@@ -114,7 +114,7 @@ public class Matrix4Test {
         double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
         double[] trans = { 0.23, 0.12, 0.1342 };
         double[] result = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4.8726d, 10.8094d,
-                17.4946d, 22.323d };
+                16.7462d, 22.6830d };
         Matrix4 m1 = new Matrix4(init);
         m1.translate(trans[0], trans[1], trans[2]);
         assertArrayEquals(result, m1.doubles(), 0.00001d);
@@ -125,7 +125,7 @@ public class Matrix4Test {
         double[] init = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4d, 8d, 12d, 16d };
         double[] trans = { 0.23, 0.12, 0.1342 };
         double[] result = { 1d, 5d, 9d, 13d, 2d, 6d, 10d, 14d, 3d, 7d, 11d, 15d, 4.8726d, 10.8094d,
-                17.4946d, 22.323d };
+                16.7462d, 22.6830d };
         Vector3 v3 = new Vector3(trans[0], trans[1], trans[2]);
         Matrix4 m1 = new Matrix4(init);
         m1.translate(v3);
