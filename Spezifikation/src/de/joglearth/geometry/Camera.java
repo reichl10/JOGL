@@ -110,7 +110,7 @@ public class Camera {
         }
 
         geometry = geo;
-        setPerspective((double) PI / 2, 1, 0.1, 1000);
+        setPerspective((double) PI / 2, 1, 0.01, 100);
         if (!updateCamera()) {
             throw new IllegalStateException();
         }

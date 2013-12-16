@@ -30,6 +30,10 @@ public final class CameraUtils {
      * @return The array of visible tiles
      */
     public static Iterable<Tile> getVisibleTiles(Camera camera, int zoomLevel) {
+        if (camera == null || zoomLevel < 0) {
+            throw new IllegalArgumentException();
+        }
+        
         /*
          * The tile below (0.5, 0.5) is always visible. Either it it the only tile on the screen, or
          * one of its corners can be used as a starting point by the grid walking algorithm.
@@ -91,7 +95,7 @@ public final class CameraUtils {
      * @return The optimal level of the tiles
      */
     public static int getOptimalZoomLevel(Camera camera, int leastHorizontalTiles) {
-        return (int) ceil(log(leastHorizontalTiles / camera.getScale()) / log(2));
+        return max(0, (int) ceil(log(leastHorizontalTiles / camera.getScale()) / log(2)));
     }
 
     /*
@@ -100,6 +104,10 @@ public final class CameraUtils {
      */
     private static Set<GridPoint> getVisibleGridPoints(GridPoint center, int zoomLevel,
             Camera camera) {
+        if (center == null || zoomLevel < 0 || camera == null) {
+            throw new IllegalArgumentException();
+        }
+        
         Set<GridPoint> visiblePoints = new HashSet<GridPoint>();
 
         // Start at center point

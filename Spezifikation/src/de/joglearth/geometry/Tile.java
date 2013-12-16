@@ -126,17 +126,20 @@ public final class Tile implements Cloneable {
      * @return A tile
      */
     public static Tile getContainingTile(int detailLevel, GeoCoordinates coords) {
+        if (detailLevel < 0 || coords == null) {
+            throw new IllegalArgumentException();
+        }
+        
         double angle = PI / pow(2, detailLevel);
-        int lon = (int) (coords.getLongitude() / (2 * angle));
+        int lon = (int) floor(coords.getLongitude() / (2 * angle));
         if (lon < 0) {
             lon = (int) pow(2, detailLevel) + lon;
         }
-        int lat = (int) pow(2, detailLevel-1) - (int) (coords.getLatitude() / angle) - 1;
+        int lat = (int) pow(2, detailLevel-1) - (int) floor((coords.getLatitude() / angle)) - 1;
         if (lat < 0) {
             lat = 0;
         }
-        Tile tile = new Tile(detailLevel, lon, lat);
-        return tile;
+        return new Tile(detailLevel, lon, lat);
     }
 
     /**
@@ -228,5 +231,5 @@ public final class Tile implements Cloneable {
                 + getLongitudeTo() + ", latitudeFrom()=" + getLatitudeFrom() + ", latitudeTo()="
                 + getLatitudeTo() + "]";
     }
-
+    
 }

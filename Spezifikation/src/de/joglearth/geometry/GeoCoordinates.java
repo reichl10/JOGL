@@ -154,11 +154,7 @@ public final class GeoCoordinates implements Cloneable {
     private String getCoordinateString(double coord) {
         double deg = radToDeg(abs(coord)), ideg = floor(deg), imin = Math
                 .floor((deg - ideg) * 60), isec = floor((deg - ideg - (imin / 60)) * 3600);
-        if (isec == (int) isec) {
-            return String.format("%d° %d' %d\"", (int) ideg, (int) imin, (int) isec);
-        } else {
-            return String.format("%d° %d' %s\"", (int) ideg, (int) imin, Double.toString(isec));
-        }
+        return String.format("%d° %02d' %02d\"", (int) ideg, (int) imin, (int) isec);
     }
 
     /**
@@ -167,9 +163,7 @@ public final class GeoCoordinates implements Cloneable {
      * @return The longitude in string representation
      */
     public String getLongitudeString() {
-        boolean west = longitude > PI;
-        return getCoordinateString(west ? 2 * PI - longitude : longitude)
-                + (west ? " W" : " E");
+        return getCoordinateString(longitude) + (longitude < 0 ? " W" : " E");
     }
 
     /**

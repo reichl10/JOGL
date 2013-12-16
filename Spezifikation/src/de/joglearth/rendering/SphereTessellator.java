@@ -124,13 +124,12 @@ public class SphereTessellator implements Tessellator {
 
     @Override
     public Mesh tessellateTile(Tile tile, int subdivisions, boolean useHeightMap) {
-
         int nRows = subdivisions + 1, direction = tile.getLatitudeFrom() >= 0 ? +1 : -1;
 
         double lat = direction > 0 ? tile.getLatitudeFrom() : tile.getLatitudeTo(), lon = tile
                 .getLongitudeFrom();
 
-        int maxShrinkCount = getMaxShrinkCount(subdivisions + 1),
+        int maxShrinkCount = tile.getDetailLevel() == 0 ? 0 : getMaxShrinkCount(subdivisions + 1),
             shrinkCount = getShrinkCount(lat, maxShrinkCount), 
             rowWidth = max(2, (subdivisions + 1) / (int) pow(2, shrinkCount)) + 1;
 
