@@ -65,9 +65,10 @@ public class SRTMBinarySource implements Source<SRTMTileIndex, byte[]> {
         final String url = serverURL + tileRegionMap.get(key.toString()) + "/" + key.toString()
                 + ".hgt.zip";
         
-        /*executor.execute(*/new Runnable() {
+        executor.execute(new Runnable() {
             @Override
             public void run() {
+                System.out.println(url);
                 byte[] zipBytes = HTTP.get(url, null);
 
                 if (zipBytes == null) {
@@ -78,9 +79,18 @@ public class SRTMBinarySource implements Source<SRTMTileIndex, byte[]> {
                 if (zipBytes != null) {
                     try {
                         ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(zipBytes));
-                        tileBytes = new byte[1201 * 1201 * 2];
-                        if (zip.read(tileBytes) != tileBytes.length) {
-                            tileBytes = null;
+                        ZipEntry entry = zip.getNextEntry();
+                        if (entry.getName().equals(key.toString() + ".hgt")) {
+                            ByteArrayOutputStream tileStream = new ByteArrayOutputStream();
+                            int n = -1;
+                            byte[] buf = new byte[4096];
+                            while ((n = zip.read(buf)) != -1) {
+                                tileStream.write(buf, 0, n);
+                            }
+                            tileBytes = tileStream.toByteArray();
+                            if (tileBytes.length != 1201*1201*2) {
+                                tileBytes = null;
+                            }
                         }
                     } catch (IOException e) {
                         tileBytes = null;
@@ -94,7 +104,7 @@ public class SRTMBinarySource implements Source<SRTMTileIndex, byte[]> {
 
                 sender.requestCompleted(key, tileBytes);
             }
-        }.run();
+        });
         
         return new SourceResponse<byte[]>(SourceResponseType.ASYNCHRONOUS, null);
     }

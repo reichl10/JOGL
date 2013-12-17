@@ -98,8 +98,8 @@ public final class SRTMTile {
                     
                     //The next LOD is half the width and half the height, hence one point is
                     //interpolated from exactly 4.
-                    small[i][j] = (short) ((large[2 * i][2 * i] + large[2 * i][(2 * i) + 1]
-                            + large[(2 * i) + 1][2 * i] + large[(2 * i) + 1][(2 * i) + 1]) / 4);
+                    small[i][j] = (short) ((large[2 * i][2 * j] + large[2 * i][(2 * j) + 1]
+                            + large[(2 * i) + 1][2 * j] + large[(2 * i) + 1][(2 * j) + 1]) / 4);
                 }
             }
             height[lod] = small;
