@@ -15,11 +15,11 @@ import static javax.media.opengl.GL.GL_TRIANGLES;
  */
 public class SphereTessellator implements Tessellator {
 
-    private static Vector3 getSurfaceVector(double lon, double lat, boolean useHeightMap) {
+    private static Vector3 getSurfaceVector(double lon, double lat, double latStep, boolean useHeightMap) {
         // The earth axis is equal to the y axis, lon=0, lat=0 has the coordinates (0, 0, 1).
         Vector3 vec = new Vector3(cos(lat) * sin(lon), sin(lat), cos(lat) * cos(lon));
         if (useHeightMap) {
-            return vec.times(1 + HeightMap.getHeight(new GeoCoordinates(lon, lat)));
+            return vec.times(1 + HeightMap.getHeight(new GeoCoordinates(lon, lat), latStep));
         } else {
             return vec;
         }
@@ -27,10 +27,11 @@ public class SphereTessellator implements Tessellator {
 
     private static void writeSingleVertex(float[] vertices, int vIndex, double lon, double lat,
             double lonStep, double latStep, boolean useHeightMap, double textureX, double textureY) {
-        Vector3 vertex = getSurfaceVector(lon, lat, useHeightMap), east = getSurfaceVector(lon
-                + lonStep, lat, useHeightMap), north = getSurfaceVector(lon, lat + latStep,
-                useHeightMap), west = getSurfaceVector(lon - lonStep, lat, useHeightMap), south = getSurfaceVector(
-                lon, lat - latStep, useHeightMap);
+        Vector3 vertex = getSurfaceVector(lon, lat, latStep, useHeightMap), 
+                east = getSurfaceVector(lon + lonStep, lat, latStep, useHeightMap), 
+                north = getSurfaceVector(lon, lat + latStep, latStep, useHeightMap), 
+                west = getSurfaceVector(lon - lonStep, lat, latStep, useHeightMap), 
+                south = getSurfaceVector(lon, lat - latStep, latStep, useHeightMap);
 
         Vector3 normal = east.minus(west).crossProduct(south.minus(north)).normalized();
         writeVertex(vertices, vIndex, vertex.x, vertex.y, vertex.z);

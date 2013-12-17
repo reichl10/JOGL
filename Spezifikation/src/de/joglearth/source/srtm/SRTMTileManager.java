@@ -42,22 +42,4 @@ public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
         return dist.requestObject(key, sender);
     }
 
-    /**
-     * Adds a new {@link de.joglearth.surface.SurfaceListener}.
-     * 
-     * @param l The new <code>SurfaceListener</code>
-     */
-    public void addSurfaceListener(SurfaceListener l) {
-
-    }
-
-    /**
-     * Removes a given {@link de.joglearth.surface.SurfaceListener}.
-     * 
-     * @param l The <code>SurfaceListener</code> that should be removed
-     */
-    public void removeSurfaceListener(SurfaceListener l) {
-
-    }
-
 }
