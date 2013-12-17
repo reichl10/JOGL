@@ -1,6 +1,8 @@
 package de.joglearth.source.osm;
 
 import de.joglearth.geometry.Tile;
+import de.joglearth.settings.Settings;
+import de.joglearth.settings.SettingsContract;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
@@ -13,7 +15,7 @@ import de.joglearth.util.HTTP;
  */
 public class OSMTileSource implements Source<OSMTile, byte[]> {
 
-    private final String[] servers;
+    private String[] servers;
     private TiledMapType type;
     private int offset = 0;
 
@@ -23,8 +25,8 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
      * 
      * @param servers An array containing the server strings
      */
-    public OSMTileSource(String[] servers) {
-        this.servers = servers;
+    public OSMTileSource() {
+        this.servers = new String[0];
     }
 
     @Override
@@ -33,6 +35,9 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
         if (k.type != type) {
             setTileType(type);
         }
+        
+        //TODO asynchronous
+        byte[] response = getOSMTile(k.tile);
 
         return null;
     }
@@ -42,7 +47,8 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
         int y = (int) (((tile.getLatitudeFrom() + tile.getLatitudeTo()) / 2) / 180 * Math.PI);
         int x = (int) ((tile.getLongitudeFrom() + tile.getLongitudeTo()) / 2);
 
-        int zoom = 0;
+        int zoom = Settings.getInstance().getInteger(SettingsContract.ZOOM_LEVEL);
+        System.out.println(zoom);
         int n = (int) Math.pow(2, zoom); // TODO n = 2^zoom
         int xtile = n * ((x + 180) / 360);
         int ytile = (int) (n * (1 - (Math.log(Math.tan(y) + 1 / Math.cos(y)) / Math.PI)) / 2);
@@ -53,7 +59,6 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
         int i = 0;
         while (response == null && i < servers.length) {
             builder.append(servers[offset]);
-            builder.append("/");
             builder.append(zoom);
             builder.append("/");
             builder.append(xtile);
@@ -83,6 +88,40 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
      * @param type <code>TiledMapType</code> of the tile
      */
     public void setTileType(TiledMapType type) {
+        if (this.type != type) {
+            this.type = type;
+            this.servers = getServer(type);
+        }
         // TODO Zum Type passende Server besorgen.
+    }
+
+    //TODO evtl. woanders hinschieben
+    private String[] getServer(TiledMapType type) {
+
+        String[] cycling = { "http://a.tile.opencyclemap.org/cycle/",
+                "http://b.tile.opencyclemap.org/cycle/" };
+        String[] hiking = { "http://tile.waymarkedtrails.org/hiking/" };
+        String[] osm2world = { "http://a.tiles.osm2world.org/osm/pngtiles/n/",
+                "http://b.tiles.osm2world.org/osm/pngtiles/n/",
+                "http://c.tiles.osm2world.org/osm/pngtiles/n/",
+                "http://d.tiles.osm2world.org/osm/pngtiles/n/" };
+        String[] mapnik = { "http://otile1.mqcdn.com/tiles/1.0.0/osm/",
+                "http://otile2.mqcdn.com/tiles/1.0.0/osm/" };
+        String[] skiing = { "http://tiles.openpistemap.org/nocontours/" };
+
+        switch (type) {
+            case CYCLING:
+                return cycling;
+            case HIKING:
+                return hiking;
+            case OSM2WORLD:
+                return osm2world;
+            case OSM_MAPNIK:
+                return mapnik;
+            case SKIING:
+                return skiing;
+            default:
+                return new String[0];
+        }
     }
 }
