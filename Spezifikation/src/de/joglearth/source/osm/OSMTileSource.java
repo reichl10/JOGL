@@ -1,8 +1,9 @@
 package de.joglearth.source.osm;
 
-import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Tile;
-import de.joglearth.source.*;
+import de.joglearth.source.Source;
+import de.joglearth.source.SourceListener;
+import de.joglearth.source.SourceResponse;
 import de.joglearth.surface.TiledMapType;
 import de.joglearth.util.HTTP;
 
@@ -13,6 +14,7 @@ import de.joglearth.util.HTTP;
 public class OSMTileSource implements Source<OSMTile, byte[]> {
 
     private final String[] servers;
+    private TiledMapType type;
     private int offset = 0;
 
 
@@ -27,6 +29,11 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
 
     @Override
     public SourceResponse<byte[]> requestObject(OSMTile k, SourceListener<OSMTile, byte[]> sender) {
+
+        if (k.type != type) {
+            setTileType(type);
+        }
+
         return null;
     }
 
@@ -42,7 +49,7 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
 
         StringBuilder builder = new StringBuilder();
         byte[] response = null;
-        
+
         int i = 0;
         while (response == null && i < servers.length) {
             builder.append(servers[offset]);
@@ -53,18 +60,18 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
             builder.append("/");
             builder.append(ytile);
             builder.append(".png");
-            
+
             response = HTTP.get(builder.toString(), null);
-            
+
             i++;
-            
+
             if (response == null) {
                 offset++;
             }
-            
+
             if (offset == servers.length) {
                 offset = 0;
-            } 
+            }
         }
 
         return null;
@@ -76,6 +83,6 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
      * @param type <code>TiledMapType</code> of the tile
      */
     public void setTileType(TiledMapType type) {
-        //TODO Zum Type passende Server besorgen.
+        // TODO Zum Type passende Server besorgen.
     }
 }
