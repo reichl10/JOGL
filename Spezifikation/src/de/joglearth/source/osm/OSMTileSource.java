@@ -1,11 +1,15 @@
 package de.joglearth.source.osm;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import de.joglearth.geometry.Tile;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
+import de.joglearth.source.SourceResponseType;
 import de.joglearth.surface.TiledMapType;
 import de.joglearth.util.HTTP;
 
@@ -18,6 +22,7 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
     private String[] servers;
     private TiledMapType type;
     private int offset = 0;
+    private final ExecutorService executor;
 
 
     /**
@@ -27,19 +32,28 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
      */
     public OSMTileSource() {
         this.servers = new String[0];
+        executor = Executors.newFixedThreadPool(2);
     }
 
     @Override
-    public SourceResponse<byte[]> requestObject(OSMTile k, SourceListener<OSMTile, byte[]> sender) {
+    public SourceResponse<byte[]> requestObject(final OSMTile k,
+            final SourceListener<OSMTile, byte[]> sender) {
 
         if (k.type != type) {
             setTileType(type);
         }
-        
-        //TODO asynchronous
-        byte[] response = getOSMTile(k.tile);
 
-        return null;
+        executor.execute(new Runnable() {
+
+            @Override
+            public void run() {
+                byte[] response = getOSMTile(k.tile);
+
+                sender.requestCompleted(k, response);
+            }
+        });
+
+        return new SourceResponse<byte[]>(SourceResponseType.ASYNCHRONOUS, null);
     }
 
     private byte[] getOSMTile(Tile tile) {
@@ -79,7 +93,7 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
             }
         }
 
-        return null;
+        return response;
     }
 
     /**
@@ -92,10 +106,9 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
             this.type = type;
             this.servers = getServer(type);
         }
-        // TODO Zum Type passende Server besorgen.
     }
 
-    //TODO evtl. woanders hinschieben
+    // TODO evtl. woanders hinschieben
     private String[] getServer(TiledMapType type) {
 
         String[] cycling = { "http://a.tile.opencyclemap.org/cycle/",

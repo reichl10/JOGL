@@ -1,8 +1,12 @@
 package de.joglearth.source.osm;
 
+import de.joglearth.settings.Settings;
+import de.joglearth.settings.SettingsContract;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
+import de.joglearth.source.caching.Cache;
+import de.joglearth.source.caching.MemoryCache;
 import de.joglearth.source.caching.RequestDistributor;
 
 
@@ -12,6 +16,7 @@ import de.joglearth.source.caching.RequestDistributor;
 public final class OSMTileManager implements Source<OSMTile, byte[]> {
 
     private RequestDistributor<OSMTile, byte[]> dist;
+    private Cache<OSMTile, byte[]> cache;
 
     private static OSMTileManager               instance = null;
 
@@ -30,7 +35,10 @@ public final class OSMTileManager implements Source<OSMTile, byte[]> {
 
     // Default constructor
     private OSMTileManager() {
-
+        dist = new RequestDistributor<OSMTile, byte[]>();
+        cache = new MemoryCache<OSMTile, byte[]>();
+        //TODO Richtige Standardgröße? Nur ein Cache?
+        dist.addCache(cache, Settings.getInstance().getInteger(SettingsContract.CACHE_SIZE_MEMORY));
     }
 
     @Override
@@ -45,7 +53,8 @@ public final class OSMTileManager implements Source<OSMTile, byte[]> {
      * @param cacheSize the new size of the <code>Cache</code>
      */
     public void setCacheSize(int cacheSize) {
-
+        //TODO welcher Cache
+        dist.setCacheSize(cache, cacheSize);
     }
 
 }

@@ -33,7 +33,9 @@ public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
 
     // Default constructor
     private SRTMTileManager() {
-
+        dist = new RequestDistributor<SRTMTileIndex, SRTMTile>();
+        
+        //TODO caches
     }
 
     @Override
