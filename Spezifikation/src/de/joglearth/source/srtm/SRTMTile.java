@@ -143,8 +143,4 @@ public final class SRTMTile {
         return height[lod];
     }
 
-    public static void main(String[] args) {
-        final byte a = (byte) 254, b = (byte) -1;
-        System.out.println(b);
-    }
 }

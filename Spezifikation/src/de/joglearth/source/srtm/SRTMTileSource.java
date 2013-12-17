@@ -3,7 +3,6 @@ package de.joglearth.source.srtm;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
-import de.joglearth.util.HTTP;
 
 
 /**
