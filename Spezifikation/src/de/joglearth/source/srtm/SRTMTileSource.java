@@ -14,7 +14,7 @@ import de.joglearth.util.HTTP;
  */
 public class SRTMTileSource implements Source<SRTMTileIndex, SRTMTile> {
 
-    private Source<SRTMTileIndex, byte[]> binary;
+    private Source<SRTMTileIndex, byte[]> binarySource;
 
 
     /**
@@ -24,12 +24,28 @@ public class SRTMTileSource implements Source<SRTMTileIndex, SRTMTile> {
      * @param binarySource The <code>Source</code> thats assigned
      */
     public SRTMTileSource(Source<SRTMTileIndex, byte[]> binarySource) {
-        binary = binarySource;
+        this.binarySource = binarySource;
     }
 
     @Override
-    public SourceResponse<SRTMTile> requestObject(SRTMTileIndex k,
-            SourceListener<SRTMTileIndex, SRTMTile> sender) {
-        return null;
+    public SourceResponse<SRTMTile> requestObject(SRTMTileIndex key,
+            final SourceListener<SRTMTileIndex, SRTMTile> sender) {
+
+    	SourceResponse<byte[]> response = binarySource.requestObject(key, 
+			new SourceListener<SRTMTileIndex, byte[]>() {
+
+				@Override
+				public void requestCompleted(SRTMTileIndex key, byte[] value) {
+					SRTMTile tile = null;
+					if (value != null) {
+						tile = new SRTMTile(value);
+					}
+					sender.requestCompleted(key, tile);
+				}
+		
+		});
+    	
+    	return new SourceResponse<SRTMTile>(response.response, null);
+    	
     }
 }
