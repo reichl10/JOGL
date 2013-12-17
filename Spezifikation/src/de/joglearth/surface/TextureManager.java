@@ -9,7 +9,6 @@ import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
 import de.joglearth.geometry.Tile;
-import de.joglearth.rendering.Renderer;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.caching.RequestDistributor;
@@ -17,7 +16,6 @@ import de.joglearth.source.opengl.TextureCache;
 import de.joglearth.source.opengl.TextureSource;
 import de.joglearth.source.osm.OSMTile;
 import de.joglearth.util.Resource;
-
 
 /**
  * Executes requests for textures of the {@link Renderer}. Loads textures from a
@@ -55,7 +53,8 @@ public class TextureManager {
     /**
      * Constructor.
      * 
-     * @param gl The OpenGL object
+     * @param gl
+     *            The OpenGL object
      */
     public TextureManager(GL2 gl, Source<OSMTile, byte[]> imageSource, int textureCacheSize) {
         dist = new RequestDistributor<>();
@@ -68,11 +67,13 @@ public class TextureManager {
     }
 
     /**
-     * Is called if a texture of a {@link de.joglearth.geometry.Tile} should be loaded.
+     * Is called if a texture of a {@link de.joglearth.geometry.Tile} should be
+     * loaded.
      * 
-     * @param tile The <code>Tile</code> that should be loaded
-     * @return Returns a loaded OpenGl identifier for the texture or if it is not yet loaded, the
-     *         method returns a place holder texture
+     * @param tile
+     *            The <code>Tile</code> that should be loaded
+     * @return Returns a loaded OpenGl identifier for the texture or if it is
+     *         not yet loaded, the method returns a place holder texture
      */
     public synchronized Integer getTexture(Tile tile) {
         Integer textureId = dist.requestObject(new OSMTile(tile, mapType), textureListener).value;
@@ -85,9 +86,11 @@ public class TextureManager {
     }
 
     /**
-     * Adds a {@link SurfaceListener} that distributes a notification if the surface was changed.
+     * Adds a {@link SurfaceListener} that distributes a notification if the
+     * surface was changed.
      * 
-     * @param l The new listener
+     * @param l
+     *            The new listener
      */
     public synchronized void addSurfaceListener(SurfaceListener l) {
         listeners.add(l);
@@ -96,7 +99,8 @@ public class TextureManager {
     /**
      * Removes a specific {@link SurfaceListener}.
      * 
-     * @param l The listener that should be removed
+     * @param l
+     *            The listener that should be removed
      */
     public synchronized void removeSurfaceListener(SurfaceListener l) {
         while(listeners.remove(l));

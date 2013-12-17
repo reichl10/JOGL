@@ -1,5 +1,9 @@
 package de.joglearth.source.opengl;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.media.opengl.GL2;
 
 import de.joglearth.source.SourceResponse;
