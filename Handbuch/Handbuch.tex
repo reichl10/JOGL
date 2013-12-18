@@ -32,6 +32,7 @@
 \deffootnote{1.5em}{1em}{[\thefootnotemark] }
 \setlength{\parindent}{0pt}
 \renewcommand{\labelitemi}{ \raisebox{0.3ex}{\small$\blacktriangleright$} }
+\renewcommand{\labelitemii}{ \raisebox{0.3ex}{\small$\triangleright$} }
 
 \newcommand{\sfbf}[1]{\textbf{\sffamily #1}}
 \newcommand{\sfit}[1]{\textit{\sffamily #1}}
@@ -132,7 +133,7 @@ Im vorliegenden Handbuch werden wichtige Begriffe hervorgehoben.\\
 Die folgende Formatierungen sind im Handbuch zu finden:
 
 \begin{center}
-\begin{tabular}{|c|c|}
+\begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline 
 \textbf{Formatierung} & \textbf{Erläuterung} \\
 \hline
@@ -151,7 +152,7 @@ Die folgende Formatierungen sind im Handbuch zu finden:
 Es werden im Handbuch einige Symbole verwendet, welche die Arbeit mit dem Handbuch erleichtern sollen:
 
 \begin{center}
-\begin{tabular}{|c|c|}
+\begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline 
 \textbf{Symbol} & \textbf{Erläuterung} \\ 
 \hline
@@ -358,6 +359,13 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \begin{itemize}
 \item Satellit \index{Kartentypen!Satellit}
 \item OpenStreetMap \index{Kartentypen!OpenStreetMap}
+	\begin{itemize}
+	\item Straßenkarte \index{OpenStreetMap!Straßenkarte}
+	\item Radkarte \index{OpenStreetMap!Radkarte}
+	\item Pistenkarte \index{OpenStreetMap!Pistenkarte}
+	\item Wander- und Reitkarte \index{OpenStreetMap!Wander- und Reitkarte}
+	\item OSM2World \index{OpenStreetMap!OSM2World}
+	\end{itemize}
 \item Kinderweltkarte \index{Kartentypen!Kinderweltkarte}
 \end{itemize}
 
@@ -388,7 +396,7 @@ Einstellen der Benutzeroberfläche \index{Benutzeroberfläche}:
 Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten ermittelt.
 
 \vspace{3mm}
-\begin{tabular}{p{1cm} p{10cm}}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/info.eps} &  Zur optimalen Darstellung des Höhenprofils empfiehlt sich Zoomlevel ... \\ 
 \end{tabular} 
 
@@ -415,7 +423,7 @@ Das Feld der Benutzermarkierungen befindet sich im Orte-Tab.
 Die Suchfunktion wird über Nominatim ausgeführt. Bei den Suchanfragen ist ein Limit gesetzt. Wundern Sie sich daher nicht, wenn ein gesuchter Ort nicht gefunden werden kann. \\
 
 \vspace{3mm}
-\begin{tabular}{p{1cm} p{10cm}}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/info.eps} &  Die Suchbegriffe werden von links nach rechts (vom Speziellen zum Allgemeinen) abgearbeitet und dann von rechts nach links, wenn das fehlschlägt. \\ 
 \end{tabular} 
 
@@ -423,7 +431,7 @@ Die Suchfunktion wird über Nominatim ausgeführt. Bei den Suchanfragen ist ein 
 Beispiele: \textit{Brandenburger Tor, Berlin} als auch \textit{Berlin, Brandenburger Tor} wird ein Ergebnis liefern.\\
 
 \vspace{3mm}
-\begin{tabular}{p{1cm} p{10cm}}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/info.eps} &  Kommas sind nicht notwendig, verbessern aber die Suchgeschwindigkeit durch Reduzierung der Komplexität der Suchanfrage.  \\ 
 \end{tabular} 
 
@@ -505,16 +513,6 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 \section{Settings}
 % Welche Settings werden gespeichert. Grafische Darstellung
-
-
-
-\chapter{FAQ}
-\section*{Was ist Antialiasing?}
-\index{Antialiasing}
-\section*{Wie groß sollte man die Cachegrößen wählen?}
-\index{Cachegrößen}
-\section*{Wo findet man die Kinderweltkarte?}
-\index{Kinderweltkarte}
 
 
 

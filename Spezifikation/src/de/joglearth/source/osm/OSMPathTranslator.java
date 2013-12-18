@@ -10,9 +10,6 @@ import java.util.regex.Pattern;
 import javax.xml.bind.DatatypeConverter;
 
 import de.joglearth.geometry.Tile;
-import de.joglearth.rendering.LevelOfDetail;
-import de.joglearth.settings.Settings;
-import de.joglearth.settings.SettingsContract;
 import de.joglearth.source.caching.PathTranslator;
 import de.joglearth.surface.TiledMapType;
 
