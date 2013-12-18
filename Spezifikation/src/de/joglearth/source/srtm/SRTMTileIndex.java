@@ -2,6 +2,9 @@ package de.joglearth.source.srtm;
 
 import static java.lang.Math.*;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 /**
  * Structure identifying single SRTM height data tiles.
@@ -55,5 +58,29 @@ public final class SRTMTileIndex {
     public String toString() {
         return String.format("%c%02d%c%03d", latitude >= 0 ? 'N' : 'S', abs(latitude),
                 longitude >= 0 ? 'E' : 'W', abs(longitude));
+    }
+
+    private static final Pattern srtmStringPattern 
+        = Pattern.compile("([NS])([0-9]{2})([EW])([0-9]{3})");
+    
+
+    public static SRTMTileIndex parseTileIndex(String s) {
+        Matcher m = srtmStringPattern.matcher(s);
+        
+        if(m.matches()) {
+            int lat = Integer.parseInt(m.group(2));
+            if(m.group(1).charAt(0) == 'S') {
+                lat *= -1;
+            }
+
+            int lon = Integer.parseInt(m.group(4));
+            if(m.group(3).charAt(0) == 'W') {
+                lon *= -1;
+            }
+            
+            return new SRTMTileIndex(lon, lat);
+        } else {
+            throw new NumberFormatException();
+        }
     }
 }

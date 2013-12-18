@@ -1,5 +1,6 @@
 package de.joglearth.source.osm;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,98 +24,48 @@ import de.joglearth.surface.TiledMapType;
 public class OSMPathTranslator implements PathTranslator<OSMTile> {
 
     @Override
-    public String toFileSystemPath(OSMTile k) {
-        int y = (int) (((k.tile.getLatitudeFrom() + k.tile.getLatitudeTo()) / 2) / 180 * Math.PI);
-        int x = (int) ((k.tile.getLongitudeFrom() + k.tile.getLongitudeTo()) / 2);
-
-        int zoom = k.tile.getDetailLevel();
-
-        int n = (int) Math.pow(2, zoom);
-        int xtile = n * ((x + 180) / 360);
-        int ytile = (int) (n * (1 - (Math.log(Math.tan(y) + 1 / Math.cos(y)) / Math.PI)) / 2);
-
-        StringBuilder builder = new StringBuilder();
-
-        builder.append(k.type.toString());
-        builder.append("-");
-        builder.append(zoom);
-        builder.append("-");
-        builder.append(xtile);
-        builder.append("-");
-        builder.append(ytile);
-        builder.append(".png");
-
-        String fileName = builder.toString();
+    public String toFileSystemPath(OSMTile k) {        
+        String fileName = String.format("%s-%d-%d-%d.png", k.type.toString(), 
+                k.tile.getDetailLevel(), k.tile.getLongitudeIndex(), k.tile.getLatitudeIndex());
 
         byte[] bytesOfMessage = null;
         try {
             bytesOfMessage = fileName.getBytes("UTF-8");
         } catch (UnsupportedEncodingException e) {
-            return null;
+            throw new RuntimeException(e);
         }
 
-        MessageDigest md = null;
+        MessageDigest md5 = null;
         try {
-            md = MessageDigest.getInstance("MD5");
+            md5 = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
-            return null;
+            throw new RuntimeException(e);
         }
 
-        byte[] md5Hash = null;
-        if (md != null && bytesOfMessage != null) {
-            md5Hash = md.digest(bytesOfMessage);
-        } else {
-            md5Hash = new byte[0];
-        }
-
-        String hexHash = DatatypeConverter.printHexBinary(md5Hash);
-
-        String path = hexHash.substring(0, 3);
-
-        return path + "/" + fileName;
+        String hexHash = DatatypeConverter.printHexBinary(md5.digest(bytesOfMessage));
+        
+        return hexHash.substring(0, 3) + File.separator + fileName;
 
     }
+    
+
+    private final static Pattern pathPattern = Pattern.compile("[0-9a-fA-F]{3}"
+            + Pattern.quote(File.separator) + "([A-Z0-9_]+)-([0-9]+)-([0-9]+)-([0-9]+)\\.png");
 
     @Override
     public OSMTile fromFileSystemPath(String s) {
-        // TODO REGEXP so richtig?!
-        Pattern p = Pattern.compile("[0-9a-fA-F]{3}/([A-Z]+)-([0-9]+)-([0-9]+)-([0-9]+).png");
-        Matcher m = p.matcher(s);
+        Matcher m = pathPattern.matcher(s);
 
-        if (m.matches()) {
-            int xtile = Integer.parseInt(m.group(3));
-            int ytile = Integer.parseInt(m.group(4));
+        if (m.matches()) {            
+            TiledMapType type = TiledMapType.valueOf(m.group(1));
             int zoom = Integer.parseInt(m.group(2));
-            TiledMapType type = Enum.valueOf(TiledMapType.class, m.group(1));
-
-            // Berechnung von Längen- und Breitengrad aus den OSM-Koordinaten
-            // n = 2 ^ zoom
-            // lon_deg = xtile / n * 360.0 - 180.0
-            // lat_rad = arctan(sinh(π * (1 - 2 * ytile / n)))
-            // lat_deg = lat_rad * 180.0 / π
-
-            int n = (int) Math.pow(2, zoom);
-            int lon = (int) (xtile / n * 360.0 - 180.0);
-            int lat_rad = (int) Math.atan(Math.sinh(Math.PI * (1 - 2 * ytile / n)));
-            int lat = (int) (lat_rad * 180.0 / Math.PI);
-
-            int lonIndex = (int) (lon / (2 * Math.PI / Math.pow(2, zoom)));
-            int latIndex = (int) (lat / (Math.PI / Math.pow(2, zoom)));
-
-            Tile tile = new Tile(zoom, lonIndex, latIndex);
-
-            return new OSMTile(tile, type);
-
+            int lonIndex = Integer.parseInt(m.group(3));
+            int latIndex = Integer.parseInt(m.group(4));
+            
+            return new OSMTile(new Tile(zoom, lonIndex, latIndex), type);
         }
 
         return null;
-    }
-
-    public static void main(String[] args) {
-        OSMPathTranslator test = new OSMPathTranslator();
-        OSMTile k = new OSMTile(new Tile(3, 2, 3), TiledMapType.CYCLING);
-        System.out.println(test.toFileSystemPath(k));
-        // System.out.println(test.fromFileSystemPath("d81/CYCLING-4-8-3"));
     }
 
 }
