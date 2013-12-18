@@ -118,10 +118,13 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     public synchronized SourceResponse<Value> requestObject(Key key,
             final SourceListener<Key, Value> sender) {
         if (isAllreadyWaiting(key)) {
+            addRequestListener(key, sender);
             return new SourceResponse<Value>(SourceResponseType.ASYNCHRONOUS, null);
         }
         SourceResponse<Value> cacheResponse = askCaches(0, key, sender);
         if (cacheResponse.response != SourceResponseType.MISSING) {
+            if (cacheResponse.response != SourceResponseType.ASYNCHRONOUS)
+                addRequestListener(key, sender);
             return cacheResponse;
         } else {
             if (source == null) {
