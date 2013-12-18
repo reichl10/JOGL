@@ -117,30 +117,28 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     @Override
     public synchronized SourceResponse<Value> requestObject(Key key,
             final SourceListener<Key, Value> sender) {
-        
-        System.err.println("RequestDistributor: requesting " + key);
-        
-        SourceResponse<Value> response = new SourceResponse<Value>();
         if (isAllreadyWaiting(key)) {
-            response.response = SourceResponseType.ASYNCHRONOUS;
+            return new SourceResponse<Value>(SourceResponseType.ASYNCHRONOUS, null);
+        }
+        SourceResponse<Value> cacheResponse = askCaches(0, key, sender);
+        if (cacheResponse.response != SourceResponseType.MISSING) {
+            return cacheResponse;
         } else {
-            SourceResponse<Value> cacheResponse = askCaches(0, key, sender);
-            if (cacheResponse.response != SourceResponseType.MISSING) {
-                response = cacheResponse;
-            } else {
-                if (source == null) {
-                    response.response = SourceResponseType.MISSING;
-                } else {
-                    response = askSource(key, sender);
-                    if (response.response == SourceResponseType.ASYNCHRONOUS) {
-                        addRequestListener(key, sender);
-                    }
-                }
+            if (source == null) {
+                return new SourceResponse<Value>(SourceResponseType.MISSING, null);
+            }
+            SourceResponse<Value> response = askSource(key, sender);
+            switch (response.response) {
+                case MISSING:
+                    return response;
+                case ASYNCHRONOUS:
+                    addRequestListener(key, sender);
+                case SYNCHRONOUS: // it is intended to fall-through here
+                    return response;
+                default:
+                    return new SourceResponse<Value>(SourceResponseType.MISSING, null);
             }
         }
-        
-        System.err.println("RequestDistributor: responded " + response.response.toString());
-        return response;
     }
 
     private SourceResponse<Value> askSource(Key k, SourceListener<Key, Value> listener) {
