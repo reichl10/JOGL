@@ -24,7 +24,6 @@ public class GridWalkerWhiteBoxTest {
         GridPoint center = CameraUtils.getVisibleCornerPoint(cam, CameraUtils.getCenteredTile(cam, 0));
         GridWalker walker = new GridWalker(center, 0, cam);
         
-        walker.
     }
 
 }

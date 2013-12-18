@@ -19,7 +19,7 @@ public class PlaneTessellatorTest {
         int subdivision = 1;
 
         Mesh m = p.tessellateTile(t, subdivision, false);
-        assertEquals((9 * 8), m.vertices.length);
+        assertEquals((6 * 8), m.vertices.length);
         assertEquals((8 * 3), m.indices.length);
     }
 }
