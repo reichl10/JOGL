@@ -32,6 +32,7 @@ public final class JoglEarth {
      * @param args Command line arguments (unused)
      */
     public static void main(String[] args) {
+        SettingsContract.setDefaultSettings();
         SettingsContract.loadSettings();
         SwingUtilities.invokeLater(new Runnable() {
 			

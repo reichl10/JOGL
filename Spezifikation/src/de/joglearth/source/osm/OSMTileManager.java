@@ -41,6 +41,8 @@ public final class OSMTileManager implements Source<OSMTile, byte[]> {
         memoryCache = new MemoryCache<OSMTile, byte[]>();
         //TODO testen obs so passt -> Constantin fragen?!
         fsCache = new FileSystemCache("osm/", new OSMPathTranslator());
+        Integer cacheSizeMemory = Settings.getInstance().getInteger(SettingsContract.CACHE_SIZE_MEMORY);
+        Integer cacheSizeFileSystem = Settings.getInstance().getInteger(SettingsContract.CACHE_SIZE_FILESYSTEM);
         dist.addCache(memoryCache, (int) ((Settings.getInstance().getInteger(SettingsContract.CACHE_SIZE_MEMORY))*0.7));
         dist.addCache(fsCache, (int) ((Settings.getInstance().getInteger(SettingsContract.CACHE_SIZE_FILESYSTEM))*0.7));
 
