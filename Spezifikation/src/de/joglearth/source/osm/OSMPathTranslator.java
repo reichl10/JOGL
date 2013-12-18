@@ -8,15 +8,12 @@ import java.util.regex.Pattern;
 
 import javax.xml.bind.DatatypeConverter;
 
-import sun.font.LayoutPathImpl.EndType;
-
 import de.joglearth.geometry.Tile;
 import de.joglearth.rendering.LevelOfDetail;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.source.caching.PathTranslator;
 import de.joglearth.surface.TiledMapType;
-import de.joglearth.util.HTTP;
 
 
 /**
@@ -30,7 +27,7 @@ public class OSMPathTranslator implements PathTranslator<OSMTile> {
         int y = (int) (((k.tile.getLatitudeFrom() + k.tile.getLatitudeTo()) / 2) / 180 * Math.PI);
         int x = (int) ((k.tile.getLongitudeFrom() + k.tile.getLongitudeTo()) / 2);
 
-        int zoom = Settings.getInstance().getInteger(SettingsContract.ZOOM_LEVEL);
+        int zoom = k.tile.getDetailLevel();
 
         int n = (int) Math.pow(2, zoom);
         int xtile = n * ((x + 180) / 360);
@@ -52,35 +49,35 @@ public class OSMPathTranslator implements PathTranslator<OSMTile> {
         byte[] bytesOfMessage = null;
         try {
             bytesOfMessage = fileName.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e1) {
-            // TODO Auto-generated catch block
+        } catch (UnsupportedEncodingException e) {
+            return null;
         }
 
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
-            // TODO What to do
+            return null;
         }
-        
+
         byte[] md5Hash = null;
         if (md != null && bytesOfMessage != null) {
             md5Hash = md.digest(bytesOfMessage);
         } else {
             md5Hash = new byte[0];
         }
-        
+
         String hexHash = DatatypeConverter.printHexBinary(md5Hash);
-        
+
         String path = hexHash.substring(0, 3);
 
-        return path+"/"+fileName;
+        return path + "/" + fileName;
 
     }
 
     @Override
     public OSMTile fromFileSystemPath(String s) {
-        //TODO REGEXP so richtig?!
+        // TODO REGEXP so richtig?!
         Pattern p = Pattern.compile("[0-9a-fA-F]{3}/([A-Z]+)-([0-9]+)-([0-9]+)-([0-9]+).png");
         Matcher m = p.matcher(s);
 
@@ -90,6 +87,7 @@ public class OSMPathTranslator implements PathTranslator<OSMTile> {
             int zoom = Integer.parseInt(m.group(2));
             TiledMapType type = Enum.valueOf(TiledMapType.class, m.group(1));
 
+            // Berechnung von Längen- und Breitengrad aus den OSM-Koordinaten
             // n = 2 ^ zoom
             // lon_deg = xtile / n * 360.0 - 180.0
             // lat_rad = arctan(sinh(π * (1 - 2 * ytile / n)))
@@ -103,11 +101,7 @@ public class OSMPathTranslator implements PathTranslator<OSMTile> {
             int lonIndex = (int) (lon / (2 * Math.PI / Math.pow(2, zoom)));
             int latIndex = (int) (lat / (Math.PI / Math.pow(2, zoom)));
 
-            // TODO detaillevel of Tile.
-            LevelOfDetail lod = Enum.valueOf(LevelOfDetail.class,
-                    Settings.getInstance().getString(SettingsContract.LEVEL_OF_DETAILS));
-
-            Tile tile = new Tile(0, lonIndex, latIndex);
+            Tile tile = new Tile(zoom, lonIndex, latIndex);
 
             return new OSMTile(tile, type);
 
@@ -120,7 +114,7 @@ public class OSMPathTranslator implements PathTranslator<OSMTile> {
         OSMPathTranslator test = new OSMPathTranslator();
         OSMTile k = new OSMTile(new Tile(3, 2, 3), TiledMapType.CYCLING);
         System.out.println(test.toFileSystemPath(k));
-//        System.out.println(test.fromFileSystemPath("d81/CYCLING-4-8-3"));
+        // System.out.println(test.fromFileSystemPath("d81/CYCLING-4-8-3"));
     }
 
 }

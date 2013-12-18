@@ -53,12 +53,6 @@ public final class SettingsContract {
     public static final String  LEVEL_OF_DETAILS      = "LevelOfDetail";
 
     /**
-     * Name constant for the zoom level setting. You should save an int to settings using this.
-     * (Only 0-18 are possible zoom levels.)
-     */
-    public static final String     ZOOM_LEVEL            = "ZoomLevel";
-
-    /**
      * Name constant for the users Locations. You should save {@link de.joglearth.surface.Location}
      * objects using this key.
      */

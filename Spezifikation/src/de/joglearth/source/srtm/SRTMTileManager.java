@@ -4,8 +4,6 @@ import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.caching.RequestDistributor;
-import de.joglearth.source.nominatim.NominatimManager;
-import de.joglearth.source.nominatim.NominatimSource;
 import de.joglearth.surface.SurfaceListener;
 
 

@@ -61,9 +61,9 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
         int y = (int) (((tile.getLatitudeFrom() + tile.getLatitudeTo()) / 2) / 180 * Math.PI);
         int x = (int) ((tile.getLongitudeFrom() + tile.getLongitudeTo()) / 2);
 
-        int zoom = Settings.getInstance().getInteger(SettingsContract.ZOOM_LEVEL);
-        System.out.println(zoom);
-        int n = (int) Math.pow(2, zoom); // TODO n = 2^zoom
+        int zoom = tile.getDetailLevel();
+
+        int n = (int) Math.pow(2, zoom);
         int xtile = n * ((x + 180) / 360);
         int ytile = (int) (n * (1 - (Math.log(Math.tan(y) + 1 / Math.cos(y)) / Math.PI)) / 2);
 
