@@ -51,15 +51,21 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     @Override
     public synchronized SourceResponse<byte[]> requestObject(Key key,
             SourceListener<Key, byte[]> sender) {
-        if (!keySet.contains(key)) {
-            return new SourceResponse<byte[]>(SourceResponseType.MISSING, null);
+        SourceResponseType responseType;
+        if (keySet.contains(key)) {
+            responseType = SourceResponseType.ASYNCHRONOUS;
+            executorService.execute(new FileLoaderRunnable(key, sender));
+        } else {
+            responseType = SourceResponseType.MISSING;
         }
-        executorService.execute(new FileLoaderRunnable(key, sender));
-        return new SourceResponse<byte[]>(SourceResponseType.ASYNCHRONOUS, null);
+        
+        System.err.println("FileSystemCache: requesting " + key + ": " + responseType.toString());
+        return new SourceResponse<byte[]>(responseType, null);
     }
 
     @Override
     public synchronized void putObject(Key k, byte[] v) {
+        System.err.println("FileSystemCache: adding key " + k);
         Path filePath = pathFromKey(k);
         try {
             Files.write(filePath, v, StandardOpenOption.CREATE);
@@ -71,6 +77,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
     @Override
     public synchronized void dropObject(Key k) {
+        System.err.println("FileSystemCache: dropping key " + k);
         keySet.remove(k);
         try {
             Files.deleteIfExists(pathFromKey(k));
@@ -92,6 +99,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
     @Override
     public synchronized void dropAll() {
+        System.err.println("FileSystemCache: dropping all objects");
         keySet.clear();
         try {
             Files.walkFileTree(basePath, new DirectoryCleaner());

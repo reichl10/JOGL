@@ -23,6 +23,7 @@ public class TextureCache<Key> extends MemoryCache<Key, Integer> {
 
     @Override
     public void dropObject(Key key) {
+        System.err.println("TextureCache: dropping key " + key);
         SourceResponse<Integer> superResponse = super.requestObject(key, null);
         if (superResponse.value != null) {
             gl.glDeleteTextures(1, new int[]{superResponse.value}, 0);

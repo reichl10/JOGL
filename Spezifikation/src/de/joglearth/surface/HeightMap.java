@@ -62,6 +62,8 @@ public final class HeightMap {
      *         available (yet).
      */
     public static double getHeight(GeoCoordinates coords, double resolution) {
+        System.err.println("HeightMap: requesting height of " + coords + " with resolution "
+                + resolution);
         
         SRTMTileIndex index = new SRTMTileIndex(toTileIndex(coords.getLongitude()), 
                 toTileIndex(coords.getLatitude()));

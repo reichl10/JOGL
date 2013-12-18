@@ -29,7 +29,7 @@ public class TextureManager {
     private Integer placeholderTextureId;
     private List<SurfaceListener> listeners = new ArrayList<>();
     private RequestDistributor<OSMTile, Integer> dist;
-    private TiledMapType mapType;
+    private TiledMapType mapType = TiledMapType.OSM_MAPNIK;
     private TextureListener textureListener = new TextureListener();
     
     
@@ -66,16 +66,17 @@ public class TextureManager {
     }
 
     /**
-     * Is called if a texture of a {@link de.joglearth.geometry.Tile} should be
-     * loaded.
+     * Is called if a texture of a {@link de.joglearth.geometry.Tile} should be loaded.
      * 
-     * @param tile
-     *            The <code>Tile</code> that should be loaded
-     * @return Returns a loaded OpenGl identifier for the texture or if it is
-     *         not yet loaded, the method returns a place holder texture
+     * @param tile The <code>Tile</code> that should be loaded
+     * @return Returns a loaded OpenGl identifier for the texture or if it is not yet loaded, the
+     *         method returns a place holder texture
      */
     public synchronized Integer getTexture(Tile tile) {
+        System.err.println("TextureManager: requesting texture for " + tile);
         Integer textureId = dist.requestObject(new OSMTile(tile, mapType), textureListener).value;
+        System.err.println("TextureManager: returning "
+                + (textureId == null ? "placeholder" : "real texture") + " for " + tile);
         return textureId != null ? textureId : placeholderTextureId;
     }
     

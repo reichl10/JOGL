@@ -42,6 +42,7 @@ public final class HTTP {
      */
     public static byte[] get(String url, Iterable<String> getRequest)
             throws IllegalArgumentException {
+        System.err.println("HTTP: beginning GET request");
         if (url == null) {
             throw new IllegalArgumentException("URL was null!");
         }
@@ -72,6 +73,8 @@ public final class HTTP {
         }
 
         url = url + request.toString();
+        
+        System.err.println("HTTP: GET request for " + url);
 
         URL serverUrl;
         try {
@@ -129,6 +132,7 @@ public final class HTTP {
      */
     public static byte[] post(String url, Iterable<String> getRequest, Iterable<String> postRequest)
             throws IllegalArgumentException {
+        System.err.println("HTTP: beginning POST request");
         if (url == null) {
             throw new IllegalArgumentException("URL was null!");
         }
@@ -180,6 +184,8 @@ public final class HTTP {
         }
 
         url = url + request.toString();
+        
+        System.err.println("HTTP: POST request for " + url);
 
         URL serverUrl;
         try {
