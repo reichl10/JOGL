@@ -25,6 +25,7 @@ public final class JoglEarth {
      * The current product version. Altered between releases.
      */
     public static String PRODUCT_VERSION = "0.1";
+    
 
     /**
      * Initializes the JoglEarth application. There are no valid command line arguments.

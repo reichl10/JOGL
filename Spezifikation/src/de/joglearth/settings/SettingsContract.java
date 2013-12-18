@@ -25,6 +25,7 @@ import de.joglearth.rendering.LevelOfDetail;
 import de.joglearth.surface.Location;
 import de.joglearth.surface.LocationType;
 import de.joglearth.surface.SingleMapType;
+import de.joglearth.util.ApplicationData;
 
 
 /**
@@ -447,17 +448,6 @@ public final class SettingsContract {
     }
 
     private static String getFileLocation() {
-        String folderName = "joglearth";
-        String os = System.getProperty("os.name");
-        if (os.contains("Windows")) {
-            String localAppdata = System.getenv("LOCALAPPDATA");
-            return (localAppdata + File.separator + folderName + File.separator + "settings.xml");
-        } else if (os.contains("Linux")) {
-            String userHome = System.getProperty("user.home");
-            return (userHome + File.separator + "." + folderName + File.separator
-            + "settings.xml");
-        } else {
-            throw new RuntimeException("System not supported!");
-        }
+        return ApplicationData.getDirectory() + "settings.xml";
     }
 }
