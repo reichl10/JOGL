@@ -155,7 +155,7 @@ public class Renderer {
     
     // TODO Re-renders the OpenGL view.
     private void render(GL2 gl) {
-        System.out.println("------------- NEW FRAME -------------");
+        System.err.println("------------- NEW FRAME -------------");
         
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         

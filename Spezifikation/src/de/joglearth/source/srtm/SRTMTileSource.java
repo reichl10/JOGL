@@ -67,7 +67,7 @@ public class SRTMTileSource implements Source<SRTMTileIndex, SRTMTile> {
 	                }
 
 	                if (zipBytes != null && tileBytes == null) {
-	                    System.err.println("Loading SRTM data from archive failed for "
+	                    System.err.println("SRTMTileSource: Loading SRTM data from archive failed for "
 	                            + key.toString());
 	                }
 	                

@@ -410,7 +410,7 @@ public class Camera {
         Vector3 viewVector = directionMatrix.transform(new Vector3(0, 0, -1)).divide()
                 .minus(cameraPosition);
 
-        System.out.println("Screen: " + screen + ", Camera: " + cameraPosition + ", zAxis: " + zAxis
+        System.err.println("Screen: " + screen + ", Camera: " + cameraPosition + ", zAxis: " + zAxis
                 + ", xAxis: " + xAxis + ", yAxis: " + yAxis + ", view: " + viewVector);
 
         return geometry.getSurfaceCoordinates(cameraPosition, viewVector);
@@ -466,7 +466,7 @@ public class Camera {
     public static void main(String[] args) {
         SphereGeometry s = new SphereGeometry();
         Camera c = new Camera(s);
-        System.out.println(Tile.getContainingTile(4,
+        System.err.println(Tile.getContainingTile(4,
                 c.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5))));
     }
 }

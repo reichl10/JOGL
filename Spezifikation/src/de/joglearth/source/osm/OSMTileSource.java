@@ -38,7 +38,7 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
             final SourceListener<OSMTile, byte[]> sender) {
 
         if (k.type != type) {
-            setTileType(type);
+            setTileType(k.type);
         }
 
         executor.execute(new Runnable() {
@@ -55,7 +55,7 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
     }
 
     private byte[] getOSMTile(Tile tile) {
-        System.err.println("OSMTileSource: loading " + tile);
+        System.err.println("OSMTileSource: loading " + tile + " with type " + type.toString());
 
         int y = (int) (((tile.getLatitudeFrom() + tile.getLatitudeTo()) / 2) / 180 * Math.PI);
         int x = (int) ((tile.getLongitudeFrom() + tile.getLongitudeTo()) / 2);
@@ -91,7 +91,7 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
                 offset = 0;
             }
         }
-        System.err.println("OSMTileSource: done loading " + tile);
+        System.err.println("OSMTileSource: done " + (response == null ? "(null) " : "") + "loading " + tile);
 
         return response;
     }
