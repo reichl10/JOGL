@@ -153,24 +153,31 @@ public class RequestDistributorTest {
     @Test
     public void testRetrieveMultipleTimes() {
         source.setResponse(SourceResponseType.MISSING, null);
-        dist.requestObject(new Integer(1), null);
+        SourceResponse<Object> r = dist.requestObject(new Integer(1), null);
+        assertNull(r.value);
+        assertEquals(r.response, SourceResponseType.MISSING);
         assertEquals(source.getRequestCount(), 1);
-        assertEquals(cache.getRequestCount(), 1);
         assertEquals(countObjects(cache.getExistingObjects().iterator()), 0);
 
         source.setResponse(SourceResponseType.SYNCHRONOUS, new Integer(42));
 
         for (int i = 2; i < 4; ++i) {
-            dist.requestObject(new Integer(1), null);
+            r = dist.requestObject(new Integer(1), null);
+            assertEquals(r.response, SourceResponseType.SYNCHRONOUS);
+            assertNotNull(r.value);
+            assertEquals(r.value, new Integer(42));
             assertEquals(source.getRequestCount(), 2);
-            assertEquals(cache.getRequestCount(), i);
             assertEquals(countObjects(cache.getExistingObjects().iterator()), 1);
         }
 
-        source.setResponse(SourceResponseType.MISSING, null);
-        dist.requestObject(new Integer(1), null);
+        for (int i = 4; i < 6; ++i) {
+            source.setResponse(SourceResponseType.MISSING, null);
+            r = dist.requestObject(new Integer(1), null);
+            assertEquals(r.response, SourceResponseType.SYNCHRONOUS);
+            assertNotNull(r.value);
+            assertEquals(r.value, new Integer(42));
+        }
         assertEquals(source.getRequestCount(), 2);
-        assertEquals(cache.getRequestCount(), 4);
         assertEquals(countObjects(cache.getExistingObjects().iterator()), 1);
 
     }
@@ -194,10 +201,9 @@ public class RequestDistributorTest {
         r = dist.requestObject(new Integer(3), null);
         assertEquals(r.response, SourceResponseType.SYNCHRONOUS);
         assertEquals(r.value, new Integer(42));
-        assertEquals(countObjects(cache.getExistingObjects().iterator()), 3);
+        assertTrue(countObjects(cache.getExistingObjects().iterator()) < 4);
         assertEquals(source.getRequestCount(), 4);
-        assertEquals(cache.getRequestCount(), 4);
-        assertEquals(cache.getDropCount(), 1);
+        assertTrue(cache.getDropCount() >= 1);
     }
 
     @Test
