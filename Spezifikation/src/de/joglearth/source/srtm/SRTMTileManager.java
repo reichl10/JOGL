@@ -8,6 +8,7 @@ import de.joglearth.source.caching.FileSystemCache;
 import de.joglearth.source.caching.MemoryCache;
 import de.joglearth.source.caching.RequestDistributor;
 import de.joglearth.source.caching.UnityMeasure;
+import de.joglearth.util.ApplicationData;
 
 
 /**
@@ -28,7 +29,8 @@ public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
      */
     public static SRTMTileManager getInstance() {
         if (instance == null) {
-            instance = new SRTMTileManager("srtm", 10*1024*1024, 10*1024*1024);
+            instance = new SRTMTileManager(ApplicationData.getDirectory("srtm"), 10*1024*1024, 
+                    10*1024*1024);
         }
         return instance;
     }

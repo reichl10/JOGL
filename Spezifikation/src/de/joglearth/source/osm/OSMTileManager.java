@@ -5,10 +5,12 @@ import de.joglearth.settings.SettingsContract;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
+import de.joglearth.source.caching.ByteArrayMeasure;
 import de.joglearth.source.caching.Cache;
 import de.joglearth.source.caching.FileSystemCache;
 import de.joglearth.source.caching.MemoryCache;
 import de.joglearth.source.caching.RequestDistributor;
+import de.joglearth.util.ApplicationData;
 
 
 /**
@@ -20,7 +22,7 @@ public final class OSMTileManager implements Source<OSMTile, byte[]> {
     private Cache<OSMTile, byte[]> memoryCache;
     private Cache<OSMTile, byte[]> fsCache;
 
-    private static OSMTileManager               instance = null;
+    private static OSMTileManager instance = null;
 
 
     /**
@@ -30,19 +32,23 @@ public final class OSMTileManager implements Source<OSMTile, byte[]> {
      */
     public static OSMTileManager getInstance() {
         if (instance == null) {
-            instance = new OSMTileManager();
+            int memoryCacheSize = (int) ((Settings.getInstance()
+                    .getInteger(SettingsContract.CACHE_SIZE_MEMORY)) * 0.7);
+            int fsCacheSize = (int) ((Settings.getInstance()
+                    .getInteger(SettingsContract.CACHE_SIZE_FILESYSTEM)) * 0.7);
+            instance = new OSMTileManager(ApplicationData.getDirectory("osm"), memoryCacheSize,
+                    fsCacheSize);
         }
         return instance;
     }
 
     // Default constructor
-    private OSMTileManager() {
-        dist = new RequestDistributor<OSMTile, byte[]>();
+    private OSMTileManager(String cachePath, int memoryCacheSize, int fsCacheSize) {
+        dist = new RequestDistributor<OSMTile, byte[]>(new ByteArrayMeasure());
         memoryCache = new MemoryCache<OSMTile, byte[]>();
-        //TODO testen obs so passt -> Constantin fragen?!
-        fsCache = new FileSystemCache<OSMTile>("osm/", new OSMPathTranslator());
-        dist.addCache(memoryCache, (int) ((Settings.getInstance().getInteger(SettingsContract.CACHE_SIZE_MEMORY))*0.7));
-        dist.addCache(fsCache, (int) ((Settings.getInstance().getInteger(SettingsContract.CACHE_SIZE_FILESYSTEM))*0.7));
+        fsCache = new FileSystemCache<OSMTile>(cachePath, new OSMPathTranslator());
+        dist.addCache(memoryCache, memoryCacheSize);
+        dist.addCache(fsCache, fsCacheSize);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package de.joglearth.util;
 
 import java.io.File;
-import java.nio.file.Paths;
 import java.util.regex.Pattern;
 
 
