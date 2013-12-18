@@ -55,6 +55,7 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
     }
 
     private byte[] getOSMTile(Tile tile) {
+        System.err.println("OSMTileSource: loading " + tile);
 
         int y = (int) (((tile.getLatitudeFrom() + tile.getLatitudeTo()) / 2) / 180 * Math.PI);
         int x = (int) ((tile.getLongitudeFrom() + tile.getLongitudeTo()) / 2);
@@ -90,6 +91,7 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
                 offset = 0;
             }
         }
+        System.err.println("OSMTileSource: done loading " + tile);
 
         return response;
     }

@@ -89,6 +89,8 @@ public class TextureSource<Key> implements Source<Key, Integer> {
         if (key == null) {
             throw new IllegalArgumentException();
         }
+        
+        System.err.println("TextureSource: requested " + key);
 
         Collection<SourceListener<Key, Integer>> listeners = pendingRequests.get(key);
         if (listeners != null && listeners.size() != 0) {
@@ -128,8 +130,10 @@ public class TextureSource<Key> implements Source<Key, Integer> {
             Collection<SourceListener<Key, Integer>> senders = pendingRequests.remove(key);
             
             if (senders != null) {
-                for (SourceListener<Key, Integer> s :senders) {
+                for (SourceListener<Key, Integer> s : senders) {
+                    System.err.println("TextureSource: loading texture for " + key);
                     s.requestCompleted(key, loadTexture(value));
+                    System.err.println("TextureSource: done loading texture for " + key);
                 }
             }
         }

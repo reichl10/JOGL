@@ -53,8 +53,7 @@ public class TextureManager {
     /**
      * Constructor.
      * 
-     * @param gl
-     *            The OpenGL object
+     * @param gl The OpenGL object
      */
     public TextureManager(GL2 gl, Source<OSMTile, byte[]> imageSource, int textureCacheSize) {
         dist = new RequestDistributor<>();

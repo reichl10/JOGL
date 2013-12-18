@@ -36,6 +36,8 @@ public class SRTMTileSource implements Source<SRTMTileIndex, SRTMTile> {
     public SourceResponse<SRTMTile> requestObject(SRTMTileIndex key,
             final SourceListener<SRTMTileIndex, SRTMTile> sender) {
 
+        System.err.println("SRTMTileSource: loading " + key);
+        
     	SourceResponse<byte[]> response = binarySource.requestObject(key, 
 			new SourceListener<SRTMTileIndex, byte[]>() {
 
@@ -73,6 +75,7 @@ public class SRTMTileSource implements Source<SRTMTileIndex, SRTMTile> {
 					if (tileBytes != null) {
 						tile = new SRTMTile(tileBytes);
 					}
+                    System.err.println("SRTMTileSource: done loading " + key);
 					sender.requestCompleted(key, tile);
 				}
 		});
