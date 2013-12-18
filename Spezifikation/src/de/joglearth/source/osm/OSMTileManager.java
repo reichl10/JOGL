@@ -47,6 +47,7 @@ public final class OSMTileManager implements Source<OSMTile, byte[]> {
         dist = new RequestDistributor<OSMTile, byte[]>(new ByteArrayMeasure());
         memoryCache = new MemoryCache<OSMTile, byte[]>();
         fsCache = new FileSystemCache<OSMTile>(cachePath, new OSMPathTranslator());
+        dist.setSource(new OSMTileSource());
         dist.addCache(memoryCache, memoryCacheSize);
         dist.addCache(fsCache, fsCacheSize);
     }
