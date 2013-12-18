@@ -308,7 +308,11 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         Integer freeSpace = getFreeSpaceInCache(cache);
         Integer sizeOfValue = measure.getSize(v);
         if (sizeOfValue > freeSpace) {
-            makeSpaceInCache(index, sizeOfValue * 5);
+            Integer cacheSize = cacheSizeMap.get(cache);
+            Integer spaceToMake = sizeOfValue*5;
+            if (spaceToMake > cacheSize)
+                spaceToMake = cacheSize;
+            makeSpaceInCache(index, spaceToMake);
         }
         cache.putObject(k, v);
         addUsedSpace(cache, sizeOfValue);
@@ -361,6 +365,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         Set<CacheEntry> removedSet = new HashSet<CacheEntry>();
         boolean hasNextCache = caches.size() > index + 1;
         while (spaceMade < space) {
+            System.out.println("Remove One from "+list.size());
             Entry<Key, BigInteger> entry = list.pop();
             CacheMoveListener listener = new CacheMoveListener(Thread.currentThread());
             SourceResponse<Value> response = cache.requestObject(entry.getKey(), listener);
