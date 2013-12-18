@@ -8,9 +8,6 @@ import de.joglearth.source.caching.FileSystemCache;
 import de.joglearth.source.caching.MemoryCache;
 import de.joglearth.source.caching.RequestDistributor;
 import de.joglearth.source.caching.UnityMeasure;
-import de.joglearth.source.nominatim.NominatimManager;
-import de.joglearth.source.nominatim.NominatimSource;
-import de.joglearth.surface.SurfaceListener;
 
 
 /**

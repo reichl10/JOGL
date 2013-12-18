@@ -106,8 +106,8 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
     @Override
     public SourceResponse<VertexBuffer> requestObject(Tile key,
             SourceListener<Tile, VertexBuffer> sender) {
-        //return dist.requestObject(key, sender);
-        return source.requestObject(key, sender);
+        return dist.requestObject(key, sender);
+        //return source.requestObject(key, sender);
     }
 
     /**

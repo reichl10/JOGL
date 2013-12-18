@@ -1,21 +1,8 @@
 package de.joglearth.source.srtm;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
-
-import sun.misc.IOUtils;
-
-import com.jogamp.common.util.IOUtil;
 
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
@@ -52,8 +39,8 @@ public class SRTMBinarySource implements Source<SRTMTileIndex, byte[]> {
     @Override
     public SourceResponse<byte[]> requestObject(final SRTMTileIndex key,
             final SourceListener<SRTMTileIndex, byte[]> sender) {
-        
-        if (key == null) { 
+
+        if (key == null) {
             throw new IllegalArgumentException();
         }
 
@@ -61,25 +48,26 @@ public class SRTMBinarySource implements Source<SRTMTileIndex, byte[]> {
         if (region == null) {
             return new SourceResponse<byte[]>(SourceResponseType.MISSING, null);
         }
-        
+
         final String url = serverURL + tileRegionMap.get(key.toString()) + "/" + key.toString()
                 + ".hgt.zip";
-        
+
         executor.execute(new Runnable() {
+
             @Override
             public void run() {
                 System.out.println(url);
                 byte[] zipBytes = HTTP.get(url, null);
 
                 if (zipBytes == null) {
-                    System.err.println("Loading SRTM server data for " 
+                    System.err.println("Loading SRTM server data for "
                             + key.toString() + " failed");
                 }
 
                 sender.requestCompleted(key, zipBytes);
             }
         });
-        
+
         return new SourceResponse<byte[]>(SourceResponseType.ASYNCHRONOUS, null);
     }
 }

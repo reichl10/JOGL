@@ -6,8 +6,10 @@ import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
 
+
 /**
- * Implements the {@link de.joglearth.source.caching.Cache} interface in such way that it stores objects in the memory.
+ * Implements the {@link de.joglearth.source.caching.Cache} interface in such way that it stores
+ * objects in the memory.
  * 
  */
 public class MemoryCache<Key, Value> implements Cache<Key, Value> {
@@ -18,6 +20,7 @@ public class MemoryCache<Key, Value> implements Cache<Key, Value> {
     @Override
     public SourceResponse<Value> requestObject(Key key,
             SourceListener<Key, Value> sender) {
+        
         Value object = storage.get(key);
         SourceResponseType responseType = object != null
                 ? SourceResponseType.SYNCHRONOUS : SourceResponseType.MISSING;

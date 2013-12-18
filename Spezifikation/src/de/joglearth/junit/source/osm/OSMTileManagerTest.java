@@ -1,10 +1,9 @@
 package de.joglearth.junit.source.osm;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import de.joglearth.geometry.Tile;
 import de.joglearth.source.SourceListener;

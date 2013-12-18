@@ -1,8 +1,13 @@
 package de.joglearth.source.osm;
 
+import de.joglearth.settings.Settings;
+import de.joglearth.settings.SettingsContract;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
+import de.joglearth.source.caching.Cache;
+import de.joglearth.source.caching.FileSystemCache;
+import de.joglearth.source.caching.MemoryCache;
 import de.joglearth.source.caching.RequestDistributor;
 
 
@@ -12,6 +17,8 @@ import de.joglearth.source.caching.RequestDistributor;
 public final class OSMTileManager implements Source<OSMTile, byte[]> {
 
     private RequestDistributor<OSMTile, byte[]> dist;
+    private Cache<OSMTile, byte[]> memoryCache;
+    private Cache<OSMTile, byte[]> fsCache;
 
     private static OSMTileManager               instance = null;
 
@@ -30,6 +37,12 @@ public final class OSMTileManager implements Source<OSMTile, byte[]> {
 
     // Default constructor
     private OSMTileManager() {
+        dist = new RequestDistributor<OSMTile, byte[]>();
+        memoryCache = new MemoryCache<OSMTile, byte[]>();
+        //TODO testen obs so passt -> Constantin fragen?!
+        fsCache = new FileSystemCache("osm/", new OSMPathTranslator());
+        dist.addCache(memoryCache, (int) ((Settings.getInstance().getInteger(SettingsContract.CACHE_SIZE_MEMORY))*0.7));
+        dist.addCache(fsCache, (int) ((Settings.getInstance().getInteger(SettingsContract.CACHE_SIZE_FILESYSTEM))*0.7));
 
     }
 
@@ -40,12 +53,21 @@ public final class OSMTileManager implements Source<OSMTile, byte[]> {
     }
 
     /**
-     * Sets the size of a {@link de.joglearth.source.caching.Cache}.
+     * Sets the size of a {@link de.joglearth.source.caching.MemoryCache}.
      * 
      * @param cacheSize the new size of the <code>Cache</code>
      */
-    public void setCacheSize(int cacheSize) {
-
+    public void setMemoryCacheSize(int cacheSize) {
+        dist.setCacheSize(memoryCache, cacheSize);
+    }
+    
+    /**
+     * Sets the size of a {@link de.joglearth.source.caching.FileSystemCache}.
+     * 
+     * @param cacheSize the new size of the <code>Cache</code>
+     */
+    public void setFileSystemCacheSize(int cacheSize) {
+        dist.setCacheSize(fsCache, cacheSize);
     }
 
 }
