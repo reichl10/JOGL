@@ -81,6 +81,12 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
     @Override
     public synchronized Iterable<Key> getExistingObjects() {
+        try {
+            Files.walkFileTree(basePath, new FileIndexerWalker(keySet, basePath, pathTranslator));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return new HashSet<Key>(keySet);
     }
 
@@ -151,7 +157,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
          * 
          * @param s the set to use
          */
-        public FileIndexerWalker(Set s, Path base, PathTranslator<Key> pt) {
+        public FileIndexerWalker(Set<Key> s, Path base, PathTranslator<Key> pt) {
             fileKeySet = s;
             basePath = base;
             pathTranslator = pt;
