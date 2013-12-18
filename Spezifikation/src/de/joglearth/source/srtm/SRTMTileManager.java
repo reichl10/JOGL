@@ -3,8 +3,11 @@ package de.joglearth.source.srtm;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
+import de.joglearth.source.caching.ByteArrayMeasure;
+import de.joglearth.source.caching.FileSystemCache;
+import de.joglearth.source.caching.MemoryCache;
 import de.joglearth.source.caching.RequestDistributor;
-import de.joglearth.surface.SurfaceListener;
+import de.joglearth.source.caching.UnityMeasure;
 
 
 /**
@@ -14,7 +17,8 @@ public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
 
     private static SRTMTileManager                      instance = null;
 
-    private RequestDistributor<SRTMTileIndex, SRTMTile> dist;
+    private RequestDistributor<SRTMTileIndex, SRTMTile> tileRequestDistributor;
+    private RequestDistributor<SRTMTileIndex, byte[]> binaryRequestDistributor;
 
 
     /**
@@ -24,40 +28,31 @@ public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
      */
     public static SRTMTileManager getInstance() {
         if (instance == null) {
-            instance = new SRTMTileManager();
+            instance = new SRTMTileManager("srtm", 10*1024*1024, 10*1024*1024);
         }
         return instance;
     }
 
     // Default constructor
-    private SRTMTileManager() {
-        dist = new RequestDistributor<SRTMTileIndex, SRTMTile>();
+    private SRTMTileManager(String folder, int memCacheBytes, int fsCacheBytes) {
+        SRTMBinarySource binarySource = new SRTMBinarySource();
+        FileSystemCache<SRTMTileIndex> binaryCache 
+            = new FileSystemCache<>(folder, new SRTMPathTranslator());
+        binaryRequestDistributor = new RequestDistributor<>(new ByteArrayMeasure());
+        binaryRequestDistributor.setSource(binarySource);
+        binaryRequestDistributor.addCache(binaryCache, fsCacheBytes);
         
-        //TODO caches
+        SRTMTileSource tileSource = new SRTMTileSource(binaryRequestDistributor);
+        MemoryCache<SRTMTileIndex, SRTMTile> tileCache = new MemoryCache<>();
+        tileRequestDistributor = new RequestDistributor<>(new UnityMeasure<SRTMTile>());
+        tileRequestDistributor.setSource(tileSource);
+        tileRequestDistributor.addCache(tileCache, memCacheBytes / SRTMTile.SIZE_IN_MEMORY);
     }
 
     @Override
     public SourceResponse<SRTMTile> requestObject(SRTMTileIndex key,
             SourceListener<SRTMTileIndex, SRTMTile> sender) {
-        return dist.requestObject(key, sender);
-    }
-
-    /**
-     * Adds a new {@link de.joglearth.surface.SurfaceListener}.
-     * 
-     * @param l The new <code>SurfaceListener</code>
-     */
-    public void addSurfaceListener(SurfaceListener l) {
-
-    }
-
-    /**
-     * Removes a given {@link de.joglearth.surface.SurfaceListener}.
-     * 
-     * @param l The <code>SurfaceListener</code> that should be removed
-     */
-    public void removeSurfaceListener(SurfaceListener l) {
-
+        return tileRequestDistributor.requestObject(key, sender);
     }
 
 }

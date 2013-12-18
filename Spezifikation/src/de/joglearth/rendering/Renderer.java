@@ -35,6 +35,8 @@ import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.opengl.VertexBuffer;
+import de.joglearth.source.osm.OSMTileManager;
+import de.joglearth.source.osm.OSMTileSource;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.surface.MapLayout;
 import de.joglearth.surface.SingleMapType;
@@ -191,7 +193,7 @@ public class Renderer {
         gl.glEnable(GL_TEXTURE_2D);
         gl.glPolygonMode(GL_FRONT_AND_BACK,  GL_LINE);
 
-        this.textureManager = new TextureManager(gl);
+        this.textureManager = new TextureManager(gl, OSMTileManager.getInstance(), 200);
         ///textureManager.addSurfaceListener(new SurfaceValidator());
 
         /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */

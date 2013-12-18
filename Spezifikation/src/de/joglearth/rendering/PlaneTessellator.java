@@ -12,6 +12,10 @@ import static javax.media.opengl.GL2.*;
  * Generates {@link de.joglearth.rendering.Mesh}es for a tile on the map plane.
  */
 public class PlaneTessellator implements Tessellator {
+    
+    private double getZCoordinate(double lon, double lat, double latStep) {
+        return HeightMap.getHeight(new GeoCoordinates(lon, lat), latStep) + HeightMap.MIN_HEIGHT;
+    }
 
     @Override
     public Mesh tessellateTile(Tile tile, int subdivisions, boolean useHeightMap) {
@@ -35,15 +39,12 @@ public class PlaneTessellator implements Tessellator {
                         1 - (float) line / nVerticalQuads);
 
                 if (useHeightMap) {
-                    writeVertex(vertices, vertIndex, (float) lon, (float) lat,
-                            (float) HeightMap.getHeight(new GeoCoordinates(lon, lat)));
+                    writeVertex(vertices, vertIndex, lon, lat, getZCoordinate(lon, lat, latStep));
 
-                    double heightEast = HeightMap.getHeight(new GeoCoordinates(lon + lonStep, lat));
-                    double heightWest = HeightMap.getHeight(new GeoCoordinates(lon - lonStep, lat));
-                    double heightSouth = HeightMap
-                            .getHeight(new GeoCoordinates(lon, lat + latStep));
-                    double heightNorth = HeightMap
-                            .getHeight(new GeoCoordinates(lon, lat - latStep));
+                    double heightEast = getZCoordinate(lon + lonStep, lat, latStep);
+                    double heightWest = getZCoordinate(lon - lonStep, lat, latStep);
+                    double heightSouth = getZCoordinate(lon, lat + latStep, latStep);
+                    double heightNorth = getZCoordinate(lon, lat - latStep, latStep);
 
                     Vector3 westEast = new Vector3(2 * lonStep, 0, heightEast - heightWest);
                     Vector3 northSouth = new Vector3(0, 2 * latStep, heightNorth - heightSouth);

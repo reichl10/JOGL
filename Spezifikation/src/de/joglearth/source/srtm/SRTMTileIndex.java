@@ -5,7 +5,6 @@ import static java.lang.Math.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 /**
  * Structure identifying single SRTM height data tiles.
  */

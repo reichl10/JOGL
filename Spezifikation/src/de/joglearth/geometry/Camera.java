@@ -23,7 +23,11 @@ public class Camera {
     private double tiltX = 0;
     private double tiltY = 0;
     private double fov, aspectRatio, zNear, zFar;
-    private Matrix4 projectionMatrix, cameraMatrix = new Matrix4(), modelViewMatrix = new Matrix4(), transformationMatrix;
+    private Matrix4 projectionMatrix,
+                    cameraMatrix = new Matrix4(),
+                    modelViewMatrix = new Matrix4(),
+                    transformationMatrix;
+    
     /* TODO reset visibility */public Geometry geometry = null;
     private List<CameraListener> listeners = new ArrayList<CameraListener>();
 
@@ -48,8 +52,9 @@ public class Camera {
 
     private boolean updateCamera() {
         // TODO sign!
+        // TODO Height map resolution is a wild guess
         Matrix4 newCameraMatrix = geometry.getViewMatrix(position,
-                HeightMap.getHeight(position) / 1000 + distance);
+                HeightMap.getHeight(position, 1e-6) / 1000 + distance);
 
         Vector3 center = newCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
         Vector3 zAxis = newCameraMatrix.transform(new Vector3(0, 0, -1)).divide().minus(center)
