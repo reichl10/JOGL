@@ -4,6 +4,7 @@ import static java.lang.Math.*;
 
 /**
  * Provides access to two-dimensional SRTM height data.
+ * TODO Should only hold a single level of interpolation to minimize memory impact
  */
 public final class SRTMTile {
     
@@ -17,6 +18,13 @@ public final class SRTMTile {
      * Maximum size of the data in one direction. Defined by the size of the input data.
      */
     public static final short LOD0_WIDTH = 1201;
+    
+    /**
+     * Size of the original tile and all its interpolated versions, in byte.
+     * Calculated as 2*(sum floor(1201/(2^n))^2 from n = 0 to 10)
+     */
+    public static final int SIZE_IN_MEMORY = 3_844_642;
+    
     
     // If there is no height data available for a point it is set to Short.MinValue.
     private static final short INVALID_HEIGHT = Short.MIN_VALUE;

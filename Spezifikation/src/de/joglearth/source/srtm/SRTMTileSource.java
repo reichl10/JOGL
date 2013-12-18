@@ -1,5 +1,11 @@
 package de.joglearth.source.srtm;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
@@ -34,14 +40,41 @@ public class SRTMTileSource implements Source<SRTMTileIndex, SRTMTile> {
 			new SourceListener<SRTMTileIndex, byte[]>() {
 
 				@Override
-				public void requestCompleted(SRTMTileIndex key, byte[] value) {
+				public void requestCompleted(SRTMTileIndex key, byte[] zipBytes) {
+	                byte[] tileBytes = null;
+	                if (zipBytes != null) {
+	                    try {
+	                        ZipInputStream zip 
+	                            = new ZipInputStream(new ByteArrayInputStream(zipBytes));
+	                        ZipEntry entry = zip.getNextEntry();
+	                        if (entry.getName().equals(key.toString() + ".hgt")) {
+	                            ByteArrayOutputStream tileStream = new ByteArrayOutputStream();
+	                            int n = -1;
+	                            byte[] buf = new byte[4096];
+	                            while ((n = zip.read(buf)) != -1) {
+	                                tileStream.write(buf, 0, n);
+	                            }
+	                            tileBytes = tileStream.toByteArray();
+	                            if (tileBytes.length != 1201*1201*2) {
+	                                tileBytes = null;
+	                            }
+	                        }
+	                    } catch (IOException e) {
+	                        tileBytes = null;
+	                    }
+	                }
+
+	                if (zipBytes != null && tileBytes == null) {
+	                    System.err.println("Loading SRTM data from archive failed for "
+	                            + key.toString());
+	                }
+	                
 					SRTMTile tile = null;
-					if (value != null) {
-						tile = new SRTMTile(value);
+					if (tileBytes != null) {
+						tile = new SRTMTile(tileBytes);
 					}
 					sender.requestCompleted(key, tile);
 				}
-		
 		});
     	
     	return new SourceResponse<SRTMTile>(response.response, null);
