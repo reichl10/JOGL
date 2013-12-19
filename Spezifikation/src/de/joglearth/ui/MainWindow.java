@@ -160,7 +160,8 @@ public class MainWindow extends JFrame {
     private JComboBox<IconizedItem<MapTypePair>> paraMapTypeComboBox;
     private JTabbedPane sideBarTabs;
     private JSlider zoomSlider;
-    private static final double ZOOM_FACTOR = new Double(1.1d / 2d);;
+    private static final double ZOOM_FACTOR = 10.d;
+    private static final double MAX_DIFF = 5.d;
     private static final double MIN_DIST = 0.1d;
 
 
@@ -1261,7 +1262,6 @@ public class MainWindow extends JFrame {
                     slider.setValue(current - 1);
                 }
             }
-            camera.setDistance((current) * ZOOM_FACTOR + 0.1);
         }
 
         @Override
@@ -1273,7 +1273,6 @@ public class MainWindow extends JFrame {
             else if (newCount > slider.getMaximum())
                 newCount = slider.getMaximum();
             slider.setValue(newCount);
-            camera.setDistance((newCount) * ZOOM_FACTOR + MIN_DIST);
         }
     }
 
@@ -1290,6 +1289,11 @@ public class MainWindow extends JFrame {
         public void stateChanged(ChangeEvent e) {
             JSlider slider = (JSlider) e.getSource();
             label.setText(Integer.toString(slider.getValue()));
+            int value = slider.getValue();
+            double perc = value/(double)slider.getMaximum();
+            System.out.println("Set Distance to: "+(MIN_DIST + MAX_DIFF*perc));
+            camera.setDistance(MIN_DIST + MAX_DIFF - MAX_DIFF*perc);
+            
         }
 
     }
