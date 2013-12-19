@@ -17,30 +17,23 @@ import static java.lang.Math.*;
 public final class CameraUtils {
 
     private CameraUtils() {}
+    
 
     /**
-     * Returns an array of tiles visible or partially visible by the
-     * {@link de.joglearth.geometry.Camera}.
-     * 
-     * All tiles have the same detail level, which is calculated from the distance and number of
-     * visible tiles.
-     * 
-     * @param camera The camera
-     * @param zoomLevel The zoom level
-     * @return The array of visible tiles
+     * The tile below (0.5, 0.5) is always visible. Either it it the only tile on the screen, or
+     * one of its corners can be used as a starting point by the grid walking algorithm.
      */
-    public static Iterable<Tile> getVisibleTiles(Camera camera, int zoomLevel) {
+    public static Tile getCenteredTile(Camera camera, int zoomLevel) {
+        return Tile.getContainingTile(zoomLevel,
+            camera.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5)));
+    }
+
+    public static GridPoint getVisibleCornerPoint(Camera camera, Tile centerTile) {
+        int zoomLevel = centerTile.getDetailLevel();
+        
         if (camera == null || zoomLevel < 0) {
             throw new IllegalArgumentException();
         }
-        
-        /*
-         * The tile below (0.5, 0.5) is always visible. Either it it the only tile on the screen, or
-         * one of its corners can be used as a starting point by the grid walking algorithm.
-         */
-        Tile centerTile = Tile.getContainingTile(zoomLevel,
-                camera.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5)));
-        
 
         GeoCoordinates[] corners = {
                 new GeoCoordinates(centerTile.getLongitudeFrom(), centerTile.getLatitudeFrom()),
@@ -71,7 +64,24 @@ public final class CameraUtils {
                 break;
             }
         }
+        return center;
+    }
 
+    /**
+     * Returns an array of tiles visible or partially visible by the
+     * {@link de.joglearth.geometry.Camera}.
+     * 
+     * All tiles have the same detail level, which is calculated from the distance and number of
+     * visible tiles.
+     * 
+     * @param camera The camera
+     * @param zoomLevel The zoom level
+     * @return The array of visible tiles
+     */
+    public static Iterable<Tile> getVisibleTiles(Camera camera, int zoomLevel) {
+        Tile centerTile = getCenteredTile(camera, zoomLevel);
+        GridPoint center = getVisibleCornerPoint(camera, centerTile);
+        
         ArrayList<Tile> visibleTiles = new ArrayList<Tile>();
         visibleTiles.add(centerTile);
 
@@ -168,7 +178,7 @@ public final class CameraUtils {
 
 
     // Models an intersection of longitude and latitude lines
-    private static final class GridPoint {
+    public static final class GridPoint {
 
         private int lon, lat;
 
@@ -243,7 +253,7 @@ public final class CameraUtils {
      * Iterates over the border of an area of grid points visible by the camera at a certain zoom
      * level.
      */
-    private static class GridWalker {
+    public static class GridWalker {
 
         private GridPoint pos;
         private int direction;
@@ -338,7 +348,7 @@ public final class CameraUtils {
      * Iterates over an area of visible tiles in a spiral way. The visibility of a tile is
      * determined by the visibility of its corners, which is given as a set of grid points.
      */
-    private static class TileWalker {
+    public static class TileWalker {
 
         // The current position
         private int lon, lat;
