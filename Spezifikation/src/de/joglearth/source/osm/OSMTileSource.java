@@ -57,13 +57,14 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
     private byte[] getOSMTile(Tile tile) {
         System.err.println("OSMTileSource: loading " + tile + " with type " + type.toString());
 
-        int y = (int) (((tile.getLatitudeFrom() + tile.getLatitudeTo()) / 2) / 180 * Math.PI);
-        int x = (int) ((tile.getLongitudeFrom() + tile.getLongitudeTo()) / 2);
+        double y = (((tile.getLatitudeFrom() + tile.getLatitudeTo()) / 2) / 180 * Math.PI);
+        double x = ((tile.getLongitudeFrom() + tile.getLongitudeTo()) / 2);
 
+        
         int zoom = tile.getDetailLevel();
 
         int n = (int) Math.pow(2, zoom);
-        int xtile = n * ((x + 180) / 360);
+        int xtile = (int) (n * ((x + 180) / 360));
         int ytile = (int) (n * (1 - (Math.log(Math.tan(y) + 1 / Math.cos(y)) / Math.PI)) / 2);
 
         StringBuilder builder = new StringBuilder();
