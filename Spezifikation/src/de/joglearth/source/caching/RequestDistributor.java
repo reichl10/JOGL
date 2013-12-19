@@ -276,7 +276,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         }
     }
 
-    private synchronized void requestCompleted(Key k, Value v) {
+    private void requestCompleted(Key k, Value v) {
         if (v != null) {
             addToCaches(k, v);
         }
