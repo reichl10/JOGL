@@ -293,6 +293,29 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         }
     }
 
+    private synchronized void cacheRequestCompleted(Cache<Key, Value> c, Key k, Value v) {
+        if (caches.size() > 0) {
+            int index = caches.indexOf(c);
+            if (index != -1 && index != 0) {
+                removeFromCache(c, k, v);
+                addToCaches(k, v);
+            }
+        }
+        Set<SourceListener<Key, Value>> listeners = waitingRequestsMap.remove(k);
+        if (listeners != null) {
+            for (SourceListener<Key, Value> listener : listeners) {
+                listener.requestCompleted(k, v);
+            }
+        }
+    }
+
+    private synchronized void removeFromCache(Cache<Key, Value> c, Key k, Value v) {
+        Integer size = measure.getSize(v);
+        removeUsedSpace(c, size);
+        c.dropObject(k);
+        lastUsedMap.get(c).remove(k);
+    }
+
     private void addToCaches(Key k, Value v) {
         if (caches.size() < 1)
             return;
@@ -429,23 +452,24 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         @Override
         public void requestCompleted(Key key, Value value) {
 
-            System.err.println("RequestDistributor: async request completed " 
+            System.err.println("RequestDistributor: async request completed "
                     + (value == null ? "(null) " : "") + "from cache for " + key);
-            
+
             synchronized (RequestDistributor.this) {
                 if (value == null) {
                     if (caches.size() > cIndex + 1) {
                         Cache<Key, Value> nextCache = _caches.get(cIndex + 1);
+                        ObjectRequestListener listener = new ObjectRequestListener(_caches,
+                                cIndex + 1,
+                                _source, _rd);
                         SourceResponse<Value> response = nextCache.requestObject(key,
-                                new ObjectRequestListener(_caches, cIndex + 1,
-                                        _source, _rd));
+                                listener);
                         switch (response.response) {
                             case MISSING:
-                                _rd.requestCompleted(key, null);
+                                listener.requestCompleted(key, null);
                                 break;
                             case SYNCHRONOUS:
-                                updateLastUsed(nextCache, key);
-                                _rd.requestCompleted(key, response.value);
+                                _rd.cacheRequestCompleted(nextCache, key, response.value);
                                 break;
                             case ASYNCHRONOUS:
                                 break;
@@ -491,13 +515,9 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
         @Override
         public void requestCompleted(Key key, Value value) {
-            System.err.println("RequestDistributor: async request completed " 
+            System.err.println("RequestDistributor: async request completed "
                     + (value == null ? "(null) " : "") + "from source for " + key);
-            synchronized (RequestDistributor.this) {
-                if (value != null)
-                    addToCache(0, key, value);
                 rd.requestCompleted(key, value);
-            }
         }
 
     }
