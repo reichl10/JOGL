@@ -942,6 +942,18 @@ public class MainWindow extends JFrame {
                 }
             }
         });
+        heightMapCheckBox.addItemListener(new ItemListener() {
+            
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                Settings settings = Settings.getInstance();
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    settings.putBoolean(SettingsContract.HEIGHT_MAP_ENABLED, new Boolean(true));
+                } else if (e.getStateChange() == ItemEvent.DESELECTED) {
+                    settings.putBoolean(SettingsContract.HEIGHT_MAP_ENABLED, new Boolean(false));
+                }
+            }
+        });
     }
 
     private void loadLanguage() {
