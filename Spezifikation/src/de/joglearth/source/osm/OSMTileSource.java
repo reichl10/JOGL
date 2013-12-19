@@ -8,6 +8,8 @@ import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
+import de.joglearth.surface.MapLayout;
+import de.joglearth.surface.SingleMapType;
 import de.joglearth.surface.TiledMapType;
 import de.joglearth.util.HTTP;
 
@@ -57,8 +59,14 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
     private byte[] getOSMTile(Tile tile) {
         System.err.println("OSMTileSource: loading " + tile + " with type " + type.toString());
 
+        double lonFrom = tile.getLongitudeFrom();
+        double lonTo = tile.getLongitudeTo();
+        if(lonFrom > lonTo) {
+            lonFrom -= Math.PI;
+            lonTo -= Math.PI;
+        }
         double y = (((tile.getLatitudeFrom() + tile.getLatitudeTo()) / 2) / 180 * Math.PI);
-        double x = ((tile.getLongitudeFrom() + tile.getLongitudeTo()) / 2);
+        double x = ((lonFrom + lonTo) / 2);
 
         
         int zoom = tile.getDetailLevel();
@@ -137,5 +145,41 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
             default:
                 return new String[0];
         }
+    }
+    
+    
+    public static void main(String[] args) {
+        Tile tile1 = new Tile(1, 0, 0);
+        Tile tile2 = new Tile(1, 0, 1);
+        Tile tile3 = new Tile(1, 1, 0);
+
+        
+        OSMTile osm1 = new OSMTile(tile1, TiledMapType.OSM_MAPNIK);
+        OSMTile osm2 = new OSMTile(tile2, TiledMapType.OSM_MAPNIK);
+        OSMTile osm3 = new OSMTile(tile3, TiledMapType.OSM_MAPNIK);
+
+        
+        OSMTileSource source = new OSMTileSource();
+        
+        source.requestObject(osm1, new TestRequester());
+        source.requestObject(osm2, new TestRequester());
+        source.requestObject(osm3, new TestRequester());
+
+
+            
+        }
+        
+    
+    static class TestRequester implements SourceListener<OSMTile, byte[]>{
+        
+        public TestRequester() {
+            
+        }
+
+        @Override
+        public void requestCompleted(OSMTile key, byte[] value) {
+            // TODO Auto-generated method stub
+            
+        } 
     }
 }
