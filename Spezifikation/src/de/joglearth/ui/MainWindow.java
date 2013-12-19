@@ -667,7 +667,7 @@ public class MainWindow extends JFrame {
         cachePanel.add(memCacheLabel, "2, 2"); //$NON-NLS-1$
 
         memCacheSpinner = new JSpinner();
-        memCacheSpinner.setModel(new SpinnerNumberModel(new Integer(100),
+        memCacheSpinner.setModel(new SpinnerNumberModel(Settings.getInstance().getInteger(SettingsContract.CACHE_SIZE_MEMORY)/(1024*1024),
                 new Integer(100), null, new Integer(1)));
         memCacheSpinner.addChangeListener(new ChangeListener() {
 
@@ -685,7 +685,7 @@ public class MainWindow extends JFrame {
         cachePanel.add(fsCacheLabel, "2, 4"); //$NON-NLS-1$
 
         JSpinner fsCacheSpinner = new JSpinner();
-        fsCacheSpinner.setModel(new SpinnerNumberModel(new Integer(100),
+        fsCacheSpinner.setModel(new SpinnerNumberModel(Settings.getInstance().getInteger(SettingsContract.CACHE_SIZE_FILESYSTEM)/(1024*1024),
                 new Integer(100), null, new Integer(1)));
         fsCacheSpinner.addChangeListener(new ChangeListener() {
 
