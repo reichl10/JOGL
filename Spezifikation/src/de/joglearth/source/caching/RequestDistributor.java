@@ -205,10 +205,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
     }
 
-    private synchronized void removeRequestListeners(Key k) {
-        waitingRequestsMap.remove(k);
-    }
-
     private synchronized void updateLastUsed(Cache<Key, Value> cache, Key k) {
         Map<Key, BigInteger> map = lastUsedMap.get(cache);
         map.put(k, getNextStamp());
@@ -331,7 +327,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         Integer sizeOfValue = measure.getSize(v);
         if (sizeOfValue > freeSpace) {
             Integer cacheSize = cacheSizeMap.get(cache);
-            Integer spaceToMake = sizeOfValue*5;
+            Integer spaceToMake = sizeOfValue * 5;
             if (spaceToMake > cacheSize)
                 spaceToMake = cacheSize;
             makeSpaceInCache(index, spaceToMake);
@@ -387,7 +383,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         Set<CacheEntry> removedSet = new HashSet<CacheEntry>();
         boolean hasNextCache = caches.size() > index + 1;
         while (spaceMade < space) {
-            System.out.println("Remove One from "+list.size());
+            System.out.println("Remove One from " + list.size());
             Entry<Key, BigInteger> entry = list.pop();
             CacheMoveListener listener = new CacheMoveListener(Thread.currentThread());
             SourceResponse<Value> response = cache.requestObject(entry.getKey(), listener);
@@ -535,21 +531,24 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             lastUsed = l;
         }
     }
-    
+
     private class CacheMoveListener implements SourceListener<Key, Value> {
 
         Thread waiterThread;
         public Key key;
         public Value value;
+
+
         public CacheMoveListener(Thread t) {
             waiterThread = t;
         }
+
         @Override
         public void requestCompleted(Key key, Value value) {
             this.key = key;
             this.value = value;
             waiterThread.notify();
         }
-        
+
     }
 }
