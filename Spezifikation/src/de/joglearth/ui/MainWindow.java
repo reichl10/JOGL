@@ -163,6 +163,7 @@ public class MainWindow extends JFrame {
     private static final double ZOOM_FACTOR = new Double(1.1d / 2d);;
     private static final double MIN_DIST = 0.1d;
 
+
     private class HideSideBarListener extends MouseAdapter {
 
         boolean visible = true;
@@ -361,27 +362,6 @@ public class MainWindow extends JFrame {
         mapOptionsPanel.add(paraMapTypeComboBox, "1, 3"); //$NON-NLS-1$
         paraMapTypeComboBox
                 .setRenderer(new IconListCellRenderer<IconizedItem<MapTypePair>>());
-        paraMapTypeComboBox.addItemListener(new ItemListener() {
-
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    JComboBox<IconizedItem<MapTypePair>> comboBox = (JComboBox<IconizedItem<MapTypePair>>) e
-                            .getSource();
-                    MapTypePair mtp = ((IconizedItem<MapTypePair>) comboBox
-                            .getSelectedItem()).getValue();
-                    if (mtp.type instanceof SingleMapType) {
-                        SingleMapType mapType = (SingleMapType) mtp.type;
-                        Settings.getInstance().putString(
-                                SettingsContract.MAP_TYPE, mapType.name());
-                    } else if (mtp.type instanceof TiledMapType) {
-                        TiledMapType type = (TiledMapType) mtp.type;
-                        Settings.getInstance().putString(
-                                SettingsContract.MAP_TYPE, type.name());
-                    }
-                }
-            }
-        });
         heightMapCheckBox = new JCheckBox(Messages.getString("MainWindow.65")); //$NON-NLS-1$
         heightMapCheckBox.addChangeListener(new ChangeListener() {
 
@@ -905,13 +885,13 @@ public class MainWindow extends JFrame {
             public void itemStateChanged(ItemEvent arg0) {
                 if (arg0.getStateChange() == ItemEvent.SELECTED) {
                     if (camera != null) {
-                        IconizedItem<DisplayMode> selected = null;
-                        if (displayModeComboBox.getSelectedItem() instanceof IconizedItem<?>)
-                            selected = (IconizedItem<DisplayMode>) arg0.getItem();
+                        IconizedItem<DisplayMode> selected = (IconizedItem<DisplayMode>) arg0
+                                .getItem();
                         if (selected != null) {
                             DisplayMode mode = selected.getValue();
                             mapOptionsPanel
                                     .setVisible(mode != DisplayMode.SOLAR_SYSTEM);
+                            renderer.setDisplayMode(mode);
                             switch (mode) {
                                 case SOLAR_SYSTEM:
                                 case GLOBE_MAP:
@@ -940,6 +920,27 @@ public class MainWindow extends JFrame {
         GlMouseListener l = new GlMouseListener();
         glCanvas.addMouseMotionListener(l);
         glCanvas.addMouseListener(l);
+        paraMapTypeComboBox.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    IconizedItem<MapTypePair> item = (IconizedItem<MapTypePair>) e.getItem();
+                    MapTypePair mtp = item.getValue();
+                    if (mtp.type instanceof SingleMapType) {
+                        SingleMapType mapType = (SingleMapType) mtp.type;
+                        Settings.getInstance().putString(
+                                SettingsContract.MAP_TYPE, mapType.name());
+                        renderer.setMapType(mapType);
+                    } else if (mtp.type instanceof TiledMapType) {
+                        TiledMapType type = (TiledMapType) mtp.type;
+                        Settings.getInstance().putString(
+                                SettingsContract.MAP_TYPE, type.name());
+                        renderer.setMapType(type);
+                    }
+                }
+            }
+        });
     }
 
     private void loadLanguage() {
