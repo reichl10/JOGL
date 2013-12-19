@@ -205,7 +205,7 @@ public class Camera {
      * @return
      */
     public double getScale() {
-        return (distance * tan(fov / 2)) / PI;
+        return distance * tan(fov / 2) / PI;
     }
 
     /**
@@ -414,6 +414,7 @@ public class Camera {
         System.err.println("Screen: " + screen + ", Camera: " + cameraPosition + ", zAxis: " + zAxis
                 + ", xAxis: " + xAxis + ", yAxis: " + yAxis + ", view: " + viewVector);
 
+        System.err.println(" - " + "Surface Coords: " + geometry.getSurfaceCoordinates(cameraPosition, viewVector));
         return geometry.getSurfaceCoordinates(cameraPosition, viewVector);
     }
 

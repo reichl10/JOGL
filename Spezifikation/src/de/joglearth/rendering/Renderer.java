@@ -243,8 +243,18 @@ public class Renderer {
         gl.glMatrixMode(GL_MODELVIEW);
         gl.glLoadMatrixd(camera.getModelViewMatrix().doubles(), 0);
         
-        int zoomLevel = CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles);
-
+        
+        //TODO !!!!
+        /*
+         * ----------------------------
+         * limited zoom to 3 !!!
+         * ----------------------------
+         * 
+         */
+        int zoomLevel = Math.min(3, CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles));
+        System.err.print("zoomlevel: " + zoomLevel + "  ");
+        
+        
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
             renderSolarSystem();
         } else {
@@ -306,6 +316,8 @@ public class Renderer {
         glu.gluSphere(quadric, 1, 100, 50);
     }
 
+    
+    
     private void renderMeshes(GL2 gl, Iterable<Tile> tiles) {
 
         for (Tile tile : tiles) {

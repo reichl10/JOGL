@@ -42,7 +42,7 @@ public final class HTTP {
      */
     public static byte[] get(String url, Iterable<String> getRequest)
             throws IllegalArgumentException {
-        System.err.println("HTTP: beginning GET request");
+        System.err.println("HTTP: beginning GET request for " + url);
         if (url == null) {
             throw new IllegalArgumentException("URL was null!");
         }
@@ -74,7 +74,7 @@ public final class HTTP {
 
         url = url + request.toString();
         
-        System.err.println("HTTP: GET request for " + url);
+        //System.err.println("HTTP: GET request for " + url + " with request " + request.toString());
 
         URL serverUrl;
         try {
