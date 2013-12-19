@@ -59,22 +59,34 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
     private byte[] getOSMTile(Tile tile) {
         System.err.println("OSMTileSource: loading " + tile + " with type " + type.toString());
 
+        // Spezialfall Kartenrand (Longitude)
         double lonFrom = tile.getLongitudeFrom();
         double lonTo = tile.getLongitudeTo();
-        if(lonFrom > lonTo) {
+        if (lonFrom > lonTo) {
             lonFrom -= Math.PI;
             lonTo -= Math.PI;
         }
-        double y = ((tile.getLatitudeFrom() + tile.getLatitudeTo()) / 2);
-        double x = ((lonFrom + lonTo) / 2) *180 / Math.PI;
 
-        
+        // Mittelpunkt der Kachel
+        double x = ((lonFrom + lonTo) / 2) * 180 / Math.PI;
+        double y = (tile.getLatitudeFrom() + tile.getLatitudeTo()) / 2;
+
+        /*
+         * n = 2 ^ zoom
+         * 
+         * xtile = n * ((lon_deg + 180) / 360)
+         * 
+         * ytile = n * (1 - (log(tan(lat_rad) + sec(lat_rad)) / π)) / 2
+         * 
+         * sec = 1/cos(lat_rad)
+         */
         int zoom = tile.getDetailLevel();
 
         int n = (int) Math.pow(2, zoom);
         int xtile = (int) (n * ((x + 180) / 360));
         int ytile = (int) (n * (1 - (Math.log(Math.tan(y) + 1 / Math.cos(y)) / Math.PI)) / 2);
-
+        
+        //Build URL
         StringBuilder builder = new StringBuilder();
         byte[] response = null;
 
@@ -100,7 +112,8 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
                 offset = 0;
             }
         }
-        System.err.println("OSMTileSource: done " + (response == null ? "(null) " : "") + "loading " + tile);
+        System.err.println("OSMTileSource: done " + (response == null ? "(null) " : "")
+                + "loading " + tile);
 
         return response;
     }
@@ -146,8 +159,7 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
                 return new String[0];
         }
     }
-    
-    
+
     public static void main(String[] args) {
         Tile tile1 = new Tile(2, 0, 0);
         Tile tile2 = new Tile(2, 0, 1);
@@ -166,9 +178,6 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
         Tile tile15 = new Tile(2, 3, 2);
         Tile tile16 = new Tile(2, 3, 3);
 
-
-
-        
         OSMTile osm1 = new OSMTile(tile1, TiledMapType.OSM_MAPNIK);
         OSMTile osm2 = new OSMTile(tile2, TiledMapType.OSM_MAPNIK);
         OSMTile osm3 = new OSMTile(tile3, TiledMapType.OSM_MAPNIK);
@@ -186,10 +195,8 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
         OSMTile osm15 = new OSMTile(tile15, TiledMapType.OSM_MAPNIK);
         OSMTile osm16 = new OSMTile(tile16, TiledMapType.OSM_MAPNIK);
 
-
-        
         OSMTileSource source = new OSMTileSource();
-        
+
         source.requestObject(osm1, new TestRequester());
         source.requestObject(osm2, new TestRequester());
         source.requestObject(osm3, new TestRequester());
@@ -206,20 +213,20 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
         source.requestObject(osm14, new TestRequester());
         source.requestObject(osm15, new TestRequester());
         source.requestObject(osm16, new TestRequester());
-            
-        }
-        
-    
-    static class TestRequester implements SourceListener<OSMTile, byte[]>{
-        
+
+    }
+
+
+    static class TestRequester implements SourceListener<OSMTile, byte[]> {
+
         public TestRequester() {
-            
+
         }
 
         @Override
         public void requestCompleted(OSMTile key, byte[] value) {
             // TODO Auto-generated method stub
-            
-        } 
+
+        }
     }
 }

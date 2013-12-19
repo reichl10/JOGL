@@ -216,7 +216,8 @@ public class Renderer {
     private void invokePending() {
         ArrayList<Invocation> pendingCopy;
         synchronized (pendingInvocations) {
-            pendingCopy = (ArrayList<Invocation>) pendingInvocations.clone();
+            pendingCopy = (ArrayList<Invocation>) pendingInvocations;
+            pendingInvocations = new ArrayList<Invocation>();
         }
         for (Invocation inv : pendingCopy) {
             inv.runnable.run();
