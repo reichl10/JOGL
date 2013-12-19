@@ -70,6 +70,12 @@ public class TextureSource<Key> implements Source<Key, Integer> {
             if (image.getData().getDataBuffer() instanceof DataBufferByte
                     && image.getType() == BufferedImage.TYPE_3BYTE_BGR) {
                 byte[] imageData = ((DataBufferByte) image.getData().getDataBuffer()).getData();
+                
+                byte[] flippedImageData = new byte[imageData.length];
+                int width = image.getWidth(), height = image.getHeight();
+                for (int line = 0; line < height; ++line) {
+                    System.arraycopy(imageData, line * width * 3, flippedImageData, (height-1-line) * width * 3, width * 3);
+                }
     
                 int[] ids = new int[1];
                 gl.glGenTextures(1, ids, 0);
@@ -80,7 +86,7 @@ public class TextureSource<Key> implements Source<Key, Integer> {
                 GLError.throwIfActive(gl);
     
                 gl.glTexImage2D(GL_TEXTURE_2D, 0, 3, image.getWidth(), image.getHeight(),
-                        0, GL_BGR, GL_UNSIGNED_BYTE, ByteBuffer.wrap(imageData));
+                        0, GL_BGR, GL_UNSIGNED_BYTE, ByteBuffer.wrap(flippedImageData));
                 GLError.throwIfActive(gl);
                 
                 gl.glGenerateMipmap(GL_TEXTURE_2D);

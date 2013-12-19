@@ -36,7 +36,7 @@ public class PlaneTessellator implements Tessellator {
         for (int line = 0; line < nVerticalVertices; ++line) {
             for (int col = 0; col < nHorizontalVertices; ++col) {
                 writeTextureCoordinates(vertices, vertIndex, (float) col / nHorizontalQuads, 
-                        /* 1- */ (float) line / nVerticalQuads);   //bugfix: flipped textures upsite down
+                         1 - (float) line / nVerticalQuads);   //bugfix: flipped textures upsite down
 
                 if (useHeightMap) {
                     writeVertex(vertices, vertIndex, lon, lat, getZCoordinate(lon, lat, latStep));
