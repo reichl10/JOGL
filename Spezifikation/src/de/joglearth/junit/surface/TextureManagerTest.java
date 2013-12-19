@@ -25,25 +25,25 @@ public class TextureManagerTest {
 
     @Test
     public final void testTextureManager() {
-        TextureManager man = new TextureManager(window.getGL());
+        TextureManager man = new TextureManager(window.getGL(), null, 0);
     }
 
     @Test
     public final void testGetTexture() {
-        TextureManager man = new TextureManager(window.getGL());
+        TextureManager man = new TextureManager(window.getGL(), null, 0);
         Integer id = man.getTexture(new Tile(0, 0, 0));
         assertNotNull(id);
     }
 
     @Test
     public final void testAddSurfaceListener() {
-        TextureManager man = new TextureManager(window.getGL());
+        TextureManager man = new TextureManager(window.getGL(), null, 0);
         man.addSurfaceListener(new TestSurfaceListener());
     }
 
     @Test
     public final void testRemoveSurfaceListener() {
-        TextureManager man = new TextureManager(window.getGL());
+        TextureManager man = new TextureManager(window.getGL(), null, 0);
         TestSurfaceListener listener = new TestSurfaceListener();
         man.addSurfaceListener(new TestSurfaceListener());
         man.removeSurfaceListener(listener);

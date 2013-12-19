@@ -13,7 +13,7 @@ public class HeightMapTest {
     @Test
     public final void testGetHeight() {
         double resultVal = 0.0d;
-        double res = HeightMap.getHeight(new GeoCoordinates(0.2321, 0.521));
+        double res = HeightMap.getHeight(new GeoCoordinates(0.2321, 0.521), 0.0d);
         assertEquals(resultVal, res, 0.000001d);
     }
 }
