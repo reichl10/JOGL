@@ -291,7 +291,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                 listener.requestCompleted(k, v);
             }
         }
-        removeRequestListeners(k);
     }
 
     private void addToCaches(Key k, Value v) {
