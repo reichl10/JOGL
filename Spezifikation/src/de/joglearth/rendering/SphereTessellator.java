@@ -142,8 +142,8 @@ public class SphereTessellator implements Tessellator {
         int[] indices = new int[nRows * (rowWidth - 1) * 6];
         int vIndex = 0, iIndex = 0;
 
-        double textureY = direction > 0 ? 0 : 1,
-               textureStep = (double) direction / nRows;
+        double textureY = direction > 0 ? 1 : 0,                //bugfix: vorzeichenfehler
+               textureStep = (double) -direction / nRows;       //bugfix: vorzeichenfehler
 
         writeVertexLine(vertices, 0, lon, lat, lonStep, latStep, useHeightMap, textureY, rowWidth);
         vIndex += rowWidth;

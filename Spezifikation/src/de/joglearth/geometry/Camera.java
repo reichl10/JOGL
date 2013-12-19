@@ -404,6 +404,7 @@ public class Camera {
                 .normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
 
+        // TODO Irgendwo muss hier AspectRatio rein
         directionMatrix.rotate(yAxis, (screen.x - 0.5) * fov);
         directionMatrix.rotate(xAxis, (screen.y - 0.5) * fov);
 

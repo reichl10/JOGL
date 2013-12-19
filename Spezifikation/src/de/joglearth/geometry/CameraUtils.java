@@ -16,6 +16,10 @@ import static java.lang.Math.*;
  */
 public final class CameraUtils {
 
+    public static void main(String ar[]) {
+        
+    }
+    
     private CameraUtils() {}
     
 
