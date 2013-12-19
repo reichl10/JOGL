@@ -16,10 +16,14 @@ import javax.imageio.ImageIO;
 import javax.media.opengl.GL2;
 
 import de.joglearth.rendering.GLError;
+import de.joglearth.rendering.Renderer;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
+import de.joglearth.util.AWTInvoker;
+import de.joglearth.util.RunnableResultListener;
+import de.joglearth.util.RunnableWithResult;
 
 
 /**
@@ -33,54 +37,78 @@ public class TextureSource<Key> implements Source<Key, Integer> {
     private Source<Key, byte[]> imageSource;
     private ImageSourceListener imageSourceListener = new ImageSourceListener();
     private Map<Key, Collection<SourceListener<Key, Integer>>> pendingRequests = new HashMap<>();
-
+    private Renderer renderer;
     
-    public TextureSource(GL2 gl, Source<Key, byte[]> imageSource) {
+    public TextureSource(Renderer renderer, GL2 gl, Source<Key, byte[]> imageSource) {
+        this.renderer = renderer;
         this.gl = gl;
         this.imageSource = imageSource;
     }
     
     
-    private Integer loadTexture(byte[] raw) {
-        if (raw == null) {
-            return null;
-        }
+    private class TextureLoader implements RunnableWithResult {
+        private byte[] raw;
         
-        Integer id = null;    
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(new ByteArrayInputStream(raw));
-        } catch (IOException e) {
-            return null;
+        public TextureLoader(byte[] raw) {
+            this.raw = raw;
         }
-        
-        if (image.getData().getDataBuffer() instanceof DataBufferByte
-                && image.getType() == BufferedImage.TYPE_4BYTE_ABGR) {
-            byte[] imageData = ((DataBufferByte) image.getData().getDataBuffer()).getData();
 
-            int[] ids = new int[1];
-            gl.glGenTextures(1, ids, 0);
-            GLError.throwIfActive(gl);
-            id = ids[0];
+        @Override
+        public Object run() {
+            if (raw == null) {
+                return null;
+            }
             
-            gl.glBindTexture(GL_TEXTURE_2D, id);
-            GLError.throwIfActive(gl);
-
-            gl.glTexImage2D(GL_TEXTURE_2D, 0, GL_ABGR_EXT, image.getWidth(), image.getHeight(),
-                    0, GL_ABGR_EXT, GL_UNSIGNED_BYTE, ByteBuffer.wrap(imageData));
-            GLError.throwIfActive(gl);
+            Integer id = null;    
+            BufferedImage image = null;
+            try {
+                image = ImageIO.read(new ByteArrayInputStream(raw));
+            } catch (IOException e) {
+                return null;
+            }
             
-            gl.glGenerateMipmap(GL_TEXTURE_2D);
-            GLError.throwIfActive(gl);
-            
-            gl.glBindTexture(GL_TEXTURE_2D, 0);
-            GLError.throwIfActive(gl);
-        } else {
-            System.err.println("Texture format was not byte-wise ABGR, returning null");
+            if (image.getData().getDataBuffer() instanceof DataBufferByte
+                    && image.getType() == BufferedImage.TYPE_3BYTE_BGR) {
+                byte[] imageData = ((DataBufferByte) image.getData().getDataBuffer()).getData();
+    
+                int[] ids = new int[1];
+                gl.glGenTextures(1, ids, 0);
+                GLError.throwIfActive(gl);
+                id = ids[0];
+                
+                gl.glBindTexture(GL_TEXTURE_2D, id);
+                GLError.throwIfActive(gl);
+    
+                gl.glTexImage2D(GL_TEXTURE_2D, 0, 3, image.getWidth(), image.getHeight(),
+                        0, GL_BGR, GL_UNSIGNED_BYTE, ByteBuffer.wrap(imageData));
+                GLError.throwIfActive(gl);
+                
+                gl.glGenerateMipmap(GL_TEXTURE_2D);
+                GLError.throwIfActive(gl);
+                
+                gl.glBindTexture(GL_TEXTURE_2D, 0);
+                GLError.throwIfActive(gl);
+                
+                System.err.println("TextureSource: Loaded texture id " + id);
+            } else {
+                System.err.println("TextureSource: Texture format was not byte-wise BGR but " + image.getType() + ", returning null");
+            }
+            return new Integer(id);
         }
     
-        return id;
     }
+    
+    
+    
+    private void loadTexture(final Key key, final SourceListener<Key, Integer> sender, byte[] raw) {
+        renderer.invokeLater(new TextureLoader(raw), new RunnableResultListener() {        
+            @Override
+            public synchronized void runnableCompleted(Object result) {
+                sender.requestCompleted(key, (Integer) result);
+            }
+        });
+    }
+    
 
     @Override
     public synchronized SourceResponse<Integer> requestObject(Key key,
@@ -104,8 +132,8 @@ public class TextureSource<Key> implements Source<Key, Integer> {
             SourceResponse<byte[]> response = imageSource.requestObject(key, imageSourceListener);
             switch (response.response) {                
                 case SYNCHRONOUS:
-                    return new SourceResponse<Integer>(SourceResponseType.SYNCHRONOUS, 
-                            loadTexture(response.value));
+                    loadTexture(key, sender, response.value);
+                    return new SourceResponse<Integer>(SourceResponseType.ASYNCHRONOUS, null);
                     
                 case ASYNCHRONOUS: 
                     if (sender != null) {
@@ -132,8 +160,7 @@ public class TextureSource<Key> implements Source<Key, Integer> {
             if (senders != null) {
                 for (SourceListener<Key, Integer> s : senders) {
                     System.err.println("TextureSource: loading texture for " + key);
-                    s.requestCompleted(key, loadTexture(value));
-                    System.err.println("TextureSource: done loading texture for " + key);
+                    loadTexture(key, s, value);
                 }
             }
         }

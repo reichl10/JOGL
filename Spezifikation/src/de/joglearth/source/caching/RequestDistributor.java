@@ -123,7 +123,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         }
         SourceResponse<Value> cacheResponse = askCaches(0, key, sender);
         if (cacheResponse.response != SourceResponseType.MISSING) {
-            if (cacheResponse.response != SourceResponseType.ASYNCHRONOUS)
+            if (cacheResponse.response == SourceResponseType.ASYNCHRONOUS)
                 addRequestListener(key, sender);
             return cacheResponse;
         } else {

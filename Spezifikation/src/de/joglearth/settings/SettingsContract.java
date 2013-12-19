@@ -129,8 +129,8 @@ public final class SettingsContract {
         s.putBoolean(TEXTURE_FILTER, false);
         s.putString(ANTIALIASING, AntialiasingType.MSAA_4.name());
         s.putString(LEVEL_OF_DETAILS, LevelOfDetail.MEDIUM.name());
-        s.putInteger(CACHE_SIZE_FILESYSTEM, new Integer(1000));
-        s.putInteger(CACHE_SIZE_MEMORY, new Integer(200));
+        s.putInteger(CACHE_SIZE_FILESYSTEM, new Integer(100*1024*1024));
+        s.putInteger(CACHE_SIZE_MEMORY, new Integer(100*1024*1024));
     }
 
     /**

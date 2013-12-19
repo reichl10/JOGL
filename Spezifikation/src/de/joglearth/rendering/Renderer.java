@@ -4,6 +4,7 @@ import static javax.media.opengl.GL2.*;
 import static java.lang.Math.*;
 import static org.junit.Assert.assertEquals;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -46,7 +47,10 @@ import de.joglearth.surface.TileMeshManager;
 import de.joglearth.surface.TiledMapType;
 import de.joglearth.util.AWTInvoker;
 import de.joglearth.util.Resource;
+import de.joglearth.util.RunnableResultListener;
+import de.joglearth.util.RunnableWithResult;
 
+import java.awt.EventQueue;
 import java.awt.Font;
 
 
@@ -76,6 +80,21 @@ public class Renderer {
     private Texture moon;
     private Texture sun;
     private TileMeshManager tileMeshManager;
+    private Thread rendererThread;
+    
+    private class Invocation {
+        public Runnable runnable;
+        public RunnableResultListener listener;
+        
+        public Invocation() {}
+        public Invocation(Runnable r, RunnableResultListener l) {
+            runnable = r;
+            listener = l;
+        }
+    }
+    
+    private ArrayList<Invocation> pendingInvocations = new ArrayList<>();
+    
 
     private Map<String, Texture> poiTextures;
     private final String[] POI_NAMES = new String[] { "Activity", "Bank", "Education", "Grocery",
@@ -106,6 +125,45 @@ public class Renderer {
             }
         });
     }
+    
+    public void invokeLater(Runnable runnable, RunnableResultListener listener) {
+        if (Thread.currentThread().equals(rendererThread)) {
+            throw new RuntimeException("Invoke() must not be called inside the renderer therad");
+        } else {
+            try {
+                synchronized (pendingInvocations) {
+                    pendingInvocations.add(new Invocation(runnable, listener));
+                }
+            } catch (RuntimeException e) {
+                throw e;
+            } catch (Throwable e) {
+                throw new RuntimeException("Exception in AWTInvoker.invoke()", e);
+            }
+            post();
+        }
+    }
+    
+    private static class RunnableResultAdapter implements Runnable {
+        public Object result;
+        public RunnableWithResult runnable;
+
+        public RunnableResultAdapter(RunnableWithResult runnable) {
+            this.runnable = runnable;
+        }
+
+        @Override
+        public void run() {
+            result = runnable.run();
+        }
+
+    };
+    
+    public Object invokeLater(final RunnableWithResult runnable, RunnableResultListener listener) {
+        RunnableResultAdapter wrapper = new RunnableResultAdapter(runnable);
+        invokeLater(wrapper, listener);
+        return wrapper.result;
+    }
+    
 
     /**
      * Notifies the {@link de.joglearth.rendering.Renderer} that a new frame should be rendered. If
@@ -153,9 +211,28 @@ public class Renderer {
         animator.stop();
     }
     
+    
+    @SuppressWarnings("unchecked")
+    private void invokePending() {
+        ArrayList<Invocation> pendingCopy;
+        synchronized (pendingInvocations) {
+            pendingCopy = (ArrayList<Invocation>) pendingInvocations.clone();
+        }
+        for (Invocation inv : pendingCopy) {
+            inv.runnable.run();
+            
+            if (inv.runnable instanceof RunnableResultAdapter && inv.listener != null) {
+                inv.listener.runnableCompleted(((RunnableResultAdapter) inv.runnable).result);
+            }
+        }
+    }
+    
+    
     // TODO Re-renders the OpenGL view.
     private void render(GL2 gl) {
         System.err.println("------------- NEW FRAME -------------");
+        
+        invokePending();
         
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         
@@ -187,13 +264,16 @@ public class Renderer {
     }
 
     private void initialize(GL2 gl) {
+        rendererThread = Thread.currentThread();
+        
+        invokePending();
         
         gl.glEnable(GL_DEPTH_TEST);
         gl.glEnable(GL_CULL_FACE);     
         gl.glEnable(GL_TEXTURE_2D);
         //gl.glPolygonMode(GL_FRONT_AND_BACK,  GL_LINE);
 
-        this.textureManager = new TextureManager(gl, OSMTileManager.getInstance(), 200);
+        this.textureManager = new TextureManager(this, gl, OSMTileManager.getInstance(), 200);
         ///textureManager.addSurfaceListener(new SurfaceValidator());
 
         /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
@@ -231,6 +311,7 @@ public class Renderer {
             Integer texture = textureManager.getTexture(tile);
             
             gl.glBindTexture(GL_TEXTURE_2D, texture);
+            GLError.throwIfActive(gl);
             
             VertexBuffer vbo = tileMeshManager.requestObject(tile, null).value;
 

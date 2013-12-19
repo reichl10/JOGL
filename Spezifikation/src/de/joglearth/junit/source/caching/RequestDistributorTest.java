@@ -161,7 +161,7 @@ public class RequestDistributorTest {
 
         source.setResponse(SourceResponseType.SYNCHRONOUS, new Integer(42));
 
-        for (int i = 2; i < 4; ++i) {
+        for (int i = 2; i < 5; ++i) {
             r = dist.requestObject(new Integer(1), null);
             assertEquals(r.response, SourceResponseType.SYNCHRONOUS);
             assertNotNull(r.value);
@@ -170,7 +170,7 @@ public class RequestDistributorTest {
             assertEquals(countObjects(cache.getExistingObjects().iterator()), 1);
         }
 
-        for (int i = 4; i < 6; ++i) {
+        for (int i = 5; i < 7; ++i) {
             source.setResponse(SourceResponseType.MISSING, null);
             r = dist.requestObject(new Integer(1), null);
             assertEquals(r.response, SourceResponseType.SYNCHRONOUS);

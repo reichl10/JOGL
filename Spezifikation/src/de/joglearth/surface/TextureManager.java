@@ -9,6 +9,7 @@ import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
 import de.joglearth.geometry.Tile;
+import de.joglearth.rendering.Renderer;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.caching.RequestDistributor;
@@ -55,10 +56,10 @@ public class TextureManager {
      * 
      * @param gl The OpenGL object
      */
-    public TextureManager(GL2 gl, Source<OSMTile, byte[]> imageSource, int textureCacheSize) {
+    public TextureManager(Renderer renderer, GL2 gl, Source<OSMTile, byte[]> imageSource, int textureCacheSize) {
         dist = new RequestDistributor<>();
         dist.addCache(new TextureCache<OSMTile>(gl), textureCacheSize);
-        dist.setSource(new TextureSource<>(gl, imageSource));
+        dist.setSource(new TextureSource<>(renderer, gl, imageSource));
         
         placeholderTexture = TextureIO.newTexture(Resource.loadTextureData(
                 "textures/placeholder.png", "png"));
