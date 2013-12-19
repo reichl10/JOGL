@@ -123,7 +123,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         }
         SourceResponse<Value> cacheResponse = askCaches(0, key, sender);
         if (cacheResponse.response != SourceResponseType.MISSING) {
-            if (cacheResponse.response != SourceResponseType.ASYNCHRONOUS)
+            if (cacheResponse.response == SourceResponseType.ASYNCHRONOUS)
                 addRequestListener(key, sender);
             return cacheResponse;
         } else {
@@ -172,7 +172,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                 addRequestListener(key, listener);
                 return response;
             case SYNCHRONOUS:
-                updateLastUsed(cache, key);
+                cacheRequestCompleted(cache, key, response.value);
                 return response;
             default:
                 System.err.println("Sth. is to wrong here, enum has wrong type.");
@@ -462,7 +462,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                                     _rd.requestCompleted(key, null);
                                     break;
                                 case SYNCHRONOUS:
-                                    addToCache(0, key, response.value);
                                     _rd.requestCompleted(key, response.value);
                                     break;
                                 case ASYNCHRONOUS:
