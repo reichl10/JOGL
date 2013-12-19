@@ -378,13 +378,13 @@ public class Renderer {
     /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
     private void loadTextures() {
 
-        /* Loads texture: kidsWorldMap 
+        /* Loads texture: kidsWorldMap */
         kidsWorldMap = TextureIO.newTexture(Resource.loadTextureData(
                 "textures/kidsWorldMap.jpg", "jpg"));
         satellite = TextureIO.newTexture(Resource.loadTextureData(
                 "textures/earth.jpg", "jpg"));
         moon = TextureIO.newTexture(Resource.loadTextureData(
-                "textures/moon.jpg", "jpg"));*/
+                "textures/moon.jpg", "jpg"));
         // sun = TextureIO.newTexture(Resource.loadTextureData(
         // "textures/sun.jpg", "jpg"));
     }
