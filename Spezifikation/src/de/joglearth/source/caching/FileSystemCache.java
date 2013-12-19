@@ -68,6 +68,12 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
         System.err.println("FileSystemCache: adding key " + k);
         Path filePath = pathFromKey(k);
         try {
+            Files.createDirectories(filePath.getParent());
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        try {
             Files.write(filePath, v, StandardOpenOption.CREATE);
             keySet.add(k);
         } catch (IOException e) {
