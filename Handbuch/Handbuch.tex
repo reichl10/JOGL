@@ -41,7 +41,6 @@
 \newcommand{\JoglEarth}{\raisebox{-1.2mm}{\includegraphics[scale=0.33]{Logo-Text.eps}} }
 \newcommand{\textref}[1]{\mbox{\raisebox{0.1ex}{\small$\rightarrow$ }\textit{#1}}}
 
-
 \newenvironment{details}[1][6pt]{%
   \parskip#1 \parindent6mm \raggedright%
   \def\item{\par\ignorespaces\hangindent=5mm \hangafter1}}{%
@@ -97,22 +96,22 @@ Version: 1.0
 
 \chapter{Vorwort}
 \section*{Ziel \& Zweck}
-Dieses Handbuch soll dem Benutzer als umfassendes Nachschlagewerk zur Bedienung von \JoglEarth dienen. 
+Dieses Handbuch soll Ihnen als umfassendes Nachschlagewerk zur Bedienung von \JoglEarth dienen. 
 
 \vspace{3mm}
-Die ausführlichen Beschreibungen der Abläufe inklusive der Übungsaufgaben sollen das Arbeiten mit der Software erleichtern. 
+Die ausführlichen Beschreibungen der Abläufe inklusive der Übungsaufgaben sollen das Arbeiten mit der vorliegenden Software erleichtern. 
 
 \vspace{3mm}
 \section*{Übungsaufgaben}
-Das Lösen der Übungen soll dem Nutzer die Möglichkeit bieten, die Bedienung von \JoglEarth zu verinnerlichen. 
+Das Lösen der Übungen soll Ihnen die Möglichkeit bieten, die Bedienung von \JoglEarth zu verinnerlichen.
 
 \vspace{3mm}
 \section*{Tipps \& Tricks}
-Der Anwender erhält verschiedenste Tipps \& Tricks - die mittels spezieller Symbole gekennzeichnet sind - um effizient mit der Anwendung arbeiten zu können, wie im nachfolgenden Kapitel \textit{\textref Zur Benutzung dieses Handbuchs} beschrieben.
+Sie erhalten verschiedenste Tipps \& Tricks - die mittels spezieller Symbole gekennzeichnet sind - um effizient mit der Anwendung arbeiten zu können, wie im nachfolgenden Kapitel \textit{\textref Zur Benutzung dieses Handbuchs} beschrieben.
 
 \vspace{3mm}
 \section*{Entwicklerteam}
-Das Entwicklerteam besteht aus
+Das Entwicklerteam bestehend aus
 \begin{itemize}
 \item Christof Blauberger
 \item Thomas Eder
@@ -121,7 +120,8 @@ Das Entwicklerteam besteht aus
 \item Sebastian Reichl
 \item Constantin Wenger
 \end{itemize}
-und wünscht viel Erfolg bei der Nutzung von \JoglEarth.
+hat hoffentlich Ihre Neugierde für \textit{'die Welt in 3D'} geweckt.\\
+Viel Spaß bei der Nutzung von \JoglEarth. 
 
 
 
@@ -135,39 +135,39 @@ Die folgende Formatierungen sind im Handbuch zu finden:
 \begin{center}
 \begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline 
-\textbf{Formatierung} & \textbf{Erläuterung} \\
+\rule[-1ex]{0pt}{3ex} \textbf{Formatierung} & \textbf{Erläuterung} \\
 \hline
 \hline
-\textit{kursiv} &   \\
+\rule[-1ex]{0pt}{4ex} \textit{kursiv} &   \\
 \hline
-\textbf{fett} &  \\
+\rule[-1ex]{0pt}{4ex} \textbf{fett} &   \\
 \hline
-\underline{unterstrichen} &  \\
+\rule[-1ex]{0pt}{4ex} \underline{unterstrichen} &  \\
 \hline
 \end{tabular}
 \end{center}
 
 
-\vspace{5mm}
+\vspace{3mm}
 Es werden im Handbuch einige Symbole verwendet, welche die Arbeit mit dem Handbuch erleichtern sollen:
 
 \begin{center}
 \begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline 
-\textbf{Symbol} & \textbf{Erläuterung} \\ 
+\rule[-1ex]{0pt}{3ex}\textbf{Symbol} & \textbf{Erläuterung} \\ 
 \hline
 \hline
-\includegraphics[scale=0.5]{images/info.eps} & Tipps \& Tricks  \\ 
+\rule[-1ex]{0pt}{6ex}\includegraphics[scale=0.5]{images/info.eps} & Tipps \& Tricks  \\ 
 \hline
-\includegraphics[scale=0.5]{images/quest.eps} & Übungen \\
+\rule[-1ex]{0pt}{6ex}\includegraphics[scale=0.5]{images/quest.eps} & Übungen \\
 \hline
-\textref Kap. & Hinweis auf ein weiterführendes Kapitel im Handbuch \\
+\rule[-1ex]{0pt}{3ex} \textref Kap. & Hinweis auf ein weiterführendes Kapitel im Handbuch \\
 \hline
 \end{tabular}
 \end{center}
 
 
-\vspace{5mm}
+\vspace{3mm}
 Die im Handbuch abgebildeten Screenshots können vom \JoglEarth Erscheinungsbild auf Ihrem PC abweichen, was durch das jeweils verwendete Betriebssystem bedingt ist. Die Funktionalitäten und Anordnungen der Schaltflächen sind jedoch unter allen Betriebssystemen identisch. Die in diesem Handbuch abgebildeten Screenshots wurden teilweise unter Windows und teilweise unter Linux erstellt.\\
 
 Der Inhalt des Handbuchs beschränkt sich zur Erleichterung der Lektüre auf die Erklärung der wesentlichsten Programmfunktionen.\\
@@ -221,7 +221,7 @@ Folgende Konfigurationen sollen mindestens unterstützt werden:
 \item Linux auf x86{\_}64 mit X.org und proprietären Treibern von nVidia / AMD sowie den freien radeon-Treibern für AMD
 \end{itemize}
 
-
+\vspace{3mm}
 \section{Hardware}
 Wie schon bei der Software der Fall sollte die Anwendung auch mit nahezu allen modernen Desktopsystemen kompatibel sein. Folgende (oder eine gleichwertige) Konfiguration wird jedoch für ein optimales Benutzererlebnis mindestens empfohlen:
 \begin{itemize}
@@ -233,6 +233,7 @@ Wie schon bei der Software der Fall sollte die Anwendung auch mit nahezu allen m
 \item Standard-Tastatur und Maus
 \end{itemize}
 
+\vspace{3mm}
 \section{Orgware}
 Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. Um die Wartezeiten akzeptabel zu halten wird mindestens 1MBit/s empfohlen.
 
@@ -245,11 +246,22 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 \section{Starten von JoglEarth}
 %Öffnen der JAR, Jogl-Earth
+%Screenshot vom USB-Stick-Dateiverzeichnis?
+%Einstiegsfenster, Erklärung vom Ansichts-, Orte-, Einstellungstab inkl. Screenshot
+
+Nach dem Öffnen von \JoglEarth startet die Oberfläche in der Sonnensystemansicht.
+
+
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/quest.eps} &  Versuchen Sie nun \JoglEarth zu starten. Machen Sie sich mit der Benutzeroberfläche vertraut.
+\end{tabular}
 
 
 
-\section{Benutzeroberfläche}
-\index{Benutzeroberfläche}
+\vspace{3mm}
+\section{Benutzeroberfläche} \index{Benutzeroberfläche}
+\vspace{3mm}
 \subsection{Bildschirmaufbau / Fensteransichten / Fenstertypen}
 \begin{itemize}
 	\item Das Hauptelement der Benutzeroberfläche ist das \textit{Ansichtsfenster} \index{Ansichtsfenster} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/1.eps}}, das sich in der Fenstermitte befindet. Darin wird der Globus, die Kartenebene oder eine Sonnensystemansicht angezeigt. Der sichtbare Kartenausschnitt kann interaktiv mit Maus oder Tastatur verschoben, gedreht gezoomt und gekippt werden.
@@ -267,6 +279,7 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 
 \newpage
+\vspace{3mm}
 \subsection{Programm-Icons}
 \vspace{2mm}
 \begin{tabular}{|p{3cm}|p{10cm}|}
@@ -296,6 +309,7 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 
 \newpage
+\vspace{3mm}
 \subsection{Navigation}
 
 \vspace{3mm}
@@ -313,7 +327,7 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \end{tabular} 
 
 
-\vspace{5mm}
+\vspace{3mm}
 \subsubsection*{Tastaturbelegung}
 \begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline
@@ -335,43 +349,112 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \end{tabular}
 
 
+\vspace{3mm}
+\section{Ansichtsmodi} \index{Ansichtsmodi}
+\JoglEarth bietet zahlreiche Darstellungsmöglichkeiten für diverse Ansichten. Im folgenden werden die wählbaren Modi kurz erklärt.
 
-\section{Ansichtsmodi \& Kartentypen}
-\index{Ansichtsmodi} \index{Kartentypen}
-\subsection{Sonnensystem}
-\index{Ansichtsmodi!Sonnensystem}
+\vspace{3mm}
+\subsection{Sonnensystem} \index{Ansichtsmodi!Sonnensystem}
+Diese Ansicht stellt ein detailliertes Modell von Sonne, Mond und Erde dar, wobei der Mond um die Erde kreist.
 
-\subsection{Globus}
-\index{Ansichtsmodi!Globus}
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} &  In dieser Ansicht können keine weiteren Funktionalitäten genutzt werden, wie beispielsweise Eingabe von Längen- oder Breitengrad, Ändern des Zoomlevels, Aktivieren des Höhenprofils, Markieren von Punkten.
+\end{tabular}
 
-\subsection*{Kartentypen}
+%Screenshot
+
+
+\vspace{3mm}
+\subsection{Globus} \index{Ansichtsmodi!Globus}
+Diese Ansicht visualisiert einen Globus, welcher die Anzeige von den unten gelisteten \textref{Kartentypen} unterstützt.
+
+%Screenshot
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} &  \textbf{Navigation:} Der Globus kann gedreht, vergrößert, verkleinert und gekippt werden.
+\end{tabular}
+
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} &  \textbf{Funktionalität:} Diese Ansicht unterstützt die gesamte Funktionalität von \JoglEarth , wie beispielsweise Aktivieren des Höhenprofils, Markieren von Punkten, etc.
+\end{tabular}
+
+
+\vspace{3mm}
+\subsection{Karte} \index{Ansichtsmodi!Karte}
+Diese Ansicht visualisiert eine Kartenebene, welche die Anzeige von den unten gelisteten \textref{Kartentypen} unterstützt.
+
+
+%Screenshots
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} &  \textbf{Navigation:} Die Kartenebene kann gedreht, vergrößert, verkleinert und gekippt werden.
+\end{tabular}
+
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} &  \textbf{Funktionalität:} Diese Ansicht unterstützt die gesamte Funktionalität von \JoglEarth , wie beispielsweise Aktivieren des Höhenprofils, Markieren von Punkten, etc.
+\end{tabular}
+
+
+\vspace{3mm}
+\section{Kartentypen} \index{Kartentypen}
+\JoglEarth bietet zahlreiche Kartentypen, die im folgenden näher betrachtet werden.
+
+\vspace{3mm}
+\subsection{Satellit} \index{Kartentypen!Satellit}
+Unter diesem Kartentyp versteht man Satellitenbilder, welche Aufnahmen der Erdoberfläche aus der Perspektive eines Satelliten zeigen.
+%Screenshot
+
+\vspace{3mm}
+\subsection{OpenStreetMap} \index{Kartentypen!OpenStreetMap}
+\JoglEarth setzt auf die folgenden freien Kartenmaterialien des OpenStreetMap-Projekts, welche von den jeweiligen Servern zeitnahe geladen werden.
+
 \begin{itemize}
-\item Satellit \index{Kartentypen!Satellit}
-\item OpenStreetMap \index{Kartentypen!OpenStreetMap}
-\item Kinderweltkarte \index{Kartentypen!Kinderweltkarte}
+\item Straßenkarte \index{OpenStreetMap!Straßenkarte}
+\item Radkarte \index{OpenStreetMap!Radkarte}
+\item Pistenkarte \index{OpenStreetMap!Pistenkarte}
+\item Wander- und Reitkarte \index{OpenStreetMap!Wander- und Reitkarte}
+\item OSM2World \index{OpenStreetMap!OSM2World}
 \end{itemize}
 
+\vspace{3mm}
+\subsection{Kinderweltkarte} \index{Kartentypen!Kinderweltkarte}
 
 
-\subsection{Karte}
-\index{Ansichtsmodi!Karte}
-\subsection*{Kartentypen}
-\begin{itemize}
-\item Satellit \index{Kartentypen!Satellit}
-\item OpenStreetMap \index{Kartentypen!OpenStreetMap}
-	\begin{itemize}
-	\item Straßenkarte \index{OpenStreetMap!Straßenkarte}
-	\item Radkarte \index{OpenStreetMap!Radkarte}
-	\item Pistenkarte \index{OpenStreetMap!Pistenkarte}
-	\item Wander- und Reitkarte \index{OpenStreetMap!Wander- und Reitkarte}
-	\item OSM2World \index{OpenStreetMap!OSM2World}
-	\end{itemize}
-\item Kinderweltkarte \index{Kartentypen!Kinderweltkarte}
-\end{itemize}
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/quest.eps} &  Versuchen Sie sich durch die Ansichten und Kartentypen zu navigieren.
+\end{tabular}
 
 
+
+\vspace{3mm}
 \section{Standard-Einstellungen}
-Cachegrößen usw.
+Bei erstmaligem Starten von \JoglEarth sind standardmäßig folgende Einstellungen gesetzt:
+
+\begin{itemize}
+\item Ansichtsmodus: Sonnensystem
+\item Kartentyp: -
+\item Höhenprofil: deaktiviert
+\item Zoomlevel: 50%
+\item Overlays: alle deaktiviert
+\item Sprache: Deutsch
+\item Grafikeinstellungen:
+	\begin{itemize}
+	\item Antialiasing: aus
+	\item Detailgrad: niedrig
+	\end{itemize}
+\item Cachegrößen:
+	\begin{itemize}
+	\item Arbeitsspeicher: 50 MB
+	\item Dateisystem: 100 MB
+	\end{itemize}
+\end{itemize}
+
+
+
 
 
 
@@ -391,6 +474,7 @@ Cachegrößen usw.
 Einstellen der Benutzeroberfläche \index{Benutzeroberfläche}:
 
 
+\vspace{3mm}
 \section{Höhenprofil}
 \index{Höhenprofil}
 Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten ermittelt.
@@ -401,24 +485,24 @@ Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten er
 \end{tabular} 
 
 
-
+\vspace{3mm}
 \section{Eingabe von Längen- und Breitengraden}
 
-
+\vspace{3mm}
 \section{Ändern des Zoomlevels}
 
-
+\vspace{3mm}
 \section{Markierungen setzen}
 
-
+\vspace{3mm}
 \section{Benutzermarkierungen}
 Das Feld der Benutzermarkierungen befindet sich im Orte-Tab.
 Übung: Markierungen einblenden / ausblenden
 
-
+\vspace{3mm}
 \section{Markierungen entfernen}
 
-
+\vspace{3mm}
 \section{Suchfunkion}
 Die Suchfunktion wird über Nominatim ausgeführt. Bei den Suchanfragen ist ein Limit gesetzt. Wundern Sie sich daher nicht, wenn ein gesuchter Ort nicht gefunden werden kann. \\
 
@@ -442,13 +526,12 @@ Es wird auch nachfolgende Abfrage funktionieren: \textit{Brandenburger Tor Berli
 Die Suchergebnisse werden im Orte-Tab angezeigt.
 Übung: Suche Passau...
 
-
-\section{POIs}
-\index{POIs}
+\vspace{3mm}
+\section{POIs} \index{POIs}
 \subsection*{Liste der POIs}
 Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann im Rahmen dieses Projekts nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den  Antworten der OverpassAPI vorgenommen.\\
 
-\vspace{5 mm}
+\vspace{3mm}
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline 
 \rule[-1ex]{0pt}{4ex} \textbf{Symbol} & \textbf{Erläuterung} \\ 
@@ -483,15 +566,28 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 Übung: POIs einblenden / ausblenden
 
 
+
+
+
+\vspace{3mm}
 \section{Grafikeinstellungen}
-\subsection{Antialiasing}
-\index{Antialiasing}
-\subsection{Detaillevel}
+
+\vspace{3mm}
+\subsection{Antialiasing} \index{Antialiasing}
+
+\vspace{3mm}
+\subsection{Detaillevel} \index{Detaillevel}
 
 
-\section{Cachegrößen}
-\index{Cachegrößen}
+
+
+\vspace{3mm}
+\section{Cachegrößen} \index{Cachegrößen}
+
+\vspace{3mm}
 \subsection{Arbeitsspeicher}
+
+\vspace{3mm}
 \subsection{Dateisystem}
 
 
@@ -508,11 +604,40 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 % Welche Benutzereinstellungen werden in Settings gespeichert - Tabelle machen
 % Vom Benutzer markierte Punkte werden gespeichert.
 
-\section{Verwaltung der Kartendaten}
+\section{Speicherung Kartendaten \& Benutzermarkierungen}
 % Bildchen einfügen, welches zeigt, wo die Daten auf der Festplatte gespeichert werden
 
+Während der Nutzung von \JoglEarth werden die benötigten Kartendaten und die vorgenommenen Benutzermarkierungen zu deren Wiederverwendung in die verfügbaren Caches geschrieben. Das sind
+\begin{itemize}
+\item OpenStreetMap Kartenmaterialien
+\item SRTM Höhendaten
+\item Benutzermarkierungen
+\end{itemize}
+
+
+
+\vspace{3mm}
 \section{Settings}
 % Welche Settings werden gespeichert. Grafische Darstellung
+
+\vspace{3mm}
+\subsection*{Einstellungen:}
+Folgende getätigte Einstellungen werden bei ordnungsgemäßer Programmbeendigung gespeichert:
+\begin{itemize}
+\item Ansichtsmodus
+\item Kartentyp
+\item Höhenprofil
+\item Sprache
+\item Grafikeinstellungen:
+	\begin{itemize}
+	\item Detailgrad
+	\end{itemize}
+\item Cachegrößen
+	\begin{itemize}
+	\item Arbeitsspeicher
+	\item Dateisystem
+	\end{itemize}
+\end{itemize}
 
 
 
