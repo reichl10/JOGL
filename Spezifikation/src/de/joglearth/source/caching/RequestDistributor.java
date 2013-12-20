@@ -336,9 +336,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             Integer spaceToMake = sizeOfValue * 5;
             if (spaceToMake > cacheSize)
                 spaceToMake = cacheSize;
-
-            //      makeSpaceInCache(index, spaceToMake);
-            // TODO makeSpaceInCache(index, spaceToMake);
+            makeSpaceInCache(index, spaceToMake);
         }
         cache.putObject(k, v);
         addUsedSpace(cache, sizeOfValue);
