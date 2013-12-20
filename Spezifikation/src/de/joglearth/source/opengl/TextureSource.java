@@ -89,7 +89,13 @@ public class TextureSource<Key> implements Source<Key, Integer> {
                 gl.glTexImage2D(GL_TEXTURE_2D, 0, 3, image.getWidth(), image.getHeight(),
                         0, GL_BGR, GL_UNSIGNED_BYTE, ByteBuffer.wrap(flippedImageData));
                 GLError.throwIfActive(gl);
-                
+
+                gl.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+                GLError.throwIfActive(gl);
+
+                gl.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+                GLError.throwIfActive(gl);
+
                 gl.glGenerateMipmap(GL_TEXTURE_2D);
                 GLError.throwIfActive(gl);
                 

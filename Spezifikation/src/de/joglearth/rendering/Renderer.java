@@ -212,11 +212,10 @@ public class Renderer {
     }
     
     
-    @SuppressWarnings("unchecked")
     private void invokePending() {
         ArrayList<Invocation> pendingCopy;
         synchronized (pendingInvocations) {
-            pendingCopy = (ArrayList<Invocation>) pendingInvocations;
+            pendingCopy = pendingInvocations;
             pendingInvocations = new ArrayList<Invocation>();
         }
         for (Invocation inv : pendingCopy) {
@@ -251,7 +250,7 @@ public class Renderer {
          * ----------------------------
          * 
          */
-        int zoomLevel = Math.min(3, CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles));
+        int zoomLevel = Math.min(8, CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles));
         System.err.print("zoomlevel: " + zoomLevel + "  ");
         
         

@@ -162,7 +162,7 @@ public class MainWindow extends JFrame {
     private JSlider zoomSlider;
     private static final double ZOOM_FACTOR = 10.d;
     private static final double MAX_DIFF = 5.d;
-    private static final double MIN_DIST = 0.1d;
+    private static final double MIN_DIST = 0.0001d;
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -668,7 +668,7 @@ public class MainWindow extends JFrame {
 
         memCacheSpinner = new JSpinner();
         memCacheSpinner.setModel(new SpinnerNumberModel(Settings.getInstance().getInteger(SettingsContract.CACHE_SIZE_MEMORY)/(1024*1024),
-                new Integer(100), null, new Integer(1)));
+                new Integer(1), null, new Integer(1)));
         memCacheSpinner.addChangeListener(new ChangeListener() {
 
             @Override
@@ -686,7 +686,7 @@ public class MainWindow extends JFrame {
 
         JSpinner fsCacheSpinner = new JSpinner();
         fsCacheSpinner.setModel(new SpinnerNumberModel(Settings.getInstance().getInteger(SettingsContract.CACHE_SIZE_FILESYSTEM)/(1024*1024),
-                new Integer(100), null, new Integer(1)));
+                new Integer(1), null, new Integer(1)));
         fsCacheSpinner.addChangeListener(new ChangeListener() {
 
             @Override
@@ -1309,7 +1309,7 @@ public class MainWindow extends JFrame {
             System.out.println("Zoome Changed to: "+value);
             double perc = value/(double)slider.getMaximum();
             System.out.println("Set Distance to: "+(MIN_DIST + MAX_DIFF*perc));
-            camera.setDistance(MIN_DIST + MAX_DIFF - MAX_DIFF*perc);
+            camera.setDistance(MIN_DIST + MAX_DIFF*(1 / (1+perc*100)));
             
         }
 
