@@ -54,6 +54,11 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
         this.filesForDroping = new HashSet<Key>();
         this.registredListeners = new HashMap<Key, Set<SourceListener<Key, byte[]>>>();
         this.executorService = Executors.newFixedThreadPool(5);
+        try {
+            Files.walkFileTree(basePath, new FileIndexerWalker(keySet, basePath, pathTranslator));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -108,12 +113,6 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
     @Override
     public synchronized Iterable<Key> getExistingObjects() {
-        try {
-            Files.walkFileTree(basePath, new FileIndexerWalker(keySet, basePath, pathTranslator));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
         return new HashSet<Key>(keySet);
     }
 
@@ -158,6 +157,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
         }
         listenerSet.clear();
     }
+
 
     /**
      * Deletes all files inside a Path and its subpaths.
@@ -263,11 +263,13 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
             lockedFileSet.remove(key);
             synchronized (FileSystemCache.this) {
                 for (Key k : filesForDroping) {
-                    System.err.println("FileSystemCache: dropping key " + k);
-                    try {
-                        Files.deleteIfExists(pathFromKey(k));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (!lockedFileSet.contains(k)) {
+                        System.err.println("FileSystemCache: dropping key " + k);
+                        try {
+                            Files.deleteIfExists(pathFromKey(k));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
