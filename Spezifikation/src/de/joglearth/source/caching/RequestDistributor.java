@@ -431,7 +431,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         removeUsedSpace(cache, spaceMade);
         if (hasNextCache) {
             Cache<Key, Value> s2Cache = caches.get(index + 1);
-            makeSpaceInCache(index + 1, spaceMade);
+            Integer usedSpaceL2 = usedSizeMap.get(s2Cache);
+            Integer sizeL2 = cacheSizeMap.get(s2Cache);
+            if (sizeL2-usedSpaceL2 < spaceMade)
+                makeSpaceInCache(index + 1, spaceMade-(sizeL2-usedSpaceL2));
             for (CacheEntry ce : removedSet) {
                 addToCache(index + 1, ce.key, ce.value);
                 Map<Key, BigInteger> usedMap = lastUsedMap.get(s2Cache);
