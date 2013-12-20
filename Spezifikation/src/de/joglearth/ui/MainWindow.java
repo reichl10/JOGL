@@ -1307,9 +1307,9 @@ public class MainWindow extends JFrame {
             label.setText(Integer.toString(slider.getValue()));
             int value = slider.getValue();
             System.out.println("Zoome Changed to: "+value);
-            double perc = value/(double)slider.getMaximum();
+            double perc = value/(double)slider.getMaximum()*10;
             System.out.println("Set Distance to: "+(MIN_DIST + MAX_DIFF*perc));
-            camera.setDistance(MIN_DIST + MAX_DIFF*(1 / (1+perc*100)));
+            camera.setDistance(MIN_DIST + MAX_DIFF*(1 / (1+perc*perc*10)));
             
         }
 
