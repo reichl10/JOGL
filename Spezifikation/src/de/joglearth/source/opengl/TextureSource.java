@@ -2,6 +2,7 @@ package de.joglearth.source.opengl;
 
 import static javax.media.opengl.GL2.*;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.ByteArrayInputStream;
@@ -54,6 +55,15 @@ public class TextureSource<Key> implements Source<Key, Integer> {
             return null;
         }
         
+
+        // Convert the image if is does not have the needed type
+        if (image.getType() != BufferedImage.TYPE_4BYTE_ABGR) {
+            BufferedImage imgConverted = new BufferedImage(image.getWidth(), image.getHeight(),
+                    BufferedImage.TYPE_4BYTE_ABGR);
+            Graphics2D graphics2d = imgConverted.createGraphics();
+            graphics2d.drawImage(image, 0, 0, null);
+            image = imgConverted;
+        }
         if (image.getData().getDataBuffer() instanceof DataBufferByte
                 && image.getType() == BufferedImage.TYPE_4BYTE_ABGR) {
             byte[] imageData = ((DataBufferByte) image.getData().getDataBuffer()).getData();
