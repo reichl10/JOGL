@@ -801,6 +801,9 @@ public class MainWindow extends JFrame {
         zoomPanel.add(zoomPlusLabel, "1, 2"); //$NON-NLS-1$
 
         zoomSlider = new JSlider();
+        zoomSlider.setMinimum(0);
+        zoomSlider.setMaximum(100);
+        zoomSlider.setValue(0);
         zoomSlider.setMajorTickSpacing(1);
         zoomSlider.setOrientation(SwingConstants.VERTICAL);
         zoomPanel.add(zoomSlider, "1, 4, default, fill"); //$NON-NLS-1$
@@ -1113,7 +1116,7 @@ public class MainWindow extends JFrame {
             languageComboBox.setSelectedIndex(0);
         }
         registerListeners();
-        camera.setDistance(zoomSlider.getValue() * ZOOM_FACTOR + MIN_DIST);
+        zoomSlider.setValue(50);
     }
 
     /**
@@ -1299,9 +1302,11 @@ public class MainWindow extends JFrame {
 
         @Override
         public void stateChanged(ChangeEvent e) {
+            
             JSlider slider = (JSlider) e.getSource();
             label.setText(Integer.toString(slider.getValue()));
             int value = slider.getValue();
+            System.out.println("Zoome Changed to: "+value);
             double perc = value/(double)slider.getMaximum();
             System.out.println("Set Distance to: "+(MIN_DIST + MAX_DIFF*perc));
             camera.setDistance(MIN_DIST + MAX_DIFF - MAX_DIFF*perc);
