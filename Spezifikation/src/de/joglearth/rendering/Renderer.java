@@ -250,7 +250,7 @@ public class Renderer {
          * ----------------------------
          * 
          */
-        int zoomLevel = Math.min(8, CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles));
+        int zoomLevel = Math.min(18, CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles));
         System.err.print("zoomlevel: " + zoomLevel + "  ");
         
         

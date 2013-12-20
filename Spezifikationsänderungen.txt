@@ -48,3 +48,6 @@ TextureCache
 
 TextureManager
 - Konstruktorargumente
+
+Camera
+- setHeightMapEnabled

@@ -162,7 +162,7 @@ public class MainWindow extends JFrame {
     private JSlider zoomSlider;
     private static final double ZOOM_FACTOR = 10.d;
     private static final double MAX_DIFF = 5.d;
-    private static final double MIN_DIST = 0.0001d;
+    private static final double MIN_DIST = 1e-8d;
 
 
     private class HideSideBarListener extends MouseAdapter {

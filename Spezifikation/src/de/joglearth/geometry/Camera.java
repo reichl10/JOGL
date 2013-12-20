@@ -23,6 +23,7 @@ public class Camera {
     private double tiltX = 0;
     private double tiltY = 0;
     private double fov, aspectRatio, zNear, zFar;
+    private boolean heightMapEnabled = false;
     private Matrix4 projectionMatrix,
                     cameraMatrix = new Matrix4(),
                     modelViewMatrix = new Matrix4(),
@@ -91,8 +92,9 @@ public class Camera {
         @Override
         public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
 
-            if (position.getLatitude() >= latFrom && position.getLatitude() <= latTo
-                    && position.getLongitude() >= lonFrom && position.getLongitude() <= lonTo) {
+            if (heightMapEnabled && position.getLatitude() >= latFrom 
+                    && position.getLatitude() <= latTo && position.getLongitude() >= lonFrom 
+                    && position.getLongitude() <= lonTo) {
                 if (!updateCamera()) {
                     throw new IllegalStateException();
                 }
@@ -146,6 +148,17 @@ public class Camera {
             }
         }
     }
+    
+   
+    public synchronized void setHeightMapEnabled(boolean enabled) {
+        if (enabled != heightMapEnabled) {
+            heightMapEnabled = enabled;
+            if (!updateCamera()) {
+                throw new IllegalStateException();
+            }
+        }
+    }
+    
 
     /**
      * Sets the position the {@link de.joglearth.geometry.Camera} is currently over.

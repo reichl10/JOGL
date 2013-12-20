@@ -110,7 +110,7 @@ public final class CameraUtils {
      * @return The optimal level of the tiles
      */
     public static int getOptimalZoomLevel(Camera camera, int leastHorizontalTiles) {
-        return max(0, (int) ceil(log(leastHorizontalTiles / camera.getScale()) / log(2)));
+        return max(0, (int) ceil(log(leastHorizontalTiles / camera.getScale()) / log(2))-1);
     }
 
     /*
