@@ -242,9 +242,11 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     /**
      * Drops all cached objects.
      */
-    public void dropAll() {
+    public synchronized void dropAll() {
         for (Cache<Key, Value> cache : caches) {
             cache.dropAll();
+            lastUsedMap.get(cache).clear();
+            usedSizeMap.put(cache, new Integer(0));
         }
     }
 
@@ -254,12 +256,28 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * 
      * @param pred Conformance with that <code>Predicate</code> leads to deletion of that object
      */
-    public void dropAll(Predicate<Key> pred) {
+    public synchronized void dropAll(Predicate<Key> pred) {
         for (Cache<Key, Value> cache : caches) {
-            Iterable<Key> keys = cache.getExistingObjects();
+            Iterable<Key> keys = lastUsedMap.get(cache).keySet();
             for (Key k : keys) {
                 if (pred.test(k)) {
+                    CacheMoveListener listener = new CacheMoveListener();
+                    SourceResponse<Value> response = cache.requestObject(k, listener);
+                    Integer sizeOfObject = new Integer(0);
+                    if (response.response == SourceResponseType.ASYNCHRONOUS) {
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        sizeOfObject = measure.getSize(listener.value);
+                    } else if (response.response == SourceResponseType.SYNCHRONOUS) {
+                        sizeOfObject = measure.getSize(response.value);
+                    } else {
+                        System.err.println("Cache didn't have a object, should not happen!");
+                    }
                     cache.dropObject(k);
+                    usedSizeMap.put(cache, usedSizeMap.get(cache) - sizeOfObject);
                 }
             }
         }
