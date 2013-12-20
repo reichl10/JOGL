@@ -396,7 +396,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             System.out.println("Remove One from " + list.size());
             
             Entry<Key, BigInteger> entry = list.pop();
-            CacheMoveListener listener = new CacheMoveListener(Thread.currentThread());
+            CacheMoveListener listener = new CacheMoveListener();
             SourceResponse<Value> response = cache.requestObject(entry.getKey(), listener);
             if (response.response == SourceResponseType.SYNCHRONOUS) {
                 if (hasNextCache) {
@@ -545,14 +545,11 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     private class CacheMoveListener implements SourceListener<Key, Value> {
-
-        Thread waiterThread;
         public volatile Key key;
         public volatile Value value;
 
 
-        public CacheMoveListener(Thread t) {
-            waiterThread = t;
+        public CacheMoveListener() {
         }
 
         @Override
