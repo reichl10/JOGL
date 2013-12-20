@@ -316,7 +316,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     private void addToCaches(Key k, Value v) {
         if (caches.size() < 1)
             return;
-        Cache topCache = caches.get(0);
+        Cache<Key, Value> topCache = caches.get(0);
         Integer sizeOfCache = cacheSizeMap.get(topCache);
         if (sizeOfCache < measure.getSize(v)) {
             throw new RuntimeException("The Object is bigger then the Level1 Cache");
