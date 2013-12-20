@@ -330,11 +330,11 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         }
     }
 
-    private synchronized void removeFromCache(Cache<Key, Value> c, Key k, Value v) {
+    private void removeFromCache(Cache<Key, Value> c, Key k, Value v) {
         Integer size = measure.getSize(v);
         removeUsedSpace(c, size);
-        c.dropObject(k);
         lastUsedMap.get(c).remove(k);
+        c.dropObject(k);
     }
 
     private void addToCaches(Key k, Value v) {
