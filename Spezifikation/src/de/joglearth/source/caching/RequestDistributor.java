@@ -261,23 +261,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             Iterable<Key> keys = lastUsedMap.get(cache).keySet();
             for (Key k : keys) {
                 if (pred.test(k)) {
-                    CacheMoveListener listener = new CacheMoveListener();
-                    SourceResponse<Value> response = cache.requestObject(k, listener);
-                    Integer sizeOfObject = new Integer(0);
-                    if (response.response == SourceResponseType.ASYNCHRONOUS) {
-                        try {
-                            wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        sizeOfObject = measure.getSize(listener.value);
-                    } else if (response.response == SourceResponseType.SYNCHRONOUS) {
-                        sizeOfObject = measure.getSize(response.value);
-                    } else {
-                        System.err.println("Cache didn't have a object, should not happen!");
-                    }
-                    cache.dropObject(k);
-                    usedSizeMap.put(cache, usedSizeMap.get(cache) - sizeOfObject);
+                    dropObjectFromCache(cache, k);
                 }
             }
         }
@@ -289,10 +273,32 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * 
      * @param k The key identifying the object
      */
-    public void dropObject(Key k) {
+    public synchronized void dropObject(Key k) {
         for (Cache<Key, Value> c : caches) {
-            c.dropObject(k);
+            if (lastUsedMap.get(c).containsKey(k)) {
+                dropObjectFromCache(c, k);
+            }
         }
+    }
+    
+    private void dropObjectFromCache(Cache<Key, Value> c, Key k) {
+        CacheMoveListener listener = new CacheMoveListener();
+        SourceResponse<Value> response = c.requestObject(k, listener);
+        Value value = null;
+        if (response.response == SourceResponseType.ASYNCHRONOUS) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            value = listener.value;
+        } else if (response.response == SourceResponseType.SYNCHRONOUS) {
+            value = response.value;
+        } else {
+            System.err.println("Cache didn't have a object, should not happen!");
+            return;
+        }
+        removeFromCache(c, k, value);
     }
 
     private void requestCompleted(Key k, Value v) {
