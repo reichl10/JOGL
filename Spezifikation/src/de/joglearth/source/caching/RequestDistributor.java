@@ -430,7 +430,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                 }
                 Integer sizeOfRemovedEntry = measure.getSize(response.value);
                 System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);
-                removeFromCache(cache, entry.getKey(), response.value);
+                cache.dropObject(entry.getKey());
                 spaceMade += sizeOfRemovedEntry;
             } else if (response.response == SourceResponseType.ASYNCHRONOUS) {
                 try {
@@ -446,12 +446,13 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                 }
                 Integer sizeOfRemovedEntry = measure.getSize(listener.value);
                 System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);
-                removeFromCache(cache, listener.key, listener.value);
+                cache.dropObject(listener.key);
                 spaceMade += sizeOfRemovedEntry;
 
             }
             System.out.println("We allready made:"+spaceMade);
         }
+        removeUsedSpace(cache, spaceMade);
         if (hasNextCache) {
             Cache<Key, Value> s2Cache = caches.get(index + 1);
             Integer usedSpaceL2 = usedSizeMap.get(s2Cache);
