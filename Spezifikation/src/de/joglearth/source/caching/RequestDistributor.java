@@ -63,6 +63,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     public void addCache(Cache<Key, Value> cache, int maxSize) {
         if (cache == null)
             return;
+        System.out.println("Added Cache "+cache.getClass().getName()+"  with Size: "+maxSize);
         if (maxSize < 1) {
             throw new IllegalArgumentException("Cache size should be > 0");
         }
@@ -276,7 +277,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         }
     }
 
-    private synchronized void requestCompleted(Key k, Value v) {
+    private void requestCompleted(Key k, Value v) {
         if (v != null) {
             addToCaches(k, v);
         }
@@ -315,6 +316,11 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     private void addToCaches(Key k, Value v) {
         if (caches.size() < 1)
             return;
+        Cache topCache = caches.get(0);
+        Integer sizeOfCache = cacheSizeMap.get(topCache);
+        if (sizeOfCache < measure.getSize(v)) {
+            throw new RuntimeException("The Object is bigger then the Level1 Cache");
+        }
         addToCache(0, k, v);
     }
 
@@ -367,9 +373,12 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     private synchronized void makeSpaceInCache(int index, Integer space) {
-        if (caches.size() <= index)
+        if (caches.size() <= index || space == 0)
             return;
         Cache<Key, Value> cache = caches.get(index);
+        Integer cacheSize = cacheSizeMap.get(cache);
+        Integer spaceUsed = usedSizeMap.get(cache);
+        System.out.println("This Cache has "+cacheSize+" space, "+spaceUsed+" is used! We want: "+space);
         Map<Key, BigInteger> lastUsed = lastUsedMap.get(cache);
         Set<Entry<Key, BigInteger>> entrySet = lastUsed.entrySet();
         LinkedList<Entry<Key, BigInteger>> list = new LinkedList<Entry<Key, BigInteger>>(entrySet);
@@ -384,8 +393,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         int spaceMade = 0;
         Set<CacheEntry> removedSet = new HashSet<CacheEntry>();
         boolean hasNextCache = caches.size() > index + 1;
-        while (spaceMade < space) {
+        System.out.println("Space we want: "+space);
+        while (spaceMade < space && list.size() > 0) {
             System.out.println("Remove One from " + list.size());
+            
             Entry<Key, BigInteger> entry = list.pop();
             CacheMoveListener listener = new CacheMoveListener(Thread.currentThread());
             SourceResponse<Value> response = cache.requestObject(entry.getKey(), listener);
@@ -396,27 +407,28 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                     removedSet.add(cEntry);
                 }
                 Integer sizeOfRemovedEntry = measure.getSize(response.value);
+                System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);
                 cache.dropObject(entry.getKey());
                 spaceMade += sizeOfRemovedEntry;
             } else if (response.response == SourceResponseType.ASYNCHRONOUS) {
-                synchronized (this) {
-                    try {
-                        wait();
-                        if (hasNextCache) {
-                            CacheEntry cEntry = new CacheEntry(listener.key, listener.value,
-                                    lastUsed.remove(listener.key));
-                            removedSet.add(cEntry);
-                        }
-                        Integer sizeOfRemovedEntry = measure.getSize(response.value);
-                        cache.dropObject(entry.getKey());
-                        spaceMade += sizeOfRemovedEntry;
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    System.out.println("Waiting for Async answer!");
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            } else {
-                throw new RuntimeException("Cache Failed");
+                if (hasNextCache) {
+                    CacheEntry cEntry = new CacheEntry(listener.key, listener.value,
+                            lastUsed.remove(listener.key));
+                    removedSet.add(cEntry);
+                }
+                Integer sizeOfRemovedEntry = measure.getSize(listener.value);
+                System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);
+                cache.dropObject(listener.key);
+                spaceMade += sizeOfRemovedEntry;
+
             }
+            System.out.println("We allready made:"+spaceMade);
         }
         removeUsedSpace(cache, spaceMade);
         if (hasNextCache) {
@@ -515,7 +527,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         public void requestCompleted(Key key, Value value) {
             System.err.println("RequestDistributor: async request completed "
                     + (value == null ? "(null) " : "") + "from source for " + key);
-                rd.requestCompleted(key, value);
+            rd.requestCompleted(key, value);
         }
 
     }
@@ -537,8 +549,8 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     private class CacheMoveListener implements SourceListener<Key, Value> {
 
         Thread waiterThread;
-        public Key key;
-        public Value value;
+        public volatile Key key;
+        public volatile Value value;
 
 
         public CacheMoveListener(Thread t) {
@@ -549,7 +561,9 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         public void requestCompleted(Key key, Value value) {
             this.key = key;
             this.value = value;
-            waiterThread.notify();
+            synchronized (RequestDistributor.this) {
+                RequestDistributor.this.notify();
+            }
         }
 
     }

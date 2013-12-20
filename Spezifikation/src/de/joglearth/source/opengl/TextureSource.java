@@ -2,6 +2,7 @@ package de.joglearth.source.opengl;
 
 import static javax.media.opengl.GL2.*;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.ByteArrayInputStream;

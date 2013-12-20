@@ -160,8 +160,10 @@ public class MainWindow extends JFrame {
     private JComboBox<IconizedItem<MapTypePair>> paraMapTypeComboBox;
     private JTabbedPane sideBarTabs;
     private JSlider zoomSlider;
-    private static final double ZOOM_FACTOR = new Double(1.1d / 2d);;
+    private static final double ZOOM_FACTOR = 10.d;
+    private static final double MAX_DIFF = 5.d;
     private static final double MIN_DIST = 0.1d;
+
 
     private class HideSideBarListener extends MouseAdapter {
 
@@ -361,27 +363,6 @@ public class MainWindow extends JFrame {
         mapOptionsPanel.add(paraMapTypeComboBox, "1, 3"); //$NON-NLS-1$
         paraMapTypeComboBox
                 .setRenderer(new IconListCellRenderer<IconizedItem<MapTypePair>>());
-        paraMapTypeComboBox.addItemListener(new ItemListener() {
-
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    JComboBox<IconizedItem<MapTypePair>> comboBox = (JComboBox<IconizedItem<MapTypePair>>) e
-                            .getSource();
-                    MapTypePair mtp = ((IconizedItem<MapTypePair>) comboBox
-                            .getSelectedItem()).getValue();
-                    if (mtp.type instanceof SingleMapType) {
-                        SingleMapType mapType = (SingleMapType) mtp.type;
-                        Settings.getInstance().putString(
-                                SettingsContract.MAP_TYPE, mapType.name());
-                    } else if (mtp.type instanceof TiledMapType) {
-                        TiledMapType type = (TiledMapType) mtp.type;
-                        Settings.getInstance().putString(
-                                SettingsContract.MAP_TYPE, type.name());
-                    }
-                }
-            }
-        });
         heightMapCheckBox = new JCheckBox(Messages.getString("MainWindow.65")); //$NON-NLS-1$
         heightMapCheckBox.addChangeListener(new ChangeListener() {
 
@@ -686,7 +667,7 @@ public class MainWindow extends JFrame {
         cachePanel.add(memCacheLabel, "2, 2"); //$NON-NLS-1$
 
         memCacheSpinner = new JSpinner();
-        memCacheSpinner.setModel(new SpinnerNumberModel(new Integer(100),
+        memCacheSpinner.setModel(new SpinnerNumberModel(Settings.getInstance().getInteger(SettingsContract.CACHE_SIZE_MEMORY)/(1024*1024),
                 new Integer(100), null, new Integer(1)));
         memCacheSpinner.addChangeListener(new ChangeListener() {
 
@@ -704,7 +685,7 @@ public class MainWindow extends JFrame {
         cachePanel.add(fsCacheLabel, "2, 4"); //$NON-NLS-1$
 
         JSpinner fsCacheSpinner = new JSpinner();
-        fsCacheSpinner.setModel(new SpinnerNumberModel(new Integer(100),
+        fsCacheSpinner.setModel(new SpinnerNumberModel(Settings.getInstance().getInteger(SettingsContract.CACHE_SIZE_FILESYSTEM)/(1024*1024),
                 new Integer(100), null, new Integer(1)));
         fsCacheSpinner.addChangeListener(new ChangeListener() {
 
@@ -820,6 +801,9 @@ public class MainWindow extends JFrame {
         zoomPanel.add(zoomPlusLabel, "1, 2"); //$NON-NLS-1$
 
         zoomSlider = new JSlider();
+        zoomSlider.setMinimum(0);
+        zoomSlider.setMaximum(100);
+        zoomSlider.setValue(0);
         zoomSlider.setMajorTickSpacing(1);
         zoomSlider.setOrientation(SwingConstants.VERTICAL);
         zoomPanel.add(zoomSlider, "1, 4, default, fill"); //$NON-NLS-1$
@@ -905,13 +889,13 @@ public class MainWindow extends JFrame {
             public void itemStateChanged(ItemEvent arg0) {
                 if (arg0.getStateChange() == ItemEvent.SELECTED) {
                     if (camera != null) {
-                        IconizedItem<DisplayMode> selected = null;
-                        if (displayModeComboBox.getSelectedItem() instanceof IconizedItem<?>)
-                            selected = (IconizedItem<DisplayMode>) arg0.getItem();
+                        IconizedItem<DisplayMode> selected = (IconizedItem<DisplayMode>) arg0
+                                .getItem();
                         if (selected != null) {
                             DisplayMode mode = selected.getValue();
                             mapOptionsPanel
                                     .setVisible(mode != DisplayMode.SOLAR_SYSTEM);
+                            renderer.setDisplayMode(mode);
                             switch (mode) {
                                 case SOLAR_SYSTEM:
                                 case GLOBE_MAP:
@@ -940,6 +924,39 @@ public class MainWindow extends JFrame {
         GlMouseListener l = new GlMouseListener();
         glCanvas.addMouseMotionListener(l);
         glCanvas.addMouseListener(l);
+        paraMapTypeComboBox.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    IconizedItem<MapTypePair> item = (IconizedItem<MapTypePair>) e.getItem();
+                    MapTypePair mtp = item.getValue();
+                    if (mtp.type instanceof SingleMapType) {
+                        SingleMapType mapType = (SingleMapType) mtp.type;
+                        Settings.getInstance().putString(
+                                SettingsContract.MAP_TYPE, mapType.name());
+                        renderer.setMapType(mapType);
+                    } else if (mtp.type instanceof TiledMapType) {
+                        TiledMapType type = (TiledMapType) mtp.type;
+                        Settings.getInstance().putString(
+                                SettingsContract.MAP_TYPE, type.name());
+                        renderer.setMapType(type);
+                    }
+                }
+            }
+        });
+        heightMapCheckBox.addItemListener(new ItemListener() {
+            
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                Settings settings = Settings.getInstance();
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    settings.putBoolean(SettingsContract.HEIGHT_MAP_ENABLED, new Boolean(true));
+                } else if (e.getStateChange() == ItemEvent.DESELECTED) {
+                    settings.putBoolean(SettingsContract.HEIGHT_MAP_ENABLED, new Boolean(false));
+                }
+            }
+        });
     }
 
     private void loadLanguage() {
@@ -1099,7 +1116,7 @@ public class MainWindow extends JFrame {
             languageComboBox.setSelectedIndex(0);
         }
         registerListeners();
-        camera.setDistance(zoomSlider.getValue() * ZOOM_FACTOR + MIN_DIST);
+        zoomSlider.setValue(50);
     }
 
     /**
@@ -1260,7 +1277,6 @@ public class MainWindow extends JFrame {
                     slider.setValue(current - 1);
                 }
             }
-            camera.setDistance((current) * ZOOM_FACTOR + 0.1);
         }
 
         @Override
@@ -1272,7 +1288,6 @@ public class MainWindow extends JFrame {
             else if (newCount > slider.getMaximum())
                 newCount = slider.getMaximum();
             slider.setValue(newCount);
-            camera.setDistance((newCount) * ZOOM_FACTOR + MIN_DIST);
         }
     }
 
@@ -1287,8 +1302,15 @@ public class MainWindow extends JFrame {
 
         @Override
         public void stateChanged(ChangeEvent e) {
+            
             JSlider slider = (JSlider) e.getSource();
             label.setText(Integer.toString(slider.getValue()));
+            int value = slider.getValue();
+            System.out.println("Zoome Changed to: "+value);
+            double perc = value/(double)slider.getMaximum();
+            System.out.println("Set Distance to: "+(MIN_DIST + MAX_DIFF*perc));
+            camera.setDistance(MIN_DIST + MAX_DIFF - MAX_DIFF*perc);
+            
         }
 
     }
