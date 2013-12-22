@@ -11,8 +11,7 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 
 import de.joglearth.async.AWTInvoker;
-import de.joglearth.async.RunnableResultListener;
-import de.joglearth.async.RunnableWithResult;
+import de.joglearth.async.AbstractInvoker;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.rendering.Mesh;
 import static javax.media.opengl.GL2.*;
@@ -21,7 +20,7 @@ import static javax.media.opengl.GL2.*;
 /**
  * Encapsulates OpenGL calls and callbacks.
  */
-public final class GLContext implements GLEventListener {
+public final class GLContext extends AbstractInvoker implements GLEventListener {
 
     // The GL object
     private GL2 gl = null;
@@ -41,22 +40,7 @@ public final class GLContext implements GLEventListener {
     // Whether a frame is currently drawn
     private boolean insideFrame = false;
 
-
-    // Structure holding tasks provided by invokeLater()
-    private class Invocation {
-
-        public Runnable runnable;
-        public RunnableResultListener listener;
-
-
-        public Invocation(Runnable r, RunnableResultListener l) {
-            runnable = r;
-            listener = l;
-        }
-    }
-
-
-    private ArrayList<Invocation> pendingInvocations = new ArrayList<>();
+    private ArrayList<Runnable> pendingInvocations = new ArrayList<>();
 
     // Whether postRedisplay() has been called and no new frame has begun since
     private volatile boolean redisplayPending;
@@ -292,8 +276,6 @@ public final class GLContext implements GLEventListener {
 
         gl.glBindTexture(GL_TEXTURE_2D, texture);
         GLError.throwIfActive(gl);
-
-        System.out.println(gl.glIsEnabled(GL_TEXTURE_2D));
         
         // Bind vertex buffer
         gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
@@ -352,6 +334,20 @@ public final class GLContext implements GLEventListener {
 
         gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
+    
+    /**
+     * Determines whether an OpenGL feature is active (glIsEanbled).
+     * @param The feature to check, e.g. GL_DEPTH_TEST
+     * @return Whether the feature is enabled
+     */
+    public boolean isFeatureEnabled(int feature) {
+        assertIsInitialized();
+        assertIsInsideCallback();
+        
+        boolean enabled = gl.glIsEnabled(feature);
+        GLError.throwIfActive(gl);
+        return enabled;
+    }
 
     /**
      * Enables (glEnable) or disables (glDisable) a feature.
@@ -384,156 +380,19 @@ public final class GLContext implements GLEventListener {
         GLError.throwIfActive(gl);
     }
 
-    /**
-     * Enqueues a runnable to be executed at the beginning of the next frame. On completion,
-     * <code>null</code> is passed to the listener.
-     * 
-     * @param runnable The runnable. Must not be null
-     * @param listener The listener to call when execution has completed. May be null
-     */
-    public void invokeLater(Runnable runnable, RunnableResultListener listener) {
-        if (runnable == null) {
-            throw new IllegalArgumentException();
-        }
-
-        synchronized (pendingInvocations) {
-            pendingInvocations.add(new Invocation(runnable, listener));
-        }
-        postRedisplay();
-    }
-
-    /**
-     * Enqueues a runnable to be executed at the beginning of the next frame.
-     * 
-     * @param runnable The runnable. Must not be null.
-     */
-    public void invokeLater(Runnable runnable) {
-        invokeLater(runnable, null);
-    }
-
-
-    // For using a RunnableWithResult as a Runnable
-    private static class RunnableResultAdapter implements Runnable {
-
-        public Object result;
-        public RunnableWithResult runnable;
-
-
-        public RunnableResultAdapter(RunnableWithResult runnable) {
-            this.runnable = runnable;
-        }
-
-        @Override
-        public void run() {
-            result = runnable.run();
-        }
-
-    };
-
-
-    /**
-     * Enqueues a runnable to be executed at the beginning of the next frame.
-     * 
-     * @param runnable The runnable. Must not be null
-     * @param listener The listener to call when execution has completed. May be null
-     */
-    public void invokeLater(final RunnableWithResult runnable, RunnableResultListener listener) {
-        RunnableResultAdapter wrapper = new RunnableResultAdapter(runnable);
-        invokeLater(wrapper, listener);
-    }
-
-    /**
-     * Enqueues a runnable to be executed at the beginning of the next frame.
-     * 
-     * @param runnable The runnable. Must not be null
-     */
-    public void invokeLater(RunnableWithResult runnable) {
-        invokeLater(runnable, null);
-    }
-
-    /**
-     * Calls the runnable right away if inside a GL callback and enqueues it via invokeLater()
-     * otherwise.
-     * 
-     * @param runnable The runnable. must not be null
-     * @param listener The listener to call when execution has completed. May be null, and might be
-     *        called before invokeSooner() returns
-     */
-    public void invokeSooner(Runnable runnable, RunnableResultListener listener) {
-        if (runnable == null) {
-            throw new IllegalArgumentException();
-        }
-
-        if (isInsideCallback()) {
-            runnable.run();
-            if (listener != null) {
-                listener.runnableCompleted(null);
-            }
-        } else {
-            invokeLater(runnable, listener);
-        }
-    }
-
-    /**
-     * Calls the runnable right away if inside a GL callback and enqueues it via invokeLater()
-     * otherwise.
-     * 
-     * @param runnable The runnable. must not be null
-     */
-    public void invokeSooner(RunnableWithResult runnable) {
-        invokeSooner(runnable, null);
-    }
-
-    /**
-     * Calls the runnable right away if inside a GL callback and enqueues it via invokeLater()
-     * otherwise.
-     * 
-     * @param runnable The runnable. must not be null
-     * @param listener The listener to call when execution has completed. May be null, and might be
-     *        called before invokeSooner() returns
-     */
-    public void invokeSooner(RunnableWithResult runnable, RunnableResultListener listener) {
-        if (isInsideCallback()) {
-            Object result = runnable.run();
-            if (listener != null) {
-                listener.runnableCompleted(result);
-            }
-        } else {
-            invokeLater(runnable, listener);
-        }
-    }
-
-    /**
-     * Calls the runnable right away if inside a GL callback and enqueues it via invokeLater()
-     * otherwise.
-     * 
-     * @param runnable The runnable. must not be null
-     */
-    public void invokeSooner(Runnable runnable) {
-        invokeSooner(runnable, null);
-    }
-
     // Does things necessary at the beginning of every GL callback, and calls
     // GLContextListener.beginFrame() if necessary
     private void beginDisplay() {
         insideCallback = true;
 
         // Invoke all pending invokeLater()s.
-        ArrayList<Invocation> pendingCopy;
+        ArrayList<Runnable> pendingCopy;
         synchronized (pendingInvocations) {
             pendingCopy = pendingInvocations;
             pendingInvocations = new ArrayList<>();
         }
-        for (Invocation inv : pendingCopy) {
-            inv.runnable.run();
-
-            if (inv.listener != null) {
-                if (inv.runnable instanceof RunnableResultAdapter) {
-                    inv.listener.runnableCompleted(((RunnableResultAdapter) inv.runnable).result);
-                } else {
-                    inv.listener.runnableCompleted(null);
-                }
-            }
+        for (Runnable runnable : pendingCopy) {
+            runnable.run();
         }
 
         // Some callbacks, like initialize(), will not end the frame they begun
@@ -648,7 +507,7 @@ public final class GLContext implements GLEventListener {
 
             // Call invokeLater() while there are pending frames. Don't use a loop so that other
             // AWT events can be processed as well.
-            AWTInvoker.invokeLater(new Runnable() {
+            AWTInvoker.getInstance().invokeLater(new Runnable() {
 
                 @Override
                 public void run() {
@@ -657,13 +516,27 @@ public final class GLContext implements GLEventListener {
                     
                     // might be re-set in another thread
                     if (redisplayPending) {
-                        AWTInvoker.invokeLater(this);
+                        AWTInvoker.getInstance().invokeLater(this);
                     } else {
                         renderingLoopActive = false;
                     }
                 }
             });
         }
+    }
+
+    
+    @Override
+    public void invokeLater(Runnable runnable) {
+        synchronized (pendingInvocations) {
+            pendingInvocations.add(runnable);
+        }
+        postRedisplay();
+    }
+
+    @Override
+    protected boolean canInvokeDirectly() {
+        return isInsideCallback();
     }
 
 }

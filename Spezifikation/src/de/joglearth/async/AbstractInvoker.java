@@ -1,49 +1,48 @@
 package de.joglearth.async;
 
-import java.util.ArrayList;
-
 
 public abstract class AbstractInvoker implements Invoker {
 
+    /**
+     * Returns whether it is possible to call a runnable directly in the current context,
+     * i.e. if the caller is already in the invoker's thread.
+     * 
+     * @return Whether runnables can be called directly.
+     */
     protected abstract boolean canInvokeDirectly();
     
-    protected abstract boolean tasksAvaliable();
     
-    
-    // Structure holding tasks provided by invokeLater()
-    private class Invocation {
-
-        public Runnable runnable;
-        public RunnableResultListener listener;
-
-
-        public Invocation(Runnable r, RunnableResultListener l) {
+    // Wraps a Runnable(-WithResult) and a Listener inside a Runnable, calling the callback on 
+    // completion.
+    private static class RunnableCallbackWrapper implements Runnable {
+        
+        private Object runnable;
+        private RunnableResultListener callback;
+        
+        // r must be either Runnable or RunnableWithResult, else run() is a no-op
+        public RunnableCallbackWrapper(Object r, RunnableResultListener l) {
             runnable = r;
-            listener = l;
+            callback = l;
+        }
+        
+        @Override
+        public void run() {
+            if (runnable instanceof Runnable) {
+                ((Runnable) runnable).run();
+                callback.runnableCompleted(null);
+            } else if (runnable instanceof RunnableWithResult) {
+                callback.runnableCompleted(((RunnableWithResult) runnable).run());
+            }
         }
     }
+    
 
-    private ArrayList<Invocation> pendingInvocations = new ArrayList<>();
-    
-    
     @Override
     public void invokeLater(Runnable runnable, RunnableResultListener listener) {
-        if (runnable == null) {
-            throw new IllegalArgumentException();
-        }
-
-        synchronized (pendingInvocations) {
-            pendingInvocations.add(new Invocation(runnable, listener));
-        }
-    }
-    
-    @Override
-    public void invokeLater(Runnable runnable) {
-        invokeLater(runnable, null);
+        invokeLater(new RunnableCallbackWrapper(runnable, listener));
     }
 
-
-    // For using a RunnableWithResult as a Runnable
+    // Runnable calling a RunnableWithResult and storing its result
     private static class RunnableResultAdapter implements Runnable {
 
         public Object result;
@@ -64,13 +63,12 @@ public abstract class AbstractInvoker implements Invoker {
     
     @Override
     public void invokeLater(RunnableWithResult runnable, RunnableResultListener listener) {
-        RunnableResultAdapter wrapper = new RunnableResultAdapter(runnable);
-        invokeLater(wrapper, listener);
+        invokeLater(new RunnableCallbackWrapper(runnable, listener));
     }
 
     @Override
     public void invokeLater(RunnableWithResult runnable) {
-        invokeLater(runnable, null);
+        invokeLater(new RunnableResultAdapter(runnable));
     }
 
     @Override
@@ -112,29 +110,6 @@ public abstract class AbstractInvoker implements Invoker {
         invokeSooner(runnable, null);
     }
     
-
-    private static class RunnableCallbackWrapper implements Runnable {
-        
-        private Object runnable;
-        private RunnableResultListener callback;
-        
-        public RunnableCallbackWrapper(Object r, RunnableResultListener l) {
-            runnable = r;
-            callback = l;
-        }
-        
-        @Override
-        public void run() {
-            if (runnable instanceof Runnable) {
-                ((Runnable) runnable).run();
-                callback.runnableCompleted(null);
-            } else if (runnable instanceof RunnableWithResult) {
-                callback.runnableCompleted(((RunnableWithResult) runnable).run());
-            }
-        }
-    }
-    
-
     @Override
     public void invokeAndWait(Runnable runnable) throws InterruptedException {
         if (canInvokeDirectly()) {
@@ -163,25 +138,6 @@ public abstract class AbstractInvoker implements Invoker {
             final RunnableResultAdapter adapter = new RunnableResultAdapter(runnable);
             invokeAndWait(adapter);
             return adapter.result;
-        }
-    }
-
-    protected void invokePending() {// Invoke all pending invokeLater()s.
-        ArrayList<Invocation> pendingCopy;
-        synchronized (pendingInvocations) {
-            pendingCopy = pendingInvocations;
-            pendingInvocations = new ArrayList<>();
-        }
-        for (Invocation inv : pendingCopy) {
-            inv.runnable.run();
-
-            if (inv.listener != null) {
-                if (inv.runnable instanceof RunnableResultAdapter) {
-                    inv.listener.runnableCompleted(((RunnableResultAdapter) inv.runnable).result);
-                } else {
-                    inv.listener.runnableCompleted(null);
-                }
-            }
         }
     }
     
