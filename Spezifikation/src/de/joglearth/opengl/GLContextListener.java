@@ -1,4 +1,5 @@
-package de.joglearth.rendering;
+package de.joglearth.opengl;
+
 
 
 /**

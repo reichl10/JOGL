@@ -1,4 +1,4 @@
-package de.joglearth.rendering;
+package de.joglearth.opengl;
 
 import java.awt.Dimension;
 import java.nio.ByteBuffer;
@@ -11,7 +11,7 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 
 import de.joglearth.geometry.Matrix4;
-import de.joglearth.source.opengl.VertexBuffer;
+import de.joglearth.rendering.Mesh;
 import de.joglearth.util.AWTInvoker;
 import de.joglearth.util.RunnableResultListener;
 import de.joglearth.util.RunnableWithResult;

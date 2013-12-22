@@ -6,7 +6,8 @@ import java.nio.IntBuffer;
 import javax.media.opengl.GL2;
 
 import de.joglearth.geometry.Tile;
-import de.joglearth.rendering.GLError;
+import de.joglearth.opengl.GLError;
+import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.rendering.Mesh;
 import de.joglearth.rendering.Renderer;
 import de.joglearth.rendering.Tessellator;

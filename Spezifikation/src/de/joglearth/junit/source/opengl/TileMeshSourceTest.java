@@ -6,11 +6,11 @@ import org.junit.Test;
 
 import de.joglearth.geometry.Tile;
 import de.joglearth.junit.GLTestWindow;
+import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.rendering.Mesh;
 import de.joglearth.rendering.Tessellator;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.opengl.TileMeshSource;
-import de.joglearth.source.opengl.VertexBuffer;
 
 
 public class TileMeshSourceTest {

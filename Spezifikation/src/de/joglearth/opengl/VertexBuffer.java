@@ -1,4 +1,4 @@
-package de.joglearth.source.opengl;
+package de.joglearth.opengl;
 
 /**
  * Structure holding handles to OpenGL buffers for vertex and index data.

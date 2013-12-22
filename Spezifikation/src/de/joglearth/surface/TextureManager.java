@@ -17,7 +17,7 @@ import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
 import de.joglearth.geometry.Tile;
-import de.joglearth.rendering.GLError;
+import de.joglearth.opengl.GLError;
 import de.joglearth.rendering.Renderer;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;

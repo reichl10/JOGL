@@ -11,12 +11,12 @@ import org.junit.Test;
 
 import de.joglearth.geometry.Tile;
 import de.joglearth.junit.GLTestWindow;
-import de.joglearth.rendering.GLError;
+import de.joglearth.opengl.GLError;
+import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.rendering.PlaneTessellator;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
 import de.joglearth.source.opengl.TileMeshSource;
-import de.joglearth.source.opengl.VertexBuffer;
 import de.joglearth.source.opengl.VertexBufferCache;
 import de.joglearth.util.AWTInvoker;
 import de.joglearth.util.RunnableWithResult;

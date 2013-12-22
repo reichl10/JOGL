@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import de.joglearth.junit.GLTestWindow;
+import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.source.opengl.VertexBuffer;
 import de.joglearth.source.opengl.VertexBufferCache;
 
 

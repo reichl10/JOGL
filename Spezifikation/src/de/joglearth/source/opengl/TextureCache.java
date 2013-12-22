@@ -2,7 +2,7 @@ package de.joglearth.source.opengl;
 
 import javax.media.opengl.GL2;
 
-import de.joglearth.rendering.GLError;
+import de.joglearth.opengl.GLError;
 import de.joglearth.rendering.Renderer;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.caching.MemoryCache;

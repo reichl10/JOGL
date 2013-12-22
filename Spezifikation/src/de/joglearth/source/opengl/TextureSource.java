@@ -16,7 +16,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.media.opengl.GL2;
 
-import de.joglearth.rendering.GLError;
+import de.joglearth.opengl.GLError;
 import de.joglearth.rendering.Renderer;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;

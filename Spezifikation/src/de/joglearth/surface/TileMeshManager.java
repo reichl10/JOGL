@@ -6,6 +6,7 @@ import java.util.List;
 import javax.media.opengl.GL2;
 
 import de.joglearth.geometry.Tile;
+import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.rendering.Renderer;
 import de.joglearth.rendering.Tessellator;
 import de.joglearth.source.Source;
@@ -13,7 +14,6 @@ import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.caching.RequestDistributor;
 import de.joglearth.source.opengl.TileMeshSource;
-import de.joglearth.source.opengl.VertexBuffer;
 import de.joglearth.source.opengl.VertexBufferCache;
 import de.joglearth.util.Predicate;
 
