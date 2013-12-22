@@ -10,11 +10,11 @@ import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 
+import de.joglearth.async.AWTInvoker;
+import de.joglearth.async.RunnableResultListener;
+import de.joglearth.async.RunnableWithResult;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.rendering.Mesh;
-import de.joglearth.util.AWTInvoker;
-import de.joglearth.util.RunnableResultListener;
-import de.joglearth.util.RunnableWithResult;
 import static javax.media.opengl.GL2.*;
 
 

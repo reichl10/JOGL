@@ -5,6 +5,8 @@ import java.nio.IntBuffer;
 
 import javax.media.opengl.GL2;
 
+import de.joglearth.async.RunnableResultListener;
+import de.joglearth.async.RunnableWithResult;
 import de.joglearth.geometry.Tile;
 import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.GLError;
@@ -16,8 +18,6 @@ import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.util.RunnableResultListener;
-import de.joglearth.util.RunnableWithResult;
 import static javax.media.opengl.GL2.*;
 
 

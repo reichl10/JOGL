@@ -10,8 +10,8 @@ import javax.swing.JFrame;
 
 import com.jogamp.opengl.util.Animator;
 
+import de.joglearth.async.AWTInvoker;
 import de.joglearth.opengl.GLError;
-import de.joglearth.util.AWTInvoker;
 
 
 /**

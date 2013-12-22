@@ -1,4 +1,4 @@
-package de.joglearth.util;
+package de.joglearth.async;
 
 
 public interface RunnableResultListener {

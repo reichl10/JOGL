@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.joglearth.async.AWTInvoker;
+import de.joglearth.async.RunnableWithResult;
 import de.joglearth.geometry.Tile;
 import de.joglearth.junit.GLTestWindow;
 import de.joglearth.opengl.GLError;
@@ -18,8 +20,6 @@ import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
 import de.joglearth.source.opengl.TileMeshSource;
 import de.joglearth.source.opengl.VertexBufferCache;
-import de.joglearth.util.AWTInvoker;
-import de.joglearth.util.RunnableWithResult;
 
 
 public class VertexBufferWhiteBoxTest {
