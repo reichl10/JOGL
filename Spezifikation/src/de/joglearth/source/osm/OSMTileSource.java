@@ -112,7 +112,7 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
             builder.append(xtile);
             builder.append("/");
             builder.append(ytile);
-            builder.append(".png");
+            builder.append(".jpg");
 
             response = HTTP.get(builder.toString(), null);
 

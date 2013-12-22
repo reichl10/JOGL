@@ -327,6 +327,9 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         glu.gluQuadricOrientation(quadric, inside ? GLU_INSIDE : GLU_OUTSIDE);
         GLError.throwIfActive(gl);
         
+        glu.gluQuadricTexture(quadric, true);
+        GLError.throwIfActive(gl);
+        
         glu.gluSphere(quadric, radius, slices, stacks);
         GLError.throwIfActive(gl);
         

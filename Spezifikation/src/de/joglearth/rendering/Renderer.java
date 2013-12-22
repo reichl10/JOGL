@@ -3,6 +3,7 @@ package de.joglearth.rendering;
 import static javax.media.opengl.GL2.*;
 import static java.lang.Math.*;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -147,6 +148,15 @@ public class Renderer {
         applyDisplayMode();
     }
     
+    
+    private void dispose() {
+        textureManager.dispose();
+        textureManager = null;
+        
+        tileMeshManager.dispose();
+        tileMeshManager = null;
+    }
+    
 
     private void renderSolarSystem() {
         gl.drawSphere(1, 100, 50, false, satellite);
@@ -166,15 +176,13 @@ public class Renderer {
 
     /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
     private void loadTextures() {
-
-        kidsWorldMap = TextureIO.newTexture(Resource.loadTextureData(
-                "textures/kidsWorldMap.jpg", "jpg"));
-        satellite = TextureIO.newTexture(Resource.loadTextureData(
-                "textures/earth.jpg", "jpg"));
-        moon = TextureIO.newTexture(Resource.loadTextureData(
-                "textures/moon.jpg", "jpg"));
-        // sun = TextureIO.newTexture(Resource.loadTextureData(
-        // "textures/sun.jpg", "jpg"));
+        try {
+            kidsWorldMap = gl.loadTexture(Resource.open("textures/kidsWorldMap.jpg"), "jpg", true);
+            satellite = gl.loadTexture(Resource.open("textures/earth.jpg"), "jpg", true);
+            moon = gl.loadTexture(Resource.open("textures/moon.jpg"), "jpg", true);
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to load texture from resource", e);
+        }
     }
 
     /* Loads all POI-textures */
@@ -247,7 +255,9 @@ public class Renderer {
         }
 
         @Override
-        public void dispose(GLContext context) {}
+        public void dispose(GLContext context) {
+            Renderer.this.dispose();
+        }
 
         @Override
         public void initialize(GLContext context) {

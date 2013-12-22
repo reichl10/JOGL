@@ -25,7 +25,7 @@ public final class Resource {
 
     private Resource() {}
     
-    private static InputStream openResourceStream(String name) throws IOException {
+    public static InputStream open(String name) throws IOException {
         URL url = Thread.currentThread().getContextClassLoader().getResource(name);
         if (url == null) {
             throw new IOException("Resource not found");
@@ -42,7 +42,7 @@ public final class Resource {
      */
     public static ImageIcon loadIcon(String name) {
         try {
-            return new ImageIcon(ImageIO.read(openResourceStream(name)));
+            return new ImageIcon(ImageIO.read(open(name)));
         } catch (IOException e) {
             throw new RuntimeException("Loading resource " + name + " failed", e);
         }
@@ -50,7 +50,7 @@ public final class Resource {
 
     public static TextureData loadTextureData(String name, String type) {
         try {
-            return TextureIO.newTextureData(GLProfile.getDefault(), openResourceStream(name),
+            return TextureIO.newTextureData(GLProfile.getDefault(), open(name),
                     false, type);
         } catch (IOException e) {
             throw new RuntimeException("Loading resource " + name + " failed", e);
@@ -60,7 +60,7 @@ public final class Resource {
     public static Map<String, String> loadCSVMap(String name, String separatorRegex) {
         Map<String, String> map = new HashMap<>();
         try {
-            InputStream resourceStream = openResourceStream(name);
+            InputStream resourceStream = open(name);
             BufferedReader reader = new BufferedReader(new InputStreamReader(
                     resourceStream));
             

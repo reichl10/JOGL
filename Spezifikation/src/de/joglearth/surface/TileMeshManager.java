@@ -24,16 +24,19 @@ import de.joglearth.util.Predicate;
  */
 public class TileMeshManager implements Source<Tile, VertexBuffer> {
 
-    private final int                         VERTEX_BUFFER_CACHE_SIZE = 50;
+    private final int VERTEX_BUFFER_CACHE_SIZE = 50;
 
     private RequestDistributor<Tile, VertexBuffer> dist;
-    private VertexBufferCache                 cache;
-    private TileMeshSource                    source;
+    private VertexBufferCache<Tile> cache;
+    private TileMeshSource source;
     private List<SurfaceListener> listeners;
+    private GLContext gl;
+
 
     /**
      * Creates a new {@link TileMeshManager} as it initializes the source, the cache, sets the
-     * {@link de.joglearth.source.caching.RequestDistributor} and adds a surface listener from {@link de.joglearth.surface.HeightMap}.
+     * {@link de.joglearth.source.caching.RequestDistributor} and adds a surface listener from
+     * {@link de.joglearth.surface.HeightMap}.
      * 
      * @param gl The GL context. May not be null.
      * @param t The <code>Tessellator</code> that should be used. May be null.
@@ -42,29 +45,30 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
         if (gl == null) {
             throw new IllegalArgumentException();
         }
-        
+
+        this.gl = gl;
         source = new TileMeshSource(gl, t);
-        cache = new VertexBufferCache(gl);
+        cache = new VertexBufferCache<Tile>(gl);
         dist = new RequestDistributor<Tile, VertexBuffer>();
         dist.setSource(source);
         dist.addCache(cache, VERTEX_BUFFER_CACHE_SIZE);
 
         HeightMap.addSurfaceListener(
-            new SurfaceListener() {
+                new SurfaceListener() {
 
-                @Override
-                public void surfaceChanged(final double lonFrom, final double latFrom,
-                        final double lonTo, final double latTo) {
-                    dist.dropAll(new Predicate<Tile>() {
+                    @Override
+                    public void surfaceChanged(final double lonFrom, final double latFrom,
+                            final double lonTo, final double latTo) {
+                        dist.dropAll(new Predicate<Tile>() {
 
-                        @Override
-                        public boolean test(Tile t) {
-                            return t.intersects(lonFrom, latFrom, lonTo, latTo);
-                        }
-                    });
-                    // notify listeners!
-                }
-            });
+                            @Override
+                            public boolean test(Tile t) {
+                                return t.intersects(lonFrom, latFrom, lonTo, latTo);
+                            }
+                        });
+                        // notify listeners!
+                    }
+                });
         listeners = new LinkedList<SurfaceListener>();
     }
 
@@ -89,7 +93,7 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
     public void setTileSubdivisions(int sub) {
         if (sub != source.getTileSubdivisions()) {
             source.setTileSubdivisions(sub);
-            dist.dropAll();            
+            dist.dropAll();
         }
     }
 
@@ -109,7 +113,7 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
     public SourceResponse<VertexBuffer> requestObject(Tile key,
             SourceListener<Tile, VertexBuffer> sender) {
         return dist.requestObject(key, sender);
-        //return source.requestObject(key, sender);
+        // return source.requestObject(key, sender);
     }
 
     /**
@@ -121,7 +125,7 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
         if (l == null) {
             throw new IllegalArgumentException();
         }
-        
+
         listeners.add(l);
     }
 
@@ -134,8 +138,18 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
         if (l == null) {
             throw new IllegalArgumentException();
         }
-        
+
         listeners.remove(l);
+    }
+
+    public void dispose() {
+        gl.invokeSooner(new Runnable() {
+            
+            @Override
+            public void run() {
+                dist.dropAll();
+            }
+        });
     }
 
 }
