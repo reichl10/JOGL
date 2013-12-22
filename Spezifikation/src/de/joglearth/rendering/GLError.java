@@ -1,6 +1,7 @@
 package de.joglearth.rendering;
 
 import javax.media.opengl.GL2;
+
 import static javax.media.opengl.GL2ES1.*;
 
 
@@ -46,9 +47,13 @@ public class GLError extends RuntimeException {
      * @param errorCode The error code given by OpenGL
      */
     public GLError(int errorCode) {
-        super("OpenGL error: " + errorCodeToString(errorCode));
+        this(errorCodeToString(errorCode));
     }
     
+    public GLError(String string) {
+        super("OpenGL error" + string);
+    }
+
     /**
      * Throws a GLError if an error is active for a given GL2 object.
      * @param gl The GL2 object
