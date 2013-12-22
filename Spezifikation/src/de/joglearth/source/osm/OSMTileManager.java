@@ -41,6 +41,12 @@ public final class OSMTileManager implements Source<OSMTile, byte[]> {
         }
         return instance;
     }
+    
+    public static void shutDown() {
+        if (instance != null) {
+            instance.dispose();
+        }
+    }
 
     // Default constructor
     private OSMTileManager(String cachePath, int memoryCacheSize, int fsCacheSize) {
@@ -74,5 +80,10 @@ public final class OSMTileManager implements Source<OSMTile, byte[]> {
      */
     public void setFileSystemCacheSize(int cacheSize) {
         dist.setCacheSize(fsCache, cacheSize);
+    }
+    
+    @Override
+    public void dispose() {
+        dist.dispose();
     }
 }

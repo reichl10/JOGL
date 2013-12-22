@@ -29,4 +29,9 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
             SourceListener<NominatimQuery, Collection<Location>> sender) {
         return null;
     }
+
+    @Override
+    public void dispose() {
+        
+    }
 }

@@ -258,4 +258,10 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
 
         }
     }
+
+
+    @Override
+    public void dispose() {
+        executor.shutdown();
+    }
 }

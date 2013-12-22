@@ -1340,8 +1340,8 @@ public class MainWindow extends JFrame {
 
         @Override
         public void windowClosed(WindowEvent e) {
-            SettingsContract.saveSettings();
             super.windowClosed(e);
+            JoglEarth.shutDown();
         }
     }
 }

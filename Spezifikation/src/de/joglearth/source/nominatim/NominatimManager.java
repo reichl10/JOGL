@@ -29,6 +29,12 @@ public final class NominatimManager implements Source<NominatimQuery, Collection
         return instance;
     }
     
+    public static void shutDown() {
+        if (instance != null) {
+            instance.dispose();
+        }
+    }
+    
     //Constructor.
     private NominatimManager() {
         
@@ -46,5 +52,10 @@ public final class NominatimManager implements Source<NominatimQuery, Collection
      */
     public void setCacheSize(int cacheSize) {
         
+    }
+
+    @Override
+    public void dispose() {
+        dist.dispose();
     }
 }

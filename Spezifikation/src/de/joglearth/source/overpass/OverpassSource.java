@@ -18,4 +18,12 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
             SourceListener<OverpassQuery, Collection<Location>> sender) {
         return null;
     }
+
+    @Override
+    public void dispose() {
+        // TODO Automatisch generierter Methodenstub
+        
+    }
+    
+    
 }

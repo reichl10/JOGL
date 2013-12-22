@@ -127,4 +127,8 @@ public class TextureSource<Key> implements Source<Key, Texture> {
             }
         }
     }
+
+
+    @Override
+    public void dispose() { }
 }

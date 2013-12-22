@@ -589,4 +589,12 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         }
 
     }
+
+    @Override
+    public void dispose() {
+        for (Cache<Key, Value> c : caches) {
+            c.dispose();
+        }
+        source.dispose();
+    }
 }

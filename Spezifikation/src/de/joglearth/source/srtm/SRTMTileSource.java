@@ -83,4 +83,9 @@ public class SRTMTileSource implements Source<SRTMTileIndex, SRTMTile> {
     	return new SourceResponse<SRTMTile>(response.response, null);
     	
     }
+
+    @Override
+    public void dispose() {
+        binarySource.dispose();
+    }
 }

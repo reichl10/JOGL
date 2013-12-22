@@ -32,6 +32,12 @@ public final class OverpassManager implements Source<OverpassQuery, Collection<L
         }
         return instance;
     }
+    
+    public static void shutDown() {
+        if (instance != null) {
+            instance.dispose();
+        }
+    }
 
     // Default constructor.
     private OverpassManager() {
@@ -42,5 +48,10 @@ public final class OverpassManager implements Source<OverpassQuery, Collection<L
     public SourceResponse<Collection<Location>> requestObject(OverpassQuery key,
             SourceListener<OverpassQuery, Collection<Location>> sender) {
         return dist.requestObject(key, sender);
+    }
+
+    @Override
+    public void dispose() {
+        dist.dispose();
     }
 }

@@ -34,6 +34,12 @@ public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
         }
         return instance;
     }
+    
+    public static void shutDown() {
+        if (instance != null) {
+            instance.dispose();
+        }
+    }
 
     // Default constructor
     private SRTMTileManager(String folder, int memCacheBytes, int fsCacheBytes) {
@@ -57,4 +63,9 @@ public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
         return tileRequestDistributor.requestObject(key, sender);
     }
 
+    @Override
+    public void dispose() {
+        tileRequestDistributor.dispose();
+        binaryRequestDistributor.dispose();
+    }
 }

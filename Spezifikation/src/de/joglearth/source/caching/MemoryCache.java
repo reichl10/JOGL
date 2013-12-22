@@ -49,4 +49,8 @@ public class MemoryCache<Key, Value> implements Cache<Key, Value> {
         System.err.println(getClass().getSimpleName() + ": dropping all objects");
         storage.clear();
     }
+
+    @Override
+    public void dispose() {
+    }
 }

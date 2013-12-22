@@ -135,4 +135,8 @@ public class TileMeshSource implements Source<Tile, VertexBuffer> {
             return new SourceResponse<VertexBuffer>(SourceResponseType.ASYNCHRONOUS, null);
         }
     }
+
+    @Override
+    public void dispose() {
+    }
 }

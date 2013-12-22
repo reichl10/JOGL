@@ -276,4 +276,9 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
         }
 
     }
+
+    @Override
+    public void dispose() {
+        executorService.shutdown();
+    }
 }

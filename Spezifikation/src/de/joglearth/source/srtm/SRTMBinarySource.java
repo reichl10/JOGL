@@ -70,4 +70,9 @@ public class SRTMBinarySource implements Source<SRTMTileIndex, byte[]> {
 
         return new SourceResponse<byte[]>(SourceResponseType.ASYNCHRONOUS, null);
     }
+
+    @Override
+    public void dispose() {
+        executor.shutdown();
+    }
 }

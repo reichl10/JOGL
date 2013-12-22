@@ -1,11 +1,17 @@
 package de.joglearth;
 
+import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import de.joglearth.settings.SettingsContract;
+import de.joglearth.source.nominatim.NominatimManager;
+import de.joglearth.source.osm.OSMTileManager;
+import de.joglearth.source.overpass.OverpassManager;
+import de.joglearth.source.srtm.SRTMTileManager;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.ui.MainWindow;
 
@@ -25,6 +31,15 @@ public final class JoglEarth {
      * The current product version. Altered between releases.
      */
     public static String PRODUCT_VERSION = "0.1";
+
+    
+    public static void shutDown() {
+        SRTMTileManager.shutDown();
+        OSMTileManager.shutDown();
+        OverpassManager.shutDown();
+        NominatimManager.shutDown();
+        SettingsContract.saveSettings();
+    }
     
 
     /**
