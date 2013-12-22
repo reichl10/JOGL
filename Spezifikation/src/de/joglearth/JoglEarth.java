@@ -1,7 +1,5 @@
 package de.joglearth;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -59,6 +57,7 @@ public final class JoglEarth {
                 } catch (
                     ClassNotFoundException | InstantiationException | IllegalAccessException
                     | UnsupportedLookAndFeelException e) {
+                    System.err.println("Swing: Unable to set system look and feel");
                 }
 	            
 	            LocationManager locationManager = new LocationManager();
