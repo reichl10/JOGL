@@ -3,6 +3,7 @@ package de.joglearth.source.opengl;
 import javax.media.opengl.GL2;
 
 import de.joglearth.rendering.GLError;
+import de.joglearth.rendering.Renderer;
 import de.joglearth.source.caching.MemoryCache;
 
 
@@ -12,6 +13,7 @@ import de.joglearth.source.caching.MemoryCache;
 public class VertexBufferCache<Key> extends MemoryCache<Key, VertexBuffer> {
 
     private GL2 gl;
+    private Renderer renderer;
 
     /**
      * Constructor. Initializes the {@link de.joglearth.source.opengl.VertexBufferCache} and assigns
@@ -19,22 +21,33 @@ public class VertexBufferCache<Key> extends MemoryCache<Key, VertexBuffer> {
      * 
      * @param gl The GL context
      */
-    public VertexBufferCache(GL2 gl) {
+    public VertexBufferCache(Renderer renderer, GL2 gl) {
         if (gl == null) {
             throw new IllegalArgumentException();
         }
         
+        this.renderer = renderer;
         this.gl = gl;
     }
 
     @Override
     public void dropObject(Key k) {
         System.err.println("VertexBufferCache: dropping key " + k);
-        VertexBuffer vboID = requestObject(k, null).value;
+        final VertexBuffer vboID = requestObject(k, null).value;
 
         if (vboID != null) {
-            gl.glDeleteBuffers(1, new int[] { vboID.vertices, vboID.indices }, 0);
-            GLError.throwIfActive(gl);
+            Runnable deleter = new Runnable() {
+                public void run() {
+                    gl.glDeleteBuffers(1, new int[] { vboID.vertices, vboID.indices }, 0);
+                    GLError.throwIfActive(gl);
+                };
+            };
+            
+            if (renderer.isInsideDisplayFunction()) {
+                deleter.run();
+            } else {
+                renderer.invokeLater(deleter);
+            }
         }
     }
 }

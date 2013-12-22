@@ -58,7 +58,7 @@ public class TextureManager {
      */
     public TextureManager(Renderer renderer, GL2 gl, Source<OSMTile, byte[]> imageSource, int textureCacheSize) {
         dist = new RequestDistributor<>();
-        dist.addCache(new TextureCache<OSMTile>(gl), textureCacheSize);
+        dist.addCache(new TextureCache<OSMTile>(renderer, gl), textureCacheSize);
         dist.setSource(new TextureSource<>(renderer, gl, imageSource));
         
         placeholderTexture = TextureIO.newTexture(Resource.loadTextureData(

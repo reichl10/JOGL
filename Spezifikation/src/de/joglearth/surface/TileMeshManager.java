@@ -6,6 +6,7 @@ import java.util.List;
 import javax.media.opengl.GL2;
 
 import de.joglearth.geometry.Tile;
+import de.joglearth.rendering.Renderer;
 import de.joglearth.rendering.Tessellator;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
@@ -36,13 +37,13 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
      * @param gl The GL context. May not be null.
      * @param t The <code>Tessellator</code> that should be used. May be null.
      */
-    public TileMeshManager(GL2 gl, Tessellator t) {
+    public TileMeshManager(Renderer renderer, GL2 gl, Tessellator t) {
         if (gl == null) {
             throw new IllegalArgumentException();
         }
         
-        source = new TileMeshSource(gl, t);
-        cache = new VertexBufferCache(gl);
+        source = new TileMeshSource(renderer, gl, t);
+        cache = new VertexBufferCache(renderer, gl);
         dist = new RequestDistributor<Tile, VertexBuffer>();
         dist.setSource(source);
         dist.addCache(cache, VERTEX_BUFFER_CACHE_SIZE);

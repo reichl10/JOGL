@@ -81,6 +81,8 @@ public class Renderer {
     private Texture sun;
     private TileMeshManager tileMeshManager;
     private Thread rendererThread;
+    private volatile boolean isDisplaying = false;
+    
     
     private class Invocation {
         public Runnable runnable;
@@ -126,22 +128,21 @@ public class Renderer {
         });
     }
     
-    public void invokeLater(Runnable runnable, RunnableResultListener listener) {
-        if (Thread.currentThread().equals(rendererThread)) {
-            throw new RuntimeException("Invoke() must not be called inside the renderer therad");
-        } else {
-            try {
-                synchronized (pendingInvocations) {
-                    pendingInvocations.add(new Invocation(runnable, listener));
-                }
-            } catch (RuntimeException e) {
-                throw e;
-            } catch (Throwable e) {
-                throw new RuntimeException("Exception in AWTInvoker.invoke()", e);
-            }
-            post();
-        }
+    public boolean isInsideDisplayFunction() {
+        return Thread.currentThread().equals(rendererThread) && isDisplaying;
     }
+    
+    public void invokeLater(Runnable runnable, RunnableResultListener listener) {
+        synchronized (pendingInvocations) {
+            pendingInvocations.add(new Invocation(runnable, listener));
+        }
+        post();
+    }
+    
+    public void invokeLater(Runnable runnable) {
+        invokeLater(runnable, null);
+    }
+    
     
     private static class RunnableResultAdapter implements Runnable {
         public Object result;
@@ -158,10 +159,13 @@ public class Renderer {
 
     };
     
-    public Object invokeLater(final RunnableWithResult runnable, RunnableResultListener listener) {
+    public void invokeLater(final RunnableWithResult runnable, RunnableResultListener listener) {
         RunnableResultAdapter wrapper = new RunnableResultAdapter(runnable);
         invokeLater(wrapper, listener);
-        return wrapper.result;
+    }
+    
+    public void invokeLater(RunnableWithResult runnable) {
+        invokeLater(runnable, null);
     }
     
 
@@ -221,8 +225,12 @@ public class Renderer {
         for (Invocation inv : pendingCopy) {
             inv.runnable.run();
             
-            if (inv.runnable instanceof RunnableResultAdapter && inv.listener != null) {
-                inv.listener.runnableCompleted(((RunnableResultAdapter) inv.runnable).result);
+            if (inv.listener != null) {
+                if (inv.runnable instanceof RunnableResultAdapter) {
+                    inv.listener.runnableCompleted(((RunnableResultAdapter) inv.runnable).result);
+                } else {
+                    inv.listener.runnableCompleted(null);
+                }
             }
         }
     }
@@ -297,7 +305,7 @@ public class Renderer {
                 new SettingsChanged());
         
         leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
-        tileMeshManager = new TileMeshManager(gl, null);
+        tileMeshManager = new TileMeshManager(this, gl, null);
         tileMeshManager.setTileSubdivisions(tileSubdivisions);
         applyDisplayMode();
                 
@@ -444,30 +452,40 @@ public class Renderer {
      */
     private class RendererEventListener implements GLEventListener {
 
+        private void beginFrame() {
+            isDisplaying = true;
+            camera.setUpdatesEnabled(false);
+        }
+        
+        private void endFrame() {
+            camera.setUpdatesEnabled(true);
+            isDisplaying = false;
+        }
+        
         @Override
         public void display(GLAutoDrawable drawable) {
-            camera.setUpdatesEnabled(false);
+            beginFrame();
             render(drawable.getGL().getGL2());
-            camera.setUpdatesEnabled(true);
+            endFrame();
         }
 
         @Override
         public void dispose(GLAutoDrawable drawable) {
-            camera.setUpdatesEnabled(false);
+            beginFrame();
             stop();
-            camera.setUpdatesEnabled(true);
+            endFrame();
         }
 
         @Override
         public void init(GLAutoDrawable drawable) {
-            camera.setUpdatesEnabled(false);
+            beginFrame();
             initialize(drawable.getGL().getGL2());
-            camera.setUpdatesEnabled(true);
+            endFrame();
         }
 
         @Override
         public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-            camera.setUpdatesEnabled(false);
+            beginFrame();
             
             leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
             double aspectRatio = (double) width / (double) height;
@@ -476,7 +494,7 @@ public class Renderer {
             double far = 100.0; // TODO
             camera.setPerspective(fov, aspectRatio, near, far);
             
-            camera.setUpdatesEnabled(true);
+            endFrame();
         }
     }
 
