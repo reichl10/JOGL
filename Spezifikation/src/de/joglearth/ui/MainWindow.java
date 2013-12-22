@@ -676,7 +676,7 @@ public class MainWindow extends JFrame {
                 JSpinner spinner = (JSpinner) e.getSource();
                 Settings.getInstance().putInteger(
                         SettingsContract.CACHE_SIZE_MEMORY,
-                        (Integer) spinner.getValue());
+                        (Integer) spinner.getValue()*1024*1024);
             }
         });
         cachePanel.add(memCacheSpinner, "4, 2"); //$NON-NLS-1$
@@ -694,7 +694,7 @@ public class MainWindow extends JFrame {
                 JSpinner spinner = (JSpinner) e.getSource();
                 Settings.getInstance().putInteger(
                         SettingsContract.CACHE_SIZE_FILESYSTEM,
-                        (Integer) spinner.getValue());
+                        (Integer) spinner.getValue()*1024*1024);
             }
         });
         cachePanel.add(fsCacheSpinner, "4, 4"); //$NON-NLS-1$

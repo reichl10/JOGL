@@ -242,9 +242,11 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     /**
      * Drops all cached objects.
      */
-    public void dropAll() {
+    public synchronized void dropAll() {
         for (Cache<Key, Value> cache : caches) {
             cache.dropAll();
+            lastUsedMap.get(cache).clear();
+            usedSizeMap.put(cache, new Integer(0));
         }
     }
 
@@ -254,12 +256,12 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * 
      * @param pred Conformance with that <code>Predicate</code> leads to deletion of that object
      */
-    public void dropAll(Predicate<Key> pred) {
+    public synchronized void dropAll(Predicate<Key> pred) {
         for (Cache<Key, Value> cache : caches) {
-            Iterable<Key> keys = cache.getExistingObjects();
+            Iterable<Key> keys = lastUsedMap.get(cache).keySet();
             for (Key k : keys) {
                 if (pred.test(k)) {
-                    cache.dropObject(k);
+                    dropObjectFromCache(cache, k);
                 }
             }
         }
@@ -271,10 +273,32 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * 
      * @param k The key identifying the object
      */
-    public void dropObject(Key k) {
+    public synchronized void dropObject(Key k) {
         for (Cache<Key, Value> c : caches) {
-            c.dropObject(k);
+            if (lastUsedMap.get(c).containsKey(k)) {
+                dropObjectFromCache(c, k);
+            }
         }
+    }
+    
+    private void dropObjectFromCache(Cache<Key, Value> c, Key k) {
+        CacheMoveListener listener = new CacheMoveListener();
+        SourceResponse<Value> response = c.requestObject(k, listener);
+        Value value = null;
+        if (response.response == SourceResponseType.ASYNCHRONOUS) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            value = listener.value;
+        } else if (response.response == SourceResponseType.SYNCHRONOUS) {
+            value = response.value;
+        } else {
+            System.err.println("Cache didn't have a object, should not happen!");
+            return;
+        }
+        removeFromCache(c, k, value);
     }
 
     private void requestCompleted(Key k, Value v) {
@@ -316,7 +340,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     private void addToCaches(Key k, Value v) {
         if (caches.size() < 1)
             return;
-        Cache topCache = caches.get(0);
+        Cache<Key, Value> topCache = caches.get(0);
         Integer sizeOfCache = cacheSizeMap.get(topCache);
         if (sizeOfCache < measure.getSize(v)) {
             throw new RuntimeException("The Object is bigger then the Level1 Cache");
@@ -336,9 +360,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             Integer spaceToMake = sizeOfValue * 5;
             if (spaceToMake > cacheSize)
                 spaceToMake = cacheSize;
-
-            //      makeSpaceInCache(index, spaceToMake);
-            // TODO makeSpaceInCache(index, spaceToMake);
+            makeSpaceInCache(index, spaceToMake);
         }
         cache.putObject(k, v);
         addUsedSpace(cache, sizeOfValue);
@@ -398,7 +420,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             System.out.println("Remove One from " + list.size());
             
             Entry<Key, BigInteger> entry = list.pop();
-            CacheMoveListener listener = new CacheMoveListener(Thread.currentThread());
+            CacheMoveListener listener = new CacheMoveListener();
             SourceResponse<Value> response = cache.requestObject(entry.getKey(), listener);
             if (response.response == SourceResponseType.SYNCHRONOUS) {
                 if (hasNextCache) {
@@ -433,7 +455,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         removeUsedSpace(cache, spaceMade);
         if (hasNextCache) {
             Cache<Key, Value> s2Cache = caches.get(index + 1);
-            makeSpaceInCache(index + 1, spaceMade);
+            Integer usedSpaceL2 = usedSizeMap.get(s2Cache);
+            Integer sizeL2 = cacheSizeMap.get(s2Cache);
+            if (sizeL2-usedSpaceL2 < spaceMade)
+                makeSpaceInCache(index + 1, spaceMade-(sizeL2-usedSpaceL2));
             for (CacheEntry ce : removedSet) {
                 addToCache(index + 1, ce.key, ce.value);
                 Map<Key, BigInteger> usedMap = lastUsedMap.get(s2Cache);
@@ -547,14 +572,11 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     private class CacheMoveListener implements SourceListener<Key, Value> {
-
-        Thread waiterThread;
         public volatile Key key;
         public volatile Value value;
 
 
-        public CacheMoveListener(Thread t) {
-            waiterThread = t;
+        public CacheMoveListener() {
         }
 
         @Override
