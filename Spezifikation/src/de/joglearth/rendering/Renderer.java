@@ -168,6 +168,14 @@ public class Renderer {
         invokeLater(runnable, null);
     }
     
+    public void invokeSooner(Runnable runnable) {
+        if (isInsideDisplayFunction()) {
+            runnable.run();
+        } else {
+            invokeLater(runnable);
+        }
+    }
+    
 
     /**
      * Notifies the {@link de.joglearth.rendering.Renderer} that a new frame should be rendered. If

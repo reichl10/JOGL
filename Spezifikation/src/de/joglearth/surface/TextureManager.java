@@ -1,14 +1,23 @@
 package de.joglearth.surface;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.media.opengl.GL2;
 
+import static javax.media.opengl.GL.GL_LINEAR;
+import static javax.media.opengl.GL.GL_LINEAR_MIPMAP_LINEAR;
+import static javax.media.opengl.GL.GL_TEXTURE_2D;
+import static javax.media.opengl.GL.GL_TEXTURE_MAG_FILTER;
+import static javax.media.opengl.GL.GL_TEXTURE_MIN_FILTER;
+import static javax.media.opengl.GL2.*;
+
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
 import de.joglearth.geometry.Tile;
+import de.joglearth.rendering.GLError;
 import de.joglearth.rendering.Renderer;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
@@ -27,11 +36,12 @@ import de.joglearth.util.Resource;
 public class TextureManager {
 
     private Texture placeholderTexture;
-    private Integer placeholderTextureId;
+    private Integer placeholder;
     private List<SurfaceListener> listeners = new ArrayList<>();
     private RequestDistributor<OSMTile, Integer> dist;
     private TiledMapType mapType = TiledMapType.OSM_MAPNIK;
     private TextureListener textureListener = new TextureListener();
+    private GL2 gl;
     
     
     private void notifyListeners(Tile tile) {
@@ -50,20 +60,69 @@ public class TextureManager {
         }
     }
     
+    
+    private int loadChessBoardTexture(int blocks, int pixelsPerBlock) {
+        byte[] fullLine = new byte[(blocks + 1) * pixelsPerBlock * 3];
+        for (int col = 0; col < blocks + 1; ++col) {
+            for (int pixel = 0; pixel < pixelsPerBlock; ++pixel) {
+                 byte greyValue = (byte) ((col % 2 == 0) ? 128 : 255);
+                 for (int component = 0; component < 3; ++component) {
+                     fullLine[3 * (col * pixelsPerBlock + pixel) + component] = greyValue;
+                 }
+            }
+        }
+
+        byte[] image = new byte[3 * (blocks * pixelsPerBlock) * (blocks * pixelsPerBlock)];
+        for (int line = 0; line < blocks; ++line) {
+            for (int pixelLine = 0; pixelLine < pixelsPerBlock; ++pixelLine) {
+                System.arraycopy(fullLine, 3 * ((line % 2 == 0) ? 0 : pixelsPerBlock), image, 
+                        3 * (line * pixelsPerBlock + pixelLine) * blocks * pixelsPerBlock,
+                        3 * blocks * pixelsPerBlock);
+            }
+        }
+    
+        int[] ids = new int[1];
+        gl.glGenTextures(1, ids, 0);
+        GLError.throwIfActive(gl);
+        
+        gl.glBindTexture(GL_TEXTURE_2D, ids[0]);
+        GLError.throwIfActive(gl);        
+        
+        gl.glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, blocks*pixelsPerBlock, blocks*pixelsPerBlock,
+                0, GL_RGB, GL_UNSIGNED_BYTE, ByteBuffer.wrap(image));
+        GLError.throwIfActive(gl);
+        
+        gl.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        GLError.throwIfActive(gl);
+
+        gl.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        GLError.throwIfActive(gl);
+        
+        gl.glBindTexture(GL_TEXTURE_2D, 0);
+        
+        return ids[0];
+    }
+    
 
     /**
      * Constructor.
      * 
      * @param gl The OpenGL object
      */
-    public TextureManager(Renderer renderer, GL2 gl, Source<OSMTile, byte[]> imageSource, int textureCacheSize) {
+    public TextureManager(Renderer renderer, final GL2 gl, Source<OSMTile, byte[]> imageSource, int textureCacheSize) {
+        this.gl = gl;
+        
         dist = new RequestDistributor<>();
         dist.addCache(new TextureCache<OSMTile>(renderer, gl), textureCacheSize);
         dist.setSource(new TextureSource<>(renderer, gl, imageSource));
         
-        placeholderTexture = TextureIO.newTexture(Resource.loadTextureData(
-                "textures/placeholder.png", "png"));
-        placeholderTextureId = new Integer(placeholderTexture.getTextureObject(gl));
+        renderer.invokeSooner(new Runnable() {
+
+            @Override
+            public void run() {
+                placeholder = loadChessBoardTexture(16, 32);
+            }
+        });
     }
 
     /**
@@ -78,7 +137,7 @@ public class TextureManager {
         Integer textureId = dist.requestObject(new OSMTile(tile, mapType), textureListener).value;
         System.err.println("TextureManager: returning "
                 + (textureId == null ? "placeholder" : "real texture") + " for " + tile);
-        return textureId != null ? textureId : placeholderTextureId;
+        return textureId != null ? textureId : placeholder;
     }
     
     
