@@ -1,6 +1,8 @@
 package de.joglearth.opengl;
 
 import java.awt.Dimension;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -9,6 +11,15 @@ import java.util.ArrayList;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
+import javax.media.opengl.glu.GLU;
+
+import static javax.media.opengl.glu.GLU.*;
+
+import javax.media.opengl.glu.GLUquadric;
+
+import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.TextureData;
+import com.jogamp.opengl.util.texture.TextureIO;
 
 import de.joglearth.async.AWTInvoker;
 import de.joglearth.async.AbstractInvoker;
@@ -22,8 +33,9 @@ import static javax.media.opengl.GL2.*;
  */
 public final class GLContext extends AbstractInvoker implements GLEventListener {
 
-    // The GL object
     private GL2 gl = null;
+    private GLU glu = null;
+    private GLUquadric quadric = null;
 
     // The thread accessing the GL object
     private Thread glThread = null;
@@ -111,74 +123,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         return new Dimension(drawable.getWidth(), drawable.getHeight());
     }
 
-    /**
-     * Loads a texture, provided as a bitmap, into GL memory, returning it's id.
-     * 
-     * @param image The image data. Must not be null and must follow the format provided.
-     * @param format The format of the provided image data.
-     * @param internalFormat The internal image format to be used by OpenGL.
-     * @param width The image's width, in pixels. Must be greater than zero.
-     * @param height The image's height, in pixels. Must be greater than zero.
-     * @param mipmaps Whether mipmaps should be generated and used when drawing.
-     * @return The OpenGL texture ID.
-     */
-    public int loadTexture(byte[] image, int format, int internalFormat, int width, int height,
-            boolean mipmaps) {
-        assertIsInitialized();
-        assertIsInsideCallback();
-
-        if (image == null || width <= 0 || height <= 0) {
-            throw new IllegalArgumentException();
-        }
-
-        int[] ids = new int[1];
-        gl.glGenTextures(1, ids, 0);
-        GLError.throwIfActive(gl);
-        assertValidIDs(ids);
-        
-        gl.glBindTexture(GL_TEXTURE_2D, ids[0]);
-        GLError.throwIfActive(gl);
-
-        gl.glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height,
-                0, format, GL_UNSIGNED_BYTE, ByteBuffer.wrap(image));
-        GLError.throwIfActive(gl);
-
-        if (mipmaps) {
-            gl.glGenerateMipmap(GL_TEXTURE_2D);
-            GLError.throwIfActive(gl);
-        }
-
-        gl.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-                mipmaps ? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR);
-        GLError.throwIfActive(gl);
-
-        gl.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        GLError.throwIfActive(gl);
-
-        gl.glBindTexture(GL_TEXTURE_2D, 0);
-        GLError.throwIfActive(gl);
-
-        return ids[0];
-    }
-
-    /**
-     * Removes an existing OpenGL texture from graphics memory.
-     * 
-     * @param id The texture's id.
-     */
-    public void deleteTexture(int id) {
-        assertIsInitialized();
-        assertIsInsideCallback();
-
-        if (id <= 0) {
-            throw new IllegalArgumentException();
-        }
-
-        int[] ids = { id };
-        gl.glDeleteTextures(GL_TEXTURE_2D, ids, 0);
-        GLError.throwIfActive(gl);
-    }
-
+  
     /**
      * Loads a mesh into OpenGL memory, returning a vertex buffer object.
      * 
@@ -239,6 +184,36 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         gl.glDeleteBuffers(2, new int[] { vbo.vertices, vbo.indices }, 0);
         GLError.throwIfActive(gl);
     }
+    
+    
+    public Texture loadTexture(TextureData data) {
+        assertIsInitialized();
+        assertIsInsideCallback();
+        if (data == null) {
+            throw new IllegalArgumentException();
+        }
+        
+        return new Texture(gl, data);
+    }
+    
+    public Texture loadTexture(InputStream stream, String suffix, boolean mipmap) throws IOException {
+        return loadTexture(TextureIO.newTextureData(gl.getGLProfile(), stream, mipmap, suffix));
+    }
+
+    public Texture loadTexture(byte[] image, int width, int height, int format, int internalFormat,
+            boolean mipmap) {
+        return loadTexture(new TextureData(gl.getGLProfile(), internalFormat, width, height, 0,
+                format, GL_UNSIGNED_BYTE, mipmap, false, false, ByteBuffer.wrap(image), null));
+    }
+
+    public void deleteTexture(Texture tex) {
+        if (tex == null) {
+            throw new IllegalArgumentException();
+        }
+        
+        tex.destroy(gl);
+    }
+    
 
     /**
      * Loads a matrix into a given matrix slot (also called "matrix stack").
@@ -264,18 +239,20 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     /**
      * Draws a vertex buffer object with a given texture.
      * 
-     * @param texture The texture ID to use. Must be greater than zero
+     * @param texture The texture to use. May be null
      */
-    public void drawVertexBuffer(VertexBuffer vbo, int texture) {
-        if (vbo == null || vbo.indices <= 0 || vbo.vertices <= 0 || texture <= 0) {
+    public void drawVertexBuffer(VertexBuffer vbo, Texture texture) {
+        if (vbo == null || vbo.indices <= 0 || vbo.vertices <= 0) {
             throw new IllegalArgumentException();
         }
 
         assertIsInitialized();
         assertIsInsideCallback();
 
-        gl.glBindTexture(GL_TEXTURE_2D, texture);
-        GLError.throwIfActive(gl);
+        if (texture != null) {
+            texture.bind(gl);
+            GLError.throwIfActive(gl);
+        }
         
         // Bind vertex buffer
         gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
@@ -325,6 +302,39 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         GLError.throwIfActive(gl);
     }
 
+    
+    /**
+     * Draws a sphere using gluSphere().
+     * @param radius The radius of the sphere. Must be greater than zero
+     * @param slices The number of vertices on the equator. Must be greater or equal 3
+     * @param stacks The number of vertices from north to south pole. Must be greater or equal 3
+     * @param inside Whether to make surfaces point to the inside of the sphere rather than to
+     *               the outside
+     * @param texture The texture ID to use. May be 0
+     */
+    public void drawSphere(double radius, int slices, int stacks, boolean inside, Texture texture) {
+        assertIsInitialized();
+        assertIsInsideCallback();
+        if (radius <= 0 || slices < 3 || stacks < 3) {
+            throw new IllegalArgumentException();
+        }
+        
+        if (texture != null) {
+            texture.bind(gl);
+            GLError.throwIfActive(gl);
+        }
+
+        glu.gluQuadricOrientation(quadric, inside ? GLU_INSIDE : GLU_OUTSIDE);
+        GLError.throwIfActive(gl);
+        
+        glu.gluSphere(quadric, radius, slices, stacks);
+        GLError.throwIfActive(gl);
+        
+        gl.glBindTexture(GL_TEXTURE_2D, 0);
+        GLError.throwIfActive(gl);
+    }
+    
+    
     /**
      * Clears the OpenGL color and depth buffer.
      */
@@ -439,6 +449,8 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
 
         drawable = null;
         gl = null;
+        glu = null;
+        quadric = null;
         glThread = null;
     }
 
@@ -450,6 +462,8 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
 
         drawable = caller;
         gl = drawable.getGL().getGL2();
+        glu = new GLU();
+        quadric = glu.gluNewQuadric();
         glThread = Thread.currentThread();
 
         beginDisplay();

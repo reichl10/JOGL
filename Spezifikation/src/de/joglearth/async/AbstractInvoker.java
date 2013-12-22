@@ -39,6 +39,10 @@ public abstract class AbstractInvoker implements Invoker {
 
     @Override
     public void invokeLater(Runnable runnable, RunnableResultListener listener) {
+        if (runnable == null) {
+            throw new IllegalArgumentException();
+        }
+
         invokeLater(new RunnableCallbackWrapper(runnable, listener));
     }
 
@@ -63,11 +67,19 @@ public abstract class AbstractInvoker implements Invoker {
     
     @Override
     public void invokeLater(RunnableWithResult runnable, RunnableResultListener listener) {
+        if (runnable == null) {
+            throw new IllegalArgumentException();
+        }
+        
         invokeLater(new RunnableCallbackWrapper(runnable, listener));
     }
 
     @Override
     public void invokeLater(RunnableWithResult runnable) {
+        if (runnable == null) {
+            throw new IllegalArgumentException();
+        }
+        
         invokeLater(new RunnableResultAdapter(runnable));
     }
 
@@ -95,6 +107,10 @@ public abstract class AbstractInvoker implements Invoker {
 
     @Override
     public void invokeSooner(RunnableWithResult runnable, RunnableResultListener listener) {
+        if (runnable == null) {
+            throw new IllegalArgumentException();
+        }
+
         if (canInvokeDirectly()) {
             Object result = runnable.run();
             if (listener != null) {
@@ -112,6 +128,10 @@ public abstract class AbstractInvoker implements Invoker {
     
     @Override
     public void invokeAndWait(Runnable runnable) throws InterruptedException {
+        if (runnable == null) {
+            throw new IllegalArgumentException();
+        }
+
         if (canInvokeDirectly()) {
             runnable.run();
         } else {
@@ -132,6 +152,10 @@ public abstract class AbstractInvoker implements Invoker {
 
     @Override
     public Object invokeAndWait(RunnableWithResult runnable) throws InterruptedException {
+        if (runnable == null) {
+            throw new IllegalArgumentException();
+        }
+
         if (canInvokeDirectly()) {
             return runnable.run();
         } else {

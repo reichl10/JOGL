@@ -2,6 +2,7 @@ package de.joglearth.rendering;
 
 import static javax.media.opengl.GL2.*;
 import static java.lang.Math.*;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import javax.media.opengl.glu.GLU;
 import javax.media.opengl.glu.GLUquadric;
 
 import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.TextureData;
 import com.jogamp.opengl.util.texture.TextureIO;
 
 import de.joglearth.geometry.Camera;
@@ -41,7 +43,7 @@ import de.joglearth.util.Resource;
  */
 public class Renderer {
 
-    private GLContext context;
+    private GLContext gl;
     private int leastHorizontalTiles;
     private int tileSubdivisions = 7;
     private int TILE_SIZE = 256;
@@ -73,10 +75,10 @@ public class Renderer {
      * @param locationManager <code>LocationManager</code> that provides the information about
      *        Overlays to be displayed
      */
-    public Renderer(GLContext context, LocationManager locationManager) {
+    public Renderer(GLContext gl, LocationManager locationManager) {
         this.locationManager = locationManager;
-        this.context = context;
-        context.addGLContextListener(new RendererEventListener());
+        this.gl = gl;
+        gl.addGLContextListener(new RendererEventListener());
 
         locationManager.addSurfaceListener(new SurfaceValidator());
 
@@ -85,7 +87,7 @@ public class Renderer {
 
             @Override
             public void cameraViewChanged() {
-                Renderer.this.context.postRedisplay();
+                Renderer.this.gl.postRedisplay();
             }
         });
     }
@@ -94,9 +96,9 @@ public class Renderer {
     private void render() {
         System.err.println("------------- NEW FRAME -------------");
         
-        context.clear();
-        context.loadMatrix(GL_PROJECTION, camera.getProjectionMatrix());
-        context.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
+        gl.clear();
+        gl.loadMatrix(GL_PROJECTION, camera.getProjectionMatrix());
+        gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
            
         //TODO !!!!
         /*
@@ -122,11 +124,11 @@ public class Renderer {
     }
 
     private void initialize() {        
-        context.setFeatureEnabled(GL_DEPTH_TEST, true);
-        context.setFeatureEnabled(GL_CULL_FACE, true);
-        context.setFeatureEnabled(GL_TEXTURE_2D, true);
+        gl.setFeatureEnabled(GL_DEPTH_TEST, true);
+        gl.setFeatureEnabled(GL_CULL_FACE, true);
+        gl.setFeatureEnabled(GL_TEXTURE_2D, true);
 
-        this.textureManager = new TextureManager(context, OSMTileManager.getInstance(), 200);
+        textureManager = new TextureManager(gl, OSMTileManager.getInstance(), 200);
         ///textureManager.addSurfaceListener(new SurfaceValidator());
 
         /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
@@ -139,21 +141,15 @@ public class Renderer {
         Settings.getInstance().addSettingsListener(SettingsContract.DISPLAY_MODE,
                 new SettingsChanged());
         
-        leastHorizontalTiles = context.getSize().width / TILE_SIZE;
-        tileMeshManager = new TileMeshManager(context, null);
+        leastHorizontalTiles = gl.getSize().width / TILE_SIZE;
+        tileMeshManager = new TileMeshManager(gl, null);
         tileMeshManager.setTileSubdivisions(tileSubdivisions);
         applyDisplayMode();
     }
     
-    
-    GLU glu = new GLU();
-    GLUquadric quadric;
+
     private void renderSolarSystem() {
-        if (quadric==null) {
-            quadric=glu.gluNewQuadric();
-            glu.gluQuadricOrientation(quadric, GLU.GLU_OUTSIDE);
-        }
-        glu.gluSphere(quadric, 1, 100, 50);
+        gl.drawSphere(1, 100, 50, false, satellite);
     }
 
     
@@ -161,9 +157,9 @@ public class Renderer {
     private void renderMeshes(Iterable<Tile> tiles) {
 
         for (Tile tile : tiles) {
-            Integer texture = textureManager.getTexture(tile);
+            Texture texture = textureManager.getTexture(tile);
             VertexBuffer vbo = tileMeshManager.requestObject(tile, null).value;
-            context.drawVertexBuffer(vbo, texture);
+            gl.drawVertexBuffer(vbo, texture);
         }
 
     }
@@ -171,7 +167,6 @@ public class Renderer {
     /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
     private void loadTextures() {
 
-        /* Loads texture: kidsWorldMap */
         kidsWorldMap = TextureIO.newTexture(Resource.loadTextureData(
                 "textures/kidsWorldMap.jpg", "jpg"));
         satellite = TextureIO.newTexture(Resource.loadTextureData(
@@ -281,7 +276,7 @@ public class Renderer {
                     new GeoCoordinates(lonTo, latTo) };
             for (GeoCoordinates geo : edges) {
                 if (camera.isPointVisible(geo)) {
-                    context.postRedisplay();
+                    gl.postRedisplay();
                     break;
                 }
             }
@@ -307,7 +302,7 @@ public class Renderer {
                 }
                 camera.setGeometry(new PlaneGeometry());
         }
-        context.postRedisplay();
+        gl.postRedisplay();
     }
     
 
@@ -332,7 +327,7 @@ public class Renderer {
     public void setMapType(SingleMapType t) {
         mapLayout = MapLayout.SINGLE;
         singleMapType = t;
-        context.postRedisplay();
+        gl.postRedisplay();
     }
 
     /**
@@ -344,6 +339,6 @@ public class Renderer {
     public void setMapType(TiledMapType t) {
         mapLayout = MapLayout.TILED;
         tiledMapType = t;
-        context.postRedisplay();
+        gl.postRedisplay();
     }
 }

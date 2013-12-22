@@ -1,24 +1,13 @@
 package de.joglearth.surface;
 
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.media.opengl.GL2;
-
-import static javax.media.opengl.GL.GL_LINEAR;
-import static javax.media.opengl.GL.GL_LINEAR_MIPMAP_LINEAR;
-import static javax.media.opengl.GL.GL_TEXTURE_2D;
-import static javax.media.opengl.GL.GL_TEXTURE_MAG_FILTER;
-import static javax.media.opengl.GL.GL_TEXTURE_MIN_FILTER;
 import static javax.media.opengl.GL2.*;
 
 import com.jogamp.opengl.util.texture.Texture;
-import com.jogamp.opengl.util.texture.TextureIO;
-
 import de.joglearth.geometry.Tile;
 import de.joglearth.opengl.GLContext;
-import de.joglearth.opengl.GLError;
 import de.joglearth.rendering.Renderer;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
@@ -26,7 +15,6 @@ import de.joglearth.source.caching.RequestDistributor;
 import de.joglearth.source.opengl.TextureCache;
 import de.joglearth.source.opengl.TextureSource;
 import de.joglearth.source.osm.OSMTile;
-import de.joglearth.util.Resource;
 
 /**
  * Executes requests for textures of the {@link Renderer}. Loads textures from a
@@ -35,11 +23,10 @@ import de.joglearth.util.Resource;
  * {@link de.joglearth.source.opengl.TextureCache}.
  */
 public class TextureManager {
-
-    private Texture placeholderTexture;
-    private Integer placeholder;
+    
+    private Texture placeholder;
     private List<SurfaceListener> listeners = new ArrayList<>();
-    private RequestDistributor<OSMTile, Integer> dist;
+    private RequestDistributor<OSMTile, Texture> dist;
     private TiledMapType mapType = TiledMapType.OSM_MAPNIK;
     private TextureListener textureListener = new TextureListener();
     private GLContext gl;
@@ -53,16 +40,16 @@ public class TextureManager {
     }
     
     
-    private class TextureListener implements SourceListener<OSMTile, Integer> {
+    private class TextureListener implements SourceListener<OSMTile, Texture> {
 
         @Override
-        public void requestCompleted(OSMTile key, Integer value) {
+        public void requestCompleted(OSMTile key, Texture value) {
             notifyListeners(key.tile);
         }
     }
     
     
-    private int loadChessBoardTexture(int blocks, int pixelsPerBlock) {
+    private Texture loadChessBoardTexture(int blocks, int pixelsPerBlock) {
         byte[] fullLine = new byte[(blocks + 1) * pixelsPerBlock * 3];
         for (int col = 0; col < blocks + 1; ++col) {
             for (int pixel = 0; pixel < pixelsPerBlock; ++pixel) {
@@ -82,8 +69,8 @@ public class TextureManager {
             }
         }
 
-        return gl.loadTexture(image, GL_RGB, GL_RGB, blocks * pixelsPerBlock, blocks
-                * pixelsPerBlock, false);
+        return gl.loadTexture(image, blocks*pixelsPerBlock, blocks*pixelsPerBlock, GL_RGB, GL_RGB,
+                true);
     }
     
 
@@ -116,9 +103,9 @@ public class TextureManager {
      * @return Returns a loaded OpenGl identifier for the texture or if it is not yet loaded, the
      *         method returns a place holder texture
      */
-    public synchronized Integer getTexture(Tile tile) {
+    public synchronized Texture getTexture(Tile tile) {
         System.err.println("TextureManager: requesting texture for " + tile);
-        Integer textureId = dist.requestObject(new OSMTile(tile, mapType), textureListener).value;
+        Texture textureId = dist.requestObject(new OSMTile(tile, mapType), textureListener).value;
         System.err.println("TextureManager: returning "
                 + (textureId == null ? "placeholder" : "real texture") + " for " + tile);
         return textureId != null ? textureId : placeholder;
@@ -148,5 +135,18 @@ public class TextureManager {
      */
     public synchronized void removeSurfaceListener(SurfaceListener l) {
         while(listeners.remove(l));
+    }
+    
+    
+    public void dispose() {
+        dist.dropAll();
+        
+        gl.invokeSooner(new Runnable() {
+            
+            @Override
+            public void run() {
+                gl.deleteTexture(placeholder);
+            }
+        });
     }
 }
