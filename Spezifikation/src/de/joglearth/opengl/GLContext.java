@@ -151,6 +151,9 @@ public final class GLContext implements GLEventListener {
         gl.glGenTextures(1, ids, 0);
         GLError.throwIfActive(gl);
         assertValidIDs(ids);
+        
+        gl.glBindTexture(GL_TEXTURE_2D, ids[0]);
+        GLError.throwIfActive(gl);
 
         gl.glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height,
                 0, format, GL_UNSIGNED_BYTE, ByteBuffer.wrap(image));
@@ -277,8 +280,7 @@ public final class GLContext implements GLEventListener {
     /**
      * Draws a vertex buffer object with a given texture.
      * 
-     * @param vbo The vertex buffer object. Must not be null and must hold valid buffer IDs.
-     * @param texture The texture ID to use. Must be greater than zero.
+     * @param texture The texture ID to use. Must be greater than zero
      */
     public void drawVertexBuffer(VertexBuffer vbo, int texture) {
         if (vbo == null || vbo.indices <= 0 || vbo.vertices <= 0 || texture <= 0) {
@@ -291,6 +293,8 @@ public final class GLContext implements GLEventListener {
         gl.glBindTexture(GL_TEXTURE_2D, texture);
         GLError.throwIfActive(gl);
 
+        System.out.println(gl.glIsEnabled(GL_TEXTURE_2D));
+        
         // Bind vertex buffer
         gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
         GLError.throwIfActive(gl);
@@ -353,7 +357,7 @@ public final class GLContext implements GLEventListener {
      * Enables (glEnable) or disables (glDisable) a feature.
      * 
      * @param feature The OpenGL feature, e.g. GL_DEPTH_TEST
-     * @param enabled Whether to enable or disable the feature.
+     * @param enabled Whether to enable or disable the feature
      */
     public void setFeatureEnabled(int feature, boolean enabled) {
         assertIsInitialized();
@@ -384,8 +388,8 @@ public final class GLContext implements GLEventListener {
      * Enqueues a runnable to be executed at the beginning of the next frame. On completion,
      * <code>null</code> is passed to the listener.
      * 
-     * @param runnable The runnable. Must not be null.
-     * @param listener The listener to call when execution has completed. May be null.
+     * @param runnable The runnable. Must not be null
+     * @param listener The listener to call when execution has completed. May be null
      */
     public void invokeLater(Runnable runnable, RunnableResultListener listener) {
         if (runnable == null) {
@@ -430,8 +434,8 @@ public final class GLContext implements GLEventListener {
     /**
      * Enqueues a runnable to be executed at the beginning of the next frame.
      * 
-     * @param runnable The runnable. Must not be null.
-     * @param listener The listener to call when execution has completed. May be null.
+     * @param runnable The runnable. Must not be null
+     * @param listener The listener to call when execution has completed. May be null
      */
     public void invokeLater(final RunnableWithResult runnable, RunnableResultListener listener) {
         RunnableResultAdapter wrapper = new RunnableResultAdapter(runnable);
@@ -441,7 +445,7 @@ public final class GLContext implements GLEventListener {
     /**
      * Enqueues a runnable to be executed at the beginning of the next frame.
      * 
-     * @param runnable The runnable. Must not be null.
+     * @param runnable The runnable. Must not be null
      */
     public void invokeLater(RunnableWithResult runnable) {
         invokeLater(runnable, null);
@@ -451,9 +455,9 @@ public final class GLContext implements GLEventListener {
      * Calls the runnable right away if inside a GL callback and enqueues it via invokeLater()
      * otherwise.
      * 
-     * @param runnable The runnable. must not be null.
+     * @param runnable The runnable. must not be null
      * @param listener The listener to call when execution has completed. May be null, and might be
-     *        called before invokeSooner() returns.
+     *        called before invokeSooner() returns
      */
     public void invokeSooner(Runnable runnable, RunnableResultListener listener) {
         if (runnable == null) {
@@ -474,9 +478,19 @@ public final class GLContext implements GLEventListener {
      * Calls the runnable right away if inside a GL callback and enqueues it via invokeLater()
      * otherwise.
      * 
-     * @param runnable The runnable. must not be null.
+     * @param runnable The runnable. must not be null
+     */
+    public void invokeSooner(RunnableWithResult runnable) {
+        invokeSooner(runnable, null);
+    }
+
+    /**
+     * Calls the runnable right away if inside a GL callback and enqueues it via invokeLater()
+     * otherwise.
+     * 
+     * @param runnable The runnable. must not be null
      * @param listener The listener to call when execution has completed. May be null, and might be
-     *        called before invokeSooner() returns.
+     *        called before invokeSooner() returns
      */
     public void invokeSooner(RunnableWithResult runnable, RunnableResultListener listener) {
         if (isInsideCallback()) {
@@ -487,6 +501,16 @@ public final class GLContext implements GLEventListener {
         } else {
             invokeLater(runnable, listener);
         }
+    }
+
+    /**
+     * Calls the runnable right away if inside a GL callback and enqueues it via invokeLater()
+     * otherwise.
+     * 
+     * @param runnable The runnable. must not be null
+     */
+    public void invokeSooner(Runnable runnable) {
+        invokeSooner(runnable, null);
     }
 
     // Does things necessary at the beginning of every GL callback, and calls
@@ -534,8 +558,8 @@ public final class GLContext implements GLEventListener {
     }
 
     @Override
-    public synchronized void display(GLAutoDrawable arg0) {
-        assertIsInitialized(arg0);
+    public synchronized void display(GLAutoDrawable caller) {
+        assertIsInitialized(caller);
 
         beginDisplay();
         for (GLContextListener l : listeners) {
@@ -545,8 +569,8 @@ public final class GLContext implements GLEventListener {
     }
 
     @Override
-    public synchronized void dispose(GLAutoDrawable arg0) {
-        assertIsInitialized(arg0);
+    public synchronized void dispose(GLAutoDrawable caller) {
+        assertIsInitialized(caller);
 
         beginDisplay();
         for (GLContextListener l : listeners) {
@@ -560,12 +584,12 @@ public final class GLContext implements GLEventListener {
     }
 
     @Override
-    public synchronized void init(GLAutoDrawable arg0) {
+    public synchronized void init(GLAutoDrawable caller) {
         if (drawable != null) {
             throw new IllegalStateException();
         }
 
-        drawable = arg0;
+        drawable = caller;
         gl = drawable.getGL().getGL2();
         glThread = Thread.currentThread();
 

@@ -17,6 +17,7 @@ import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
 import de.joglearth.geometry.Tile;
+import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.GLError;
 import de.joglearth.rendering.Renderer;
 import de.joglearth.source.Source;
@@ -41,7 +42,7 @@ public class TextureManager {
     private RequestDistributor<OSMTile, Integer> dist;
     private TiledMapType mapType = TiledMapType.OSM_MAPNIK;
     private TextureListener textureListener = new TextureListener();
-    private GL2 gl;
+    private GLContext gl;
     
     
     private void notifyListeners(Tile tile) {
@@ -80,27 +81,9 @@ public class TextureManager {
                         3 * blocks * pixelsPerBlock);
             }
         }
-    
-        int[] ids = new int[1];
-        gl.glGenTextures(1, ids, 0);
-        GLError.throwIfActive(gl);
-        
-        gl.glBindTexture(GL_TEXTURE_2D, ids[0]);
-        GLError.throwIfActive(gl);        
-        
-        gl.glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, blocks*pixelsPerBlock, blocks*pixelsPerBlock,
-                0, GL_RGB, GL_UNSIGNED_BYTE, ByteBuffer.wrap(image));
-        GLError.throwIfActive(gl);
-        
-        gl.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        GLError.throwIfActive(gl);
 
-        gl.glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        GLError.throwIfActive(gl);
-        
-        gl.glBindTexture(GL_TEXTURE_2D, 0);
-        
-        return ids[0];
+        return gl.loadTexture(image, GL_RGB, GL_RGB, blocks * pixelsPerBlock, blocks
+                * pixelsPerBlock, false);
     }
     
 
@@ -109,14 +92,15 @@ public class TextureManager {
      * 
      * @param gl The OpenGL object
      */
-    public TextureManager(Renderer renderer, final GL2 gl, Source<OSMTile, byte[]> imageSource, int textureCacheSize) {
+    public TextureManager(GLContext gl, Source<OSMTile, byte[]> imageSource,
+            int textureCacheSize) {
         this.gl = gl;
-        
+
         dist = new RequestDistributor<>();
-        dist.addCache(new TextureCache<OSMTile>(renderer, gl), textureCacheSize);
-        dist.setSource(new TextureSource<>(renderer, gl, imageSource));
+        dist.addCache(new TextureCache<OSMTile>(gl), textureCacheSize);
+        dist.setSource(new TextureSource<>(gl, imageSource));
         
-        renderer.invokeSooner(new Runnable() {
+        gl.invokeSooner(new Runnable() {
 
             @Override
             public void run() {

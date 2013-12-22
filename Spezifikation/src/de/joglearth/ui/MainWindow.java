@@ -62,6 +62,7 @@ import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.ScreenCoordinates;
+import de.joglearth.opengl.GLContext;
 import de.joglearth.rendering.AntialiasingType;
 import de.joglearth.rendering.DisplayMode;
 import de.joglearth.rendering.LevelOfDetail;
@@ -1104,7 +1105,9 @@ public class MainWindow extends JFrame {
         loadLanguage();
         // TODO: remove this hack for the GUIEditor
         if (glCanvas instanceof GLCanvas) {
-            renderer = new Renderer(((GLCanvas) glCanvas), locationManager);
+            GLContext context = new GLContext();
+            ((GLCanvas) glCanvas).addGLEventListener(context);
+            renderer = new Renderer(context, locationManager);
         }
         camera = renderer.getCamera();
 

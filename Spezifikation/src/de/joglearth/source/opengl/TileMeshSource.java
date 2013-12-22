@@ -6,6 +6,7 @@ import java.nio.IntBuffer;
 import javax.media.opengl.GL2;
 
 import de.joglearth.geometry.Tile;
+import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.GLError;
 import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.rendering.Mesh;
@@ -27,10 +28,9 @@ import static javax.media.opengl.GL2.*;
 public class TileMeshSource implements Source<Tile, VertexBuffer> {
 
     private Tessellator tess;
-    private GL2 gl;
+    private GLContext gl;
     private int subdivisions;
     private boolean heightMap;
-    private Renderer renderer;
     
 
     /**
@@ -40,12 +40,10 @@ public class TileMeshSource implements Source<Tile, VertexBuffer> {
      * @param gl The GL context of <code>TileMeshManager</code>. Must not be null.
      * @param t The <code>Tesselator</code> of the <code>TileMeshManager</code>. May be null.
      */
-    public TileMeshSource(Renderer renderer, GL2 gl, Tessellator t) {
-        if (renderer == null || gl == null) {
+    public TileMeshSource(GLContext gl, Tessellator t) {
+        if (gl == null) {
             throw new IllegalArgumentException();
         }
-
-        this.renderer = renderer;
         this.gl = gl;
         tess = t;
     }
@@ -100,33 +98,7 @@ public class TileMeshSource implements Source<Tile, VertexBuffer> {
             mesh = tess.tessellateTile(key, subdivisions, heightMap);
         }
 
-        // Allocate vertex and index buffer
-        int[] buffers = new int[2];
-        gl.glGenBuffers(2, buffers, 0);
-        GLError.throwIfActive(gl);
-
-        VertexBuffer vbo = new VertexBuffer(mesh.primitiveType, mesh.indexCount, buffers[0],
-                buffers[1]);
-
-        // Bind vertex buffer
-        gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
-        GLError.throwIfActive(gl);
-
-        // Write vertex data
-        gl.glBufferData(GL_ARRAY_BUFFER, 4 * mesh.vertices.length, FloatBuffer.wrap(mesh.vertices),
-                GL_STATIC_DRAW);
-        GLError.throwIfActive(gl);
-
-        // Bind index buffer
-        gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.indices);
-        GLError.throwIfActive(gl);
-
-        // Write index array
-        gl.glBufferData(GL_ARRAY_BUFFER, 4 * mesh.indices.length, IntBuffer.wrap(mesh.indices),
-                GL_STATIC_DRAW);
-        GLError.throwIfActive(gl);
-
-        return vbo;
+        return gl.loadMesh(mesh);
     }
 
     @Override
@@ -141,10 +113,10 @@ public class TileMeshSource implements Source<Tile, VertexBuffer> {
             throw new IllegalStateException("Requested tile from null tessellator");
         }
 
-        if (renderer.isInsideDisplayFunction()) {
+        if (gl.isInsideCallback()) {
             return new SourceResponse<VertexBuffer>(SourceResponseType.SYNCHRONOUS, createVBO(key));
         } else {
-            renderer.invokeLater(
+            gl.invokeLater(
                     new RunnableWithResult() {
     
                         @Override

@@ -2,24 +2,12 @@ package de.joglearth.rendering;
 
 import static javax.media.opengl.GL2.*;
 import static java.lang.Math.*;
-import static org.junit.Assert.assertEquals;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLEventListener;
-import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
 import javax.media.opengl.glu.GLUquadric;
 
-import com.jogamp.opengl.util.FPSAnimator;
-import com.jogamp.opengl.util.ImmModeSink;
-import com.jogamp.opengl.util.awt.TextRenderer;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
@@ -27,18 +15,16 @@ import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.CameraUtils;
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.PlaneGeometry;
 import de.joglearth.geometry.SphereGeometry;
 import de.joglearth.geometry.Tile;
-import de.joglearth.opengl.GLError;
+import de.joglearth.opengl.GLContext;
+import de.joglearth.opengl.GLContextListener;
 import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
-import de.joglearth.source.SourceListener;
 import de.joglearth.source.osm.OSMTileManager;
-import de.joglearth.source.osm.OSMTileSource;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.surface.MapLayout;
 import de.joglearth.surface.SingleMapType;
@@ -46,13 +32,7 @@ import de.joglearth.surface.SurfaceListener;
 import de.joglearth.surface.TextureManager;
 import de.joglearth.surface.TileMeshManager;
 import de.joglearth.surface.TiledMapType;
-import de.joglearth.util.AWTInvoker;
 import de.joglearth.util.Resource;
-import de.joglearth.util.RunnableResultListener;
-import de.joglearth.util.RunnableWithResult;
-
-import java.awt.EventQueue;
-import java.awt.Font;
 
 
 /**
@@ -61,12 +41,9 @@ import java.awt.Font;
  */
 public class Renderer {
 
-    private GLCanvas canvas;
-    private FPSAnimator animator;
+    private GLContext context;
     private int leastHorizontalTiles;
     private int tileSubdivisions = 7;
-    private volatile boolean isPosted = false;
-    private volatile boolean isRunning = false;
     private int TILE_SIZE = 256;
     private LocationManager locationManager;
     private TextureManager textureManager;
@@ -81,22 +58,6 @@ public class Renderer {
     private Texture moon;
     private Texture sun;
     private TileMeshManager tileMeshManager;
-    private Thread rendererThread;
-    private volatile boolean isDisplaying = false;
-    
-    
-    private class Invocation {
-        public Runnable runnable;
-        public RunnableResultListener listener;
-        
-        public Invocation() {}
-        public Invocation(Runnable r, RunnableResultListener l) {
-            runnable = r;
-            listener = l;
-        }
-    }
-    
-    private ArrayList<Invocation> pendingInvocations = new ArrayList<>();
     
 
     private Map<String, Texture> poiTextures;
@@ -112,10 +73,10 @@ public class Renderer {
      * @param locationManager <code>LocationManager</code> that provides the information about
      *        Overlays to be displayed
      */
-    public Renderer(GLCanvas canv, LocationManager locationManager) {
+    public Renderer(GLContext context, LocationManager locationManager) {
         this.locationManager = locationManager;
-        this.canvas = canv;
-        canv.addGLEventListener(new RendererEventListener());
+        this.context = context;
+        context.addGLContextListener(new RendererEventListener());
 
         locationManager.addSurfaceListener(new SurfaceValidator());
 
@@ -124,142 +85,19 @@ public class Renderer {
 
             @Override
             public void cameraViewChanged() {
-                post();
+                Renderer.this.context.postRedisplay();
             }
         });
     }
-    
-    public boolean isInsideDisplayFunction() {
-        return Thread.currentThread().equals(rendererThread) && isDisplaying;
-    }
-    
-    public void invokeLater(Runnable runnable, RunnableResultListener listener) {
-        synchronized (pendingInvocations) {
-            pendingInvocations.add(new Invocation(runnable, listener));
-        }
-        post();
-    }
-    
-    public void invokeLater(Runnable runnable) {
-        invokeLater(runnable, null);
-    }
-    
-    
-    private static class RunnableResultAdapter implements Runnable {
-        public Object result;
-        public RunnableWithResult runnable;
-
-        public RunnableResultAdapter(RunnableWithResult runnable) {
-            this.runnable = runnable;
-        }
-
-        @Override
-        public void run() {
-            result = runnable.run();
-        }
-
-    };
-    
-    public void invokeLater(final RunnableWithResult runnable, RunnableResultListener listener) {
-        RunnableResultAdapter wrapper = new RunnableResultAdapter(runnable);
-        invokeLater(wrapper, listener);
-    }
-    
-    public void invokeLater(RunnableWithResult runnable) {
-        invokeLater(runnable, null);
-    }
-    
-    public void invokeSooner(Runnable runnable) {
-        if (isInsideDisplayFunction()) {
-            runnable.run();
-        } else {
-            invokeLater(runnable);
-        }
-    }
-    
-
-    /**
-     * Notifies the {@link de.joglearth.rendering.Renderer} that a new frame should be rendered. If
-     * <code>start()</code> is called this method may have no effect. Asynchronous method, does not
-     * wait until a frame is drawn.
-     */
-    public void post() {
-        synchronized (this) {
-            isPosted = true;
-            if (isRunning) {
-                return;
-            }
-            isRunning = true;
-        }
-        
-        AWTInvoker.invoke(new Runnable() {
-
-            @Override
-            public void run() {
-                boolean doContinue;
-                do {
-                    isPosted = false;
-                    canvas.display();
-                    synchronized (Renderer.this) {
-                        doContinue = isPosted && !animator.isAnimating();
-                    }
-                } while (doContinue);
-                isRunning = false;
-            }
-        });
-    }
-
-    // Asynchron, kehrt sofort zurück.
-    /**
-     * Starts the render loop with 60 FPS.
-     */
-    public synchronized void start() {
-        animator.start();
-    }
-
-    /**
-     * Stops the render loop. When <code>post()</code> is called a new frame will be rendered.
-     */
-    public synchronized void stop() {
-        animator.stop();
-    }
-    
-    
-    private void invokePending() {
-        ArrayList<Invocation> pendingCopy;
-        synchronized (pendingInvocations) {
-            pendingCopy = pendingInvocations;
-            pendingInvocations = new ArrayList<Invocation>();
-        }
-        for (Invocation inv : pendingCopy) {
-            inv.runnable.run();
-            
-            if (inv.listener != null) {
-                if (inv.runnable instanceof RunnableResultAdapter) {
-                    inv.listener.runnableCompleted(((RunnableResultAdapter) inv.runnable).result);
-                } else {
-                    inv.listener.runnableCompleted(null);
-                }
-            }
-        }
-    }
-    
     
     // TODO Re-renders the OpenGL view.
-    private void render(GL2 gl) {
+    private void render() {
         System.err.println("------------- NEW FRAME -------------");
         
-        invokePending();
-        
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-        
-        gl.glMatrixMode(GL_PROJECTION);
-        gl.glLoadMatrixd(camera.getProjectionMatrix().doubles(), 0);
-        
-        gl.glMatrixMode(GL_MODELVIEW);
-        gl.glLoadMatrixd(camera.getModelViewMatrix().doubles(), 0);
-        
-        
+        context.clear();
+        context.loadMatrix(GL_PROJECTION, camera.getProjectionMatrix());
+        context.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
+           
         //TODO !!!!
         /*
          * ----------------------------
@@ -275,32 +113,20 @@ public class Renderer {
             renderSolarSystem();
         } else {
             Iterable<Tile> tile = CameraUtils.getVisibleTiles(camera, zoomLevel);
-            renderMeshes(gl, tile);
+            renderMeshes(tile);
         } 
-        // glClear();
-        // if (!sonnensystem) getVisibleTiles() else visibleTile = {zoom = 0, lon = 0, lat
-        // = 0}
-
-        // TileMeshSource.request(visibleTile)
-        //
-        // for (...) textur setzen vbo rendern
     }
     
     public Camera getCamera() {
         return camera;
     }
 
-    private void initialize(GL2 gl) {
-        rendererThread = Thread.currentThread();
-        
-        invokePending();
-        
-        gl.glEnable(GL_DEPTH_TEST);
-        gl.glEnable(GL_CULL_FACE);     
-        gl.glEnable(GL_TEXTURE_2D);
-        //gl.glPolygonMode(GL_FRONT_AND_BACK,  GL_LINE);
+    private void initialize() {        
+        context.setFeatureEnabled(GL_DEPTH_TEST, true);
+        context.setFeatureEnabled(GL_CULL_FACE, true);
+        context.setFeatureEnabled(GL_TEXTURE_2D, true);
 
-        this.textureManager = new TextureManager(this, gl, OSMTileManager.getInstance(), 200);
+        this.textureManager = new TextureManager(context, OSMTileManager.getInstance(), 200);
         ///textureManager.addSurfaceListener(new SurfaceValidator());
 
         /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
@@ -313,12 +139,10 @@ public class Renderer {
         Settings.getInstance().addSettingsListener(SettingsContract.DISPLAY_MODE,
                 new SettingsChanged());
         
-        leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
-        tileMeshManager = new TileMeshManager(this, gl, null);
+        leastHorizontalTiles = context.getSize().width / TILE_SIZE;
+        tileMeshManager = new TileMeshManager(context, null);
         tileMeshManager.setTileSubdivisions(tileSubdivisions);
         applyDisplayMode();
-                
-        animator = new FPSAnimator(60);
     }
     
     
@@ -334,59 +158,12 @@ public class Renderer {
 
     
     
-    private void renderMeshes(GL2 gl, Iterable<Tile> tiles) {
+    private void renderMeshes(Iterable<Tile> tiles) {
 
         for (Tile tile : tiles) {
             Integer texture = textureManager.getTexture(tile);
-            
-            gl.glBindTexture(GL_TEXTURE_2D, texture);
-            GLError.throwIfActive(gl);
-            
             VertexBuffer vbo = tileMeshManager.requestObject(tile, null).value;
-
-            // Bind vertex buffer
-            gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
-            GLError.throwIfActive(gl);
-
-            // Set vertex / normal / texcoord pointers
-            gl.glEnableClientState(GL_VERTEX_ARRAY);
-            GLError.throwIfActive(gl);
-
-            gl.glVertexPointer(3, GL_FLOAT, 8*4, 5*4);
-            GLError.throwIfActive(gl);
-
-            gl.glEnableClientState(GL_NORMAL_ARRAY);
-            GLError.throwIfActive(gl);
-
-            gl.glNormalPointer(GL_FLOAT, 8*4, 2*4);
-            GLError.throwIfActive(gl);
-
-            gl.glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-            GLError.throwIfActive(gl);
-
-            gl.glTexCoordPointer(2, GL_FLOAT, 8*4, 0);
-            GLError.throwIfActive(gl);
-            
-            // Bind index buffer
-            gl.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.indices);
-            GLError.throwIfActive(gl);
-
-            // Draw
-            gl.glDrawElements(vbo.primitiveType, vbo.indexCount, GL_UNSIGNED_INT, 0);
-            GLError.throwIfActive(gl);
-
-            // Disable pointers
-            gl.glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-            GLError.throwIfActive(gl);
-            
-            gl.glDisableClientState(GL_NORMAL_ARRAY);
-            GLError.throwIfActive(gl);
-            
-            gl.glDisableClientState(GL_VERTEX_ARRAY);
-            GLError.throwIfActive(gl);
-
-            gl.glBindBuffer(GL_ARRAY_BUFFER, 0);
-            GLError.throwIfActive(gl);
+            context.drawVertexBuffer(vbo, texture);
         }
 
     }
@@ -428,8 +205,6 @@ public class Renderer {
             } else if (key.equals(SettingsContract.HEIGHT_MAP_ENABLED)) {
                 setHeightMapEnabled((Boolean) valNew);
             }
-
-            post();
         }
 
         private synchronized void setHeightMapEnabled(Boolean valNew) {
@@ -459,63 +234,42 @@ public class Renderer {
     /*
      * A Listener to handle events for OpenGL rendering.
      */
-    private class RendererEventListener implements GLEventListener {
+    private class RendererEventListener implements GLContextListener {
 
-        private void beginFrame() {
-            isDisplaying = true;
+        @Override
+        public void beginFrame(GLContext context) {
             camera.setUpdatesEnabled(false);
         }
         
-        private void endFrame() {
+        @Override
+        public void endFrame(GLContext context) {
             camera.setUpdatesEnabled(true);
-            isDisplaying = false;
         }
         
         @Override
-        public void display(GLAutoDrawable drawable) {
-            beginFrame();
-            render(drawable.getGL().getGL2());
-            endFrame();
+        public void display(GLContext context) {
+            render();
         }
 
         @Override
-        public void dispose(GLAutoDrawable drawable) {
-            beginFrame();
-            stop();
-            endFrame();
+        public void dispose(GLContext context) {}
+
+        @Override
+        public void initialize(GLContext context) {
+            Renderer.this.initialize();
         }
 
         @Override
-        public void init(GLAutoDrawable drawable) {
-            beginFrame();
-            initialize(drawable.getGL().getGL2());
-            endFrame();
-        }
-
-        @Override
-        public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-            beginFrame();
-            
-            leastHorizontalTiles = canvas.getWidth() / TILE_SIZE;
+        public void reshape(GLContext context, int width, int height) {
+            leastHorizontalTiles = context.getSize().width / TILE_SIZE;
             double aspectRatio = (double) width / (double) height;
             double fov = (double) PI / 2; // TODO
             double near = 0.01; // TODO
             double far = 100.0; // TODO
             camera.setPerspective(fov, aspectRatio, near, far);
-            
-            endFrame();
         }
     }
 
-    private class SourceChanged implements SourceListener<Tile, VertexBuffer> {
-
-        @Override
-        public void requestCompleted(Tile key, VertexBuffer value) {
-            // TODO
-
-        }
-
-    }
 
     private class SurfaceValidator implements SurfaceListener {
 
@@ -527,7 +281,7 @@ public class Renderer {
                     new GeoCoordinates(lonTo, latTo) };
             for (GeoCoordinates geo : edges) {
                 if (camera.isPointVisible(geo)) {
-                    post();
+                    context.postRedisplay();
                     break;
                 }
             }
@@ -553,6 +307,7 @@ public class Renderer {
                 }
                 camera.setGeometry(new PlaneGeometry());
         }
+        context.postRedisplay();
     }
     
 
@@ -565,7 +320,6 @@ public class Renderer {
         if (m != activeDisplayMode) {
             activeDisplayMode = m;
             applyDisplayMode();
-            post();
         }
     }
 
@@ -578,7 +332,7 @@ public class Renderer {
     public void setMapType(SingleMapType t) {
         mapLayout = MapLayout.SINGLE;
         singleMapType = t;
-        post();
+        context.postRedisplay();
     }
 
     /**
@@ -590,6 +344,6 @@ public class Renderer {
     public void setMapType(TiledMapType t) {
         mapLayout = MapLayout.TILED;
         tiledMapType = t;
-        post();
+        context.postRedisplay();
     }
 }
