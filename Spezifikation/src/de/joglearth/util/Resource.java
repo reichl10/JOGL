@@ -25,13 +25,21 @@ public final class Resource {
 
     private Resource() {}
     
+    private static URL getURL(String name) {
+        return Thread.currentThread().getContextClassLoader().getResource(name);
+    }
+    
     public static InputStream open(String name) throws IOException {
-        URL url = Thread.currentThread().getContextClassLoader().getResource(name);
+        URL url = getURL(name);
         if (url == null) {
             throw new IOException("Resource not found");
         } else {
             return url.openStream();
         }
+    }
+    
+    public static boolean exists(String name) {
+        return getURL(name) != null;
     }
 
     /**

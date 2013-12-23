@@ -936,12 +936,12 @@ public class MainWindow extends JFrame {
                         SingleMapType mapType = (SingleMapType) mtp.type;
                         Settings.getInstance().putString(
                                 SettingsContract.MAP_TYPE, mapType.name());
-                        renderer.setMapType(mapType);
+                        renderer.setSingleMapType(mapType);
                     } else if (mtp.type instanceof TiledMapType) {
                         TiledMapType type = (TiledMapType) mtp.type;
                         Settings.getInstance().putString(
                                 SettingsContract.MAP_TYPE, type.name());
-                        renderer.setMapType(type);
+                        renderer.setTiledMapType(type);
                     }
                 }
             }

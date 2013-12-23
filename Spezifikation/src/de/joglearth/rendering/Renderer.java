@@ -3,6 +3,7 @@ package de.joglearth.rendering;
 import static javax.media.opengl.GL2.*;
 import static java.lang.Math.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -18,9 +19,11 @@ import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.CameraUtils;
 import de.joglearth.geometry.GeoCoordinates;
+import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.PlaneGeometry;
 import de.joglearth.geometry.SphereGeometry;
 import de.joglearth.geometry.Tile;
+import de.joglearth.geometry.Vector3;
 import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.GLContextListener;
 import de.joglearth.opengl.VertexBuffer;
@@ -29,6 +32,7 @@ import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.osm.OSMTileManager;
 import de.joglearth.surface.LocationManager;
+import de.joglearth.surface.LocationType;
 import de.joglearth.surface.MapLayout;
 import de.joglearth.surface.SingleMapType;
 import de.joglearth.surface.SurfaceListener;
@@ -52,22 +56,15 @@ public class Renderer {
     private TextureManager textureManager;
     private Camera camera;
     private DisplayMode activeDisplayMode = DisplayMode.SOLAR_SYSTEM;
-    private TiledMapType activeMapType = TiledMapType.OSM2WORLD;
     private MapLayout mapLayout = MapLayout.TILED;
     private SingleMapType singleMapType = SingleMapType.SATELLITE;
     private TiledMapType tiledMapType;
-    private Texture kidsWorldMap;
-    private Texture satellite;
-    private Texture moon;
-    private Texture sun;
+    private Texture earth, moon;
     private TileMeshManager tileMeshManager;
     
 
-    private Map<String, Texture> poiTextures;
-    private final String[] POI_NAMES = new String[] { "Activity", "Bank", "Education", "Grocery",
-            "Health", "HikingCycling", "Hotel", "Nightlife", "Post", "Restaurant", "Shop",
-            "Toilets" };
-
+    private Map<LocationType, Texture> overlayIconTextures;
+    private Map<SingleMapType, Texture> singleMapTextures;
 
     /**
      * Constructor initializes the OpenGL functionalities.
@@ -79,7 +76,7 @@ public class Renderer {
     public Renderer(GLContext gl, LocationManager locationManager) {
         this.locationManager = locationManager;
         this.gl = gl;
-        gl.addGLContextListener(new RendererEventListener());
+        gl.addGLContextListener(new RendererGLListener());
 
         locationManager.addSurfaceListener(new SurfaceValidator());
 
@@ -99,24 +96,12 @@ public class Renderer {
         
         gl.clear();
         gl.loadMatrix(GL_PROJECTION, camera.getProjectionMatrix());
-        gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
-           
-        //TODO !!!!
-        /*
-         * ----------------------------
-         * limited zoom to 3 !!!
-         * ----------------------------
-         * 
-         */
-        int zoomLevel = Math.min(18, CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles));
-        System.err.print("zoomlevel: " + zoomLevel + "  ");
         
         
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
             renderSolarSystem();
         } else {
-            Iterable<Tile> tile = CameraUtils.getVisibleTiles(camera, zoomLevel);
-            renderMeshes(tile);
+            renderTiles();
         } 
     }
     
@@ -130,17 +115,12 @@ public class Renderer {
         gl.setFeatureEnabled(GL_TEXTURE_2D, true);
 
         textureManager = new TextureManager(gl, OSMTileManager.getInstance(), 200);
-        ///textureManager.addSurfaceListener(new SurfaceValidator());
+        textureManager.addSurfaceListener(new SurfaceValidator());
 
-        /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
         loadTextures();
 
-        /* Loads all POI-textures */
-        loadPOITextures();
-
-        /* Get DisplayMode from Settings */
-        Settings.getInstance().addSettingsListener(SettingsContract.DISPLAY_MODE,
-                new SettingsChanged());
+        Settings.getInstance().addSettingsListener(SettingsContract.LEVEL_OF_DETAILS,
+                new GraphicsSettingsListener());
         
         leastHorizontalTiles = gl.getSize().width / TILE_SIZE;
         tileMeshManager = new TileMeshManager(gl, null);
@@ -155,64 +135,78 @@ public class Renderer {
         
         tileMeshManager.dispose();
         tileMeshManager = null;
+        
+        freeTextures();
     }
     
 
     private void renderSolarSystem() {
-        gl.drawSphere(1, 100, 50, false, satellite);
+        Matrix4 modelViewMatrix = camera.getModelViewMatrix().clone();
+        modelViewMatrix.rotate(new Vector3(-1, 0, 0), PI / 2);
+        gl.loadMatrix(GL_MODELVIEW, modelViewMatrix);
+        gl.drawSphere(1, 100, 50, false, earth);
     }
-
+   
     
-    
-    private void renderMeshes(Iterable<Tile> tiles) {
+    private void renderTiles() {
+        gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
 
+        int zoomLevel = Math.min(18, CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles));
+        System.err.print("zoomlevel: " + zoomLevel + "  ");
+        Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, zoomLevel);
         for (Tile tile : tiles) {
             Texture texture = textureManager.getTexture(tile);
             VertexBuffer vbo = tileMeshManager.requestObject(tile, null).value;
             gl.drawVertexBuffer(vbo, texture);
         }
-
     }
 
-    /* Loads the kidsWorldMap, earth-texture, sun-texture, moon-texture */
+
     private void loadTextures() {
-        try {
-            kidsWorldMap = gl.loadTexture(Resource.open("textures/kidsWorldMap.jpg"), "jpg", true);
-            satellite = gl.loadTexture(Resource.open("textures/earth.jpg"), "jpg", true);
-            moon = gl.loadTexture(Resource.open("textures/moon.jpg"), "jpg", true);
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to load texture from resource", e);
+        singleMapTextures = new LinkedHashMap<>();
+        for (SingleMapType key : SingleMapType.values()) {
+            String resourceName = "singleMapTextures/" + key.toString() + ".jpg";
+            if (Resource.exists(resourceName)) {
+                Texture value = gl.loadTexture(Resource.loadTextureData(resourceName, "jpg"));
+                singleMapTextures.put(key, value);
+            }
+        }
+        
+        earth = singleMapTextures.get(SingleMapType.SATELLITE);
+        moon = gl.loadTexture(Resource.loadTextureData("textures/moon.jpg", "jpg"));
+        
+        overlayIconTextures = new LinkedHashMap<>();
+        for (LocationType key : LocationType.values()) {
+            String resourceName = "locationIcons/" + key.toString() + ".png";
+            if (Resource.exists(resourceName)) {
+                Texture value = gl.loadTexture(Resource.loadTextureData(resourceName, "png"));
+                overlayIconTextures.put(key, value);
+            }
         }
     }
-
-    /* Loads all POI-textures */
-    private void loadPOITextures() {
-        poiTextures = new LinkedHashMap<>();
-        for (String name : POI_NAMES) {
-            poiTextures.put(name, TextureIO.newTexture(Resource.loadTextureData("iconsPoi/POI_" 
-                    + name + ".png", "png")));
+    
+    
+    private void freeTextures() {
+        for (Texture texture : singleMapTextures.values()) {
+            gl.deleteTexture(texture);
         }
+        for (Texture texture : overlayIconTextures.values()) {
+            gl.deleteTexture(texture);
+        }
+        // Earth is singleMapTextures[SingleMapType.SATELLITE]
+        gl.deleteTexture(moon);
+        singleMapTextures = null;
+        overlayIconTextures = null;
     }
 
 
-    /* SettingsListener */
-    private class SettingsChanged implements SettingsListener {
+
+    private class GraphicsSettingsListener implements SettingsListener {
 
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
-
-            if (key.equals(SettingsContract.DISPLAY_MODE)) {
-                setDisplayMode(Enum.valueOf(DisplayMode.class, (String) valNew));
-            } else if (key.equals(SettingsContract.LEVEL_OF_DETAILS)) {
+            if (key.equals(SettingsContract.LEVEL_OF_DETAILS)) {
                 setLevelOfDetail(Enum.valueOf(LevelOfDetail.class, (String) valNew));
-            } else if (key.equals(SettingsContract.HEIGHT_MAP_ENABLED)) {
-                setHeightMapEnabled((Boolean) valNew);
-            }
-        }
-
-        private synchronized void setHeightMapEnabled(Boolean valNew) {
-            if (tileMeshManager != null) {
-                tileMeshManager.setHeightMapEnabled(valNew);
             }
         }
 
@@ -237,7 +231,7 @@ public class Renderer {
     /*
      * A Listener to handle events for OpenGL rendering.
      */
-    private class RendererEventListener implements GLContextListener {
+    private class RendererGLListener implements GLContextListener {
 
         @Override
         public void beginFrame(GLContext context) {
@@ -334,7 +328,7 @@ public class Renderer {
      * 
      * @param t The new <code>MapLayout</code>
      */
-    public void setMapType(SingleMapType t) {
+    public void setSingleMapType(SingleMapType t) {
         mapLayout = MapLayout.SINGLE;
         singleMapType = t;
         gl.postRedisplay();
@@ -346,7 +340,7 @@ public class Renderer {
      * 
      * @param t The new <code>MapLayout</code>
      */
-    public void setMapType(TiledMapType t) {
+    public void setTiledMapType(TiledMapType t) {
         mapLayout = MapLayout.TILED;
         tiledMapType = t;
         gl.postRedisplay();
