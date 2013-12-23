@@ -44,6 +44,8 @@ public interface Geometry {
      * 
      * @return The view matrix
      */
-    public Matrix4 getViewMatrix(GeoCoordinates position, double altitude);
+    public Matrix4 getModelTransformation(GeoCoordinates position, double altitude);
+    
+    public Matrix4 getSkyTransformation(GeoCoordinates position, double altitude);
 
 }

@@ -25,8 +25,9 @@ public class Camera {
     private double fov, aspectRatio, zNear, zFar;
     private boolean heightMapEnabled = false;
     private Matrix4 projectionMatrix,
-                    cameraMatrix = new Matrix4(),
+                    modelCameraMatrix = new Matrix4(),
                     modelViewMatrix = new Matrix4(),
+                    skyViewMatrix = new Matrix4(),
                     transformationMatrix;
     
     /* TODO reset visibility */public Geometry geometry = null;
@@ -50,6 +51,24 @@ public class Camera {
     }
     
     
+    private boolean tiltTransformation(Matrix4 matrix) {
+        Vector3 center = matrix.transform(new Vector3(0, 0, 0)).divide();
+        Vector3 zAxis = matrix.transform(new Vector3(0, 0, -1)).divide().minus(center)
+                .normalized();
+
+        if (zAxis.x == 0 && zAxis.z == 0) {
+            return false;
+        }
+
+        Vector3 earthAxis = matrix.transform(new Vector3(0, 1, 0)).divide().minus(center);
+        Vector3 xAxis = zAxis.crossProduct(earthAxis).normalized();
+
+        matrix.rotate(zAxis, -tiltY);
+        matrix.rotate(xAxis, tiltX);
+        
+        return true;
+    }
+    
 
     private boolean updateCamera() {
         // TODO sign!
@@ -61,30 +80,19 @@ public class Camera {
         }
         System.err.println("Camera: updating, altitude=" + altitude);
         
-        Matrix4 newCameraMatrix = geometry.getViewMatrix(position, altitude);
-
-        Vector3 center = newCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
-        Vector3 zAxis = newCameraMatrix.transform(new Vector3(0, 0, -1)).divide().minus(center)
-                .normalized();
-
-        if (zAxis.x == 0 && zAxis.z == 0) {
-            return false;
-        }
-
-        Vector3 earthAxis = newCameraMatrix.transform(new Vector3(0, 1, 0)).divide().minus(center);
-        Vector3 xAxis = zAxis.crossProduct(earthAxis).normalized();
-        Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
-
-        newCameraMatrix.rotate(zAxis, -tiltY);
-        newCameraMatrix.rotate(xAxis, tiltX);
+        Matrix4 newCameraMatrix = geometry.getModelTransformation(position, altitude);
+        tiltTransformation(newCameraMatrix);
 
         Vector3 cameraPosition = newCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
         Vector3 viewVector = newCameraMatrix.transform(new Vector3(0, 0, -1)).divide()
                 .minus(cameraPosition);
 
         if (geometry.getSurfaceCoordinates(cameraPosition, viewVector) != null) {
-            cameraMatrix = newCameraMatrix;
-            modelViewMatrix = cameraMatrix.inverse();
+            modelCameraMatrix = newCameraMatrix;
+            modelViewMatrix = modelCameraMatrix.inverse();
+            Matrix4 skyCameraMatrix = geometry.getSkyTransformation(position, altitude);
+            tiltTransformation(skyCameraMatrix);
+            skyViewMatrix = skyCameraMatrix.inverse();
             updateCameraTransformation();
             return true;
         } else {
@@ -367,7 +375,7 @@ public class Camera {
             throw new IllegalArgumentException();
         }
 
-        Vector3 cameraPosition = cameraMatrix.transform(new Vector3(0, 0, 0)).divide();
+        Vector3 cameraPosition = modelCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
 
         return isPointVisible(geometry.getSpacePosition(geo))
                 && geometry.isPointVisible(cameraPosition, geo);
@@ -412,7 +420,7 @@ public class Camera {
             return null;
         }
 
-        Matrix4 directionMatrix = cameraMatrix.clone();
+        Matrix4 directionMatrix = modelCameraMatrix.clone();
 
         Vector3 cameraPosition = directionMatrix.transform(new Vector3(0, 0, 0)).divide();
 
@@ -452,6 +460,10 @@ public class Camera {
     
     public Matrix4 getModelViewMatrix() {
         return modelViewMatrix;
+    }
+    
+    public Matrix4 getSkyViewMatrix() {
+        return skyViewMatrix;
     }
     
     public Matrix4 getTransformationMatrix() {

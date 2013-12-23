@@ -162,7 +162,7 @@ public class MainWindow extends JFrame {
     private JTabbedPane sideBarTabs;
     private JSlider zoomSlider;
     private static final double ZOOM_FACTOR = 10.d;
-    private static final double MAX_DIFF = 5.d;
+    private static final double MAX_DIFF = 3.d;
     private static final double MIN_DIST = 1e-8d;
 
 
@@ -804,7 +804,7 @@ public class MainWindow extends JFrame {
         zoomSlider = new JSlider();
         zoomSlider.setMinimum(0);
         zoomSlider.setMaximum(100);
-        zoomSlider.setValue(0);
+        zoomSlider.setValue(50);
         zoomSlider.setMajorTickSpacing(1);
         zoomSlider.setOrientation(SwingConstants.VERTICAL);
         zoomPanel.add(zoomSlider, "1, 4, default, fill"); //$NON-NLS-1$
@@ -1119,7 +1119,7 @@ public class MainWindow extends JFrame {
             languageComboBox.setSelectedIndex(0);
         }
         registerListeners();
-        zoomSlider.setValue(50);
+        zoomSlider.setValue(0);
     }
 
     /**

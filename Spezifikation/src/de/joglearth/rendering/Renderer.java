@@ -61,10 +61,11 @@ public class Renderer {
     private TiledMapType tiledMapType;
     private Texture earth, moon;
     private TileMeshManager tileMeshManager;
-    
-
+    private SurfaceListener surfaceListener = new SurfaceValidator();
+    private GLContextListener glContextListener = new RendererGLListener();
     private Map<LocationType, Texture> overlayIconTextures;
     private Map<SingleMapType, Texture> singleMapTextures;
+    private Texture sky;
 
     /**
      * Constructor initializes the OpenGL functionalities.
@@ -74,11 +75,12 @@ public class Renderer {
      *        Overlays to be displayed
      */
     public Renderer(GLContext gl, LocationManager locationManager) {
-        this.locationManager = locationManager;
-        this.gl = gl;
-        gl.addGLContextListener(new RendererGLListener());
-
-        locationManager.addSurfaceListener(new SurfaceValidator());
+        if (gl == null || locationManager == null) {
+            throw new IllegalArgumentException();
+        }
+        
+        setGLContext(gl);
+        setLocationManager(locationManager);
 
         camera = new Camera(new PlaneGeometry());
         camera.addCameraListener(new CameraListener() {
@@ -90,7 +92,25 @@ public class Renderer {
         });
     }
     
-    // TODO Re-renders the OpenGL view.
+    public void setGLContext(GLContext gl) {
+        if (gl == null) {
+            throw new IllegalArgumentException();
+        }
+        
+        this.gl = gl;
+        gl.addGLContextListener(glContextListener);
+    }
+    
+    public void setLocationManager(LocationManager manager) {
+        if (manager == null) {
+            throw new IllegalArgumentException();
+        }
+        
+        this.locationManager = manager;
+        locationManager.addSurfaceListener(surfaceListener);        
+    }
+    
+
     private void render() {
         System.err.println("------------- NEW FRAME -------------");
         
@@ -113,6 +133,11 @@ public class Renderer {
         gl.setFeatureEnabled(GL_DEPTH_TEST, true);
         gl.setFeatureEnabled(GL_CULL_FACE, true);
         gl.setFeatureEnabled(GL_TEXTURE_2D, true);
+        
+        gl.setLightEnabled(0, true);
+        gl.setLightIntensity(0, 1);
+        gl.setAmbientLight(0.2);
+        gl.setMaterialSpecularity(0.02);
 
         textureManager = new TextureManager(gl, OSMTileManager.getInstance(), 200);
         textureManager.addSurfaceListener(new SurfaceValidator());
@@ -140,11 +165,30 @@ public class Renderer {
     }
     
 
+    private Matrix4 correctGLUTransformation(Matrix4 matrix) {
+        matrix = matrix.clone();
+        matrix.rotate(new Vector3(-1, 0, 0), PI / 2);
+        return matrix;
+    }
+    
+    
     private void renderSolarSystem() {
-        Matrix4 modelViewMatrix = camera.getModelViewMatrix().clone();
-        modelViewMatrix.rotate(new Vector3(-1, 0, 0), PI / 2);
-        gl.loadMatrix(GL_MODELVIEW, modelViewMatrix);
-        gl.drawSphere(1, 100, 50, false, earth);
+        Matrix4 skyMatrix = correctGLUTransformation(camera.getSkyViewMatrix());
+        gl.loadMatrix(GL_MODELVIEW, skyMatrix);
+        gl.drawSphere(50, 15, 8, true, sky);       
+        
+        gl.placeLight(0, new Vector3(0, -50, 0));
+        gl.setFeatureEnabled(GL_LIGHTING, true);
+        
+        Matrix4 modelMatrix = camera.getModelViewMatrix().clone();
+        gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(modelMatrix));
+        gl.drawSphere(1, 60, 40, false, earth);
+        
+        modelMatrix.translate(-4, 0, 0);
+        gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(modelMatrix));
+        gl.drawSphere(0.2, 30, 20, false, moon);
+        
+        gl.setFeatureEnabled(GL_LIGHTING, false);
     }
    
     
@@ -164,6 +208,7 @@ public class Renderer {
 
     private void loadTextures() {
         singleMapTextures = new LinkedHashMap<>();
+        /*
         for (SingleMapType key : SingleMapType.values()) {
             String resourceName = "singleMapTextures/" + key.toString() + ".jpg";
             if (Resource.exists(resourceName)) {
@@ -171,9 +216,11 @@ public class Renderer {
                 singleMapTextures.put(key, value);
             }
         }
+        */
         
-        earth = singleMapTextures.get(SingleMapType.SATELLITE);
+        earth = gl.loadTexture(Resource.loadTextureData("textures/earth.jpg", "jpg"));
         moon = gl.loadTexture(Resource.loadTextureData("textures/moon.jpg", "jpg"));
+        sky = gl.loadTexture(Resource.loadTextureData("textures/sky.jpg", "jpg"));
         
         overlayIconTextures = new LinkedHashMap<>();
         for (LocationType key : LocationType.values()) {
@@ -261,11 +308,7 @@ public class Renderer {
         @Override
         public void reshape(GLContext context, int width, int height) {
             leastHorizontalTiles = context.getSize().width / TILE_SIZE;
-            double aspectRatio = (double) width / (double) height;
-            double fov = (double) PI / 2; // TODO
-            double near = 0.01; // TODO
-            double far = 100.0; // TODO
-            camera.setPerspective(fov, aspectRatio, near, far);
+            camera.setPerspective(PI / 2, (double) width/height, 0.01, 100);
         }
     }
 

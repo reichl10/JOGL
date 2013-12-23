@@ -17,6 +17,8 @@ import static javax.media.opengl.glu.GLU.*;
 
 import javax.media.opengl.glu.GLUquadric;
 
+import com.jogamp.opengl.util.Animator;
+import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureData;
 import com.jogamp.opengl.util.texture.TextureIO;
@@ -24,9 +26,10 @@ import com.jogamp.opengl.util.texture.TextureIO;
 import de.joglearth.async.AWTInvoker;
 import de.joglearth.async.AbstractInvoker;
 import de.joglearth.geometry.Matrix4;
+import de.joglearth.geometry.Vector3;
 import de.joglearth.rendering.Mesh;
 import static javax.media.opengl.GL2.*;
-
+import static java.lang.Double.*;
 
 /**
  * Encapsulates OpenGL calls and callbacks.
@@ -58,7 +61,9 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     private volatile boolean redisplayPending;
 
     // Whether a rendering loop is currently active
-    private volatile boolean renderingLoopActive;
+    private volatile boolean redisplayActive;
+
+    private FPSAnimator animator = null;
 
 
     // Throws if init() has not been called yet
@@ -116,19 +121,21 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     /**
      * Returns the drawable's size.
      * 
-     * @return The size, in pixels.
+     * @return The size, in pixels
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      */
     public Dimension getSize() {
         assertIsInitialized();
         return new Dimension(drawable.getWidth(), drawable.getHeight());
     }
 
-  
     /**
      * Loads a mesh into OpenGL memory, returning a vertex buffer object.
      * 
      * @param mesh The mesh to load. Must be a valid mesh.
      * @return The vertex buffer object.
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     * @throws GLError An internal OpenGL error has occurred
      */
     public VertexBuffer loadMesh(Mesh mesh) {
         if (mesh == null || mesh.indices == null || mesh.indexCount < 0 || mesh.vertices == null) {
@@ -171,7 +178,9 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     /**
      * Removes an existing vertex buffer object from graphics memory.
      * 
-     * @param vbo The vertex buffer object. Must not be null and must hold valid buffer IDs.
+     * @param vbo The vertex buffer object. Must not be null and must hold valid buffer IDs
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     * @throws GLError An internal OpenGL error has occurred
      */
     public void deleteVertexBuffer(VertexBuffer vbo) {
         if (vbo == null) {
@@ -184,11 +193,13 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         gl.glDeleteBuffers(2, new int[] { vbo.getVertices(), vbo.getIndices() }, 0);
         GLError.throwIfActive(gl);
     }
-        
+
     /**
      * Loads a texture via the JOGL Texture API.
+     * 
      * @param data The texture data to load
      * @return The texture
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      */
     public Texture loadTexture(TextureData data) {
         assertIsInitialized();
@@ -196,28 +207,32 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         if (data == null) {
             throw new IllegalArgumentException();
         }
-        
+
         return new Texture(gl, data);
     }
-    
+
     /**
      * Loads a texture from an input stream via the JOGL Texture API.
+     * 
      * @param stream The input stream.
      * @param suffix The file suffix, used to determine the content type.
      * @param mipmap Whether to create and use mipmaps.
      * @return The texture
      * @throws IOException An error occurred while loading the image data
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      */
-    public Texture loadTexture(InputStream stream, String suffix, boolean mipmap) throws IOException {
+    public Texture loadTexture(InputStream stream, String suffix, boolean mipmap)
+            throws IOException {
         if (stream == null || suffix == null) {
             throw new IllegalArgumentException();
         }
-        
+
         return loadTexture(TextureIO.newTextureData(gl.getGLProfile(), stream, mipmap, suffix));
     }
 
     /**
      * Loads a texture from a byte buffer via the JOGL Texture API.
+     * 
      * @param image The byte buffer containing the image in the given format
      * @param width The width, in pixels
      * @param height The height, in pixels
@@ -225,20 +240,23 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * @param internalFormat The internal pixel format used by OpenGL
      * @param mipmap Whether to create and use mipmaps
      * @return The texture
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      */
     public Texture loadTexture(byte[] image, int width, int height, int format, int internalFormat,
             boolean mipmap) {
         if (image == null || width <= 0 || height <= 0) {
             throw new IllegalArgumentException();
         }
-        
+
         return loadTexture(new TextureData(gl.getGLProfile(), internalFormat, width, height, 0,
                 format, GL_UNSIGNED_BYTE, mipmap, false, false, ByteBuffer.wrap(image), null));
     }
 
     /**
      * Removes a texture from OpenGL graphics memory.
+     * 
      * @param tex
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      */
     public void deleteTexture(Texture tex) {
         assertIsInitialized();
@@ -246,16 +264,17 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         if (tex == null) {
             throw new IllegalArgumentException();
         }
-        
+
         tex.destroy(gl);
     }
-    
 
     /**
      * Loads a matrix into a given matrix slot (also called "matrix stack").
      * 
-     * @param slot The slot, e.g. GL_MODELVIEW or GL_PROJECTION.
-     * @param matrix The matrix to load. Must not be null.
+     * @param slot The slot, e.g. GL_MODELVIEW or GL_PROJECTION
+     * @param matrix The matrix to load. Must not be null
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     * @throws GLError An internal OpenGL error has occurred
      */
     public void loadMatrix(int slot, Matrix4 matrix) {
         if (matrix == null) {
@@ -276,6 +295,8 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * Draws a vertex buffer object with a given texture.
      * 
      * @param texture The texture to use. May be null
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     * @throws GLError An internal OpenGL error has occurred
      */
     public void drawVertexBuffer(VertexBuffer vbo, Texture texture) {
         if (vbo == null) {
@@ -289,7 +310,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             texture.bind(gl);
             GLError.throwIfActive(gl);
         }
-        
+
         // Bind vertex buffer
         gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.getVertices());
         GLError.throwIfActive(gl);
@@ -338,15 +359,17 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         GLError.throwIfActive(gl);
     }
 
-    
     /**
      * Draws a sphere using gluSphere().
+     * 
      * @param radius The radius of the sphere. Must be greater than zero
      * @param slices The number of vertices on the equator. Must be greater or equal 3
      * @param stacks The number of vertices from north to south pole. Must be greater or equal 3
-     * @param inside Whether to make surfaces point to the inside of the sphere rather than to
-     *               the outside
+     * @param inside Whether to make surfaces point to the inside of the sphere rather than to the
+     *        outside
      * @param texture The texture ID to use. May be 0
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     * @throws GLError An internal OpenGL error has occurred
      */
     public void drawSphere(double radius, int slices, int stacks, boolean inside, Texture texture) {
         assertIsInitialized();
@@ -354,7 +377,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         if (radius <= 0 || slices < 3 || stacks < 3) {
             throw new IllegalArgumentException();
         }
-        
+
         if (texture != null) {
             texture.bind(gl);
             GLError.throwIfActive(gl);
@@ -362,37 +385,99 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
 
         glu.gluQuadricOrientation(quadric, inside ? GLU_INSIDE : GLU_OUTSIDE);
         GLError.throwIfActive(gl);
-        
+
         glu.gluQuadricTexture(quadric, true);
         GLError.throwIfActive(gl);
-        
+
         glu.gluSphere(quadric, radius, slices, stacks);
         GLError.throwIfActive(gl);
-        
+
         gl.glBindTexture(GL_TEXTURE_2D, 0);
         GLError.throwIfActive(gl);
     }
     
+    private void assertContextAndValidIntensity(double intensity) {
+        assertIsInitialized();
+        assertIsInsideCallback();
+        if (intensity < 0 || intensity > 1 || isNaN(intensity)) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public void setMaterialSpecularity(double intensity) {
+        assertContextAndValidIntensity(intensity);
+        float fi = (float) intensity;
+        gl.glMaterialfv(GL_FRONT, GL_SPECULAR, new float[] { fi, fi, fi, 1}, 0);
+        GLError.throwIfActive(gl);
+    }
+
+    public void setAmbientLight(double intensity) {
+        assertContextAndValidIntensity(intensity);
+        float fi = (float) intensity;
+        gl.glLightModelfv(GL_LIGHT_MODEL_AMBIENT, new float[] { fi, fi, fi, 1 }, 0);
+        GLError.throwIfActive(gl);
+    }
+
+    public void placeLight(int index, Vector3 position) {
+        assertIsInitialized();
+        assertIsInsideCallback();
+        
+        if (index < 0) {
+            throw new IllegalArgumentException();
+        }
+        
+        float[] floats = { (float) position.x, (float) position.y, (float) position.z, 1 };
+        gl.glLightfv(GL_LIGHT0 + index, GL_POSITION, floats, 0);
+        GLError.throwIfActive(gl);
+    }
     
+    
+    public void setLightIntensity(int index, double intensity) {
+        assertContextAndValidIntensity(intensity);
+        
+        if (index < 0) {
+            throw new IllegalArgumentException();
+        }
+        
+        float fi = (float) intensity;        
+        gl.glLightfv(GL_LIGHT0 + index, GL_DIFFUSE, new float[] { fi, fi, fi, 1 }, 0);
+        GLError.throwIfActive(gl);
+    }
+    
+    public void setLightEnabled(int index, boolean enabled) {
+        setFeatureEnabled(GL_LIGHT0 + index, enabled);
+    }
+    
+    public boolean isLightEnabled(int index) {
+        return isFeatureEnabled(GL_LIGHT0 + index);
+    }
+
     /**
      * Clears the OpenGL color and depth buffer.
+     * 
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     * @throws GLError An internal OpenGL error has occurred
      */
     public void clear() {
         assertIsInitialized();
         assertIsInsideCallback();
 
         gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        GLError.throwIfActive(gl);
     }
-    
+
     /**
      * Determines whether an OpenGL feature is active (glIsEanbled).
+     * 
      * @param The feature to check, e.g. GL_DEPTH_TEST
      * @return Whether the feature is enabled
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     * @throws GLError An internal OpenGL error has occurred
      */
     public boolean isFeatureEnabled(int feature) {
         assertIsInitialized();
         assertIsInsideCallback();
-        
+
         boolean enabled = gl.glIsEnabled(feature);
         GLError.throwIfActive(gl);
         return enabled;
@@ -403,6 +488,8 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * 
      * @param feature The OpenGL feature, e.g. GL_DEPTH_TEST
      * @param enabled Whether to enable or disable the feature
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     * @throws GLError An internal OpenGL error has occurred
      */
     public void setFeatureEnabled(int feature, boolean enabled) {
         assertIsInitialized();
@@ -420,6 +507,8 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * Sets the front- and backface polygon mode.
      * 
      * @param mode The mode, e.g. GL_FILL or GL_LINE
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     * @throws GLError An internal OpenGL error has occurred
      */
     public void setPolygonMode(int mode) {
         assertIsInitialized();
@@ -480,12 +569,15 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     public synchronized void dispose(GLAutoDrawable caller) {
         assertIsInitialized(caller);
 
+        animator.stop();
+
         beginDisplay();
         for (GLContextListener l : listeners) {
             l.dispose(this);
         }
         endDisplay(true);
 
+        animator = null;
         drawable = null;
         gl = null;
         glu = null;
@@ -504,6 +596,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         glu = new GLU();
         quadric = glu.gluNewQuadric();
         glThread = Thread.currentThread();
+        animator = new FPSAnimator(drawable, 60);
 
         beginDisplay();
         for (GLContextListener l : listeners) {
@@ -540,7 +633,46 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * @param l The listener.
      */
     public synchronized void removeGLContextListener(GLContextListener l) {
-        while (listeners.remove(l));
+        while (listeners.remove(l))
+            ;
+    }
+
+    /**
+     * Starts redisplaying at a target frame rate of 60 FPS. Calls to postRedisplay are delayed to
+     * the call of stopDisplayLoop().
+     * 
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     */
+    public synchronized void startDisplayLoop() {
+        assertIsInitialized();
+        animator.start();
+    }
+
+    /**
+     * Starts redisplaying at a custom target frame rate. Calls to postRedisplay are delayed to the
+     * call of stopDisplayLoop().
+     * 
+     * @param fps The target frame rate in FPS
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     */
+    public synchronized void startDisplayLoop(int fps) {
+        assertIsInitialized();
+        animator.setFPS(fps);
+        animator.start();
+    }
+
+    /**
+     * Stops the display loop started by startDisplayLoop, if any. Resumes suspended redisplay
+     * requests.
+     * 
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     */
+    public synchronized void stopDisplayLoop() {
+        assertIsInitialized();
+        animator.stop();
+        if (redisplayPending) {
+            postRedisplay();
+        }
     }
 
     /**
@@ -552,10 +684,10 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         if (isInitialized()) {
             synchronized (this) {
                 redisplayPending = true;
-                if (renderingLoopActive) {
+                if (redisplayActive || animator.isAnimating()) {
                     return;
                 }
-                renderingLoopActive = true;
+                redisplayActive = true;
             }
 
             // Call invokeLater() while there are pending frames. Don't use a loop so that other
@@ -564,21 +696,25 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
 
                 @Override
                 public void run() {
-                    redisplayPending = false;
                     drawable.display();
-                    
+
+                    boolean doContinue;
+                    synchronized (GLContext.this) {
+                        redisplayPending = false;
+                        doContinue = redisplayPending && !animator.isAnimating();
+                    }
+
                     // might be re-set in another thread
-                    if (redisplayPending) {
+                    if (doContinue) {
                         AWTInvoker.getInstance().invokeLater(this);
                     } else {
-                        renderingLoopActive = false;
+                        redisplayActive = false;
                     }
                 }
             });
         }
     }
 
-    
     @Override
     public void invokeLater(Runnable runnable) {
         synchronized (pendingInvocations) {
