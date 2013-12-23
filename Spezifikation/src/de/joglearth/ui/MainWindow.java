@@ -62,8 +62,8 @@ import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.ScreenCoordinates;
+import de.joglearth.opengl.Antialiasing;
 import de.joglearth.opengl.GLContext;
-import de.joglearth.rendering.AntialiasingType;
 import de.joglearth.rendering.DisplayMode;
 import de.joglearth.rendering.LevelOfDetail;
 import de.joglearth.rendering.Renderer;
@@ -132,7 +132,7 @@ public class MainWindow extends JFrame {
     private JPanel viewTab, placesTab, settingsTab, detailsPanel, viewPanel;
     private JCheckBox heightMapCheckBox;
     private JComboBox<IconizedItem<Locale>> languageComboBox;
-    private JComboBox<NamedItem<AntialiasingType>> antialiasingComboBox;
+    private JComboBox<NamedItem<Antialiasing>> antialiasingComboBox;
     private JComboBox<NamedItem<Boolean>> texfilterComboBox;
     private JComboBox<NamedItem<LevelOfDetail>> lodComboBox_1;
     private JPanel graphicsPanel;
@@ -571,23 +571,23 @@ public class MainWindow extends JFrame {
         antialiasingLabel = new JLabel(Messages.getString("MainWindow.126")); //$NON-NLS-1$
         graphicsPanel.add(antialiasingLabel, "2, 2, left, default"); //$NON-NLS-1$
 
-        antialiasingComboBox = new JComboBox<NamedItem<AntialiasingType>>();
-        antialiasingComboBox.addItem(new NamedItem<AntialiasingType>(Messages
+        antialiasingComboBox = new JComboBox<NamedItem<Antialiasing>>();
+        antialiasingComboBox.addItem(new NamedItem<Antialiasing>(Messages
                 .getString("MainWindow.128"), null)); //$NON-NLS-1$
-        antialiasingComboBox.addItem(new NamedItem<AntialiasingType>(Messages
+        antialiasingComboBox.addItem(new NamedItem<Antialiasing>(Messages
                 .getString("MainWindow.129"), //$NON-NLS-1$
-                AntialiasingType.MSAA_2));
-        antialiasingComboBox.addItem(new NamedItem<AntialiasingType>(Messages
+                Antialiasing.MSAA_2));
+        antialiasingComboBox.addItem(new NamedItem<Antialiasing>(Messages
                 .getString("MainWindow.130"), //$NON-NLS-1$
-                AntialiasingType.MSAA_4));
+                Antialiasing.MSAA_4));
         antialiasingComboBox.addItemListener(new ItemListener() {
 
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    NamedItem<AntialiasingType> item = (NamedItem<AntialiasingType>) e
+                    NamedItem<Antialiasing> item = (NamedItem<Antialiasing>) e
                             .getItem();
-                    AntialiasingType type = item.getValue();
+                    Antialiasing type = item.getValue();
                     if (type == null) {
                         Settings.getInstance().putString(
                                 SettingsContract.ANTIALIASING, null);
@@ -1014,14 +1014,14 @@ public class MainWindow extends JFrame {
                 antialiasingLabel.setText(Messages.getString("MainWindow.126")); //$NON-NLS-1$
                 index = antialiasingComboBox.getSelectedIndex();
                 antialiasingComboBox.removeAllItems();
-                antialiasingComboBox.addItem(new NamedItem<AntialiasingType>(
+                antialiasingComboBox.addItem(new NamedItem<Antialiasing>(
                         Messages.getString("MainWindow.128"), null)); //$NON-NLS-1$
-                antialiasingComboBox.addItem(new NamedItem<AntialiasingType>(
+                antialiasingComboBox.addItem(new NamedItem<Antialiasing>(
                         Messages.getString("MainWindow.129"), //$NON-NLS-1$
-                        AntialiasingType.MSAA_2));
-                antialiasingComboBox.addItem(new NamedItem<AntialiasingType>(
+                        Antialiasing.MSAA_2));
+                antialiasingComboBox.addItem(new NamedItem<Antialiasing>(
                         Messages.getString("MainWindow.130"), //$NON-NLS-1$
-                        AntialiasingType.MSAA_4));
+                        Antialiasing.MSAA_4));
                 antialiasingComboBox.setSelectedIndex(index);
                 texfilterLabel.setText(Messages.getString("MainWindow.132")); //$NON-NLS-1$
                 index = texfilterComboBox.getSelectedIndex();

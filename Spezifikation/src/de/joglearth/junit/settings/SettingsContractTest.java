@@ -16,7 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.rendering.AntialiasingType;
+import de.joglearth.opengl.Antialiasing;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.surface.Location;
@@ -105,7 +105,7 @@ public class SettingsContractTest {
         Settings settings = Settings.getInstance();
         settings.putInteger(SettingsContract.CACHE_SIZE_FILESYSTEM, TV_INTEGER);
         settings.putInteger(SettingsContract.CACHE_SIZE_MEMORY, TV_INTEGER);
-        settings.putString(SettingsContract.ANTIALIASING, AntialiasingType.MSAA_2.name());
+        settings.putString(SettingsContract.ANTIALIASING, Antialiasing.MSAA_2.name());
         settings.putString(SettingsContract.LANGUAGE, TV_LANGUAGE);
         settings.putBoolean(SettingsContract.TEXTURE_FILTER, TV_BOOLEAN);
         settings.putLocation(SettingsContract.USER_LOCATIONS, TV_LOCATION);
@@ -118,7 +118,7 @@ public class SettingsContractTest {
         SettingsContract.loadSettings();
         assertEquals(TV_INTEGER, settings.getInteger(SettingsContract.CACHE_SIZE_FILESYSTEM));
         assertEquals(TV_INTEGER, settings.getInteger(SettingsContract.CACHE_SIZE_MEMORY));
-        assertEquals(AntialiasingType.MSAA_2.name(),
+        assertEquals(Antialiasing.MSAA_2.name(),
                 settings.getString(SettingsContract.ANTIALIASING));
         assertEquals(TV_LANGUAGE, settings.getString(SettingsContract.LANGUAGE));
         assertEquals(TV_BOOLEAN, settings.getLong(SettingsContract.TEXTURE_FILTER));

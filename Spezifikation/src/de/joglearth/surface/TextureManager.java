@@ -6,9 +6,14 @@ import java.util.List;
 import static javax.media.opengl.GL2.*;
 
 import com.jogamp.opengl.util.texture.Texture;
+
 import de.joglearth.geometry.Tile;
 import de.joglearth.opengl.GLContext;
+import de.joglearth.opengl.TextureFilter;
 import de.joglearth.rendering.Renderer;
+import de.joglearth.settings.Settings;
+import de.joglearth.settings.SettingsContract;
+import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.caching.RequestDistributor;
@@ -30,6 +35,28 @@ public class TextureManager {
     private TiledMapType mapType = TiledMapType.OSM_MAPNIK;
     private TextureListener textureListener = new TextureListener();
     private GLContext gl;
+    private volatile TextureFilter textureFilter;
+    private TextureSource<OSMTile> textureSource;
+    private TextureSettingsListener settingsListener;
+    
+    
+    private class TextureSettingsListener implements SettingsListener {
+
+        @Override
+        public void settingsChanged(String key, Object valOld, Object valNew) {
+            if (key == SettingsContract.TEXTURE_FILTER) {
+                dist.dropAll();
+                gl.invokeSooner(new Runnable() {
+                    
+                    @Override
+                    public void run() {
+                        gl.deleteTexture(placeholder);
+                    }
+                });
+                initialize();
+            }
+        }
+    }
     
     
     private void notifyListeners(Tile tile) {
@@ -70,7 +97,7 @@ public class TextureManager {
         }
 
         return gl.loadTexture(image, blocks*pixelsPerBlock, blocks*pixelsPerBlock, GL_RGB, GL_RGB,
-                true);
+                textureFilter);
     }
     
 
@@ -82,11 +109,24 @@ public class TextureManager {
     public TextureManager(GLContext gl, Source<OSMTile, byte[]> imageSource,
             int textureCacheSize) {
         this.gl = gl;
+        this.textureSource = new TextureSource<OSMTile>(gl, imageSource);
 
         dist = new RequestDistributor<>();
         dist.addCache(new TextureCache<OSMTile>(gl), textureCacheSize);
-        dist.setSource(new TextureSource<>(gl, imageSource));
-        
+        dist.setSource(textureSource);
+
+        settingsListener = new TextureSettingsListener();
+        Settings.getInstance().addSettingsListener(SettingsContract.TEXTURE_FILTER,
+                settingsListener);
+
+        initialize();
+    }
+    
+    
+    private void initialize() {
+        textureFilter = TextureFilter.valueOf(Settings.getInstance().getString(
+                SettingsContract.TEXTURE_FILTER));
+        textureSource.setTextureFilter(textureFilter);
         gl.invokeSooner(new Runnable() {
 
             @Override
@@ -95,6 +135,7 @@ public class TextureManager {
             }
         });
     }
+    
 
     /**
      * Is called if a texture of a {@link de.joglearth.geometry.Tile} should be loaded.
@@ -139,7 +180,7 @@ public class TextureManager {
     
     
     public void dispose() {
-        dist.dropAll();
+        dist.dispose();
         
         gl.invokeSooner(new Runnable() {
             
@@ -148,5 +189,8 @@ public class TextureManager {
                 gl.deleteTexture(placeholder);
             }
         });
+
+        Settings.getInstance().removeSettingsListener(SettingsContract.TEXTURE_FILTER,
+                settingsListener);
     }
 }

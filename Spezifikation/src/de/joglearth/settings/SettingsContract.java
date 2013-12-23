@@ -20,7 +20,7 @@ import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.rendering.AntialiasingType;
+import de.joglearth.opengl.Antialiasing;
 import de.joglearth.rendering.LevelOfDetail;
 import de.joglearth.surface.Location;
 import de.joglearth.surface.LocationType;
@@ -127,7 +127,7 @@ public final class SettingsContract {
         Settings s = Settings.getInstance();
         s.putString(LANGUAGE, "DE");
         s.putBoolean(TEXTURE_FILTER, false);
-        s.putString(ANTIALIASING, AntialiasingType.MSAA_4.name());
+        s.putString(ANTIALIASING, Antialiasing.MSAA_4.name());
         s.putString(LEVEL_OF_DETAILS, LevelOfDetail.MEDIUM.name());
         s.putInteger(CACHE_SIZE_FILESYSTEM, new Integer(1024*1024*1024));
         s.putInteger(CACHE_SIZE_MEMORY, new Integer(200*1024*1024));

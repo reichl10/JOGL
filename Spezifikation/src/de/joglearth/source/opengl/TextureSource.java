@@ -8,9 +8,11 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import com.jogamp.opengl.util.texture.Texture;
+
 import de.joglearth.async.RunnableResultListener;
 import de.joglearth.async.RunnableWithResult;
 import de.joglearth.opengl.GLContext;
+import de.joglearth.opengl.TextureFilter;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
@@ -27,11 +29,13 @@ public class TextureSource<Key> implements Source<Key, Texture> {
     private Source<Key, byte[]> imageSource;
     private ImageSourceListener imageSourceListener = new ImageSourceListener();
     private Map<Key, Collection<SourceListener<Key, Texture>>> pendingRequests = new HashMap<>();
+    private TextureFilter textureFilter;
 
 
     public TextureSource(GLContext gl, Source<Key, byte[]> imageSource) {
         this.gl = gl;
         this.imageSource = imageSource;
+        this.textureFilter = TextureFilter.NEAREST;
     }
 
 
@@ -51,7 +55,7 @@ public class TextureSource<Key> implements Source<Key, Texture> {
             }
 
             try {
-                return gl.loadTexture(new ByteArrayInputStream(raw), "jpg", true);
+                return gl.loadTexture(new ByteArrayInputStream(raw), "jpg", textureFilter);
             } catch (IOException e) {
                 return null;
             }
@@ -116,7 +120,7 @@ public class TextureSource<Key> implements Source<Key, Texture> {
     private class ImageSourceListener implements SourceListener<Key, byte[]> {
 
         @Override
-        public synchronized void requestCompleted(Key key, byte[] value) {
+        public void requestCompleted(Key key, byte[] value) {
             Collection<SourceListener<Key, Texture>> senders = pendingRequests.remove(key);
 
             if (senders != null) {
@@ -131,4 +135,8 @@ public class TextureSource<Key> implements Source<Key, Texture> {
 
     @Override
     public void dispose() { }
+
+    public void setTextureFilter(TextureFilter textureFilter) {
+        this.textureFilter = textureFilter;
+    }
 }

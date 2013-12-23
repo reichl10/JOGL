@@ -26,6 +26,7 @@ import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.GLContextListener;
+import de.joglearth.opengl.TextureFilter;
 import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
@@ -218,15 +219,15 @@ public class Renderer {
         }
         */
         
-        earth = gl.loadTexture(Resource.loadTextureData("textures/earth.jpg", "jpg"));
-        moon = gl.loadTexture(Resource.loadTextureData("textures/moon.jpg", "jpg"));
-        sky = gl.loadTexture(Resource.loadTextureData("textures/sky.jpg", "jpg"));
+        earth = gl.loadTexture(Resource.loadTextureData("textures/earth.jpg", "jpg"), TextureFilter.ANISOTROPIC_16X);
+        moon = gl.loadTexture(Resource.loadTextureData("textures/moon.jpg", "jpg"), TextureFilter.ANISOTROPIC_16X);
+        sky = gl.loadTexture(Resource.loadTextureData("textures/sky.jpg", "jpg"), TextureFilter.ANISOTROPIC_16X);
         
         overlayIconTextures = new LinkedHashMap<>();
         for (LocationType key : LocationType.values()) {
             String resourceName = "locationIcons/" + key.toString() + ".png";
             if (Resource.exists(resourceName)) {
-                Texture value = gl.loadTexture(Resource.loadTextureData(resourceName, "png"));
+                Texture value = gl.loadTexture(Resource.loadTextureData(resourceName, "png"), TextureFilter.ANISOTROPIC_16X);
                 overlayIconTextures.put(key, value);
             }
         }

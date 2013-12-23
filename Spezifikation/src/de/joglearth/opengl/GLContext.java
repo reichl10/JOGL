@@ -30,6 +30,7 @@ import de.joglearth.geometry.Vector3;
 import de.joglearth.rendering.Mesh;
 import static javax.media.opengl.GL2.*;
 import static java.lang.Double.*;
+import static java.lang.Math.*;
 
 /**
  * Encapsulates OpenGL calls and callbacks.
@@ -64,6 +65,9 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     private volatile boolean redisplayActive;
 
     private FPSAnimator animator = null;
+    
+    private boolean anisotropySupported;
+    private int maxAnisotropy;    
 
 
     // Throws if init() has not been called yet
@@ -201,14 +205,50 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * @return The texture
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      */
-    public Texture loadTexture(TextureData data) {
+    public Texture loadTexture(TextureData data, TextureFilter filter) {
         assertIsInitialized();
         assertIsInsideCallback();
         if (data == null) {
             throw new IllegalArgumentException();
         }
+        
+        data.setMipmap(filter != TextureFilter.NEAREST && filter != TextureFilter.BILINEAR);
+        
+        Texture tex = new Texture(gl, data);
+        
+        int minFilter, magFilter;
+        switch (filter) {
+            case NEAREST:
+                minFilter = GL_NEAREST;
+                magFilter = GL_NEAREST;
+                break;
+                
+            case BILINEAR:
+                minFilter = GL_LINEAR;
+                magFilter = GL_LINEAR;
+                break;
+             
+            default:
+                minFilter = GL_LINEAR_MIPMAP_LINEAR;
+                magFilter = GL_LINEAR;
+        }
 
-        return new Texture(gl, data);
+        tex.setTexParameteri(gl, GL_TEXTURE_MIN_FILTER, minFilter);
+        tex.setTexParameteri(gl, GL_TEXTURE_MAG_FILTER, magFilter);
+        
+        if (anisotropySupported) {
+            int anisotropy = 0;
+            switch (filter) {
+                case ANISOTROPIC_16X: anisotropy = 16; break;
+                case ANISOTROPIC_8X: anisotropy = 8; break;
+                case ANISOTROPIC_4X: anisotropy = 4; break;
+                case ANISOTROPIC_2X: anisotropy = 2; break;
+            }
+            anisotropy = min(anisotropy, maxAnisotropy);
+            tex.setTexParameteri(gl, GL_TEXTURE_MAX_ANISOTROPY_EXT, anisotropy);
+        }
+
+        return tex;
     }
 
     /**
@@ -221,13 +261,14 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * @throws IOException An error occurred while loading the image data
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      */
-    public Texture loadTexture(InputStream stream, String suffix, boolean mipmap)
+    public Texture loadTexture(InputStream stream, String suffix, TextureFilter filter)
             throws IOException {
         if (stream == null || suffix == null) {
             throw new IllegalArgumentException();
         }
 
-        return loadTexture(TextureIO.newTextureData(gl.getGLProfile(), stream, mipmap, suffix));
+        return loadTexture(TextureIO.newTextureData(gl.getGLProfile(), stream, false, suffix),
+                filter);
     }
 
     /**
@@ -243,13 +284,14 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      */
     public Texture loadTexture(byte[] image, int width, int height, int format, int internalFormat,
-            boolean mipmap) {
+            TextureFilter filter) {
         if (image == null || width <= 0 || height <= 0) {
             throw new IllegalArgumentException();
         }
 
         return loadTexture(new TextureData(gl.getGLProfile(), internalFormat, width, height, 0,
-                format, GL_UNSIGNED_BYTE, mipmap, false, false, ByteBuffer.wrap(image), null));
+                format, GL_UNSIGNED_BYTE, false, false, false, ByteBuffer.wrap(image), null), 
+                filter);
     }
 
     /**
@@ -584,6 +626,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         quadric = null;
         glThread = null;
     }
+    
 
     @Override
     public synchronized void init(GLAutoDrawable caller) {
@@ -597,7 +640,23 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         quadric = glu.gluNewQuadric();
         glThread = Thread.currentThread();
         animator = new FPSAnimator(drawable, 60);
-
+        
+        String extensions = gl.glGetString(GL_EXTENSIONS);
+        GLError.throwIfActive(gl);
+        
+        anisotropySupported = extensions.contains("GL_EXT_texture_filter_anisotropic");
+        
+        if (anisotropySupported) {
+            int[] ints = {0};
+            gl.glGetIntegerv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, ints, 0);
+            GLError.throwIfActive(gl);
+            maxAnisotropy = ints[0];
+        }
+        
+        if (drawable.getChosenGLCapabilities().getSampleBuffers()) {
+            setFeatureEnabled(GL_MULTISAMPLE, true);
+        }
+        
         beginDisplay();
         for (GLContextListener l : listeners) {
             l.initialize(this);
@@ -606,6 +665,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         endDisplay(false);
     }
 
+    
     @Override
     public synchronized void reshape(GLAutoDrawable caller, int x, int y, int width, int height) {
         assertIsInitialized(caller);
