@@ -55,7 +55,7 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
     }
 
     private byte[] getOSMTile(Tile tile) {
-        System.err.println("OSMTileSource: loading " + tile + " with type " + type.toString());
+        //TODO System.err.println("OSMTileSource: loading " + tile + " with type " + type.toString());
 
         // Spezialfall Kartenrand (Longitude)
         double lonFrom = tile.getLongitudeFrom();
@@ -96,7 +96,7 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
             ytile=((1<<zoom)-1);
            
            //TODO
-        //System.out.println("ytile: "+ytile+" latitude: "+y);
+        ////TODO System.out.println("ytile: "+ytile+" latitude: "+y);
          
         // Build URL
         StringBuilder builder = new StringBuilder();
@@ -127,8 +127,8 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
             }
         }
 
-        System.err.println("OSMTileSource: done " + (response == null ? "(null) " : "")
-                + "loading " + tile);
+        //TODO System.err.println("OSMTileSource: done " + (response == null ? "(null) " : "")
+        //        + "loading " + tile);
 
         return response;
     }
@@ -238,9 +238,9 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
 //        source.requestObject(osm15, new TestRequester());
 //        source.requestObject(osm16, new TestRequester());
         
-//        System.out.println(Math.cos(((1 - Math.log(Math.tan(Math.PI/2) + 
+//        //TODO System.out.println(Math.cos(((1 - Math.log(Math.tan(Math.PI/2) + 
 //                1 / Math.cos(Math.PI/2)) / Math.PI) /2 * Math.pow(2, 6))));
-//        System.out.println(Math.cos(((1 - Math.log(Math.tan(Math.PI/2) + 
+//        //TODO System.out.println(Math.cos(((1 - Math.log(Math.tan(Math.PI/2) + 
 //                Math.sqrt((Math.tan(Math.PI/2)) + 1)) / Math.PI) /2 * Math.pow(2, 6))));
 
     }

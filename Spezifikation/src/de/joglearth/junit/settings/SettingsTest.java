@@ -49,8 +49,8 @@ public class SettingsTest {
         s.putBoolean(SettingsContract.TEXTURE_FILTER, true);
         assertEquals(true, s.getBoolean(SettingsContract.TEXTURE_FILTER));
 
-        s.putString(SettingsContract.ANTIALIASING, Antialiasing.MSAA_2.name());
-        assertEquals(Antialiasing.MSAA_2.name(), s.getString(SettingsContract.ANTIALIASING));
+        s.putString(SettingsContract.ANTIALIASING, Antialiasing.MSAA_2X.name());
+        assertEquals(Antialiasing.MSAA_2X.name(), s.getString(SettingsContract.ANTIALIASING));
 
         s.putLocation(SettingsContract.USER_LOCATIONS, TEST_LOCATION);
         Set<Location> locationSet = s.getLocations(SettingsContract.USER_LOCATIONS);

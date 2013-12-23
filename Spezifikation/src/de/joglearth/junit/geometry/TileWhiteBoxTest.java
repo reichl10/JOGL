@@ -12,7 +12,7 @@ public class TileWhiteBoxTest {
 
     @Test
     public void test() {
-        System.out.println(new Tile(4, 8, 6));
+        //TODO System.out.println(new Tile(4, 8, 6));
         Tile t = new Tile(4, 8, 6);
         assertTrue(t.intersects(PI, 0, -PI/2, PI/4));
     }

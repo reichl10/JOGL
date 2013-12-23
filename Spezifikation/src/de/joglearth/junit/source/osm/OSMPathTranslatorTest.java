@@ -17,7 +17,7 @@ public class OSMPathTranslatorTest {
 
     @Test
     public void test() {
-        System.out.println("[0-9a-fA-F]{3}"
+        //TODO System.out.println("[0-9a-fA-F]{3}"
             + Pattern.quote(File.separator) + "([A-Z_]+)-([0-9]+)-([0-9]+)-([0-9]+)\\.png");
         OSMPathTranslator trans = new OSMPathTranslator();
         OSMTile testTile = new OSMTile(new Tile(3, 1, 1), TiledMapType.OSM2WORLD);

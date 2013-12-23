@@ -19,7 +19,7 @@ public class TextureCache<Key> extends MemoryCache<Key, Texture> {
 
     @Override
     public void dropObject(Key key) {
-        System.err.println("TextureCache: dropping key " + key);
+        //TODO System.err.println("TextureCache: dropping key " + key);
         final Texture value = super.requestObject(key, null).value;
         
         if (value != null) {

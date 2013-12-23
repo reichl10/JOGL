@@ -36,7 +36,7 @@ public class SRTMTileSource implements Source<SRTMTileIndex, SRTMTile> {
     public SourceResponse<SRTMTile> requestObject(SRTMTileIndex key,
             final SourceListener<SRTMTileIndex, SRTMTile> sender) {
 
-        System.err.println("SRTMTileSource: loading " + key);
+        //TODO System.err.println("SRTMTileSource: loading " + key);
         
     	SourceResponse<byte[]> response = binarySource.requestObject(key, 
 			new SourceListener<SRTMTileIndex, byte[]>() {
@@ -66,16 +66,16 @@ public class SRTMTileSource implements Source<SRTMTileIndex, SRTMTile> {
 	                    }
 	                }
 
-	                if (zipBytes != null && tileBytes == null) {
-	                    System.err.println("SRTMTileSource: Loading SRTM data from archive failed for "
-	                            + key.toString());
-	                }
+	                //if (zipBytes != null && tileBytes == null) {
+	                    //TODO System.err.println("SRTMTileSource: Loading SRTM data from archive failed for "
+	                 //           + key.toString());
+	               // }
 	                
 					SRTMTile tile = null;
 					if (tileBytes != null) {
 						tile = new SRTMTile(tileBytes);
 					}
-                    System.err.println("SRTMTileSource: done loading " + key);
+                    //TODO System.err.println("SRTMTileSource: done loading " + key);
 					sender.requestCompleted(key, tile);
 				}
 		});

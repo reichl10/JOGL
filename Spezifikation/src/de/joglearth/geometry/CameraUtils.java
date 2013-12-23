@@ -68,7 +68,7 @@ public final class CameraUtils {
                 break;
             }
         }
-        if (center == null) System.out.println("------GridPoint in center is null!! -------");
+        //if (center == null) //TODO System.out.println("------GridPoint in center is null!! -------");
         return center;
     }
 

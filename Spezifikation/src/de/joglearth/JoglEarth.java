@@ -57,7 +57,7 @@ public final class JoglEarth {
                 } catch (
                     ClassNotFoundException | InstantiationException | IllegalAccessException
                     | UnsupportedLookAndFeelException e) {
-                    System.err.println("Swing: Unable to set system look and feel");
+                    //TODO System.err.println("Swing: Unable to set system look and feel");
                 }
 	            
 	            LocationManager locationManager = new LocationManager();

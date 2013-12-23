@@ -23,19 +23,19 @@ public class MemoryCache<Key, Value> implements Cache<Key, Value> {
         Value object = storage.get(key);
         SourceResponseType responseType = object != null
                 ? SourceResponseType.SYNCHRONOUS : SourceResponseType.MISSING;
-        System.err.println(getClass().getSimpleName() + ": requesting " + key + ": " + responseType.toString());
+        //TODO System.err.println(getClass().getSimpleName() + ": requesting " + key + ": " + responseType.toString());
         return new SourceResponse<Value>(responseType, object);
     }
 
     @Override
     public void putObject(Key key, Value value) {
-        System.err.println(getClass().getSimpleName() + ": adding key " + key);
+        //TODO System.err.println(getClass().getSimpleName() + ": adding key " + key);
         storage.put(key, value);
     }
 
     @Override
     public void dropObject(Key key) {
-        System.err.println(getClass().getSimpleName() + ": dropping key " + key);
+        //TODO System.err.println(getClass().getSimpleName() + ": dropping key " + key);
         storage.remove(key);
     }
 
@@ -46,7 +46,7 @@ public class MemoryCache<Key, Value> implements Cache<Key, Value> {
 
     @Override
     public void dropAll() {
-        System.err.println(getClass().getSimpleName() + ": dropping all objects");
+        //TODO System.err.println(getClass().getSimpleName() + ": dropping all objects");
         storage.clear();
     }
 

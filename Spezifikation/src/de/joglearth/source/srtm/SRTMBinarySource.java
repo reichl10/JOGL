@@ -56,13 +56,13 @@ public class SRTMBinarySource implements Source<SRTMTileIndex, byte[]> {
 
             @Override
             public void run() {
-                System.out.println(url);
+                //TODO System.out.println(url);
                 byte[] zipBytes = HTTP.get(url, null);
 
-                if (zipBytes == null) {
-                    System.err.println("Loading SRTM server data for "
-                            + key.toString() + " failed");
-                }
+                //if (zipBytes == null) {
+                    //TODO System.err.println("Loading SRTM server data for "
+               //             + key.toString() + " failed");
+                //}
 
                 sender.requestCompleted(key, zipBytes);
             }

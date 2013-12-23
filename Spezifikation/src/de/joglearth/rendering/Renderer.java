@@ -113,7 +113,7 @@ public class Renderer {
     
 
     private void render() {
-        System.err.println("------------- NEW FRAME -------------");
+        //TODO System.err.println("------------- NEW FRAME -------------");
         
         gl.clear();
         gl.loadMatrix(GL_PROJECTION, camera.getProjectionMatrix());
@@ -145,7 +145,7 @@ public class Renderer {
 
         loadTextures();
 
-        Settings.getInstance().addSettingsListener(SettingsContract.LEVEL_OF_DETAILS,
+        Settings.getInstance().addSettingsListener(SettingsContract.LEVEL_OF_DETAIL,
                 new GraphicsSettingsListener());
         
         leastHorizontalTiles = gl.getSize().width / TILE_SIZE;
@@ -208,26 +208,28 @@ public class Renderer {
 
 
     private void loadTextures() {
+        TextureFilter textureFilter = TextureFilter.valueOf(Settings.getInstance().getString(
+                SettingsContract.TEXTURE_FILTER));
+
         singleMapTextures = new LinkedHashMap<>();
         /*
-        for (SingleMapType key : SingleMapType.values()) {
-            String resourceName = "singleMapTextures/" + key.toString() + ".jpg";
-            if (Resource.exists(resourceName)) {
-                Texture value = gl.loadTexture(Resource.loadTextureData(resourceName, "jpg"));
-                singleMapTextures.put(key, value);
-            }
-        }
-        */
-        
-        earth = gl.loadTexture(Resource.loadTextureData("textures/earth.jpg", "jpg"), TextureFilter.ANISOTROPIC_16X);
-        moon = gl.loadTexture(Resource.loadTextureData("textures/moon.jpg", "jpg"), TextureFilter.ANISOTROPIC_16X);
-        sky = gl.loadTexture(Resource.loadTextureData("textures/sky.jpg", "jpg"), TextureFilter.ANISOTROPIC_16X);
-        
+         * for (SingleMapType key : SingleMapType.values()) { String resourceName =
+         * "singleMapTextures/" + key.toString() + ".jpg"; if (Resource.exists(resourceName)) {
+         * Texture value = gl.loadTexture(Resource.loadTextureData(resourceName, "jpg"));
+         * singleMapTextures.put(key, value); } }
+         */
+
+        earth = gl.loadTexture(Resource.loadTextureData("textures/earth.jpg", "jpg"),
+                textureFilter);
+        moon = gl.loadTexture(Resource.loadTextureData("textures/moon.jpg", "jpg"), textureFilter);
+        sky = gl.loadTexture(Resource.loadTextureData("textures/sky.jpg", "jpg"), textureFilter);
+
         overlayIconTextures = new LinkedHashMap<>();
         for (LocationType key : LocationType.values()) {
             String resourceName = "locationIcons/" + key.toString() + ".png";
             if (Resource.exists(resourceName)) {
-                Texture value = gl.loadTexture(Resource.loadTextureData(resourceName, "png"), TextureFilter.ANISOTROPIC_16X);
+                Texture value = gl.loadTexture(Resource.loadTextureData(resourceName, "png"), 
+                        textureFilter);
                 overlayIconTextures.put(key, value);
             }
         }
@@ -253,24 +255,39 @@ public class Renderer {
 
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
-            if (key.equals(SettingsContract.LEVEL_OF_DETAILS)) {
+            if (key.equals(SettingsContract.LEVEL_OF_DETAIL)) {
                 setLevelOfDetail(Enum.valueOf(LevelOfDetail.class, (String) valNew));
+            } else if (key.equals(SettingsContract.TEXTURE_FILTER)) {
+                reloadTextures();
             }
         }
+        
+        private void reloadTextures() {
+            gl.invokeLater(new Runnable() {
+                
+                @Override
+                public void run() {
+                    freeTextures();
+                    loadTextures();
+                }
+            });
+        }
 
-        private synchronized void setLevelOfDetail(LevelOfDetail lod) {
-            switch (lod) {
-                case LOW:
-                    tileSubdivisions = 1;
-                    break;
-                case MEDIUM:
-                    tileSubdivisions = 7;
-                    break;
-                case HIGH:
-                    tileSubdivisions = 15;
-            }
-            if (tileMeshManager != null) {
-                tileMeshManager.setTileSubdivisions(tileSubdivisions);
+        private void setLevelOfDetail(LevelOfDetail lod) {
+            synchronized (Renderer.this) {
+                switch (lod) {
+                    case LOW:
+                        tileSubdivisions = 1;
+                        break;
+                    case MEDIUM:
+                        tileSubdivisions = 7;
+                        break;
+                    case HIGH:
+                        tileSubdivisions = 15;
+                }
+                if (tileMeshManager != null) {
+                    tileMeshManager.setTileSubdivisions(tileSubdivisions);
+                }
             }
         }
 

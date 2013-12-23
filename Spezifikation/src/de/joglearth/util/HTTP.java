@@ -42,7 +42,7 @@ public final class HTTP {
      */
     public static byte[] get(String url, Iterable<String> getRequest)
             throws IllegalArgumentException {
-        System.err.println("HTTP: beginning GET request for " + url);
+        //TODO System.err.println("HTTP: beginning GET request for " + url);
         if (url == null) {
             throw new IllegalArgumentException("URL was null!");
         }
@@ -74,7 +74,7 @@ public final class HTTP {
 
         url = url + request.toString();
         
-        //System.err.println("HTTP: GET request for " + url + " with request " + request.toString());
+        ////TODO System.err.println("HTTP: GET request for " + url + " with request " + request.toString());
 
         URL serverUrl;
         try {
@@ -132,7 +132,7 @@ public final class HTTP {
      */
     public static byte[] post(String url, Iterable<String> getRequest, Iterable<String> postRequest)
             throws IllegalArgumentException {
-        System.err.println("HTTP: beginning POST request");
+        //TODO System.err.println("HTTP: beginning POST request");
         if (url == null) {
             throw new IllegalArgumentException("URL was null!");
         }
@@ -185,7 +185,7 @@ public final class HTTP {
 
         url = url + request.toString();
         
-        System.err.println("HTTP: POST request for " + url);
+        //TODO System.err.println("HTTP: POST request for " + url);
 
         URL serverUrl;
         try {
@@ -261,7 +261,7 @@ public final class HTTP {
         bla.add("login");
         bla.add("Port Albo Straße+-µ ?&32!");
         String test = new String(get("http://127.0.0.1/post.php", bla));
-        System.out.println(test);
+        //TODO System.out.println(test);
     }
 
 }

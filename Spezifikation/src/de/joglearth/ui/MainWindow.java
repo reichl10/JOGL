@@ -77,6 +77,7 @@ import de.joglearth.surface.MapLayout;
 import de.joglearth.surface.SingleMapType;
 import de.joglearth.surface.SurfaceListener;
 import de.joglearth.surface.TiledMapType;
+import de.joglearth.opengl.TextureFilter;
 
 
 /**
@@ -133,7 +134,7 @@ public class MainWindow extends JFrame {
     private JCheckBox heightMapCheckBox;
     private JComboBox<IconizedItem<Locale>> languageComboBox;
     private JComboBox<NamedItem<Antialiasing>> antialiasingComboBox;
-    private JComboBox<NamedItem<Boolean>> texfilterComboBox;
+    private JComboBox<NamedItem<TextureFilter>> texfilterComboBox;
     private JComboBox<NamedItem<LevelOfDetail>> lodComboBox_1;
     private JPanel graphicsPanel;
     private JLabel antialiasingLabel;
@@ -161,6 +162,7 @@ public class MainWindow extends JFrame {
     private JComboBox<IconizedItem<MapTypePair>> paraMapTypeComboBox;
     private JTabbedPane sideBarTabs;
     private JSlider zoomSlider;
+    private UISettingsListener settingsListener;
     private static final double ZOOM_FACTOR = 10.d;
     private static final double MAX_DIFF = 3.d;
     private static final double MIN_DIST = 1e-8d;
@@ -220,6 +222,8 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
         this.viewEventListener = new ViewEventListener(camera);
+        this.settingsListener = new UISettingsListener();
+        Settings.getInstance().addSettingsListener(SettingsContract.ANTIALIASING, settingsListener);
         getContentPane().setLayout(
                 new FormLayout(new ColumnSpec[] {
                         ColumnSpec.decode("right:180dlu"),
@@ -573,13 +577,13 @@ public class MainWindow extends JFrame {
 
         antialiasingComboBox = new JComboBox<NamedItem<Antialiasing>>();
         antialiasingComboBox.addItem(new NamedItem<Antialiasing>(Messages
-                .getString("MainWindow.128"), null)); //$NON-NLS-1$
+                .getString("MainWindow.128"), Antialiasing.NONE)); //$NON-NLS-1$
         antialiasingComboBox.addItem(new NamedItem<Antialiasing>(Messages
                 .getString("MainWindow.129"), //$NON-NLS-1$
-                Antialiasing.MSAA_2));
+                Antialiasing.MSAA_2X));
         antialiasingComboBox.addItem(new NamedItem<Antialiasing>(Messages
                 .getString("MainWindow.130"), //$NON-NLS-1$
-                Antialiasing.MSAA_4));
+                Antialiasing.MSAA_4X));
         antialiasingComboBox.addItemListener(new ItemListener() {
 
             @Override
@@ -588,13 +592,8 @@ public class MainWindow extends JFrame {
                     NamedItem<Antialiasing> item = (NamedItem<Antialiasing>) e
                             .getItem();
                     Antialiasing type = item.getValue();
-                    if (type == null) {
-                        Settings.getInstance().putString(
-                                SettingsContract.ANTIALIASING, null);
-                    } else {
                         Settings.getInstance().putString(
                                 SettingsContract.ANTIALIASING, type.name());
-                    }
                 }
             }
         });
@@ -605,20 +604,19 @@ public class MainWindow extends JFrame {
 
         graphicsPanel.add(texfilterLabel, "2, 4, left, default"); //$NON-NLS-1$
 
-        texfilterComboBox = new JComboBox<NamedItem<Boolean>>();
-        texfilterComboBox.addItem(new NamedItem<Boolean>(Messages
-                .getString("MainWindow.134"), new Boolean(false))); //$NON-NLS-1$
-        texfilterComboBox.addItem(new NamedItem<Boolean>(Messages
-                .getString("MainWindow.135"), new Boolean(true))); //$NON-NLS-1$
+        texfilterComboBox = new JComboBox<NamedItem<TextureFilter>>();
+        texfilterComboBox.addItem(new NamedItem<TextureFilter>(Messages
+                .getString("MainWindow.134"), TextureFilter.TRILINEAR)); //$NON-NLS-1$
+        texfilterComboBox.addItem(new NamedItem<TextureFilter>(Messages
+                .getString("MainWindow.135"), TextureFilter.NEAREST)); //$NON-NLS-1$
         texfilterComboBox.addItemListener(new ItemListener() {
 
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    NamedItem<Boolean> item = (NamedItem<Boolean>) e.getItem();
-                    Boolean valueBoolean = item.getValue();
-                    Settings.getInstance().putBoolean(
-                            SettingsContract.TEXTURE_FILTER, valueBoolean);
+                    NamedItem<TextureFilter> item = (NamedItem<TextureFilter>) e.getItem();
+                    Settings.getInstance().putString(
+                            SettingsContract.TEXTURE_FILTER, item.getValue().name());
                 }
 
             }
@@ -642,7 +640,7 @@ public class MainWindow extends JFrame {
                 if (e.getStateChange() == e.SELECTED) {
                     LevelOfDetail detail = ((NamedItem<LevelOfDetail>) e.getItem()).getValue();
                     Settings.getInstance().putString(
-                            SettingsContract.LEVEL_OF_DETAILS, detail.name());
+                            SettingsContract.LEVEL_OF_DETAIL, detail.name());
                 }
             }
         });
@@ -729,26 +727,40 @@ public class MainWindow extends JFrame {
         aboutButton.setIcon(loadIcon("icons/info.png")); //$NON-NLS-1$
     }
 
-    private void initializeViewPanel() {
-        viewPanel.setLayout(new FormLayout(new ColumnSpec[] {
-                ColumnSpec.decode("default:grow"), //$NON-NLS-1$
-                ColumnSpec.decode("center:20dlu"), }, new RowSpec[] { //$NON-NLS-1$
-                RowSpec.decode("default:grow"), RowSpec.decode("1dlu"), //$NON-NLS-1$ //$NON-NLS-2$
-                        RowSpec.decode("20dlu"), RowSpec.decode("1dlu"), })); //$NON-NLS-1$ //$NON-NLS-2$
-
-        // TODO: Remove remplacement for working with GUIEditor
-        // glCanvas = new JPanel();
-        glCanvas = new GLCanvas(new GLCapabilities(GLProfile.get(GLProfile.GL2)));
-        if (glCanvas == null) {
-            System.err.println("Couldn't create Canvas!"); //$NON-NLS-1$
+    
+    private void initializeGLCanvas() {        // glCanvas = new JPanel();
+        if (glCanvas != null) {
+            ((GLAutoDrawable) glCanvas).destroy();
+            viewPanel.remove(glCanvas);
         }
+        
+        GLCapabilities caps = new GLCapabilities(GLProfile.get(GLProfile.GL2));
+
+        Antialiasing aa = Antialiasing.valueOf(Settings.getInstance().getString(
+                SettingsContract.ANTIALIASING));
+        
+        int numSamples = 0;
+        switch (aa) {
+            case NONE: numSamples = 0; break;
+            case MSAA_2X: numSamples = 2; break;
+            case MSAA_4X: numSamples = 4; break;
+            case MSAA_8X: numSamples = 8; break;
+            case MSAA_16X: numSamples = 16; break;
+        }
+        
+        if (numSamples > 0) {
+            caps.setSampleBuffers(true);
+            caps.setNumSamples(numSamples);
+        }
+        
+        glCanvas = new GLCanvas(caps);
+
         // TODO: remove this hack for the GUIEditor
         if (glCanvas instanceof GLCanvas) {
             ((GLCanvas) glCanvas).addGLEventListener(new GLEventListener() {
 
                 @Override
                 public void display(GLAutoDrawable arg0) {
-                    arg0.getGL().getGL2().glClear(GL2.GL_COLOR_BUFFER_BIT);
                 }
 
                 @Override
@@ -767,8 +779,36 @@ public class MainWindow extends JFrame {
 
             });
         }
-
         viewPanel.add(glCanvas, "1, 1, fill, fill"); //$NON-NLS-1$
+        
+        if (glCanvas instanceof GLCanvas) {
+            GLContext context = new GLContext();
+            ((GLCanvas) glCanvas).addGLEventListener(context);
+            if (renderer == null) {
+                renderer = new Renderer(context, locationManager);
+                camera = renderer.getCamera();
+                camera.addCameraListener(new UICameraListener());
+            } else {
+                renderer.setGLContext(context);
+                viewPanel.doLayout();
+            }
+        }
+        glCanvas.addMouseWheelListener(new ZoomAdapter(zoomSlider, true));
+        GlMouseListener l = new GlMouseListener();
+        glCanvas.addMouseMotionListener(l);
+        glCanvas.addMouseListener(l);
+    }
+    
+    private void initializeViewPanel() {
+        viewPanel.setLayout(new FormLayout(new ColumnSpec[] {
+                ColumnSpec.decode("default:grow"), //$NON-NLS-1$
+                ColumnSpec.decode("center:20dlu"), }, new RowSpec[] { //$NON-NLS-1$
+                RowSpec.decode("default:grow"), RowSpec.decode("1dlu"), //$NON-NLS-1$ //$NON-NLS-2$
+                        RowSpec.decode("20dlu"), RowSpec.decode("1dlu"), })); //$NON-NLS-1$ //$NON-NLS-2$
+
+        // TODO: Remove remplacement for working with GUIEditor
+        initializeGLCanvas();
+        this.addWindowListener(new UIWindowListener());
 
         JPanel statusBar = new JPanel();
         viewPanel.add(statusBar, "1, 3, 2, 1, fill, fill"); //$NON-NLS-1$
@@ -881,7 +921,7 @@ public class MainWindow extends JFrame {
                 Settings.getInstance().putString(SettingsContract.LANGUAGE,
                         language.getLanguage());
                 loadLanguage();
-                System.err.println("Change Language!"); //$NON-NLS-1$
+                //TODO System.err.println("Change Language!"); //$NON-NLS-1$
             }
         });
         displayModeComboBox.addItemListener(new ItemListener() {
@@ -912,19 +952,12 @@ public class MainWindow extends JFrame {
                             }
                         }
                     } else {
-                        System.err.println(Messages.getString("MainWindow.51")); //$NON-NLS-1$
+                        //TODO System.err.println(Messages.getString("MainWindow.51")); //$NON-NLS-1$
                     }
                 }
 
             }
         });
-        if (camera != null)
-            camera.addCameraListener(new UICameraListener());
-        this.addWindowListener(new UIWindowListener());
-        glCanvas.addMouseWheelListener(new ZoomAdapter(zoomSlider, true));
-        GlMouseListener l = new GlMouseListener();
-        glCanvas.addMouseMotionListener(l);
-        glCanvas.addMouseListener(l);
         paraMapTypeComboBox.addItemListener(new ItemListener() {
 
             @Override
@@ -1015,21 +1048,21 @@ public class MainWindow extends JFrame {
                 index = antialiasingComboBox.getSelectedIndex();
                 antialiasingComboBox.removeAllItems();
                 antialiasingComboBox.addItem(new NamedItem<Antialiasing>(
-                        Messages.getString("MainWindow.128"), null)); //$NON-NLS-1$
+                        Messages.getString("MainWindow.128"), Antialiasing.NONE)); //$NON-NLS-1$
                 antialiasingComboBox.addItem(new NamedItem<Antialiasing>(
                         Messages.getString("MainWindow.129"), //$NON-NLS-1$
-                        Antialiasing.MSAA_2));
+                        Antialiasing.MSAA_2X));
                 antialiasingComboBox.addItem(new NamedItem<Antialiasing>(
                         Messages.getString("MainWindow.130"), //$NON-NLS-1$
-                        Antialiasing.MSAA_4));
+                        Antialiasing.MSAA_4X));
                 antialiasingComboBox.setSelectedIndex(index);
                 texfilterLabel.setText(Messages.getString("MainWindow.132")); //$NON-NLS-1$
                 index = texfilterComboBox.getSelectedIndex();
                 texfilterComboBox.removeAllItems();
-                texfilterComboBox.addItem(new NamedItem<Boolean>(Messages
-                        .getString("MainWindow.134"), new Boolean(false))); //$NON-NLS-1$
-                texfilterComboBox.addItem(new NamedItem<Boolean>(Messages
-                        .getString("MainWindow.135"), new Boolean(true))); //$NON-NLS-1$
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>(Messages
+                        .getString("MainWindow.134"), TextureFilter.TRILINEAR)); //$NON-NLS-1$
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>(Messages
+                        .getString("MainWindow.135"), TextureFilter.NEAREST)); //$NON-NLS-1$
                 texfilterComboBox.setSelectedIndex(index);
                 lodLabel.setText(Messages.getString("MainWindow.137")); //$NON-NLS-1$
                 index = lodComboBox_1.getSelectedIndex();
@@ -1085,15 +1118,15 @@ public class MainWindow extends JFrame {
         this.locationManager = locationManager;
         String lang = Settings.getInstance().getString(
                 SettingsContract.LANGUAGE);
-        System.err.println("LangSetting At Start:" + lang);
+        //TODO System.err.println("LangSetting At Start:" + lang);
         Locale.Builder builder = new Locale.Builder();
         builder.setLanguage(lang);
         Locale l = builder.build();
         if (l.getLanguage().equals(Locale.GERMAN.getLanguage())) {
-            System.err.println("Set Lang to German at start!"); //$NON-NLS-1$
+            //TODO System.err.println("Set Lang to German at start!"); //$NON-NLS-1$
             Messages.setLocale(Locale.GERMAN);
         } else {
-            System.err.println("Set Lang to English at start!"); //$NON-NLS-1$
+            //TODO System.err.println("Set Lang to English at start!"); //$NON-NLS-1$
             Messages.setLocale(Locale.ENGLISH);
         }
         initializeWindow();
@@ -1104,18 +1137,12 @@ public class MainWindow extends JFrame {
         initializeViewPanel();
         loadLanguage();
         // TODO: remove this hack for the GUIEditor
-        if (glCanvas instanceof GLCanvas) {
-            GLContext context = new GLContext();
-            ((GLCanvas) glCanvas).addGLEventListener(context);
-            renderer = new Renderer(context, locationManager);
-        }
-        camera = renderer.getCamera();
 
         if (l.getLanguage().equals(Locale.GERMAN.getLanguage())) {
-            System.err.println("Set Lang to German at start!"); //$NON-NLS-1$
+            //TODO System.err.println("Set Lang to German at start!"); //$NON-NLS-1$
             languageComboBox.setSelectedIndex(1);
         } else {
-            System.err.println("Set Lang to English at start!"); //$NON-NLS-1$
+            //TODO System.err.println("Set Lang to English at start!"); //$NON-NLS-1$
             languageComboBox.setSelectedIndex(0);
         }
         registerListeners();
@@ -1138,7 +1165,11 @@ public class MainWindow extends JFrame {
     private class UISettingsListener implements SettingsListener {
 
         @Override
-        public void settingsChanged(String key, Object valOld, Object valNew) {}
+        public void settingsChanged(String key, Object valOld, Object valNew) {
+            if (key.equals(SettingsContract.ANTIALIASING)) {
+                initializeGLCanvas();
+            }
+        }
 
     }
 
@@ -1186,11 +1217,12 @@ public class MainWindow extends JFrame {
                         double deltaLat = signum(newPos.y - lastPos.y)
                                 * abs(newGeo.getLatitude() - lastGeo.getLatitude());
                         camera.move(deltaLon, deltaLat);
-                        System.out.format(
+                        /*TODO System.out.format(
+                                
                                 "Move: deltaX=%g,  deltaY=%g, deltaLon=%g, deltaLat=%g\n", newPos.x
                                         - lastPos.x, newPos.y - lastPos.y, newGeo.getLongitude()
                                         - lastGeo.getLongitude(),
-                                newGeo.getLatitude() - lastGeo.getLatitude());
+                                newGeo.getLatitude() - lastGeo.getLatitude());*/
                     }
                 }
             } else if (SwingUtilities.isRightMouseButton(e)) {
@@ -1309,9 +1341,9 @@ public class MainWindow extends JFrame {
             JSlider slider = (JSlider) e.getSource();
             label.setText(Integer.toString(slider.getValue()));
             int value = slider.getValue();
-            System.out.println("Zoome Changed to: "+value);
+            //TODO System.out.println("Zoome Changed to: "+value);
             double perc = value/(double)slider.getMaximum()*10;
-            System.out.println("Set Distance to: "+(MIN_DIST + MAX_DIFF*perc));
+            //TODO System.out.println("Set Distance to: "+(MIN_DIST + MAX_DIFF*perc));
             camera.setDistance(MIN_DIST + MAX_DIFF*(1 / (1+perc*perc*10)));
             
         }

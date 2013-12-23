@@ -27,11 +27,14 @@ public abstract class AbstractInvoker implements Invoker {
         
         @Override
         public void run() {
+            Object result = null;
             if (runnable instanceof Runnable) {
                 ((Runnable) runnable).run();
-                callback.runnableCompleted(null);
             } else if (runnable instanceof RunnableWithResult) {
-                callback.runnableCompleted(((RunnableWithResult) runnable).run());
+                result = ((RunnableWithResult) runnable).run();
+            }
+            if (callback != null) {
+                callback.runnableCompleted(result);
             }
         }
     }

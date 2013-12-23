@@ -19,7 +19,7 @@ public class PlaneTessellator implements Tessellator {
 
     @Override
     public Mesh tessellateTile(Tile tile, int subdivisions, boolean useHeightMap) {
-        System.out.println(tile);
+        //TODO System.out.println(tile);
         int nHorizontalVertices = subdivisions + 2, nHorizontalQuads = subdivisions + 1,
             nVerticalQuads = max(nHorizontalQuads / 2, 1), nVerticalVertices = nVerticalQuads + 1;
         float[] vertices = new float[8 * nVerticalVertices * nHorizontalVertices];

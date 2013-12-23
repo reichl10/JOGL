@@ -74,13 +74,13 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
             responseType = SourceResponseType.MISSING;
         }
 
-        System.err.println("FileSystemCache: requesting " + key + ": " + responseType.toString());
+        //TODO System.err.println("FileSystemCache: requesting " + key + ": " + responseType.toString());
         return new SourceResponse<byte[]>(responseType, null);
     }
 
     @Override
     public synchronized void putObject(Key k, byte[] v) {
-        System.err.println("FileSystemCache: adding key " + k);
+        //TODO System.err.println("FileSystemCache: adding key " + k);
         Path filePath = pathFromKey(k);
         try {
             Files.createDirectories(filePath.getParent());
@@ -103,7 +103,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
             filesForDroping.add(k);
             return;
         }
-        System.err.println("FileSystemCache: dropping key " + k);
+        //TODO System.err.println("FileSystemCache: dropping key " + k);
         try {
             Files.deleteIfExists(pathFromKey(k));
         } catch (IOException e) {
@@ -125,7 +125,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
             }
             return;
         }
-        System.err.println("FileSystemCache: dropping all objects");
+        //TODO System.err.println("FileSystemCache: dropping all objects");
         try {
             Files.walkFileTree(basePath, new DirectoryCleaner());
         } catch (IOException e) {
@@ -264,7 +264,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
             synchronized (FileSystemCache.this) {
                 for (Key k : filesForDroping) {
                     if (!lockedFileSet.contains(k)) {
-                        System.err.println("FileSystemCache: dropping key " + k);
+                        //TODO System.err.println("FileSystemCache: dropping key " + k);
                         try {
                             Files.deleteIfExists(pathFromKey(k));
                         } catch (IOException e) {

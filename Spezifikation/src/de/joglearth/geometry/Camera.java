@@ -78,7 +78,7 @@ public class Camera {
         if (heightMapEnabled) {
             altitude = HeightMap.getHeight(position, 1e-6) / 1000 + distance;
         }
-        System.err.println("Camera: updating, altitude=" + altitude);
+        //TODO System.err.println("Camera: updating, altitude=" + altitude);
         
         Matrix4 newCameraMatrix = geometry.getModelTransformation(position, altitude);
         tiltTransformation(newCameraMatrix);
@@ -438,10 +438,10 @@ public class Camera {
         Vector3 viewVector = directionMatrix.transform(new Vector3(0, 0, -1)).divide()
                 .minus(cameraPosition);
 
-        System.err.println("Screen: " + screen + ", Camera: " + cameraPosition + ", zAxis: " + zAxis
-                + ", xAxis: " + xAxis + ", yAxis: " + yAxis + ", view: " + viewVector);
+        //TODO System.err.println("Screen: " + screen + ", Camera: " + cameraPosition + ", zAxis: " + zAxis
+        //  + ", xAxis: " + xAxis + ", yAxis: " + yAxis + ", view: " + viewVector);
 
-        System.err.println(" - " + "Surface Coords: " + geometry.getSurfaceCoordinates(cameraPosition, viewVector));
+        //TODO System.err.println(" - " + "Surface Coords: " + geometry.getSurfaceCoordinates(cameraPosition, viewVector));
         return geometry.getSurfaceCoordinates(cameraPosition, viewVector);
     }
 
@@ -499,7 +499,7 @@ public class Camera {
     public static void main(String[] args) {
         SphereGeometry s = new SphereGeometry();
         Camera c = new Camera(s);
-        System.err.println(Tile.getContainingTile(4,
-                c.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5))));
+        //TODO System.err.println(Tile.getContainingTile(4,
+           //     c.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5))));
     }
 }

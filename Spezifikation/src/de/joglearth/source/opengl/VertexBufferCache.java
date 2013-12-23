@@ -32,7 +32,7 @@ public class VertexBufferCache<Key> extends MemoryCache<Key, VertexBuffer> {
 
     @Override
     public void dropObject(Key k) {
-        System.err.println("VertexBufferCache: dropping key " + k);
+        //TODO System.err.println("VertexBufferCache: dropping key " + k);
         final VertexBuffer vbo = requestObject(k, null).value;
 
         if (vbo != null) {

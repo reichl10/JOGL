@@ -21,6 +21,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.opengl.Antialiasing;
+import de.joglearth.opengl.TextureFilter;
 import de.joglearth.rendering.LevelOfDetail;
 import de.joglearth.surface.Location;
 import de.joglearth.surface.LocationType;
@@ -51,7 +52,7 @@ public final class SettingsContract {
      * Name constant for the level of details setting. You should save a String to settings using
      * this. Use <code>name</code> of the Enum.
      */
-    public static final String  LEVEL_OF_DETAILS      = "LevelOfDetail";
+    public static final String  LEVEL_OF_DETAIL      = "LevelOfDetail";
 
     /**
      * Name constant for the users Locations. You should save {@link de.joglearth.surface.Location}
@@ -126,9 +127,9 @@ public final class SettingsContract {
     public static void setDefaultSettings() {
         Settings s = Settings.getInstance();
         s.putString(LANGUAGE, "DE");
-        s.putBoolean(TEXTURE_FILTER, false);
-        s.putString(ANTIALIASING, Antialiasing.MSAA_4.name());
-        s.putString(LEVEL_OF_DETAILS, LevelOfDetail.MEDIUM.name());
+        s.putString(TEXTURE_FILTER, TextureFilter.TRILINEAR.name());
+        s.putString(ANTIALIASING, Antialiasing.NONE.name());
+        s.putString(LEVEL_OF_DETAIL, LevelOfDetail.MEDIUM.name());
         s.putInteger(CACHE_SIZE_FILESYSTEM, new Integer(1024*1024*1024));
         s.putInteger(CACHE_SIZE_MEMORY, new Integer(200*1024*1024));
     }
@@ -343,8 +344,8 @@ public final class SettingsContract {
      * {@link #loadSettings()} loads them from.
      */
     public static void saveSettings() {
-        System.err.println("SaveSettings!");
-        System.err.println("Saving to SettingsLocation:" +FILE_LOCATION);
+        //TODO System.err.println("SaveSettings!");
+        //TODO System.err.println("Saving to SettingsLocation:" +FILE_LOCATION);
         Settings s = Settings.getInstance();
         File f = new File(FILE_LOCATION);
         f.getParentFile().mkdirs();
@@ -354,9 +355,9 @@ public final class SettingsContract {
                     new FileOutputStream(f), XML_ENCODING);
             writeStart(xmlWriter);
             writeEntry(xmlWriter, LANGUAGE, s.getString(LANGUAGE));
-            writeEntry(xmlWriter, TEXTURE_FILTER, s.getBoolean(TEXTURE_FILTER));
-            writeEntry(xmlWriter, LEVEL_OF_DETAILS,
-                    s.getString(LEVEL_OF_DETAILS));
+            writeEntry(xmlWriter, TEXTURE_FILTER, s.getString(TEXTURE_FILTER));
+            writeEntry(xmlWriter, LEVEL_OF_DETAIL,
+                    s.getString(LEVEL_OF_DETAIL));
             writeEntry(xmlWriter, ANTIALIASING, s.getString(ANTIALIASING));
             writeEntry(xmlWriter, CACHE_SIZE_FILESYSTEM,
                     s.getInteger(CACHE_SIZE_FILESYSTEM));

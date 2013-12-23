@@ -88,9 +88,9 @@ public class SettingsContractTest {
     public void testLoadSettings() {
         Settings settings = Settings.getInstance();
         settings.putInteger(SettingsContract.CACHE_SIZE_FILESYSTEM, new Integer(23712));
-        settings.putString(SettingsContract.LEVEL_OF_DETAILS, "WrongValue");
+        settings.putString(SettingsContract.LEVEL_OF_DETAIL, "WrongValue");
         SettingsContract.loadSettings();
-        assertEquals("MEDIUM", settings.getString(SettingsContract.LEVEL_OF_DETAILS));
+        assertEquals("MEDIUM", settings.getString(SettingsContract.LEVEL_OF_DETAIL));
         assertEquals("GERMAN", settings.getString(SettingsContract.LANGUAGE));
         assertEquals(new Boolean(false), settings.getBoolean(SettingsContract.TEXTURE_FILTER));
         Set<Location> locationSet1 = settings.getLocations(SettingsContract.USER_LOCATIONS);
@@ -105,7 +105,7 @@ public class SettingsContractTest {
         Settings settings = Settings.getInstance();
         settings.putInteger(SettingsContract.CACHE_SIZE_FILESYSTEM, TV_INTEGER);
         settings.putInteger(SettingsContract.CACHE_SIZE_MEMORY, TV_INTEGER);
-        settings.putString(SettingsContract.ANTIALIASING, Antialiasing.MSAA_2.name());
+        settings.putString(SettingsContract.ANTIALIASING, Antialiasing.MSAA_2X.name());
         settings.putString(SettingsContract.LANGUAGE, TV_LANGUAGE);
         settings.putBoolean(SettingsContract.TEXTURE_FILTER, TV_BOOLEAN);
         settings.putLocation(SettingsContract.USER_LOCATIONS, TV_LOCATION);
@@ -118,7 +118,7 @@ public class SettingsContractTest {
         SettingsContract.loadSettings();
         assertEquals(TV_INTEGER, settings.getInteger(SettingsContract.CACHE_SIZE_FILESYSTEM));
         assertEquals(TV_INTEGER, settings.getInteger(SettingsContract.CACHE_SIZE_MEMORY));
-        assertEquals(Antialiasing.MSAA_2.name(),
+        assertEquals(Antialiasing.MSAA_2X.name(),
                 settings.getString(SettingsContract.ANTIALIASING));
         assertEquals(TV_LANGUAGE, settings.getString(SettingsContract.LANGUAGE));
         assertEquals(TV_BOOLEAN, settings.getLong(SettingsContract.TEXTURE_FILTER));

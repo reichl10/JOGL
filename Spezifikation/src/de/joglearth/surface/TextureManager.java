@@ -44,7 +44,7 @@ public class TextureManager {
 
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
-            if (key == SettingsContract.TEXTURE_FILTER) {
+            if (key.equals(SettingsContract.TEXTURE_FILTER)) {
                 dist.dropAll();
                 gl.invokeSooner(new Runnable() {
                     
@@ -145,10 +145,10 @@ public class TextureManager {
      *         method returns a place holder texture
      */
     public synchronized Texture getTexture(Tile tile) {
-        System.err.println("TextureManager: requesting texture for " + tile);
+        //TODO System.err.println("TextureManager: requesting texture for " + tile);
         Texture textureId = dist.requestObject(new OSMTile(tile, mapType), textureListener).value;
-        System.err.println("TextureManager: returning "
-                + (textureId == null ? "placeholder" : "real texture") + " for " + tile);
+        //TODO System.err.println("TextureManager: returning "
+        //        + (textureId == null ? "placeholder" : "real texture") + " for " + tile);
         return textureId != null ? textureId : placeholder;
     }
     

@@ -63,7 +63,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     public void addCache(Cache<Key, Value> cache, int maxSize) {
         if (cache == null)
             return;
-        System.out.println("Added Cache "+cache.getClass().getName()+"  with Size: "+maxSize);
+        //TODO System.out.println("Added Cache "+cache.getClass().getName()+"  with Size: "+maxSize);
         if (maxSize < 1) {
             throw new IllegalArgumentException("Cache size should be > 0");
         }
@@ -176,7 +176,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                 cacheRequestCompleted(cache, key, response.value);
                 return response;
             default:
-                System.err.println("Sth. is to wrong here, enum has wrong type.");
+                //TODO System.err.println("Sth. is to wrong here, enum has wrong type.");
                 return new SourceResponse<Value>(SourceResponseType.MISSING, null);
         }
     }
@@ -295,7 +295,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         } else if (response.response == SourceResponseType.SYNCHRONOUS) {
             value = response.value;
         } else {
-            System.err.println("Cache didn't have a object, should not happen!");
+            //TODO System.err.println("Cache didn't have a object, should not happen!");
             return;
         }
         removeFromCache(c, k, value);
@@ -370,10 +370,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     private Integer getFreeSpaceInCache(Cache<Key, Value> cache) {
         Integer sizeOfCache = cacheSizeMap.get(cache);
         Integer usedSizeOfCache = usedSizeMap.get(cache);
-        if (sizeOfCache == null)
-            System.err.println("SizeOfCache is null");
-        if (usedSizeOfCache == null)
-            System.err.println("UsedSizeOfCache is null");
+        //if (sizeOfCache == null)
+            //TODO System.err.println("SizeOfCache is null");
+        //if (usedSizeOfCache == null)
+            //TODO System.err.println("UsedSizeOfCache is null");
         return sizeOfCache - usedSizeOfCache;
     }
 
@@ -400,7 +400,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         Cache<Key, Value> cache = caches.get(index);
         Integer cacheSize = cacheSizeMap.get(cache);
         Integer spaceUsed = usedSizeMap.get(cache);
-        System.out.println("This Cache has "+cacheSize+" space, "+spaceUsed+" is used! We want: "+space);
+        //TODO System.out.println("This Cache has "+cacheSize+" space, "+spaceUsed+" is used! We want: "+space);
         Map<Key, BigInteger> lastUsed = lastUsedMap.get(cache);
         Set<Entry<Key, BigInteger>> entrySet = lastUsed.entrySet();
         LinkedList<Entry<Key, BigInteger>> list = new LinkedList<Entry<Key, BigInteger>>(entrySet);
@@ -415,9 +415,9 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         int spaceMade = 0;
         Set<CacheEntry> removedSet = new HashSet<CacheEntry>();
         boolean hasNextCache = caches.size() > index + 1;
-        System.out.println("Space we want: "+space);
+        //TODO System.out.println("Space we want: "+space);
         while (spaceMade < space && list.size() > 0) {
-            System.out.println("Remove One from " + list.size());
+            //TODO System.out.println("Remove One from " + list.size());
             
             Entry<Key, BigInteger> entry = list.pop();
             CacheMoveListener listener = new CacheMoveListener();
@@ -429,12 +429,12 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                     removedSet.add(cEntry);
                 }
                 Integer sizeOfRemovedEntry = measure.getSize(response.value);
-                System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);
+                //TODO System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);
                 cache.dropObject(entry.getKey());
                 spaceMade += sizeOfRemovedEntry;
             } else if (response.response == SourceResponseType.ASYNCHRONOUS) {
                 try {
-                    System.out.println("Waiting for Async answer!");
+                    //TODO System.out.println("Waiting for Async answer!");
                     wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -445,12 +445,12 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                     removedSet.add(cEntry);
                 }
                 Integer sizeOfRemovedEntry = measure.getSize(listener.value);
-                System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);
+                //TODO System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);
                 cache.dropObject(listener.key);
                 spaceMade += sizeOfRemovedEntry;
 
             }
-            System.out.println("We allready made:"+spaceMade);
+            //TODO System.out.println("We allready made:"+spaceMade);
         }
         removeUsedSpace(cache, spaceMade);
         if (hasNextCache) {
@@ -487,8 +487,8 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         @Override
         public void requestCompleted(Key key, Value value) {
 
-            System.err.println("RequestDistributor: async request completed "
-                    + (value == null ? "(null) " : "") + "from cache for " + key);
+            //TODO System.err.println("RequestDistributor: async request completed "
+                //    + (value == null ? "(null) " : "") + "from cache for " + key);
 
             synchronized (RequestDistributor.this) {
                 if (value == null) {
@@ -550,8 +550,8 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
         @Override
         public void requestCompleted(Key key, Value value) {
-            System.err.println("RequestDistributor: async request completed "
-                    + (value == null ? "(null) " : "") + "from source for " + key);
+            //TODO System.err.println("RequestDistributor: async request completed "
+                //    + (value == null ? "(null) " : "") + "from source for " + key);
             rd.requestCompleted(key, value);
         }
 

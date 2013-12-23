@@ -234,18 +234,26 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         }
 
         tex.setTexParameteri(gl, GL_TEXTURE_MIN_FILTER, minFilter);
+        GLError.throwIfActive(gl);
+        
         tex.setTexParameteri(gl, GL_TEXTURE_MAG_FILTER, magFilter);
+        GLError.throwIfActive(gl);
         
         if (anisotropySupported) {
-            int anisotropy = 0;
+            int anisotropy;
             switch (filter) {
                 case ANISOTROPIC_16X: anisotropy = 16; break;
                 case ANISOTROPIC_8X: anisotropy = 8; break;
                 case ANISOTROPIC_4X: anisotropy = 4; break;
                 case ANISOTROPIC_2X: anisotropy = 2; break;
+                default: anisotropy = 0; break;
             }
             anisotropy = min(anisotropy, maxAnisotropy);
-            tex.setTexParameteri(gl, GL_TEXTURE_MAX_ANISOTROPY_EXT, anisotropy);
+            
+            if (anisotropy != 0) {
+                tex.setTexParameteri(gl, GL_TEXTURE_MAX_ANISOTROPY_EXT, anisotropy);
+                GLError.throwIfActive(gl);
+            }
         }
 
         return tex;
@@ -640,6 +648,8 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         quadric = glu.gluNewQuadric();
         glThread = Thread.currentThread();
         animator = new FPSAnimator(drawable, 60);
+
+        beginDisplay();
         
         String extensions = gl.glGetString(GL_EXTENSIONS);
         GLError.throwIfActive(gl);
@@ -657,7 +667,6 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             setFeatureEnabled(GL_MULTISAMPLE, true);
         }
         
-        beginDisplay();
         for (GLContextListener l : listeners) {
             l.initialize(this);
         }
@@ -756,6 +765,10 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
 
                 @Override
                 public void run() {
+                    if (!isInitialized()) {
+                        return;
+                    }
+                    
                     drawable.display();
 
                     boolean doContinue;

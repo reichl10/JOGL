@@ -62,8 +62,8 @@ public final class HeightMap {
      *         available (yet).
      */
     public static double getHeight(GeoCoordinates coords, double resolution) {
-        System.err.println("HeightMap: requesting height of " + coords + " with resolution "
-                + resolution);
+        //TODO System.err.println("HeightMap: requesting height of " + coords + " with resolution "
+        //        + resolution);
         
         SRTMTileIndex index = new SRTMTileIndex(toTileIndex(coords.getLongitude()), 
                 toTileIndex(coords.getLatitude()));
@@ -116,6 +116,6 @@ public final class HeightMap {
     }
 
     public static void main(String[] args) {
-        System.out.println(getTileOffset(-80.2 * PI / 180));
+        //TODO System.out.println(getTileOffset(-80.2 * PI / 180));
     }
 }
