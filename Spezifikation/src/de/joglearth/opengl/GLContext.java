@@ -148,7 +148,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
                 buffers[1]);
 
         // Bind vertex buffer
-        gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
+        gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.getVertices());
         GLError.throwIfActive(gl);
 
         // Write vertex data
@@ -157,7 +157,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         GLError.throwIfActive(gl);
 
         // Bind index buffer
-        gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.indices);
+        gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.getIndices());
         GLError.throwIfActive(gl);
 
         // Write index array
@@ -174,18 +174,22 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * @param vbo The vertex buffer object. Must not be null and must hold valid buffer IDs.
      */
     public void deleteVertexBuffer(VertexBuffer vbo) {
-        if (vbo == null || vbo.indices <= 0 || vbo.vertices <= 0) {
+        if (vbo == null) {
             throw new IllegalArgumentException();
         }
 
         assertIsInitialized();
         assertIsInsideCallback();
 
-        gl.glDeleteBuffers(2, new int[] { vbo.vertices, vbo.indices }, 0);
+        gl.glDeleteBuffers(2, new int[] { vbo.getVertices(), vbo.getIndices() }, 0);
         GLError.throwIfActive(gl);
     }
-    
-    
+        
+    /**
+     * Loads a texture via the JOGL Texture API.
+     * @param data The texture data to load
+     * @return The texture
+     */
     public Texture loadTexture(TextureData data) {
         assertIsInitialized();
         assertIsInsideCallback();
@@ -196,17 +200,49 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         return new Texture(gl, data);
     }
     
+    /**
+     * Loads a texture from an input stream via the JOGL Texture API.
+     * @param stream The input stream.
+     * @param suffix The file suffix, used to determine the content type.
+     * @param mipmap Whether to create and use mipmaps.
+     * @return The texture
+     * @throws IOException An error occurred while loading the image data
+     */
     public Texture loadTexture(InputStream stream, String suffix, boolean mipmap) throws IOException {
+        if (stream == null || suffix == null) {
+            throw new IllegalArgumentException();
+        }
+        
         return loadTexture(TextureIO.newTextureData(gl.getGLProfile(), stream, mipmap, suffix));
     }
 
+    /**
+     * Loads a texture from a byte buffer via the JOGL Texture API.
+     * @param image The byte buffer containing the image in the given format
+     * @param width The width, in pixels
+     * @param height The height, in pixels
+     * @param format The pixel format of the data provided
+     * @param internalFormat The internal pixel format used by OpenGL
+     * @param mipmap Whether to create and use mipmaps
+     * @return The texture
+     */
     public Texture loadTexture(byte[] image, int width, int height, int format, int internalFormat,
             boolean mipmap) {
+        if (image == null || width <= 0 || height <= 0) {
+            throw new IllegalArgumentException();
+        }
+        
         return loadTexture(new TextureData(gl.getGLProfile(), internalFormat, width, height, 0,
                 format, GL_UNSIGNED_BYTE, mipmap, false, false, ByteBuffer.wrap(image), null));
     }
 
+    /**
+     * Removes a texture from OpenGL graphics memory.
+     * @param tex
+     */
     public void deleteTexture(Texture tex) {
+        assertIsInitialized();
+        assertIsInsideCallback();
         if (tex == null) {
             throw new IllegalArgumentException();
         }
@@ -242,7 +278,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * @param texture The texture to use. May be null
      */
     public void drawVertexBuffer(VertexBuffer vbo, Texture texture) {
-        if (vbo == null || vbo.indices <= 0 || vbo.vertices <= 0) {
+        if (vbo == null) {
             throw new IllegalArgumentException();
         }
 
@@ -255,7 +291,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         }
         
         // Bind vertex buffer
-        gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
+        gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.getVertices());
         GLError.throwIfActive(gl);
 
         // Set vertex / normal / texcoord pointers
@@ -278,11 +314,11 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         GLError.throwIfActive(gl);
 
         // Bind index buffer
-        gl.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.indices);
+        gl.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.getIndices());
         GLError.throwIfActive(gl);
 
         // Draw
-        gl.glDrawElements(vbo.primitiveType, vbo.indexCount, GL_UNSIGNED_INT, 0);
+        gl.glDrawElements(vbo.getPrimitiveType(), vbo.getIndexCount(), GL_UNSIGNED_INT, 0);
         GLError.throwIfActive(gl);
 
         // Disable pointers

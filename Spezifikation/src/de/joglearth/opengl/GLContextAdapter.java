@@ -1,7 +1,9 @@
 package de.joglearth.opengl;
 
 
-
+/**
+ * Placeholder implementation of a {@link GLContextListener}
+ */
 public class GLContextAdapter implements GLContextListener {
 
     @Override

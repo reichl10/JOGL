@@ -14,24 +14,57 @@ public class VertexBuffer {
     /**
      * The vertex buffer handle.
      */
-    public int vertices;
+    private int vertices;
 
     /**
      * The index buffer handle.
      */
-    public int indices;
+    private int indices;
 
     /**
      * The type of primitive, as given by the GL constants GL_POINTS, GL_LINE_STRIP, GL_LINE_LOOP,
      * GL_LINES, GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, GL_TRIANGLES, GL_QUAD_STRIP, GL_QUADS and
      * GL_POLYGON.
      */
-    public int primitiveType;
+    private int primitiveType;
 
+    private int indexCount;
+
+    
     /**
-     * The number of primitives drawn from the index buffer.
+     * Returns the OpenGL vertex buffer ID.
+     * @return vertices
      */
-    public int indexCount;
+    public int getVertices() {
+        return vertices;
+    }
+
+    
+    /**
+     * Returns the OpenGL index buffer ID.
+     * @return The buffer ID
+     */
+    public int getIndices() {
+        return indices;
+    }
+
+    
+    /**
+     * Returns the type of primitives described by the index buffer
+     * @return The type of primitives
+     */
+    public int getPrimitiveType() {
+        return primitiveType;
+    }
+
+    
+    /**
+     * Returns the number of indices contained in the index buffer
+     * @return The number of indices
+     */
+    public int getIndexCount() {
+        return indexCount;
+    }
 
 
     /**
@@ -41,16 +74,14 @@ public class VertexBuffer {
      * @param indices The index buffer handle
      */
     public VertexBuffer(int type, int count, int vertices, int indices) {
+        if (count < 0 || vertices <= 0 || indices <= 0) {
+            throw new IllegalArgumentException();
+        }
+        
         this.indices = indices;
         this.vertices = vertices;
         primitiveType = type;
         indexCount = count;
     }
 
-    /**
-     * Default constructor.
-     */
-    public VertexBuffer() {
-        // yolo
-    }
 }

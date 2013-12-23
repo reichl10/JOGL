@@ -51,7 +51,7 @@ public class GLError extends RuntimeException {
     }
     
     public GLError(String string) {
-        super("OpenGL error" + string);
+        super("OpenGL error: " + string);
     }
 
     /**
