@@ -226,11 +226,11 @@ public class MainWindow extends JFrame {
         Settings.getInstance().addSettingsListener(SettingsContract.ANTIALIASING, settingsListener);
         getContentPane().setLayout(
                 new FormLayout(new ColumnSpec[] {
-                        ColumnSpec.decode("right:180dlu"),
-                        ColumnSpec.decode("15px"),
-                        ColumnSpec.decode("default:grow"), },
-                        new RowSpec[] {
-                                RowSpec.decode("default:grow"), })); //$NON-NLS-1$
+                ColumnSpec.decode("right:140dlu"),
+                ColumnSpec.decode("15px"),
+                ColumnSpec.decode("default:grow"),},
+            new RowSpec[] {
+                RowSpec.decode("default:grow"),})); //$NON-NLS-1$
 
         JPanel sideBar = new JPanel();
         getContentPane().add(sideBar, "1, 1, left, fill"); //$NON-NLS-1$
@@ -815,13 +815,13 @@ public class MainWindow extends JFrame {
         statusBar.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.RELATED_GAP_COLSPEC,
                 ColumnSpec.decode("50dlu"),
-                FormFactory.UNRELATED_GAP_COLSPEC,
-                ColumnSpec.decode("max(220dlu;pref)"),
+                ColumnSpec.decode("7dlu:grow"),
+                ColumnSpec.decode("max(160dlu;default)"),
                 ColumnSpec.decode("7dlu:grow"),
                 ColumnSpec.decode("right:70dlu"),
-                FormFactory.RELATED_GAP_COLSPEC, },
-                new RowSpec[] {
-                        RowSpec.decode("default:grow"), })); //$NON-NLS-1$
+                FormFactory.RELATED_GAP_COLSPEC,},
+            new RowSpec[] {
+                RowSpec.decode("default:grow"),})); //$NON-NLS-1$
 
         JPanel zoomPanel = new JPanel();
         viewPanel.add(zoomPanel, "2, 1, center, fill"); //$NON-NLS-1$
@@ -890,7 +890,7 @@ public class MainWindow extends JFrame {
 
         latitudeTextField = new JTextField();
         coordPanel.add(latitudeTextField, "3, 1, fill, default"); //$NON-NLS-1$
-        latitudeTextField.setColumns(15);
+        latitudeTextField.setColumns(8);
         latitudeTextField.setHorizontalAlignment(JTextField.RIGHT);
 
         longitudeLabel = new JLabel(Messages.getString("MainWindow.209")); //$NON-NLS-1$
@@ -898,7 +898,7 @@ public class MainWindow extends JFrame {
 
         longitudeTextField = new JTextField();
         coordPanel.add(longitudeTextField, "7, 1, fill, default"); //$NON-NLS-1$
-        longitudeTextField.setColumns(15);
+        longitudeTextField.setColumns(8);
         longitudeTextField.setHorizontalAlignment(JTextField.RIGHT);
 
         JProgressBar progressBar = new JProgressBar();
