@@ -2,8 +2,7 @@ package de.joglearth.geometry;
 
 import static java.lang.Double.isInfinite;
 import static java.lang.Double.isNaN;
-import static java.lang.Math.PI;
-import static java.lang.Math.tan;
+import static java.lang.Math.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +79,7 @@ public class Camera {
         }
         //TODO System.err.println("Camera: updating, altitude=" + altitude);
         
-        Matrix4 newCameraMatrix = geometry.getModelTransformation(position, altitude);
+        Matrix4 newCameraMatrix = geometry.getModelCameraTransformation(position, altitude);
         tiltTransformation(newCameraMatrix);
 
         Vector3 cameraPosition = newCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
@@ -90,7 +89,7 @@ public class Camera {
         if (geometry.getSurfaceCoordinates(cameraPosition, viewVector) != null) {
             modelCameraMatrix = newCameraMatrix;
             modelViewMatrix = modelCameraMatrix.inverse();
-            Matrix4 skyCameraMatrix = geometry.getSkyTransformation(position, altitude);
+            Matrix4 skyCameraMatrix = geometry.getSkyCameraTransformation(position, altitude);
             tiltTransformation(skyCameraMatrix);
             skyViewMatrix = skyCameraMatrix.inverse();
             updateCameraTransformation();
@@ -411,7 +410,6 @@ public class Camera {
      *         points outside the plane or globe ("space")
      */
     public synchronized GeoCoordinates getGeoCoordinates(ScreenCoordinates screen) {
-
         if (screen == null) {
             throw new IllegalArgumentException();
         }
@@ -420,28 +418,30 @@ public class Camera {
             return null;
         }
 
-        Matrix4 directionMatrix = modelCameraMatrix.clone();
-
-        Vector3 cameraPosition = directionMatrix.transform(new Vector3(0, 0, 0)).divide();
-
-        Vector3 zAxis = directionMatrix.transform(new Vector3(0, 0, -1)).divide()
+        Vector3 cameraPosition = modelCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
+        Vector3 earthAxis = modelCameraMatrix.transform(new Vector3(0, 1, 0)).divide()
+                .minus(cameraPosition);
+        
+        Vector3 zAxis = modelCameraMatrix.transform(new Vector3(0, 0, 1)).divide()
                 .minus(cameraPosition).normalized();
-        Vector3 xAxis = zAxis.crossProduct(
-                directionMatrix.transform(new Vector3(0, 1, 0)).divide().minus(cameraPosition))
-                .normalized();
+        Vector3 xAxis = earthAxis.crossProduct(zAxis).normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
+        
+        double yAngle = asin((1-2*screen.x)*sin(fov/2*aspectRatio));        
+        double xAngle = asin((1-2*screen.y)*sin(fov/2));
 
-        // TODO Irgendwo muss hier AspectRatio rein
-        directionMatrix.rotate(yAxis, (screen.x - 0.5) * fov);
-        directionMatrix.rotate(xAxis, (screen.y - 0.5) * fov);
+        Matrix4 directionMatrix = modelCameraMatrix.clone();
+        directionMatrix.rotate(yAxis, yAngle);
+        directionMatrix.rotate(xAxis, xAngle);
 
         Vector3 viewVector = directionMatrix.transform(new Vector3(0, 0, -1)).divide()
                 .minus(cameraPosition);
 
-        //TODO System.err.println("Screen: " + screen + ", Camera: " + cameraPosition + ", zAxis: " + zAxis
-        //  + ", xAxis: " + xAxis + ", yAxis: " + yAxis + ", view: " + viewVector);
-
-        //TODO System.err.println(" - " + "Surface Coords: " + geometry.getSurfaceCoordinates(cameraPosition, viewVector));
+        System.err.format("Camera.getGeoCoordinates(): Screen Position: %s, Camera Position: %s,"
+                + " Camera Axes: X=%s, Y=%s, Z=%s, Direction angles: Y-Rotation=%.3f°, X-Rotation="
+                + "%.3f°, View Vector: %s, Model intersection at: %s\n", screen, cameraPosition, 
+                xAxis, yAxis, zAxis, yAngle * 180 / PI, xAngle * 180 / PI, viewVector, 
+                geometry.getSurfaceCoordinates(cameraPosition, viewVector));
         return geometry.getSurfaceCoordinates(cameraPosition, viewVector);
     }
 
@@ -494,12 +494,5 @@ public class Camera {
         }
 
         listeners.remove(l);
-    }
-
-    public static void main(String[] args) {
-        SphereGeometry s = new SphereGeometry();
-        Camera c = new Camera(s);
-        //TODO System.err.println(Tile.getContainingTile(4,
-           //     c.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5))));
     }
 }

@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.media.opengl.glu.GLU;
 import javax.media.opengl.glu.GLUquadric;
@@ -66,6 +67,7 @@ public class Renderer {
     private GLContextListener glContextListener = new RendererGLListener();
     private Map<LocationType, Texture> overlayIconTextures;
     private Map<SingleMapType, Texture> singleMapTextures;
+    private SettingsListener settingsListener = new GraphicsSettingsListener();
     private Texture sky;
 
     /**
@@ -146,7 +148,9 @@ public class Renderer {
         loadTextures();
 
         Settings.getInstance().addSettingsListener(SettingsContract.LEVEL_OF_DETAIL,
-                new GraphicsSettingsListener());
+                settingsListener);
+        Settings.getInstance().addSettingsListener(SettingsContract.TEXTURE_FILTER,
+                settingsListener);
         
         leastHorizontalTiles = gl.getSize().width / TILE_SIZE;
         tileMeshManager = new TileMeshManager(gl, null);
@@ -161,6 +165,11 @@ public class Renderer {
         
         tileMeshManager.dispose();
         tileMeshManager = null;
+
+        Settings.getInstance().removeSettingsListener(SettingsContract.TEXTURE_FILTER, 
+                settingsListener);
+        Settings.getInstance().removeSettingsListener(SettingsContract.LEVEL_OF_DETAIL, 
+                settingsListener);
         
         freeTextures();
     }
@@ -269,6 +278,9 @@ public class Renderer {
                 public void run() {
                     freeTextures();
                     loadTextures();
+                    // TODO invokeLater() should already cause a redisplay. 
+                    // Why is this insufficient?
+                    gl.postRedisplay();
                 }
             });
         }
@@ -289,6 +301,7 @@ public class Renderer {
                     tileMeshManager.setTileSubdivisions(tileSubdivisions);
                 }
             }
+            gl.postRedisplay();
         }
 
     }

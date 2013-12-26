@@ -76,7 +76,7 @@ public class TextureManager {
     }
     
     
-    private Texture loadChessBoardTexture(int blocks, int pixelsPerBlock) {
+    private Texture loadCheckerboardTexture(int blocks, int pixelsPerBlock) {
         byte[] fullLine = new byte[(blocks + 1) * pixelsPerBlock * 3];
         for (int col = 0; col < blocks + 1; ++col) {
             for (int pixel = 0; pixel < pixelsPerBlock; ++pixel) {
@@ -131,7 +131,7 @@ public class TextureManager {
 
             @Override
             public void run() {
-                placeholder = loadChessBoardTexture(16, 32);
+                placeholder = loadCheckerboardTexture(16, 32);
             }
         });
     }

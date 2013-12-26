@@ -71,20 +71,20 @@ public class SphereGeometry implements Geometry {
     }
 
     @Override
-    public Matrix4 getModelTransformation(GeoCoordinates position, double altitude) {
+    public Matrix4 getModelCameraTransformation(GeoCoordinates position, double altitude) {
         if (position == null || altitude <= 0 || Double.isInfinite(altitude)
                 || Double.isNaN(altitude)) {
             throw new IllegalArgumentException();
         }
                 
-        Matrix4 mat = getSkyTransformation(position, altitude);
+        Matrix4 mat = getSkyCameraTransformation(position, altitude);
         mat.translate(0, 0, 1 + altitude);
         return mat;
     }
     
 
     @Override
-    public Matrix4 getSkyTransformation(GeoCoordinates position, double altitude) {
+    public Matrix4 getSkyCameraTransformation(GeoCoordinates position, double altitude) {
         if (position == null || altitude <= 0 || Double.isInfinite(altitude)
                 || Double.isNaN(altitude)) {
             throw new IllegalArgumentException();

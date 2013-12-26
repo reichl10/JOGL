@@ -72,7 +72,7 @@ public class PlaneGeometry implements Geometry {
     }
 
     @Override
-    public Matrix4 getModelTransformation(GeoCoordinates position, double altitude) {
+    public Matrix4 getModelCameraTransformation(GeoCoordinates position, double altitude) {
         if (position == null || altitude <= 0 || Double.isInfinite(altitude)
                 || Double.isNaN(altitude)) {
             throw new IllegalArgumentException();
@@ -88,7 +88,7 @@ public class PlaneGeometry implements Geometry {
     }
 
     @Override
-    public Matrix4 getSkyTransformation(GeoCoordinates position, double altitude) {
+    public Matrix4 getSkyCameraTransformation(GeoCoordinates position, double altitude) {
         if (position == null || altitude <= 0 || Double.isInfinite(altitude)
                 || Double.isNaN(altitude)) {
             throw new IllegalArgumentException();
