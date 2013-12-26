@@ -31,6 +31,7 @@ public final class CameraUtils {
                 
         GridPoint center = null;
         ArrayList<Tile> visibleTiles = new ArrayList<Tile>();
+        HashSet<Tile> addedTiles = new HashSet<>();
         
         if (centerTile != null) {
             for (GridPoint corner : centerTile.getCorners()) {
@@ -41,9 +42,9 @@ public final class CameraUtils {
             }
             
             visibleTiles.add(centerTile);
+            addedTiles.add(centerTile);
         }
 
-        HashSet<Tile> addedTiles = new HashSet<>();
         if (center != null) {
             Set<GridPoint> visiblePoints = getVisibleGridPoints(center, camera, tileLayout);
             TileWalker walker = new TileWalker(visiblePoints, center, tileLayout);
@@ -56,6 +57,11 @@ public final class CameraUtils {
             }
         }
 
+        System.out.println("\nVisible Tiles:");
+        for (Tile t : visibleTiles) {
+            System.out.println(t);
+        }
+        System.out.println();
         return visibleTiles;
     }
 

@@ -23,7 +23,7 @@ import de.joglearth.util.HTTP;
 public class OSMTileSource implements Source<TileName, byte[]> {
 
     private class ServerSet {
-        public int offset = 0;
+        //public int offset = 0;
         public String[] servers;
         
         public ServerSet(String[] servers) {
@@ -136,7 +136,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         while (response == null && i < set.servers.length) {
             builder = new StringBuilder();
 
-            builder.append(set.servers[set.offset]);
+            builder.append(set.servers[i]);
             builder.append(zoom);
             builder.append("/");
             builder.append(xtile);
@@ -147,14 +147,14 @@ public class OSMTileSource implements Source<TileName, byte[]> {
             response = HTTP.get(builder.toString(), null);
 
             ++i;
-
+/*
             if (response == null) {
                 set.offset++;
             }
             
             if (set.offset == set.servers.length) {
                 set.offset = 0;
-            }
+            }*/
         }
 
         //TODO System.err.println("OSMTileSource: done " + (response == null ? "(null) " : "")

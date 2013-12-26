@@ -46,9 +46,11 @@ public class OSMTileLayout implements TileLayout {
 
     @Override
     public GeoCoordinates getGeoCoordinates(GridPoint point) {
-        double lon = 2*PI / (1 << zoomLevel) * point.getLongitude();
-        double lat = OSMTile.MAX_LATITUDE * 2 / (1 << zoomLevel) * point.getLatitude();
-        return new GeoCoordinates(lon, lat);
+        /*double lon = 2*PI / (1 << zoomLevel) * point.getLongitude();
+        double lat = OSMTile.MAX_LATITUDE * (1 - 2 / (1 << zoomLevel) * point.getLatitude());
+        return new GeoCoordinates(lon, lat);*/
+        Tile tile = createTile(point);
+        return new GeoCoordinates(tile.getLongitudeFrom(), tile.getLatitudeFrom());
     }
 
     @Override
