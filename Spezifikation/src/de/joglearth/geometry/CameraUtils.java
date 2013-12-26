@@ -1,10 +1,5 @@
 package de.joglearth.geometry;
 
-import static java.lang.Math.PI;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-import static java.lang.Math.pow;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,56 +17,6 @@ public final class CameraUtils {
     
     private CameraUtils() {}
     
-
-    /**
-     * The tile below (0.5, 0.5) is always visible. Either it it the only tile on the screen, or
-     * one of its corners can be used as a starting point by the grid walking algorithm.
-     */
-    public static Tile getCenteredTile(Camera camera, int zoomLevel) {
-        return Tile.getContainingTile(zoomLevel,
-            camera.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5)));
-    }
-
-    public static GridPoint getVisibleCornerPoint(Camera camera, Tile centerTile) {
-        int zoomLevel = centerTile.getDetailLevel();
-        
-        if (camera == null || zoomLevel < 0) {
-            throw new IllegalArgumentException();
-        }
-
-        GeoCoordinates[] corners = {
-                new GeoCoordinates(centerTile.getLongitudeFrom(), centerTile.getLatitudeFrom()),
-                new GeoCoordinates(centerTile.getLongitudeTo(), centerTile.getLatitudeFrom()),
-                new GeoCoordinates(centerTile.getLongitudeFrom(), centerTile.getLatitudeTo()),
-                new GeoCoordinates(centerTile.getLongitudeTo(), centerTile.getLatitudeTo())
-        };
-
-        // Pick an arbitrary corner as the center point (if possible)
-        GridPoint center = null;
-        for (GeoCoordinates corner : corners) {
-            if (camera.isPointVisible(corner)) {
-                int lon = centerTile.getLongitudeIndex();
-                if (corner.getLongitude() == centerTile.getLongitudeTo()) {
-                    ++lon;
-                }
-                if (lon >= (int) pow(2, zoomLevel-1)) {
-                    lon = - (int) pow(2, zoomLevel) + lon;
-                }
-
-                int lat = centerTile.getLatitudeIndex();
-                if (corner.getLatitude() == centerTile.getLatitudeTo()) {
-                    ++lat;
-                }
-                lat = (int) pow(2, zoomLevel-1) - 1 - lat;
-
-                center = new GridPoint(lon, lat);
-                break;
-            }
-        }
-        //if (center == null) //TODO System.out.println("------GridPoint in center is null!! -------");
-        return center;
-    }
-
     /**
      * Returns an array of tiles visible or partially visible by the
      * {@link de.joglearth.geometry.Camera}.
@@ -80,19 +25,28 @@ public final class CameraUtils {
      * visible tiles.
      * 
      * @param camera The camera
-     * @param zoomLevel The zoom level
+     * @param detailLevel The zoom level
      * @return The array of visible tiles
      */
-    public static Iterable<Tile> getVisibleTiles(Camera camera, int zoomLevel) {
-        Tile centerTile = getCenteredTile(camera, zoomLevel);
-        GridPoint center = getVisibleCornerPoint(camera, centerTile);
+    public static Iterable<Tile> getVisibleTiles(Camera camera,
+            TileLayout tileLayout) {
+        Tile centerTile = tileLayout.getContainingTile(
+                camera.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5)));
+        
+        GridPoint center = null;
+        for (GridPoint corner : centerTile.getCorners()) {
+            if (camera.isPointVisible(tileLayout.getGeoCoordinates(corner))) {
+                center = corner;
+                break;
+            }
+        }
         
         ArrayList<Tile> visibleTiles = new ArrayList<Tile>();
         visibleTiles.add(centerTile);
 
         if (center != null) {
-            Set<GridPoint> visiblePoints = getVisibleGridPoints(center, zoomLevel, camera);
-            TileWalker walker = new TileWalker(visiblePoints, center, zoomLevel);
+            Set<GridPoint> visiblePoints = getVisibleGridPoints(center, camera, tileLayout);
+            TileWalker walker = new TileWalker(visiblePoints, center, tileLayout);
             while (walker.step()) {
                 visibleTiles.add(walker.getTile());
             }
@@ -101,39 +55,27 @@ public final class CameraUtils {
         return visibleTiles;
     }
 
-    /**
-     * Calculates the optimal zoom level so that at least <code>leastHorizontalTiles</code>^2 tiles
-     * are displayed
-     * 
-     * @param camera The current camera
-     * @param leastHorizontalTiles The least number of horizontal tiles that should be displayed
-     * @return The optimal level of the tiles
-     */
-    public static int getOptimalZoomLevel(Camera camera, int leastHorizontalTiles) {
-        return max(0, (int) ceil(log(leastHorizontalTiles / camera.getScale()) / log(2))-1);
-    }
-
     /*
      * Calculates all GridPoints (intersection of longitude and latitude lines) visible from the
      * camera at a given zoom level
      */
-    private static Set<GridPoint> getVisibleGridPoints(GridPoint center, int zoomLevel,
-            Camera camera) {
-        if (center == null || zoomLevel < 0 || camera == null) {
+    private static Set<GridPoint> getVisibleGridPoints(GridPoint center,
+            Camera camera, TileLayout tileLayout) {
+        if (center == null || camera == null) {
             throw new IllegalArgumentException();
         }
         
         Set<GridPoint> visiblePoints = new HashSet<GridPoint>();
 
         // Start at center point
-        GridWalker walker = new GridWalker(center, zoomLevel, camera);
+        GridWalker walker = new GridWalker(center, camera, tileLayout);
 
         // Walk to the border
         while (walker.step());
         GridPoint start = walker.getPoint();
         visiblePoints.add(start);
         
-        int lonMin = start.longitude(), lonMax = lonMin, latMin = start.latitude(), latMax = latMin;
+        int lonMin = start.getLongitude(), lonMax = lonMin, latMin = start.getLatitude(), latMax = latMin;
 
         // Step "onto the border"
         walker.turnRight();
@@ -153,10 +95,10 @@ public final class CameraUtils {
 
             // Find minimum and maximum to get a surrounding rectangle
             GridPoint p = walker.getPoint();
-            lonMin = min(lonMin, p.longitude());
-            lonMax = max(lonMax, p.longitude());
-            latMin = min(latMin, p.latitude());
-            latMax = max(latMax, p.latitude());
+            lonMin = min(lonMin, p.getLongitude());
+            lonMax = max(lonMax, p.getLongitude());
+            latMin = min(latMin, p.getLatitude());
+            latMax = max(latMax, p.getLatitude());
             visiblePoints.add(p);
             // Until the start point is hit again
         } while (!walker.getPoint().equals(start));
@@ -180,58 +122,6 @@ public final class CameraUtils {
 
         return visiblePoints;
     }
-
-
-    // Models an intersection of longitude and latitude lines
-    public static final class GridPoint {
-
-        private int lon, lat;
-
-
-        public int longitude() {
-            return lon;
-        }
-
-        public int latitude() {
-            return lat;
-        }
-
-        public GridPoint(int lon, int lat) {
-            this.lon = lon;
-            this.lat = lat;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + lat;
-            result = prime * result + lon;
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            GridPoint other = (GridPoint) obj;
-            if (lat != other.lat)
-                return false;
-            if (lon != other.lon)
-                return false;
-            return true;
-        }
-
-        @Override
-        public String toString() {
-            return "GridPoint [lon=" + lon + ", lat=" + lat + "]";
-        }
-    }
-
 
     // Defines directions for walker classes
     private static final int RIGHT = 0, DOWN = 1, LEFT = 2, UP = 3;
@@ -263,24 +153,26 @@ public final class CameraUtils {
         private GridPoint pos;
         private int direction;
         private Camera camera;
-        private int zoomLevel;
-        private double angle;
-        private int maxIndex;
-        private int horizontalCrossings = 0, verticalCrossings = 0;
+        //private double angle;
+        private int maxLon, maxLat;
+        //private int horizontalCrossings = 0, verticalCrossings = 0;
+        private TileLayout tileLayout;
 
 
-        public GridWalker(GridPoint start, int zoomLevel, Camera camera) {
+        public GridWalker(GridPoint start, Camera camera, TileLayout tileLayout) {
             this.direction = UP;
             this.pos = start;
-            this.zoomLevel = zoomLevel;
             this.camera = camera;
-            angle = pow(2, -zoomLevel) * PI;
-            maxIndex = (int) pow(2, zoomLevel - 1);
+            //angle = pow(2, -detailLevel) * PI;
+            maxLon = tileLayout.getHoritzontalTileCount();
+            maxLat = tileLayout.getVerticalTileCount();
+            this.tileLayout = tileLayout;
         }
 
         private boolean isGridPointVisible(GridPoint point) {
-            int peekLon = point.longitude(), peekLat = point.latitude();
+            /* int peekLon = point.getLongitude(), peekLat = point.getLatitude();
 
+           
             if (peekLat > maxIndex) {
                 peekLat = 2 * maxIndex - peekLat;
             } else if (peekLat < -maxIndex) {
@@ -291,16 +183,16 @@ public final class CameraUtils {
                 peekLon = 2 * maxIndex - peekLon;
             } else if (peekLon < -maxIndex) {
                 peekLon = -2 * maxIndex - peekLon;
-            }
+            }*/
 
-            return camera.isPointVisible(new GeoCoordinates(peekLon * angle * 2, peekLat * angle));
+            return camera.isPointVisible(tileLayout.getGeoCoordinates(point));
         }
 
         /*
          * Returns a grid point that would be next in line if it is actually visible, else null.
          */
         private GridPoint peekPoint() {
-            int peekLon = pos.longitude(), peekLat = pos.latitude();
+            int peekLon = pos.getLongitude(), peekLat = pos.getLatitude();
             switch (direction) {
                 case RIGHT:
                     peekLon += 1;
@@ -317,8 +209,8 @@ public final class CameraUtils {
             }
 
             GridPoint peek = new GridPoint(peekLon, peekLat);
-            if (isGridPointVisible(peek) && peekLon >= -2 * maxIndex && peekLon <= 2 * maxIndex
-                    && peekLat >= -2 * maxIndex && peekLat <= 2 * maxIndex) {
+            if (isGridPointVisible(peek) && peekLon >= -2 * maxLon && peekLon <= 2 * maxLon
+                    && peekLat >= -2 * maxLat && peekLat <= 2 * maxLat) {
                 return peek;
             } else {
                 return null;
@@ -361,13 +253,11 @@ public final class CameraUtils {
         // The visible grid points
         private Set<GridPoint> points;
         private int turnsSinceLastTile = 0;
-        private int zoomLevel;
         private int direction = RIGHT;
 
         // The total number of steps to do in the current direction until the next turn.
         private int maxSteps = 1;
         private int maxIndex;
-        private int maxTurns;
 
         // The number of steps that were performed in this direction so far.
         private int stepNo = 0;
@@ -375,15 +265,15 @@ public final class CameraUtils {
         // The maxSteps need to be increased every second turn
         private boolean firstTurn = true;
         private Tile currentTile = null;
+        private TileLayout tileLayout;
 
 
-        public TileWalker(Set<GridPoint> points, GridPoint center, int zoomLevel) {
+        public TileWalker(Set<GridPoint> points, GridPoint center, TileLayout tileLayout) {
             this.points = points;
-            this.lon = center.longitude();
-            this.lat = center.latitude();
-            this.zoomLevel = zoomLevel;
-            this.maxIndex = (int) pow(2, zoomLevel);
-            this.currentTile = new Tile(zoomLevel, index(center.lon), index(center.lat));
+            this.lon = center.getLongitude();
+            this.lat = center.getLatitude();
+            this.currentTile = tileLayout.createTile(new GridPoint(index(center.getLongitude()), index(center.getLatitude())));
+            this.tileLayout = tileLayout;
         }
 
         private int index(int ind) {
@@ -443,7 +333,7 @@ public final class CameraUtils {
                 }
 
                 if (visible) {
-                    nextTile = new Tile(zoomLevel, index(lon), index(maxIndex / 2 - 1 - lat));
+                    nextTile = tileLayout.createTile(new GridPoint(index(lon), index(maxIndex / 2 - 1 - lat)));
                     turnsSinceLastTile = 0;
                 }
 

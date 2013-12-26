@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 /**
  * Structure identifying single SRTM height data tiles.
  */
-public final class SRTMTileIndex {
+public final class SRTMTileName {
 
     /**
      * The longitude index, as described by the SRTM standard.
@@ -27,7 +27,7 @@ public final class SRTMTileIndex {
      * @param lon The longitude index
      * @param lat The latitude index
      */
-    public SRTMTileIndex(int lon, int lat) {
+    public SRTMTileName(int lon, int lat) {
         longitude = lon;
         latitude = lat;
     }
@@ -49,7 +49,7 @@ public final class SRTMTileIndex {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        SRTMTileIndex other = (SRTMTileIndex) obj;
+        SRTMTileName other = (SRTMTileName) obj;
         return this.longitude == other.longitude && this.latitude == other.latitude;
     }
 
@@ -63,7 +63,7 @@ public final class SRTMTileIndex {
         = Pattern.compile("([NS])([0-9]{2})([EW])([0-9]{3})");
     
 
-    public static SRTMTileIndex parseTileIndex(String s) {
+    public static SRTMTileName parseTileIndex(String s) {
         Matcher m = srtmStringPattern.matcher(s);
         
         if(m.matches()) {
@@ -77,7 +77,7 @@ public final class SRTMTileIndex {
                 lon *= -1;
             }
             
-            return new SRTMTileIndex(lon, lat);
+            return new SRTMTileName(lon, lat);
         } else {
             throw new NumberFormatException();
         }

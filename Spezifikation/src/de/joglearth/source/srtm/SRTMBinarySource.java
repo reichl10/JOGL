@@ -18,7 +18,7 @@ import de.joglearth.util.Resource;
  * elevation zero' the WGS84 spheroid is used. Only necessary if the HightProfile is activated.
  * 
  */
-public class SRTMBinarySource implements Source<SRTMTileIndex, byte[]> {
+public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
 
     private final static String serverURL = "http://dds.cr.usgs.gov/srtm/version2_1/SRTM3/";
 
@@ -37,8 +37,8 @@ public class SRTMBinarySource implements Source<SRTMTileIndex, byte[]> {
     }
 
     @Override
-    public SourceResponse<byte[]> requestObject(final SRTMTileIndex key,
-            final SourceListener<SRTMTileIndex, byte[]> sender) {
+    public SourceResponse<byte[]> requestObject(final SRTMTileName key,
+            final SourceListener<SRTMTileName, byte[]> sender) {
 
         if (key == null) {
             throw new IllegalArgumentException();

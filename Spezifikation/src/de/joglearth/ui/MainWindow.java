@@ -73,10 +73,12 @@ import de.joglearth.settings.SettingsListener;
 import de.joglearth.surface.Location;
 import de.joglearth.surface.LocationListener;
 import de.joglearth.surface.LocationManager;
-import de.joglearth.surface.MapLayout;
+import de.joglearth.surface.MapConfiguration;
+import de.joglearth.surface.OSMMapConfiguration;
+import de.joglearth.surface.SingleMapConfiguration;
 import de.joglearth.surface.SingleMapType;
 import de.joglearth.surface.SurfaceListener;
-import de.joglearth.surface.TiledMapType;
+import de.joglearth.surface.OSMMapType;
 import de.joglearth.opengl.TextureFilter;
 
 
@@ -159,7 +161,7 @@ public class MainWindow extends JFrame {
     private JRadioButton globalSearchRadioButton;
     private JLabel displayModeLabel;
     private JLabel mapTypeLabel;
-    private JComboBox<IconizedItem<MapTypePair>> paraMapTypeComboBox;
+    private JComboBox<IconizedItem<MapConfiguration>> paraMapTypeComboBox;
     private JTabbedPane sideBarTabs;
     private JSlider zoomSlider;
     private UISettingsListener settingsListener;
@@ -193,26 +195,6 @@ public class MainWindow extends JFrame {
 
         }
     };
-
-    private class MapTypePair {
-
-        public MapLayout layout;
-        /**
-         * Can be {@link SingleMapType} or {@link TildMapType}.
-         */
-        public Object type;
-
-
-        public MapTypePair(SingleMapType s) {
-            layout = MapLayout.SINGLE;
-            type = s;
-        }
-
-        public MapTypePair(TiledMapType s) {
-            layout = MapLayout.TILED;
-            type = s;
-        }
-    }
 
 
     private void initializeWindow() {
@@ -363,11 +345,11 @@ public class MainWindow extends JFrame {
         mapTypeLabel = new JLabel(Messages.getString("MainWindow.62")); //$NON-NLS-1$
         mapOptionsPanel.add(mapTypeLabel, "1, 1"); //$NON-NLS-1$
 
-        paraMapTypeComboBox = new JComboBox<IconizedItem<MapTypePair>>();
+        paraMapTypeComboBox = new JComboBox<IconizedItem<MapConfiguration>>();
         mapTypeComboBox = paraMapTypeComboBox;
         mapOptionsPanel.add(paraMapTypeComboBox, "1, 3"); //$NON-NLS-1$
         paraMapTypeComboBox
-                .setRenderer(new IconListCellRenderer<IconizedItem<MapTypePair>>());
+                .setRenderer(new IconListCellRenderer<IconizedItem<MapConfiguration>>());
         heightMapCheckBox = new JCheckBox(Messages.getString("MainWindow.65")); //$NON-NLS-1$
         heightMapCheckBox.addChangeListener(new ChangeListener() {
 
@@ -385,35 +367,36 @@ public class MainWindow extends JFrame {
         viewTab.add(logoLabel, "2, 8, center, bottom"); //$NON-NLS-1$
         logoLabel.setVerticalAlignment(SwingConstants.TOP);
         logoLabel.setIcon(loadIcon("icons/logo.png")); //$NON-NLS-1$
+        /*
         paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
+                .addItem(new IconizedItem<MapConfiguration>(
                         Messages.getString("MainWindow.70"), //$NON-NLS-1$
-                        loadIcon("icons/mapSatellite.png"), new MapTypePair(SingleMapType.SATELLITE))); //$NON-NLS-1$
+                        loadIcon("icons/mapSatellite.png"), new MapConfiguration(SingleMapType.SATELLITE))); //$NON-NLS-1$
         paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
+                .addItem(new IconizedItem<MapConfiguration>(
                         Messages.getString("MainWindow.72"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK))); //$NON-NLS-1$
+                        loadIcon("icons/mapOSM.png"), new MapConfiguration(OSMMapType.MAPNIK))); //$NON-NLS-1$
         paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
+                .addItem(new IconizedItem<MapConfiguration>(
                         Messages.getString("MainWindow.4"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.CYCLING))); //$NON-NLS-1$
+                        loadIcon("icons/mapOSM.png"), new MapConfiguration(OSMMapType.CYCLING))); //$NON-NLS-1$
         paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
+                .addItem(new IconizedItem<MapConfiguration>(
                         Messages.getString("MainWindow.5"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.HIKING))); //$NON-NLS-1$
+                        loadIcon("icons/mapOSM.png"), new MapConfiguration(OSMMapType.HIKING))); //$NON-NLS-1$
         paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
+                .addItem(new IconizedItem<MapConfiguration>(
                         Messages.getString("MainWindow.6"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.SKIING))); //$NON-NLS-1$
+                        loadIcon("icons/mapOSM.png"), new MapConfiguration(OSMMapType.SKIING))); //$NON-NLS-1$
         paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
+                .addItem(new IconizedItem<MapConfiguration>(
                         Messages.getString("MainWindow.7"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM2WORLD))); //$NON-NLS-1$
+                        loadIcon("icons/mapOSM.png"), new MapConfiguration(OSMMapType.OSM2WORLD))); //$NON-NLS-1$
         paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
+                .addItem(new IconizedItem<MapConfiguration>(
                         Messages.getString("MainWindow.74"), //$NON-NLS-1$
-                        loadIcon("icons/mapChildren.png"), new MapTypePair(SingleMapType.CHILDREN))); //$NON-NLS-1$
-
+                        loadIcon("icons/mapChildren.png"), new MapConfiguration(SingleMapType.CHILDREN))); //$NON-NLS-1$
+*/
     }
 
     private void initializePlacesTab() {
@@ -963,19 +946,9 @@ public class MainWindow extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    IconizedItem<MapTypePair> item = (IconizedItem<MapTypePair>) e.getItem();
-                    MapTypePair mtp = item.getValue();
-                    if (mtp.type instanceof SingleMapType) {
-                        SingleMapType mapType = (SingleMapType) mtp.type;
-                        Settings.getInstance().putString(
-                                SettingsContract.MAP_TYPE, mapType.name());
-                        renderer.setSingleMapType(mapType);
-                    } else if (mtp.type instanceof TiledMapType) {
-                        TiledMapType type = (TiledMapType) mtp.type;
-                        Settings.getInstance().putString(
-                                SettingsContract.MAP_TYPE, type.name());
-                        renderer.setTiledMapType(type);
-                    }
+                    IconizedItem<MapConfiguration> item = (IconizedItem<MapConfiguration>) e.getItem();
+                        renderer.setMapConfiguration((MapConfiguration) item.getValue());
+
                 }
             }
         });
@@ -1016,33 +989,33 @@ public class MainWindow extends JFrame {
                 int index = paraMapTypeComboBox.getSelectedIndex();
                 paraMapTypeComboBox.removeAllItems();
                 paraMapTypeComboBox
-                        .addItem(new IconizedItem<MapTypePair>(
+                        .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.70"), //$NON-NLS-1$
-                                loadIcon("icons/mapSatellite.png"), new MapTypePair(SingleMapType.SATELLITE))); //$NON-NLS-1$
+                                loadIcon("icons/mapSatellite.png"), new SingleMapConfiguration(SingleMapType.SATELLITE))); //$NON-NLS-1$
                 paraMapTypeComboBox
-                        .addItem(new IconizedItem<MapTypePair>(
+                        .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.72"), //$NON-NLS-1$
-                                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK))); //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.MAPNIK))); //$NON-NLS-1$
                 paraMapTypeComboBox
-                        .addItem(new IconizedItem<MapTypePair>(
+                        .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.4"), //$NON-NLS-1$
-                                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.CYCLING))); //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.CYCLING))); //$NON-NLS-1$
                 paraMapTypeComboBox
-                        .addItem(new IconizedItem<MapTypePair>(
+                        .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.5"), //$NON-NLS-1$
-                                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.HIKING))); //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.HIKING))); //$NON-NLS-1$
                 paraMapTypeComboBox
-                        .addItem(new IconizedItem<MapTypePair>(
+                        .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.6"), //$NON-NLS-1$
-                                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.SKIING))); //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.SKIING))); //$NON-NLS-1$
                 paraMapTypeComboBox
-                        .addItem(new IconizedItem<MapTypePair>(
+                        .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.7"), //$NON-NLS-1$
-                                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM2WORLD))); //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.OSM2WORLD))); //$NON-NLS-1$
                 paraMapTypeComboBox
-                        .addItem(new IconizedItem<MapTypePair>(
+                        .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.74"), //$NON-NLS-1$
-                                loadIcon("icons/mapChildren.png"), new MapTypePair(SingleMapType.CHILDREN))); //$NON-NLS-1$
+                                loadIcon("icons/mapChildren.png"), new SingleMapConfiguration(SingleMapType.CHILDREN))); //$NON-NLS-1$
                 paraMapTypeComboBox.setSelectedIndex(index);
                 antialiasingLabel.setText(Messages.getString("MainWindow.126")); //$NON-NLS-1$
                 index = antialiasingComboBox.getSelectedIndex();

@@ -10,20 +10,30 @@ import java.util.regex.Pattern;
 import javax.xml.bind.DatatypeConverter;
 
 import de.joglearth.geometry.Tile;
+import de.joglearth.geometry.OSMTile;
+import de.joglearth.source.TileName;
 import de.joglearth.source.caching.PathTranslator;
-import de.joglearth.surface.TiledMapType;
+import de.joglearth.surface.OSMMapConfiguration;
+import de.joglearth.surface.OSMMapType;
 
 
 /**
  * Implements the {@link de.joglearth.source.caching.PathTranslator} interface
- * {@link de.joglearth.source.osm.OSMTile}.
+ * {@link de.joglearth.source.osm.OSMTileImageName}.
  */
-public class OSMPathTranslator implements PathTranslator<OSMTile> {
+public class OSMPathTranslator implements PathTranslator<TileName> {
 
     @Override
-    public String toFileSystemPath(OSMTile k) {        
-        String fileName = String.format("%s-%d-%d-%d.png", k.type.toString(), 
-                k.tile.getDetailLevel(), k.tile.getLongitudeIndex(), k.tile.getLatitudeIndex());
+    public String toFileSystemPath(TileName name) {
+        if (!(name.tile instanceof OSMTile) || !(name.configuration instanceof OSMMapConfiguration)) {
+            throw new IllegalArgumentException();
+        }
+        
+        OSMTile osmTile = (OSMTile) name.tile;
+        OSMMapConfiguration osmConfig = (OSMMapConfiguration) name.configuration;
+        
+        String fileName = String.format("%s-%d-%d-%d.png", osmConfig.getMapType().toString(), 
+                osmTile.getDetailLevel(), osmTile.getLongitudeIndex(), osmTile.getLatitudeIndex());
 
         byte[] bytesOfMessage = null;
         try {
@@ -50,16 +60,17 @@ public class OSMPathTranslator implements PathTranslator<OSMTile> {
             + Pattern.quote(File.separator) + "([A-Z0-9_]+)-([0-9]+)-([0-9]+)-([0-9]+)\\.png");
 
     @Override
-    public OSMTile fromFileSystemPath(String s) {
+    public TileName fromFileSystemPath(String s) {
         Matcher m = pathPattern.matcher(s);
 
         if (m.matches()) {            
-            TiledMapType type = TiledMapType.valueOf(m.group(1));
+            OSMMapType type = OSMMapType.valueOf(m.group(1));
             int zoom = Integer.parseInt(m.group(2));
             int lonIndex = Integer.parseInt(m.group(3));
             int latIndex = Integer.parseInt(m.group(4));
             
-            return new OSMTile(new Tile(zoom, lonIndex, latIndex), type);
+            return new TileName(new OSMMapConfiguration(type), 
+                    new OSMTile(zoom, lonIndex, latIndex));
         }
 
         return null;

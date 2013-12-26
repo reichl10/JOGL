@@ -14,12 +14,11 @@ import de.joglearth.rendering.Renderer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
-import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
+import de.joglearth.source.TileName;
 import de.joglearth.source.caching.RequestDistributor;
 import de.joglearth.source.opengl.TextureCache;
 import de.joglearth.source.opengl.TextureSource;
-import de.joglearth.source.osm.OSMTile;
 
 /**
  * Executes requests for textures of the {@link Renderer}. Loads textures from a
@@ -31,13 +30,13 @@ public class TextureManager {
     
     private Texture placeholder;
     private List<SurfaceListener> listeners = new ArrayList<>();
-    private RequestDistributor<OSMTile, Texture> dist;
-    private TiledMapType mapType = TiledMapType.OSM_MAPNIK;
+    private RequestDistributor<TileName, Texture> dist;
     private TextureListener textureListener = new TextureListener();
     private GLContext gl;
     private volatile TextureFilter textureFilter;
-    private TextureSource<OSMTile> textureSource;
+    private TextureSource<TileName> textureSource;
     private TextureSettingsListener settingsListener;
+    private MapConfiguration mapConfiguration;
     
     
     private class TextureSettingsListener implements SettingsListener {
@@ -67,10 +66,10 @@ public class TextureManager {
     }
     
     
-    private class TextureListener implements SourceListener<OSMTile, Texture> {
+    private class TextureListener implements SourceListener<TileName, Texture> {
 
         @Override
-        public void requestCompleted(OSMTile key, Texture value) {
+        public void requestCompleted(TileName key, Texture value) {
             notifyListeners(key.tile);
         }
     }
@@ -106,13 +105,13 @@ public class TextureManager {
      * 
      * @param gl The OpenGL object
      */
-    public TextureManager(GLContext gl, Source<OSMTile, byte[]> imageSource,
-            int textureCacheSize) {
+    public TextureManager(GLContext gl, int textureCacheSize, MapConfiguration configuration) {
         this.gl = gl;
-        this.textureSource = new TextureSource<OSMTile>(gl, imageSource);
+        this.textureSource = new TextureSource<TileName>(gl, configuration.getImageSource());
+        this.mapConfiguration = configuration;
 
         dist = new RequestDistributor<>();
-        dist.addCache(new TextureCache<OSMTile>(gl), textureCacheSize);
+        dist.addCache(new TextureCache<TileName>(gl), textureCacheSize);
         dist.setSource(textureSource);
 
         settingsListener = new TextureSettingsListener();
@@ -146,15 +145,15 @@ public class TextureManager {
      */
     public synchronized Texture getTexture(Tile tile) {
         //TODO System.err.println("TextureManager: requesting texture for " + tile);
-        Texture textureId = dist.requestObject(new OSMTile(tile, mapType), textureListener).value;
+        Texture textureId = dist.requestObject(new TileName(mapConfiguration, tile), textureListener).value;
         //TODO System.err.println("TextureManager: returning "
         //        + (textureId == null ? "placeholder" : "real texture") + " for " + tile);
         return textureId != null ? textureId : placeholder;
     }
     
     
-    public synchronized void setMapType(TiledMapType t) {
-        mapType = t;
+    public synchronized void setMapConfiguration(MapConfiguration t) {
+        mapConfiguration = t;
     }
 
     /**

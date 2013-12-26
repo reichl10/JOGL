@@ -3,6 +3,7 @@ package de.joglearth.rendering;
 import static javax.media.opengl.GL2.*;
 import static java.lang.Math.*;
 
+import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -24,6 +25,7 @@ import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.PlaneGeometry;
 import de.joglearth.geometry.SphereGeometry;
 import de.joglearth.geometry.Tile;
+import de.joglearth.geometry.TileLayout;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.GLContextListener;
@@ -35,12 +37,13 @@ import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.osm.OSMTileManager;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.surface.LocationType;
-import de.joglearth.surface.MapLayout;
+import de.joglearth.surface.MapConfiguration;
+import de.joglearth.surface.SingleMapConfiguration;
 import de.joglearth.surface.SingleMapType;
 import de.joglearth.surface.SurfaceListener;
 import de.joglearth.surface.TextureManager;
 import de.joglearth.surface.TileMeshManager;
-import de.joglearth.surface.TiledMapType;
+import de.joglearth.surface.OSMMapType;
 import de.joglearth.util.Resource;
 
 
@@ -58,9 +61,6 @@ public class Renderer {
     private TextureManager textureManager;
     private Camera camera;
     private DisplayMode activeDisplayMode = DisplayMode.SOLAR_SYSTEM;
-    private MapLayout mapLayout = MapLayout.TILED;
-    private SingleMapType singleMapType = SingleMapType.SATELLITE;
-    private TiledMapType tiledMapType;
     private Texture earth, moon;
     private TileMeshManager tileMeshManager;
     private SurfaceListener surfaceListener = new SurfaceValidator();
@@ -69,6 +69,9 @@ public class Renderer {
     private Map<SingleMapType, Texture> singleMapTextures;
     private SettingsListener settingsListener = new GraphicsSettingsListener();
     private Texture sky;
+    private TileLayout tileLayout;
+    private MapConfiguration mapConfiguration = new SingleMapConfiguration(SingleMapType.SATELLITE);
+    private Dimension screenSize;
 
     /**
      * Constructor initializes the OpenGL functionalities.
@@ -142,7 +145,7 @@ public class Renderer {
         gl.setAmbientLight(0.2);
         gl.setMaterialSpecularity(0.02);
 
-        textureManager = new TextureManager(gl, OSMTileManager.getInstance(), 200);
+        textureManager = new TextureManager(gl, 200, mapConfiguration);
         textureManager.addSurfaceListener(new SurfaceValidator());
 
         loadTextures();
@@ -205,9 +208,7 @@ public class Renderer {
     private void renderTiles() {
         gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
 
-        int zoomLevel = Math.min(18, CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles));
-        System.err.print("zoomlevel: " + zoomLevel + "  ");
-        Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, zoomLevel);
+        Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, mapConfiguration.getOptimalTileLayout(camera, screenSize));
         for (Tile tile : tiles) {
             Texture texture = textureManager.getTexture(tile);
             VertexBuffer vbo = tileMeshManager.requestObject(tile, null).value;
@@ -402,21 +403,11 @@ public class Renderer {
      * 
      * @param t The new <code>MapLayout</code>
      */
-    public void setSingleMapType(SingleMapType t) {
-        mapLayout = MapLayout.SINGLE;
-        singleMapType = t;
+    public synchronized void setMapConfiguration(MapConfiguration configuration) {
+        this.mapConfiguration = configuration;
+        textureManager.setMapConfiguration(configuration);
         gl.postRedisplay();
     }
 
-    /**
-     * Sets the {@link de.joglearth.surface.MapLayout} to a given value. This type is a
-     * {@link de.joglearth.surface.TiledMapType} as the texture consists of multiple tiles.
-     * 
-     * @param t The new <code>MapLayout</code>
-     */
-    public void setTiledMapType(TiledMapType t) {
-        mapLayout = MapLayout.TILED;
-        tiledMapType = t;
-        gl.postRedisplay();
-    }
+
 }

@@ -14,10 +14,10 @@ import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
 import de.joglearth.source.opengl.TextureSource;
-import de.joglearth.source.osm.OSMTile;
+import de.joglearth.source.osm.OSMTileName;
 import de.joglearth.source.osm.OSMTileManager;
 import de.joglearth.source.osm.OSMTileSource;
-import de.joglearth.surface.TiledMapType;
+import de.joglearth.surface.OSMMapType;
 
 
 public class TextureSourceTest {
@@ -34,9 +34,9 @@ public class TextureSourceTest {
 		window.display(new Runnable() {
 			@Override
 			public void run() {
-				TextureSource<OSMTile> source
-					= new TextureSource<OSMTile>(window.getGL(), OSMTileManager.getInstance());
-				OSMTile key = new OSMTile(new Tile(0, 0, 0), TiledMapType.SKIING);
+				TextureSource<OSMTileName> source
+					= new TextureSource<OSMTileName>(window.getGL(), OSMTileManager.getInstance());
+				OSMTileName key = new OSMTileName(new Tile(0, 0, 0), OSMMapType.SKIING);
 				TestSourceListener listener = new TestSourceListener(Thread
 						.currentThread());
 				SourceResponse<Integer> response = source.requestObject(key,
@@ -58,7 +58,7 @@ public class TextureSourceTest {
 		});
 	}
 
-	private class TestSourceListener implements SourceListener<OSMTile, Integer> {
+	private class TestSourceListener implements SourceListener<OSMTileName, Integer> {
 		private Thread waiterThread;
 
 		public TestSourceListener(Thread t) {
@@ -66,7 +66,7 @@ public class TextureSourceTest {
 		}
 
 		@Override
-		public void requestCompleted(OSMTile key, Integer value) {
+		public void requestCompleted(OSMTileName key, Integer value) {
 			waiterThread.notify();
 		}
 

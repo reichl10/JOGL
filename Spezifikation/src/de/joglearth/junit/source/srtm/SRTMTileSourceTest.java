@@ -12,7 +12,7 @@ import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
 import de.joglearth.source.srtm.SRTMBinarySource;
 import de.joglearth.source.srtm.SRTMTile;
-import de.joglearth.source.srtm.SRTMTileIndex;
+import de.joglearth.source.srtm.SRTMTileName;
 import de.joglearth.source.srtm.SRTMTileSource;
 
 
@@ -23,13 +23,13 @@ public class SRTMTileSourceTest {
         SRTMBinarySource binarySource = new SRTMBinarySource(); 
         SRTMTileSource testTileSource1 = new SRTMTileSource(binarySource);
         SRTMTileSource testTileSource2 = null;
-        SRTMTileIndex testTileIndex1 = new SRTMTileIndex(116, 0);
-        SRTMTileIndex testTileIndex2 = new SRTMTileIndex(105, -11);
+        SRTMTileName testTileIndex1 = new SRTMTileName(116, 0);
+        SRTMTileName testTileIndex2 = new SRTMTileName(105, -11);
         
-        SourceListener<SRTMTileIndex, SRTMTile> senderFound = new SourceListener<SRTMTileIndex, SRTMTile>() {          
+        SourceListener<SRTMTileName, SRTMTile> senderFound = new SourceListener<SRTMTileName, SRTMTile>() {          
             
             @Override
-            public void requestCompleted(SRTMTileIndex key, SRTMTile value) {
+            public void requestCompleted(SRTMTileName key, SRTMTile value) {
                 assertNotNull(key);
                 assertNotNull(value);
             }};
@@ -49,7 +49,7 @@ public class SRTMTileSourceTest {
         assertEquals(SourceResponseType.ASYNCHRONOUS, response.response);
         
         
-        SRTMTileIndex testTileIndex3 = new SRTMTileIndex(0, -80);
+        SRTMTileName testTileIndex3 = new SRTMTileName(0, -80);
         
         response = testTileSource1.requestObject(testTileIndex3, null);
         assertNotNull(response);

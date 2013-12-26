@@ -3,22 +3,24 @@ package de.joglearth.source.osm;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import de.joglearth.geometry.OSMTile;
 import de.joglearth.geometry.Tile;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.surface.TiledMapType;
+import de.joglearth.source.TileName;
+import de.joglearth.surface.OSMMapConfiguration;
+import de.joglearth.surface.OSMMapType;
 import de.joglearth.util.HTTP;
 
 
 /**
  * Loads OpenStreetMap image tiles by their coordinates via HTTP.
  */
-public class OSMTileSource implements Source<OSMTile, byte[]> {
+public class OSMTileSource implements Source<TileName, byte[]> {
 
     private String[] servers;
-    private TiledMapType type;
     private int offset = 0;
     private final ExecutorService executor;
 
@@ -34,18 +36,18 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
     }
 
     @Override
-    public SourceResponse<byte[]> requestObject(final OSMTile k,
-            final SourceListener<OSMTile, byte[]> sender) {
-
-        if (k.type != type) {
-            setTileType(k.type);
+    public SourceResponse<byte[]> requestObject(final TileName k,
+            final SourceListener<TileName, byte[]> sender) {
+        if ((k.tile instanceof OSMTile) || !(k.configuration instanceof OSMMapConfiguration)) {
+            throw new IllegalArgumentException();
         }
+        
 
         executor.execute(new Runnable() {
 
             @Override
             public void run() {
-                byte[] response = getOSMTile(k.tile);
+                byte[] response = getOSMTile((OSMTile) k.tile, ((OSMMapConfiguration) k.configuration).getMapType());
 
                 sender.requestCompleted(k, response);
             }
@@ -54,7 +56,7 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
         return new SourceResponse<byte[]>(SourceResponseType.ASYNCHRONOUS, null);
     }
 
-    private byte[] getOSMTile(Tile tile) {
+    private byte[] getOSMTile(OSMTile tile, OSMMapType mapType) {
         //TODO System.err.println("OSMTileSource: loading " + tile + " with type " + type.toString());
 
         // Spezialfall Kartenrand (Longitude)
@@ -132,21 +134,9 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
 
         return response;
     }
-
-    /**
-     * Sets the type of an OpenStreetMap tile.
-     * 
-     * @param type <code>TiledMapType</code> of the tile
-     */
-    public void setTileType(TiledMapType type) {
-        if (this.type != type) {
-            this.type = type;
-            this.servers = getServer(type);
-        }
-    }
-
+    
     // TODO evtl. woanders hinschieben
-    private String[] getServer(TiledMapType type) {
+    private String[] getServer(OSMMapType type) {
 
         String[] cycling = { "http://a.tile.opencyclemap.org/cycle/",
                 "http://b.tile.opencyclemap.org/cycle/" };
@@ -166,14 +156,14 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
                 return hiking;
             case OSM2WORLD:
                 return osm2world;
-            case OSM_MAPNIK:
+            case MAPNIK:
                 return mapnik;
             case SKIING:
                 return skiing;
             default:
                 return new String[0];
         }
-    }
+    }/*
 
     public static void main(String[] args) {
 //        Tile tile1 = new Tile(2, 0, 0);
@@ -215,8 +205,8 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
         int n = (int) Math.pow(2, zoom);
         
         for (int i = 0; i < n; i++) {
-            Tile tile = new Tile(zoom, n/2 , i);
-            OSMTile osm = new OSMTile(tile, TiledMapType.OSM_MAPNIK);
+            OSMTile tile = new OSMTile(zoom, n/2 , i);
+            TileName osm = new TileName(tile, OSMMapType.MAPNIK);
             source.requestObject(osm, new TestRequester());
 
         }
@@ -246,19 +236,19 @@ public class OSMTileSource implements Source<OSMTile, byte[]> {
     }
 
 
-    static class TestRequester implements SourceListener<OSMTile, byte[]> {
+    static class TestRequester implements SourceListener<TileName, byte[]> {
 
         public TestRequester() {
 
         }
 
         @Override
-        public void requestCompleted(OSMTile key, byte[] value) {
+        public void requestCompleted(TileName key, byte[] value) {
             // TODO Auto-generated method stub
 
         }
     }
-
+*/
 
     @Override
     public void dispose() {

@@ -14,12 +14,12 @@ import de.joglearth.util.ApplicationData;
 /**
  * Singleton class that retrieves data from the {@link de.joglearth.source.srtm.SRTMTileSource}.
  */
-public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
+public final class SRTMTileManager implements Source<SRTMTileName, SRTMTile> {
 
     private static SRTMTileManager                      instance = null;
 
-    private RequestDistributor<SRTMTileIndex, SRTMTile> tileRequestDistributor;
-    private RequestDistributor<SRTMTileIndex, byte[]> binaryRequestDistributor;
+    private RequestDistributor<SRTMTileName, SRTMTile> tileRequestDistributor;
+    private RequestDistributor<SRTMTileName, byte[]> binaryRequestDistributor;
 
 
     /**
@@ -44,22 +44,22 @@ public final class SRTMTileManager implements Source<SRTMTileIndex, SRTMTile> {
     // Default constructor
     private SRTMTileManager(String folder, int memCacheBytes, int fsCacheBytes) {
         SRTMBinarySource binarySource = new SRTMBinarySource();
-        FileSystemCache<SRTMTileIndex> binaryCache 
+        FileSystemCache<SRTMTileName> binaryCache 
             = new FileSystemCache<>(folder, new SRTMPathTranslator());
         binaryRequestDistributor = new RequestDistributor<>(new ByteArrayMeasure());
         binaryRequestDistributor.setSource(binarySource);
         binaryRequestDistributor.addCache(binaryCache, fsCacheBytes);
         
         SRTMTileSource tileSource = new SRTMTileSource(binaryRequestDistributor);
-        MemoryCache<SRTMTileIndex, SRTMTile> tileCache = new MemoryCache<>();
+        MemoryCache<SRTMTileName, SRTMTile> tileCache = new MemoryCache<>();
         tileRequestDistributor = new RequestDistributor<>(new UnityMeasure<SRTMTile>());
         tileRequestDistributor.setSource(tileSource);
         tileRequestDistributor.addCache(tileCache, memCacheBytes / SRTMTile.SIZE_IN_MEMORY);
     }
 
     @Override
-    public SourceResponse<SRTMTile> requestObject(SRTMTileIndex key,
-            SourceListener<SRTMTileIndex, SRTMTile> sender) {
+    public SourceResponse<SRTMTile> requestObject(SRTMTileName key,
+            SourceListener<SRTMTileName, SRTMTile> sender) {
         return tileRequestDistributor.requestObject(key, sender);
     }
 

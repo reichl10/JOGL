@@ -1,6 +1,7 @@
 package de.joglearth.util;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.management.RuntimeErrorException;
 import javax.media.opengl.GLProfile;
 import javax.swing.ImageIcon;
 
@@ -84,5 +86,20 @@ public final class Resource {
             throw new RuntimeException("Loading resource " + name + " failed", e);
         }
         return map;
+    }
+    
+    public static byte[] loadBinary(String name) {
+        try {
+            InputStream input = open(name);
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            byte[] buf = new byte[0x10000];
+            int n;
+            while ((n = input.read(buf)) != 0) {
+                output.write(buf, 0, n);
+            }
+            return output.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException("Loading resource " + name + " failed", e);
+        }
     }
 }

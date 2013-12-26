@@ -5,6 +5,7 @@ import de.joglearth.settings.SettingsContract;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
+import de.joglearth.source.TileName;
 import de.joglearth.source.caching.ByteArrayMeasure;
 import de.joglearth.source.caching.Cache;
 import de.joglearth.source.caching.FileSystemCache;
@@ -16,11 +17,11 @@ import de.joglearth.util.ApplicationData;
 /**
  * Singleton class that retrieves data from the {@link de.joglearth.source.osm.OSMTileSource}.
  */
-public final class OSMTileManager implements Source<OSMTile, byte[]> {
+public final class OSMTileManager implements Source<TileName, byte[]> {
 
-    private RequestDistributor<OSMTile, byte[]> dist;
-    private Cache<OSMTile, byte[]> memoryCache;
-    private Cache<OSMTile, byte[]> fsCache;
+    private RequestDistributor<TileName, byte[]> dist;
+    private Cache<TileName, byte[]> memoryCache;
+    private Cache<TileName, byte[]> fsCache;
 
     private static OSMTileManager instance = null;
 
@@ -50,17 +51,17 @@ public final class OSMTileManager implements Source<OSMTile, byte[]> {
 
     // Default constructor
     private OSMTileManager(String cachePath, int memoryCacheSize, int fsCacheSize) {
-        dist = new RequestDistributor<OSMTile, byte[]>(new ByteArrayMeasure());
-        memoryCache = new MemoryCache<OSMTile, byte[]>();
-        fsCache = new FileSystemCache<OSMTile>(cachePath, new OSMPathTranslator());
+        dist = new RequestDistributor<TileName, byte[]>(new ByteArrayMeasure());
+        memoryCache = new MemoryCache<TileName, byte[]>();
+        fsCache = new FileSystemCache<TileName>(cachePath, new OSMPathTranslator());
         dist.setSource(new OSMTileSource());
         dist.addCache(memoryCache, memoryCacheSize);
         dist.addCache(fsCache, fsCacheSize);
     }
 
     @Override
-    public SourceResponse<byte[]> requestObject(OSMTile key,
-            SourceListener<OSMTile, byte[]> sender) {
+    public SourceResponse<byte[]> requestObject(TileName key,
+            SourceListener<TileName, byte[]> sender) {
         return dist.requestObject(key, sender);
     }
 

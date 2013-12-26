@@ -6,7 +6,7 @@ import java.util.List;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.srtm.SRTMTile;
-import de.joglearth.source.srtm.SRTMTileIndex;
+import de.joglearth.source.srtm.SRTMTileName;
 import de.joglearth.source.srtm.SRTMTileManager;
 import static java.lang.Math.*;
 
@@ -30,10 +30,10 @@ public final class HeightMap {
     public final static double MIN_HEIGHT = -MAX_HEIGHT;
 
 
-    private static class SRTMListener implements SourceListener<SRTMTileIndex, SRTMTile> {
+    private static class SRTMListener implements SourceListener<SRTMTileName, SRTMTile> {
 
         @Override
-        public void requestCompleted(SRTMTileIndex key, SRTMTile value) {
+        public void requestCompleted(SRTMTileName key, SRTMTile value) {
             for (SurfaceListener l : listeners) {
                 l.surfaceChanged(key.longitude, key.latitude, key.longitude + 1, key.latitude + 1);
             }
@@ -65,7 +65,7 @@ public final class HeightMap {
         //TODO System.err.println("HeightMap: requesting height of " + coords + " with resolution "
         //        + resolution);
         
-        SRTMTileIndex index = new SRTMTileIndex(toTileIndex(coords.getLongitude()), 
+        SRTMTileName index = new SRTMTileName(toTileIndex(coords.getLongitude()), 
                 toTileIndex(coords.getLatitude()));
         SRTMTile tile = srtm.requestObject(index, srtmListener).value;
         

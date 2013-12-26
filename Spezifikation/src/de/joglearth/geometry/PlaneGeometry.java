@@ -6,10 +6,10 @@ import de.joglearth.geometry.Vector3;
 
 
 /**
- * Implements the {@link de.joglearth.geometry.Geometry} interface for a camera looking at a map
+ * Implements the {@link de.joglearth.geometry.CameraGeometry} interface for a camera looking at a map
  * plane.
  */
-public class PlaneGeometry implements Geometry {
+public class PlaneGeometry implements CameraGeometry {
 
     private static final double DISTANCE_LIMIT = 10;
 

@@ -17,9 +17,9 @@ import de.joglearth.source.SourceResponse;
  * elevation zero' the WGS84 spheroid is used. Necessary when the HeightProfile is activated. Only
  * necessary if the HightProfile is activated.
  */
-public class SRTMTileSource implements Source<SRTMTileIndex, SRTMTile> {
+public class SRTMTileSource implements Source<SRTMTileName, SRTMTile> {
 
-    private Source<SRTMTileIndex, byte[]> binarySource;
+    private Source<SRTMTileName, byte[]> binarySource;
 
 
     /**
@@ -28,21 +28,21 @@ public class SRTMTileSource implements Source<SRTMTileIndex, SRTMTile> {
      * 
      * @param binarySource The <code>Source</code> thats assigned
      */
-    public SRTMTileSource(Source<SRTMTileIndex, byte[]> binarySource) {
+    public SRTMTileSource(Source<SRTMTileName, byte[]> binarySource) {
         this.binarySource = binarySource;
     }
 
     @Override
-    public SourceResponse<SRTMTile> requestObject(SRTMTileIndex key,
-            final SourceListener<SRTMTileIndex, SRTMTile> sender) {
+    public SourceResponse<SRTMTile> requestObject(SRTMTileName key,
+            final SourceListener<SRTMTileName, SRTMTile> sender) {
 
         //TODO System.err.println("SRTMTileSource: loading " + key);
         
     	SourceResponse<byte[]> response = binarySource.requestObject(key, 
-			new SourceListener<SRTMTileIndex, byte[]>() {
+			new SourceListener<SRTMTileName, byte[]>() {
 
 				@Override
-				public void requestCompleted(SRTMTileIndex key, byte[] zipBytes) {
+				public void requestCompleted(SRTMTileName key, byte[] zipBytes) {
 	                byte[] tileBytes = null;
 	                if (zipBytes != null) {
 	                    try {

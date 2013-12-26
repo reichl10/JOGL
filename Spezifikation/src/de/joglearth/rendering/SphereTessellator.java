@@ -130,12 +130,16 @@ public class SphereTessellator implements Tessellator {
         double lat = direction > 0 ? tile.getLatitudeFrom() : tile.getLatitudeTo(), lon = tile
                 .getLongitudeFrom();
 
-        int maxShrinkCount = tile.getDetailLevel() == 0 ? 0 : getMaxShrinkCount(subdivisions + 1),
+        // TODO Problems with zoom=0?
+        int maxShrinkCount = /*tile.getDetailLevel() == 0 ? 0 : */getMaxShrinkCount(subdivisions + 1),
             shrinkCount = getShrinkCount(lat, maxShrinkCount), 
             rowWidth = max(2, (subdivisions + 1) / (int) pow(2, shrinkCount)) + 1;
 
-        double largeLonStep = 2 * PI / pow(2, tile.getDetailLevel()), 
-               lonStep = largeLonStep / (rowWidth - 1), 
+        double largeLonStep = tile.getLongitudeTo() - tile.getLongitudeFrom();
+        if (largeLonStep <= 0) {
+            largeLonStep += 2*PI;//2 * PI / pow(2, tile.getDetailLevel()), 
+        }
+        double lonStep = largeLonStep / (rowWidth - 1), 
                latStep = direction * (tile.getLatitudeTo() - tile.getLatitudeFrom()) / nRows;
 
         float[] vertices = new float[(nRows + 1) * rowWidth * VERTEX_SIZE * 2];

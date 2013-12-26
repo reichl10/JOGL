@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.geometry.Geometry;
+import de.joglearth.geometry.CameraGeometry;
 import de.joglearth.geometry.SphereGeometry;
 
 
@@ -17,7 +17,7 @@ public class CameraTest {
 
     @Test
     public void test() {
-        Geometry g = new SphereGeometry();
+        CameraGeometry g = new SphereGeometry();
         Camera cam = new Camera(g);
         double testDistance = 1.9;
         GeoCoordinates testCoord = new GeoCoordinates(-0.345, (Math.PI/4));
