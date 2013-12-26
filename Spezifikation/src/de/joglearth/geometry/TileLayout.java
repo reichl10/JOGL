@@ -12,5 +12,7 @@ public interface TileLayout {
     int getHoritzontalTileCount();
     
     int getVerticalTileCount();
+
+    GridPoint getTileOrigin(Tile tile);
     
 }

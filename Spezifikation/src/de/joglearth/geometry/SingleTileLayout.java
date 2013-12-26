@@ -33,4 +33,9 @@ public class SingleTileLayout implements TileLayout {
         return 1;
     }
 
+    @Override
+    public GridPoint getTileOrigin(Tile tile) {
+        return new GridPoint(0, 0);
+    }
+
 }

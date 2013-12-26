@@ -12,6 +12,15 @@ public class OSMTileLayout implements TileLayout {
     }
     
     @Override
+    public GridPoint getTileOrigin(Tile tile) {
+        if (!(tile instanceof OSMTile)) {
+            throw new IllegalArgumentException();
+        }
+        OSMTile osmTile = (OSMTile) tile;
+        return new GridPoint(osmTile.getLongitudeIndex(), osmTile.getLatitudeIndex());
+    }
+    
+    @Override
     public Tile createTile(GridPoint bottomLeft) {
         int lonIndex, latIndex;
         

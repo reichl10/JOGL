@@ -29,14 +29,14 @@ public final class CameraUtils {
         Tile centerTile = tileLayout.getContainingTile(
                 camera.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5)));
                 
-        GridPoint center = null;
+        GridPoint start = null;
         ArrayList<Tile> visibleTiles = new ArrayList<Tile>();
         HashSet<Tile> addedTiles = new HashSet<>();
         
         if (centerTile != null) {
             for (GridPoint corner : centerTile.getCorners()) {
                 if (camera.isPointVisible(tileLayout.getGeoCoordinates(corner))) {
-                    center = corner;
+                    start = corner;
                     break;
                 }
             }
@@ -45,9 +45,10 @@ public final class CameraUtils {
             addedTiles.add(centerTile);
         }
 
-        if (center != null) {
-            Set<GridPoint> visiblePoints = getVisibleGridPoints(center, camera, tileLayout);
-            TileWalker walker = new TileWalker(visiblePoints, center, tileLayout);
+        if (start != null) {
+            Set<GridPoint> visiblePoints = getVisibleGridPoints(start, camera, tileLayout);
+            TileWalker walker = new TileWalker(visiblePoints, tileLayout.getTileOrigin(centerTile), 
+                    tileLayout);
             while (walker.step()) {
                 Tile t = walker.getTile();
                 if (!addedTiles.contains(t)) {
@@ -163,9 +164,7 @@ public final class CameraUtils {
         private GridPoint pos;
         private int direction;
         private Camera camera;
-        //private double angle;
         private int maxLon, maxLat;
-        //private int horizontalCrossings = 0, verticalCrossings = 0;
         private TileLayout tileLayout;
 
 
@@ -173,7 +172,6 @@ public final class CameraUtils {
             this.direction = UP;
             this.pos = start;
             this.camera = camera;
-            //angle = pow(2, -detailLevel) * PI;
             maxLon = tileLayout.getHoritzontalTileCount();
             maxLat = tileLayout.getVerticalTileCount();
             this.tileLayout = tileLayout;
@@ -245,10 +243,23 @@ public final class CameraUtils {
             }
         }
 
+        private static int modulo(int x, int mod) {
+            x %= mod;
+            if (x < 0) x += mod;
+            return x;
+        }
+        
         public GridPoint getPoint() {
+            /*int lon = modulo(pos.getLongitude(), tileLayout.getHoritzontalTileCount());            
+            int lat = modulo(pos.getLatitude(), tileLayout.getVerticalTileCount());
+            return new GridPoint(lon, lat);*/
             return pos;
         }
 
+    }
+    
+    public static void main(String[] args) {
+        System.out.println((-10) % 8);
     }
 
     /*
@@ -282,7 +293,7 @@ public final class CameraUtils {
             this.points = points;
             this.lon = center.getLongitude();
             this.lat = center.getLatitude();
-            this.currentTile = tileLayout.createTile(new GridPoint(index(center.getLongitude()), index(center.getLatitude())));
+            this.currentTile = tileLayout.createTile(center);
             this.tileLayout = tileLayout;
             this.maxIndex = tileLayout.getHoritzontalTileCount();
         }
@@ -345,7 +356,7 @@ public final class CameraUtils {
                 }
 
                 if (visible) {
-                    nextTile = tileLayout.createTile(new GridPoint(index(lon), index(maxIndex / 2 - 1 - lat)));
+                    nextTile = tileLayout.createTile(new GridPoint(lon, lat));
                     turnsSinceLastTile = 0;
                 }
 
