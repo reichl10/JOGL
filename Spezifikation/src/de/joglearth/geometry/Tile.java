@@ -11,6 +11,10 @@ public final class Tile implements Cloneable {
     private int detailLevel;
     private int lonIndex;
     private int latIndex;
+    
+    
+    public static final double MAX_LATITUDE = atan(sinh(PI));
+    public static final double MIN_LATITUDE = -MAX_LATITUDE;
 
 
     /**
@@ -49,9 +53,9 @@ public final class Tile implements Cloneable {
     // Returns the angle for the step given, in radians
     private double getLatitudeAngle(int steps) {
         if (detailLevel > 0) {
-            return PI/2 - pow(0.5, detailLevel) * steps * PI;
+            return MAX_LATITUDE - pow(0.5, detailLevel) * steps * 2 * MAX_LATITUDE;
         } else {
-            return (0.5-steps)*PI;
+            return (0.5-steps)*MAX_LATITUDE*2;
         }
     }
 
@@ -130,16 +134,18 @@ public final class Tile implements Cloneable {
             throw new IllegalArgumentException();
         }
         
-        double angle = PI / pow(2, detailLevel);
-        int lon = (int) floor(coords.getLongitude() / (2 * angle));
+        double lonAngle = 2 * PI / pow(2, detailLevel);
+        double latAngle = MAX_LATITUDE / pow(2, detailLevel);
+        int lon = (int) floor(coords.getLongitude() / lonAngle);
         if (lon < 0) {
-            lon = (int) pow(2, detailLevel) + lon;
+            lon = (1 << detailLevel) + lon;
         }
-        int lat = (int) pow(2, detailLevel-1) - (int) floor((coords.getLatitude() / angle)) - 1;
-        if (lat < 0) {
-            lat = 0;
+        int lat = (1 << (detailLevel-1)) - (int) floor((coords.getLatitude() / latAngle)) - 1;
+        if (lat >= 0 && lat < (1 << detailLevel)) {
+            return new Tile(detailLevel, lon, lat);
+        } else {
+            return null;
         }
-        return new Tile(detailLevel, lon, lat);
     }
 
     /**
