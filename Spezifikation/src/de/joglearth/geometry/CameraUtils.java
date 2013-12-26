@@ -10,10 +10,6 @@ import static java.lang.Math.*;
  * Utility class providing extended {@link Camera} operations.
  */
 public final class CameraUtils {
-
-    public static void main(String ar[]) {
-        
-    }
     
     private CameraUtils() {}
     
@@ -32,23 +28,31 @@ public final class CameraUtils {
             TileLayout tileLayout) {
         Tile centerTile = tileLayout.getContainingTile(
                 camera.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5)));
-        
+                
         GridPoint center = null;
-        for (GridPoint corner : centerTile.getCorners()) {
-            if (camera.isPointVisible(tileLayout.getGeoCoordinates(corner))) {
-                center = corner;
-                break;
-            }
-        }
-        
         ArrayList<Tile> visibleTiles = new ArrayList<Tile>();
-        visibleTiles.add(centerTile);
+        
+        if (centerTile != null) {
+            for (GridPoint corner : centerTile.getCorners()) {
+                if (camera.isPointVisible(tileLayout.getGeoCoordinates(corner))) {
+                    center = corner;
+                    break;
+                }
+            }
+            
+            visibleTiles.add(centerTile);
+        }
 
+        HashSet<Tile> addedTiles = new HashSet<>();
         if (center != null) {
             Set<GridPoint> visiblePoints = getVisibleGridPoints(center, camera, tileLayout);
             TileWalker walker = new TileWalker(visiblePoints, center, tileLayout);
             while (walker.step()) {
-                visibleTiles.add(walker.getTile());
+                Tile t = walker.getTile();
+                if (!addedTiles.contains(t)) {
+                    visibleTiles.add(t);
+                    addedTiles.add(t);
+                }
             }
         }
 
@@ -274,14 +278,16 @@ public final class CameraUtils {
             this.lat = center.getLatitude();
             this.currentTile = tileLayout.createTile(new GridPoint(index(center.getLongitude()), index(center.getLatitude())));
             this.tileLayout = tileLayout;
+            this.maxIndex = tileLayout.getHoritzontalTileCount();
         }
 
         private int index(int ind) {
-            int r = ind % maxIndex;
+            /*int r = ind % maxIndex;
             if (r < 0) {
                 r = maxIndex + r;
             }
-            return r;            
+            return r;           */
+            return ind;
         }
         
         public boolean step() {

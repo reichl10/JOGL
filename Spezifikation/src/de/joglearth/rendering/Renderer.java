@@ -4,19 +4,9 @@ import static javax.media.opengl.GL2.*;
 import static java.lang.Math.*;
 
 import java.awt.Dimension;
-import java.io.File;
-import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
-
-import javax.media.opengl.glu.GLU;
-import javax.media.opengl.glu.GLUquadric;
-
 import com.jogamp.opengl.util.texture.Texture;
-import com.jogamp.opengl.util.texture.TextureData;
-import com.jogamp.opengl.util.texture.TextureIO;
-
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.CameraUtils;
@@ -34,7 +24,6 @@ import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
-import de.joglearth.source.osm.OSMTileManager;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.surface.LocationType;
 import de.joglearth.surface.MapConfiguration;
@@ -43,7 +32,6 @@ import de.joglearth.surface.SingleMapType;
 import de.joglearth.surface.SurfaceListener;
 import de.joglearth.surface.TextureManager;
 import de.joglearth.surface.TileMeshManager;
-import de.joglearth.surface.OSMMapType;
 import de.joglearth.util.Resource;
 
 
@@ -54,9 +42,7 @@ import de.joglearth.util.Resource;
 public class Renderer {
 
     private GLContext gl;
-    private int leastHorizontalTiles;
     private int tileSubdivisions = 7;
-    private int TILE_SIZE = 256;
     private LocationManager locationManager;
     private TextureManager textureManager;
     private Camera camera;
@@ -66,12 +52,10 @@ public class Renderer {
     private SurfaceListener surfaceListener = new SurfaceValidator();
     private GLContextListener glContextListener = new RendererGLListener();
     private Map<LocationType, Texture> overlayIconTextures;
-    private Map<SingleMapType, Texture> singleMapTextures;
     private SettingsListener settingsListener = new GraphicsSettingsListener();
     private Texture sky;
-    private TileLayout tileLayout;
     private MapConfiguration mapConfiguration = new SingleMapConfiguration(SingleMapType.SATELLITE);
-    private Dimension screenSize;
+    private Dimension screenSize = new Dimension(640, 480);
 
     /**
      * Constructor initializes the OpenGL functionalities.
@@ -155,7 +139,6 @@ public class Renderer {
         Settings.getInstance().addSettingsListener(SettingsContract.TEXTURE_FILTER,
                 settingsListener);
         
-        leastHorizontalTiles = gl.getSize().width / TILE_SIZE;
         tileMeshManager = new TileMeshManager(gl, null);
         tileMeshManager.setTileSubdivisions(tileSubdivisions);
         applyDisplayMode();
@@ -209,6 +192,7 @@ public class Renderer {
         gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
 
         Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, mapConfiguration.getOptimalTileLayout(camera, screenSize));
+        System.out.println(tiles);
         for (Tile tile : tiles) {
             Texture texture = textureManager.getTexture(tile);
             VertexBuffer vbo = tileMeshManager.requestObject(tile, null).value;
@@ -220,14 +204,6 @@ public class Renderer {
     private void loadTextures() {
         TextureFilter textureFilter = TextureFilter.valueOf(Settings.getInstance().getString(
                 SettingsContract.TEXTURE_FILTER));
-
-        singleMapTextures = new LinkedHashMap<>();
-        /*
-         * for (SingleMapType key : SingleMapType.values()) { String resourceName =
-         * "singleMapTextures/" + key.toString() + ".jpg"; if (Resource.exists(resourceName)) {
-         * Texture value = gl.loadTexture(Resource.loadTextureData(resourceName, "jpg"));
-         * singleMapTextures.put(key, value); } }
-         */
 
         earth = gl.loadTexture(Resource.loadTextureData("textures/earth.jpg", "jpg"),
                 textureFilter);
@@ -247,15 +223,12 @@ public class Renderer {
     
     
     private void freeTextures() {
-        for (Texture texture : singleMapTextures.values()) {
-            gl.deleteTexture(texture);
-        }
         for (Texture texture : overlayIconTextures.values()) {
             gl.deleteTexture(texture);
         }
-        // Earth is singleMapTextures[SingleMapType.SATELLITE]
+        gl.deleteTexture(sky);
         gl.deleteTexture(moon);
-        singleMapTextures = null;
+        gl.deleteTexture(earth);
         overlayIconTextures = null;
     }
 
@@ -339,7 +312,7 @@ public class Renderer {
 
         @Override
         public void reshape(GLContext context, int width, int height) {
-            leastHorizontalTiles = context.getSize().width / TILE_SIZE;
+            screenSize = new Dimension(width, height);
             camera.setPerspective(PI / 2, (double) width/height, 0.01, 100);
         }
     }
@@ -405,9 +378,14 @@ public class Renderer {
      */
     public synchronized void setMapConfiguration(MapConfiguration configuration) {
         this.mapConfiguration = configuration;
-        textureManager.setMapConfiguration(configuration);
-        gl.postRedisplay();
+        applyMapConfiguration();
     }
 
+    private void applyMapConfiguration() {
+        if (textureManager != null) {
+            textureManager.setMapConfiguration(mapConfiguration);
+        }
+        gl.postRedisplay();
+    }
 
 }

@@ -1,5 +1,7 @@
 package de.joglearth.source.osm;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,8 +22,17 @@ import de.joglearth.util.HTTP;
  */
 public class OSMTileSource implements Source<TileName, byte[]> {
 
-    private String[] servers;
-    private int offset = 0;
+    private class ServerSet {
+        public int offset = 0;
+        public String[] servers;
+        
+        public ServerSet(String[] servers) {
+            this.servers = servers;
+        }
+    }
+    
+    private Map<OSMMapType, ServerSet> serverSets;
+    
     private final ExecutorService executor;
 
 
@@ -31,14 +42,30 @@ public class OSMTileSource implements Source<TileName, byte[]> {
      * @param servers An array containing the server strings
      */
     public OSMTileSource() {
-        this.servers = new String[0];
         executor = Executors.newFixedThreadPool(2);
+
+        serverSets = new HashMap<>();
+        serverSets.put(OSMMapType.CYCLING, new ServerSet(new String[] {
+                "http://a.tile.opencyclemap.org/cycle/",
+                "http://b.tile.opencyclemap.org/cycle/" }));
+        serverSets.put(OSMMapType.HIKING, new ServerSet(new String[] { 
+                "http://tile.waymarkedtrails.org/hiking/" }));
+        serverSets.put(OSMMapType.OSM2WORLD, new ServerSet(new String[] {
+                "http://a.tiles.osm2world.org/osm/pngtiles/n/",
+                "http://b.tiles.osm2world.org/osm/pngtiles/n/",
+                "http://c.tiles.osm2world.org/osm/pngtiles/n/",
+                "http://d.tiles.osm2world.org/osm/pngtiles/n/" }));
+        serverSets.put(OSMMapType.MAPNIK, new ServerSet(new String[] { 
+                "http://otile1.mqcdn.com/tiles/1.0.0/osm/",
+                "http://otile2.mqcdn.com/tiles/1.0.0/osm/" }));
+        serverSets.put(OSMMapType.SKIING, new ServerSet(new String[] {
+                "http://tiles.openpistemap.org/nocontours/" }));        
     }
 
     @Override
     public SourceResponse<byte[]> requestObject(final TileName k,
             final SourceListener<TileName, byte[]> sender) {
-        if ((k.tile instanceof OSMTile) || !(k.configuration instanceof OSMMapConfiguration)) {
+        if (!(k.tile instanceof OSMTile) || !(k.configuration instanceof OSMMapConfiguration)) {
             throw new IllegalArgumentException();
         }
         
@@ -101,14 +128,15 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         ////TODO System.out.println("ytile: "+ytile+" latitude: "+y);
          
         // Build URL
+        ServerSet set = serverSets.get(mapType);
         StringBuilder builder = new StringBuilder();
         byte[] response = null;
 
         int i = 0;
-        while (response == null && i < servers.length) {
+        while (response == null && i < set.servers.length) {
             builder = new StringBuilder();
 
-            builder.append(servers[offset]);
+            builder.append(set.servers[set.offset]);
             builder.append(zoom);
             builder.append("/");
             builder.append(xtile);
@@ -121,11 +149,11 @@ public class OSMTileSource implements Source<TileName, byte[]> {
             ++i;
 
             if (response == null) {
-                offset++;
+                set.offset++;
             }
             
-            if (offset == servers.length) {
-                offset = 0;
+            if (set.offset == set.servers.length) {
+                set.offset = 0;
             }
         }
 
@@ -134,37 +162,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
 
         return response;
     }
-    
-    // TODO evtl. woanders hinschieben
-    private String[] getServer(OSMMapType type) {
-
-        String[] cycling = { "http://a.tile.opencyclemap.org/cycle/",
-                "http://b.tile.opencyclemap.org/cycle/" };
-        String[] hiking = { "http://tile.waymarkedtrails.org/hiking/" };
-        String[] osm2world = { "http://a.tiles.osm2world.org/osm/pngtiles/n/",
-                "http://b.tiles.osm2world.org/osm/pngtiles/n/",
-                "http://c.tiles.osm2world.org/osm/pngtiles/n/",
-                "http://d.tiles.osm2world.org/osm/pngtiles/n/" };
-        String[] mapnik = { "http://otile1.mqcdn.com/tiles/1.0.0/osm/",
-                "http://otile2.mqcdn.com/tiles/1.0.0/osm/" };
-        String[] skiing = { "http://tiles.openpistemap.org/nocontours/" };
-
-        switch (type) {
-            case CYCLING:
-                return cycling;
-            case HIKING:
-                return hiking;
-            case OSM2WORLD:
-                return osm2world;
-            case MAPNIK:
-                return mapnik;
-            case SKIING:
-                return skiing;
-            default:
-                return new String[0];
-        }
-    }/*
-
+    /*
     public static void main(String[] args) {
 //        Tile tile1 = new Tile(2, 0, 0);
 //        Tile tile2 = new Tile(2, 0, 1);

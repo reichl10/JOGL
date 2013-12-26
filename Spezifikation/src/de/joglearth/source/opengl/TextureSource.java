@@ -17,6 +17,7 @@ import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
+import de.joglearth.source.TileName;
 
 
 /**
@@ -92,28 +93,22 @@ public class TextureSource<Key> implements Source<Key, Texture> {
             } else {
                 return new SourceResponse<Texture>(SourceResponseType.MISSING, null);
             }
-        } else {
+        } else if (sender != null) {
             SourceResponse<byte[]> response = imageSource.requestObject(key, imageSourceListener);
-            switch (response.response) {
-                case SYNCHRONOUS:
+            if (response.response != SourceResponseType.MISSING) {
+                if (response.response == SourceResponseType.SYNCHRONOUS) {
                     loadTexture(key, sender, response.value);
-                    return new SourceResponse<Texture>(SourceResponseType.ASYNCHRONOUS, null);
-
-                case ASYNCHRONOUS:
-                    if (sender != null) {
-                        if (listeners == null) {
-                            listeners = new LinkedList<>();
-                            pendingRequests.put(key, listeners);
-                        }
-                        listeners.add(sender);
-                        return new SourceResponse<Texture>(SourceResponseType.ASYNCHRONOUS, null);
+                } else {
+                    if (listeners == null) {
+                        listeners = new LinkedList<>();
+                        pendingRequests.put(key, listeners);
                     }
-                    // else fall through
-
-                default:
-                    return new SourceResponse<Texture>(SourceResponseType.MISSING, null);
+                    listeners.add(sender);
+                }
+                return new SourceResponse<Texture>(SourceResponseType.ASYNCHRONOUS, null);
             }
         }
+        return new SourceResponse<Texture>(SourceResponseType.MISSING, null);
     }
 
 
@@ -138,5 +133,9 @@ public class TextureSource<Key> implements Source<Key, Texture> {
 
     public void setTextureFilter(TextureFilter textureFilter) {
         this.textureFilter = textureFilter;
+    }
+
+    public void setImageSource(Source<Key, byte[]> imageSource) {
+        this.imageSource = imageSource;
     }
 }

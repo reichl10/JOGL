@@ -154,6 +154,7 @@ public class TextureManager {
     
     public synchronized void setMapConfiguration(MapConfiguration t) {
         mapConfiguration = t;
+        textureSource.setImageSource(t.getImageSource());
     }
 
     /**

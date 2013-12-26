@@ -3,7 +3,7 @@ package de.joglearth.geometry;
 import static java.lang.Math.*;
 
 
-public class SingleTile implements Tile {
+public class SingleTile extends AbstractTile {
 
     @Override
     public double getLongitudeFrom() {
@@ -26,18 +26,8 @@ public class SingleTile implements Tile {
     }
 
     @Override
-    public boolean contains(GeoCoordinates coords) {
-        return true;
-    }
-
-    @Override
-    public boolean intersects(double lonFrom, double latFrom, double lonTo, double latTo) {
-        return true;
-    }
-
-    @Override
     public GridPoint[] getCorners() {
-        return new GridPoint[] { new GridPoint(0, 0), new GridPoint(0, 1) };
+        return new GridPoint[] { };
     }
 
 }

@@ -13,7 +13,35 @@ public class OSMTileLayout implements TileLayout {
     
     @Override
     public Tile createTile(GridPoint bottomLeft) {
-        return new OSMTile(zoomLevel, bottomLeft.getLongitude(), bottomLeft.getLatitude());
+        int lonIndex, latIndex;
+        
+        if (zoomLevel > 0) {
+            lonIndex = bottomLeft.getLongitude();
+            latIndex = bottomLeft.getLatitude();
+            int tileCount = 1 << zoomLevel;
+            
+            while (latIndex >= 2*tileCount) {
+                latIndex -= 2*tileCount;
+            }
+            while (latIndex < 0) {
+                latIndex += 2*tileCount;
+            }
+            if (latIndex >= tileCount) {
+                latIndex = 2*tileCount - 1 - latIndex;
+                lonIndex += tileCount/2;
+            }
+            while (lonIndex >= tileCount) {
+                lonIndex -= tileCount;
+            }
+            while (lonIndex < 0) {
+                lonIndex += tileCount;
+            }
+        } else {
+            lonIndex = 0;
+            latIndex = 0;
+        }
+        
+        return new OSMTile(zoomLevel, lonIndex, latIndex);
     }
 
     @Override

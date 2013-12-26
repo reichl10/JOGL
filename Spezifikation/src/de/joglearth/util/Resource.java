@@ -94,7 +94,7 @@ public final class Resource {
             ByteArrayOutputStream output = new ByteArrayOutputStream();
             byte[] buf = new byte[0x10000];
             int n;
-            while ((n = input.read(buf)) != 0) {
+            while ((n = input.read(buf)) != -1) {
                 output.write(buf, 0, n);
             }
             return output.toByteArray();

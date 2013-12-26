@@ -35,4 +35,36 @@ public class OSMMapConfiguration implements MapConfiguration {
         return mapType;
     }
 
+    /* (nicht-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((mapType == null) ? 0 : mapType.hashCode());
+        return result;
+    }
+
+    /* (nicht-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        OSMMapConfiguration other = (OSMMapConfiguration) obj;
+        if (mapType != other.mapType) {
+            return false;
+        }
+        return true;
+    }
+
 }
