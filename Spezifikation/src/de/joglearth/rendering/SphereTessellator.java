@@ -130,8 +130,9 @@ public class SphereTessellator implements Tessellator {
         double lat = direction > 0 ? tile.getLatitudeFrom() : tile.getLatitudeTo(), lon = tile
                 .getLongitudeFrom();
 
-        // TODO Problems with zoom=0?
-        int maxShrinkCount = /*tile.getDetailLevel() == 0 ? 0 : */getMaxShrinkCount(subdivisions + 1),
+        boolean nearEquator = abs(tile.getLatitudeFrom() + tile.getLatitudeTo()) < PI/2;
+        
+        int maxShrinkCount = nearEquator ? 0 : getMaxShrinkCount(subdivisions + 1),
             shrinkCount = getShrinkCount(lat, maxShrinkCount), 
             rowWidth = max(2, (subdivisions + 1) / (int) pow(2, shrinkCount)) + 1;
 

@@ -31,7 +31,6 @@ public final class CameraUtils {
                 
         GridPoint start = null;
         ArrayList<Tile> visibleTiles = new ArrayList<Tile>();
-        HashSet<Tile> addedTiles = new HashSet<>();
         
         if (centerTile != null) {
             for (GridPoint corner : centerTile.getCorners()) {
@@ -40,24 +39,28 @@ public final class CameraUtils {
                     break;
                 }
             }
-            
-            visibleTiles.add(centerTile);
-            addedTiles.add(centerTile);
         }
 
         if (start != null) {
             Set<GridPoint> visiblePoints = getVisibleGridPoints(start, camera, tileLayout);
             TileWalker walker = new TileWalker(visiblePoints, tileLayout.getTileOrigin(centerTile), 
                     tileLayout);
-            while (walker.step()) {
+            HashSet<Tile> addedTiles = new HashSet<>();
+            do {
                 Tile t = walker.getTile();
                 if (!addedTiles.contains(t)) {
                     visibleTiles.add(t);
                     addedTiles.add(t);
                 }
+            } while (walker.step());
+            System.out.println("\nVisible Points:");
+            for (GridPoint p : visiblePoints) {
+                System.out.println(p);
             }
+        } else if (centerTile != null) {
+            visibleTiles.add(centerTile);
         }
-
+        
         System.out.println("\nVisible Tiles:");
         for (Tile t : visibleTiles) {
             System.out.println(t);
@@ -76,7 +79,7 @@ public final class CameraUtils {
             throw new IllegalArgumentException();
         }
         
-        Set<GridPoint> visiblePoints = new HashSet<GridPoint>();
+        Set<GridPoint> border = new HashSet<GridPoint>();
 
         // Start at center point
         GridWalker walker = new GridWalker(center, camera, tileLayout);
@@ -84,7 +87,7 @@ public final class CameraUtils {
         // Walk to the border
         while (walker.step());
         GridPoint start = walker.getPoint();
-        visiblePoints.add(start);
+        border.add(start);
         
         int lonMin = start.getLongitude(), lonMax = lonMin, latMin = start.getLatitude(), latMax = latMin;
 
@@ -110,28 +113,37 @@ public final class CameraUtils {
             lonMax = max(lonMax, p.getLongitude());
             latMin = min(latMin, p.getLatitude());
             latMax = max(latMax, p.getLatitude());
-            visiblePoints.add(p);
+            border.add(p);
             // Until the start point is hit again
         } while (!walker.getPoint().equals(start));
+        
+        Set<GridPoint> visibleModuloPoints = new HashSet<>();
+        for (GridPoint point : border) {
+            int moduloLon = modulo(point.getLongitude(), tileLayout.getHoritzontalTileCount());            
+            int moduloLat = modulo(point.getLatitude(), tileLayout.getVerticalTileCount());
+            visibleModuloPoints.add(new GridPoint(moduloLon, moduloLat));
+        }
 
         // Fill each line...
         for (int lat = latMin; lat <= latMax; ++lat) {
             int lineMin = lonMin, lineMax = lonMax;
             // Find the left and right border on that line
-            while (!visiblePoints.contains(new GridPoint(lineMin, lat))) {
+            while (!border.contains(new GridPoint(lineMin, lat))) {
                 ++lineMin;
             }
-            while (!visiblePoints.contains(new GridPoint(lineMax, lat))) {
+            while (!border.contains(new GridPoint(lineMax, lat))) {
                 --lineMax;
             }
 
             // Fill everything inbetween
+            int moduloLat = modulo(lat, tileLayout.getVerticalTileCount());
             for (int lon = lineMin + 1; lon < lineMax; ++lon) {
-                visiblePoints.add(new GridPoint(lon, lat));
+                int moduloLon = modulo(lon, tileLayout.getHoritzontalTileCount());    
+                visibleModuloPoints.add(new GridPoint(moduloLon, moduloLat));
             }
         }
 
-        return visiblePoints;
+        return visibleModuloPoints;
     }
 
     // Defines directions for walker classes
@@ -155,6 +167,13 @@ public final class CameraUtils {
     }
 
 
+    private static int modulo(int x, int mod) {
+        x %= mod;
+        if (x < 0) x += mod;
+        return x;
+    }
+    
+    
     /*
      * Iterates over the border of an area of grid points visible by the camera at a certain zoom
      * level.
@@ -242,24 +261,11 @@ public final class CameraUtils {
                 return false;
             }
         }
-
-        private static int modulo(int x, int mod) {
-            x %= mod;
-            if (x < 0) x += mod;
-            return x;
-        }
         
         public GridPoint getPoint() {
-            /*int lon = modulo(pos.getLongitude(), tileLayout.getHoritzontalTileCount());            
-            int lat = modulo(pos.getLatitude(), tileLayout.getVerticalTileCount());
-            return new GridPoint(lon, lat);*/
             return pos;
         }
 
-    }
-    
-    public static void main(String[] args) {
-        System.out.println((-10) % 8);
     }
 
     /*
@@ -297,15 +303,6 @@ public final class CameraUtils {
             this.tileLayout = tileLayout;
             this.maxIndex = tileLayout.getHoritzontalTileCount();
         }
-
-        private int index(int ind) {
-            /*int r = ind % maxIndex;
-            if (r < 0) {
-                r = maxIndex + r;
-            }
-            return r;           */
-            return ind;
-        }
         
         public boolean step() {
             assert stepNo < maxSteps;
@@ -318,7 +315,7 @@ public final class CameraUtils {
             
             // If four turns have been made without finding a tile that is visible, the walker has
             // left the visible area
-            while (nextTile == null && turnsSinceLastTile < 4 && maxSteps-1 <= maxIndex) {
+            while (nextTile == null && turnsSinceLastTile <= 4 && maxSteps <= maxIndex+2) {
                 ++stepNo;
                 
                 //Make a step
@@ -337,18 +334,20 @@ public final class CameraUtils {
                         break;
                 }
 
+                // TODO Layout dependent, use getCorners()
+                System.out.printf("Pos = (%d, %d), Corners = ", lon, lat);
+                
                 //The corners of the tile that would be defined by (lon, lat).
-                GridPoint[] corners = {
-                        new GridPoint(lon, lat),
-                        new GridPoint(lon + 1, lat),
-                        new GridPoint(lon, lat + 1),
-                        new GridPoint(lon + 1, lat + 1)
-                };
-
+                final int[][] cornerOffsets = { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } };
+                
                 //The tile is visible if any corner is visible.
                 boolean visible = false;
                 
-                for (GridPoint corner : corners) {
+                for (int[] offset: cornerOffsets) {
+                    GridPoint corner = new GridPoint(
+                            modulo(lon + offset[0], tileLayout.getHoritzontalTileCount()), 
+                            modulo(lat + offset[1], tileLayout.getVerticalTileCount()));
+                    System.out.printf("(%d, %d) ", corner.getLongitude(), corner.getLatitude());
                     if (points.contains(corner)) {
                         visible = true;
                         break;
@@ -359,6 +358,8 @@ public final class CameraUtils {
                     nextTile = tileLayout.createTile(new GridPoint(lon, lat));
                     turnsSinceLastTile = 0;
                 }
+                
+                System.out.println(", Visible = " + visible + " => " + nextTile);
 
                 //Make a turn if necessary.
                 if (stepNo == maxSteps) {

@@ -32,8 +32,12 @@ public class OSMTileLayout implements TileLayout {
             while (latIndex >= 2*tileCount) {
                 latIndex -= 2*tileCount;
             }
-            while (latIndex < 0) {
+            while (latIndex < -2*tileCount) {
                 latIndex += 2*tileCount;
+            }
+            if (latIndex < 0) {
+                latIndex = -latIndex;
+                lonIndex += tileCount/2;
             }
             if (latIndex >= tileCount) {
                 latIndex = 2*tileCount - 1 - latIndex;
