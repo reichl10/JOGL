@@ -1,21 +1,21 @@
-package de.joglearth.source.osm;
+package de.joglearth.source.tiles.osm;
 
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
-import de.joglearth.source.TileName;
 import de.joglearth.source.caching.ByteArrayMeasure;
 import de.joglearth.source.caching.Cache;
 import de.joglearth.source.caching.FileSystemCache;
 import de.joglearth.source.caching.MemoryCache;
 import de.joglearth.source.caching.RequestDistributor;
+import de.joglearth.source.tiles.TileName;
 import de.joglearth.util.ApplicationData;
 
 
 /**
- * Singleton class that retrieves data from the {@link de.joglearth.source.osm.OSMTileSource}.
+ * Singleton class that retrieves data from the {@link de.joglearth.source.tiles.osm.OSMTileSource}.
  */
 public final class OSMTileManager implements Source<TileName, byte[]> {
 

@@ -8,8 +8,8 @@ import org.junit.Test;
 import de.joglearth.geometry.Tile;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.osm.OSMTileName;
-import de.joglearth.source.osm.OSMTileManager;
-import de.joglearth.surface.OSMMapType;
+import de.joglearth.source.tiles.osm.OSMMapType;
+import de.joglearth.source.tiles.osm.OSMTileManager;
 
 
 public class OSMTileManagerTest {

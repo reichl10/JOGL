@@ -1,6 +1,10 @@
-package de.joglearth.geometry;
+package de.joglearth.source.tiles.single;
 
 import static java.lang.Math.*;
+import de.joglearth.geometry.GeoCoordinates;
+import de.joglearth.geometry.GridPoint;
+import de.joglearth.geometry.Tile;
+import de.joglearth.geometry.TileLayout;
 
 
 public class SingleTileLayout implements TileLayout {

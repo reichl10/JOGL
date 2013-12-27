@@ -1,4 +1,4 @@
-package de.joglearth.surface;
+package de.joglearth.source.tiles.single;
 
 /**
  * Enumerates all map textures in the {@link de.joglearth.surface.MapLayout.SINGLE} layout available

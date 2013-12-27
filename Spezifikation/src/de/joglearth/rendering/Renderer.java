@@ -6,7 +6,9 @@ import static java.lang.Math.*;
 import java.awt.Dimension;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 import com.jogamp.opengl.util.texture.Texture;
+
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.CameraUtils;
@@ -24,11 +26,11 @@ import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
+import de.joglearth.source.tiles.osm.MapConfiguration;
+import de.joglearth.source.tiles.single.SingleMapConfiguration;
+import de.joglearth.source.tiles.single.SingleMapType;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.surface.LocationType;
-import de.joglearth.surface.MapConfiguration;
-import de.joglearth.surface.SingleMapConfiguration;
-import de.joglearth.surface.SingleMapType;
 import de.joglearth.surface.SurfaceListener;
 import de.joglearth.surface.TextureManager;
 import de.joglearth.surface.TileMeshManager;
@@ -372,7 +374,7 @@ public class Renderer {
 
     /**
      * Sets the {@link de.joglearth.surface.MapLayout} to a given value. This type is a
-     * {@link de.joglearth.surface.SingleMapType} as it is only one tile as a texture.
+     * {@link de.joglearth.source.tiles.single.SingleMapType} as it is only one tile as a texture.
      * 
      * @param t The new <code>MapLayout</code>
      */

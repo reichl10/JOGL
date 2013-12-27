@@ -1,10 +1,7 @@
-package de.joglearth.source.opengl;
+package de.joglearth.opengl;
 
 import javax.media.opengl.GL2;
 
-import de.joglearth.opengl.GLContext;
-import de.joglearth.opengl.GLError;
-import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.rendering.Renderer;
 import de.joglearth.source.caching.MemoryCache;
 
@@ -12,17 +9,17 @@ import de.joglearth.source.caching.MemoryCache;
 /**
  * Manages and displaces vertex buffer objects in OpenGl graphics memory.
  */
-public class VertexBufferCache<Key> extends MemoryCache<Key, VertexBuffer> {
+public class VertexBufferPool<Key> extends MemoryCache<Key, VertexBuffer> {
 
     private GLContext gl;
 
     /**
-     * Constructor. Initializes the {@link de.joglearth.source.opengl.VertexBufferCache} and assigns
+     * Constructor. Initializes the {@link de.joglearth.opengl.VertexBufferPool} and assigns
      * a value to the GL context.
      * 
      * @param gl The GL context
      */
-    public VertexBufferCache(GLContext gl) {
+    public VertexBufferPool(GLContext gl) {
         if (gl == null) {
             throw new IllegalArgumentException();
         }

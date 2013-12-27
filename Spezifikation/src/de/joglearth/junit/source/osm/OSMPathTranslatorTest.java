@@ -7,10 +7,10 @@ import java.util.regex.Pattern;
 
 import org.junit.Test;
 
-import de.joglearth.geometry.Tile;
-import de.joglearth.source.osm.OSMPathTranslator;
 import de.joglearth.source.osm.OSMTile;
+import de.joglearth.source.tiles.osm.OSMPathTranslator;
 import de.joglearth.surface.TiledMapType;
+import de.joglearth.tiles.Tile;
 
 
 public class OSMPathTranslatorTest {

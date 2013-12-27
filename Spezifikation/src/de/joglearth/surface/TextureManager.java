@@ -9,22 +9,23 @@ import com.jogamp.opengl.util.texture.Texture;
 
 import de.joglearth.geometry.Tile;
 import de.joglearth.opengl.GLContext;
+import de.joglearth.opengl.TexturePool;
 import de.joglearth.opengl.TextureFilter;
+import de.joglearth.opengl.TextureLoader;
 import de.joglearth.rendering.Renderer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.SourceListener;
-import de.joglearth.source.TileName;
 import de.joglearth.source.caching.RequestDistributor;
-import de.joglearth.source.opengl.TextureCache;
-import de.joglearth.source.opengl.TextureSource;
+import de.joglearth.source.tiles.TileName;
+import de.joglearth.source.tiles.osm.MapConfiguration;
 
 /**
  * Executes requests for textures of the {@link Renderer}. Loads textures from a
  * {@link de.joglearth.source.caching.RequestDistrubutor} which accesses a
- * {@link de.joglearth.source.opengl.TextureSource} and a
- * {@link de.joglearth.source.opengl.TextureCache}.
+ * {@link de.joglearth.opengl.TextureLoader} and a
+ * {@link de.joglearth.opengl.TexturePool}.
  */
 public class TextureManager {
     
@@ -34,7 +35,7 @@ public class TextureManager {
     private TextureListener textureListener = new TextureListener();
     private GLContext gl;
     private volatile TextureFilter textureFilter;
-    private TextureSource<TileName> textureSource;
+    private TextureLoader<TileName> textureSource;
     private TextureSettingsListener settingsListener;
     private MapConfiguration mapConfiguration;
     
@@ -107,11 +108,11 @@ public class TextureManager {
      */
     public TextureManager(GLContext gl, int textureCacheSize, MapConfiguration configuration) {
         this.gl = gl;
-        this.textureSource = new TextureSource<TileName>(gl, configuration.getImageSource());
+        this.textureSource = new TextureLoader<TileName>(gl, configuration.getImageSource());
         this.mapConfiguration = configuration;
 
         dist = new RequestDistributor<>();
-        dist.addCache(new TextureCache<TileName>(gl), textureCacheSize);
+        dist.addCache(new TexturePool<TileName>(gl), textureCacheSize);
         dist.setSource(textureSource);
 
         settingsListener = new TextureSettingsListener();

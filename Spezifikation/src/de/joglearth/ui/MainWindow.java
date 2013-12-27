@@ -70,15 +70,15 @@ import de.joglearth.rendering.Renderer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
+import de.joglearth.source.tiles.osm.MapConfiguration;
+import de.joglearth.source.tiles.osm.OSMMapConfiguration;
+import de.joglearth.source.tiles.osm.OSMMapType;
+import de.joglearth.source.tiles.single.SingleMapConfiguration;
+import de.joglearth.source.tiles.single.SingleMapType;
 import de.joglearth.surface.Location;
 import de.joglearth.surface.LocationListener;
 import de.joglearth.surface.LocationManager;
-import de.joglearth.surface.MapConfiguration;
-import de.joglearth.surface.OSMMapConfiguration;
-import de.joglearth.surface.SingleMapConfiguration;
-import de.joglearth.surface.SingleMapType;
 import de.joglearth.surface.SurfaceListener;
-import de.joglearth.surface.OSMMapType;
 import de.joglearth.opengl.TextureFilter;
 
 

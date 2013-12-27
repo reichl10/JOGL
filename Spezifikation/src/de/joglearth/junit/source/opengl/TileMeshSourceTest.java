@@ -6,11 +6,11 @@ import org.junit.Test;
 
 import de.joglearth.geometry.Tile;
 import de.joglearth.junit.GLTestWindow;
+import de.joglearth.opengl.VertexBufferLoader;
 import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.rendering.Mesh;
 import de.joglearth.rendering.Tessellator;
 import de.joglearth.source.SourceListener;
-import de.joglearth.source.opengl.TileMeshSource;
 
 
 public class TileMeshSourceTest {
@@ -18,7 +18,7 @@ public class TileMeshSourceTest {
     @Test(timeout=100)
     public void testTileMeshSource() {
         TestTessellator tessl = new TestTessellator();
-        TileMeshSource s = new TileMeshSource(window.getGL(), tessl);
+        VertexBufferLoader s = new VertexBufferLoader(window.getGL(), tessl);
         s.setTileSubdivisions(2732);
         s.setHeightMapEnabled(true);
         TestSourceListener l = new TestSourceListener();

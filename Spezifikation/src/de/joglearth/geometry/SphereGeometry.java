@@ -6,9 +6,9 @@ import static java.lang.Math.*;
 
 
 /**
- * Implements the {@link de.joglearth.geometry.CameraGeometry} interface for a camera looking at a globe.
+ * Implements the {@link de.joglearth.geometry.Geometry} interface for a camera looking at a globe.
  */
-public class SphereGeometry implements CameraGeometry {
+public class SphereGeometry implements Geometry {
 
     @Override
     public boolean isPointVisible(Vector3 cameraPosition, GeoCoordinates geo) {

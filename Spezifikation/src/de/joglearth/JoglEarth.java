@@ -7,9 +7,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.source.nominatim.NominatimManager;
-import de.joglearth.source.osm.OSMTileManager;
 import de.joglearth.source.overpass.OverpassManager;
 import de.joglearth.source.srtm.SRTMTileManager;
+import de.joglearth.source.tiles.osm.OSMTileManager;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.ui.MainWindow;
 

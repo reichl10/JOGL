@@ -23,9 +23,9 @@ import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.opengl.Antialiasing;
 import de.joglearth.opengl.TextureFilter;
 import de.joglearth.rendering.LevelOfDetail;
+import de.joglearth.source.tiles.single.SingleMapType;
 import de.joglearth.surface.Location;
 import de.joglearth.surface.LocationType;
-import de.joglearth.surface.SingleMapType;
 import de.joglearth.util.ApplicationData;
 
 

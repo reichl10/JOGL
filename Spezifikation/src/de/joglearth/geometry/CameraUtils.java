@@ -334,29 +334,23 @@ public final class CameraUtils {
                         break;
                 }
 
-                // TODO Layout dependent, use getCorners()
                 System.out.printf("Pos = (%d, %d), Corners = ", lon, lat);
                 
-                //The corners of the tile that would be defined by (lon, lat).
-                final int[][] cornerOffsets = { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } };
+                Tile nextTileCandidate = tileLayout.createTile(new GridPoint(lon, lat));
                 
                 //The tile is visible if any corner is visible.
                 boolean visible = false;
                 
-                for (int[] offset: cornerOffsets) {
-                    GridPoint corner = new GridPoint(
-                            modulo(lon + offset[0], tileLayout.getHoritzontalTileCount()), 
-                            modulo(lat + offset[1], tileLayout.getVerticalTileCount()));
-                    System.out.printf("(%d, %d) ", corner.getLongitude(), corner.getLatitude());
-                    if (points.contains(corner)) {
-                        visible = true;
+                for (GridPoint corner: nextTileCandidate.getCorners()) {
+                    GridPoint moduloCorner = new GridPoint(
+                            modulo(corner.getLongitude(), tileLayout.getHoritzontalTileCount()), 
+                            modulo(corner.getLatitude(), tileLayout.getVerticalTileCount()));
+                    System.out.printf("(%d, %d) ", moduloCorner.getLongitude(), moduloCorner.getLatitude());
+                    if (points.contains(moduloCorner)) {
+                        nextTile = nextTileCandidate;
+                        turnsSinceLastTile = 0;
                         break;
                     }
-                }
-
-                if (visible) {
-                    nextTile = tileLayout.createTile(new GridPoint(lon, lat));
-                    turnsSinceLastTile = 0;
                 }
                 
                 System.out.println(", Visible = " + visible + " => " + nextTile);

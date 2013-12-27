@@ -1,19 +1,16 @@
-package de.joglearth.source.osm;
+package de.joglearth.source.tiles.osm;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import de.joglearth.geometry.OSMTile;
 import de.joglearth.geometry.Tile;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.source.TileName;
-import de.joglearth.surface.OSMMapConfiguration;
-import de.joglearth.surface.OSMMapType;
+import de.joglearth.source.tiles.TileName;
 import de.joglearth.util.HTTP;
 
 
@@ -37,7 +34,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
 
 
     /**
-     * Constructor. Initializes the {@link de.joglearth.source.osm.OSMTileSource}.
+     * Constructor. Initializes the {@link de.joglearth.source.tiles.osm.OSMTileSource}.
      * 
      * @param servers An array containing the server strings
      */

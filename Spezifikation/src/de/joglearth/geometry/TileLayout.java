@@ -1,6 +1,7 @@
 package de.joglearth.geometry;
 
 
+
 public interface TileLayout {
     
     Tile createTile(GridPoint bottomLeft);

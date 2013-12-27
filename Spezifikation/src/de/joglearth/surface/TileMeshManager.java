@@ -7,15 +7,15 @@ import javax.media.opengl.GL2;
 
 import de.joglearth.geometry.Tile;
 import de.joglearth.opengl.GLContext;
+import de.joglearth.opengl.VertexBufferLoader;
 import de.joglearth.opengl.VertexBuffer;
+import de.joglearth.opengl.VertexBufferPool;
 import de.joglearth.rendering.Renderer;
 import de.joglearth.rendering.Tessellator;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.caching.RequestDistributor;
-import de.joglearth.source.opengl.TileMeshSource;
-import de.joglearth.source.opengl.VertexBufferCache;
 import de.joglearth.util.Predicate;
 
 
@@ -27,8 +27,8 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
     private final int VERTEX_BUFFER_CACHE_SIZE = 50;
 
     private RequestDistributor<Tile, VertexBuffer> dist;
-    private VertexBufferCache<Tile> cache;
-    private TileMeshSource source;
+    private VertexBufferPool<Tile> cache;
+    private VertexBufferLoader source;
     private List<SurfaceListener> listeners;
     private GLContext gl;
 
@@ -47,8 +47,8 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
         }
 
         this.gl = gl;
-        source = new TileMeshSource(gl, t);
-        cache = new VertexBufferCache<Tile>(gl);
+        source = new VertexBufferLoader(gl, t);
+        cache = new VertexBufferPool<Tile>(gl);
         dist = new RequestDistributor<Tile, VertexBuffer>();
         dist.setSource(source);
         dist.addCache(cache, VERTEX_BUFFER_CACHE_SIZE);
@@ -74,7 +74,7 @@ public class TileMeshManager implements Source<Tile, VertexBuffer> {
 
     /**
      * Sets the {@link de.joglearth.rendering.Tessellator} of the
-     * {@link de.joglearth.source.opengl.TileMeshSource}
+     * {@link de.joglearth.opengl.VertexBufferLoader}
      * 
      * @param t The new <code>Tesselator</code>
      */

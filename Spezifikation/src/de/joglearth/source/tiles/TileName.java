@@ -1,7 +1,7 @@
-package de.joglearth.source;
+package de.joglearth.source.tiles;
 
 import de.joglearth.geometry.Tile;
-import de.joglearth.surface.MapConfiguration;
+import de.joglearth.source.tiles.osm.MapConfiguration;
 
 
 public final class TileName {

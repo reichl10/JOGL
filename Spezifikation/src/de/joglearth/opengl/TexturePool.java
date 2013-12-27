@@ -1,19 +1,18 @@
-package de.joglearth.source.opengl;
+package de.joglearth.opengl;
 
 import com.jogamp.opengl.util.texture.Texture;
 
-import de.joglearth.opengl.GLContext;
 import de.joglearth.source.caching.MemoryCache;
 
 
 /**
  * Manages and displaces textures in OpenGl graphics memory.
  */
-public class TextureCache<Key> extends MemoryCache<Key, Texture> {
+public class TexturePool<Key> extends MemoryCache<Key, Texture> {
 
     private GLContext gl;
 
-    public TextureCache(GLContext gl) {
+    public TexturePool(GLContext gl) {
         this.gl = gl;
     }
 

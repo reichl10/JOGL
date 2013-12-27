@@ -1,6 +1,10 @@
-package de.joglearth.geometry;
+package de.joglearth.source.tiles.osm;
 
 import static java.lang.Math.*;
+import de.joglearth.geometry.AbstractTile;
+import de.joglearth.geometry.GeoCoordinates;
+import de.joglearth.geometry.GridPoint;
+import de.joglearth.geometry.Tile;
 
 
 /**

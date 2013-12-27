@@ -1,16 +1,13 @@
-package de.joglearth.surface;
+package de.joglearth.source.tiles.osm;
 
 import java.awt.Dimension;
 
 import de.joglearth.geometry.Camera;
-import de.joglearth.geometry.OSMTileLayout;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.TileLayout;
 import de.joglearth.source.Source;
-import de.joglearth.source.TileName;
 import de.joglearth.source.caching.PathTranslator;
-import de.joglearth.source.osm.OSMTileManager;
-import de.joglearth.source.osm.OSMTileSource;
+import de.joglearth.source.tiles.TileName;
 
 
 public class OSMMapConfiguration implements MapConfiguration {

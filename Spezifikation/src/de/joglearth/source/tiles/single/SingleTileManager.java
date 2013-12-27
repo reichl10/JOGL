@@ -1,11 +1,13 @@
-package de.joglearth.source;
+package de.joglearth.source.tiles.single;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import de.joglearth.geometry.SingleTile;
-import de.joglearth.surface.SingleMapConfiguration;
-import de.joglearth.surface.SingleMapType;
+import de.joglearth.source.Source;
+import de.joglearth.source.SourceListener;
+import de.joglearth.source.SourceResponse;
+import de.joglearth.source.SourceResponseType;
+import de.joglearth.source.tiles.TileName;
 import de.joglearth.util.Resource;
 
 

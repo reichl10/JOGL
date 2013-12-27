@@ -29,7 +29,7 @@ public class Camera {
                     skyViewMatrix = new Matrix4(),
                     transformationMatrix;
     
-    /* TODO reset visibility */public CameraGeometry geometry = null;
+    /* TODO reset visibility */public Geometry geometry = null;
     private List<CameraListener> listeners = new ArrayList<CameraListener>();
 
     
@@ -124,7 +124,7 @@ public class Camera {
      * 
      * @param geo The Geometry object
      */
-    public Camera(CameraGeometry geo) {
+    public Camera(Geometry geo) {
         if (geo == null) {
             throw new IllegalArgumentException();
         }
@@ -140,11 +140,11 @@ public class Camera {
     }
 
     /**
-     * Sets a new {@link de.joglearth.geometry.CameraGeometry} object for model-specific computations.
+     * Sets a new {@link de.joglearth.geometry.Geometry} object for model-specific computations.
      * 
      * @param g The new Geometry object. Must not be null.
      */
-    public synchronized void setGeometry(CameraGeometry g) {
+    public synchronized void setGeometry(Geometry g) {
         if (g == null) {
             throw new IllegalArgumentException();
         }

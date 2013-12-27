@@ -1,4 +1,4 @@
-package de.joglearth.source.osm;
+package de.joglearth.source.tiles.osm;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -10,11 +10,8 @@ import java.util.regex.Pattern;
 import javax.xml.bind.DatatypeConverter;
 
 import de.joglearth.geometry.Tile;
-import de.joglearth.geometry.OSMTile;
-import de.joglearth.source.TileName;
 import de.joglearth.source.caching.PathTranslator;
-import de.joglearth.surface.OSMMapConfiguration;
-import de.joglearth.surface.OSMMapType;
+import de.joglearth.source.tiles.TileName;
 
 
 /**

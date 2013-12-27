@@ -1,4 +1,4 @@
-package de.joglearth.source.opengl;
+package de.joglearth.opengl;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -11,20 +11,18 @@ import com.jogamp.opengl.util.texture.Texture;
 
 import de.joglearth.async.RunnableResultListener;
 import de.joglearth.async.RunnableWithResult;
-import de.joglearth.opengl.GLContext;
-import de.joglearth.opengl.TextureFilter;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.source.TileName;
+import de.joglearth.source.tiles.TileName;
 
 
 /**
  * Loads the textures into OpenGL returning the ID. Implements {@link de.joglearth.source.Source} to
  * get a new texture, when it is needed. Owns a {@link de.joglearth.source.Source} for image data.
  */
-public class TextureSource<Key> implements Source<Key, Texture> {
+public class TextureLoader<Key> implements Source<Key, Texture> {
 
     private GLContext gl;
     private Source<Key, byte[]> imageSource;
@@ -33,19 +31,19 @@ public class TextureSource<Key> implements Source<Key, Texture> {
     private TextureFilter textureFilter;
 
 
-    public TextureSource(GLContext gl, Source<Key, byte[]> imageSource) {
+    public TextureLoader(GLContext gl, Source<Key, byte[]> imageSource) {
         this.gl = gl;
         this.imageSource = imageSource;
         this.textureFilter = TextureFilter.NEAREST;
     }
 
 
-    private class TextureLoader implements RunnableWithResult {
+    private class LoaderRunnable implements RunnableWithResult {
 
         private byte[] raw;
 
 
-        public TextureLoader(byte[] raw) {
+        public LoaderRunnable(byte[] raw) {
             this.raw = raw;
         }
 
@@ -66,7 +64,7 @@ public class TextureSource<Key> implements Source<Key, Texture> {
 
 
     private void loadTexture(final Key key, final SourceListener<Key, Texture> sender, byte[] raw) {
-        gl.invokeLater(new TextureLoader(raw), new RunnableResultListener() {
+        gl.invokeLater(new LoaderRunnable(raw), new RunnableResultListener() {
 
             @Override
             public synchronized void runnableCompleted(Object result) {

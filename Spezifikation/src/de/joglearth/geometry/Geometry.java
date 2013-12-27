@@ -7,7 +7,7 @@ import de.joglearth.geometry.Vector3;
 /**
  * Abstracts geometric calculations dependent on the map model (plane or sphere).
  */
-public interface CameraGeometry {
+public interface Geometry {
 
     /**
      * Returns whether a point, given by longitude and latitude coordinates, could be visible

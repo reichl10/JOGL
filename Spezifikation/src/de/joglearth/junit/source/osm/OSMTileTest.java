@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import de.joglearth.geometry.Tile;
 import de.joglearth.source.osm.OSMTileName;
-import de.joglearth.surface.OSMMapType;
+import de.joglearth.source.tiles.osm.OSMMapType;
 
 
 public class OSMTileTest {

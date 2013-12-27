@@ -1,6 +1,8 @@
-package de.joglearth.geometry;
+package de.joglearth.source.tiles.single;
 
 import static java.lang.Math.*;
+import de.joglearth.geometry.AbstractTile;
+import de.joglearth.geometry.GridPoint;
 
 
 public class SingleTile extends AbstractTile {
