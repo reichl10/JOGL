@@ -11,55 +11,61 @@ import de.joglearth.geometry.TileLayout;
 public class OSMTileLayout implements TileLayout {
 
     private int zoomLevel;
+    private final int minLat, maxLat;
     
     public OSMTileLayout(int zoomLevel) {
+        if (zoomLevel < 0) {
+            throw new IllegalArgumentException();
+        }
+        
         this.zoomLevel = zoomLevel;
+        if (zoomLevel == 0) {
+            minLat = -1;
+            maxLat = 1;
+        } else {
+            minLat = -(1 << (zoomLevel-1)) - 1;
+            maxLat = 1 << (zoomLevel-1);
+        }
     }
     
     @Override
     public GridPoint getTileOrigin(Tile tile) {
-        if (!(tile instanceof OSMTile)) {
+        if (tile instanceof OSMTile) {
+            
+            int lon = ((OSMTile) tile).getLongitudeIndex(), 
+                lat = ((OSMTile) tile).getLatitudeIndex();
+            if (zoomLevel > 0 && lon >= 1 << (zoomLevel-1)) {
+                lon = lon - (1 << zoomLevel);
+            }
+            return new GridPoint(lon, (1 << (zoomLevel-1)) - 1 - lat);
+            
+        } else if (tile instanceof OSMPole) {
+            
+            return new GridPoint(0, ((OSMPole) tile).pole == OSMPole.NORTH ? maxLat : minLat);
+            
+        } else {
             throw new IllegalArgumentException();
         }
-        OSMTile osmTile = (OSMTile) tile;
-        return new GridPoint(osmTile.getLongitudeIndex(), osmTile.getLatitudeIndex());
     }
     
     @Override
     public Tile createTile(GridPoint bottomLeft) {
-        int lonIndex, latIndex;
+        GridPoint moduloPoint = modulo(bottomLeft);
         
-        if (zoomLevel > 0) {
-            lonIndex = bottomLeft.getLongitude();
-            latIndex = bottomLeft.getLatitude();
-            int tileCount = 1 << zoomLevel;
-            
-            while (latIndex >= 2*tileCount) {
-                latIndex -= 2*tileCount;
-            }
-            while (latIndex < -2*tileCount) {
-                latIndex += 2*tileCount;
-            }
-            if (latIndex < 0) {
-                latIndex = -latIndex;
-                lonIndex += tileCount/2;
-            }
-            if (latIndex >= tileCount) {
-                latIndex = 2*tileCount - 1 - latIndex;
-                lonIndex += tileCount/2;
-            }
-            while (lonIndex >= tileCount) {
-                lonIndex -= tileCount;
-            }
-            while (lonIndex < 0) {
-                lonIndex += tileCount;
-            }
+        int lon = moduloPoint.getLongitude(), lat = moduloPoint.getLatitude();
+                
+        if (lat == maxLat) {
+            return new OSMPole(zoomLevel, OSMPole.NORTH);
+        } else if (lat == minLat) {
+            return new OSMPole(zoomLevel, OSMPole.SOUTH);
+        } else if (zoomLevel == 0) {
+            return new OSMTile(0, 0, 0);
         } else {
-            lonIndex = 0;
-            latIndex = 0;
+            if (lon < 0) {
+                lon += (1 << zoomLevel);
+            }
+            return new OSMTile(zoomLevel, lon, (1 << (zoomLevel-1))-1-lat);
         }
-        
-        return new OSMTile(zoomLevel, lonIndex, latIndex);
     }
 
     @Override
@@ -73,21 +79,28 @@ public class OSMTileLayout implements TileLayout {
 
     @Override
     public Tile getContainingTile(GeoCoordinates coords) {
-        if (zoomLevel < 0 || coords == null) {
+        if (coords == null) {
             throw new IllegalArgumentException();
         }
         
-        double lonAngle = 2 * PI / pow(2, zoomLevel);
-        double latAngle = OSMTile.MAX_LATITUDE / pow(2, zoomLevel);
-        int lon = (int) floor(coords.getLongitude() / lonAngle);
-        if (lon < 0) {
-            lon = (1 << zoomLevel) + lon;
-        }
-        int lat = (1 << (zoomLevel-1)) - (int) floor((coords.getLatitude() / latAngle)) - 1;
-        if (lat >= 0 && lat < (1 << zoomLevel)) {
-            return new OSMTile(zoomLevel, lon, lat);
+        if (coords.getLatitude() >= OSMTile.MAX_LATITUDE) {
+            return new OSMPole(zoomLevel, OSMPole.NORTH);
+        } else if (coords.getLatitude() < OSMTile.MIN_LATITUDE) {
+            return new OSMPole(zoomLevel, OSMPole.SOUTH);
         } else {
-            return null;
+           
+            double lonAngle = 2 * PI / pow(2, zoomLevel);
+            double latAngle = OSMTile.MAX_LATITUDE / pow(2, zoomLevel);
+            int lon = (int) floor(coords.getLongitude() / lonAngle);
+            if (lon < 0) {
+                lon = (1 << zoomLevel) + lon;
+            }
+            int lat = (1 << (zoomLevel-1)) - (int) floor((coords.getLatitude() / latAngle)) - 1;
+            if (lat >= 0 && lat < (1 << zoomLevel)) {
+                return new OSMTile(zoomLevel, lon, lat);
+            } else {
+                return null;
+            }
         }
     }
 
@@ -112,6 +125,43 @@ public class OSMTileLayout implements TileLayout {
     @Override
     public int getVerticalTileCount() {
         return (1 << zoomLevel) + 2; // 2 poles
+    }
+
+    @Override
+    public GridPoint[] getTileCorners(Tile tile) {
+        if (tile instanceof OSMTile) {
+            
+            GridPoint origin = getTileOrigin(tile);
+            return new GridPoint[] { 
+                    origin, new GridPoint(origin.getLongitude() + 1, origin.getLatitude()),
+                    new GridPoint(origin.getLongitude(), origin.getLatitude() + 1),
+                    new GridPoint(origin.getLongitude() + 1, origin.getLatitude() + 1) };
+            
+        } else if (tile instanceof OSMPole) {
+            
+            int pole = ((OSMPole) tile).pole;
+            int slices = 1 << zoomLevel;
+            GridPoint[] corners = new GridPoint[slices];
+            for (int i=0; i<slices; ++i) {
+                corners[i] = new GridPoint(i, pole == OSMPole.NORTH ? -1 : slices-1);
+            }
+            return corners;
+            
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    @Override
+    public GridPoint modulo(GridPoint point) {
+        int lon = point.getLongitude(), lat = point.getLatitude();
+        while (lat >= maxLat + getVerticalTileCount()) {
+            lat -= getVerticalTileCount();
+        }
+        while (lat <= minLat - getVerticalTileCount()) {
+            lat += getVerticalTileCount();
+        }
+        
     }
     
 }

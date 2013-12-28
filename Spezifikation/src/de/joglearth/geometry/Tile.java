@@ -56,6 +56,4 @@ public interface Tile extends Cloneable {
      */
     boolean intersects(double lonFrom, double latFrom, double lonTo, double latTo);
     
-    GridPoint[] getCorners();
-    
 }

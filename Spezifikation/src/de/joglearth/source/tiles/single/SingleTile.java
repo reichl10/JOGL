@@ -27,9 +27,4 @@ public class SingleTile extends AbstractTile {
         return PI/2;
     }
 
-    @Override
-    public GridPoint[] getCorners() {
-        return new GridPoint[] { };
-    }
-
 }

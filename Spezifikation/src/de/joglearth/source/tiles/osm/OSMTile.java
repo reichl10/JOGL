@@ -144,12 +144,5 @@ public final class OSMTile extends AbstractTile {
                 + getLongitudeTo() + ", latitudeFrom()=" + getLatitudeFrom() + ", latitudeTo()="
                 + getLatitudeTo() + "]";
     }
-
-    @Override
-    public GridPoint[] getCorners() {
-        return new GridPoint[] { 
-                new GridPoint(lonIndex, latIndex), new GridPoint(lonIndex+1, latIndex), 
-                new GridPoint(lonIndex, latIndex + 1), new GridPoint(lonIndex+1, latIndex+1) };
-    }
     
 }

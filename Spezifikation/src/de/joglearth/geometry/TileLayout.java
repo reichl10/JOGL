@@ -16,4 +16,7 @@ public interface TileLayout {
 
     GridPoint getTileOrigin(Tile tile);
     
+    GridPoint[] getTileCorners(Tile tile);
+    
+    GridPoint modulo(GridPoint point);
 }

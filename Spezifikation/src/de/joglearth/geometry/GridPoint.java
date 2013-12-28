@@ -47,6 +47,6 @@ public final class GridPoint {
 
     @Override
     public String toString() {
-        return "GridPoint [lon=" + lon + ", lat=" + lat + "]";
+        return "(" + lon + ", " + lat + ")";
     }
 }

@@ -33,7 +33,7 @@ public final class CameraUtils {
         ArrayList<Tile> visibleTiles = new ArrayList<Tile>();
         
         if (centerTile != null) {
-            for (GridPoint corner : centerTile.getCorners()) {
+            for (GridPoint corner : tileLayout.getTileCorners(centerTile)) {
                 if (camera.isPointVisible(tileLayout.getGeoCoordinates(corner))) {
                     start = corner;
                     break;
@@ -119,9 +119,7 @@ public final class CameraUtils {
         
         Set<GridPoint> visibleModuloPoints = new HashSet<>();
         for (GridPoint point : border) {
-            int moduloLon = modulo(point.getLongitude(), tileLayout.getHoritzontalTileCount());            
-            int moduloLat = modulo(point.getLatitude(), tileLayout.getVerticalTileCount());
-            visibleModuloPoints.add(new GridPoint(moduloLon, moduloLat));
+            visibleModuloPoints.add(tileLayout.modulo(point));
         }
 
         // Fill each line...
@@ -136,10 +134,8 @@ public final class CameraUtils {
             }
 
             // Fill everything inbetween
-            int moduloLat = modulo(lat, tileLayout.getVerticalTileCount());
-            for (int lon = lineMin + 1; lon < lineMax; ++lon) {
-                int moduloLon = modulo(lon, tileLayout.getHoritzontalTileCount());    
-                visibleModuloPoints.add(new GridPoint(moduloLon, moduloLat));
+            for (int lon = lineMin + 1; lon < lineMax; ++lon) {   
+                visibleModuloPoints.add(tileLayout.modulo(new GridPoint(lon, lat)));
             }
         }
 
@@ -164,13 +160,6 @@ public final class CameraUtils {
             direction = 3;
         }
         return direction;
-    }
-
-
-    private static int modulo(int x, int mod) {
-        x %= mod;
-        if (x < 0) x += mod;
-        return x;
     }
     
     
@@ -334,26 +323,25 @@ public final class CameraUtils {
                         break;
                 }
 
-                System.out.printf("Pos = (%d, %d), Corners = ", lon, lat);
-                
                 Tile nextTileCandidate = tileLayout.createTile(new GridPoint(lon, lat));
+                
+                System.out.printf("Pos = (%d, %d), Origin = %s, Corners = ", lon, lat, tileLayout.getTileOrigin(nextTileCandidate));
+                
                 
                 //The tile is visible if any corner is visible.
                 boolean visible = false;
                 
-                for (GridPoint corner: nextTileCandidate.getCorners()) {
-                    GridPoint moduloCorner = new GridPoint(
-                            modulo(corner.getLongitude(), tileLayout.getHoritzontalTileCount()), 
-                            modulo(corner.getLatitude(), tileLayout.getVerticalTileCount()));
-                    System.out.printf("(%d, %d) ", moduloCorner.getLongitude(), moduloCorner.getLatitude());
+                for (GridPoint corner: tileLayout.getTileCorners(nextTileCandidate)) {
+                    GridPoint moduloCorner = tileLayout.modulo(corner);
+                    System.out.print(moduloCorner);
                     if (points.contains(moduloCorner)) {
                         nextTile = nextTileCandidate;
                         turnsSinceLastTile = 0;
                         break;
                     }
                 }
-                
-                System.out.println(", Visible = " + visible + " => " + nextTile);
+                if (nextTile!= null)
+                System.out.println(" => " + nextTile);else System.out.println();
 
                 //Make a turn if necessary.
                 if (stepNo == maxSteps) {
@@ -376,7 +364,7 @@ public final class CameraUtils {
             
         }
 
-        Tile getTile() {
+        public Tile getTile() {
             return currentTile;
         }
     }

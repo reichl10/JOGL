@@ -42,4 +42,9 @@ public class SingleTileLayout implements TileLayout {
         return new GridPoint(0, 0);
     }
 
+    @Override
+    public GridPoint[] getTileCorners(Tile tile) {
+        return new GridPoint[0];
+    }
+
 }
