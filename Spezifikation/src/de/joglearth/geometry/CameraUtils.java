@@ -53,19 +53,19 @@ public final class CameraUtils {
                     addedTiles.add(t);
                 }
             } while (walker.step());
-            System.out.println("\nVisible Points:");
+            /*System.out.println("\nVisible Points:");
             for (GridPoint p : visiblePoints) {
                 System.out.println(p);
-            }
+            }*/
         } else if (centerTile != null) {
             visibleTiles.add(centerTile);
         }
         
-        System.out.println("\nVisible Tiles:");
+        /*System.out.println("\nVisible Tiles:");
         for (Tile t : visibleTiles) {
             System.out.println(t);
         }
-        System.out.println();
+        //System.out.println();*/
         return visibleTiles;
     }
 
@@ -325,23 +325,23 @@ public final class CameraUtils {
 
                 Tile nextTileCandidate = tileLayout.createTile(new GridPoint(lon, lat));
                 
-                System.out.printf("Pos = (%d, %d), Origin = %s, Corners = ", lon, lat, tileLayout.getTileOrigin(nextTileCandidate));
+                //System.out.printf("Pos = (%d, %d), Origin = %s, Corners = ", lon, lat, tileLayout.getTileOrigin(nextTileCandidate));
                 
                 
                 //The tile is visible if any corner is visible.
-                boolean visible = false;
+                //boolean visible = false;
                 
                 for (GridPoint corner: tileLayout.getTileCorners(nextTileCandidate)) {
                     GridPoint moduloCorner = tileLayout.modulo(corner);
-                    System.out.print(moduloCorner);
+                    //System.out.print(moduloCorner);
                     if (points.contains(moduloCorner)) {
                         nextTile = nextTileCandidate;
                         turnsSinceLastTile = 0;
                         break;
                     }
                 }
-                if (nextTile!= null)
-                System.out.println(" => " + nextTile);else System.out.println();
+                //if (nextTile!= null)
+                //System.out.println(" => " + nextTile);else System.out.println();
 
                 //Make a turn if necessary.
                 if (stepNo == maxSteps) {

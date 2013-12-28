@@ -63,7 +63,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
     public SourceResponse<byte[]> requestObject(final TileName k,
             final SourceListener<TileName, byte[]> sender) {
         if (!(k.tile instanceof OSMTile) || !(k.configuration instanceof OSMMapConfiguration)) {
-            throw new IllegalArgumentException();
+            return new SourceResponse<byte[]>(SourceResponseType.MISSING, null);
         }
         
 

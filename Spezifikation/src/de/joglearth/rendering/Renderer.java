@@ -123,7 +123,8 @@ public class Renderer {
 
     private void initialize() {        
         gl.setFeatureEnabled(GL_DEPTH_TEST, true);
-        gl.setFeatureEnabled(GL_CULL_FACE, true);
+        gl.setFeatureEnabled(GL_CULL_FACE, false);
+        
         gl.setFeatureEnabled(GL_TEXTURE_2D, true);
         
         gl.setLightEnabled(0, true);
@@ -131,7 +132,7 @@ public class Renderer {
         gl.setAmbientLight(0.2);
         gl.setMaterialSpecularity(0.02);
 
-        textureManager = new TextureManager(gl, 200, mapConfiguration);
+        textureManager = new TextureManager(gl, 500, mapConfiguration);
         textureManager.addSurfaceListener(new SurfaceValidator());
 
         loadTextures();

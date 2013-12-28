@@ -11,7 +11,7 @@ import de.joglearth.geometry.TileLayout;
 public class OSMTileLayout implements TileLayout {
 
     private int zoomLevel;
-    private final int minLat, maxLat;
+    private final int minLon, maxLon, minLat, maxLat;
     
     public OSMTileLayout(int zoomLevel) {
         if (zoomLevel < 0) {
@@ -20,12 +20,13 @@ public class OSMTileLayout implements TileLayout {
         
         this.zoomLevel = zoomLevel;
         if (zoomLevel == 0) {
-            minLat = -1;
-            maxLat = 1;
+            minLon = maxLon = 0;
         } else {
-            minLat = -(1 << (zoomLevel-1)) - 1;
-            maxLat = 1 << (zoomLevel-1);
+            minLon = -(1 << (zoomLevel-1));
+            maxLon = (1 << (zoomLevel-1)) - 1;
         }
+        minLat = minLon - 1;
+        maxLat = maxLon + 1;
     }
     
     @Override
@@ -156,12 +157,31 @@ public class OSMTileLayout implements TileLayout {
     public GridPoint modulo(GridPoint point) {
         int lon = point.getLongitude(), lat = point.getLatitude();
         while (lat >= maxLat + getVerticalTileCount()) {
-            lat -= getVerticalTileCount();
+            lat -= 2*getVerticalTileCount();
         }
         while (lat <= minLat - getVerticalTileCount()) {
-            lat += getVerticalTileCount();
+            lat += 2*getVerticalTileCount();
         }
-        
+        if (zoomLevel > 0 && (lat > maxLat || lat < minLat)) {
+            lon += getHoritzontalTileCount() / 2;
+        }
+        if (lat > maxLat) {
+            lat = 2*maxLat+1 - lat;
+        } else if (lat < minLat) {
+            lat = 2*minLat-1 - lat;
+        }        
+        while (lon > maxLon) {
+            lon -= (1 << zoomLevel);
+        }
+        while (lon < minLon) {
+            lon += (1 << zoomLevel);
+        }
+        if (lat == minLat || lat == maxLat) {
+            lon = 0;
+        }
+        GridPoint result = new GridPoint(lon, lat);
+        System.out.printf("modulo(zoomLevel=%d, point=%s) = %s\n", zoomLevel, point, result);
+        return result;
     }
     
 }

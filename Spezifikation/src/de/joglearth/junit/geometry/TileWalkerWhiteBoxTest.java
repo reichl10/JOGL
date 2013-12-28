@@ -18,25 +18,23 @@ import de.joglearth.source.tiles.osm.OSMTileLayout;
 public class TileWalkerWhiteBoxTest {
 
     @Test
-    public void testSouthPolePoint() {
+    public void testNorthPolePoint() {
         Set<GridPoint> points = new HashSet<>();
         points.add(new GridPoint(0, 1));
         TileWalker walker = new TileWalker(points, new GridPoint(0, 1), new OSMTileLayout(1));
         Set<Tile> tiles = new HashSet<>();
         do {
-            System.out.println(walker.getTile());
             tiles.add(walker.getTile());
         } while (walker.step());
 
-        System.out.println(tiles);
         assertEquals(tiles.size(), 3);
         TileLayout lay = new OSMTileLayout(1);
         assertTrue(tiles.contains(lay.createTile(new GridPoint(0, 0))));
         assertTrue(tiles.contains(lay.createTile(new GridPoint(1, 0))));
-        assertTrue(tiles.contains(new OSMPole(1, OSMPole.SOUTH)));
+        assertTrue(tiles.contains(new OSMPole(1, OSMPole.NORTH)));
     }
 
-    //@Test
+    @Test
     public void testTwoPoints() {
         Set<GridPoint> points = new HashSet<>();
         points.add(new GridPoint(0, 0));

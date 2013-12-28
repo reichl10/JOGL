@@ -24,7 +24,7 @@ import de.joglearth.util.Predicate;
  */
 public class TileMeshManager implements Source<Tile, VertexBuffer> {
 
-    private final int VERTEX_BUFFER_CACHE_SIZE = 50;
+    private final int VERTEX_BUFFER_CACHE_SIZE = 500;
 
     private RequestDistributor<Tile, VertexBuffer> dist;
     private VertexBufferPool<Tile> cache;
