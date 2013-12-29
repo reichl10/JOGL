@@ -1,8 +1,5 @@
 package de.joglearth.opengl;
 
-import javax.media.opengl.GL2;
-
-import de.joglearth.rendering.Renderer;
 import de.joglearth.source.caching.MemoryCache;
 
 
@@ -17,7 +14,7 @@ public class VertexBufferPool<Key> extends MemoryCache<Key, VertexBuffer> {
      * Constructor. Initializes the {@link de.joglearth.opengl.VertexBufferPool} and assigns
      * a value to the GL context.
      * 
-     * @param gl The GL context
+     * @param gl The GL context. Must not be null
      */
     public VertexBufferPool(GLContext gl) {
         if (gl == null) {

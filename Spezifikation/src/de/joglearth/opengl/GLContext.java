@@ -17,7 +17,6 @@ import static javax.media.opengl.glu.GLU.*;
 
 import javax.media.opengl.glu.GLUquadric;
 
-import com.jogamp.opengl.util.Animator;
 import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureData;
@@ -37,6 +36,9 @@ import static java.lang.Math.*;
  */
 public final class GLContext extends AbstractInvoker implements GLEventListener {
 
+    private int lightCount = 0;
+    
+    // The internal contexts
     private GL2 gl = null;
     private GLU glu = null;
     private GLUquadric quadric = null;
@@ -202,6 +204,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * Loads a texture via the JOGL Texture API.
      * 
      * @param data The texture data to load
+     * @param filter The filter used to interpolate the texture
      * @return The texture
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      */
@@ -212,10 +215,13 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             throw new IllegalArgumentException();
         }
         
+        // Mipmaps only make sense with trilinear or anisotropic filtering
+        // TODO This is evil as it modifies the TextureData object.
         data.setMipmap(filter != TextureFilter.NEAREST && filter != TextureFilter.BILINEAR);
         
         Texture tex = new Texture(gl, data);
         
+        // Set the GL interpolation filter.
         int minFilter, magFilter;
         switch (filter) {
             case NEAREST:
@@ -229,6 +235,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
                 break;
              
             default:
+                // Anisotropic filtering is a variation of trilinear
                 minFilter = GL_LINEAR_MIPMAP_LINEAR;
                 magFilter = GL_LINEAR;
         }
@@ -415,9 +422,8 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * @param radius The radius of the sphere. Must be greater than zero
      * @param slices The number of vertices on the equator. Must be greater or equal 3
      * @param stacks The number of vertices from north to south pole. Must be greater or equal 3
-     * @param inside Whether to make surfaces point to the inside of the sphere rather than to the
-     *        outside
-     * @param texture The texture ID to use. May be 0
+     * @param inside Whether to make surfaces pointing inwards instead of outwards
+     * @param texture The texture to use. May be null
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      * @throws GLError An internal OpenGL error has occurred
      */
@@ -436,45 +442,88 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         glu.gluQuadricOrientation(quadric, inside ? GLU_INSIDE : GLU_OUTSIDE);
         GLError.throwIfActive(gl);
 
+        // Enable texturing
         glu.gluQuadricTexture(quadric, true);
         GLError.throwIfActive(gl);
 
         glu.gluSphere(quadric, radius, slices, stacks);
         GLError.throwIfActive(gl);
 
-        gl.glBindTexture(GL_TEXTURE_2D, 0);
-        GLError.throwIfActive(gl);
+        if (texture != null) {
+            gl.glBindTexture(GL_TEXTURE_2D, 0);
+            GLError.throwIfActive(gl);
+        }
     }
     
-    private void assertContextAndValidIntensity(double intensity) {
-        assertIsInitialized();
-        assertIsInsideCallback();
+    
+    private void assertIsValidIntensity(double intensity) {
         if (intensity < 0 || intensity > 1 || isNaN(intensity)) {
             throw new IllegalArgumentException();
         }
     }
 
+    private void assertIsValidLight(int index) {
+        if (index < 0 || index >= lightCount) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    /**
+     * Sets the intensity of the specular component on the current material.
+     * @param intensity The intensity, in the range of [0, 1].
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     * @throws GLError An internal OpenGL error has occurred
+     */
     public void setMaterialSpecularity(double intensity) {
-        assertContextAndValidIntensity(intensity);
+        assertIsInitialized();
+        assertIsInsideCallback();
+        assertIsValidIntensity(intensity);
+        
         float fi = (float) intensity;
         gl.glMaterialfv(GL_FRONT, GL_SPECULAR, new float[] { fi, fi, fi, 1}, 0);
         GLError.throwIfActive(gl);
     }
+    
 
+    /**
+     * Sets the ambient light intensity in the scene.
+     * @param intensity The intensity, in the range of [0, 1].
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     * @throws GLError An internal OpenGL error has occurred
+     */
     public void setAmbientLight(double intensity) {
-        assertContextAndValidIntensity(intensity);
+        assertIsInitialized();
+        assertIsInsideCallback();
+        assertIsValidIntensity(intensity);
+
         float fi = (float) intensity;
         gl.glLightModelfv(GL_LIGHT_MODEL_AMBIENT, new float[] { fi, fi, fi, 1 }, 0);
         GLError.throwIfActive(gl);
     }
+    
+    
+    /**
+     * Returns the number of lights supported.
+     * @return The number of lights
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     */
+    public int getLightCount() {
+        assertIsInitialized();
+        return lightCount;
+    }
+    
 
+    /**
+     * Places a GL light in the scene. The position is affected by the model-view-matrix.
+     * @param index The light index. Must be between (including) 0 and getLightCount()-1
+     * @param position
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     * @throws GLError An internal OpenGL error has occurred
+     */
     public void placeLight(int index, Vector3 position) {
         assertIsInitialized();
         assertIsInsideCallback();
-        
-        if (index < 0) {
-            throw new IllegalArgumentException();
-        }
+        assertIsValidLight(index);
         
         float[] floats = { (float) position.x, (float) position.y, (float) position.z, 1 };
         gl.glLightfv(GL_LIGHT0 + index, GL_POSITION, floats, 0);
@@ -482,23 +531,47 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     }
     
     
+    /**
+     * Sets the intensity of a light.
+     * @param index The light index. Must be between (including) 0 and getLightCount()-1
+     * @param intensity The intensity, in the range [0, 1]
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     * @throws GLError An internal OpenGL error has occurred
+     */
     public void setLightIntensity(int index, double intensity) {
-        assertContextAndValidIntensity(intensity);
-        
-        if (index < 0) {
-            throw new IllegalArgumentException();
-        }
+        assertIsInitialized();
+        assertIsInsideCallback();
+        assertIsValidLight(index);
+        assertIsValidIntensity(intensity);
         
         float fi = (float) intensity;        
         gl.glLightfv(GL_LIGHT0 + index, GL_DIFFUSE, new float[] { fi, fi, fi, 1 }, 0);
         GLError.throwIfActive(gl);
     }
     
+    
+    /**
+     * Sets whether a light is used to light the next primitives rendered.
+     * @param index The light index. Must be between (including) 0 and getLightCount()-1
+     * @param enabled Whether the light should be used
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     * @throws GLError An internal OpenGL error has occurred
+     */
     public void setLightEnabled(int index, boolean enabled) {
+        assertIsValidLight(index);
         setFeatureEnabled(GL_LIGHT0 + index, enabled);
     }
     
+    
+    /**
+     * Returns whether a light is currently enabled.
+     * @param index The light index. Must be between (including) 0 and getLightCount()-1
+     * @return Whether the light is enabled
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     * @throws GLError An internal OpenGL error has occurred
+     */
     public boolean isLightEnabled(int index) {
+        assertIsValidLight(index);
         return isFeatureEnabled(GL_LIGHT0 + index);
     }
 
@@ -650,6 +723,11 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         animator = new FPSAnimator(drawable, 60);
 
         beginDisplay();
+        
+        int[] integers = new int[1];
+        gl.glGetIntegerv(GL_MAX_LIGHTS, integers, 0);
+        GLError.throwIfActive(gl);
+        lightCount = integers[0];
         
         String extensions = gl.glGetString(GL_EXTENSIONS);
         GLError.throwIfActive(gl);

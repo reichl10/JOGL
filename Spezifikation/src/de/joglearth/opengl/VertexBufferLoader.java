@@ -1,21 +1,14 @@
 package de.joglearth.opengl;
 
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-
-import javax.media.opengl.GL2;
-
 import de.joglearth.async.RunnableResultListener;
 import de.joglearth.async.RunnableWithResult;
 import de.joglearth.geometry.Tile;
 import de.joglearth.rendering.Mesh;
-import de.joglearth.rendering.Renderer;
 import de.joglearth.rendering.Tessellator;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import static javax.media.opengl.GL2.*;
 
 
 /**
@@ -34,8 +27,8 @@ public class VertexBufferLoader implements Source<Tile, VertexBuffer> {
      * Constructor. Initializes the {@link de.joglearth.opengl.VertexBufferLoader} as it assign
      * values to its GL context and {@link de.joglearth.rendering.Tesselator}.
      * 
-     * @param gl The GL context of <code>TileMeshManager</code>. Must not be null.
-     * @param t The <code>Tesselator</code> of the <code>TileMeshManager</code>. May be null.
+     * @param gl The GL context of <code>TileMeshManager</code>. Must not be null
+     * @param t The <code>Tesselator</code> of the <code>TileMeshManager</code>. May be null
      */
     public VertexBufferLoader(GLContext gl, Tessellator t) {
         if (gl == null) {
@@ -85,11 +78,14 @@ public class VertexBufferLoader implements Source<Tile, VertexBuffer> {
         heightMap = enable;
     }
 
+    /**
+     * Returns whether the height map is enabled.   
+     */
     public boolean isHeightMapEnabled() {
         return heightMap;
     }
 
-    public VertexBuffer createVBO(Tile key) {
+    private VertexBuffer createVBO(Tile key) {
         Mesh mesh;
         synchronized (this) {
             mesh = tess.tessellateTile(key, subdivisions, heightMap);

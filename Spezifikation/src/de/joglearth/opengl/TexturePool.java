@@ -6,13 +6,21 @@ import de.joglearth.source.caching.MemoryCache;
 
 
 /**
- * Manages and displaces textures in OpenGl graphics memory.
+ * Manages and displaces textures in OpenGL graphics memory.
  */
 public class TexturePool<Key> extends MemoryCache<Key, Texture> {
 
     private GLContext gl;
 
+    /**
+     * Constructor.
+     * @param gl The GL context holding the textures to manage. Must not be null
+     */
     public TexturePool(GLContext gl) {
+        if (gl == null) {
+            throw new IllegalArgumentException();
+        }
+        
         this.gl = gl;
     }
 

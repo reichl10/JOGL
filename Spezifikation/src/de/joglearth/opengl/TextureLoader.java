@@ -15,7 +15,6 @@ import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.source.tiles.TileName;
 
 
 /**
@@ -27,14 +26,29 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
     private GLContext gl;
     private Source<Key, byte[]> imageSource;
     private ImageSourceListener imageSourceListener = new ImageSourceListener();
-    private Map<Key, Collection<SourceListener<Key, Texture>>> pendingRequests = new HashMap<>();
     private TextureFilter textureFilter;
+    private String formatSuffix;
+    
+    // Stores requests requiring a callback on completion
+    private Map<Key, Collection<SourceListener<Key, Texture>>> pendingRequests = new HashMap<>();
 
-
-    public TextureLoader(GLContext gl, Source<Key, byte[]> imageSource) {
+    
+    /**
+     * Constructor
+     * @param gl The GL context to load textures with. Must not be null
+     * @param imageSource The image source providing the raw image data. Must not be null
+     * @param formatSuffix The file suffix of the image format provided (e.g. "jpg"). Must not be 
+     * null
+     */
+    public TextureLoader(GLContext gl, Source<Key, byte[]> imageSource, String formatSuffix) {
+        if (gl == null || imageSource == null || formatSuffix == null) {
+            throw new IllegalArgumentException();
+        }
+        
         this.gl = gl;
         this.imageSource = imageSource;
-        this.textureFilter = TextureFilter.NEAREST;
+        this.textureFilter = TextureFilter.TRILINEAR;
+        this.formatSuffix = formatSuffix;
     }
 
 
@@ -54,7 +68,7 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
             }
 
             try {
-                return gl.loadTexture(new ByteArrayInputStream(raw), "jpg", textureFilter);
+                return gl.loadTexture(new ByteArrayInputStream(raw), formatSuffix, textureFilter);
             } catch (IOException e) {
                 return null;
             }
@@ -80,8 +94,6 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
         if (key == null) {
             throw new IllegalArgumentException();
         }
-
-        //TODO System.err.println("TextureSource: requested " + key);
 
         Collection<SourceListener<Key, Texture>> listeners = pendingRequests.get(key);
         if (listeners != null && listeners.size() != 0) {
@@ -118,7 +130,6 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
 
             if (senders != null) {
                 for (SourceListener<Key, Texture> s : senders) {
-                    //TODO System.err.println("TextureSource: loading texture for " + key);
                     loadTexture(key, s, value);
                 }
             }
@@ -129,11 +140,30 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
     @Override
     public void dispose() { }
 
+    /**
+     * Sets the texture filter used for the following textures.
+     * @param textureFilter The filter. Must not be null
+     */
     public void setTextureFilter(TextureFilter textureFilter) {
+        if (textureFilter == null) {
+            throw new IllegalArgumentException();
+        }
+        
         this.textureFilter = textureFilter;
     }
 
-    public void setImageSource(Source<Key, byte[]> imageSource) {
+    /**
+     * Sets the image source used to load image data from.
+     * @param imageSource The source. Must not be null
+     * @param formatSuffix The file suffix of the image format provided (e.g. "jpg"). Must not
+     * be null
+     */
+    public void setImageSource(Source<Key, byte[]> imageSource, String formatSuffix) {
+        if (imageSource == null || formatSuffix == null) {
+            throw new IllegalArgumentException();
+        }
+        
         this.imageSource = imageSource;
+        this.formatSuffix = formatSuffix;
     }
 }

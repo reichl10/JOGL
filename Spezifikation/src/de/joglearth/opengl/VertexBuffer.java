@@ -3,7 +3,8 @@ package de.joglearth.opengl;
 /**
  * Structure holding handles to OpenGL buffers for vertex and index data.
  */
-public class VertexBuffer {
+// TODO Do not use public attributes
+public final class VertexBuffer {
 
     @Override
     public String toString() {
