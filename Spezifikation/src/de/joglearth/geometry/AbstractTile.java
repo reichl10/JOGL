@@ -3,6 +3,11 @@ package de.joglearth.geometry;
 import static java.lang.Math.PI;
 
 
+/**
+ * Implements the layout-independent geometric methods of {@link Tile}.
+ * 
+ * Tiles of a sub-type of AbstractTile are considered equal if they have equal boundaries.
+ */
 public abstract class AbstractTile implements Tile {
 
     @Override

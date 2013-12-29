@@ -99,7 +99,7 @@ public class SphereTessellator implements Tessellator {
         }
     }
 
-    private int getMaxShrinkCount(int quads) {
+    private int getMaxShrinkCount(int quads, double largeLonStep) {
         // Find out how often "quads" can be divided by 2.        
         int max = 0;
         double s = quads;
@@ -111,7 +111,15 @@ public class SphereTessellator implements Tessellator {
                 break;
             }
         }
-        return max;
+
+        int part = (int) round(2*PI / largeLonStep);
+        if (part < 2) {
+            return max - 2;
+        } else if (part < 4) {
+            return max - 1;
+        } else {
+            return max;
+        }
     }
 
     private static int getShrinkCount(double lat, int maxShrinkCount) {
@@ -131,15 +139,16 @@ public class SphereTessellator implements Tessellator {
                 .getLongitudeFrom();
 
         boolean nearEquator = abs(tile.getLatitudeFrom() + tile.getLatitudeTo()) < PI/2;
-        
-        int maxShrinkCount = nearEquator ? 0 : getMaxShrinkCount(subdivisions + 1),
-            shrinkCount = getShrinkCount(lat, maxShrinkCount), 
-            rowWidth = max(2, (subdivisions + 1) / (int) pow(2, shrinkCount)) + 1;
 
         double largeLonStep = tile.getLongitudeTo() - tile.getLongitudeFrom();
         if (largeLonStep <= 0) {
             largeLonStep += 2*PI;//2 * PI / pow(2, tile.getDetailLevel()), 
         }
+                
+        int maxShrinkCount = nearEquator ? 0 : getMaxShrinkCount(subdivisions + 1, largeLonStep),
+            shrinkCount = getShrinkCount(lat, maxShrinkCount), 
+            rowWidth = max(2, (subdivisions + 1) / (int) pow(2, shrinkCount)) + 1;
+        
         double lonStep = largeLonStep / (rowWidth - 1), 
                latStep = direction * (tile.getLatitudeTo() - tile.getLatitudeFrom()) / nRows;
 
@@ -158,7 +167,7 @@ public class SphereTessellator implements Tessellator {
             textureY += textureStep;
             int newRowWidth = max(2,
                     (subdivisions + 1) / (int) pow(2, getShrinkCount(lat, maxShrinkCount))) + 1;
-            if (abs(lat-PI/2) > 1e-6 && newRowWidth < rowWidth) {
+            if (newRowWidth < rowWidth) {
                 int groupSize = (rowWidth - 1) / (newRowWidth - 1);
                 writeInterpolatedVertexLine(vertices, vIndex * VERTEX_SIZE, lon, lat, lonStep,
                         groupSize, latStep, useHeightMap, textureY, newRowWidth);

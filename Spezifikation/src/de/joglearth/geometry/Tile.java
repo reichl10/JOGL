@@ -1,7 +1,5 @@
 package de.joglearth.geometry;
 
-import static java.lang.Math.*;
-
 
 /**
  * A structure identifying a single OpenStreetMap surface tile.

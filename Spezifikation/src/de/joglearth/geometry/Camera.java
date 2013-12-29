@@ -21,7 +21,7 @@ public class Camera {
     private double distance = 0.5;
     private double tiltX = 0;
     private double tiltY = 0;
-    private double fov, aspectRatio, zNear, zFar;
+    private double fov, aspectRatio;
     private boolean heightMapEnabled = false;
     private Matrix4 projectionMatrix,
                     modelCameraMatrix = new Matrix4(),
@@ -255,9 +255,6 @@ public class Camera {
 
         this.fov = fov;
         this.aspectRatio = aspectRatio;
-        this.zNear = near;
-        this.zFar = far;
-
         double f = 1 / tan(fov * 0.5);
 
         projectionMatrix = new Matrix4(new double[] {

@@ -1,31 +1,46 @@
 package de.joglearth.geometry;
 
 
-// Models an intersection of longitude and latitude lines
+/**
+ * Models an intersection of longitude and latitude lines on an arbitrary {@link TileLayout}.
+ */
 public final class GridPoint {
 
-    private int lon, lat;
+    private int longitude, latitude;
 
 
+    /**
+     * Returns the point's longitude index.
+     * @return The longitude, as passed to the constructor
+     */
     public int getLongitude() {
-        return lon;
+        return longitude;
     }
 
+    /**
+     * Returns the point's latitude index.
+     * @return The latitude, as passed to the constructor
+     */
     public int getLatitude() {
-        return lat;
+        return latitude;
     }
 
+    /**
+     * Constructor
+     * @param lon The longitude index
+     * @param lat The latitude index
+     */
     public GridPoint(int lon, int lat) {
-        this.lon = lon;
-        this.lat = lat;
+        this.longitude = lon;
+        this.latitude = lat;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + lat;
-        result = prime * result + lon;
+        result = prime * result + latitude;
+        result = prime * result + longitude;
         return result;
     }
 
@@ -38,15 +53,15 @@ public final class GridPoint {
         if (getClass() != obj.getClass())
             return false;
         GridPoint other = (GridPoint) obj;
-        if (lat != other.lat)
+        if (latitude != other.latitude)
             return false;
-        if (lon != other.lon)
+        if (longitude != other.longitude)
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "(" + lon + ", " + lat + ")";
+        return "(" + longitude + ", " + latitude + ")";
     }
 }

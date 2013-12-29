@@ -123,8 +123,7 @@ public class Renderer {
 
     private void initialize() {        
         gl.setFeatureEnabled(GL_DEPTH_TEST, true);
-        gl.setFeatureEnabled(GL_CULL_FACE, false);
-        
+        gl.setFeatureEnabled(GL_CULL_FACE, true);        
         gl.setFeatureEnabled(GL_TEXTURE_2D, true);
         
         gl.setLightEnabled(0, true);
@@ -316,7 +315,7 @@ public class Renderer {
         @Override
         public void reshape(GLContext context, int width, int height) {
             screenSize = new Dimension(width, height);
-            camera.setPerspective(PI / 2, (double) width/height, 0.01, 100);
+            camera.setPerspective(PI / 2, (double) width/height, 1e-4, 100);
         }
     }
 
