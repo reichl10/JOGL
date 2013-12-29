@@ -47,4 +47,9 @@ public class SingleTileLayout implements TileLayout {
         return new GridPoint[0];
     }
 
+    @Override
+    public GridPoint modulo(GridPoint point) {
+        return new GridPoint(0, 0);
+    }
+
 }

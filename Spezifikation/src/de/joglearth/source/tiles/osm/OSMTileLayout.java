@@ -91,7 +91,7 @@ public class OSMTileLayout implements TileLayout {
         } else {
            
             double lonAngle = 2 * PI / pow(2, zoomLevel);
-            double latAngle = OSMTile.MAX_LATITUDE / pow(2, zoomLevel);
+            double latAngle = 2 * OSMTile.MAX_LATITUDE / pow(2, zoomLevel);
             int lon = (int) floor(coords.getLongitude() / lonAngle);
             if (lon < 0) {
                 lon = (1 << zoomLevel) + lon;
@@ -180,7 +180,7 @@ public class OSMTileLayout implements TileLayout {
             lon = 0;
         }
         GridPoint result = new GridPoint(lon, lat);
-        System.out.printf("modulo(zoomLevel=%d, point=%s) = %s\n", zoomLevel, point, result);
+        //System.out.printf("modulo(zoomLevel=%d, point=%s) = %s\n", zoomLevel, point, result);
         return result;
     }
     

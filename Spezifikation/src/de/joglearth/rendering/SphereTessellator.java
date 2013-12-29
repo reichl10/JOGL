@@ -158,7 +158,7 @@ public class SphereTessellator implements Tessellator {
             textureY += textureStep;
             int newRowWidth = max(2,
                     (subdivisions + 1) / (int) pow(2, getShrinkCount(lat, maxShrinkCount))) + 1;
-            if (newRowWidth < rowWidth) {
+            if (abs(lat-PI/2) > 1e-6 && newRowWidth < rowWidth) {
                 int groupSize = (rowWidth - 1) / (newRowWidth - 1);
                 writeInterpolatedVertexLine(vertices, vIndex * VERTEX_SIZE, lon, lat, lonStep,
                         groupSize, latStep, useHeightMap, textureY, newRowWidth);
