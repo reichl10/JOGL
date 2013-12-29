@@ -6,10 +6,10 @@ import org.junit.Test;
 
 import de.joglearth.geometry.Tile;
 import de.joglearth.junit.GLTestWindow;
-import de.joglearth.opengl.VertexBufferLoader;
 import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.rendering.Mesh;
 import de.joglearth.rendering.Tessellator;
+import de.joglearth.rendering.VertexBufferLoader;
 import de.joglearth.source.SourceListener;
 
 

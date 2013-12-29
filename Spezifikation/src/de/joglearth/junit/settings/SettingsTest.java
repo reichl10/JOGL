@@ -12,11 +12,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.joglearth.geometry.GeoCoordinates;
+import de.joglearth.location.Location;
+import de.joglearth.location.LocationType;
 import de.joglearth.opengl.Antialiasing;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
-import de.joglearth.surface.Location;
-import de.joglearth.surface.LocationType;
 
 
 public class SettingsTest {

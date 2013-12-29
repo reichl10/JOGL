@@ -14,10 +14,10 @@ import de.joglearth.async.RunnableWithResult;
 import de.joglearth.geometry.Tile;
 import de.joglearth.junit.GLTestWindow;
 import de.joglearth.opengl.GLError;
-import de.joglearth.opengl.VertexBufferLoader;
 import de.joglearth.opengl.VertexBuffer;
-import de.joglearth.opengl.VertexBufferPool;
 import de.joglearth.rendering.PlaneTessellator;
+import de.joglearth.rendering.VertexBufferLoader;
+import de.joglearth.rendering.VertexBufferPool;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
 

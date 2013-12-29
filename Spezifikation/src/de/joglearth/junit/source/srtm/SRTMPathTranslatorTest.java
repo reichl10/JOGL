@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import de.joglearth.source.srtm.SRTMPathTranslator;
-import de.joglearth.source.srtm.SRTMTileName;
+import de.joglearth.height.srtm.SRTMPathTranslator;
+import de.joglearth.height.srtm.SRTMTileName;
 
 
 public class SRTMPathTranslatorTest {

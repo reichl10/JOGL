@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import de.joglearth.junit.GLTestWindow;
 import de.joglearth.opengl.VertexBuffer;
-import de.joglearth.opengl.VertexBufferPool;
+import de.joglearth.rendering.VertexBufferPool;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;

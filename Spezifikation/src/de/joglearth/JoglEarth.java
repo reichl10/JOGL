@@ -5,12 +5,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import de.joglearth.height.srtm.SRTMTileManager;
+import de.joglearth.location.LocationManager;
+import de.joglearth.location.nominatim.NominatimManager;
+import de.joglearth.location.overpass.OverpassManager;
 import de.joglearth.map.osm.OSMTileManager;
 import de.joglearth.settings.SettingsContract;
-import de.joglearth.source.nominatim.NominatimManager;
-import de.joglearth.source.overpass.OverpassManager;
-import de.joglearth.source.srtm.SRTMTileManager;
-import de.joglearth.surface.LocationManager;
 import de.joglearth.ui.MainWindow;
 
 

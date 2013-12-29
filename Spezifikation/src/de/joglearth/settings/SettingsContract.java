@@ -20,12 +20,12 @@ import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
 import de.joglearth.geometry.GeoCoordinates;
+import de.joglearth.location.Location;
+import de.joglearth.location.LocationType;
 import de.joglearth.map.single.SingleMapType;
 import de.joglearth.opengl.Antialiasing;
 import de.joglearth.opengl.TextureFilter;
 import de.joglearth.rendering.LevelOfDetail;
-import de.joglearth.surface.Location;
-import de.joglearth.surface.LocationType;
 import de.joglearth.util.ApplicationData;
 
 
@@ -55,7 +55,7 @@ public final class SettingsContract {
     public static final String  LEVEL_OF_DETAIL      = "LevelOfDetail";
 
     /**
-     * Name constant for the users Locations. You should save {@link de.joglearth.surface.Location}
+     * Name constant for the users Locations. You should save {@link de.joglearth.location.Location}
      * objects using this key.
      */
     public static final String  USER_LOCATIONS        = "UserLocations";

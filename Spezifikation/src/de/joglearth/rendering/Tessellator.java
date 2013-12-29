@@ -1,6 +1,7 @@
 package de.joglearth.rendering;
 
 import de.joglearth.geometry.Tile;
+import de.joglearth.height.HeightMap;
 
 
 /**
@@ -22,6 +23,6 @@ public interface Tessellator {
      * @return A <code>Mesh</code> with (subdivisions + 1)^2 squares, with each divided in two
      *         triangles
      */
-    Mesh tessellateTile(Tile tile, int subdivisions, boolean heightMap);
+    Mesh tessellateTile(Tile tile, int subdivisions, HeightMap heightMap);
 }
 

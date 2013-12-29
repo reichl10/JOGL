@@ -62,6 +62,10 @@ import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.ScreenCoordinates;
+import de.joglearth.geometry.SurfaceListener;
+import de.joglearth.location.Location;
+import de.joglearth.location.LocationListener;
+import de.joglearth.location.LocationManager;
 import de.joglearth.map.MapConfiguration;
 import de.joglearth.map.osm.OSMMapConfiguration;
 import de.joglearth.map.osm.OSMMapType;
@@ -75,10 +79,6 @@ import de.joglearth.rendering.Renderer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
-import de.joglearth.surface.Location;
-import de.joglearth.surface.LocationListener;
-import de.joglearth.surface.LocationManager;
-import de.joglearth.surface.SurfaceListener;
 import de.joglearth.opengl.TextureFilter;
 
 

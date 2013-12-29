@@ -4,12 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import de.joglearth.height.srtm.SRTMBinarySource;
+import de.joglearth.height.srtm.SRTMTile;
+import de.joglearth.height.srtm.SRTMTileName;
+import de.joglearth.height.srtm.SRTMTileSource;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.source.srtm.SRTMBinarySource;
-import de.joglearth.source.srtm.SRTMTileName;
-import de.joglearth.source.srtm.SRTMTile;
-import de.joglearth.source.srtm.SRTMTileSource;
 
 
 public class SRTMTileSourceWhiteBoxTest {

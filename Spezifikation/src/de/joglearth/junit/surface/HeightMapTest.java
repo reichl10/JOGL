@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.surface.HeightMap;
+import de.joglearth.location.HeightMap;
 
 
 public class HeightMapTest {

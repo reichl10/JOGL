@@ -5,11 +5,11 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import de.joglearth.height.srtm.SRTMBinarySource;
+import de.joglearth.height.srtm.SRTMTileName;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.source.srtm.SRTMBinarySource;
-import de.joglearth.source.srtm.SRTMTileName;
 
 
 public class STRMBinarySourceTest {

@@ -14,7 +14,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
-import de.joglearth.surface.Location;
+import de.joglearth.location.Location;
 
 
 /**

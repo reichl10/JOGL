@@ -16,8 +16,11 @@ import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.PlaneGeometry;
 import de.joglearth.geometry.SphereGeometry;
+import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.Vector3;
+import de.joglearth.location.LocationManager;
+import de.joglearth.location.LocationType;
 import de.joglearth.map.MapConfiguration;
 import de.joglearth.map.single.SingleMapConfiguration;
 import de.joglearth.map.single.SingleMapType;
@@ -28,11 +31,6 @@ import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
-import de.joglearth.surface.LocationManager;
-import de.joglearth.surface.LocationType;
-import de.joglearth.surface.SurfaceListener;
-import de.joglearth.surface.TextureManager;
-import de.joglearth.surface.TileMeshManager;
 import de.joglearth.util.Resource;
 
 
@@ -49,7 +47,7 @@ public class Renderer {
     private Camera camera;
     private DisplayMode activeDisplayMode = DisplayMode.SOLAR_SYSTEM;
     private Texture earth, moon;
-    private TileMeshManager tileMeshManager;
+    private VertexBufferManager tileMeshManager;
     private SurfaceListener surfaceListener = new SurfaceValidator();
     private GLContextListener glContextListener = new RendererGLListener();
     private Map<LocationType, Texture> overlayIconTextures;
@@ -140,7 +138,7 @@ public class Renderer {
         Settings.getInstance().addSettingsListener(SettingsContract.TEXTURE_FILTER,
                 settingsListener);
         
-        tileMeshManager = new TileMeshManager(gl, null);
+        tileMeshManager = new VertexBufferManager(gl, null);
         tileMeshManager.setTileSubdivisions(tileSubdivisions);
         applyDisplayMode();
     }
@@ -193,7 +191,6 @@ public class Renderer {
         gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
 
         Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, mapConfiguration.getOptimalTileLayout(camera, screenSize));
-        System.out.println(tiles);
         for (Tile tile : tiles) {
             Texture texture = textureManager.getTexture(tile);
             VertexBuffer vbo = tileMeshManager.requestObject(tile, null).value;

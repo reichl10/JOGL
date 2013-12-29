@@ -13,7 +13,7 @@ import de.joglearth.junit.GLTestWindow;
 import de.joglearth.map.osm.OSMMapType;
 import de.joglearth.map.osm.OSMTileManager;
 import de.joglearth.map.osm.OSMTileSource;
-import de.joglearth.opengl.TextureLoader;
+import de.joglearth.rendering.TextureLoader;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
