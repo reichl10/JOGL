@@ -17,8 +17,10 @@ import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.PlaneGeometry;
 import de.joglearth.geometry.SphereGeometry;
 import de.joglearth.geometry.Tile;
-import de.joglearth.geometry.TileLayout;
 import de.joglearth.geometry.Vector3;
+import de.joglearth.map.MapConfiguration;
+import de.joglearth.map.single.SingleMapConfiguration;
+import de.joglearth.map.single.SingleMapType;
 import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.GLContextListener;
 import de.joglearth.opengl.TextureFilter;
@@ -26,9 +28,6 @@ import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
-import de.joglearth.source.tiles.osm.MapConfiguration;
-import de.joglearth.source.tiles.single.SingleMapConfiguration;
-import de.joglearth.source.tiles.single.SingleMapType;
 import de.joglearth.surface.LocationManager;
 import de.joglearth.surface.LocationType;
 import de.joglearth.surface.SurfaceListener;
@@ -374,7 +373,7 @@ public class Renderer {
 
     /**
      * Sets the {@link de.joglearth.surface.MapLayout} to a given value. This type is a
-     * {@link de.joglearth.source.tiles.single.SingleMapType} as it is only one tile as a texture.
+     * {@link de.joglearth.map.single.SingleMapType} as it is only one tile as a texture.
      * 
      * @param t The new <code>MapLayout</code>
      */

@@ -1,16 +1,19 @@
-package de.joglearth.source.tiles.single;
+package de.joglearth.map.single;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import de.joglearth.map.TileName;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.source.tiles.TileName;
 import de.joglearth.util.Resource;
 
 
+/**
+ * Singleton class managing image data for single-image maps.
+ */
 public final class SingleTileManager implements Source<TileName, byte[]> {
 
     private Map<SingleMapType, byte[]> images;
@@ -24,6 +27,10 @@ public final class SingleTileManager implements Source<TileName, byte[]> {
     
     private static SingleTileManager instance = null;
     
+    /**
+     * Returns the instance, creating it if it does not yet exist.
+     * @return The instance.
+     */
     public static SingleTileManager getInstance() {
         if (instance == null) {
             instance = new SingleTileManager();

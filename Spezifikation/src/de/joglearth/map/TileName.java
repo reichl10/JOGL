@@ -1,15 +1,27 @@
-package de.joglearth.source.tiles;
+package de.joglearth.map;
 
 import de.joglearth.geometry.Tile;
-import de.joglearth.source.tiles.osm.MapConfiguration;
 
 
+/**
+ * Structure combining a map configuration with a geometric tile, thus identifying a tile texture
+ * uniquely.
+ */
 public final class TileName {
 
-    public MapConfiguration configuration;
-    public Tile tile;
+    public final MapConfiguration configuration;
+    public final Tile tile;
     
+    /**
+     * Constructor.
+     * @param configuration The map configuration. Must not be null
+     * @param tile The tile. Must not be null
+     */
     public TileName(MapConfiguration configuration, Tile tile) {
+        if (configuration == null || tile == null) {
+            throw new IllegalArgumentException();
+        }
+        
         this.configuration = configuration;
         this.tile = tile;
     }

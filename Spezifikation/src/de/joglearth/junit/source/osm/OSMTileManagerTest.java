@@ -6,10 +6,10 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import de.joglearth.geometry.Tile;
+import de.joglearth.map.osm.OSMMapType;
+import de.joglearth.map.osm.OSMTileManager;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.osm.OSMTileName;
-import de.joglearth.source.tiles.osm.OSMMapType;
-import de.joglearth.source.tiles.osm.OSMTileManager;
 
 
 public class OSMTileManagerTest {

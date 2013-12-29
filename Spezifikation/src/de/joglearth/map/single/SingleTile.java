@@ -1,10 +1,12 @@
-package de.joglearth.source.tiles.single;
+package de.joglearth.map.single;
 
 import static java.lang.Math.*;
 import de.joglearth.geometry.AbstractTile;
-import de.joglearth.geometry.GridPoint;
 
 
+/**
+ * Implements the {@link Tile} interface for single-image map layouts.
+ */
 public class SingleTile extends AbstractTile {
 
     @Override

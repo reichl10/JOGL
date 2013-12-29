@@ -8,6 +8,8 @@ import static javax.media.opengl.GL2.*;
 import com.jogamp.opengl.util.texture.Texture;
 
 import de.joglearth.geometry.Tile;
+import de.joglearth.map.MapConfiguration;
+import de.joglearth.map.TileName;
 import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.TexturePool;
 import de.joglearth.opengl.TextureFilter;
@@ -18,8 +20,6 @@ import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.caching.RequestDistributor;
-import de.joglearth.source.tiles.TileName;
-import de.joglearth.source.tiles.osm.MapConfiguration;
 
 /**
  * Executes requests for textures of the {@link Renderer}. Loads textures from a
@@ -108,8 +108,9 @@ public class TextureManager {
      */
     public TextureManager(GLContext gl, int textureCacheSize, MapConfiguration configuration) {
         this.gl = gl;
-        this.textureSource = new TextureLoader<TileName>(gl, configuration.getImageSource());
         this.mapConfiguration = configuration;
+        this.textureSource = new TextureLoader<TileName>(gl, 
+                configuration.getImageSource(), configuration.getImageFormatSuffix());
 
         dist = new RequestDistributor<>();
         dist.addCache(new TexturePool<TileName>(gl), textureCacheSize);
@@ -153,9 +154,10 @@ public class TextureManager {
     }
     
     
-    public synchronized void setMapConfiguration(MapConfiguration t) {
-        mapConfiguration = t;
-        textureSource.setImageSource(t.getImageSource());
+    public synchronized void setMapConfiguration(MapConfiguration configuration) {
+        mapConfiguration = configuration;
+        textureSource.setImageSource(configuration.getImageSource(),
+                configuration.getImageFormatSuffix());
     }
 
     /**

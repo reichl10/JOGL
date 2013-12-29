@@ -1,4 +1,4 @@
-package de.joglearth.source.tiles.single;
+package de.joglearth.map.single;
 
 import static java.lang.Math.*;
 import de.joglearth.geometry.GeoCoordinates;
@@ -6,7 +6,9 @@ import de.joglearth.geometry.GridPoint;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.TileLayout;
 
-
+/**
+ * A simple implementation of the {@link TileLayout} interface used with single-image map types.
+ */
 public class SingleTileLayout implements TileLayout {
 
     @Override

@@ -261,7 +261,7 @@ public final class HTTP {
         bla.add("login");
         bla.add("Port Albo Straße+-µ ?&32!");
         String test = new String(get("http://127.0.0.1/post.php", bla));
-        //TODO System.out.println(test);
+        System.out.println(test);
     }
 
 }

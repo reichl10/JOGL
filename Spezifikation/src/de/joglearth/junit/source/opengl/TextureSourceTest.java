@@ -10,14 +10,14 @@ import org.junit.Test;
 
 import de.joglearth.geometry.Tile;
 import de.joglearth.junit.GLTestWindow;
+import de.joglearth.map.osm.OSMMapType;
+import de.joglearth.map.osm.OSMTileManager;
+import de.joglearth.map.osm.OSMTileSource;
 import de.joglearth.opengl.TextureLoader;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
 import de.joglearth.source.osm.OSMTileName;
-import de.joglearth.source.tiles.osm.OSMMapType;
-import de.joglearth.source.tiles.osm.OSMTileManager;
-import de.joglearth.source.tiles.osm.OSMTileSource;
 
 
 public class TextureSourceTest {

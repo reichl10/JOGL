@@ -1,4 +1,4 @@
-package de.joglearth.source.tiles.osm;
+package de.joglearth.map.osm;
 
 import static java.lang.Math.*;
 import de.joglearth.geometry.Camera;
@@ -8,11 +8,18 @@ import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.TileLayout;
 
 
+/**
+ * A {@link TileLayout} modeling the OpenStreetMap tile partition for a fixed zoom level.
+ */
 public class OSMTileLayout implements TileLayout {
 
-    private int zoomLevel;
+    private final int zoomLevel;
     private final int minLon, maxLon, minLat, maxLat;
     
+    /**
+     * Constructor.    
+     * @param zoomLevel The zoom level. Must not be smaller than zero.
+     */
     public OSMTileLayout(int zoomLevel) {
         if (zoomLevel < 0) {
             throw new IllegalArgumentException();
@@ -42,7 +49,7 @@ public class OSMTileLayout implements TileLayout {
             
         } else if (tile instanceof OSMPole) {
             
-            return new GridPoint(0, ((OSMPole) tile).pole == OSMPole.NORTH ? maxLat : minLat);
+            return new GridPoint(0, ((OSMPole) tile).getPole() == OSMPole.NORTH ? maxLat : minLat);
             
         } else {
             throw new IllegalArgumentException();
@@ -71,7 +78,8 @@ public class OSMTileLayout implements TileLayout {
 
     @Override
     public GeoCoordinates getGeoCoordinates(GridPoint point) {
-        /*double lon = 2*PI / (1 << zoomLevel) * point.getLongitude();
+        /* TODO could this be implemented via modulo() ?
+         * double lon = 2*PI / (1 << zoomLevel) * point.getLongitude();
         double lat = OSMTile.MAX_LATITUDE * (1 - 2 / (1 << zoomLevel) * point.getLatitude());
         return new GeoCoordinates(lon, lat);*/
         Tile tile = createTile(point);
@@ -140,7 +148,7 @@ public class OSMTileLayout implements TileLayout {
             
         } else if (tile instanceof OSMPole) {
             
-            int pole = ((OSMPole) tile).pole;
+            int pole = ((OSMPole) tile).getPole();
             int slices = 1 << zoomLevel;
             GridPoint[] corners = new GridPoint[slices];
             for (int i=0; i<slices; ++i) {
@@ -180,7 +188,6 @@ public class OSMTileLayout implements TileLayout {
             lon = 0;
         }
         GridPoint result = new GridPoint(lon, lat);
-        //System.out.printf("modulo(zoomLevel=%d, point=%s) = %s\n", zoomLevel, point, result);
         return result;
     }
     

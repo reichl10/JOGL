@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import de.joglearth.geometry.Tile;
+import de.joglearth.map.osm.OSMMapType;
 import de.joglearth.source.osm.OSMTileName;
-import de.joglearth.source.tiles.osm.OSMMapType;
 
 
 public class OSMTileTest {

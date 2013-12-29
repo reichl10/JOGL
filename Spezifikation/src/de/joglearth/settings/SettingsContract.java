@@ -20,10 +20,10 @@ import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
 import de.joglearth.geometry.GeoCoordinates;
+import de.joglearth.map.single.SingleMapType;
 import de.joglearth.opengl.Antialiasing;
 import de.joglearth.opengl.TextureFilter;
 import de.joglearth.rendering.LevelOfDetail;
-import de.joglearth.source.tiles.single.SingleMapType;
 import de.joglearth.surface.Location;
 import de.joglearth.surface.LocationType;
 import de.joglearth.util.ApplicationData;

@@ -1,51 +1,55 @@
-package de.joglearth.source.tiles.osm;
+package de.joglearth.map.osm;
 
 import static java.lang.Math.*;
 import de.joglearth.geometry.AbstractTile;
-import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.geometry.GridPoint;
-import de.joglearth.geometry.Tile;
 
 
 /**
- * A structure identifying a single OpenStreetMap surface tile.
+ * An implementation of the {@link de.joglearth.geometry.Tile} interface modeling an OpenStreetMap
+ * surface tile.
  */
 public final class OSMTile extends AbstractTile {
 
-    private int detailLevel;
+    private int zoomLevel;
     private int lonIndex;
     private int latIndex;
     
-    
+    /**
+     * The maximum latitude covered by OSM tiles, that is 85.05° N or arctan(sinh(pi)) rad.
+     */
     public static final double MAX_LATITUDE = atan(sinh(PI));
     
+    /**
+     * The minimum latitude covered by OSM tiles, that is 85.05° S or -arctan(sinh(pi)) rad.
+     */
     public static final double MIN_LATITUDE = -MAX_LATITUDE;
 
 
     /**
      * Constructor.
      * 
-     * @param detailLevel How often the globe is subdivided to reach the desired tile size
+     * @param zoomLevel How often the globe is subdivided to reach the desired tile size. 
+     *          Must not be smaller than zero
      * @param lonIndex The number of tiles to skip, starting from the north pole, to reach the
-     *        desired longitude
+     *        desired longitude. Must be within [0, 2^zoomLevel-1]
      * @param latIndex The number of tiles to skip, starting from latitude 0, to reach the left
-     *        bound of the tile
+     *        bound of the tile. Must be within [0, 2^zoomLevel-1]
      */
-    public OSMTile(int detailLevel, int lonIndex, int latIndex) {
-        this.detailLevel = detailLevel;
-        int maxIndex = (int) pow(2, detailLevel);
-        
-        if (lonIndex >= maxIndex || lonIndex < 0 || latIndex >= maxIndex || lonIndex < 0) {
+    public OSMTile(int zoomLevel, int lonIndex, int latIndex) {
+        if (zoomLevel < 0 || lonIndex >= (1 << zoomLevel) || lonIndex < 0 
+                || latIndex >= (1 << zoomLevel) || lonIndex < 0) {
             throw new IllegalArgumentException();
         }
+        
+        this.zoomLevel = zoomLevel;        
         this.lonIndex = lonIndex;
         this.latIndex = latIndex;
     }
 
     // Returns the angle for the step given, in radians
     private double getLongitudeAngle(int steps) {
-        if (detailLevel > 0) {
-            double angle = pow(0.5, detailLevel) * steps % 1 * 2 * PI;
+        if (zoomLevel > 0) {
+            double angle = pow(0.5, zoomLevel) * steps % 1 * 2 * PI;
             if (angle > PI) {
                 angle -= 2 * PI;
             }
@@ -57,8 +61,8 @@ public final class OSMTile extends AbstractTile {
     
     // Returns the angle for the step given, in radians
     private double getLatitudeAngle(int steps) {
-        if (detailLevel > 0) {
-            return MAX_LATITUDE - pow(0.5, detailLevel) * steps * 2 * MAX_LATITUDE;
+        if (zoomLevel > 0) {
+            return MAX_LATITUDE - pow(0.5, zoomLevel) * steps * 2 * MAX_LATITUDE;
         } else {
             return (0.5-steps)*MAX_LATITUDE*2;
         }
@@ -108,38 +112,12 @@ public final class OSMTile extends AbstractTile {
      * @return The detail level
      */
     public int getDetailLevel() {
-        return detailLevel;
-    }
-
-    /**
-     * Returns a tile in the given detail level which contains a specific point.
-     * 
-     * @param detailLevel The detail level
-     * @param coords The point
-     * @return A tile
-     */
-    public static Tile getContainingTile(int detailLevel, GeoCoordinates coords) {
-        if (detailLevel < 0 || coords == null) {
-            throw new IllegalArgumentException();
-        }
-        
-        double lonAngle = 2 * PI / pow(2, detailLevel);
-        double latAngle = MAX_LATITUDE / pow(2, detailLevel);
-        int lon = (int) floor(coords.getLongitude() / lonAngle);
-        if (lon < 0) {
-            lon = (1 << detailLevel) + lon;
-        }
-        int lat = (1 << (detailLevel-1)) - (int) floor((coords.getLatitude() / latAngle)) - 1;
-        if (lat >= 0 && lat < (1 << detailLevel)) {
-            return new OSMTile(detailLevel, lon, lat);
-        } else {
-            return null;
-        }
+        return zoomLevel;
     }
 
     @Override
     public String toString() {
-        return "OSMTile [detailLevel=" + detailLevel + ", lonIndex=" + lonIndex + ", latIndex="
+        return "OSMTile [zoomLevel=" + zoomLevel + ", lonIndex=" + lonIndex + ", latIndex="
                 + latIndex + ", longitudeFrom()=" + getLongitudeFrom() + ", longitudeTo()="
                 + getLongitudeTo() + ", latitudeFrom()=" + getLatitudeFrom() + ", latitudeTo()="
                 + getLatitudeTo() + "]";

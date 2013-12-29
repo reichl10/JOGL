@@ -1,34 +1,48 @@
-package de.joglearth.source.tiles.osm;
+package de.joglearth.map.single;
 
 import java.awt.Dimension;
 
 import de.joglearth.geometry.Camera;
-import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.TileLayout;
+import de.joglearth.map.MapConfiguration;
+import de.joglearth.map.TileName;
 import de.joglearth.source.Source;
-import de.joglearth.source.caching.PathTranslator;
-import de.joglearth.source.tiles.TileName;
 
+/**
+ * Implements the {@link MapConfiguration} interface to work with different types of single-image
+ * maps.
+ */
+public class SingleMapConfiguration implements MapConfiguration {
 
-public class OSMMapConfiguration implements MapConfiguration {
-
-    private OSMMapType mapType;
+    private final SingleMapType mapType;
     
-    public OSMMapConfiguration(OSMMapType mapType) {
+    /**
+     * Constructor.
+     * @param mapType The map type. Must not be null.
+     */
+    public SingleMapConfiguration(SingleMapType mapType) {
+        if (mapType == null) {
+            throw new IllegalArgumentException();
+        }
+        
         this.mapType = mapType;
     }
     
     @Override
     public TileLayout getOptimalTileLayout(Camera camera, Dimension screenSize) {
-        return new OSMTileLayout(OSMTileLayout.getOptimalzoomLevel(camera, screenSize.width/256));
+        return new SingleTileLayout();
     }
     
     @Override
     public Source<TileName, byte[]> getImageSource() {
-        return OSMTileManager.getInstance();
+        return SingleTileManager.getInstance();
     }
     
-    public OSMMapType getMapType() {
+    /**
+     * Returns the map type.
+     * @return The map type, as passed to the constructor
+     */
+    public SingleMapType getMapType() {
         return mapType;
     }
 
@@ -57,11 +71,16 @@ public class OSMMapConfiguration implements MapConfiguration {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        OSMMapConfiguration other = (OSMMapConfiguration) obj;
+        SingleMapConfiguration other = (SingleMapConfiguration) obj;
         if (mapType != other.mapType) {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String getImageFormatSuffix() {
+        return "jpg";
     }
 
 }

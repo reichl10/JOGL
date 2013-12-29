@@ -1,8 +1,7 @@
-package de.joglearth.source.tiles.osm;
+package de.joglearth.map.osm;
 
 /**
- * Type of an OpenStreetMap tile. OSM tiles have a maximum zoom level of '18'.
- * 
+ * Enumerates different OpenStreetMap map types.
  */
 public enum OSMMapType {
 

@@ -1,8 +1,7 @@
-package de.joglearth.source.tiles.single;
+package de.joglearth.map.single;
 
 /**
- * Enumerates all map textures in the {@link de.joglearth.surface.MapLayout.SINGLE} layout available
- * to the program.
+ * Enumerates types of single-image maps.
  */
 public enum SingleMapType {
 

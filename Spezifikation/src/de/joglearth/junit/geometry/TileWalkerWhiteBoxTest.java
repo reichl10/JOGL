@@ -11,8 +11,8 @@ import de.joglearth.geometry.CameraUtils.TileWalker;
 import de.joglearth.geometry.GridPoint;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.TileLayout;
-import de.joglearth.source.tiles.osm.OSMPole;
-import de.joglearth.source.tiles.osm.OSMTileLayout;
+import de.joglearth.map.osm.OSMPole;
+import de.joglearth.map.osm.OSMTileLayout;
 
 
 public class TileWalkerWhiteBoxTest {

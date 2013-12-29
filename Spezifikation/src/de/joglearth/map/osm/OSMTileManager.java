@@ -1,5 +1,6 @@
-package de.joglearth.source.tiles.osm;
+package de.joglearth.map.osm;
 
+import de.joglearth.map.TileName;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.source.Source;
@@ -10,12 +11,11 @@ import de.joglearth.source.caching.Cache;
 import de.joglearth.source.caching.FileSystemCache;
 import de.joglearth.source.caching.MemoryCache;
 import de.joglearth.source.caching.RequestDistributor;
-import de.joglearth.source.tiles.TileName;
 import de.joglearth.util.ApplicationData;
 
 
 /**
- * Singleton class that retrieves data from the {@link de.joglearth.source.tiles.osm.OSMTileSource}.
+ * Singleton class that retrieves data from the {@link de.joglearth.map.osm.OSMTileSource}.
  */
 public final class OSMTileManager implements Source<TileName, byte[]> {
 

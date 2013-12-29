@@ -1,4 +1,4 @@
-package de.joglearth.source.tiles.osm;
+package de.joglearth.map.osm;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -9,14 +9,13 @@ import java.util.regex.Pattern;
 
 import javax.xml.bind.DatatypeConverter;
 
-import de.joglearth.geometry.Tile;
+import de.joglearth.map.TileName;
 import de.joglearth.source.caching.PathTranslator;
-import de.joglearth.source.tiles.TileName;
 
 
 /**
- * Implements the {@link de.joglearth.source.caching.PathTranslator} interface
- * {@link de.joglearth.source.osm.OSMTileImageName}.
+ * Implements the {@link de.joglearth.source.caching.PathTranslator} interface to work with 
+ * OpenStreetMap image data.
  */
 public class OSMPathTranslator implements PathTranslator<TileName> {
 
@@ -29,9 +28,10 @@ public class OSMPathTranslator implements PathTranslator<TileName> {
         OSMTile osmTile = (OSMTile) name.tile;
         OSMMapConfiguration osmConfig = (OSMMapConfiguration) name.configuration;
         
-        String fileName = String.format("%s-%d-%d-%d.png", osmConfig.getMapType().toString(), 
+        String fileName = String.format("%s-%d-%d-%d.jpg", osmConfig.getMapType().toString(), 
                 osmTile.getDetailLevel(), osmTile.getLongitudeIndex(), osmTile.getLatitudeIndex());
 
+        // Divide the set of files into (at most) 4096 sub-folders to avoid file system bottlenecks
         byte[] bytesOfMessage = null;
         try {
             bytesOfMessage = fileName.getBytes("UTF-8");

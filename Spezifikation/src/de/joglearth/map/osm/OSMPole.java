@@ -1,22 +1,48 @@
-package de.joglearth.source.tiles.osm;
+package de.joglearth.map.osm;
 
 import static java.lang.Math.*;
 import de.joglearth.geometry.AbstractTile;
-import de.joglearth.geometry.GridPoint;
 
 
+/**
+ * A {@link de.joglearth.geometry.Tile} implementation modeling a pole in the OpenStreetMap tile
+ * layout.
+ */
 public class OSMPole extends AbstractTile {
 
+    /**
+     * Enumeration value to identify the north pole.
+     */
     public static final int NORTH = 0;
+    
+    /**
+     * Enumeration value to identify the south pole.
+     */
     public static final int SOUTH = 1;
 
-    int pole;
-    int zoomLevel;
+    private final int pole;
+    private final int zoomLevel;
 
-
+    /**
+     * Constructor.
+     * @param zoomLevel The zoom level. Must not be smaller than zero
+     * @param pole The pole. Must be either <code>NORTH</code> or <code>SOUTH</code>.
+     */
     public OSMPole(int zoomLevel, int pole) {
+        if (zoomLevel < 0 || (pole != NORTH && pole != SOUTH)) {
+            throw new IllegalArgumentException();
+        }
+        
         this.pole = pole;
         this.zoomLevel = zoomLevel;
+    }
+    
+    /**
+     * Returns which pole is described by the OSMPole instance.
+     * @return The pole, i.e. either <code>NORTH</code> or <code>SOUTH</code>.
+     */
+    public int getPole() {
+        return pole;
     }
 
     @Override
