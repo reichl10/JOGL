@@ -138,7 +138,8 @@ public class OSMTileSource implements Source<TileName, byte[]> {
             builder.append(xtile);
             builder.append("/");
             builder.append(ytile);
-            builder.append(".jpg");
+            builder.append(".");
+            builder.append(getImageFormatSuffix(mapType));
 
             response = HTTP.get(builder.toString(), null);
 
@@ -247,5 +248,15 @@ public class OSMTileSource implements Source<TileName, byte[]> {
     @Override
     public void dispose() {
         executor.shutdown();
+    }
+
+    public static String getImageFormatSuffix(OSMMapType mapType) {
+        switch (mapType) {
+            case MAPNIK: 
+                return "jpg";
+                
+            default: 
+                return "png";
+        }
     }
 }

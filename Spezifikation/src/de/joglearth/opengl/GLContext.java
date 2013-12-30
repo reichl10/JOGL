@@ -282,8 +282,18 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             throw new IllegalArgumentException();
         }
 
-        return loadTexture(TextureIO.newTextureData(gl.getGLProfile(), stream, false, suffix),
-                filter);
+        TextureData data;
+        /* TODO Catching RuntimeException in general is bad; the PNG loader throws
+         * PngjInputException which is a subclass of RuntimeException. Investigate whether 
+         * the JPEG loader does a similar thing and catch the exceptions separately.
+         */
+        try {
+            data = TextureIO.newTextureData(gl.getGLProfile(), stream, false, suffix);
+        } catch (RuntimeException e) {
+            throw new IOException("Error loading texture data", e);
+        }
+        
+        return loadTexture(data, filter);
     }
 
     /**

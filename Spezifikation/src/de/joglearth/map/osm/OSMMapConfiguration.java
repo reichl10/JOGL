@@ -80,7 +80,7 @@ public class OSMMapConfiguration implements MapConfiguration {
 
     @Override
     public String getImageFormatSuffix() {
-        return "jpg";
+        return OSMTileSource.getImageFormatSuffix(mapType);
     }
 
 }

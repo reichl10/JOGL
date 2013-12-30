@@ -5,7 +5,6 @@ import static java.lang.Math.abs;
 import static java.lang.Math.signum;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Point;
@@ -21,10 +20,6 @@ import java.awt.event.WindowEvent;
 import java.util.Collection;
 import java.util.Locale;
 
-import javax.media.opengl.GL2;
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLCapabilities;
-import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.BorderFactory;
@@ -73,6 +68,7 @@ import de.joglearth.map.single.SingleMapConfiguration;
 import de.joglearth.map.single.SingleMapType;
 import de.joglearth.opengl.Antialiasing;
 import de.joglearth.opengl.GLContext;
+import de.joglearth.opengl.GLEasel;
 import de.joglearth.rendering.DisplayMode;
 import de.joglearth.rendering.LevelOfDetail;
 import de.joglearth.rendering.Renderer;
@@ -89,9 +85,8 @@ public class MainWindow extends JFrame {
 
     private static ImageIcon hideIcon = loadIcon("icons/hide.png"); //$NON-NLS-1$
     private static ImageIcon showIcon = loadIcon("icons/show.png"); //$NON-NLS-1$
-    // To get the GUI Editor to work
-    // private GLCanvas glCanvas;
-    private Component glCanvas;
+    
+    private GLEasel easel;
 
     /**
      * SerialVersionUID
@@ -130,7 +125,7 @@ public class MainWindow extends JFrame {
     private JLabel sidebarHideIconLabel;
     private JPanel sideBarHideLinePanel;
     private JPanel mapOptionsPanel;
-    private JComboBox<?> mapTypeComboBox;
+    private JComboBox<IconizedItem<MapConfiguration>> mapTypeComboBox;
     private JComboBox<IconizedItem<DisplayMode>> displayModeComboBox;
     private JPanel viewTab, placesTab, settingsTab, detailsPanel, viewPanel;
     private JCheckBox heightMapCheckBox;
@@ -711,75 +706,26 @@ public class MainWindow extends JFrame {
     }
 
     
-    private void initializeGLCanvas() {        // glCanvas = new JPanel();
-        if (glCanvas != null) {
-            ((GLAutoDrawable) glCanvas).destroy();
-            viewPanel.remove(glCanvas);
-        }
-        
-        GLCapabilities caps = new GLCapabilities(GLProfile.get(GLProfile.GL2));
-
+    private void resetGLCanvas() {       
         Antialiasing aa = Antialiasing.valueOf(Settings.getInstance().getString(
                 SettingsContract.ANTIALIASING));
         
-        int numSamples = 0;
-        switch (aa) {
-            case NONE: numSamples = 0; break;
-            case MSAA_2X: numSamples = 2; break;
-            case MSAA_4X: numSamples = 4; break;
-            case MSAA_8X: numSamples = 8; break;
-            case MSAA_16X: numSamples = 16; break;
+        GLCanvas canvas = easel.newCanvas(GLProfile.get(GLProfile.GL2), aa);
+        GLContext context = new GLContext();
+        canvas.addGLEventListener(context);
+        
+        if (renderer == null) {
+            renderer = new Renderer(context, locationManager);
+            camera = renderer.getCamera();
+            camera.addCameraListener(new UICameraListener());
+        } else {
+            renderer.setGLContext(context);
         }
         
-        if (numSamples > 0) {
-            caps.setSampleBuffers(true);
-            caps.setNumSamples(numSamples);
-        }
-        
-        glCanvas = new GLCanvas(caps);
-
-        // TODO: remove this hack for the GUIEditor
-        if (glCanvas instanceof GLCanvas) {
-            ((GLCanvas) glCanvas).addGLEventListener(new GLEventListener() {
-
-                @Override
-                public void display(GLAutoDrawable arg0) {
-                }
-
-                @Override
-                public void dispose(GLAutoDrawable arg0) {
-
-                }
-
-                @Override
-                public void init(GLAutoDrawable arg0) {}
-
-                @Override
-                public void reshape(GLAutoDrawable arg0, int arg1, int arg2,
-                        int arg3, int arg4) {
-                    ((Component) arg0).setMinimumSize(new Dimension(0, 0));
-                }
-
-            });
-        }
-        viewPanel.add(glCanvas, "1, 1, fill, fill"); //$NON-NLS-1$
-        
-        if (glCanvas instanceof GLCanvas) {
-            GLContext context = new GLContext();
-            ((GLCanvas) glCanvas).addGLEventListener(context);
-            if (renderer == null) {
-                renderer = new Renderer(context, locationManager);
-                camera = renderer.getCamera();
-                camera.addCameraListener(new UICameraListener());
-            } else {
-                renderer.setGLContext(context);
-                viewPanel.doLayout();
-            }
-        }
-        glCanvas.addMouseWheelListener(new ZoomAdapter(zoomSlider, true));
+        canvas.addMouseWheelListener(new ZoomAdapter(zoomSlider, true));
         GlMouseListener l = new GlMouseListener();
-        glCanvas.addMouseMotionListener(l);
-        glCanvas.addMouseListener(l);
+        canvas.addMouseMotionListener(l);
+        canvas.addMouseListener(l);
     }
     
     private void initializeViewPanel() {
@@ -789,8 +735,9 @@ public class MainWindow extends JFrame {
                 RowSpec.decode("default:grow"), RowSpec.decode("1dlu"), //$NON-NLS-1$ //$NON-NLS-2$
                         RowSpec.decode("20dlu"), RowSpec.decode("1dlu"), })); //$NON-NLS-1$ //$NON-NLS-2$
 
-        // TODO: Remove remplacement for working with GUIEditor
-        initializeGLCanvas();
+        easel = new GLEasel();
+        viewPanel.add(easel, "1, 1, fill, fill");
+        resetGLCanvas();
         this.addWindowListener(new UIWindowListener());
 
         JPanel statusBar = new JPanel();
@@ -1122,25 +1069,13 @@ public class MainWindow extends JFrame {
         zoomSlider.setValue(0);
     }
 
-    /**
-     * Gets the <code>GLCanvas</code> that is displayed in the left half of the window.
-     * 
-     * @return The GLCanvas used in this window
-     */
-    public final GLCanvas getGLCanvas() {
-        // TODO: Remove this hack for the GUIEditor
-        if (glCanvas instanceof GLCanvas)
-            return ((GLCanvas) glCanvas);
-        return null;
-    }
-
 
     private class UISettingsListener implements SettingsListener {
 
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
             if (key.equals(SettingsContract.ANTIALIASING)) {
-                initializeGLCanvas();
+                resetGLCanvas();
             }
         }
 
@@ -1172,13 +1107,13 @@ public class MainWindow extends JFrame {
 
 
         private ScreenCoordinates getScreenCoordinates(Point p) {
-            return new ScreenCoordinates(p.getX() / glCanvas.getWidth(),
-                    p.getY() / glCanvas.getHeight());
+            Dimension canvasSize = easel.getCanvas().getSize();
+            return new ScreenCoordinates(p.getX() / canvasSize.width,
+                    p.getY() / canvasSize.height);
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            Point p = e.getPoint();
             ScreenCoordinates newPos = getScreenCoordinates(e.getPoint());
             if (SwingUtilities.isLeftMouseButton(e)) {
                 if (lastPos != null && newPos != null) {

@@ -4,9 +4,11 @@ import static javax.media.opengl.GL2.*;
 import static java.lang.Math.*;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.jogamp.opengl.util.awt.TextRenderer;
 import com.jogamp.opengl.util.texture.Texture;
 
 import de.joglearth.geometry.Camera;
@@ -31,6 +33,7 @@ import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
+import de.joglearth.ui.Messages;
 import de.joglearth.util.Resource;
 
 
@@ -55,6 +58,15 @@ public class Renderer {
     private Texture sky;
     private MapConfiguration mapConfiguration = new SingleMapConfiguration(SingleMapType.SATELLITE);
     private Dimension screenSize = new Dimension(640, 480);
+    
+    private enum InitState {
+        AWAITING,
+        LOADING,
+        DONE        
+    }
+    
+    private InitState initState;
+    private TextRenderer loadingScreenTextRenderer;
 
     /**
      * Constructor initializes the OpenGL functionalities.
@@ -99,19 +111,63 @@ public class Renderer {
         locationManager.addSurfaceListener(surfaceListener);        
     }
     
+    
+    private void loading() {
+        gl.clear();
+        
+        String text = Messages.getString("Renderer.0");        
+        Dimension screenSize = gl.getSize();        
+        TextRenderer textRenderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.BOLD, 16), 
+                true, false);        
+        textRenderer.beginRendering(screenSize.width, screenSize.height);
+        Dimension textSize = textRenderer.getBounds(text).getBounds().getSize();
+        textRenderer.draw(text, (screenSize.width - textSize.width) / 2,
+                (screenSize.height - textSize.height) / 2);
+        textRenderer.endRendering();
+    }
+
+    private Matrix4 correctGLUTransformation(Matrix4 matrix) {
+        matrix = matrix.clone();
+        matrix.rotate(new Vector3(-1, 0, 0), PI / 2);
+        return matrix;
+    }    
 
     private void render() {
-        //TODO System.err.println("------------- NEW FRAME -------------");
-        
         gl.clear();
         gl.loadMatrix(GL_PROJECTION, camera.getProjectionMatrix());
-        
+
+        Matrix4 skyMatrix = correctGLUTransformation(camera.getSkyViewMatrix());
+        gl.loadMatrix(GL_MODELVIEW, skyMatrix);
+        gl.drawSphere(50, 15, 8, true, sky);       
         
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
-            renderSolarSystem();
+            
+            gl.placeLight(0, new Vector3(0, -50, 0));
+            gl.setFeatureEnabled(GL_LIGHTING, true);
+            
+            Matrix4 modelMatrix = camera.getModelViewMatrix().clone();
+            gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(modelMatrix));
+            gl.drawSphere(1, 60, 40, false, earth);
+            
+            modelMatrix.translate(-4, 0, 0);
+            gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(modelMatrix));
+            gl.drawSphere(0.2, 30, 20, false, moon);
+            
+            gl.setFeatureEnabled(GL_LIGHTING, false);
+            
         } else {
-            renderTiles();
-        } 
+            
+            gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
+
+            Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, 
+                    mapConfiguration.getOptimalTileLayout(camera, screenSize));
+            for (Tile tile : tiles) {
+                Texture texture = textureManager.getTexture(tile);
+                VertexBuffer vbo = tileMeshManager.requestObject(tile, null).value;
+                gl.drawVertexBuffer(vbo, texture);
+            }
+            
+        }
     }
     
     public Camera getCamera() {
@@ -119,10 +175,6 @@ public class Renderer {
     }
 
     private void initialize() {        
-        gl.setFeatureEnabled(GL_DEPTH_TEST, true);
-        gl.setFeatureEnabled(GL_CULL_FACE, true);        
-        gl.setFeatureEnabled(GL_TEXTURE_2D, true);
-        
         gl.setLightEnabled(0, true);
         gl.setLightIntensity(0, 1);
         gl.setAmbientLight(0.2);
@@ -159,45 +211,6 @@ public class Renderer {
         freeTextures();
     }
     
-
-    private Matrix4 correctGLUTransformation(Matrix4 matrix) {
-        matrix = matrix.clone();
-        matrix.rotate(new Vector3(-1, 0, 0), PI / 2);
-        return matrix;
-    }
-    
-    
-    private void renderSolarSystem() {
-        Matrix4 skyMatrix = correctGLUTransformation(camera.getSkyViewMatrix());
-        gl.loadMatrix(GL_MODELVIEW, skyMatrix);
-        gl.drawSphere(50, 15, 8, true, sky);       
-        
-        gl.placeLight(0, new Vector3(0, -50, 0));
-        gl.setFeatureEnabled(GL_LIGHTING, true);
-        
-        Matrix4 modelMatrix = camera.getModelViewMatrix().clone();
-        gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(modelMatrix));
-        gl.drawSphere(1, 60, 40, false, earth);
-        
-        modelMatrix.translate(-4, 0, 0);
-        gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(modelMatrix));
-        gl.drawSphere(0.2, 30, 20, false, moon);
-        
-        gl.setFeatureEnabled(GL_LIGHTING, false);
-    }
-   
-    
-    private void renderTiles() {
-        gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
-
-        Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, mapConfiguration.getOptimalTileLayout(camera, screenSize));
-        for (Tile tile : tiles) {
-            Texture texture = textureManager.getTexture(tile);
-            VertexBuffer vbo = tileMeshManager.requestObject(tile, null).value;
-            gl.drawVertexBuffer(vbo, texture);
-        }
-    }
-
 
     private void loadTextures() {
         TextureFilter textureFilter = TextureFilter.valueOf(Settings.getInstance().getString(
@@ -295,7 +308,21 @@ public class Renderer {
         
         @Override
         public void display(GLContext context) {
-            render();
+            switch (initState) {
+                case AWAITING:
+                    initState = InitState.LOADING;
+                    loading();
+                    gl.postRedisplay();
+                    break;
+                    
+                case LOADING:
+                    initState = InitState.DONE;
+                    Renderer.this.initialize();
+                    // fall through
+                    
+                case DONE:
+                    render();
+            }
         }
 
         @Override
@@ -305,7 +332,11 @@ public class Renderer {
 
         @Override
         public void initialize(GLContext context) {
-            Renderer.this.initialize();
+            gl.setFeatureEnabled(GL_DEPTH_TEST, true);
+            gl.setFeatureEnabled(GL_CULL_FACE, true);        
+            gl.setFeatureEnabled(GL_TEXTURE_2D, true);
+                        
+            initState = InitState.AWAITING;
         }
 
         @Override
