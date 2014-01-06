@@ -10,13 +10,14 @@ import de.joglearth.surface.LocationType;
  */
 public class OverpassQuery {
 
-    public Tile         area;
+    public Tile area;
     public LocationType query;
+    
 
 
     /**
-     * Constructor for a query in a given area. Assigns a value to a {@link de.joglearth.surface.LocationType} and a
-     * {@link de.joglearth.geometry.Tile}.
+     * Constructor for a query in a given area. Assigns a value to a
+     * {@link de.joglearth.surface.LocationType} and a {@link de.joglearth.geometry.Tile}.
      * 
      * @param query The <code>LocationType</code> of the query
      * @param area The <code>Tile</code> that determines where the query should be performed
