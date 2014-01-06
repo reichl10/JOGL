@@ -1,5 +1,6 @@
 package de.joglearth.source.nominatim;
 
+import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.Tile;
 
@@ -23,7 +24,7 @@ public class NominatimQuery {
     /**
      * Coordinates of the point.
      */
-    public ScreenCoordinates point;
+    public GeoCoordinates point;
     
     /**
      * The query.
@@ -36,7 +37,7 @@ public class NominatimQuery {
      * @param type The <code>Type</code> of the query
      */
     public NominatimQuery(Type type) {
-
+        this.type = type;
     }
 
 
