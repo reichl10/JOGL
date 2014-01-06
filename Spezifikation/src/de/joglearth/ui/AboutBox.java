@@ -110,10 +110,11 @@ public class AboutBox extends JDialog {
                 aboutTextArea = new JTextArea();
                 aboutScrollPane.setViewportView(aboutTextArea);
                 aboutTextArea
-                        .setText(" Uni Passau - SEP WS13/14 \n JoglEarth \n Version: 0.1 (Build:" +
-                        		" 0.1.4321.00) \n \n Entwicklerteam:\n Christof Blauberger, " +
-                        		"Thomas Eder,\n Gabriele Haas, Fabian Knorr,\n Sebastian Reichl," +
-                        		" Constantin Wenger");
+                        .setText(" Uni Passau - SEP WS13/14 \n JoglEarth \n Version: "
+                                + JoglEarth.PRODUCT_VERSION + " (Build: " +
+                                JoglEarth.PRODUCT_VERSION + ".4321.00) \n \n Entwicklerteam:\n Christof Blauberger, " +
+                                "Thomas Eder,\n Gabriele Haas, Fabian Knorr,\n Sebastian Reichl," +
+                                " Constantin Wenger");
                 aboutTextArea.setLineWrap(true);
                 aboutTextArea.setEditable(false);
             }
