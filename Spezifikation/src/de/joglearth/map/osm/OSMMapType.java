@@ -28,5 +28,10 @@ public enum OSMMapType {
     /**
      * A map with 3D models of buildings.
      */
-    OSM2WORLD
+    OSM2WORLD, 
+    
+    /**
+     * Standard OpenStreetMap without labels.
+     */
+    OSM_NOLABELS
 }
