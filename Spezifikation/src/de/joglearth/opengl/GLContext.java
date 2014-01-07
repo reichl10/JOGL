@@ -17,6 +17,7 @@ import static javax.media.opengl.glu.GLU.*;
 
 import javax.media.opengl.glu.GLUquadric;
 
+import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureData;
@@ -25,6 +26,7 @@ import com.jogamp.opengl.util.texture.TextureIO;
 import de.joglearth.async.AWTInvoker;
 import de.joglearth.async.AbstractInvoker;
 import de.joglearth.geometry.Matrix4;
+import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.rendering.Mesh;
 import static javax.media.opengl.GL2.*;
@@ -104,7 +106,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             }
         }
     }
-
+    
     /**
      * Returns whether the context has yet been initialized by a GLEventListener.init() callback.
      * 
@@ -408,6 +410,9 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         // Draw
         gl.glDrawElements(vbo.getPrimitiveType(), vbo.getIndexCount(), GL_UNSIGNED_INT, 0);
         GLError.throwIfActive(gl);
+        
+        gl.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+        GLError.throwIfActive(gl);
 
         // Disable pointers
         gl.glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -464,7 +469,63 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             GLError.throwIfActive(gl);
         }
     }
+
     
+    public void drawRectangle(ScreenCoordinates upperLeft, ScreenCoordinates lowerRight,
+            Texture texture) {
+        float left = (float) upperLeft.x * 2 - 1,
+                top = (float) upperLeft.y *2 - 1,
+                right = (float) lowerRight.x * 2 - 1,
+                bottom = (float) lowerRight.y * 2 - 1;
+        
+        float[] vertices = {
+                left, bottom, 0,
+                right, bottom, 0,
+                right, top, 0,
+                left, top, 0
+        };
+        
+        float[] texcoords = {
+                0, 0,
+                1, 0,
+                1, 1,
+                0, 1
+        };
+        
+        int[] indices = { 0, 1, 2, 3 };
+        
+        if (texture != null) {
+            texture.bind(gl);
+            GLError.throwIfActive(gl);
+        }
+
+        gl.glEnableClientState(GL_VERTEX_ARRAY);
+        GLError.throwIfActive(gl);
+        
+        gl.glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+        GLError.throwIfActive(gl);
+
+        gl.glVertexPointer(3, GL_FLOAT, 0, Buffers.newDirectFloatBuffer(vertices));
+        GLError.throwIfActive(gl);
+        
+        gl.glTexCoordPointer(3, GL_FLOAT, 0, Buffers.newDirectFloatBuffer(texcoords));
+        GLError.throwIfActive(gl);
+                
+        gl.glDrawElements(GL_QUADS,  4, GL_UNSIGNED_INT, Buffers.newDirectIntBuffer(indices));
+        GLError.throwIfActive(gl);
+
+        gl.glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+        GLError.throwIfActive(gl);
+        
+        gl.glDisableClientState(GL_VERTEX_ARRAY);
+        GLError.throwIfActive(gl);
+        
+        if (texture != null) {
+            gl.glBindTexture(GL_TEXTURE_2D, 0);
+            GLError.throwIfActive(gl);
+        }
+    }
+
     
     private void assertIsValidIntensity(double intensity) {
         if (intensity < 0 || intensity > 1 || isNaN(intensity)) {

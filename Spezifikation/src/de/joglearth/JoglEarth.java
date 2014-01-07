@@ -39,7 +39,7 @@ public final class JoglEarth {
         SettingsContract.saveSettings();
     }
     
-
+    
     /**
      * Initializes the JoglEarth application. There are no valid command line arguments.
      * 
