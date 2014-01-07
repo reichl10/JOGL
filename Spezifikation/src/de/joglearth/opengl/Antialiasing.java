@@ -1,25 +1,25 @@
 package de.joglearth.opengl;
 
 /**
- * Enum for the MSAA Types.
+ * Enumerates anti-aliasing modes used in <code>GLCanvas</code> construction.
  */
 public enum Antialiasing {
     NONE,
     
     /**
-     * 2x MSAA
+     * 2x Multi-Sampling Anti-Aliasing
      */
     MSAA_2X,
     /**
-     * 4x MSAA
+     * 4x Multi-Sampling Anti-Aliasing
      */
     MSAA_4X,
     /**
-     * 8x MSAA
+     * 8x Multi-Sampling Anti-Aliasing
      */
     MSAA_8X,
     /**
-     * 16x MSAA
+     * 16x Multi-Sampling Anti-Aliasing
      */
     MSAA_16X
 }

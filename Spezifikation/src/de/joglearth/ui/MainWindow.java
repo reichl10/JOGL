@@ -5,7 +5,6 @@ import static java.lang.Math.abs;
 import static java.lang.Math.signum;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Point;
@@ -21,10 +20,6 @@ import java.awt.event.WindowEvent;
 import java.util.Collection;
 import java.util.Locale;
 
-import javax.media.opengl.GL2;
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLCapabilities;
-import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.BorderFactory;
@@ -62,21 +57,24 @@ import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.ScreenCoordinates;
+import de.joglearth.geometry.SurfaceListener;
+import de.joglearth.location.Location;
+import de.joglearth.location.LocationListener;
+import de.joglearth.location.LocationManager;
+import de.joglearth.map.MapConfiguration;
+import de.joglearth.map.osm.OSMMapConfiguration;
+import de.joglearth.map.osm.OSMMapType;
+import de.joglearth.map.single.SingleMapConfiguration;
+import de.joglearth.map.single.SingleMapType;
 import de.joglearth.opengl.Antialiasing;
 import de.joglearth.opengl.GLContext;
+import de.joglearth.opengl.GLEasel;
 import de.joglearth.rendering.DisplayMode;
 import de.joglearth.rendering.LevelOfDetail;
 import de.joglearth.rendering.Renderer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
-import de.joglearth.surface.Location;
-import de.joglearth.surface.LocationListener;
-import de.joglearth.surface.LocationManager;
-import de.joglearth.surface.MapLayout;
-import de.joglearth.surface.SingleMapType;
-import de.joglearth.surface.SurfaceListener;
-import de.joglearth.surface.TiledMapType;
 import de.joglearth.opengl.TextureFilter;
 
 
@@ -87,9 +85,8 @@ public class MainWindow extends JFrame {
 
     private static ImageIcon hideIcon = loadIcon("icons/hide.png"); //$NON-NLS-1$
     private static ImageIcon showIcon = loadIcon("icons/show.png"); //$NON-NLS-1$
-    // To get the GUI Editor to work
-    // private GLCanvas glCanvas;
-    private Component glCanvas;
+    
+    private GLEasel easel;
 
     /**
      * SerialVersionUID
@@ -128,7 +125,7 @@ public class MainWindow extends JFrame {
     private JLabel sidebarHideIconLabel;
     private JPanel sideBarHideLinePanel;
     private JPanel mapOptionsPanel;
-    private JComboBox<?> mapTypeComboBox;
+    private JComboBox<IconizedItem<MapConfiguration>> mapTypeComboBox;
     private JComboBox<IconizedItem<DisplayMode>> displayModeComboBox;
     private JPanel viewTab, placesTab, settingsTab, detailsPanel, viewPanel;
     private JCheckBox heightMapCheckBox;
@@ -159,10 +156,11 @@ public class MainWindow extends JFrame {
     private JRadioButton globalSearchRadioButton;
     private JLabel displayModeLabel;
     private JLabel mapTypeLabel;
-    private JComboBox<IconizedItem<MapTypePair>> paraMapTypeComboBox;
+    private JComboBox<IconizedItem<MapConfiguration>> paraMapTypeComboBox;
     private JTabbedPane sideBarTabs;
     private JSlider zoomSlider;
     private UISettingsListener settingsListener;
+    private JLabel scaleLabel;
     private static final double ZOOM_FACTOR = 10.d;
     private static final double MAX_DIFF = 3.d;
     private static final double MIN_DIST = 1e-8d;
@@ -193,26 +191,6 @@ public class MainWindow extends JFrame {
 
         }
     };
-
-    private class MapTypePair {
-
-        public MapLayout layout;
-        /**
-         * Can be {@link SingleMapType} or {@link TildMapType}.
-         */
-        public Object type;
-
-
-        public MapTypePair(SingleMapType s) {
-            layout = MapLayout.SINGLE;
-            type = s;
-        }
-
-        public MapTypePair(TiledMapType s) {
-            layout = MapLayout.TILED;
-            type = s;
-        }
-    }
 
 
     private void initializeWindow() {
@@ -363,11 +341,11 @@ public class MainWindow extends JFrame {
         mapTypeLabel = new JLabel(Messages.getString("MainWindow.62")); //$NON-NLS-1$
         mapOptionsPanel.add(mapTypeLabel, "1, 1"); //$NON-NLS-1$
 
-        paraMapTypeComboBox = new JComboBox<IconizedItem<MapTypePair>>();
+        paraMapTypeComboBox = new JComboBox<IconizedItem<MapConfiguration>>();
         mapTypeComboBox = paraMapTypeComboBox;
         mapOptionsPanel.add(paraMapTypeComboBox, "1, 3"); //$NON-NLS-1$
         paraMapTypeComboBox
-                .setRenderer(new IconListCellRenderer<IconizedItem<MapTypePair>>());
+                .setRenderer(new IconListCellRenderer<IconizedItem<MapConfiguration>>());
         heightMapCheckBox = new JCheckBox(Messages.getString("MainWindow.65")); //$NON-NLS-1$
         heightMapCheckBox.addChangeListener(new ChangeListener() {
 
@@ -385,35 +363,36 @@ public class MainWindow extends JFrame {
         viewTab.add(logoLabel, "2, 8, center, bottom"); //$NON-NLS-1$
         logoLabel.setVerticalAlignment(SwingConstants.TOP);
         logoLabel.setIcon(loadIcon("icons/logo.png")); //$NON-NLS-1$
+        /*
         paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
+                .addItem(new IconizedItem<MapConfiguration>(
                         Messages.getString("MainWindow.70"), //$NON-NLS-1$
-                        loadIcon("icons/mapSatellite.png"), new MapTypePair(SingleMapType.SATELLITE))); //$NON-NLS-1$
+                        loadIcon("icons/mapSatellite.png"), new MapConfiguration(SingleMapType.SATELLITE))); //$NON-NLS-1$
         paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
+                .addItem(new IconizedItem<MapConfiguration>(
                         Messages.getString("MainWindow.72"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK))); //$NON-NLS-1$
+                        loadIcon("icons/mapOSM.png"), new MapConfiguration(OSMMapType.MAPNIK))); //$NON-NLS-1$
         paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
+                .addItem(new IconizedItem<MapConfiguration>(
                         Messages.getString("MainWindow.4"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.CYCLING))); //$NON-NLS-1$
+                        loadIcon("icons/mapOSM.png"), new MapConfiguration(OSMMapType.CYCLING))); //$NON-NLS-1$
         paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
+                .addItem(new IconizedItem<MapConfiguration>(
                         Messages.getString("MainWindow.5"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.HIKING))); //$NON-NLS-1$
+                        loadIcon("icons/mapOSM.png"), new MapConfiguration(OSMMapType.HIKING))); //$NON-NLS-1$
         paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
+                .addItem(new IconizedItem<MapConfiguration>(
                         Messages.getString("MainWindow.6"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.SKIING))); //$NON-NLS-1$
+                        loadIcon("icons/mapOSM.png"), new MapConfiguration(OSMMapType.SKIING))); //$NON-NLS-1$
         paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
+                .addItem(new IconizedItem<MapConfiguration>(
                         Messages.getString("MainWindow.7"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM2WORLD))); //$NON-NLS-1$
+                        loadIcon("icons/mapOSM.png"), new MapConfiguration(OSMMapType.OSM2WORLD))); //$NON-NLS-1$
         paraMapTypeComboBox
-                .addItem(new IconizedItem<MapTypePair>(
+                .addItem(new IconizedItem<MapConfiguration>(
                         Messages.getString("MainWindow.74"), //$NON-NLS-1$
-                        loadIcon("icons/mapChildren.png"), new MapTypePair(SingleMapType.CHILDREN))); //$NON-NLS-1$
-
+                        loadIcon("icons/mapChildren.png"), new MapConfiguration(SingleMapType.CHILDREN))); //$NON-NLS-1$
+*/
     }
 
     private void initializePlacesTab() {
@@ -728,75 +707,26 @@ public class MainWindow extends JFrame {
     }
 
     
-    private void initializeGLCanvas() {        // glCanvas = new JPanel();
-        if (glCanvas != null) {
-            ((GLAutoDrawable) glCanvas).destroy();
-            viewPanel.remove(glCanvas);
-        }
-        
-        GLCapabilities caps = new GLCapabilities(GLProfile.get(GLProfile.GL2));
-
+    private void resetGLCanvas() {       
         Antialiasing aa = Antialiasing.valueOf(Settings.getInstance().getString(
                 SettingsContract.ANTIALIASING));
         
-        int numSamples = 0;
-        switch (aa) {
-            case NONE: numSamples = 0; break;
-            case MSAA_2X: numSamples = 2; break;
-            case MSAA_4X: numSamples = 4; break;
-            case MSAA_8X: numSamples = 8; break;
-            case MSAA_16X: numSamples = 16; break;
+        GLCanvas canvas = easel.newCanvas(GLProfile.get(GLProfile.GL2), aa);
+        GLContext context = new GLContext();
+        canvas.addGLEventListener(context);
+        
+        if (renderer == null) {
+            renderer = new Renderer(context, locationManager);
+            camera = renderer.getCamera();
+            camera.addCameraListener(new UICameraListener());
+        } else {
+            renderer.setGLContext(context);
         }
         
-        if (numSamples > 0) {
-            caps.setSampleBuffers(true);
-            caps.setNumSamples(numSamples);
-        }
-        
-        glCanvas = new GLCanvas(caps);
-
-        // TODO: remove this hack for the GUIEditor
-        if (glCanvas instanceof GLCanvas) {
-            ((GLCanvas) glCanvas).addGLEventListener(new GLEventListener() {
-
-                @Override
-                public void display(GLAutoDrawable arg0) {
-                }
-
-                @Override
-                public void dispose(GLAutoDrawable arg0) {
-
-                }
-
-                @Override
-                public void init(GLAutoDrawable arg0) {}
-
-                @Override
-                public void reshape(GLAutoDrawable arg0, int arg1, int arg2,
-                        int arg3, int arg4) {
-                    ((Component) arg0).setMinimumSize(new Dimension(0, 0));
-                }
-
-            });
-        }
-        viewPanel.add(glCanvas, "1, 1, fill, fill"); //$NON-NLS-1$
-        
-        if (glCanvas instanceof GLCanvas) {
-            GLContext context = new GLContext();
-            ((GLCanvas) glCanvas).addGLEventListener(context);
-            if (renderer == null) {
-                renderer = new Renderer(context, locationManager);
-                camera = renderer.getCamera();
-                camera.addCameraListener(new UICameraListener());
-            } else {
-                renderer.setGLContext(context);
-                viewPanel.doLayout();
-            }
-        }
-        glCanvas.addMouseWheelListener(new ZoomAdapter(zoomSlider, true));
+        canvas.addMouseWheelListener(new ZoomAdapter(zoomSlider, true));
         GlMouseListener l = new GlMouseListener();
-        glCanvas.addMouseMotionListener(l);
-        glCanvas.addMouseListener(l);
+        canvas.addMouseMotionListener(l);
+        canvas.addMouseListener(l);
     }
     
     private void initializeViewPanel() {
@@ -806,8 +736,9 @@ public class MainWindow extends JFrame {
                 RowSpec.decode("default:grow"), RowSpec.decode("1dlu"), //$NON-NLS-1$ //$NON-NLS-2$
                         RowSpec.decode("20dlu"), RowSpec.decode("1dlu"), })); //$NON-NLS-1$ //$NON-NLS-2$
 
-        // TODO: Remove remplacement for working with GUIEditor
-        initializeGLCanvas();
+        easel = new GLEasel();
+        viewPanel.add(easel, "1, 1, fill, fill");
+        resetGLCanvas();
         this.addWindowListener(new UIWindowListener());
 
         JPanel statusBar = new JPanel();
@@ -869,7 +800,7 @@ public class MainWindow extends JFrame {
         scaleIcon.setIcon(loadIcon("icons/scale.png")); //$NON-NLS-1$
         scalePanel.add(scaleIcon, "1, 1"); //$NON-NLS-1$
 
-        JLabel scaleLabel = new JLabel("1 km"); //$NON-NLS-1$
+        scaleLabel = new JLabel("1 km"); //$NON-NLS-1$
         scalePanel.add(scaleLabel, "1, 2"); //$NON-NLS-1$
 
         JPanel coordPanel = new JPanel();
@@ -963,19 +894,9 @@ public class MainWindow extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    IconizedItem<MapTypePair> item = (IconizedItem<MapTypePair>) e.getItem();
-                    MapTypePair mtp = item.getValue();
-                    if (mtp.type instanceof SingleMapType) {
-                        SingleMapType mapType = (SingleMapType) mtp.type;
-                        Settings.getInstance().putString(
-                                SettingsContract.MAP_TYPE, mapType.name());
-                        renderer.setSingleMapType(mapType);
-                    } else if (mtp.type instanceof TiledMapType) {
-                        TiledMapType type = (TiledMapType) mtp.type;
-                        Settings.getInstance().putString(
-                                SettingsContract.MAP_TYPE, type.name());
-                        renderer.setTiledMapType(type);
-                    }
+                    IconizedItem<MapConfiguration> item = (IconizedItem<MapConfiguration>) e.getItem();
+                        renderer.setMapConfiguration((MapConfiguration) item.getValue());
+
                 }
             }
         });
@@ -1016,33 +937,33 @@ public class MainWindow extends JFrame {
                 int index = paraMapTypeComboBox.getSelectedIndex();
                 paraMapTypeComboBox.removeAllItems();
                 paraMapTypeComboBox
-                        .addItem(new IconizedItem<MapTypePair>(
+                        .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.70"), //$NON-NLS-1$
-                                loadIcon("icons/mapSatellite.png"), new MapTypePair(SingleMapType.SATELLITE))); //$NON-NLS-1$
+                                loadIcon("icons/mapSatellite.png"), new SingleMapConfiguration(SingleMapType.SATELLITE))); //$NON-NLS-1$
                 paraMapTypeComboBox
-                        .addItem(new IconizedItem<MapTypePair>(
+                        .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.72"), //$NON-NLS-1$
-                                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM_MAPNIK))); //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.MAPNIK))); //$NON-NLS-1$
                 paraMapTypeComboBox
-                        .addItem(new IconizedItem<MapTypePair>(
+                        .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.4"), //$NON-NLS-1$
-                                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.CYCLING))); //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.CYCLING))); //$NON-NLS-1$
                 paraMapTypeComboBox
-                        .addItem(new IconizedItem<MapTypePair>(
+                        .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.5"), //$NON-NLS-1$
-                                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.HIKING))); //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.HIKING))); //$NON-NLS-1$
                 paraMapTypeComboBox
-                        .addItem(new IconizedItem<MapTypePair>(
+                        .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.6"), //$NON-NLS-1$
-                                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.SKIING))); //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.SKIING))); //$NON-NLS-1$
                 paraMapTypeComboBox
-                        .addItem(new IconizedItem<MapTypePair>(
+                        .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.7"), //$NON-NLS-1$
-                                loadIcon("icons/mapOSM.png"), new MapTypePair(TiledMapType.OSM2WORLD))); //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.OSM2WORLD))); //$NON-NLS-1$
                 paraMapTypeComboBox
-                        .addItem(new IconizedItem<MapTypePair>(
+                        .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.74"), //$NON-NLS-1$
-                                loadIcon("icons/mapChildren.png"), new MapTypePair(SingleMapType.CHILDREN))); //$NON-NLS-1$
+                                loadIcon("icons/mapChildren.png"), new SingleMapConfiguration(SingleMapType.CHILDREN))); //$NON-NLS-1$
                 paraMapTypeComboBox.setSelectedIndex(index);
                 antialiasingLabel.setText(Messages.getString("MainWindow.126")); //$NON-NLS-1$
                 index = antialiasingComboBox.getSelectedIndex();
@@ -1149,25 +1070,13 @@ public class MainWindow extends JFrame {
         zoomSlider.setValue(0);
     }
 
-    /**
-     * Gets the <code>GLCanvas</code> that is displayed in the left half of the window.
-     * 
-     * @return The GLCanvas used in this window
-     */
-    public final GLCanvas getGLCanvas() {
-        // TODO: Remove this hack for the GUIEditor
-        if (glCanvas instanceof GLCanvas)
-            return ((GLCanvas) glCanvas);
-        return null;
-    }
-
 
     private class UISettingsListener implements SettingsListener {
 
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
             if (key.equals(SettingsContract.ANTIALIASING)) {
-                initializeGLCanvas();
+                resetGLCanvas();
             }
         }
 
@@ -1185,6 +1094,7 @@ public class MainWindow extends JFrame {
                 latitudeTextField.setText("");
                 longitudeTextField.setText("");
             }
+            scaleLabel.setText(Double.toString(camera.getScale())); 
             // TODO: Other sutuff like asking Nomination for Details as soon as it is implemented
         }
 
@@ -1199,13 +1109,13 @@ public class MainWindow extends JFrame {
 
 
         private ScreenCoordinates getScreenCoordinates(Point p) {
-            return new ScreenCoordinates(p.getX() / glCanvas.getWidth(),
-                    p.getY() / glCanvas.getHeight());
+            Dimension canvasSize = easel.getCanvas().getSize();
+            return new ScreenCoordinates(p.getX() / canvasSize.width,
+                    p.getY() / canvasSize.height);
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            Point p = e.getPoint();
             ScreenCoordinates newPos = getScreenCoordinates(e.getPoint());
             if (SwingUtilities.isLeftMouseButton(e)) {
                 if (lastPos != null && newPos != null) {

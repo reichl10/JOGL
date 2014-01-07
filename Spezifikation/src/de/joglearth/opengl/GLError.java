@@ -49,7 +49,11 @@ public class GLError extends RuntimeException {
     public GLError(int errorCode) {
         this(errorCodeToString(errorCode));
     }
-    
+
+    /**
+     * Constructor. 
+     * @param string The error message
+     */
     public GLError(String string) {
         super("OpenGL error: " + string);
     }

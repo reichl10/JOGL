@@ -7,8 +7,8 @@ import static java.lang.Math.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.joglearth.surface.HeightMap;
-import de.joglearth.surface.SurfaceListener;
+import de.joglearth.height.HeightMap;
+import de.joglearth.height.flat.FlatHeightMap;
 
 
 /**
@@ -21,19 +21,18 @@ public class Camera {
     private double distance = 0.5;
     private double tiltX = 0;
     private double tiltY = 0;
-    private double fov, aspectRatio, zNear, zFar;
-    private boolean heightMapEnabled = false;
+    private double verticalFOV, horizontalFOV;
     private Matrix4 projectionMatrix,
                     modelCameraMatrix = new Matrix4(),
                     modelViewMatrix = new Matrix4(),
                     skyViewMatrix = new Matrix4(),
                     transformationMatrix;
-    
-    /* TODO reset visibility */public Geometry geometry = null;
-    private List<CameraListener> listeners = new ArrayList<CameraListener>();
-
-    
+    private HeightMap heightMap = FlatHeightMap.getInstance();    
+    private Geometry geometry = null;    
+    private List<CameraListener> listeners = new ArrayList<CameraListener>();    
     private boolean updatesEnabled = false;
+    private SurfaceListener heightListener = new SurfaceHeightListener();
+    
     
     public synchronized void setUpdatesEnabled(boolean enabled) {
         updatesEnabled = enabled;
@@ -73,10 +72,7 @@ public class Camera {
         // TODO sign!
         // TODO Height map resolution is a wild guess
         
-        double altitude = distance - HeightMap.MIN_HEIGHT;
-        if (heightMapEnabled) {
-            altitude = HeightMap.getHeight(position, 1e-6) / 1000 + distance;
-        }
+        double altitude = distance + heightMap.getHeight(position, 1e-6) - HeightMap.MIN_HEIGHT;
         //TODO System.err.println("Camera: updating, altitude=" + altitude);
         
         Matrix4 newCameraMatrix = geometry.getModelCameraTransformation(position, altitude);
@@ -105,7 +101,7 @@ public class Camera {
         @Override
         public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
 
-            if (heightMapEnabled && position.getLatitude() >= latFrom 
+            if (position.getLatitude() >= latFrom 
                     && position.getLatitude() <= latTo && position.getLongitude() >= lonFrom 
                     && position.getLongitude() <= lonTo) {
                 if (!updateCamera()) {
@@ -134,7 +130,6 @@ public class Camera {
         if (!updateCamera()) {
             throw new IllegalStateException();
         }
-        HeightMap.addSurfaceListener(new SurfaceHeightListener());
         
         updatesEnabled = true;
     }
@@ -163,13 +158,14 @@ public class Camera {
     }
     
    
-    public synchronized void setHeightMapEnabled(boolean enabled) {
-        if (enabled != heightMapEnabled) {
-            heightMapEnabled = enabled;
-            if (!updateCamera()) {
-                throw new IllegalStateException();
-            }
+    public synchronized void setHeightMap(HeightMap heightMap) {
+        if (heightMap == null) {
+            throw new IllegalArgumentException();
         }
+        
+        this.heightMap.removeSurfaceListener(heightListener);
+        this.heightMap = heightMap;
+        this.heightMap.addSurfaceListener(heightListener);
     }
     
 
@@ -231,13 +227,13 @@ public class Camera {
      * @return
      */
     public double getScale() {
-        return distance * tan(fov / 2) / PI;
+        return distance * tan(horizontalFOV / 2) / PI;
     }
 
     /**
      * Sets the parameters for the perspective transformation done by the projection matrix.
      * 
-     * @param fov The field of view, in radians. This is the angular distance of the left and right
+     * @param fov The field of view, in radians. This is the angular distance of the top and bottom
      *        clipping plane. 90° (PI/2) by default
      * @param aspectRatio The aspect ratio, i.e. the width-to-height ratio. 1 by default
      * @param near The distance of the near clipping plane to the camera position. 0.1 by default
@@ -253,13 +249,10 @@ public class Camera {
             throw up;
         }
 
-        this.fov = fov;
-        this.aspectRatio = aspectRatio;
-        this.zNear = near;
-        this.zFar = far;
-
+        this.verticalFOV = fov;
+        this.horizontalFOV = 2 * atan(aspectRatio * tan(verticalFOV / 2));
+        
         double f = 1 / tan(fov * 0.5);
-
         projectionMatrix = new Matrix4(new double[] {
                 f / aspectRatio, 0, 0, 0,
                 0, f, 0, 0,
@@ -427,8 +420,8 @@ public class Camera {
         Vector3 xAxis = earthAxis.crossProduct(zAxis).normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
         
-        double yAngle = asin((1-2*screen.x)*sin(fov/2*aspectRatio));        
-        double xAngle = asin((1-2*screen.y)*sin(fov/2));
+        double yAngle = asin((1-2*screen.x)*sin(horizontalFOV/2));        
+        double xAngle = asin((1-2*screen.y)*sin(verticalFOV/2));
 
         Matrix4 directionMatrix = modelCameraMatrix.clone();
         directionMatrix.rotate(yAxis, yAngle);
@@ -437,11 +430,11 @@ public class Camera {
         Vector3 viewVector = directionMatrix.transform(new Vector3(0, 0, -1)).divide()
                 .minus(cameraPosition);
 
-        System.err.format("Camera.getGeoCoordinates(): Screen Position: %s, Camera Position: %s,"
+        /*System.err.format("Camera.getGeoCoordinates(): Screen Position: %s, Camera Position: %s,"
                 + " Camera Axes: X=%s, Y=%s, Z=%s, Direction angles: Y-Rotation=%.3f°, X-Rotation="
                 + "%.3f°, View Vector: %s, Model intersection at: %s\n", screen, cameraPosition, 
                 xAxis, yAxis, zAxis, yAngle * 180 / PI, xAngle * 180 / PI, viewVector, 
-                geometry.getSurfaceCoordinates(cameraPosition, viewVector));
+                geometry.getSurfaceCoordinates(cameraPosition, viewVector));*/
         return geometry.getSurfaceCoordinates(cameraPosition, viewVector);
     }
 

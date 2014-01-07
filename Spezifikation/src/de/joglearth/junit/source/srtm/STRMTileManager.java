@@ -6,12 +6,12 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import de.joglearth.height.srtm.SRTMTile;
+import de.joglearth.height.srtm.SRTMTileManager;
+import de.joglearth.height.srtm.SRTMTileName;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.source.srtm.SRTMTile;
-import de.joglearth.source.srtm.SRTMTileIndex;
-import de.joglearth.source.srtm.SRTMTileManager;
 
 
 public class STRMTileManager {
@@ -27,7 +27,7 @@ public class STRMTileManager {
     public final void testRequestObject() {
         SRTMTileManager manager = SRTMTileManager.getInstance();
         TestSourceListener listener = new TestSourceListener(Thread.currentThread());
-        SourceResponse<SRTMTile> response = manager.requestObject(new SRTMTileIndex(1, 1), null);
+        SourceResponse<SRTMTile> response = manager.requestObject(new SRTMTileName(1, 1), null);
         if (response.response == SourceResponseType.MISSING) {
             fail("We need to Have a SRTMTile :(");
         } else if (response.response == SourceResponseType.SYNCHRONOUS) {
@@ -43,13 +43,13 @@ public class STRMTileManager {
         }
     }
 
-    private class TestSourceListener implements SourceListener<SRTMTileIndex, SRTMTile> {
+    private class TestSourceListener implements SourceListener<SRTMTileName, SRTMTile> {
         private Thread waiterThread;
         public TestSourceListener(Thread t) {
             waiterThread = t;
         }
         @Override
-        public void requestCompleted(SRTMTileIndex key, SRTMTile value) {
+        public void requestCompleted(SRTMTileName key, SRTMTile value) {
             waiterThread.notify();
         }
         

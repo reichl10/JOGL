@@ -7,7 +7,7 @@ public abstract class AbstractInvoker implements Invoker {
      * Returns whether it is possible to call a runnable directly in the current context,
      * i.e. if the caller is already in the invoker's thread.
      * 
-     * @return Whether runnables can be called directly.
+     * @return Whether Runnables can be called directly.
      */
     protected abstract boolean canInvokeDirectly();
     

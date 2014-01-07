@@ -6,15 +6,15 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
 import de.joglearth.junit.GLTestWindow;
+import de.joglearth.rendering.TextureManager;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.source.osm.OSMTile;
-import de.joglearth.surface.SurfaceListener;
-import de.joglearth.surface.TextureManager;
+import de.joglearth.source.osm.OSMTileName;
 
 
 public class TextureManagerTest {
@@ -67,13 +67,13 @@ public class TextureManagerTest {
         public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {}
     }
     
-    private class TestSource implements Source<OSMTile, byte[]> {
+    private class TestSource implements Source<OSMTileName, byte[]> {
         private byte[] retByte = {0x3D, 0x00, 0x6F};
         private int requestCount = 0;
         
         @Override
-        public SourceResponse<byte[]> requestObject(OSMTile key,
-                SourceListener<OSMTile, byte[]> sender) {
+        public SourceResponse<byte[]> requestObject(OSMTileName key,
+                SourceListener<OSMTileName, byte[]> sender) {
             requestCount++;
             return new SourceResponse<byte[]>(SourceResponseType.SYNCHRONOUS, retByte);
         }

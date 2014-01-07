@@ -3,18 +3,13 @@ package de.joglearth.rendering;
 import static javax.media.opengl.GL2.*;
 import static java.lang.Math.*;
 
-import java.io.File;
-import java.io.IOException;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
-import javax.media.opengl.glu.GLU;
-import javax.media.opengl.glu.GLUquadric;
-
+import com.jogamp.opengl.util.awt.TextRenderer;
 import com.jogamp.opengl.util.texture.Texture;
-import com.jogamp.opengl.util.texture.TextureData;
-import com.jogamp.opengl.util.texture.TextureIO;
 
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
@@ -23,8 +18,14 @@ import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.PlaneGeometry;
 import de.joglearth.geometry.SphereGeometry;
+import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.Vector3;
+import de.joglearth.location.LocationManager;
+import de.joglearth.location.LocationType;
+import de.joglearth.map.MapConfiguration;
+import de.joglearth.map.single.SingleMapConfiguration;
+import de.joglearth.map.single.SingleMapType;
 import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.GLContextListener;
 import de.joglearth.opengl.TextureFilter;
@@ -32,15 +33,7 @@ import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
-import de.joglearth.source.osm.OSMTileManager;
-import de.joglearth.surface.LocationManager;
-import de.joglearth.surface.LocationType;
-import de.joglearth.surface.MapLayout;
-import de.joglearth.surface.SingleMapType;
-import de.joglearth.surface.SurfaceListener;
-import de.joglearth.surface.TextureManager;
-import de.joglearth.surface.TileMeshManager;
-import de.joglearth.surface.TiledMapType;
+import de.joglearth.ui.Messages;
 import de.joglearth.util.Resource;
 
 
@@ -51,24 +44,29 @@ import de.joglearth.util.Resource;
 public class Renderer {
 
     private GLContext gl;
-    private int leastHorizontalTiles;
     private int tileSubdivisions = 7;
-    private int TILE_SIZE = 256;
     private LocationManager locationManager;
     private TextureManager textureManager;
     private Camera camera;
     private DisplayMode activeDisplayMode = DisplayMode.SOLAR_SYSTEM;
-    private MapLayout mapLayout = MapLayout.TILED;
-    private SingleMapType singleMapType = SingleMapType.SATELLITE;
-    private TiledMapType tiledMapType;
     private Texture earth, moon;
-    private TileMeshManager tileMeshManager;
+    private VertexBufferManager tileMeshManager;
     private SurfaceListener surfaceListener = new SurfaceValidator();
     private GLContextListener glContextListener = new RendererGLListener();
     private Map<LocationType, Texture> overlayIconTextures;
-    private Map<SingleMapType, Texture> singleMapTextures;
     private SettingsListener settingsListener = new GraphicsSettingsListener();
     private Texture sky;
+    private MapConfiguration mapConfiguration = new SingleMapConfiguration(SingleMapType.SATELLITE);
+    private Dimension screenSize = new Dimension(640, 480);
+    
+    private enum InitState {
+        AWAITING,
+        LOADING,
+        DONE        
+    }
+    
+    private InitState initState;
+    private TextRenderer loadingScreenTextRenderer;
 
     /**
      * Constructor initializes the OpenGL functionalities.
@@ -113,19 +111,63 @@ public class Renderer {
         locationManager.addSurfaceListener(surfaceListener);        
     }
     
+    
+    private void loading() {
+        gl.clear();
+        
+        String text = Messages.getString("Renderer.0");        
+        Dimension screenSize = gl.getSize();        
+        TextRenderer textRenderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.BOLD, 16), 
+                true, false);        
+        textRenderer.beginRendering(screenSize.width, screenSize.height);
+        Dimension textSize = textRenderer.getBounds(text).getBounds().getSize();
+        textRenderer.draw(text, (screenSize.width - textSize.width) / 2,
+                (screenSize.height - textSize.height) / 2);
+        textRenderer.endRendering();
+    }
+
+    private Matrix4 correctGLUTransformation(Matrix4 matrix) {
+        matrix = matrix.clone();
+        matrix.rotate(new Vector3(-1, 0, 0), PI / 2);
+        return matrix;
+    }    
 
     private void render() {
-        //TODO System.err.println("------------- NEW FRAME -------------");
-        
         gl.clear();
         gl.loadMatrix(GL_PROJECTION, camera.getProjectionMatrix());
-        
+
+        Matrix4 skyMatrix = correctGLUTransformation(camera.getSkyViewMatrix());
+        gl.loadMatrix(GL_MODELVIEW, skyMatrix);
+        gl.drawSphere(50, 15, 8, true, sky);       
         
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
-            renderSolarSystem();
+            
+            gl.placeLight(0, new Vector3(0, -50, 0));
+            gl.setFeatureEnabled(GL_LIGHTING, true);
+            
+            Matrix4 modelMatrix = camera.getModelViewMatrix().clone();
+            gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(modelMatrix));
+            gl.drawSphere(1, 60, 40, false, earth);
+            
+            modelMatrix.translate(-4, 0, 0);
+            gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(modelMatrix));
+            gl.drawSphere(0.2, 30, 20, false, moon);
+            
+            gl.setFeatureEnabled(GL_LIGHTING, false);
+            
         } else {
-            renderTiles();
-        } 
+            
+            gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
+
+            Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, 
+                    mapConfiguration.getOptimalTileLayout(camera, screenSize));
+            for (Tile tile : tiles) {
+                Texture texture = textureManager.getTexture(tile);
+                VertexBuffer vbo = tileMeshManager.requestObject(tile, null).value;
+                gl.drawVertexBuffer(vbo, texture);
+            }
+            
+        }
     }
     
     public Camera getCamera() {
@@ -133,16 +175,12 @@ public class Renderer {
     }
 
     private void initialize() {        
-        gl.setFeatureEnabled(GL_DEPTH_TEST, true);
-        gl.setFeatureEnabled(GL_CULL_FACE, true);
-        gl.setFeatureEnabled(GL_TEXTURE_2D, true);
-        
         gl.setLightEnabled(0, true);
         gl.setLightIntensity(0, 1);
         gl.setAmbientLight(0.2);
         gl.setMaterialSpecularity(0.02);
 
-        textureManager = new TextureManager(gl, OSMTileManager.getInstance(), 200);
+        textureManager = new TextureManager(gl, 500, mapConfiguration);
         textureManager.addSurfaceListener(new SurfaceValidator());
 
         loadTextures();
@@ -152,8 +190,7 @@ public class Renderer {
         Settings.getInstance().addSettingsListener(SettingsContract.TEXTURE_FILTER,
                 settingsListener);
         
-        leastHorizontalTiles = gl.getSize().width / TILE_SIZE;
-        tileMeshManager = new TileMeshManager(gl, null);
+        tileMeshManager = new VertexBufferManager(gl, null);
         tileMeshManager.setTileSubdivisions(tileSubdivisions);
         applyDisplayMode();
     }
@@ -175,58 +212,9 @@ public class Renderer {
     }
     
 
-    private Matrix4 correctGLUTransformation(Matrix4 matrix) {
-        matrix = matrix.clone();
-        matrix.rotate(new Vector3(-1, 0, 0), PI / 2);
-        return matrix;
-    }
-    
-    
-    private void renderSolarSystem() {
-        Matrix4 skyMatrix = correctGLUTransformation(camera.getSkyViewMatrix());
-        gl.loadMatrix(GL_MODELVIEW, skyMatrix);
-        gl.drawSphere(50, 15, 8, true, sky);       
-        
-        gl.placeLight(0, new Vector3(0, -50, 0));
-        gl.setFeatureEnabled(GL_LIGHTING, true);
-        
-        Matrix4 modelMatrix = camera.getModelViewMatrix().clone();
-        gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(modelMatrix));
-        gl.drawSphere(1, 60, 40, false, earth);
-        
-        modelMatrix.translate(-4, 0, 0);
-        gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(modelMatrix));
-        gl.drawSphere(0.2, 30, 20, false, moon);
-        
-        gl.setFeatureEnabled(GL_LIGHTING, false);
-    }
-   
-    
-    private void renderTiles() {
-        gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
-
-        int zoomLevel = Math.min(18, CameraUtils.getOptimalZoomLevel(camera, leastHorizontalTiles));
-        System.err.print("zoomlevel: " + zoomLevel + "  ");
-        Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, zoomLevel);
-        for (Tile tile : tiles) {
-            Texture texture = textureManager.getTexture(tile);
-            VertexBuffer vbo = tileMeshManager.requestObject(tile, null).value;
-            gl.drawVertexBuffer(vbo, texture);
-        }
-    }
-
-
     private void loadTextures() {
         TextureFilter textureFilter = TextureFilter.valueOf(Settings.getInstance().getString(
                 SettingsContract.TEXTURE_FILTER));
-
-        singleMapTextures = new LinkedHashMap<>();
-        /*
-         * for (SingleMapType key : SingleMapType.values()) { String resourceName =
-         * "singleMapTextures/" + key.toString() + ".jpg"; if (Resource.exists(resourceName)) {
-         * Texture value = gl.loadTexture(Resource.loadTextureData(resourceName, "jpg"));
-         * singleMapTextures.put(key, value); } }
-         */
 
         earth = gl.loadTexture(Resource.loadTextureData("textures/earth.jpg", "jpg"),
                 textureFilter);
@@ -246,15 +234,12 @@ public class Renderer {
     
     
     private void freeTextures() {
-        for (Texture texture : singleMapTextures.values()) {
-            gl.deleteTexture(texture);
-        }
         for (Texture texture : overlayIconTextures.values()) {
             gl.deleteTexture(texture);
         }
-        // Earth is singleMapTextures[SingleMapType.SATELLITE]
+        gl.deleteTexture(sky);
         gl.deleteTexture(moon);
-        singleMapTextures = null;
+        gl.deleteTexture(earth);
         overlayIconTextures = null;
     }
 
@@ -323,7 +308,21 @@ public class Renderer {
         
         @Override
         public void display(GLContext context) {
-            render();
+            switch (initState) {
+                case AWAITING:
+                    initState = InitState.LOADING;
+                    loading();
+                    gl.postRedisplay();
+                    break;
+                    
+                case LOADING:
+                    initState = InitState.DONE;
+                    Renderer.this.initialize();
+                    // fall through
+                    
+                case DONE:
+                    render();
+            }
         }
 
         @Override
@@ -333,13 +332,17 @@ public class Renderer {
 
         @Override
         public void initialize(GLContext context) {
-            Renderer.this.initialize();
+            gl.setFeatureEnabled(GL_DEPTH_TEST, true);
+            gl.setFeatureEnabled(GL_CULL_FACE, true);        
+            gl.setFeatureEnabled(GL_TEXTURE_2D, true);
+                        
+            initState = InitState.AWAITING;
         }
 
         @Override
         public void reshape(GLContext context, int width, int height) {
-            leastHorizontalTiles = context.getSize().width / TILE_SIZE;
-            camera.setPerspective(PI / 2, (double) width/height, 0.01, 100);
+            screenSize = new Dimension(width, height);
+            camera.setPerspective(PI / 2, (double) width/height, 1e-4, 100);
         }
     }
 
@@ -398,25 +401,20 @@ public class Renderer {
 
     /**
      * Sets the {@link de.joglearth.surface.MapLayout} to a given value. This type is a
-     * {@link de.joglearth.surface.SingleMapType} as it is only one tile as a texture.
+     * {@link de.joglearth.map.single.SingleMapType} as it is only one tile as a texture.
      * 
      * @param t The new <code>MapLayout</code>
      */
-    public void setSingleMapType(SingleMapType t) {
-        mapLayout = MapLayout.SINGLE;
-        singleMapType = t;
+    public synchronized void setMapConfiguration(MapConfiguration configuration) {
+        this.mapConfiguration = configuration;
+        applyMapConfiguration();
+    }
+
+    private void applyMapConfiguration() {
+        if (textureManager != null) {
+            textureManager.setMapConfiguration(mapConfiguration);
+        }
         gl.postRedisplay();
     }
 
-    /**
-     * Sets the {@link de.joglearth.surface.MapLayout} to a given value. This type is a
-     * {@link de.joglearth.surface.TiledMapType} as the texture consists of multiple tiles.
-     * 
-     * @param t The new <code>MapLayout</code>
-     */
-    public void setTiledMapType(TiledMapType t) {
-        mapLayout = MapLayout.TILED;
-        tiledMapType = t;
-        gl.postRedisplay();
-    }
 }

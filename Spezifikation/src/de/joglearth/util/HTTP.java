@@ -42,7 +42,7 @@ public final class HTTP {
      */
     public static byte[] get(String url, Iterable<String> getRequest)
             throws IllegalArgumentException {
-        //TODO System.err.println("HTTP: beginning GET request for " + url);
+        System.err.println("HTTP: beginning GET request for " + url);
         if (url == null) {
             throw new IllegalArgumentException("URL was null!");
         }
@@ -261,7 +261,7 @@ public final class HTTP {
         bla.add("login");
         bla.add("Port Albo Straße+-µ ?&32!");
         String test = new String(get("http://127.0.0.1/post.php", bla));
-        //TODO System.out.println(test);
+        System.out.println(test);
     }
 
 }
