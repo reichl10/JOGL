@@ -58,6 +58,12 @@ public class RequestDistributorTest {
                 map.clear();
             }
 
+            @Override
+            public void dispose() {
+                // TODO Automatisch generierter Methodenstub
+                
+            }
+
         };
         RequestDistributor<Integer, Integer> t = new RequestDistributor<Integer, Integer>();
         try {
@@ -149,6 +155,12 @@ public class RequestDistributorTest {
                 return map.size();
             }
 
+            @Override
+            public void dispose() {
+                // TODO Automatisch generierter Methodenstub
+                
+            }
+
         };
         
         MockCache simpleCache = new MockCache();
@@ -203,6 +215,13 @@ public class RequestDistributorTest {
                 exec.execute(a);
                 return responseAsync;
             }
+        }
+
+
+        @Override
+        public void dispose() {
+            // TODO Automatisch generierter Methodenstub
+            
         }
     };
 }

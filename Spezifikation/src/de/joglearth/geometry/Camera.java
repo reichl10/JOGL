@@ -72,7 +72,7 @@ public class Camera {
         // TODO sign!
         // TODO Height map resolution is a wild guess
         
-        double altitude = distance + heightMap.getHeight(position, 1e-6) - HeightMap.MIN_HEIGHT;
+        double altitude = distance + heightMap.getHeight(position, 1e-6);
         //TODO System.err.println("Camera: updating, altitude=" + altitude);
         
         Matrix4 newCameraMatrix = geometry.getModelCameraTransformation(position, altitude);

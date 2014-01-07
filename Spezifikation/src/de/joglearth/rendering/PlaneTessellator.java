@@ -14,7 +14,7 @@ import static javax.media.opengl.GL2.*;
 public class PlaneTessellator implements Tessellator {
     
     private double getZCoordinate(double lon, double lat, double latStep, HeightMap heightMap) {
-        return heightMap.getHeight(new GeoCoordinates(lon, lat), latStep) + HeightMap.MIN_HEIGHT;
+        return heightMap.getHeight(new GeoCoordinates(lon, lat), latStep) - HeightMap.MIN_HEIGHT;
     }
 
     @Override

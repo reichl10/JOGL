@@ -3,6 +3,7 @@ package de.joglearth.geometry;
 import static java.lang.Math.*;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.Vector3;
+import de.joglearth.height.HeightMap;
 
 
 /**
@@ -73,7 +74,7 @@ public class PlaneGeometry implements Geometry {
 
     @Override
     public Matrix4 getModelCameraTransformation(GeoCoordinates position, double altitude) {
-        if (position == null || altitude <= 0 || Double.isInfinite(altitude)
+        if (position == null || altitude <= HeightMap.MIN_HEIGHT || Double.isInfinite(altitude)
                 || Double.isNaN(altitude)) {
             throw new IllegalArgumentException();
         }
@@ -83,7 +84,8 @@ public class PlaneGeometry implements Geometry {
          * adding a rotate()ion.
          */
         Matrix4 mat = new Matrix4();
-        mat.translate(position.getLongitude(), position.getLatitude(), altitude);
+        mat.translate(position.getLongitude(), position.getLatitude(), altitude 
+                - HeightMap.MIN_HEIGHT);
         return mat;
     }
 

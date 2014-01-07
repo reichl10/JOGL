@@ -21,6 +21,7 @@ import de.joglearth.geometry.SphereGeometry;
 import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.Vector3;
+import de.joglearth.height.HeightMap;
 import de.joglearth.location.LocationManager;
 import de.joglearth.location.LocationType;
 import de.joglearth.map.MapConfiguration;
@@ -58,6 +59,7 @@ public class Renderer {
     private Texture sky;
     private MapConfiguration mapConfiguration = new SingleMapConfiguration(SingleMapType.SATELLITE);
     private Dimension screenSize = new Dimension(640, 480);
+    
     
     private enum InitState {
         AWAITING,
@@ -415,6 +417,10 @@ public class Renderer {
             textureManager.setMapConfiguration(mapConfiguration);
         }
         gl.postRedisplay();
+    }
+    
+    public void setHeightMap(HeightMap hm) {
+        
     }
 
 }
