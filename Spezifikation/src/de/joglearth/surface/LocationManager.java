@@ -30,9 +30,6 @@ import de.joglearth.source.nominatim.NominatimQuery;
 public class LocationManager {
 
     private NominatimQuery lastSearch;
-    private boolean[]      selectedResults;
-    private boolean[]      selectedUserTags;
-    private boolean[]      selectedPOIs;
     private boolean[] selectedResults;
     private boolean[] selectedUserTags;
     private boolean[] selectedPOIs;
