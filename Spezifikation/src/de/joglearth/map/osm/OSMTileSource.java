@@ -48,7 +48,13 @@ public class OSMTileSource implements Source<TileName, byte[]> {
                 "http://a.tile.opencyclemap.org/cycle/",
                 "http://b.tile.opencyclemap.org/cycle/" }));
         serverSets.put(OSMMapType.HIKING, new ServerSet(new String[] {
-                "http://tile.waymarkedtrails.org/hiking/" }));
+                "http://a.www.toolserver.org/tiles/hikebike/",
+                "http://b.www.toolserver.org/tiles/hikebike/",
+                "http://c.www.toolserver.org/tiles/hikebike/" }));
+        serverSets.put(OSMMapType.OSM_NOLABELS, new ServerSet(new String[] {
+                "http://a.www.toolserver.org/tiles/osm-no-labels/",
+                "http://b.www.toolserver.org/tiles/osm-no-labels/",
+                "http://c.www.toolserver.org/tiles/osm-no-labels/" }));
         serverSets.put(OSMMapType.OSM2WORLD, new ServerSet(new String[] {
                 "http://a.tiles.osm2world.org/osm/pngtiles/n/",
                 "http://b.tiles.osm2world.org/osm/pngtiles/n/",
@@ -57,6 +63,8 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         serverSets.put(OSMMapType.MAPNIK, new ServerSet(new String[] {
                 "http://otile1.mqcdn.com/tiles/1.0.0/osm/",
                 "http://otile2.mqcdn.com/tiles/1.0.0/osm/" }));
+        
+        //TODO Kick out
         serverSets.put(OSMMapType.SKIING, new ServerSet(new String[] {
                 "http://tiles.openpistemap.org/nocontours/" }));
     }

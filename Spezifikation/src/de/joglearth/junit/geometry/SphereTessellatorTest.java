@@ -1,10 +1,13 @@
 package de.joglearth.junit.geometry;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import de.joglearth.geometry.Tile;
+import de.joglearth.geometry.GeoCoordinates;
+import de.joglearth.geometry.SurfaceListener;
+import de.joglearth.height.HeightMap;
+import de.joglearth.map.osm.OSMTile;
 import de.joglearth.rendering.Mesh;
 import de.joglearth.rendering.SphereTessellator;
 
@@ -15,11 +18,32 @@ public class SphereTessellatorTest {
     public void test() {
 
         SphereTessellator p = new SphereTessellator();
-        Tile t = new Tile(5, 10, 10);
+        OSMTile t = new OSMTile(5, 10, 10);
         int subdivision = 1;
+        HeightMap h = new HeightMap() {
+            
+            @Override
+            public void removeSurfaceListener(SurfaceListener l) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public double getHeight(GeoCoordinates coords, double angularResolution) {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+            
+            @Override
+            public void addSurfaceListener(SurfaceListener l) {
+                // TODO Auto-generated method stub
+                
+            }
+        };
 
-        Mesh m = p.tessellateTile(t, subdivision, false);
+        Mesh m = p.tessellateTile(t, subdivision, h);
         // assertEquals((9*8), m.vertices.length);
+        
         
         /* Number of triangles */
         assertEquals((3 * 8), m.indices.length);

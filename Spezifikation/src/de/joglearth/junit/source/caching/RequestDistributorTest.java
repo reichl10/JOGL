@@ -1,13 +1,15 @@
 package de.joglearth.junit.source.caching;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.joglearth.source.Source;
@@ -60,6 +62,12 @@ public class RequestDistributorTest {
 
         public synchronized int getRequestCount() {
             return requestCount;
+        }
+
+        @Override
+        public void dispose() {
+            // TODO Auto-generated method stub
+            
         }
     }
 

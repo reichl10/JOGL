@@ -37,15 +37,10 @@ import de.joglearth.util.HTTP;
 
 /**
  * Provides responses of search requests, for e.g. search requests for places or detailed
-<<<<<<< HEAD:Spezifikation/src/de/joglearth/location/nominatim/NominatimSource.java
- * information to a point. The response will be prepared for the {@link de.joglearth.location.LocationManager}; uses the
- * {@link de.joglearth.util.HTTP} for the search request.
-=======
  * information to a point. The response will be prepared for the
  * {@link de.joglearth.surface.LocationManager}; uses the {@link de.joglearth.util.HTTP} for the
  * search request.
->>>>>>> tiles:Spezifikation/src/de/joglearth/source/nominatim/NominatimSource.java
- * 
+ *  
  */
 public class NominatimSource implements Source<NominatimQuery, Collection<Location>> {
 
@@ -93,8 +88,9 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
         ArrayList<String> getRequest = new ArrayList<String>();
         getRequest.add("accept-language");
-// TODO  getRequest.add(Settings.getInstance().getString(SettingsContract.LANGUAGE).toLowerCase());
-        getRequest.add("de");
+        getRequest.add(Settings.getInstance().getString(SettingsContract.LANGUAGE).toLowerCase());
+        //TODO zum Testen mit main() s.u. 
+//        getRequest.add("de");
         getRequest.add("format");
         getRequest.add("xml");
         
@@ -122,15 +118,13 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
     private Collection<Location> getPoint(NominatimQuery query) {
 
         String url = "http://nominatim.openstreetmap.org/reverse";
-        // String getRequest = "?accept-language=de&format=xml&q=Rom";
+        // Get-Request : "?accept-language=de&format=xml&q=Rom";
 
         ArrayList<String> getRequest = new ArrayList<String>();
         getRequest.add("accept-language");
         getRequest.add(Settings.getInstance().getString(SettingsContract.LANGUAGE).toLowerCase());
         getRequest.add("format");
         getRequest.add("xml");
-
-        // TODO point sollte vom Typ GeoCoordinates sein, haben hier keine Camera
 
         getRequest.add("lat");
         getRequest.add("" + query.point.getLatitude());
@@ -219,7 +213,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         GeoCoordinates point = new GeoCoordinates(longitude, latitude);
 
         // TODO LocationType für Suchergebnisse?!
-        Location current = new Location(point, LocationType.TOWN, details, name[0]);
+        Location current = new Location(point, LocationType.SEARCH, details, name[0]);
 
         location.add(current);
 
