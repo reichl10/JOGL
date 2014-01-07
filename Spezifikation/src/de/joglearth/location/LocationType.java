@@ -85,5 +85,10 @@ public enum LocationType {
     /**
      * Returns a point marked by the user.
      */
-    USER_TAG
+    USER_TAG, 
+    
+    /**
+     * Returns a search result.
+     */
+    SEARCH
 }
