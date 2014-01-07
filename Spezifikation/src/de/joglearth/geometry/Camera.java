@@ -21,7 +21,7 @@ public class Camera {
     private double distance = 0.5;
     private double tiltX = 0;
     private double tiltY = 0;
-    private double fov, aspectRatio;
+    private double verticalFOV, horizontalFOV;
     private Matrix4 projectionMatrix,
                     modelCameraMatrix = new Matrix4(),
                     modelViewMatrix = new Matrix4(),
@@ -227,13 +227,13 @@ public class Camera {
      * @return
      */
     public double getScale() {
-        return distance * tan(fov / 2) / PI;
+        return distance * tan(horizontalFOV / 2) / PI;
     }
 
     /**
      * Sets the parameters for the perspective transformation done by the projection matrix.
      * 
-     * @param fov The field of view, in radians. This is the angular distance of the left and right
+     * @param fov The field of view, in radians. This is the angular distance of the top and bottom
      *        clipping plane. 90° (PI/2) by default
      * @param aspectRatio The aspect ratio, i.e. the width-to-height ratio. 1 by default
      * @param near The distance of the near clipping plane to the camera position. 0.1 by default
@@ -249,10 +249,10 @@ public class Camera {
             throw up;
         }
 
-        this.fov = fov;
-        this.aspectRatio = aspectRatio;
+        this.verticalFOV = fov;
+        this.horizontalFOV = 2 * atan(aspectRatio * tan(verticalFOV / 2));
+        
         double f = 1 / tan(fov * 0.5);
-
         projectionMatrix = new Matrix4(new double[] {
                 f / aspectRatio, 0, 0, 0,
                 0, f, 0, 0,
@@ -420,8 +420,8 @@ public class Camera {
         Vector3 xAxis = earthAxis.crossProduct(zAxis).normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
         
-        double yAngle = asin((1-2*screen.x)*sin(fov/2*aspectRatio));        
-        double xAngle = asin((1-2*screen.y)*sin(fov/2));
+        double yAngle = asin((1-2*screen.x)*sin(horizontalFOV/2));        
+        double xAngle = asin((1-2*screen.y)*sin(verticalFOV/2));
 
         Matrix4 directionMatrix = modelCameraMatrix.clone();
         directionMatrix.rotate(yAxis, yAngle);

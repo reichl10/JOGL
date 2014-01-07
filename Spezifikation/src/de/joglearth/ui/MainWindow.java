@@ -160,6 +160,7 @@ public class MainWindow extends JFrame {
     private JTabbedPane sideBarTabs;
     private JSlider zoomSlider;
     private UISettingsListener settingsListener;
+    private JLabel scaleLabel;
     private static final double ZOOM_FACTOR = 10.d;
     private static final double MAX_DIFF = 3.d;
     private static final double MIN_DIST = 1e-8d;
@@ -799,7 +800,7 @@ public class MainWindow extends JFrame {
         scaleIcon.setIcon(loadIcon("icons/scale.png")); //$NON-NLS-1$
         scalePanel.add(scaleIcon, "1, 1"); //$NON-NLS-1$
 
-        JLabel scaleLabel = new JLabel("1 km"); //$NON-NLS-1$
+        scaleLabel = new JLabel("1 km"); //$NON-NLS-1$
         scalePanel.add(scaleLabel, "1, 2"); //$NON-NLS-1$
 
         JPanel coordPanel = new JPanel();
@@ -1093,6 +1094,7 @@ public class MainWindow extends JFrame {
                 latitudeTextField.setText("");
                 longitudeTextField.setText("");
             }
+            scaleLabel.setText(Double.toString(camera.getScale())); 
             // TODO: Other sutuff like asking Nomination for Details as soon as it is implemented
         }
 

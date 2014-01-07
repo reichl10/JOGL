@@ -30,7 +30,7 @@ public class OSMMapConfiguration implements MapConfiguration {
     
     @Override
     public TileLayout getOptimalTileLayout(Camera camera, Dimension screenSize) {
-        return new OSMTileLayout(OSMTileLayout.getOptimalzoomLevel(camera, screenSize.width/256));
+        return new OSMTileLayout(OSMTileLayout.getOptimalZoomLevel(camera, screenSize.width/256));
     }
     
     @Override
