@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
@@ -166,11 +167,11 @@ public class LocationManager {
      * Gets the details of a point with given {@link de.joglearth.geometry.ScreenCoordinates}. To
      * achieve that it asks the {@link de.joglearth.source.caching.RequestDistributor}.
      * 
-     * @param coordinates The <code>ScreenCoordinates</code> of the point
+     * @param coordinates The <code>GeoCoordinates</code> of the point
      * @return The <code>Location</code> with details that is located on the given point or a
      *         <code>Location</code> without details if the details are not yet loaded.
      */
-    public Location getDetails(ScreenCoordinates coordinates) {
+    public Location getDetails(GeoCoordinates coordinates) {
         NominatimQuery nominatimQuery = new NominatimQuery(NominatimQuery.Type.POINT);
         nominatimQuery.point = coordinates;
         SourceResponse<Collection<Location>> response = nominatimReqDistributor.requestObject(

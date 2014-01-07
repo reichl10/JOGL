@@ -28,7 +28,7 @@ public final class JoglEarth {
     /**
      * The current product version. Altered between releases.
      */
-    public static String PRODUCT_VERSION = "0.1";
+    public static String PRODUCT_VERSION = "0.3";
 
     
     public static void shutDown() {
