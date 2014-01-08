@@ -970,7 +970,7 @@ public class MainWindow extends JFrame {
                 paraMapTypeComboBox
                         .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.72"), //$NON-NLS-1$
-                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.MAPNIK))); //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.OSM_NOLABELS))); //$NON-NLS-1$
                 paraMapTypeComboBox
                         .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.4"), //$NON-NLS-1$
@@ -982,7 +982,7 @@ public class MainWindow extends JFrame {
                 paraMapTypeComboBox
                         .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.6"), //$NON-NLS-1$
-                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.SKIING))); //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.MAPNIK))); //$NON-NLS-1$
                 paraMapTypeComboBox
                         .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.7"), //$NON-NLS-1$
