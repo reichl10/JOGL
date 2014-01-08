@@ -256,18 +256,17 @@ public class MainWindow extends JFrame {
         sideBarHidePanel.addMouseListener(new HideSideBarListener());
         getContentPane().add(sideBarHidePanel, "2, 1, fill, fill"); //$NON-NLS-1$
         sideBarHidePanel.setLayout(new FormLayout(new ColumnSpec[] {
-                ColumnSpec.decode("default:grow"), //$NON-NLS-1$
-                ColumnSpec.decode("5px"), //$NON-NLS-1$
-                ColumnSpec.decode("default:grow"), }, //$NON-NLS-1$
-                new RowSpec[] { RowSpec.decode("4dlu:grow"), //$NON-NLS-1$
-                        RowSpec.decode("0dlu"), })); //$NON-NLS-1$
+                ColumnSpec.decode("10px"),},
+            new RowSpec[] {
+                RowSpec.decode("4dlu:grow"),})); //$NON-NLS-1$
 
         sideBarHideLinePanel = new JPanel();
         sideBarHideLinePanel.setBackground(Color.LIGHT_GRAY);
-        sideBarHidePanel.add(sideBarHideLinePanel, "2, 1, fill, fill"); //$NON-NLS-1$
-        sideBarHideLinePanel.setLayout(new FormLayout(
-                new ColumnSpec[] { ColumnSpec.decode("default:grow"), }, //$NON-NLS-1$
-                new RowSpec[] { RowSpec.decode("default:grow"), })); //$NON-NLS-1$
+        sideBarHidePanel.add(sideBarHideLinePanel, "1, 1, fill, fill"); //$NON-NLS-1$
+        sideBarHideLinePanel.setLayout(new FormLayout(new ColumnSpec[] {
+                ColumnSpec.decode("default:grow"),},
+            new RowSpec[] {
+                RowSpec.decode("default:grow"),})); //$NON-NLS-1$
 
         sidebarHideIconLabel = new JLabel(""); //$NON-NLS-1$
         sidebarHideIconLabel.setIcon(hideIcon);
