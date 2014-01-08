@@ -69,13 +69,13 @@ import de.joglearth.map.single.SingleMapType;
 import de.joglearth.opengl.Antialiasing;
 import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.GLEasel;
+import de.joglearth.opengl.TextureFilter;
 import de.joglearth.rendering.DisplayMode;
 import de.joglearth.rendering.LevelOfDetail;
 import de.joglearth.rendering.Renderer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
-import de.joglearth.opengl.TextureFilter;
 
 
 /**
@@ -125,7 +125,6 @@ public class MainWindow extends JFrame {
     private JLabel sidebarHideIconLabel;
     private JPanel sideBarHideLinePanel;
     private JPanel mapOptionsPanel;
-    private JComboBox<IconizedItem<MapConfiguration>> mapTypeComboBox;
     private JComboBox<IconizedItem<DisplayMode>> displayModeComboBox;
     private JPanel viewTab, placesTab, settingsTab, detailsPanel, viewPanel;
     private JCheckBox heightMapCheckBox;
@@ -342,7 +341,6 @@ public class MainWindow extends JFrame {
         mapOptionsPanel.add(mapTypeLabel, "1, 1"); //$NON-NLS-1$
 
         paraMapTypeComboBox = new JComboBox<IconizedItem<MapConfiguration>>();
-        mapTypeComboBox = paraMapTypeComboBox;
         mapOptionsPanel.add(paraMapTypeComboBox, "1, 3"); //$NON-NLS-1$
         paraMapTypeComboBox
                 .setRenderer(new IconListCellRenderer<IconizedItem<MapConfiguration>>());
