@@ -213,7 +213,7 @@ public class MainWindow extends JFrame {
         Settings.getInstance().addSettingsListener(SettingsContract.ANTIALIASING, settingsListener);
         getContentPane().setLayout(
                 new FormLayout(new ColumnSpec[] {
-                ColumnSpec.decode("right:140dlu"),
+                ColumnSpec.decode("right:160dlu"),
                 ColumnSpec.decode("15px"),
                 ColumnSpec.decode("default:grow"),},
             new RowSpec[] {
