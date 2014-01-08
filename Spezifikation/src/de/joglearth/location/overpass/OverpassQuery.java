@@ -11,23 +11,18 @@ import de.joglearth.location.LocationType;
 public class OverpassQuery {
 
     public Tile area;
-    public LocationType query;
-    
+    public LocationType type;
 
 
     /**
-<<<<<<< HEAD:Spezifikation/src/de/joglearth/location/overpass/OverpassQuery.java
-     * Constructor for a query in a given area. Assigns a value to a {@link de.joglearth.location.LocationType} and a
-     * {@link de.joglearth.geometry.Tile}.
-=======
      * Constructor for a query in a given area. Assigns a value to a
      * {@link de.joglearth.surface.LocationType} and a {@link de.joglearth.geometry.Tile}.
->>>>>>> tiles:Spezifikation/src/de/joglearth/source/overpass/OverpassQuery.java
      * 
-     * @param query The <code>LocationType</code> of the query
+     * @param type The <code>LocationType</code> of the query
      * @param area The <code>Tile</code> that determines where the query should be performed
      */
-    public OverpassQuery(LocationType query, Tile area) {
-
+    public OverpassQuery(LocationType type, Tile area) {
+        this.area = area;
+        this.type = type;
     }
 }
