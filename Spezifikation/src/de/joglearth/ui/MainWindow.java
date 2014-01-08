@@ -24,12 +24,18 @@ import java.util.Locale;
 
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
+import javax.swing.ComponentInputMap;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -41,6 +47,7 @@ import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -48,6 +55,7 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.ActionMapUIResource;
 
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -914,7 +922,23 @@ public class MainWindow extends JFrame {
                 }
             }
         });
-        
+        Action action = new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JoglEarth.shutDown();
+                MainWindow.this.dispose();
+            }
+        };
+        action.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control Q"));
+        ActionMap actionMap = new ActionMapUIResource();
+        actionMap.put("action_quit", action);
+        InputMap inputMap = new ComponentInputMap(rootPane);
+        inputMap.put(KeyStroke.getKeyStroke("control Q"), "action_quit");
+        SwingUtilities.replaceUIActionMap(rootPane, actionMap);
+        SwingUtilities.replaceUIInputMap(rootPane, JComponent.WHEN_IN_FOCUSED_WINDOW,
+                inputMap);
+
     }
 
     private void loadLanguage() {
@@ -1168,46 +1192,42 @@ public class MainWindow extends JFrame {
             super.mousePressed(e);
         }
     }
-    
+
     private class GLKeyboardListener extends KeyAdapter {
+
         @Override
         public void keyPressed(KeyEvent e) {
-                ScreenCoordinates lastPos = new ScreenCoordinates(0.5d, 0.5d);
-                GeoCoordinates lastGeo = camera.getGeoCoordinates(lastPos);
-                GeoCoordinates newGeo = null;
-                ScreenCoordinates newPos = null;
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_LEFT:
-                        newPos = new ScreenCoordinates(0.4d, 0.5d);
-                        newGeo = camera.getGeoCoordinates(newPos);
-                        break;
-                    case KeyEvent.VK_RIGHT:
-                        newPos = new ScreenCoordinates(0.6d, 0.5d);
-                        newGeo = camera.getGeoCoordinates(newPos);
-                        break;
-                    case KeyEvent.VK_UP:
-                        newPos = new ScreenCoordinates(0.5d, 0.4d);
-                        newGeo = camera.getGeoCoordinates(newPos);
-                        break;
-                    case KeyEvent.VK_DOWN:
-                        newPos = new ScreenCoordinates(0.5d, 0.6d);
-                        newGeo = camera.getGeoCoordinates(newPos);
-                        break;
-                    default:
-                        break;
-                }
-                
-                    double deltaLon = -signum(newPos.x - lastPos.x)
-                            * abs(newGeo.getLongitude() - lastGeo.getLongitude());
-                    double deltaLat = signum(newPos.y - lastPos.y)
-                            * abs(newGeo.getLatitude() - lastGeo.getLatitude());
-                    camera.move(deltaLon, deltaLat);
-                    /*TODO System.out.format(
-                            
-                            "Move: deltaX=%g,  deltaY=%g, deltaLon=%g, deltaLat=%g\n", newPos.x
-                                    - lastPos.x, newPos.y - lastPos.y, newGeo.getLongitude()
-                                    - lastGeo.getLongitude(),
-                            newGeo.getLatitude() - lastGeo.getLatitude());*/
+            ScreenCoordinates lastPos = new ScreenCoordinates(0.5d, 0.5d);
+            GeoCoordinates lastGeo = camera.getGeoCoordinates(lastPos);
+            GeoCoordinates newGeo = null;
+            ScreenCoordinates newPos = null;
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_LEFT:
+                    newPos = new ScreenCoordinates(0.4d, 0.5d);
+                    newGeo = camera.getGeoCoordinates(newPos);
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    newPos = new ScreenCoordinates(0.6d, 0.5d);
+                    newGeo = camera.getGeoCoordinates(newPos);
+                    break;
+                case KeyEvent.VK_UP:
+                    newPos = new ScreenCoordinates(0.5d, 0.4d);
+                    newGeo = camera.getGeoCoordinates(newPos);
+                    break;
+                case KeyEvent.VK_DOWN:
+                    newPos = new ScreenCoordinates(0.5d, 0.6d);
+                    newGeo = camera.getGeoCoordinates(newPos);
+                    break;
+                default:
+                    break;
+            }
+            if (newGeo != null) {
+                double deltaLon = -signum(newPos.x - lastPos.x)
+                        * abs(newGeo.getLongitude() - lastGeo.getLongitude());
+                double deltaLat = signum(newPos.y - lastPos.y)
+                        * abs(newGeo.getLatitude() - lastGeo.getLatitude());
+                camera.move(deltaLon, deltaLat);
+            }
             super.keyPressed(e);
         }
     }
