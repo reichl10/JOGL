@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -725,6 +727,8 @@ public class MainWindow extends JFrame {
         GlMouseListener l = new GlMouseListener();
         canvas.addMouseMotionListener(l);
         canvas.addMouseListener(l);
+        GLKeyboardListener keyboardListener = new GLKeyboardListener();
+        canvas.addKeyListener(keyboardListener);
     }
     
     private void initializeViewPanel() {
@@ -910,6 +914,7 @@ public class MainWindow extends JFrame {
                 }
             }
         });
+        
     }
 
     private void loadLanguage() {
@@ -1161,6 +1166,49 @@ public class MainWindow extends JFrame {
         public void mousePressed(MouseEvent e) {
             lastPos = getScreenCoordinates(e.getPoint());
             super.mousePressed(e);
+        }
+    }
+    
+    private class GLKeyboardListener extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+                ScreenCoordinates lastPos = new ScreenCoordinates(0.5d, 0.5d);
+                GeoCoordinates lastGeo = camera.getGeoCoordinates(lastPos);
+                GeoCoordinates newGeo = null;
+                ScreenCoordinates newPos = null;
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_LEFT:
+                        newPos = new ScreenCoordinates(0.4d, 0.5d);
+                        newGeo = camera.getGeoCoordinates(newPos);
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        newPos = new ScreenCoordinates(0.6d, 0.5d);
+                        newGeo = camera.getGeoCoordinates(newPos);
+                        break;
+                    case KeyEvent.VK_UP:
+                        newPos = new ScreenCoordinates(0.5d, 0.4d);
+                        newGeo = camera.getGeoCoordinates(newPos);
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        newPos = new ScreenCoordinates(0.5d, 0.6d);
+                        newGeo = camera.getGeoCoordinates(newPos);
+                        break;
+                    default:
+                        break;
+                }
+                
+                    double deltaLon = -signum(newPos.x - lastPos.x)
+                            * abs(newGeo.getLongitude() - lastGeo.getLongitude());
+                    double deltaLat = signum(newPos.y - lastPos.y)
+                            * abs(newGeo.getLatitude() - lastGeo.getLatitude());
+                    camera.move(deltaLon, deltaLat);
+                    /*TODO System.out.format(
+                            
+                            "Move: deltaX=%g,  deltaY=%g, deltaLon=%g, deltaLat=%g\n", newPos.x
+                                    - lastPos.x, newPos.y - lastPos.y, newGeo.getLongitude()
+                                    - lastGeo.getLongitude(),
+                            newGeo.getLatitude() - lastGeo.getLatitude());*/
+            super.keyPressed(e);
         }
     }
 
