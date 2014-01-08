@@ -422,14 +422,15 @@ public class MainWindow extends JFrame {
         placesTab.add(searchPanel, "2, 2, fill, fill"); //$NON-NLS-1$
         searchPanel.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-                ColumnSpec.decode("default:grow"), //$NON-NLS-1$
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC, }, new RowSpec[] {
+                ColumnSpec.decode("default:grow"),
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,},
+            new RowSpec[] {
                 FormFactory.NARROW_LINE_GAP_ROWSPEC,
-                RowSpec.decode("15dlu"), //$NON-NLS-1$
-                RowSpec.decode("12dlu"), //$NON-NLS-1$
+                RowSpec.decode("15dlu"),
+                RowSpec.decode("15dlu"),
                 FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.decode("default:grow"), //$NON-NLS-1$
-                FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
+                RowSpec.decode("default:grow"),
+                FormFactory.NARROW_LINE_GAP_ROWSPEC,}));
 
         JPanel searchQueryPanel = new JPanel();
         searchPanel.add(searchQueryPanel, "2, 2, fill, top"); //$NON-NLS-1$
@@ -446,7 +447,7 @@ public class MainWindow extends JFrame {
 
         JPanel panel = new JPanel();
         searchPanel.add(panel, "2, 3, fill, fill"); //$NON-NLS-1$
-        panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 2));
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 2));
 
         localSearchRadioButton = new JRadioButton(
                 Messages.getString("MainWindow.96")); //$NON-NLS-1$
