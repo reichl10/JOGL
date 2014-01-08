@@ -7,13 +7,12 @@ import java.util.Iterator;
 import java.util.Set;
 
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
 import de.joglearth.location.nominatim.NominatimManager;
 import de.joglearth.location.nominatim.NominatimQuery;
-import de.joglearth.location.nominatim.NominatimSource;
-import de.joglearth.location.overpass.OverpassSource;
+import de.joglearth.location.overpass.OverpassManager;
+import de.joglearth.location.overpass.OverpassQuery;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
@@ -42,6 +41,7 @@ public class LocationManager {
     private NominatimManager nominatimManager;
     private Collection<Location> lastSearchLocations;
     private RequestDistributor<NominatimQuery, Collection<Location>> nominatimReqDistributor;
+    private OverpassManager overpassManager = OverpassManager.getInstance();
     private Set<LocationType> activeLocationTypes;
 
 
@@ -104,6 +104,23 @@ public class LocationManager {
                 locations.add(location);
             }
         }
+        
+        for (Tile tile : area) {
+            for (LocationType lType : activeLocationTypes) {
+                OverpassQuery opQuery = new OverpassQuery(lType, tile);
+                SourceResponse<Collection<Location>> response = overpassManager.requestObject(opQuery, new SourceListener<OverpassQuery, Collection<Location>>() {
+
+                    @Override
+                    public void requestCompleted(OverpassQuery key, Collection<Location> value) {
+                        
+                    }});
+                
+                if (response.response == SourceResponseType.SYNCHRONOUS) {
+                    locations.addAll(response.value);
+                }
+            }
+        }
+        
         return locations;
     }
 
