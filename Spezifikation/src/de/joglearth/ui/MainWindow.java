@@ -24,12 +24,18 @@ import java.util.Locale;
 
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
+import javax.swing.ComponentInputMap;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -41,6 +47,7 @@ import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -48,6 +55,7 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.ActionMapUIResource;
 
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -205,7 +213,7 @@ public class MainWindow extends JFrame {
         Settings.getInstance().addSettingsListener(SettingsContract.ANTIALIASING, settingsListener);
         getContentPane().setLayout(
                 new FormLayout(new ColumnSpec[] {
-                ColumnSpec.decode("right:140dlu"),
+                ColumnSpec.decode("right:160dlu"),
                 ColumnSpec.decode("15px"),
                 ColumnSpec.decode("default:grow"),},
             new RowSpec[] {
@@ -248,18 +256,17 @@ public class MainWindow extends JFrame {
         sideBarHidePanel.addMouseListener(new HideSideBarListener());
         getContentPane().add(sideBarHidePanel, "2, 1, fill, fill"); //$NON-NLS-1$
         sideBarHidePanel.setLayout(new FormLayout(new ColumnSpec[] {
-                ColumnSpec.decode("default:grow"), //$NON-NLS-1$
-                ColumnSpec.decode("5px"), //$NON-NLS-1$
-                ColumnSpec.decode("default:grow"), }, //$NON-NLS-1$
-                new RowSpec[] { RowSpec.decode("4dlu:grow"), //$NON-NLS-1$
-                        RowSpec.decode("0dlu"), })); //$NON-NLS-1$
+                ColumnSpec.decode("10px"),},
+            new RowSpec[] {
+                RowSpec.decode("4dlu:grow"),})); //$NON-NLS-1$
 
         sideBarHideLinePanel = new JPanel();
         sideBarHideLinePanel.setBackground(Color.LIGHT_GRAY);
-        sideBarHidePanel.add(sideBarHideLinePanel, "2, 1, fill, fill"); //$NON-NLS-1$
-        sideBarHideLinePanel.setLayout(new FormLayout(
-                new ColumnSpec[] { ColumnSpec.decode("default:grow"), }, //$NON-NLS-1$
-                new RowSpec[] { RowSpec.decode("default:grow"), })); //$NON-NLS-1$
+        sideBarHidePanel.add(sideBarHideLinePanel, "1, 1, fill, fill"); //$NON-NLS-1$
+        sideBarHideLinePanel.setLayout(new FormLayout(new ColumnSpec[] {
+                ColumnSpec.decode("default:grow"),},
+            new RowSpec[] {
+                RowSpec.decode("default:grow"),})); //$NON-NLS-1$
 
         sidebarHideIconLabel = new JLabel(""); //$NON-NLS-1$
         sidebarHideIconLabel.setIcon(hideIcon);
@@ -415,14 +422,15 @@ public class MainWindow extends JFrame {
         placesTab.add(searchPanel, "2, 2, fill, fill"); //$NON-NLS-1$
         searchPanel.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-                ColumnSpec.decode("default:grow"), //$NON-NLS-1$
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC, }, new RowSpec[] {
+                ColumnSpec.decode("default:grow"),
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,},
+            new RowSpec[] {
                 FormFactory.NARROW_LINE_GAP_ROWSPEC,
-                RowSpec.decode("15dlu"), //$NON-NLS-1$
-                RowSpec.decode("12dlu"), //$NON-NLS-1$
+                RowSpec.decode("15dlu"),
+                RowSpec.decode("15dlu"),
                 FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.decode("default:grow"), //$NON-NLS-1$
-                FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
+                RowSpec.decode("default:grow"),
+                FormFactory.NARROW_LINE_GAP_ROWSPEC,}));
 
         JPanel searchQueryPanel = new JPanel();
         searchPanel.add(searchQueryPanel, "2, 2, fill, top"); //$NON-NLS-1$
@@ -439,7 +447,7 @@ public class MainWindow extends JFrame {
 
         JPanel panel = new JPanel();
         searchPanel.add(panel, "2, 3, fill, fill"); //$NON-NLS-1$
-        panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 2));
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 2));
 
         localSearchRadioButton = new JRadioButton(
                 Messages.getString("MainWindow.96")); //$NON-NLS-1$
@@ -914,7 +922,23 @@ public class MainWindow extends JFrame {
                 }
             }
         });
-        
+        Action action = new AbstractAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JoglEarth.shutDown();
+                MainWindow.this.dispose();
+            }
+        };
+        action.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control Q"));
+        ActionMap actionMap = new ActionMapUIResource();
+        actionMap.put("action_quit", action);
+        InputMap inputMap = new ComponentInputMap(rootPane);
+        inputMap.put(KeyStroke.getKeyStroke("control Q"), "action_quit");
+        SwingUtilities.replaceUIActionMap(rootPane, actionMap);
+        SwingUtilities.replaceUIInputMap(rootPane, JComponent.WHEN_IN_FOCUSED_WINDOW,
+                inputMap);
+
     }
 
     private void loadLanguage() {
@@ -946,7 +970,7 @@ public class MainWindow extends JFrame {
                 paraMapTypeComboBox
                         .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.72"), //$NON-NLS-1$
-                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.MAPNIK))); //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.OSM_NOLABELS))); //$NON-NLS-1$
                 paraMapTypeComboBox
                         .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.4"), //$NON-NLS-1$
@@ -958,7 +982,7 @@ public class MainWindow extends JFrame {
                 paraMapTypeComboBox
                         .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.6"), //$NON-NLS-1$
-                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.SKIING))); //$NON-NLS-1$
+                                loadIcon("icons/mapOSM.png"), new OSMMapConfiguration(OSMMapType.MAPNIK))); //$NON-NLS-1$
                 paraMapTypeComboBox
                         .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.7"), //$NON-NLS-1$
@@ -1168,46 +1192,42 @@ public class MainWindow extends JFrame {
             super.mousePressed(e);
         }
     }
-    
+
     private class GLKeyboardListener extends KeyAdapter {
+
         @Override
         public void keyPressed(KeyEvent e) {
-                ScreenCoordinates lastPos = new ScreenCoordinates(0.5d, 0.5d);
-                GeoCoordinates lastGeo = camera.getGeoCoordinates(lastPos);
-                GeoCoordinates newGeo = null;
-                ScreenCoordinates newPos = null;
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_LEFT:
-                        newPos = new ScreenCoordinates(0.4d, 0.5d);
-                        newGeo = camera.getGeoCoordinates(newPos);
-                        break;
-                    case KeyEvent.VK_RIGHT:
-                        newPos = new ScreenCoordinates(0.6d, 0.5d);
-                        newGeo = camera.getGeoCoordinates(newPos);
-                        break;
-                    case KeyEvent.VK_UP:
-                        newPos = new ScreenCoordinates(0.5d, 0.4d);
-                        newGeo = camera.getGeoCoordinates(newPos);
-                        break;
-                    case KeyEvent.VK_DOWN:
-                        newPos = new ScreenCoordinates(0.5d, 0.6d);
-                        newGeo = camera.getGeoCoordinates(newPos);
-                        break;
-                    default:
-                        break;
-                }
-                
-                    double deltaLon = -signum(newPos.x - lastPos.x)
-                            * abs(newGeo.getLongitude() - lastGeo.getLongitude());
-                    double deltaLat = signum(newPos.y - lastPos.y)
-                            * abs(newGeo.getLatitude() - lastGeo.getLatitude());
-                    camera.move(deltaLon, deltaLat);
-                    /*TODO System.out.format(
-                            
-                            "Move: deltaX=%g,  deltaY=%g, deltaLon=%g, deltaLat=%g\n", newPos.x
-                                    - lastPos.x, newPos.y - lastPos.y, newGeo.getLongitude()
-                                    - lastGeo.getLongitude(),
-                            newGeo.getLatitude() - lastGeo.getLatitude());*/
+            ScreenCoordinates lastPos = new ScreenCoordinates(0.5d, 0.5d);
+            GeoCoordinates lastGeo = camera.getGeoCoordinates(lastPos);
+            GeoCoordinates newGeo = null;
+            ScreenCoordinates newPos = null;
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_LEFT:
+                    newPos = new ScreenCoordinates(0.4d, 0.5d);
+                    newGeo = camera.getGeoCoordinates(newPos);
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    newPos = new ScreenCoordinates(0.6d, 0.5d);
+                    newGeo = camera.getGeoCoordinates(newPos);
+                    break;
+                case KeyEvent.VK_UP:
+                    newPos = new ScreenCoordinates(0.5d, 0.4d);
+                    newGeo = camera.getGeoCoordinates(newPos);
+                    break;
+                case KeyEvent.VK_DOWN:
+                    newPos = new ScreenCoordinates(0.5d, 0.6d);
+                    newGeo = camera.getGeoCoordinates(newPos);
+                    break;
+                default:
+                    break;
+            }
+            if (newGeo != null) {
+                double deltaLon = -signum(newPos.x - lastPos.x)
+                        * abs(newGeo.getLongitude() - lastGeo.getLongitude());
+                double deltaLat = signum(newPos.y - lastPos.y)
+                        * abs(newGeo.getLatitude() - lastGeo.getLatitude());
+                camera.move(deltaLon, deltaLat);
+            }
             super.keyPressed(e);
         }
     }

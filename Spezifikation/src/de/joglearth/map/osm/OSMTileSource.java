@@ -63,10 +63,6 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         serverSets.put(OSMMapType.MAPNIK, new ServerSet(new String[] {
                 "http://otile1.mqcdn.com/tiles/1.0.0/osm/",
                 "http://otile2.mqcdn.com/tiles/1.0.0/osm/" }));
-        
-        //TODO Kick out
-        serverSets.put(OSMMapType.SKIING, new ServerSet(new String[] {
-                "http://tiles.openpistemap.org/nocontours/" }));
     }
 
     @Override
