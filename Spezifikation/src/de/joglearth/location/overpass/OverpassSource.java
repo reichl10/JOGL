@@ -179,7 +179,7 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
         
         String osmId = xmlReader.getAttributeValue(null, "id");
         
-        Location current = info.reverseSearch(osmId, osmType);
+        Location current = info.reverseSearch(osmId, osmType, type);
         
 //        
 //        Double longitude = Double.valueOf(xmlReader.getAttributeValue(null, "lon"));

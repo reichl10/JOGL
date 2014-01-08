@@ -110,7 +110,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         byte[] httpRes = HTTP.get(url, getRequest);
         String xmlResponse = new String(httpRes);
 
-        ArrayList<Location> response = parseXml(xmlResponse);
+        ArrayList<Location> response = parseXml(xmlResponse, LocationType.SEARCH);
 
         return response;
     }
@@ -139,12 +139,12 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
         String xmlResponse = new String(httpRes);
 
-        ArrayList<Location> response = parseXml(xmlResponse);
+        ArrayList<Location> response = parseXml(xmlResponse, LocationType.SEARCH);
 
         return response;
     }
 
-    public Location reverseSearch(String osmId, String osmType) {
+    public Location reverseSearch(String osmId, String osmType, LocationType type) {
 
         System.out.println();
 
@@ -170,12 +170,12 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
         System.out.println(xmlResponse);
 
-        ArrayList<Location> response = parseXml(xmlResponse);
+        ArrayList<Location> response = parseXml(xmlResponse, type);
 
         return response.get(0);
     }
 
-    private ArrayList<Location> parseXml(String xml) {
+    private ArrayList<Location> parseXml(String xml, LocationType type) {
         ArrayList<Location> location = new ArrayList<Location>();
 
         // TODO Limit z.b. 10
@@ -192,12 +192,12 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
                     case START_ELEMENT:
                         if (xmlReader.getLocalName().equals(
                                 "searchresults")) {
-                            readLocations(xmlReader, location);
+                            readLocations(xmlReader, location, type);
                             xmlReader.require(END_ELEMENT, null,
                                     "searchresults");
                         } else if (xmlReader.getLocalName().equals(
                                 "reversegeocode")) {
-                            readLocations(xmlReader, location);
+                            readLocations(xmlReader, location, type);
                             xmlReader.require(END_ELEMENT, null,
                                     "reversegeocode");
                         }
@@ -220,7 +220,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         return location;
     }
 
-    private boolean readLocations(XMLStreamReader xmlReader, ArrayList<Location> location)
+    private boolean readLocations(XMLStreamReader xmlReader, ArrayList<Location> location, LocationType type)
             throws XMLStreamException {
         while (xmlReader.hasNext()) {
             int event = xmlReader.next();
@@ -229,9 +229,9 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
                     return false;
                 case START_ELEMENT:
                     if (xmlReader.getLocalName().equals(XML_ELEMENT_ENTRY)) {
-                        readEntry(xmlReader, location);
+                        readEntry(xmlReader, location, type);
                     } else if ( xmlReader.getLocalName().equals("result")) {
-                        readEntryReverse(xmlReader, location);
+                        readEntryReverse(xmlReader, location, type);
                     }
                     break;
                 case END_ELEMENT:
@@ -248,7 +248,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         return true;
     }
 
-    private boolean readEntry(XMLStreamReader xmlReader, ArrayList<Location> location) {
+    private boolean readEntry(XMLStreamReader xmlReader, ArrayList<Location> location, LocationType type) {
 
         Double longitude = Double.valueOf(xmlReader.getAttributeValue(null, "lon"));
         Double latitude = Double.valueOf(xmlReader.getAttributeValue(null, "lat"));
@@ -258,7 +258,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         GeoCoordinates point = new GeoCoordinates(longitude, latitude);
 
         // TODO LocationType für Suchergebnisse?!
-        Location current = new Location(point, LocationType.SEARCH, details, name[0]);
+        Location current = new Location(point, type, details, name[0]);
 
         location.add(current);
 
@@ -266,7 +266,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
     }
     
-    private boolean readEntryReverse(XMLStreamReader xmlReader, ArrayList<Location> location) throws XMLStreamException {
+    private boolean readEntryReverse(XMLStreamReader xmlReader, ArrayList<Location> location, LocationType type) throws XMLStreamException {
 
         Double longitude = Double.valueOf(xmlReader.getAttributeValue(null, "lon"));
         Double latitude = Double.valueOf(xmlReader.getAttributeValue(null, "lat"));
@@ -276,7 +276,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         GeoCoordinates point = new GeoCoordinates(longitude, latitude);
 
         // TODO LocationType für Suchergebnisse?!
-        Location current = new Location(point, LocationType.SEARCH, details, name[0]);
+        Location current = new Location(point, type, details, name[0]);
 
         location.add(current);
 
