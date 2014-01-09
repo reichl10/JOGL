@@ -586,7 +586,29 @@ public class MainWindow extends JFrame {
         checkboxToLocationTypeMap.put(box, LocationType.SEARCH);
         overlaysPanel.add(box);
         box.addItemListener(overlayListener);
+        SwingUtilities.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
+                buttonToLocationMap.clear();
+                userTagListPanel.removeAll();
+                Set<Location> uLocations = Settings.getInstance().getLocations(
+                        SettingsContract.USER_LOCATIONS);
+                for (final Location l : uLocations) {
+                    System.out.println("Name: " + l.name);
+                    JButton button = new JButton(l.name);
+                    button.addActionListener(new ActionListener() {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            camera.setPosition(l.point);
+                        }
+                    });
+                    buttonToLocationMap.put(button, l);
+                    userTagListPanel.add(button);
+                }
+            }
+        });
     }
     
 
