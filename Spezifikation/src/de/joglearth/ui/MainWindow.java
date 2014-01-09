@@ -128,6 +128,8 @@ public class MainWindow extends JFrame {
      */
     private static final int MIN_HEIGHT = 600;
 
+    private static final double SCALE_TILT = 0.3d;
+
     /**
      * Stores the reference to the <code>LocationManager</code> that it gets through the
      * Constructor.
@@ -198,6 +200,8 @@ public class MainWindow extends JFrame {
     private JPanel userTagListPanel;
     private JScrollPane scrollPane;
     private Map<JButton, Location> buttonToLocationMap = new HashMap<JButton, Location>();
+    private double cTiltX = 0.0d;
+    private double cTiltY = 0.0d;
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -473,15 +477,15 @@ public class MainWindow extends JFrame {
         userTagPanel.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
                 ColumnSpec.decode("default:grow"),
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,},
-            new RowSpec[] {
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,
-                RowSpec.decode("default:grow"),
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,}));
-        
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC, },
+                new RowSpec[] {
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                        RowSpec.decode("default:grow"),
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
+
         scrollPane = new JScrollPane();
         userTagPanel.add(scrollPane, "2, 2, fill, fill");
-        
+
         userTagListPanel = new JPanel();
         scrollPane.setViewportView(userTagListPanel);
         userTagListPanel.setLayout(new GridLayout(10, 0, 0, 0));
@@ -645,9 +649,9 @@ public class MainWindow extends JFrame {
         antialiasingComboBox.addItem(new NamedItem<Antialiasing>(Messages
                 .getString("MainWindow.130"), //$NON-NLS-1$
                 Antialiasing.MSAA_4X));
-        antialiasingComboBox.addItem(new NamedItem<Antialiasing>("8x MSAA", 
+        antialiasingComboBox.addItem(new NamedItem<Antialiasing>("8x MSAA",
                 Antialiasing.MSAA_8X));
-        antialiasingComboBox.addItem(new NamedItem<Antialiasing>("16x MSAA", 
+        antialiasingComboBox.addItem(new NamedItem<Antialiasing>("16x MSAA",
                 Antialiasing.MSAA_16X));
         antialiasingComboBox.addItemListener(new ItemListener() {
 
@@ -675,10 +679,14 @@ public class MainWindow extends JFrame {
         texfilterComboBox.addItem(new NamedItem<TextureFilter>(Messages
                 .getString("MainWindow.135"), TextureFilter.NEAREST)); //$NON-NLS-1$
         texfilterComboBox.addItem(new NamedItem<TextureFilter>("Bilinear", TextureFilter.BILINEAR)); //$NON-NLS-1$
-        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 2x", TextureFilter.ANISOTROPIC_2X));
-        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 4x", TextureFilter.ANISOTROPIC_4X));
-        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 8x", TextureFilter.ANISOTROPIC_8X));
-        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 16x", TextureFilter.ANISOTROPIC_16X));
+        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 2x",
+                TextureFilter.ANISOTROPIC_2X));
+        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 4x",
+                TextureFilter.ANISOTROPIC_4X));
+        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 8x",
+                TextureFilter.ANISOTROPIC_8X));
+        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 16x",
+                TextureFilter.ANISOTROPIC_16X));
         texfilterComboBox.addItemListener(new ItemListener() {
 
             @Override
@@ -917,28 +925,29 @@ public class MainWindow extends JFrame {
 
         latitudeTextField = new JTextField();
         latitudeTextField.addKeyListener(new KeyListener() {
-            
+
             @Override
             public void keyTyped(KeyEvent e) {
                 // TODO Auto-generated method stub
-                
+
             }
-            
+
             @Override
             public void keyReleased(KeyEvent e) {
                 // TODO Auto-generated method stub
-                
+
             }
-            
+
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_ENTER) {
                     System.out.println("Change By Lat");
-                    GeoCoordinates geo = GeoCoordinates.parseCoordinates(longitudeTextField.getText(), latitudeTextField.getText());
+                    GeoCoordinates geo = GeoCoordinates.parseCoordinates(
+                            longitudeTextField.getText(), latitudeTextField.getText());
                     camera.setPosition(geo);
                 }
-                
+
             }
         });
         coordPanel.add(latitudeTextField, "3, 1, fill, default"); //$NON-NLS-1$
@@ -953,28 +962,29 @@ public class MainWindow extends JFrame {
         longitudeTextField.setColumns(8);
         longitudeTextField.setHorizontalAlignment(JTextField.RIGHT);
         longitudeTextField.addKeyListener(new KeyListener() {
-            
+
             @Override
             public void keyTyped(KeyEvent e) {
                 // TODO Auto-generated method stub
-                
+
             }
-            
+
             @Override
             public void keyReleased(KeyEvent e) {
                 // TODO Auto-generated method stub
-                
+
             }
-            
+
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_ENTER) {
                     System.out.println("Change By Long");
-                    GeoCoordinates geo = GeoCoordinates.parseCoordinates(longitudeTextField.getText(), latitudeTextField.getText());
+                    GeoCoordinates geo = GeoCoordinates.parseCoordinates(
+                            longitudeTextField.getText(), latitudeTextField.getText());
                     camera.setPosition(geo);
                 }
-                
+
             }
         });
 
@@ -1096,7 +1106,8 @@ public class MainWindow extends JFrame {
         locationManager.addLocationListener(new UISearchResultListener(searchResultList));
         progressManager.addProgressListener(new UIProgressListener());
         userTagButton.addActionListener(new UsertagButtonListener());
-        Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS, new UIUserLocationListener());
+        Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS,
+                new UIUserLocationListener());
     }
 
     private void loadLanguage() {
@@ -1163,9 +1174,9 @@ public class MainWindow extends JFrame {
                 antialiasingComboBox.addItem(new NamedItem<Antialiasing>(
                         Messages.getString("MainWindow.130"), //$NON-NLS-1$
                         Antialiasing.MSAA_4X));
-                antialiasingComboBox.addItem(new NamedItem<Antialiasing>("8x MSAA", 
+                antialiasingComboBox.addItem(new NamedItem<Antialiasing>("8x MSAA",
                         Antialiasing.MSAA_8X));
-                antialiasingComboBox.addItem(new NamedItem<Antialiasing>("16x MSAA", 
+                antialiasingComboBox.addItem(new NamedItem<Antialiasing>("16x MSAA",
                         Antialiasing.MSAA_16X));
                 antialiasingComboBox.setSelectedIndex(index);
                 texfilterLabel.setText(Messages.getString("MainWindow.132")); //$NON-NLS-1$
@@ -1175,11 +1186,16 @@ public class MainWindow extends JFrame {
                         .getString("MainWindow.134"), TextureFilter.TRILINEAR)); //$NON-NLS-1$
                 texfilterComboBox.addItem(new NamedItem<TextureFilter>(Messages
                         .getString("MainWindow.135"), TextureFilter.NEAREST)); //$NON-NLS-1$
-                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Bilinear", TextureFilter.BILINEAR)); //$NON-NLS-1$
-                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 2x", TextureFilter.ANISOTROPIC_2X));
-                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 4x", TextureFilter.ANISOTROPIC_4X));
-                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 8x", TextureFilter.ANISOTROPIC_8X));
-                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 16x", TextureFilter.ANISOTROPIC_16X));
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>(
+                        "Bilinear", TextureFilter.BILINEAR)); //$NON-NLS-1$
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 2x",
+                        TextureFilter.ANISOTROPIC_2X));
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 4x",
+                        TextureFilter.ANISOTROPIC_4X));
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 8x",
+                        TextureFilter.ANISOTROPIC_8X));
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 16x",
+                        TextureFilter.ANISOTROPIC_16X));
                 texfilterComboBox.setSelectedIndex(index);
                 lodLabel.setText(Messages.getString("MainWindow.137")); //$NON-NLS-1$
                 index = lodComboBox_1.getSelectedIndex();
@@ -1340,25 +1356,26 @@ public class MainWindow extends JFrame {
         }
 
     }
-    
+
     private class UIUserLocationListener implements SettingsListener {
 
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
-            System.err.println("Got a UserLocation Change: "+key);
+            System.err.println("Got a UserLocation Change: " + key);
             if (key.equals(SettingsContract.USER_LOCATIONS)) {
                 SwingUtilities.invokeLater(new Runnable() {
-                    
+
                     @Override
                     public void run() {
                         buttonToLocationMap.clear();
                         userTagListPanel.removeAll();
-                        Set<Location> uLocations = Settings.getInstance().getLocations(SettingsContract.USER_LOCATIONS);
+                        Set<Location> uLocations = Settings.getInstance().getLocations(
+                                SettingsContract.USER_LOCATIONS);
                         for (final Location l : uLocations) {
-                            System.out.println("Name: "+l.name);
+                            System.out.println("Name: " + l.name);
                             JButton button = new JButton(l.name);
                             button.addActionListener(new ActionListener() {
-                                
+
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
                                     camera.setPosition(l.point);
@@ -1370,9 +1387,9 @@ public class MainWindow extends JFrame {
                     }
                 });
             }
-            
+
         }
-        
+
     }
 
     private class UIOverlaySelectionListener implements ItemListener {
@@ -1407,9 +1424,6 @@ public class MainWindow extends JFrame {
 
     private class GlMouseListener extends MouseAdapter {
 
-        double currentTiltX = 0.0d;
-        double currentTiltY = 0.0d;
-        private static final double SCALE_TILT = 0.3d;
         ScreenCoordinates lastPos;
 
 
@@ -1445,21 +1459,21 @@ public class MainWindow extends JFrame {
                 double diffY = newPos.x - lastPos.x;
                 double diffX = newPos.y - lastPos.y;
                 // -pi/2,pi/2
-                currentTiltX += (diffX * SCALE_TILT);
-                currentTiltY += (diffY * SCALE_TILT);
-                if (currentTiltX < -(Math.PI / 2)) {
-                    currentTiltX = -(Math.PI / 2);
+                cTiltX += (diffX * SCALE_TILT);
+                cTiltY += (diffY * SCALE_TILT);
+                if (cTiltX < -(Math.PI / 2)) {
+                    cTiltX = -(Math.PI / 2);
                 }
-                if (currentTiltY < -(Math.PI / 2)) {
-                    currentTiltY = -(Math.PI / 2);
+                if (cTiltY < -(Math.PI / 2)) {
+                    cTiltY = -(Math.PI / 2);
                 }
-                if (currentTiltX > (Math.PI / 2)) {
-                    currentTiltX = (Math.PI / 2);
+                if (cTiltX > (Math.PI / 2)) {
+                    cTiltX = (Math.PI / 2);
                 }
-                if (currentTiltY > (Math.PI / 2)) {
-                    currentTiltY = (Math.PI / 2);
+                if (cTiltY > (Math.PI / 2)) {
+                    cTiltY = (Math.PI / 2);
                 }
-                camera.setTilt(currentTiltX, currentTiltY);
+                camera.setTilt(cTiltX, cTiltY);
             }
             lastPos = newPos;
             super.mouseDragged(e);
@@ -1470,7 +1484,7 @@ public class MainWindow extends JFrame {
             lastPos = getScreenCoordinates(e.getPoint());
             super.mousePressed(e);
         }
-        
+
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() >= 2) {
@@ -1478,7 +1492,7 @@ public class MainWindow extends JFrame {
                 GeoCoordinates geoCoord = camera.getGeoCoordinates(screenCoord);
                 camera.setPosition(geoCoord);
             }
-                
+
             super.mouseClicked(e);
         }
     }
@@ -1491,24 +1505,67 @@ public class MainWindow extends JFrame {
             GeoCoordinates lastGeo = camera.getGeoCoordinates(lastPos);
             GeoCoordinates newGeo = null;
             ScreenCoordinates newPos = null;
+            boolean tiltChanged = false;
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
-                    newPos = new ScreenCoordinates(0.4d, 0.5d);
-                    newGeo = camera.getGeoCoordinates(newPos);
-                    break;
-                case KeyEvent.VK_RIGHT:
                     newPos = new ScreenCoordinates(0.6d, 0.5d);
                     newGeo = camera.getGeoCoordinates(newPos);
                     break;
-                case KeyEvent.VK_UP:
-                    newPos = new ScreenCoordinates(0.5d, 0.4d);
+                case KeyEvent.VK_RIGHT:
+                    newPos = new ScreenCoordinates(0.4d, 0.5d);
                     newGeo = camera.getGeoCoordinates(newPos);
                     break;
-                case KeyEvent.VK_DOWN:
+                case KeyEvent.VK_UP:
                     newPos = new ScreenCoordinates(0.5d, 0.6d);
                     newGeo = camera.getGeoCoordinates(newPos);
                     break;
+                case KeyEvent.VK_DOWN:
+                    newPos = new ScreenCoordinates(0.5d, 0.4d);
+                    newGeo = camera.getGeoCoordinates(newPos);
+                    break;
+                case KeyEvent.VK_PAGE_UP:
+                    cTiltX += 0.1;
+                    tiltChanged = true;
+                    break;
+                case KeyEvent.VK_PAGE_DOWN:
+                    cTiltX -= 0.1;
+                    tiltChanged = true;
+                    break;
+                case KeyEvent.VK_HOME:
+                    cTiltY += 0.1;
+                    tiltChanged = true;
+                    break;
+                case KeyEvent.VK_END:
+                    cTiltY -= 0.1;
+                    tiltChanged = true;
+                    break;
+                case KeyEvent.VK_0:
+                    cTiltY = 0.0d;
+                    cTiltX = 0.0d;
+                    tiltChanged = true;
+                    break;
+                case KeyEvent.VK_PLUS:
+                case KeyEvent.VK_ADD:
+                    SwingUtilities.invokeLater(new Runnable() {
+                        
+                        @Override
+                        public void run() {
+                            zoomSlider.setValue(zoomSlider.getValue()+1);
+                        }
+                    });
+                    break;
+                case KeyEvent.VK_MINUS:
+                case KeyEvent.VK_SUBTRACT:
+                    SwingUtilities.invokeLater(new Runnable() {
+                        
+                        @Override
+                        public void run() {
+                            zoomSlider.setValue(zoomSlider.getValue()-1);
+                        }
+                    });
+                    break;
                 default:
+                    System.out.println("KeyCode: "+e.getKeyCode());
                     break;
             }
             if (newGeo != null) {
@@ -1517,6 +1574,21 @@ public class MainWindow extends JFrame {
                 double deltaLat = signum(newPos.y - lastPos.y)
                         * abs(newGeo.getLatitude() - lastGeo.getLatitude());
                 camera.move(deltaLon, deltaLat);
+            }
+            if (tiltChanged) {
+                if (cTiltX < -(Math.PI / 2)) {
+                    cTiltX = -(Math.PI / 2);
+                }
+                if (cTiltY < -(Math.PI / 2)) {
+                    cTiltY = -(Math.PI / 2);
+                }
+                if (cTiltX > (Math.PI / 2)) {
+                    cTiltX = (Math.PI / 2);
+                }
+                if (cTiltY > (Math.PI / 2)) {
+                    cTiltY = (Math.PI / 2);
+                }
+                camera.setTilt(cTiltX, cTiltY);
             }
             super.keyPressed(e);
         }
@@ -1534,7 +1606,7 @@ public class MainWindow extends JFrame {
         @Override
         public void searchResultsAvailable(final Collection<Location> results) {
             SwingUtilities.invokeLater(new Runnable() {
-                
+
                 @Override
                 public void run() {
                     System.err.println("UISearchResultListener");
@@ -1542,7 +1614,7 @@ public class MainWindow extends JFrame {
                             .getModel();
                     model.clear();
                     for (Location l : results) {
-                        System.out.println("Add Element Details: "+l.details);
+                        System.out.println("Add Element Details: " + l.details);
                         model.addElement(l);
                     }
                 }
@@ -1619,10 +1691,10 @@ public class MainWindow extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.err.println("ActionPerformed! "+e.toString());
+            System.err.println("ActionPerformed! " + e.toString());
             final GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
             SwingUtilities.invokeLater(new Runnable() {
-                
+
                 @Override
                 public void run() {
                     Location loc = new Location(geo, LocationType.USER_TAG, "", "");
@@ -1654,7 +1726,7 @@ public class MainWindow extends JFrame {
         public void abortPendingRequests() {}
 
     }
-    
+
     private class LocationListCellRenderer extends JLabel implements ListCellRenderer<Location> {
 
         /**
@@ -1662,11 +1734,11 @@ public class MainWindow extends JFrame {
          */
         private static final long serialVersionUID = 1L;
 
-        
+
         public LocationListCellRenderer() {
             setOpaque(true);
         }
-        
+
         @Override
         public Component getListCellRendererComponent(JList<? extends Location> list,
                 Location value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -1675,12 +1747,12 @@ public class MainWindow extends JFrame {
                 setForeground(list.getSelectionForeground());
             } else {
                 setBackground(list.getBackground());
-               setForeground(list.getForeground());
+                setForeground(list.getForeground());
             }
             setText(value.details);
             return this;
         }
-        
+
     }
-    
+
 }
