@@ -17,6 +17,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -896,6 +897,31 @@ public class MainWindow extends JFrame {
         coordPanel.add(latitudeLabel, "1, 1, right, default"); //$NON-NLS-1$
 
         latitudeTextField = new JTextField();
+        latitudeTextField.addKeyListener(new KeyListener() {
+            
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int keyCode = e.getKeyCode();
+                if (keyCode == KeyEvent.VK_ENTER) {
+                    System.out.println("Change By Lat");
+                    GeoCoordinates geo = GeoCoordinates.parseCoordinates(longitudeTextField.getText(), latitudeTextField.getText());
+                    camera.setPosition(geo);
+                }
+                
+            }
+        });
         coordPanel.add(latitudeTextField, "3, 1, fill, default"); //$NON-NLS-1$
         latitudeTextField.setColumns(8);
         latitudeTextField.setHorizontalAlignment(JTextField.RIGHT);
@@ -907,6 +933,31 @@ public class MainWindow extends JFrame {
         coordPanel.add(longitudeTextField, "7, 1, fill, default"); //$NON-NLS-1$
         longitudeTextField.setColumns(8);
         longitudeTextField.setHorizontalAlignment(JTextField.RIGHT);
+        longitudeTextField.addKeyListener(new KeyListener() {
+            
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int keyCode = e.getKeyCode();
+                if (keyCode == KeyEvent.VK_ENTER) {
+                    System.out.println("Change By Long");
+                    GeoCoordinates geo = GeoCoordinates.parseCoordinates(longitudeTextField.getText(), latitudeTextField.getText());
+                    camera.setPosition(geo);
+                }
+                
+            }
+        });
 
         progressBar = new JProgressBar();
         statusBar.add(progressBar, "6, 1"); //$NON-NLS-1$
