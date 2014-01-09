@@ -473,10 +473,11 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     
     public void drawRectangle(ScreenCoordinates upperLeft, ScreenCoordinates lowerRight,
             Texture texture) {
+        
         float left = (float) upperLeft.x * 2 - 1,
-                top = (float) upperLeft.y *2 - 1,
+                top = (float) lowerRight.y *2 - 1,
                 right = (float) lowerRight.x * 2 - 1,
-                bottom = (float) lowerRight.y * 2 - 1;
+                bottom = (float) upperLeft.y * 2 - 1;
         
         float[] vertices = {
                 left, bottom, 0,

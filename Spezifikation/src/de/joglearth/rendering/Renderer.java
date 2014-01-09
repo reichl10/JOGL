@@ -171,47 +171,48 @@ public class Renderer {
                 Texture texture = textureManager.getTexture(tile);
                 VertexBuffer vbo = tileMeshManager.requestObject(tile, null).value;
                 gl.drawVertexBuffer(vbo, texture);
-            }/*
+            }
 
             gl.loadMatrix(GL_PROJECTION, new Matrix4());
             gl.loadMatrix(GL_MODELVIEW, new Matrix4());
             
-            TextRenderer textRenderer = new TextRenderer(new Font(Font.SANS_SERIF, 0, 10));
-            textRenderer.beginRendering(screenSize.width, screenSize.height);
+            //TextRenderer textRenderer = new TextRenderer(new Font(Font.SANS_SERIF, 0, 10));
+            //textRenderer.beginRendering(screenSize.width, screenSize.height);
             
             double xOffset = (double) ICON_SIZE / screenSize.width / 2,
                    yOffset = (double) ICON_SIZE / screenSize.height / 2;
             
                         
-            //Collection<Location> locations = locationManager.getActiveLocations(tiles);
+            Collection<Location> locations = locationManager.getActiveLocations(tiles);
             
-            Collection<Location> locations = new ArrayList<>();
-            locations.add(new Location(new GeoCoordinates(0, 0), LocationType.BANK, null, null));
+            //Collection<Location> locations = new ArrayList<>();
+            //locations.add(new Location(new GeoCoordinates(0, 0), LocationType.BANK, null, null));
             
             gl.setFeatureEnabled(GL_DEPTH_TEST, false);
             for (Location location : locations) {
-                Texture overlayTexture = overlayIconTextures.get(location.type);
-                ScreenCoordinates center = camera.getScreenCoordinates(location.point);
-                if (overlayTexture != null) {
-                    ScreenCoordinates
-                        upperLeft = new ScreenCoordinates(center.x - xOffset, center.y - yOffset),
-                        lowerRight = new ScreenCoordinates(center.x + xOffset, center.y + yOffset);
+                if (location.point != null && camera.isPointVisible(location.point)) {
+                    Texture overlayTexture = overlayIconTextures.get(location.type);
+                    ScreenCoordinates center = camera.getScreenCoordinates(location.point);
+                    if (overlayTexture != null) {
+                        ScreenCoordinates
+                            upperLeft = new ScreenCoordinates(center.x - xOffset, center.y - yOffset),
+                            lowerRight = new ScreenCoordinates(center.x + xOffset, center.y + yOffset);
+                        
+                        gl.drawRectangle(upperLeft, lowerRight, overlayTexture);
+                    }
                     
-                    gl.drawRectangle(upperLeft, lowerRight, overlayTexture);
-                }
-                
-                if (location.name != null && (location.type == LocationType.CITY 
-                        || location.type == LocationType.TOWN 
-                        || location.type == LocationType.VILLAGE)) {
-                    String text = location.name;
-                    Dimension textSize = textRenderer.getBounds(text).getBounds().getSize();                    
-                    textRenderer.draw(text, (int)(center.x * screenSize.width) + ICON_SIZE / 2 + 4, 
-                            (int)(center.y * screenSize.width) - textSize.height);
+                    /*if (location.name != null && (location.type == LocationType.CITY 
+                            || location.type == LocationType.TOWN 
+                            || location.type == LocationType.VILLAGE)) {
+                        String text = location.name;
+                        Dimension textSize = textRenderer.getBounds(text).getBounds().getSize();                    
+                        textRenderer.draw(text, (int)(center.x * screenSize.width) + ICON_SIZE / 2 + 4, 
+                                (int)(center.y * screenSize.width) - textSize.height);
+                    }*/
                 }
             }
             gl.setFeatureEnabled(GL_DEPTH_TEST, true);
-            textRenderer.endRendering();
-            */
+            //textRenderer.endRendering();
         }
     }
     
