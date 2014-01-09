@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
@@ -190,6 +191,8 @@ public class MainWindow extends JFrame {
     private Map<JCheckBox, LocationType> checkboxToLocationTypeMap = new HashMap<JCheckBox, LocationType>();
     private JProgressBar progressBar;
     private ProgressManager progressManager;
+    private JPanel userTagListPanel;
+    private JScrollPane scrollPane;
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -462,18 +465,19 @@ public class MainWindow extends JFrame {
         placesTab.add(userTagPanel, "2, 4, fill, fill"); //$NON-NLS-1$
         userTagPanel.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-                ColumnSpec.decode("default:grow"), //$NON-NLS-1$
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC, }, new RowSpec[] {
+                ColumnSpec.decode("default:grow"),
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,},
+            new RowSpec[] {
                 FormFactory.NARROW_LINE_GAP_ROWSPEC,
-                RowSpec.decode("default:grow"), //$NON-NLS-1$
-                FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
-
-        JScrollPane userTagScrollPane = new JScrollPane();
-        userTagScrollPane.setMinimumSize(new Dimension(0, 0));
-        userTagPanel.add(userTagScrollPane, "2, 2, fill, fill"); //$NON-NLS-1$
-
-        JList userTagList = new JList();
-        userTagScrollPane.setViewportView(userTagList);
+                RowSpec.decode("default:grow"),
+                FormFactory.NARROW_LINE_GAP_ROWSPEC,}));
+        
+        scrollPane = new JScrollPane();
+        userTagPanel.add(scrollPane, "2, 2, fill, fill");
+        
+        userTagListPanel = new JPanel();
+        scrollPane.setViewportView(userTagListPanel);
+        userTagListPanel.setLayout(new GridLayout(10, 0, 0, 0));
 
         overlayPanel = new JPanel();
         overlayPanel.setBorder(BorderFactory.createTitledBorder(Messages
@@ -1256,6 +1260,19 @@ public class MainWindow extends JFrame {
             }
         }
 
+    }
+    
+    private class UIUserLocationListener implements SettingsListener {
+
+        @Override
+        public void settingsChanged(String key, Object valOld, Object valNew) {
+            if (key.equals(SettingsContract.USER_LOCATIONS)) {
+                Set<Location> uLocations = Settings.getInstance().getLocations(SettingsContract.USER_LOCATIONS);
+                
+            }
+            
+        }
+        
     }
 
     private class UIOverlaySelectionListener implements ItemListener {
