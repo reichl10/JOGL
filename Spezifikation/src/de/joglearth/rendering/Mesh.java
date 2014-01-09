@@ -2,7 +2,6 @@ package de.joglearth.rendering;
 
 import java.util.Arrays;
 
-import javax.media.opengl.GL2;
 import static javax.media.opengl.GL2.*;
 
 
@@ -10,6 +9,7 @@ import static javax.media.opengl.GL2.*;
  * Container class to save vertices, normals and texture coordinates and other parameters to build a
  * tile.
  */
+// TODO do not use public attributes
 public final class Mesh {
 
     @Override

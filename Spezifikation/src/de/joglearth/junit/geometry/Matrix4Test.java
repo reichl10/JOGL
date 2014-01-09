@@ -52,7 +52,7 @@ public class Matrix4Test {
         double[] res = matrix4.doubles();
         /*
          * System.out.print("{"); for (int i = 0; i < res.length; i++) System.out.print(res[i]+",");
-         * System.out.println("}");
+         * //TODO System.out.println("}");
          */
         assertArrayEquals(result, matrix4.doubles(), 0.0001d);
     }
@@ -74,7 +74,7 @@ public class Matrix4Test {
 
         /*
          * System.out.print("{"); for (int i = 0; i < res.length; i++) System.out.print(res[i]+",");
-         * System.out.println("}");
+         * //TODO System.out.println("}");
          */
         assertArrayEquals(result, matrix4.doubles(), 0.0001d);
     }
@@ -232,7 +232,7 @@ public class Matrix4Test {
 
         /*
          * System.out.print("iverse {"); for (int i = 0; i < res.length; i++)
-         * System.out.print(res[i]+","); System.out.println("}");
+         * System.out.print(res[i]+","); //TODO System.out.println("}");
          */
         assertArrayEquals(result, res, 0.00000001d);
     }

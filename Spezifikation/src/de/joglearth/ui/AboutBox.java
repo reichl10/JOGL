@@ -1,14 +1,13 @@
 package de.joglearth.ui;
 
+import static de.joglearth.util.Resource.loadIcon;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -23,7 +22,6 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
 import de.joglearth.JoglEarth;
-import static de.joglearth.util.Resource.loadIcon;
 
 
 /**
@@ -112,7 +110,11 @@ public class AboutBox extends JDialog {
                 aboutTextArea = new JTextArea();
                 aboutScrollPane.setViewportView(aboutTextArea);
                 aboutTextArea
-                        .setText("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.");
+                        .setText(" Uni Passau - SEP WS13/14 \n JoglEarth \n Version: "
+                                + JoglEarth.PRODUCT_VERSION + " (Build: " +
+                                JoglEarth.PRODUCT_VERSION + ".4321.00) \n \n Entwicklerteam:\n Christof Blauberger, " +
+                                "Thomas Eder,\n Gabriele Haas, Fabian Knorr,\n Sebastian Reichl," +
+                                " Constantin Wenger");
                 aboutTextArea.setLineWrap(true);
                 aboutTextArea.setEditable(false);
             }

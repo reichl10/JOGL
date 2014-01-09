@@ -12,11 +12,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.rendering.AntialiasingType;
+import de.joglearth.location.Location;
+import de.joglearth.location.LocationType;
+import de.joglearth.opengl.Antialiasing;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
-import de.joglearth.surface.Location;
-import de.joglearth.surface.LocationType;
 
 
 public class SettingsTest {
@@ -49,8 +49,8 @@ public class SettingsTest {
         s.putBoolean(SettingsContract.TEXTURE_FILTER, true);
         assertEquals(true, s.getBoolean(SettingsContract.TEXTURE_FILTER));
 
-        s.putString(SettingsContract.ANTIALIASING, AntialiasingType.MSAA_2.name());
-        assertEquals(AntialiasingType.MSAA_2.name(), s.getString(SettingsContract.ANTIALIASING));
+        s.putString(SettingsContract.ANTIALIASING, Antialiasing.MSAA_2X.name());
+        assertEquals(Antialiasing.MSAA_2X.name(), s.getString(SettingsContract.ANTIALIASING));
 
         s.putLocation(SettingsContract.USER_LOCATIONS, TEST_LOCATION);
         Set<Location> locationSet = s.getLocations(SettingsContract.USER_LOCATIONS);

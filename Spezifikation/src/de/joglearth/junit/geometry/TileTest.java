@@ -6,15 +6,15 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.geometry.Tile;
+import de.joglearth.map.osm.OSMTile;
 
 
 public class TileTest {
 
     @Test
     public void test() {
-        Tile testTile1 = new Tile(3, 3, 5);
-        Tile testTile2 = new Tile(3, 3, 5);
+        OSMTile testTile1 = new OSMTile(3, 3, 5);
+        OSMTile testTile2 = new OSMTile(3, 3, 5);
         
         assertNotNull(testTile1);
 

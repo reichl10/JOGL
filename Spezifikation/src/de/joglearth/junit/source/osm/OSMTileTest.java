@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import de.joglearth.geometry.Tile;
-import de.joglearth.source.osm.OSMTile;
-import de.joglearth.surface.TiledMapType;
+import de.joglearth.map.osm.OSMMapType;
+import de.joglearth.source.osm.OSMTileName;
 
 
 public class OSMTileTest {
@@ -14,9 +14,9 @@ public class OSMTileTest {
     @Test
     public void testOSMTile() {
         Tile t = new Tile(3, 1, 1);
-        OSMTile ot = new OSMTile(t, TiledMapType.CYCLING);
+        OSMTileName ot = new OSMTileName(t, OSMMapType.CYCLING);
         assertEquals(t, ot.tile);
-        assertEquals(TiledMapType.CYCLING, ot.type);
+        assertEquals(OSMMapType.CYCLING, ot.type);
     }
 
 }

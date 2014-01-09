@@ -35,3 +35,19 @@ Renderer
 
 TileMeshSource
 + getTileSubdivisions, isHeightMapEnabled, getTessellator
+
+SRTMTile
+- Konstanten
+- getTile() erlaubt nur bestimmte lods
+
+TextureSource
+- Generisch
+
+TextureCache
+- Generisch
+
+TextureManager
+- Konstruktorargumente
+
+Camera
+- setHeightMapEnabled

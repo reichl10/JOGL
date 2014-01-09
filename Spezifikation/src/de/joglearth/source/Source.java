@@ -19,4 +19,6 @@ public interface Source<Key, Value> {
      *         <code>SYNCHRONOUS</code> or <code>MISSING</code>
      */
     SourceResponse<Value> requestObject(Key key, SourceListener<Key, Value> sender);
+    
+    void dispose();
 }

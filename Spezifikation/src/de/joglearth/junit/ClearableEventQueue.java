@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.lang.reflect.InvocationTargetException;
 
-import de.joglearth.util.AWTInvoker;
+import de.joglearth.async.AWTInvoker;
 
 
 /**

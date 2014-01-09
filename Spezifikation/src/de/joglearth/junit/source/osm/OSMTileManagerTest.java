@@ -1,16 +1,15 @@
 package de.joglearth.junit.source.osm;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
 import de.joglearth.geometry.Tile;
+import de.joglearth.map.osm.OSMMapType;
+import de.joglearth.map.osm.OSMTileManager;
 import de.joglearth.source.SourceListener;
-import de.joglearth.source.osm.OSMTile;
-import de.joglearth.source.osm.OSMTileManager;
-import de.joglearth.surface.TiledMapType;
+import de.joglearth.source.osm.OSMTileName;
 
 
 public class OSMTileManagerTest {
@@ -25,16 +24,16 @@ public class OSMTileManagerTest {
     public void testRequestObject() {
         OSMTileManager m = OSMTileManager.getInstance();
         TestSourceListener l = new TestSourceListener();
-        m.requestObject(new OSMTile(new Tile(2, 1, 1), TiledMapType.CYCLING), l);
+        m.requestObject(new OSMTileName(new Tile(2, 1, 1), OSMMapType.CYCLING), l);
         while(!l.gotAnswer);
         assertNotNull(l.tile);
     }
-    private class TestSourceListener implements SourceListener<OSMTile, byte[]> {
+    private class TestSourceListener implements SourceListener<OSMTileName, byte[]> {
         public byte[] tile;
         public boolean gotAnswer = false;
-        OSMTile t = new OSMTile(new Tile(2, 1, 1), TiledMapType.CYCLING);
+        OSMTileName t = new OSMTileName(new Tile(2, 1, 1), OSMMapType.CYCLING);
         @Override
-        public void requestCompleted(OSMTile key, byte[] value) {
+        public void requestCompleted(OSMTileName key, byte[] value) {
             assertEquals(t, key);
             gotAnswer = true;
         }

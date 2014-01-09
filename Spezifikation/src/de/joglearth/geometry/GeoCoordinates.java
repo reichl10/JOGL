@@ -88,9 +88,7 @@ public final class GeoCoordinates implements Cloneable {
         }
 
         assert matcher.groupCount() == 8;
-
-        for (int i = 0; i <= matcher.groupCount(); ++i)
-            System.out.println(matcher.group(i));
+        
         double deg = Double.parseDouble(matcher.group(1));
         if (matcher.group(3) != null) {
             deg += Double.parseDouble(matcher.group(3)) / 60;
