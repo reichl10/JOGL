@@ -76,6 +76,7 @@ public class LocationManager {
         } else {
             activeLocationTypes.remove(type);
         }
+        callSurfaceListeners(-Math.PI, -(Math.PI/2), Math.PI, Math.PI/2);
     }
 
     /**
