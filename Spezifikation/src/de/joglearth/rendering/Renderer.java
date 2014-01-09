@@ -242,10 +242,11 @@ public class Renderer {
     
     
     private void dispose() {
-        textureManager.dispose();
+        if (textureManager != null)
+            textureManager.dispose();
         textureManager = null;
-        
-        tileMeshManager.dispose();
+        if (tileMeshManager != null)
+            tileMeshManager.dispose();
         tileMeshManager = null;
 
         Settings.getInstance().removeSettingsListener(SettingsContract.TEXTURE_FILTER, 
