@@ -199,6 +199,7 @@ public class MainWindow extends JFrame {
     private ProgressManager progressManager;
     private JPanel userTagListPanel;
     private JScrollPane scrollPane;
+    private Map<JButton, Location> buttonToLocationMap = new HashMap<JButton, Location>();
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -1328,11 +1329,27 @@ public class MainWindow extends JFrame {
         public void settingsChanged(String key, Object valOld, Object valNew) {
             System.err.println("Got a UserLocation Change: "+key);
             if (key.equals(SettingsContract.USER_LOCATIONS)) {
-                Set<Location> uLocations = Settings.getInstance().getLocations(SettingsContract.USER_LOCATIONS);
-                for (Location l : uLocations) {
-                    System.out.println("Name: "+l.name);
-                    userTagListPanel.add(new Button(l.name));
-                }
+                SwingUtilities.invokeLater(new Runnable() {
+                    
+                    @Override
+                    public void run() {
+                        buttonToLocationMap.clear();
+                        Set<Location> uLocations = Settings.getInstance().getLocations(SettingsContract.USER_LOCATIONS);
+                        for (final Location l : uLocations) {
+                            System.out.println("Name: "+l.name);
+                            JButton button = new JButton(l.name);
+                            button.addActionListener(new ActionListener() {
+                                
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    camera.setPosition(l.point);
+                                }
+                            });
+                            buttonToLocationMap.put(button, l);
+                            userTagListPanel.add(button);
+                        }
+                    }
+                });
             }
             
         }
