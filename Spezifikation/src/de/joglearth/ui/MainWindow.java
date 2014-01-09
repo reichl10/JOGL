@@ -4,7 +4,6 @@ import static de.joglearth.util.Resource.loadIcon;
 import static java.lang.Math.abs;
 import static java.lang.Math.signum;
 
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -78,7 +77,6 @@ import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.CameraUtils;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.ScreenCoordinates;
-import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.height.flat.FlatHeightMap;
 import de.joglearth.height.srtm.SRTMHeightMap;
 import de.joglearth.location.Location;
