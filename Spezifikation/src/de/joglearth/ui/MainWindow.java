@@ -384,36 +384,6 @@ public class MainWindow extends JFrame {
         viewTab.add(logoLabel, "2, 8, center, bottom"); //$NON-NLS-1$
         logoLabel.setVerticalAlignment(SwingConstants.TOP);
         logoLabel.setIcon(loadIcon("icons/logo.png")); //$NON-NLS-1$
-        /*
-        paraMapTypeComboBox
-                .addItem(new IconizedItem<MapConfiguration>(
-                        Messages.getString("MainWindow.70"), //$NON-NLS-1$
-                        loadIcon("icons/mapSatellite.png"), new MapConfiguration(SingleMapType.SATELLITE))); //$NON-NLS-1$
-        paraMapTypeComboBox
-                .addItem(new IconizedItem<MapConfiguration>(
-                        Messages.getString("MainWindow.72"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapConfiguration(OSMMapType.MAPNIK))); //$NON-NLS-1$
-        paraMapTypeComboBox
-                .addItem(new IconizedItem<MapConfiguration>(
-                        Messages.getString("MainWindow.4"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapConfiguration(OSMMapType.CYCLING))); //$NON-NLS-1$
-        paraMapTypeComboBox
-                .addItem(new IconizedItem<MapConfiguration>(
-                        Messages.getString("MainWindow.5"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapConfiguration(OSMMapType.HIKING))); //$NON-NLS-1$
-        paraMapTypeComboBox
-                .addItem(new IconizedItem<MapConfiguration>(
-                        Messages.getString("MainWindow.6"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapConfiguration(OSMMapType.SKIING))); //$NON-NLS-1$
-        paraMapTypeComboBox
-                .addItem(new IconizedItem<MapConfiguration>(
-                        Messages.getString("MainWindow.7"), //$NON-NLS-1$
-                        loadIcon("icons/mapOSM.png"), new MapConfiguration(OSMMapType.OSM2WORLD))); //$NON-NLS-1$
-        paraMapTypeComboBox
-                .addItem(new IconizedItem<MapConfiguration>(
-                        Messages.getString("MainWindow.74"), //$NON-NLS-1$
-                        loadIcon("icons/mapChildren.png"), new MapConfiguration(SingleMapType.CHILDREN))); //$NON-NLS-1$
-*/
     }
 
     private void initializePlacesTab() {
@@ -1067,6 +1037,8 @@ public class MainWindow extends JFrame {
                         .getString("MainWindow.110"), TitledBorder.LEADING, //$NON-NLS-1$
                         TitledBorder.TOP, null, null));
                 int index = paraMapTypeComboBox.getSelectedIndex();
+                if (index == -1)
+                    index = 0;
                 paraMapTypeComboBox.removeAllItems();
                 paraMapTypeComboBox
                         .addItem(new IconizedItem<MapConfiguration>(
