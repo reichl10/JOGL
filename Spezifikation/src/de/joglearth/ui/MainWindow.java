@@ -93,6 +93,8 @@ import de.joglearth.rendering.Renderer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
+import de.joglearth.source.ProgressListener;
+import de.joglearth.source.ProgressManager;
 
 
 /**
@@ -186,6 +188,8 @@ public class MainWindow extends JFrame {
     private JPanel overlaysPanel;
     private JScrollPane overlayScrollPane;
     private Map<JCheckBox, LocationType> checkboxToLocationTypeMap = new HashMap<JCheckBox, LocationType>();
+    private JProgressBar progressBar;
+    private ProgressManager progressManager;
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -917,7 +921,7 @@ public class MainWindow extends JFrame {
         longitudeTextField.setColumns(8);
         longitudeTextField.setHorizontalAlignment(JTextField.RIGHT);
 
-        JProgressBar progressBar = new JProgressBar();
+        progressBar = new JProgressBar();
         statusBar.add(progressBar, "6, 1"); //$NON-NLS-1$
         progressBar.setStringPainted(true);
         progressBar.setValue(100);
@@ -1033,6 +1037,7 @@ public class MainWindow extends JFrame {
             }
         });
         locationManager.addLocationListener(new UILocationListener(searchResultList));
+        progressManager.addProgressListener(new UIProgressListener());
     }
 
     private void loadLanguage() {
@@ -1220,6 +1225,7 @@ public class MainWindow extends JFrame {
      */
     public MainWindow(final LocationManager locationManager) {
         this.locationManager = locationManager;
+        progressManager = ProgressManager.getInstance();
         String lang = Settings.getInstance().getString(
                 SettingsContract.LANGUAGE);
         // TODO System.err.println("LangSetting At Start:" + lang);
@@ -1505,15 +1511,6 @@ public class MainWindow extends JFrame {
         }
     }
 
-    private class RemoveUsertagButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // TODO Auto-generated method stub
-
-        }
-    }
-
     private class UIWindowListener extends WindowAdapter {
 
         @Override
@@ -1521,5 +1518,18 @@ public class MainWindow extends JFrame {
             super.windowClosed(e);
             JoglEarth.shutDown();
         }
+    }
+
+    private class UIProgressListener implements ProgressListener {
+
+        @Override
+        public void updateProgress(double prog) {
+            System.err.println("Progress Upade: " + prog);
+            progressBar.setValue((int) (100 * prog));
+        }
+
+        @Override
+        public void abortPendingRequests() {}
+
     }
 }
