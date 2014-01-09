@@ -25,6 +25,7 @@ import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.height.HeightMap;
+import de.joglearth.height.flat.FlatHeightMap;
 import de.joglearth.location.Location;
 import de.joglearth.location.LocationManager;
 import de.joglearth.location.LocationType;
@@ -73,6 +74,7 @@ public class Renderer {
     }
     
     private InitState initState;
+    private HeightMap heightMap = FlatHeightMap.getInstance();
 
     /**
      * Constructor initializes the OpenGL functionalities.
@@ -469,8 +471,15 @@ public class Renderer {
         gl.postRedisplay();
     }
     
+    /**
+     * Sets {@link HeightMap} for further tiles.
+     * @param hm The HeighMap
+     */
     public void setHeightMap(HeightMap hm) {
-        
+        if (!hm.equals(heightMap)) {
+            heightMap = hm;
+            tileMeshManager.setHeightMap(hm);
+        }
     }
 
 }

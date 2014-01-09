@@ -377,13 +377,18 @@ public class MainWindow extends JFrame {
         heightMapCheckBox = new JCheckBox(Messages.getString("MainWindow.65")); //$NON-NLS-1$
         heightMapCheckBox.addChangeListener(new ChangeListener() {
 
+            private boolean lastSelected = false;
+
             @Override
             public void stateChanged(ChangeEvent e) {
                 JCheckBox box = (JCheckBox) e.getSource();
-                if (box.isSelected()) {
-                    renderer.setHeightMap(SRTMHeightMap.getInstance());
-                } else {
-                    renderer.setHeightMap(FlatHeightMap.getInstance());
+                if (box.isSelected() != lastSelected ) {
+                    if (box.isSelected()) {
+                        renderer.setHeightMap(SRTMHeightMap.getInstance());
+                    } else {
+                        renderer.setHeightMap(FlatHeightMap.getInstance());
+                    }
+                    lastSelected = box.isSelected();
                 }
             }
         });

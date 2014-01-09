@@ -109,8 +109,6 @@ public class ProgressManager {
     public synchronized void requestCompleted() {
         if (pending > 0) {
             --pending;
-        } else if (pending == 0) {
-            maxPending = 0;
         } else {
             //TODO: Request completed wird ausgeführt aber pending = 0. Error Exception...
             pending = 0;
