@@ -505,59 +505,79 @@ public class MainWindow extends JFrame {
         overlaysPanel = new JPanel();
         overlayScrollPane.setViewportView(overlaysPanel);
 
+        UIOverlaySelectionListener overlayListener = new UIOverlaySelectionListener();
+        
         JCheckBox box = new JCheckBox(Messages.getString("MainWindow.restaurant")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.RESTAURANT);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.nightlife")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.NIGHTLIFE);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.bank")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.BANK);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.toilets")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.TOILETS);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.grocery_store")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.GROCERY_SHOPS);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.shops")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.SHOPS);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.activity")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.ACTIVITY);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.hiking_and_cycling")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.HIKING_AND_CYCLING);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.education")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.EDUCATION);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.health")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.HEALTH);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.post")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.POST);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.hotels")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.HOTELS);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.city")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.CITY);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.town")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.TOWN);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.village")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.VILLAGE);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.user_tags")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.USER_TAG);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.search")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.SEARCH);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
 
     }
+    
 
     private void initializeSettingsTab() {
         settingsTab

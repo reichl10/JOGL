@@ -184,7 +184,8 @@ public class Renderer {
             
                         
             Collection<Location> locations = locationManager.getActiveLocations(tiles);
-            
+            System.out.println(locations);
+            System.out.println();
             //Collection<Location> locations = new ArrayList<>();
             //locations.add(new Location(new GeoCoordinates(0, 0), LocationType.BANK, null, null));
             
