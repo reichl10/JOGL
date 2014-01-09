@@ -106,6 +106,7 @@ public class LocationEditDialog extends JDialog {
                 loc.details = descriptionTextField.getText();
                 loc.name = nameTextField.getText();
                 loc.type = LocationType.USER_TAG;
+                dispose();
             }
         });
         buttonPane.add(okButton);
