@@ -18,6 +18,8 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import de.joglearth.location.Location;
 import de.joglearth.location.LocationType;
+import de.joglearth.settings.Settings;
+import de.joglearth.settings.SettingsContract;
 
 
 /**
@@ -106,6 +108,7 @@ public class LocationEditDialog extends JDialog {
                 loc.details = descriptionTextField.getText();
                 loc.name = nameTextField.getText();
                 loc.type = LocationType.USER_TAG;
+                Settings.getInstance().putLocation(SettingsContract.USER_LOCATIONS, loc);
                 dispose();
             }
         });

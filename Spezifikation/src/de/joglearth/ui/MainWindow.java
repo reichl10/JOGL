@@ -4,7 +4,9 @@ import static de.joglearth.util.Resource.loadIcon;
 import static java.lang.Math.abs;
 import static java.lang.Math.signum;
 
+import java.awt.Button;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -15,6 +17,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -54,6 +57,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.ListCellRenderer;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -195,6 +199,7 @@ public class MainWindow extends JFrame {
     private ProgressManager progressManager;
     private JPanel userTagListPanel;
     private JScrollPane scrollPane;
+    private Map<JButton, Location> buttonToLocationMap = new HashMap<JButton, Location>();
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -460,6 +465,7 @@ public class MainWindow extends JFrame {
 
         searchResultList = new JList<Location>(
                 new DefaultListModel<Location>());
+        searchResultList.setCellRenderer(new LocationListCellRenderer());
         searchResultScrollPane.setViewportView(searchResultList);
 
         userTagPanel = new JPanel();
@@ -892,6 +898,31 @@ public class MainWindow extends JFrame {
         coordPanel.add(latitudeLabel, "1, 1, right, default"); //$NON-NLS-1$
 
         latitudeTextField = new JTextField();
+        latitudeTextField.addKeyListener(new KeyListener() {
+            
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int keyCode = e.getKeyCode();
+                if (keyCode == KeyEvent.VK_ENTER) {
+                    System.out.println("Change By Lat");
+                    GeoCoordinates geo = GeoCoordinates.parseCoordinates(longitudeTextField.getText(), latitudeTextField.getText());
+                    camera.setPosition(geo);
+                }
+                
+            }
+        });
         coordPanel.add(latitudeTextField, "3, 1, fill, default"); //$NON-NLS-1$
         latitudeTextField.setColumns(8);
         latitudeTextField.setHorizontalAlignment(JTextField.RIGHT);
@@ -903,6 +934,31 @@ public class MainWindow extends JFrame {
         coordPanel.add(longitudeTextField, "7, 1, fill, default"); //$NON-NLS-1$
         longitudeTextField.setColumns(8);
         longitudeTextField.setHorizontalAlignment(JTextField.RIGHT);
+        longitudeTextField.addKeyListener(new KeyListener() {
+            
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int keyCode = e.getKeyCode();
+                if (keyCode == KeyEvent.VK_ENTER) {
+                    System.out.println("Change By Long");
+                    GeoCoordinates geo = GeoCoordinates.parseCoordinates(longitudeTextField.getText(), latitudeTextField.getText());
+                    camera.setPosition(geo);
+                }
+                
+            }
+        });
 
         progressBar = new JProgressBar();
         statusBar.add(progressBar, "6, 1"); //$NON-NLS-1$
@@ -1022,6 +1078,7 @@ public class MainWindow extends JFrame {
         locationManager.addLocationListener(new UILocationListener(searchResultList));
         progressManager.addProgressListener(new UIProgressListener());
         userTagButton.addActionListener(new UsertagButtonListener());
+        Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS, new UIUserLocationListener());
     }
 
     private void loadLanguage() {
@@ -1270,9 +1327,29 @@ public class MainWindow extends JFrame {
 
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
+            System.err.println("Got a UserLocation Change: "+key);
             if (key.equals(SettingsContract.USER_LOCATIONS)) {
-                Set<Location> uLocations = Settings.getInstance().getLocations(SettingsContract.USER_LOCATIONS);
-                
+                SwingUtilities.invokeLater(new Runnable() {
+                    
+                    @Override
+                    public void run() {
+                        buttonToLocationMap.clear();
+                        Set<Location> uLocations = Settings.getInstance().getLocations(SettingsContract.USER_LOCATIONS);
+                        for (final Location l : uLocations) {
+                            System.out.println("Name: "+l.name);
+                            JButton button = new JButton(l.name);
+                            button.addActionListener(new ActionListener() {
+                                
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    camera.setPosition(l.point);
+                                }
+                            });
+                            buttonToLocationMap.put(button, l);
+                            userTagListPanel.add(button);
+                        }
+                    }
+                });
             }
             
         }
@@ -1374,6 +1451,17 @@ public class MainWindow extends JFrame {
             lastPos = getScreenCoordinates(e.getPoint());
             super.mousePressed(e);
         }
+        
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() >= 2) {
+                ScreenCoordinates screenCoord = getScreenCoordinates(e.getPoint());
+                GeoCoordinates geoCoord = camera.getGeoCoordinates(screenCoord);
+                camera.setPosition(geoCoord);
+            }
+                
+            super.mouseClicked(e);
+        }
     }
 
     private class GLKeyboardListener extends KeyAdapter {
@@ -1426,23 +1514,14 @@ public class MainWindow extends JFrame {
 
         @Override
         public void searchResultsAvailable(Collection<Location> results) {
+            System.err.println("UILocationListener");
             DefaultListModel<Location> model = (DefaultListModel<Location>) list
                     .getModel();
             model.clear();
             for (Location l : results) {
+                System.out.println("Add Element Details: "+l.details);
                 model.addElement(l);
             }
-        }
-
-    }
-
-    private class UISurfaceListener implements SurfaceListener {
-
-        @Override
-        public void surfaceChanged(double lonFrom, double latFrom,
-                double lonTo, double latTo) {
-            // TODO: Do I really care about this?
-
         }
 
     }
@@ -1523,7 +1602,6 @@ public class MainWindow extends JFrame {
                     Location loc = new Location(geo, LocationType.USER_TAG, "", "");
                     LocationEditDialog dial = new LocationEditDialog(loc);
                     dial.setVisible(true);
-                    Settings.getInstance().putLocation(SettingsContract.USER_LOCATIONS, loc);
                 }
             });
         }
@@ -1550,4 +1628,31 @@ public class MainWindow extends JFrame {
         public void abortPendingRequests() {}
 
     }
+    
+    private class LocationListCellRenderer extends JLabel implements ListCellRenderer<Location> {
+
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public Component getListCellRendererComponent(JList<? extends Location> list,
+                Location value, int index, boolean isSelected, boolean cellHasFocus) {
+            System.err.println("Render: "+value.details);
+            
+            if (isSelected) {
+                this.setBackground(list.getSelectionBackground());
+                this.setForeground(list.getSelectionForeground());
+            } else {
+                this.setBackground(list.getBackground());
+                this.setForeground(list.getForeground());
+            }
+            //this.setForeground(Color.BLACK);
+            this.setText(value.details);
+            return this;
+        }
+        
+    }
+    
 }
