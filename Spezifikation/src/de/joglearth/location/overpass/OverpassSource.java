@@ -23,6 +23,7 @@ import de.joglearth.geometry.Tile;
 import de.joglearth.location.Location;
 import de.joglearth.location.LocationType;
 import de.joglearth.location.nominatim.NominatimSource;
+import de.joglearth.source.ProgressManager;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
@@ -74,6 +75,8 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
         if (!(locationRequest.containsKey(key.type))) {
             return new SourceResponse<Collection<Location>>(SourceResponseType.MISSING, null);
         }
+        
+        ProgressManager.getInstance().requestArrived();
 
         executor.execute(new Runnable() {
 
@@ -81,7 +84,8 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
             public void run() {
                   
                 Collection<Location> response = getLocations(key);
-                sender.requestCompleted(key, response);      
+                sender.requestCompleted(key, response);
+                ProgressManager.getInstance().requestCompleted();
             }
         });
 

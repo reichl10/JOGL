@@ -9,6 +9,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import de.joglearth.map.TileName;
+import de.joglearth.source.ProgressManager;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
@@ -74,6 +75,8 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         if (!(k.tile instanceof OSMTile) || !(k.configuration instanceof OSMMapConfiguration)) {
             return new SourceResponse<byte[]>(SourceResponseType.MISSING, null);
         }
+        
+        ProgressManager.getInstance().requestArrived();
 
         executor.execute(new Runnable() {
 
@@ -83,6 +86,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
                         ((OSMMapConfiguration) k.configuration).getMapType());
 
                 sender.requestCompleted(k, response);
+                ProgressManager.getInstance().requestCompleted();
             }
         });
 

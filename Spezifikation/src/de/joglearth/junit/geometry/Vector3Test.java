@@ -34,7 +34,7 @@ public class Vector3Test {
         Vector3 vector2 = new Vector3(0.5424d, 0.231d, 17.74d);
         Vector3 result = vector1.to(vector2);
         double[] resultArray = {result.x, result.y, result.z};
-        double[] expected = {-0.4424, -0.031, -17.44};
+        double[] expected = {0.4424, 0.031, 17.44};
         assertArrayEquals(expected, resultArray, 0.0000001d);
     }
 

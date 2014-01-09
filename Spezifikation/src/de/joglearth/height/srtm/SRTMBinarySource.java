@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 
+import de.joglearth.source.ProgressManager;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
@@ -43,6 +44,8 @@ public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
         if (key == null) {
             throw new IllegalArgumentException();
         }
+        
+        ProgressManager.getInstance().requestArrived();
 
         String region = tileRegionMap.get(key.toString());
         if (region == null) {
@@ -65,6 +68,7 @@ public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
                 //}
 
                 sender.requestCompleted(key, zipBytes);
+                ProgressManager.getInstance().requestCompleted();
             }
         });
 
