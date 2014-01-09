@@ -22,6 +22,7 @@ import de.joglearth.location.Location;
 import de.joglearth.location.LocationType;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
+import de.joglearth.source.ProgressManager;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
@@ -55,6 +56,8 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         if (!(key instanceof NominatimQuery)) {
             return new SourceResponse<Collection<Location>>(SourceResponseType.MISSING, null);
         }
+        
+        ProgressManager.getInstance().requestArrived();
 
         executor.execute(new Runnable() {
 
@@ -69,6 +72,8 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
                 }
 
                 sender.requestCompleted(key, response);
+                
+                ProgressManager.getInstance().requestCompleted();
             }
         });
 
