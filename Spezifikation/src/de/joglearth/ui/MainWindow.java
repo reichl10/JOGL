@@ -1018,6 +1018,7 @@ public class MainWindow extends JFrame {
         });
         locationManager.addLocationListener(new UILocationListener(searchResultList));
         progressManager.addProgressListener(new UIProgressListener());
+        userTagButton.addActionListener(new UsertagButtonListener());
     }
 
     private void loadLanguage() {
