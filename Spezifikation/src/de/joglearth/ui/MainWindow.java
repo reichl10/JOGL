@@ -4,7 +4,9 @@ import static de.joglearth.util.Resource.loadIcon;
 import static java.lang.Math.abs;
 import static java.lang.Math.signum;
 
+import java.awt.Button;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -54,6 +56,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.ListCellRenderer;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -460,6 +463,7 @@ public class MainWindow extends JFrame {
 
         searchResultList = new JList<Location>(
                 new DefaultListModel<Location>());
+        searchResultList.setCellRenderer(new LocationListCellRenderer());
         searchResultScrollPane.setViewportView(searchResultList);
 
         userTagPanel = new JPanel();
@@ -1022,6 +1026,7 @@ public class MainWindow extends JFrame {
         locationManager.addLocationListener(new UILocationListener(searchResultList));
         progressManager.addProgressListener(new UIProgressListener());
         userTagButton.addActionListener(new UsertagButtonListener());
+        Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS, new UIUserLocationListener());
     }
 
     private void loadLanguage() {
@@ -1270,9 +1275,13 @@ public class MainWindow extends JFrame {
 
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
+            System.err.println("Got a UserLocation Change: "+key);
             if (key.equals(SettingsContract.USER_LOCATIONS)) {
                 Set<Location> uLocations = Settings.getInstance().getLocations(SettingsContract.USER_LOCATIONS);
-                
+                for (Location l : uLocations) {
+                    System.out.println("Name: "+l.name);
+                    userTagListPanel.add(new Button(l.name));
+                }
             }
             
         }
@@ -1426,23 +1435,14 @@ public class MainWindow extends JFrame {
 
         @Override
         public void searchResultsAvailable(Collection<Location> results) {
+            System.err.println("UILocationListener");
             DefaultListModel<Location> model = (DefaultListModel<Location>) list
                     .getModel();
             model.clear();
             for (Location l : results) {
+                System.out.println("Add Element Details: "+l.details);
                 model.addElement(l);
             }
-        }
-
-    }
-
-    private class UISurfaceListener implements SurfaceListener {
-
-        @Override
-        public void surfaceChanged(double lonFrom, double latFrom,
-                double lonTo, double latTo) {
-            // TODO: Do I really care about this?
-
         }
 
     }
@@ -1523,7 +1523,6 @@ public class MainWindow extends JFrame {
                     Location loc = new Location(geo, LocationType.USER_TAG, "", "");
                     LocationEditDialog dial = new LocationEditDialog(loc);
                     dial.setVisible(true);
-                    Settings.getInstance().putLocation(SettingsContract.USER_LOCATIONS, loc);
                 }
             });
         }
@@ -1550,4 +1549,31 @@ public class MainWindow extends JFrame {
         public void abortPendingRequests() {}
 
     }
+    
+    private class LocationListCellRenderer extends JLabel implements ListCellRenderer<Location> {
+
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public Component getListCellRendererComponent(JList<? extends Location> list,
+                Location value, int index, boolean isSelected, boolean cellHasFocus) {
+            System.err.println("Render: "+value.details);
+            
+            if (isSelected) {
+                this.setBackground(list.getSelectionBackground());
+                this.setForeground(list.getSelectionForeground());
+            } else {
+                this.setBackground(list.getBackground());
+                this.setForeground(list.getForeground());
+            }
+            //this.setForeground(Color.BLACK);
+            this.setText(value.details);
+            return this;
+        }
+        
+    }
+    
 }
