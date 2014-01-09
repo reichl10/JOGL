@@ -51,3 +51,6 @@ TextureManager
 
 Camera
 - setHeightMapEnabled
+
+UI:
++ Messages Klasse
