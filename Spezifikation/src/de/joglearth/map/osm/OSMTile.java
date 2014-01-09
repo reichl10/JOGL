@@ -49,15 +49,7 @@ public final class OSMTile extends AbstractTile {
 
     // Returns the angle for the step given, in radians
     private double getLongitudeAngle(int steps) {
-        if (zoomLevel > 0) {
-            double angle = pow(0.5, zoomLevel) * steps % 1 * 2 * PI;
-            if (angle > PI) {
-                angle -= 2 * PI;
-            }
-            return angle;
-        } else {
-            return (-1+2*steps)*PI;
-        }
+        return ((double) steps) / (1 << zoomLevel) * 2*PI - PI;
     }
     
     // Returns the angle for the step given, in radians
@@ -118,11 +110,6 @@ public final class OSMTile extends AbstractTile {
                 + latIndex + ", longitudeFrom()=" + getLongitudeFrom() + ", longitudeTo()="
                 + getLongitudeTo() + ", latitudeFrom()=" + getLatitudeFrom() + ", latitudeTo()="
                 + getLatitudeTo() + "]";
-    }
-    
-    public static void main(String[] args) {
-        OSMTileLayout l = new OSMTileLayout(3);
-        System.out.println(l.getContainingTile(new GeoCoordinates(0.1,  0.1)));
     }
     
 }

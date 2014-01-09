@@ -75,6 +75,8 @@ import de.joglearth.geometry.CameraUtils;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.SurfaceListener;
+import de.joglearth.height.flat.FlatHeightMap;
+import de.joglearth.height.srtm.SRTMHeightMap;
 import de.joglearth.location.Location;
 import de.joglearth.location.LocationListener;
 import de.joglearth.location.LocationManager;
@@ -375,9 +377,11 @@ public class MainWindow extends JFrame {
             @Override
             public void stateChanged(ChangeEvent e) {
                 JCheckBox box = (JCheckBox) e.getSource();
-                Settings.getInstance().putBoolean(
-                        SettingsContract.HEIGHT_MAP_ENABLED,
-                        new Boolean(box.isSelected()));
+                if (box.isSelected()) {
+                    renderer.setHeightMap(SRTMHeightMap.getInstance());
+                } else {
+                    renderer.setHeightMap(FlatHeightMap.getInstance());
+                }
             }
         });
         mapOptionsPanel.add(heightMapCheckBox, "1, 5"); //$NON-NLS-1$

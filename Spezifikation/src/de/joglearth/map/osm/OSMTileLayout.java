@@ -99,6 +99,9 @@ public class OSMTileLayout implements TileLayout {
         } else {
            
             int lonIndex = (int) floor((coords.getLongitude() + PI) / (2*PI) * (1 << zoomLevel));
+            if (lonIndex == (1 << zoomLevel)) {
+                lonIndex = 0;
+            }
             
             int latIndex = (int) floor((1-
                     (log(tan(coords.getLatitude()) + 1/cos(coords.getLatitude()))) / PI) 
