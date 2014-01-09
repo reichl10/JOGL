@@ -1075,7 +1075,7 @@ public class MainWindow extends JFrame {
                 }
             }
         });
-        locationManager.addLocationListener(new UILocationListener(searchResultList));
+        locationManager.addLocationListener(new UISearchResultListener(searchResultList));
         progressManager.addProgressListener(new UIProgressListener());
         userTagButton.addActionListener(new UsertagButtonListener());
         Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS, new UIUserLocationListener());
@@ -1503,18 +1503,18 @@ public class MainWindow extends JFrame {
         }
     }
 
-    private class UILocationListener implements LocationListener {
+    private class UISearchResultListener implements LocationListener {
 
         private JList<Location> list;
 
 
-        public UILocationListener(JList<Location> list) {
+        public UISearchResultListener(JList<Location> list) {
             this.list = list;
         }
 
         @Override
         public void searchResultsAvailable(Collection<Location> results) {
-            System.err.println("UILocationListener");
+            System.err.println("UISearchResultListener");
             DefaultListModel<Location> model = (DefaultListModel<Location>) list
                     .getModel();
             model.clear();
