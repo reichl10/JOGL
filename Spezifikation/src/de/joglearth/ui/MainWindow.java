@@ -647,6 +647,10 @@ public class MainWindow extends JFrame {
         antialiasingComboBox.addItem(new NamedItem<Antialiasing>(Messages
                 .getString("MainWindow.130"), //$NON-NLS-1$
                 Antialiasing.MSAA_4X));
+        antialiasingComboBox.addItem(new NamedItem<Antialiasing>("8x MSAA", 
+                Antialiasing.MSAA_8X));
+        antialiasingComboBox.addItem(new NamedItem<Antialiasing>("16x MSAA", 
+                Antialiasing.MSAA_16X));
         antialiasingComboBox.addItemListener(new ItemListener() {
 
             @Override
@@ -672,6 +676,11 @@ public class MainWindow extends JFrame {
                 .getString("MainWindow.134"), TextureFilter.TRILINEAR)); //$NON-NLS-1$
         texfilterComboBox.addItem(new NamedItem<TextureFilter>(Messages
                 .getString("MainWindow.135"), TextureFilter.NEAREST)); //$NON-NLS-1$
+        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Bilinear", TextureFilter.BILINEAR)); //$NON-NLS-1$
+        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 2x", TextureFilter.ANISOTROPIC_2X));
+        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 4x", TextureFilter.ANISOTROPIC_4X));
+        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 8x", TextureFilter.ANISOTROPIC_8X));
+        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 16x", TextureFilter.ANISOTROPIC_16X));
         texfilterComboBox.addItemListener(new ItemListener() {
 
             @Override
@@ -1102,6 +1111,10 @@ public class MainWindow extends JFrame {
                 antialiasingComboBox.addItem(new NamedItem<Antialiasing>(
                         Messages.getString("MainWindow.130"), //$NON-NLS-1$
                         Antialiasing.MSAA_4X));
+                antialiasingComboBox.addItem(new NamedItem<Antialiasing>("8x MSAA", 
+                        Antialiasing.MSAA_8X));
+                antialiasingComboBox.addItem(new NamedItem<Antialiasing>("16x MSAA", 
+                        Antialiasing.MSAA_16X));
                 antialiasingComboBox.setSelectedIndex(index);
                 texfilterLabel.setText(Messages.getString("MainWindow.132")); //$NON-NLS-1$
                 index = texfilterComboBox.getSelectedIndex();
@@ -1110,6 +1123,11 @@ public class MainWindow extends JFrame {
                         .getString("MainWindow.134"), TextureFilter.TRILINEAR)); //$NON-NLS-1$
                 texfilterComboBox.addItem(new NamedItem<TextureFilter>(Messages
                         .getString("MainWindow.135"), TextureFilter.NEAREST)); //$NON-NLS-1$
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Bilinear", TextureFilter.BILINEAR)); //$NON-NLS-1$
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 2x", TextureFilter.ANISOTROPIC_2X));
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 4x", TextureFilter.ANISOTROPIC_4X));
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 8x", TextureFilter.ANISOTROPIC_8X));
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 16x", TextureFilter.ANISOTROPIC_16X));
                 texfilterComboBox.setSelectedIndex(index);
                 lodLabel.setText(Messages.getString("MainWindow.137")); //$NON-NLS-1$
                 index = lodComboBox_1.getSelectedIndex();

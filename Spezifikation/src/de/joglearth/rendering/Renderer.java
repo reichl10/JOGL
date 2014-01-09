@@ -171,7 +171,7 @@ public class Renderer {
                 Texture texture = textureManager.getTexture(tile);
                 VertexBuffer vbo = tileMeshManager.requestObject(tile, null).value;
                 gl.drawVertexBuffer(vbo, texture);
-            }
+            }/*
 
             gl.loadMatrix(GL_PROJECTION, new Matrix4());
             gl.loadMatrix(GL_MODELVIEW, new Matrix4());
@@ -211,6 +211,7 @@ public class Renderer {
             }
             gl.setFeatureEnabled(GL_DEPTH_TEST, true);
             textRenderer.endRendering();
+            */
         }
     }
     
@@ -241,10 +242,11 @@ public class Renderer {
     
     
     private void dispose() {
-        textureManager.dispose();
+        if (textureManager != null)
+            textureManager.dispose();
         textureManager = null;
-        
-        tileMeshManager.dispose();
+        if (tileMeshManager != null)
+            tileMeshManager.dispose();
         tileMeshManager = null;
 
         Settings.getInstance().removeSettingsListener(SettingsContract.TEXTURE_FILTER, 
