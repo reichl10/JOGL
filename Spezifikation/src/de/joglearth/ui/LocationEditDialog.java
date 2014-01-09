@@ -1,6 +1,8 @@
 package de.joglearth.ui;
 
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,6 +17,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
 import de.joglearth.location.Location;
+import de.joglearth.location.LocationType;
 
 
 /**
@@ -32,6 +35,7 @@ public class LocationEditDialog extends JDialog {
     private JTextField nameTextField;
 
     private JTextField descriptionTextField;
+    private Location loc;
 
 
     /**
@@ -40,6 +44,7 @@ public class LocationEditDialog extends JDialog {
      * @param location The <code>Location</code> object will be changed before closing
      */
     public LocationEditDialog(Location location) {
+        loc = location;
         setSize(370, 250);
         setTitle("Add user tag");
         getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
@@ -64,13 +69,13 @@ public class LocationEditDialog extends JDialog {
         JLabel longitudeCaptionLabel = new JLabel("Longitude");
         getContentPane().add(longitudeCaptionLabel, "2, 2");
 
-        JLabel longitudeLabel = new JLabel("12° 36' 13\" E");
+        JLabel longitudeLabel = new JLabel(location.point.getLongitudeString());
         getContentPane().add(longitudeLabel, "4, 2");
 
         JLabel latitudeCaptionLabel = new JLabel("Latitude");
         getContentPane().add(latitudeCaptionLabel, "2, 4");
 
-        JLabel latitudeLabel = new JLabel("54° 11' 54\" N");
+        JLabel latitudeLabel = new JLabel(location.point.getLatitudeString());
         getContentPane().add(latitudeLabel, "4, 4");
 
         JLabel nameCaptionLabel = new JLabel("Name");
@@ -91,11 +96,18 @@ public class LocationEditDialog extends JDialog {
         JPanel buttonPane = new JPanel();
         getContentPane().add(buttonPane, "4, 10, fill, fill");
         buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 0));
-
-        JButton cancelButton = new JButton("Cancel");
-        buttonPane.add(cancelButton);
+        
 
         JButton okButton = new JButton("OK");
+        okButton.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                loc.details = descriptionTextField.getText();
+                loc.name = nameTextField.getText();
+                loc.type = LocationType.USER_TAG;
+            }
+        });
         buttonPane.add(okButton);
 
     }

@@ -1517,7 +1517,8 @@ public class MainWindow extends JFrame {
                 @Override
                 public void run() {
                     Location loc = new Location(geo, LocationType.USER_TAG, "", "");
-                    new LocationEditDialog(loc);
+                    LocationEditDialog dial = new LocationEditDialog(loc);
+                    dial.setVisible(true);
                     Settings.getInstance().putLocation(SettingsContract.USER_LOCATIONS, loc);
                 }
             });
