@@ -65,6 +65,8 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.ActionMapUIResource;
 
 import com.jgoodies.forms.factories.FormFactory;
@@ -1140,6 +1142,18 @@ public class MainWindow extends JFrame {
         userTagButton.addActionListener(new UsertagButtonListener());
         Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS,
                 new UIUserLocationListener());
+        searchResultList.addListSelectionListener(new ListSelectionListener() {
+            
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (e.getValueIsAdjusting() == false) {
+                     Location location = searchResultList.getSelectedValue();
+                     System.out.println("SearchResult Setting to lon: "+location.point.getLongitudeString()+" lat: "+location.point.getLatitudeString());
+                     camera.setPosition(location.point);
+                     updateDetails(location);
+                }
+            }
+        });
     }
 
     private void loadLanguage() {
@@ -1336,6 +1350,17 @@ public class MainWindow extends JFrame {
 
     }
 
+    private void updateDetails(Location location) {
+        if (location.name != null)
+            detailNameLabel.setText(location.name);
+        else
+            detailNameLabel.setText(Messages.getString("MainWindow.3"));
+        if (location.details != null)
+            detailDescriptionLabel.setText(location.details);
+        else                
+            detailDescriptionLabel.setText(Messages.getString("MainWindow.42"));
+    }
+    
     /**
      * Constructor.
      * 
@@ -1463,7 +1488,8 @@ public class MainWindow extends JFrame {
             double scaleSize = Math.round(sizeScreen / scale);
             System.out.println("ScaleSize: "+scaleSize);
             scaleLabel.setText(String.valueOf(scaleSize));
-            // TODO: Other sutuff like asking Nomination for Details as soon as it is implemented
+            Location location = locationManager.getDetails(camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d)));
+            updateDetails(location);
         }
 
     }
