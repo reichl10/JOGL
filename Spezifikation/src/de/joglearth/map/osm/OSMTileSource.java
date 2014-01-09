@@ -3,6 +3,7 @@ package de.joglearth.map.osm;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -43,8 +44,8 @@ public class OSMTileSource implements Source<TileName, byte[]> {
      * @param servers An array containing the server strings
      */
     public OSMTileSource() {
-        //executor = Executors.newFixedThreadPool(2);
-        executor = new ThreadPoolExecutor(2, 2, 0L, TimeUnit.MILLISECONDS, new LIFOBlockingDeque<Runnable>());
+        executor = Executors.newFixedThreadPool(2);
+        //executor = new ThreadPoolExecutor(2, 2, 0L, TimeUnit.MILLISECONDS, new LIFOBlockingDeque<Runnable>());
         serverSets = new HashMap<>();
         serverSets.put(OSMMapType.CYCLING, new ServerSet(new String[] {
                 "http://a.tile.opencyclemap.org/cycle/",

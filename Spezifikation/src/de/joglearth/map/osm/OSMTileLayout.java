@@ -98,15 +98,14 @@ public class OSMTileLayout implements TileLayout {
             return new OSMPole(zoomLevel, OSMPole.SOUTH);
         } else {
            
-            double lonAngle = 2 * PI / pow(2, zoomLevel);
-            double latAngle = 2 * OSMTile.MAX_LATITUDE / pow(2, zoomLevel);
-            int lon = (int) floor(coords.getLongitude() / lonAngle);
-            if (lon < 0) {
-                lon = (1 << zoomLevel) + lon;
-            }
-            int lat = (1 << (zoomLevel-1)) - (int) floor((coords.getLatitude() / latAngle)) - 1;
-            if (lat >= 0 && lat < (1 << zoomLevel)) {
-                return new OSMTile(zoomLevel, lon, lat);
+            int lonIndex = (int) floor((coords.getLongitude() + PI) / (2*PI) * (1 << zoomLevel));
+            
+            int latIndex = (int) floor((1-
+                    (log(tan(coords.getLatitude()) + 1/cos(coords.getLatitude()))) / PI) 
+                    * (1 << (zoomLevel-1)));
+            
+            if (latIndex >= 0 && latIndex < (1 << zoomLevel)) {
+                return new OSMTile(zoomLevel, lonIndex, latIndex);
             } else {
                 return null;
             }
