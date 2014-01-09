@@ -316,7 +316,6 @@ public class MainWindow extends JFrame {
         userTagButton = new JButton(Messages.getString("MainWindow.40")); //$NON-NLS-1$
         userTagButton.setHorizontalAlignment(SwingConstants.LEFT);
         userTagButton.setIcon(loadIcon("icons/addTag.png")); //$NON-NLS-1$
-        userTagButton.addActionListener(new UsertagButtonListener());
 
         detailDescriptionLabel = new JLabel(Messages.getString("MainWindow.42")); //$NON-NLS-1$
         detailsPanel.add(detailDescriptionLabel, "2, 4, default, top"); //$NON-NLS-1$
@@ -1511,6 +1510,7 @@ public class MainWindow extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.err.println("ActionPerformed! "+e.toString());
             final GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
             SwingUtilities.invokeLater(new Runnable() {
                 

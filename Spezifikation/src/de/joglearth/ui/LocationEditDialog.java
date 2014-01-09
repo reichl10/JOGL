@@ -113,11 +113,4 @@ public class LocationEditDialog extends JDialog {
 
     }
 
-    /**
-     * @internal
-     */
-    public static void main(String[] args) {
-        new LocationEditDialog(null).setVisible(true);
-    }
-
 }
