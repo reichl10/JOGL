@@ -19,9 +19,6 @@ import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.source.caching.MemoryCache;
-import de.joglearth.source.caching.RequestDistributor;
-import de.joglearth.source.caching.UnityMeasure;
 
 
 /**
@@ -40,7 +37,6 @@ public class LocationManager {
     private Set<LocationListener> locationListeners;
     private NominatimManager nominatimManager;
     private Collection<Location> lastSearchLocations;
-    private RequestDistributor<NominatimQuery, Collection<Location>> nominatimReqDistributor;
     private OverpassManager overpassManager = OverpassManager.getInstance();
     private Set<LocationType> activeLocationTypes;
 
@@ -49,7 +45,7 @@ public class LocationManager {
 
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
-            
+
         }
     }
 
@@ -62,12 +58,10 @@ public class LocationManager {
         locationListeners = new HashSet<LocationListener>();
         lastSearchLocations = new ArrayList<Location>();
         nominatimManager = NominatimManager.getInstance();
-        nominatimReqDistributor = new RequestDistributor<NominatimQuery, Collection<Location>>(new UnityMeasure<Collection<Location>>());
-        nominatimReqDistributor.addCache(new MemoryCache<NominatimQuery, Collection<Location>>(), 1000);
-        nominatimReqDistributor.setSource(nominatimManager);
         activeLocationTypes = new HashSet<LocationType>();
-        Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS, new UserTagsListener());
-        
+        Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS,
+                new UserTagsListener());
+
     }
 
     /**
@@ -92,35 +86,44 @@ public class LocationManager {
      */
     public Collection<Location> getActiveLocations(Iterable<Tile> area) {
         Collection<Location> locations = new ArrayList<Location>();
-        for (Iterator<Location> iterator = lastSearchLocations.iterator(); iterator.hasNext();) {
-            Location location = iterator.next();
-            if (activeLocationTypes.contains(location.type)) {
-                locations.add(location);
+        if (activeLocationTypes.contains(LocationType.SEARCH)) {
+            for (Iterator<Location> iterator = lastSearchLocations.iterator(); iterator.hasNext();) {
+                Location location = iterator.next();
+                if (activeLocationTypes.contains(location.type)) {
+                    locations.add(location);
+                }
             }
         }
-        Set<Location> userLocations = Settings.getInstance().getLocations(SettingsContract.USER_LOCATIONS);
-        for (Location location : userLocations) {
-            if (activeLocationTypes.contains(location.type)) {
-                locations.add(location);
+        if (activeLocationTypes.contains(LocationType.USER_TAG)) {
+            Set<Location> userLocations = Settings.getInstance().getLocations(
+                    SettingsContract.USER_LOCATIONS);
+            for (Location location : userLocations) {
+                if (activeLocationTypes.contains(location.type)) {
+                    locations.add(location);
+                }
             }
         }
-        
-        for (Tile tile : area) {
+        for (final Tile tile : area) {
             for (LocationType lType : activeLocationTypes) {
                 OverpassQuery opQuery = new OverpassQuery(lType, tile);
-                SourceResponse<Collection<Location>> response = overpassManager.requestObject(opQuery, new SourceListener<OverpassQuery, Collection<Location>>() {
+                SourceResponse<Collection<Location>> response = overpassManager.requestObject(
+                        opQuery, new SourceListener<OverpassQuery, Collection<Location>>() {
 
-                    @Override
-                    public void requestCompleted(OverpassQuery key, Collection<Location> value) {
-                        
-                    }});
-                
+                            @Override
+                            public void requestCompleted(OverpassQuery key,
+                                    Collection<Location> value) {
+                                callSurfaceListeners(tile.getLongitudeFrom(),
+                                        tile.getLatitudeFrom(), tile.getLongitudeTo(),
+                                        tile.getLatitudeTo());
+                            }
+                        });
+
                 if (response.response == SourceResponseType.SYNCHRONOUS) {
                     locations.addAll(response.value);
                 }
             }
         }
-        
+
         return locations;
     }
 
@@ -130,21 +133,23 @@ public class LocationManager {
      * @param query The query string
      */
     public void searchGlobal(String query) {
-        lastSearchLocations.clear();
         NominatimQuery nominatimQuery = new NominatimQuery(NominatimQuery.Type.GLOBAL);
         nominatimQuery.query = query;
-        SourceResponse<Collection<Location>> response = nominatimReqDistributor.requestObject(
+        SourceResponse<Collection<Location>> response = nominatimManager.requestObject(
                 nominatimQuery, new SourceListener<NominatimQuery, Collection<Location>>() {
 
                     @Override
                     public void requestCompleted(NominatimQuery key, Collection<Location> value) {
+                        lastSearchLocations.clear();
                         lastSearchLocations.addAll(value);
+                        callLocationListeners(value);
                     }
                 });
 
-        if (response.response != SourceResponseType.ASYNCHRONOUS
-                && response.response != SourceResponseType.MISSING) {
-            lastSearchLocations.addAll(lastSearchLocations);
+        if (response.response == SourceResponseType.SYNCHRONOUS) {
+            lastSearchLocations.clear();
+            lastSearchLocations.addAll(response.value);
+            callLocationListeners(response.value);
 
         }
 
@@ -157,26 +162,39 @@ public class LocationManager {
      * @param area A collection of tiles where the search should be performed on
      */
     public void searchLocal(String query, Iterable<Tile> area) {
-        lastSearchLocations.clear();
         for (Tile t : area) {
             NominatimQuery nominatimQuery = new NominatimQuery(NominatimQuery.Type.LOCAL);
             nominatimQuery.query = query;
             nominatimQuery.area = t;
-            SourceResponse<Collection<Location>> response = nominatimReqDistributor.requestObject(
+            SourceResponse<Collection<Location>> response = nominatimManager.requestObject(
                     nominatimQuery, new SourceListener<NominatimQuery, Collection<Location>>() {
 
                         @Override
                         public void requestCompleted(NominatimQuery key, Collection<Location> value) {
+                            lastSearchLocations.clear();
                             lastSearchLocations.addAll(value);
+                            callLocationListeners(value);
                         }
                     });
 
             if (response.response != SourceResponseType.ASYNCHRONOUS
                     && response.response != SourceResponseType.MISSING) {
-
-                lastSearchLocations.addAll(lastSearchLocations);
-
+                lastSearchLocations.clear();
+                lastSearchLocations.addAll(response.value);
+                callLocationListeners(response.value);
             }
+        }
+    }
+
+    private void callLocationListeners(Collection<Location> results) {
+        for (LocationListener listener : locationListeners) {
+            listener.searchResultsAvailable(results);
+        }
+    }
+
+    private void callSurfaceListeners(double lonFrom, double latFrom, double lonTo, double latTo) {
+        for (SurfaceListener listener : surfaceListeners) {
+            listener.surfaceChanged(lonFrom, latFrom, lonTo, latTo);
         }
     }
 
@@ -191,12 +209,11 @@ public class LocationManager {
     public Location getDetails(GeoCoordinates coordinates) {
         NominatimQuery nominatimQuery = new NominatimQuery(NominatimQuery.Type.POINT);
         nominatimQuery.point = coordinates;
-        SourceResponse<Collection<Location>> response = nominatimReqDistributor.requestObject(
+        SourceResponse<Collection<Location>> response = nominatimManager.requestObject(
                 nominatimQuery, new SourceListener<NominatimQuery, Collection<Location>>() {
 
                     @Override
-                    public void requestCompleted(NominatimQuery key, Collection<Location> value) {
-                    }
+                    public void requestCompleted(NominatimQuery key, Collection<Location> value) {}
                 });
 
         if (response.response != SourceResponseType.ASYNCHRONOUS
