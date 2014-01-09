@@ -1642,20 +1642,22 @@ public class MainWindow extends JFrame {
          */
         private static final long serialVersionUID = 1L;
 
+        
+        public LocationListCellRenderer() {
+            setOpaque(true);
+        }
+        
         @Override
         public Component getListCellRendererComponent(JList<? extends Location> list,
                 Location value, int index, boolean isSelected, boolean cellHasFocus) {
-            System.err.println("Render: "+value.details);
-            
             if (isSelected) {
-                this.setBackground(list.getSelectionBackground());
-                this.setForeground(list.getSelectionForeground());
+                setBackground(list.getSelectionBackground());
+                setForeground(list.getSelectionForeground());
             } else {
-                this.setBackground(list.getBackground());
-                this.setForeground(list.getForeground());
+                setBackground(list.getBackground());
+               setForeground(list.getForeground());
             }
-            //this.setForeground(Color.BLACK);
-            this.setText(value.details);
+            setText(value.details);
             return this;
         }
         
