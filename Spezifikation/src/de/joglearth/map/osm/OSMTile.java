@@ -2,6 +2,7 @@ package de.joglearth.map.osm;
 
 import static java.lang.Math.*;
 import de.joglearth.geometry.AbstractTile;
+import de.joglearth.geometry.GeoCoordinates;
 
 
 /**
@@ -61,11 +62,7 @@ public final class OSMTile extends AbstractTile {
     
     // Returns the angle for the step given, in radians
     private double getLatitudeAngle(int steps) {
-        if (zoomLevel > 0) {
-            return MAX_LATITUDE - pow(0.5, zoomLevel) * steps * 2 * MAX_LATITUDE;
-        } else {
-            return (0.5-steps)*MAX_LATITUDE*2;
-        }
+        return atan(sinh(PI - ((double) steps) / (1 << zoomLevel) * 2*PI));
     }
 
     @Override
@@ -121,6 +118,11 @@ public final class OSMTile extends AbstractTile {
                 + latIndex + ", longitudeFrom()=" + getLongitudeFrom() + ", longitudeTo()="
                 + getLongitudeTo() + ", latitudeFrom()=" + getLatitudeFrom() + ", latitudeTo()="
                 + getLatitudeTo() + "]";
+    }
+    
+    public static void main(String[] args) {
+        OSMTileLayout l = new OSMTileLayout(3);
+        System.out.println(l.getContainingTile(new GeoCoordinates(0.1,  0.1)));
     }
     
 }

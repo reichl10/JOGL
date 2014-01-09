@@ -3,11 +3,13 @@ package de.joglearth.map.osm;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import de.joglearth.map.TileName;
+import de.joglearth.source.ProgressManager;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
@@ -43,8 +45,8 @@ public class OSMTileSource implements Source<TileName, byte[]> {
      * @param servers An array containing the server strings
      */
     public OSMTileSource() {
-        //executor = Executors.newFixedThreadPool(2);
-        executor = new ThreadPoolExecutor(2, 2, 0L, TimeUnit.MILLISECONDS, new LIFOBlockingDeque<Runnable>());
+        executor = Executors.newFixedThreadPool(2);
+        //executor = new ThreadPoolExecutor(2, 2, 0L, TimeUnit.MILLISECONDS, new LIFOBlockingDeque<Runnable>());
         serverSets = new HashMap<>();
         serverSets.put(OSMMapType.CYCLING, new ServerSet(new String[] {
                 "http://a.tile.opencyclemap.org/cycle/",
@@ -73,6 +75,8 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         if (!(k.tile instanceof OSMTile) || !(k.configuration instanceof OSMMapConfiguration)) {
             return new SourceResponse<byte[]>(SourceResponseType.MISSING, null);
         }
+        
+        ProgressManager.getInstance().requestArrived();
 
         executor.execute(new Runnable() {
 
@@ -82,6 +86,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
                         ((OSMMapConfiguration) k.configuration).getMapType());
 
                 sender.requestCompleted(k, response);
+                ProgressManager.getInstance().requestCompleted();
             }
         });
 
