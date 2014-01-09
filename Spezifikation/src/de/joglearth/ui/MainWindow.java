@@ -1486,7 +1486,7 @@ public class MainWindow extends JFrame {
         @Override
         public void mouseWheelMoved(MouseWheelEvent e) {
             int current = slider.getValue();
-            int newCount = current + e.getWheelRotation();
+            int newCount = current - e.getWheelRotation();
             if (newCount < slider.getMinimum())
                 newCount = slider.getMinimum();
             else if (newCount > slider.getMaximum())
@@ -1510,7 +1510,7 @@ public class MainWindow extends JFrame {
             JSlider slider = (JSlider) e.getSource();
             label.setText(Integer.toString(slider.getValue()));
             int value = slider.getValue();
-            // TODO System.out.println("Zoome Changed to: "+value);
+            // TODO System.out.println("Zoom Changed to: "+value);
             double perc = value / (double) slider.getMaximum() * 10;
             // TODO System.out.println("Set Distance to: "+(MIN_DIST + MAX_DIST*perc));
             camera.setDistance(MIN_DIST + (MAX_DIST - MIN_DIST)
