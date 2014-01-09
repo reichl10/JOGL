@@ -216,13 +216,11 @@ public class LocationManager {
                     public void requestCompleted(NominatimQuery key, Collection<Location> value) {}
                 });
 
-        if (response.response != SourceResponseType.ASYNCHRONOUS
-                && response.response != SourceResponseType.MISSING) {
+        if (response.response == SourceResponseType.SYNCHRONOUS) {
             if (response.value.size() > 0)
                 return response.value.iterator().next();
         }
-        // TODO: ??
-        return new Location(null, null, null, null);
+        return new Location(coordinates, null, null, null);
     }
 
     /**
