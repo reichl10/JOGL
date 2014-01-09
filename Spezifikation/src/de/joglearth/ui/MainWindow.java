@@ -1502,7 +1502,7 @@ public class MainWindow extends JFrame {
 
     }
 
-    private class AddUsertagButtonListener implements ActionListener {
+    private class UsertagButtonListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
