@@ -17,6 +17,8 @@
 \usepackage{caption}
 \usepackage{array}
 \usepackage{amssymb}
+\usepackage{color}
+\usepackage{colortbl}
 \usepackage{subfigure}
 \usepackage{makeidx}
 \makeindex
@@ -47,6 +49,8 @@
   \parskip#1 \parindent6mm \raggedright%
   \def\item{\par\ignorespaces\hangindent=5mm \hangafter1}}{%
   \par\ignorespaces} 
+
+\definecolor{Gray}{gray}{0.9}
 
 \begin{document}
 
@@ -187,7 +191,7 @@ Die Karten des OpenStreetMap-Projekts erfreuen sich immer größerer Beliebtheit
 Die Projektion einer Straßenkarte auf einen dreidimensionalen Globus ist die intuitivste und geographisch korrekteste Darstellung. Bei \JoglEarth wurden folgende Schwerpunkte gesetzt:
 \begin{itemize}
 \item Verwendung der freien Kartendaten des OpenStreetMap-Projekts
-\item Realisierung einer dreidimensionalen Globusoberfläche mit den Höhendaten der NASA
+\item Realisierung einer dreidimensionalen Globusoberfläche mit den Höhendaten der NASA \index{NASA}
 \item Intuitive Bedienung der Anwendung ohne Einarbeitungszeit
 \item Die Möglichkeit der spielerischen Benutzung durch Kinder ohne nennenswerte PC-Kenntnisse
 \item Vollständige Plattformunabhängigkeit durch Java
@@ -199,9 +203,9 @@ Die Projektion einer Straßenkarte auf einen dreidimensionalen Globus ist die in
 \section{Anwendungsbereich}
 \JoglEarth bietet eine dreidimensionale Ansicht der Welt sowie eine ebene Kartenansicht. Beides erfolgt auf Basis des OpenStreetMap-Projekts und den Satellitendaten der NASA. \\
 
-Die grafische Benutzeroberfläche zeigt dafür im dreidimensionalen Modus eine Weltkugel, die frei gedreht und gezoomt werden kann, und im zweidimensionalen einen Ausschnitt der Weltkarte. Die Karte kann aus verschiedenen Kategorien wie Satellitenbildern oder Straßenkarten gewählt werden. Die Steuerung erfolgt mit Tastatur und Maus. \\
+Die grafische Benutzeroberfläche zeigt dafür im dreidimensionalen Modus eine Weltkugel, die frei gedreht und gezoomt werden kann und im zweidimensionalen einen Ausschnitt der Weltkarte. Die Karte kann aus verschiedenen Kategorien wie Satellitenbildern oder Straßenkarten gewählt werden. Die Steuerung erfolgt mit Tastatur und Maus. \\
 
-Mit einer Suchfunktion kann im Umkreis oder global nach Orten gesucht werden. Punkte besonderen Interesses wie Gaststätten oder Banken können über dem Kartenbild eingeblendet werden.
+Mit einer Suchfunktion \index{Suche} kann im Umkreis oder global nach Orten gesucht werden. Punkte besonderen Interesses wie Gaststätten oder Banken können über dem Kartenbild eingeblendet werden.
 
 
 \vspace{3mm}
@@ -214,9 +218,9 @@ Auch soll die Anwendung wissbegierige Kinder ansprechen. Voraussetzung ist ledig
 
 
 
-\chapter{Systemvoraussetzungen}
+\chapter{Systemvoraussetzungen} \index{Systemvoraussetzungen}
 \section{Software}
-Da das Projekt auf Java setzt, ist es betriebssystemunabhängig. Es muss lediglich das Java Runtime Environment (JRE) in Version 7 sowie ein Fenstersystem und Netzwerkunterstützung zur Verfügung stehen. Um dieses Handbuch über die Hilfefunktion anzeigen zu können, muss auf dem System außerdem ein PDF-Betrachter installiert sein. Zusätzliche Programmbibliotheken, die zum Ausführen des Softwarepakets nötig sind, wurden mitgeliefert.\\
+Da das Projekt auf Java setzt, ist es betriebssystemunabhängig. Es muss lediglich das Java Runtime Environment (JRE) in Version 7 sowie ein Fenstersystem und Netzwerkunterstützung zur Verfügung stehen. Um dieses Handbuch anzeigen zu können, muss auf dem System außerdem ein PDF-Betrachter installiert sein. Zusätzliche Programmbibliotheken, die zum Ausführen des Softwarepakets nötig sind, wurden mitgeliefert.\\
 
 Folgende Konfigurationen sollen mindestens unterstützt werden:
 \begin{itemize}
@@ -255,12 +259,12 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 %Öffnen von \JoglEarth :
 
-\vspace{3mm}
+\vspace{3mm} \index{Sonnensystemansicht}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/info.eps} & \JoglEarth startet standardmäßig in der \textbf{Sonnensystemansicht} (\textref{Ansichtsmodi}).
 \end{tabular}
 
-\vspace{3mm}
+\vspace{3mm} \index{Program-Icons} \index{Benutzeroberfläche} \index{Navigation Globus / Karte}
 In den folgenden Kapiteln finden Sie als Einführung die Erklärungen zu den \textref{Program-Icons}, zur \textref{Benutzeroberfläche}, zur \textref{Navigation} auf dem Globus und der Karten.
 
 \vspace{3mm}
@@ -270,7 +274,7 @@ In den folgenden Kapiteln finden Sie als Einführung die Erklärungen zu den \te
 
 
 \vspace{3mm}
-\subsection{Programm-Icons}
+\subsection{Programm-Icons} \index{Programm-Icons}
 \vspace{2mm}
 \begin{tabular}{|p{3cm}|p{10cm}|}
 \hline 
@@ -301,12 +305,12 @@ In den folgenden Kapiteln finden Sie als Einführung die Erklärungen zu den \te
 
 
 \newpage
-\section{Benutzeroberfläche} \index{Benutzeroberfläche}
+\section{Benutzeroberfläche} \index{Benutzeroberfläche} \index{Benutzeroberfläche!Ansichtsfenster} \index{Ansichtsfenster} \index{Benutzeroberfläche!Seitenleiste} \index{Seitenleiste} \index{Benutzeroberfläche!Statusleiste} \index{Statusleiste}
 \vspace{3mm}
 \subsection{Bildschirmaufbau / Fensteransichten}
 \begin{itemize}
-	\item Das Hauptelement der Benutzeroberfläche ist das \textbf{Ansichtsfenster} \index{Ansichtsfenster} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/1.eps}}, das sich in der Fenstermitte befindet. Darin wird der Globus, die Kartenebene oder eine Sonnensystemansicht angezeigt. Der sichtbare Kartenausschnitt kann interaktiv mit Maus oder Tastatur verschoben, gedreht gezoomt und gekippt werden.
-	\item Am linken Rand des Fensters befindet sich die \textbf{Seitenleiste} \index{Seitenleiste} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/2.eps}}, die die meisten Steuerungsoptionen bereitstellt. Der obere Teil ist in Menüs unterteilt, mit denen Funktionen gruppiert werden; der untere Teil zeigt Details zum momentan zentrierten Punkt an. Um den sichtbaren Kartenbereich zu vergrößern, ist sie ausblendbar.
+	\item Das Hauptelement der Benutzeroberfläche ist das \textbf{Ansichtsfenster}  \raisebox{-1pt}{\includegraphics[scale=0.45]{images/1.eps}}, das sich in der Fenstermitte befindet. Darin wird der Globus, die Kartenebene oder eine Sonnensystemansicht angezeigt. Der sichtbare Kartenausschnitt kann interaktiv mit Maus oder Tastatur verschoben, gedreht gezoomt und gekippt werden.
+	\item Am linken Rand des Fensters befindet sich die \textbf{Seitenleiste} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/2.eps}}, die die meisten Steuerungsoptionen bereitstellt. Der obere Teil ist in Menüs unterteilt, mit denen Funktionen gruppiert werden; der untere Teil zeigt Details zum momentan zentrierten Punkt an. Um den sichtbaren Kartenbereich zu vergrößern, ist sie ausblendbar.
 	\item Am rechten Rand \raisebox{-1pt}{\includegraphics[scale=0.45]{images/3.eps}} befindet sich ein Schieber, mit dem das Zoomlevel angezeigt und geändert werden kann.
 	\item Die \textbf{Statusleiste} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/4.eps}} am unteren Rand beinhaltet Informationen über den zentrierten Punkt, wie Koordinaten und Maßstab. Außerdem wird der Fortschritt im Hintergrund geladener Daten angezeigt.
 \end{itemize}
@@ -317,33 +321,33 @@ In den folgenden Kapiteln finden Sie als Einführung die Erklärungen zu den \te
 \end{center}
 
 \newpage
-\subsection{Menüführung} \index{Menüführung}
-Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und deckt die wichtigsten Funktionalitäten (\textref{Funktionen}) von \JoglEarth ab. 
+\subsection{Menüführung} \index{Menüführung} \index{Benutzeroberfläche!Seitenleiste} \index{Seitenleiste}
+Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und gruppiert die wichtigsten Funktionalitäten (\textref{Funktionen}) von \JoglEarth . 
 
 \vspace{3mm}
-\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} & Der Bereich \textbf{Details} in den angeführten Menüs verändert sich beim Wechseln der Menüs nicht.
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}} \index{Menüführung!Menü Details} \index{Menü Details}
+\includegraphics[scale=0.5]{images/info.eps} & Das Bereich \textbf{Details} in den angeführten Menüs verändert sich beim Wechseln der Menüs nicht.
 \end{tabular}
 
 \vspace{3mm}
-\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}} \index{Benutzeroberfläche!Seitenleiste} \index{Seitenleiste}
 \includegraphics[scale=0.5]{images/info.eps} & Sollte die \textbf{Seitenleiste} nicht sichtbar sein, ist diese möglicherweise ausgeblendet.
 \end{tabular}
 
 \vspace{3mm}
-\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}} \index{Benutzeroberfläche!Seitenleiste} \index{Seitenleiste}
 \includegraphics[scale=0.5]{images/quest.eps} & Blenden Sie die \textbf{Seitenleiste} aus und anschließend wieder ein.
 \end{tabular}
 
 \vspace{5mm}
-\subsubsection{1. Menü: Anzeige} \index{Menü Anzeige}
+\subsubsection{1. Menü: Anzeige} \index{Menü Anzeige} \index{Menüführung!Menü Anzeige}
 
 \begin{minipage}[t]{9cm}
 \vspace{-40mm}
 	\begin{itemize}
-	\item Ändern der \textref{Ansichtsmodi}
-	\item Ändern der \textref{Kartentypen}
-	\item \textref{Höhenprofil} zu- oder abschalten
+	\item Ändern der \textref{Ansichtsmodi} \index{Ansichtsmodi}
+	\item Ändern der \textref{Kartentypen} \index{Kartentypen}
+	\item \textref{Höhenprofil} zu- oder abschalten \index{Höhenprofil}
 	\end{itemize}
 \end{minipage}
 \begin{minipage}{7cm}
@@ -354,14 +358,14 @@ Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und 
 
 
 \vspace{3mm}
-\subsubsection{2. Menü: Orte} \index{Menü Orte}
+\subsubsection{2. Menü: Orte} \index{Menü Orte} \index{Menüführung!Menü Orte}
 \begin{minipage}[t]{9cm}
 \vspace{-40mm}
 	\begin{itemize}
-	\item \textref{Suche} nach gewünschten Orten
+	\item \textref{Suche} nach gewünschten Orten \index{Suche}
 	\item Anzeige der Suchergebnisse
-	\item Anzeige der gespeicherten \textref{Benutzermarkierungen}
-	\item Ein- und ausblenden diverser \textref{Overlays}
+	\item Anzeige der gespeicherten \textref{Benutzermarkierungen} \index{Benutzermarkierungen}
+	\item Ein- und ausblenden diverser \textref{Overlays} \index{Overlays}
 	\end{itemize}
 \end{minipage}
 \begin{minipage}{7cm}
@@ -373,13 +377,13 @@ Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und 
 
 
 \vspace{3mm}
-\subsubsection{3. Menü: Einstellungen} \index{Menü Einstellungen}
+\subsubsection{3. Menü: Einstellungen} \index{Menü Einstellungen} \index{Menüführung!Menü Einstellungen}
 \begin{minipage}[t]{9cm}
 \vspace{-40mm}
 	\begin{itemize}
-	\item Ändern der \textref{Sprache}
-	\item Ändern von \textref{Grafikeinstellungen}
-	\item Festlegen der \textref{Cachegrößen}
+	\item Ändern der \textref{Sprache} \index{Sprache} \index{Benutzeroberfläche!Sprache}
+	\item Ändern von \textref{Grafikeinstellungen} \index{Grafikeinstellungen}
+	\item Festlegen der \textref{Cachegrößen} \index{Cachegrößen}
 	\item Anzeige des Handbuchs im PDF-Format
 	\item Anzeige des 'Über-uns-Fensters'
 	\end{itemize}
@@ -393,8 +397,8 @@ Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und 
 
 
 \vspace{3mm}
-\subsubsection{4. Menü: Details} \index{Menü Details}
-Der Bereich \textbf{Details} zeigt verfügbare Informationen genau zum Mittelpunkt des aktuellen Kartenausschnitts an.\\
+\subsubsection{4. Menü: Details} \index{Menü Details} \index{Benutzermarkierungen} \index{Menüführung!Menü Details}
+Der Bereich \textbf{Details} zeigt verfügbare Informationen genau zum Mittelpunkt des aktuellen Kartenausschnitts an. Ebenso findet sich hier die Schaltfläche um \textref{Benutzermarkierungen} zu setzen und wieder zu entfernen. \\
 
 Beispiel:
 \begin{itemize}
@@ -409,20 +413,18 @@ Beispiel:
 
 
 
-
-\newpage
 \vspace{3mm}
-\subsection{Navigation der Erde / Karte}
+\subsection{Navigation der Erde / Karte} \index{Navigation Globus / Karte}
 
 \vspace{3mm}
-\subsubsection*{Mausbelegung}
+\subsubsection*{Mausbelegung} \index{Navigation Globus / Karte!Mausbelegung}
 \begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline
 \includegraphics[scale=1.0]{images/mouseDrag_left.eps} & Drehen der Erdkugel / Verschieben der Karte \\ 
 \hline 
 \includegraphics[scale=1.0]{images/mouseDoubleClick_left.eps} & Punkt unter dem Mauszeiger im Kartenfenster zentrieren \\
 \hline
-\includegraphics[scale=1.0]{images/mouseDrag_right.eps} & Kippen der Kamera \\
+\includegraphics[scale=1.0]{images/mouseDrag_right.eps} & Kippen der Ansicht \\
 \hline
 \includegraphics[scale=1.0]{images/mouse_scrollen.eps} & Zoomen der Ansicht \\
 \hline
@@ -430,15 +432,15 @@ Beispiel:
 
 
 \vspace{3mm}
-\subsubsection*{Tastaturbelegung}
+\subsubsection*{Tastaturbelegung} \index{Navigation Globus / Karte!Tastaturbelegung}
 \begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline
 \rule[-1ex]{0pt}{7ex}\includegraphics[scale=0.08]{images/key_arrow_up.eps}& \multirow{3}{*}{Drehen der Erdkugel / Verschieben der Karte}\\
 \includegraphics[scale=0.08] {images/key_arrow_left.eps} \includegraphics[scale=0.08]{images/key_arrow_down.eps} \includegraphics[scale=0.08]{images/key_arrow_right.eps} &  \\
 \hline
-\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{images/key_Bild_Auf.eps}  \includegraphics[scale=0.08]{images/key_Bild_Ab.eps} & Kippen der Kamera nach oben / unten\\
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{images/key_Bild_Auf.eps}  \includegraphics[scale=0.08]{images/key_Bild_Ab.eps} & Kippen der Ansicht nach oben / unten\\
 \hline
-\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{images/key_Pos1.eps} \includegraphics[scale=0.08]{images/key_Ende.eps} & Kippen der Kamera nach links / rechts \\
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{images/key_Pos1.eps} \includegraphics[scale=0.08]{images/key_Ende.eps} & Kippen der Ansicht nach links / rechts \\
 \hline
 \rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{images/key_Plus.eps}  \includegraphics[scale=0.08]{images/key_Minus.eps} & Zoomen der Ansicht \\
 \hline
@@ -481,12 +483,17 @@ Bei erstmaligem Starten von \JoglEarth sind standardmäßig folgende Einstellung
 \JoglEarth bietet zahlreiche Darstellungsmöglichkeiten für diverse Ansichten. Im folgenden werden die wählbaren Modi kurz erklärt.
 
 \vspace{3mm}
-\section{Sonnensystem} \index{Ansichtsmodi!Sonnensystem}
+\section{Sonnensystem} \index{Ansichtsmodi!Sonnensystem} \index{Sonnensystem}
 Diese Ansicht stellt ein detailliertes Modell von Sonne, Mond und Erde dar, wobei der Mond um die Erde kreist.
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} &  In dieser Ansicht können keine weiteren Funktionalitäten genutzt werden, wie beispielsweise Eingabe von Längen- oder Breitengrad, Ändern des Zoomlevels, Aktivieren des Höhenprofils, Markieren von Punkten.
+\includegraphics[scale=0.5]{images/info.eps} &  Navigation: Das Sonnensystem kann gedreht und gekippt werden.
+\end{tabular}
+
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} &  Funktionalität: In dieser Ansicht können keine weiteren Funktionalitäten genutzt werden, wie beispielsweise \textref{Ändern von Längen- und Breitengraden}, \textref{Ändern des Zoomlevels}, Aktivieren des \textref{Höhenprofils}, \textref{Markierungen setzen}.
 \end{tabular}
 
 \vspace{3mm}
@@ -497,7 +504,7 @@ Diese Ansicht stellt ein detailliertes Modell von Sonne, Mond und Erde dar, wobe
 
 
 \vspace{3mm}
-\section{Globus} \index{Ansichtsmodi!Globus}
+\section{Globus} \index{Ansichtsmodi!Globus} \index{Globus} \index{Kartentypen}
 Diese Ansicht visualisiert einen Globus, welcher die Anzeige von den verfügbaren \textref{Kartentypen} unterstützt.
 
 
@@ -508,7 +515,7 @@ Diese Ansicht visualisiert einen Globus, welcher die Anzeige von den verfügbare
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} &  Funktionalität: Diese Ansicht unterstützt die gesamte Funktionalität von \JoglEarth , wie beispielsweise Aktivieren des Höhenprofils, Markieren von Punkten, etc.
+\includegraphics[scale=0.5]{images/info.eps} &  Funktionalität: Diese Ansicht unterstützt die gesamte Funktionalität von \JoglEarth , wie beispielsweise Aktivieren des \textref{Höhenprofils}, \textref{Markierungen setzen}, etc.
 \end{tabular}
 
 \vspace{3mm}
@@ -520,7 +527,7 @@ Diese Ansicht visualisiert einen Globus, welcher die Anzeige von den verfügbare
 
 
 \vspace{3mm}
-\section{Flache Karte} \index{Ansichtsmodi!Karte}
+\section{Flache Karte} \index{Ansichtsmodi!Karte} \index{Karte} \index{Kartentypen}
 Diese Ansicht visualisiert eine Kartenebene, welche die Anzeige von den verfügbaren \textref{Kartentypen} unterstützt.
 
 
@@ -531,7 +538,7 @@ Diese Ansicht visualisiert eine Kartenebene, welche die Anzeige von den verfügb
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} &  Funktionalität: Diese Ansicht unterstützt die gesamte Funktionalität von \JoglEarth , wie beispielsweise Aktivieren des Höhenprofils, Markieren von Punkten, etc.
+\includegraphics[scale=0.5]{images/info.eps} &  Funktionalität: Diese Ansicht unterstützt die gesamte Funktionalität von \JoglEarth , wie beispielsweise Aktivieren des \textref{Höhenprofils}, \textref{Markierungen setzen}, etc.
 \end{tabular}
 
 \vspace{3mm}
@@ -549,7 +556,7 @@ Diese Ansicht visualisiert eine Kartenebene, welche die Anzeige von den verfügb
 \JoglEarth bietet zahlreiche Kartentypen, die im folgenden näher betrachtet werden.
 
 \vspace{3mm}
-\section{Satellit} \index{Kartentypen!Satellit}
+\section{Satellit} \index{Kartentypen!Satellit} \index{Satellit}
 Unter diesem Kartentyp versteht man Satellitenbilder, welche Aufnahmen der Erdoberfläche aus der Perspektive eines Satelliten zeigen.
 
 \vspace{3mm}
@@ -560,11 +567,12 @@ Unter diesem Kartentyp versteht man Satellitenbilder, welche Aufnahmen der Erdob
 
 
 \vspace{3mm}
-\section{OpenStreetMap} \index{Kartentypen!OpenStreetMap}
+\section{OpenStreetMap} \index{Kartentypen!OpenStreetMap} \index{OpenStreetMap}
 \JoglEarth setzt auf die folgenden freien Kartenmaterialien des OpenStreetMap-Projekts, welche von den jeweiligen Servern zeitnahe geladen werden.
 
 
-\subsection{Straßenkarte} \index{OpenStreetMap!Straßenkarte}
+\subsection{Straßenkarte} \index{OpenStreetMap!Straßenkarte} \index{Straßenkarte}
+Die \textbf{Straßenkarte} ist eine thematische Karte, die den Schwerpunkt auf den Straßenverlauf und das Straßenverkehrsnetz setzt.
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
@@ -576,33 +584,65 @@ Unter diesem Kartentyp versteht man Satellitenbilder, welche Aufnahmen der Erdob
 \includegraphics[scale=0.3]{images/flacheKarte_Strassenkarte.png}
 \end{center}
 
-\subsection{Radkarte} \index{OpenStreetMap!Radkarte}
-\subsection{Landkarte}
-\subsection{Wanderkarte}
-\subsection{OSM2World} \index{OpenStreetMap!OSM2World}
 
 
 
-\vspace{3mm}
-\section{Kinderweltkarte} \index{Kartentypen!Kinderweltkarte}
+\subsection{Radkarte} \index{OpenStreetMap!Radkarte} \index{Radkarte}
+Bei der \textbf{Radkarte} (bzw. Radwegkarte, Fahrradkarte) handelt es sich um eine thematische Karte, die speziell auf die Bedürfnisse von Radfahrern zugeschnitten ist. Es werden Radwege mit deren Bezeichnung bzw. Nummerierung angezeigt. Zweck der Radkarte ist es, Wege zu finden, die für Radfahrer freigegeben sind.
+
+
+
+\subsection{Landkarte} \index{OpenStreetMap!Landkarte} \index{Landkarte}
+Die \textbf{Landkarte} ist eine Straßenkarte, in der die Bezeichnungen in der jeweiligen Landessprache und der landestypischen Gestaltung gehalten sind.
+
+
+
+\subsection{Wanderkarte} \index{OpenStreetMap!Wanderkarte} \index{Wanderkarte}
+Die \textbf{Wanderkarte} ist eine Karte, die der unmittelbaren Orientierung im Gelände dient. Zweck der Wanderkarte ist es, Wege zu finden, die für Wandertouren freigegeben sind.
+
+
+
+\subsection{OSM2World} \index{OpenStreetMap!OSM2World} \index{OSM2World}
+Die \textbf{OSM2World-Karte} errechnet auf Basis der OpenStreetMap-Daten 3D Modelle. Derzeit sind nur einige Teile in Deutschland, in Österreich und in der Schweiz erfasst.
+
+
+
+
+\newpage
+\section{Kinderweltkarte} \index{Kartentypen!Kinderweltkarte} \index{Kinderweltkarte}
+Ein besonderer Kartentyp ist die Kinderweltkarte. Diese zeigt die einzelnen Kontinente, welche farblich unterschiedlich sind und zusätzlich werden beispielhaft je Kontinent, die dort einheimischen Tiere gezeigt. Dieser Kartentyp ist speziell für Kinder gedacht um die Neugierde an geografischen Karten zu wecken.\\
 
 \vspace{3mm}
 \begin{center}
 \includegraphics[scale=0.3]{images/Kinder-Weltkarte.jpg}
 \end{center}
 
-
 \vspace{3mm}
-\section*{Platzhaltertextur} \index{Platzhaltertextur}
-
-\vspace{3mm}
-\begin{center}
-\includegraphics[scale=0.3]{images/placeholder.png}
-\end{center}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} &  Für Kinder: Es kann von der Kinderweltkarte in den Kartentyp \textref{Satellit} gewechselt werden um den Übergang und die Orientierung auf geografische Karten einfach zu gestalten.
+\end{tabular}
 
 
 
 \vspace{3mm}
+\section*{Platzhaltertextur} \index{Platzhaltertextur}
+\begin{minipage}[t]{9cm}
+\vspace{-10mm}
+Die Platzhaltertextur erscheint, solange das Kartenmaterial geladen wird. Sollten Kartenausschnitte nicht verfügbar sein, wird die Platzhaltertextur angezeigt. Diese zeigt zwei grau versetzte Quadrate.
+\end{minipage}
+\begin{minipage}{7cm}
+\centering
+\begin{tabular}{|p{0.7cm}p{0.7cm}|}
+\hline
+\parbox[0pt][1cm][c]{0cm}{} \cellcolor{Gray} &  \\ 
+\parbox[0pt][1cm][c]{0cm}{} & \cellcolor{Gray} \\ 
+\hline
+\end{tabular}
+\end{minipage}
+
+
+
+\vspace{8mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/quest.eps} &  Versuchen Sie sich durch die zahlreichen Ansichten und Kartentypen zu navigieren.
 \end{tabular}
@@ -621,19 +661,28 @@ Unter diesem Kartentyp versteht man Satellitenbilder, welche Aufnahmen der Erdob
 \chapter{Funktionen}
 %inkl. Übungsaufgaben/ Szenarien, wie was funktioniert Wichtig: Tipps \& Tricks nennen
 
+
+\section{Ändern des Zoomlevels} \index{Zoomlevel}
+Das Zoomlevel kann am rechten Rand der \textref{Benutzeroberfläche} über einen Schieber geändert werden. Änderungen können auch über die Tastatur mittels der 'Plus'- oder 'Minus'-Taste erfolgen. Das Ändern des Zoomlevels wirkt sich auf den Detailgehalt der Kartenausschnitte aus.
+
 \vspace{3mm}
-\section{Ändern des Zoomlevels}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & Einige \textref{Funktionen} von \JoglEarth benötigen ein hohes Zoomlevel um erstmals auf den Karten ersichtlich zu werden.
+\end{tabular}
+
+
 
 
 \vspace{3mm}
 \section{Ändern von Längen- und Breitengraden}
-
+\index{Längengrad!Ändern von Längen- und Breitengraden} \index{Breitengrad!Ändern von Längen- und Breitengraden}
+In der \textbf{Statusleiste} (\textref{Benutzeroberfläche}) können gewünschte Längen- und Breitengrade eingegeben werden. Anschließend werden die dafür benötigten Karten geladen und der eingegebene Punkt wird im \textbf{Ansichtsfenster} (\textref{Benutzeroberfläche}) zentriert.
 
 
 
 \vspace{3mm}
-\section{Benutzermarkierungen}
-Das Feld der Benutzermarkierungen befindet sich im \textref{Menü Orte}.
+\section{Benutzermarkierungen} \index{Benutzermarkierungen}
+Das Feld der Benutzermarkierungen befindet sich im \textref{Menü Orte}. Die Schaltfläche um Benutzermarkierungen zu setzen und wieder zu entfernen findet sich im \textref{Menü Details}.
 
 
 \vspace{3mm}
@@ -643,11 +692,11 @@ Das Feld der Benutzermarkierungen befindet sich im \textref{Menü Orte}.
 
 
 \vspace{3mm}
-\subsection{Markierungen setzen}
+\subsection{Markierungen setzen} \index{Benutzermarkierungen!Markierungen setzen} \index{Markierungen setzen}
 
 
 \vspace{3mm}
-\subsection{Markierungen entfernen}
+\subsection{Markierungen entfernen} \index{Benutzermarkierungen!Markierungen entfernen} \index{Markierungen entfernen}
 
 
 
@@ -656,17 +705,17 @@ Das Feld der Benutzermarkierungen befindet sich im \textref{Menü Orte}.
 \section{Cachegrößen} \index{Cachegrößen}
 
 \vspace{3mm}
-\subsection{Arbeitsspeicher}
+\subsection{Arbeitsspeicher} \index{Cachegrößen!Arbeitsspeicher} \index{Arbeitsspeicher}
 
 \vspace{3mm}
-\subsection{Dateisystem}
+\subsection{Dateisystem} \index{Cachegrößen!Dateisystem} \index{Dateisystem}
 
 
 
 
 
 \vspace{3mm}
-\section{Grafikeinstellungen}
+\section{Grafikeinstellungen} \index{Grafikeinstellungen}
 
 \vspace{3mm}
 \subsection{Antialiasing} \index{Grafikeinstellungen!Antialiasing} \index{Antialiasing}
@@ -682,8 +731,7 @@ Das Feld der Benutzermarkierungen befindet sich im \textref{Menü Orte}.
 
 
 \vspace{3mm}
-\section{Höhenprofil}
-\index{Höhenprofil}
+\section{Höhenprofil} \index{Höhenprofil}
 Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten ermittelt.
 
 \vspace{3mm}
@@ -694,10 +742,10 @@ Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten er
 
 
 
-\vspace{3mm}
+\newpage
 \section{POIs} \index{POIs}
-\subsection*{Liste der POIs}
-Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der \textbf{OverpassAPI}. Inwieweit die Daten konsistent geführt werden kann seitens \JoglEarth nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den Antworten der OverpassAPI vorgenommen.\\
+\subsection*{Liste der POIs} \index{POIs!Liste der POIs} \index{Overpass}
+Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann seitens \JoglEarth nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den Antworten der OverpassAPI vorgenommen.\\
 
 \vspace{3mm}
 \begin{tabular}{|p{3cm}|p{10cm}|}
@@ -739,7 +787,7 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 
 \newpage
-\section{Sprache}
+\section{Sprache} \index{Sprache}
 Ändern der Sprache für die Benutzeroberfläche, die Suchergebnisse und die angezeigten Overlays.\\
 
 Einstellen der Benutzeroberfläche: \index{Benutzeroberfläche}
@@ -755,12 +803,12 @@ Einstellen der Benutzeroberfläche: \index{Benutzeroberfläche}
 
 
 \vspace{3mm}
-\section{Suche}
-Die Suchfunktion wird über \textbf{Nominatim} \index{Nominatim} ausgeführt. Die Suchbegriffe werden von links nach rechts (vom Speziellen zum Allgemeinen) abgearbeitet, wenn dies fehlschlägt werden die Suchbegriffe von rechts nach links nochmals abgearbeitet.\\
+\section{Suche} \index{Suche}
+Die Suchfunktion wird über Nominatim \index{Nominatim} ausgeführt. Die Suchbegriffe werden von links nach rechts (vom Speziellen zum Allgemeinen) abgearbeitet, wenn dies fehlschlägt werden die Suchbegriffe von rechts nach links nochmals abgearbeitet.\\
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} & Bei den Suchanfragen ist ein Limit gesetzt. Daher liefert eine Anfrage maximal 10 Suchergebnisse zurück. \\ 
+\includegraphics[scale=0.5]{images/info.eps} & Bei den Suchanfragen ist ein Limit gesetzt. Daher liefert eine Anfrage maximal ?? Suchergebnisse zurück. \\ 
 \end{tabular} 
 
 \vspace{3mm}
@@ -777,7 +825,7 @@ Beispiele:
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} & Kommas sind nicht notwendig, verbessern aber die Suchgeschwindigkeit durch Reduzierung der Komplexität der Suchanfrage.  \\ 
+\includegraphics[scale=0.5]{images/info.eps} & Kommas sind nicht notwendig, verbessern aber die Suchgeschwindigkeit durch Reduzierung der Komplexität der Suchanfrage. \\ 
 \end{tabular} 
 
 \vspace{3mm}
@@ -815,14 +863,14 @@ Die Suchergebnisse werden im \textref{Menü Orte} angezeigt.
 % Welche Benutzereinstellungen werden in Settings gespeichert
 % Vom Benutzer markierte Punkte werden gespeichert.
 
-\section{Speicherung Kartendaten \& Benutzermarkierungen}
+\section{Speicherung Kartendaten \& Benutzermarkierungen} \index{Benutzermarkierungen}
 % Bildchen einfügen, welches zeigt, wo die Daten auf der Festplatte gespeichert werden
 
-Während der Nutzung von \JoglEarth werden die benötigten Kartendaten und die vorgenommenen Benutzermarkierungen zu deren Wiederverwendung in die verfügbaren Caches geschrieben. Das sind
+Während der Nutzung von \JoglEarth werden die benötigten Kartendaten und die vorgenommenen \textref{Benutzermarkierungen} zu deren Wiederverwendung in die verfügbaren Caches geschrieben. Das sind
 \begin{itemize}
-\item OpenStreetMap Kartenmaterialien
-\item SRTM Höhendaten
-\item Benutzermarkierungen
+\item OpenStreetMap Kartenmaterialien \index{OpenStreetMap}
+\item SRTM Höhendaten \index{SRTM}
+\item Benutzermarkierungen \index{Benutzermarkierungen}
 \end{itemize}
 
 Um den verfügbaren Speicherplatz optimal zu nutzen, wendet \JoglEarth eine Verdrängungsstrategie an. Das heißt, sobald die eingestellte Speichergröße erreicht wird, wird das aktuell nicht benötigte Kartenmaterial verdrängt. \index{Verdrängungsstrategie}
@@ -830,7 +878,7 @@ Um den verfügbaren Speicherplatz optimal zu nutzen, wendet \JoglEarth eine Verd
 
 
 \vspace{3mm}
-\section{Settings}
+\section{Settings} \index{Settings}
 % Welche Settings werden gespeichert. Grafische Darstellung
 
 \vspace{3mm}
