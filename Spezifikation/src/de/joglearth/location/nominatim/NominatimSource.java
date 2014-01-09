@@ -109,7 +109,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         byte[] httpRes = HTTP.get(url, getRequest);
         String xmlResponse = new String(httpRes);
 
-        ArrayList<Location> response = parseXml(xmlResponse, LocationType.SEARCH);
+        ArrayList<Location> response = parseXml(xmlResponse, LocationType.SEARCH, query);
 
         return response;
     }
@@ -138,7 +138,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
         String xmlResponse = new String(httpRes);
 
-        ArrayList<Location> response = parseXml(xmlResponse, LocationType.SEARCH);
+        ArrayList<Location> response = parseXml(xmlResponse, LocationType.SEARCH, query);
 
         return response;
     }
@@ -178,12 +178,12 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
         String xmlResponse = new String(httpRes);
 
-        ArrayList<Location> response = parseXml(xmlResponse, type);
+        ArrayList<Location> response = parseXml(xmlResponse, type, null);
 
         return response.get(0);
     }
 
-    private ArrayList<Location> parseXml(String xml, LocationType type) {
+    private ArrayList<Location> parseXml(String xml, LocationType type, NominatimQuery query) {
         ArrayList<Location> location = new ArrayList<Location>();
 
         // TODO Limit z.b. 10
@@ -200,12 +200,12 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
                     case START_ELEMENT:
                         if (xmlReader.getLocalName().equals(
                                 "searchresults")) {
-                            readLocations(xmlReader, location, type);
+                            readLocations(xmlReader, location, type, query);
                             xmlReader.require(END_ELEMENT, null,
                                     "searchresults");
                         } else if (xmlReader.getLocalName().equals(
                                 "reversegeocode")) {
-                            readLocations(xmlReader, location, type);
+                            readLocations(xmlReader, location, type, query);
                             xmlReader.require(END_ELEMENT, null,
                                     "reversegeocode");
                         }
@@ -227,7 +227,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
     }
 
     private boolean readLocations(XMLStreamReader xmlReader, ArrayList<Location> location,
-            LocationType type)
+            LocationType type, NominatimQuery query)
             throws XMLStreamException {
         while (xmlReader.hasNext()) {
             int event = xmlReader.next();
@@ -236,7 +236,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
                     return false;
                 case START_ELEMENT:
                     if (xmlReader.getLocalName().equals(XML_ELEMENT_ENTRY)) {
-                        readEntry(xmlReader, location, type);
+                        readEntry(xmlReader, location, type, query);
                     } else if (xmlReader.getLocalName().equals("result")) {
                         readEntryReverse(xmlReader, location, type);
                     }
@@ -256,7 +256,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
     }
 
     private boolean readEntry(XMLStreamReader xmlReader, ArrayList<Location> location,
-            LocationType type) {
+            LocationType type, NominatimQuery query) {
 
         Double longitude = Double.valueOf(xmlReader.getAttributeValue(null, "lon"));
         Double latitude = Double.valueOf(xmlReader.getAttributeValue(null, "lat"));
@@ -264,6 +264,12 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         String[] name = details.split(",");
 
         GeoCoordinates point = new GeoCoordinates(longitude, latitude);
+        
+        if(query!=null && query.type == NominatimQuery.Type.LOCAL) {
+            if(!(query.area.contains(point))) {
+                return false;
+            }
+        }
 
         // TODO LocationType für Suchergebnisse?!
         Location current = new Location(point, type, details, name[0]);
