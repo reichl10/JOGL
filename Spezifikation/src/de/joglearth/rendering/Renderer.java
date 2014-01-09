@@ -189,6 +189,9 @@ public class Renderer {
             //locations.add(new Location(new GeoCoordinates(0, 0), LocationType.BANK, null, null));
             
             gl.setFeatureEnabled(GL_DEPTH_TEST, false);
+            
+                        
+            
             for (Location location : locations) {
                 if (location.point != null && camera.isPointVisible(location.point)) {
                     Texture overlayTexture = overlayIconTextures.get(location.type);
