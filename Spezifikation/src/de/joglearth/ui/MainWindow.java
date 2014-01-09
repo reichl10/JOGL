@@ -1512,15 +1512,22 @@ public class MainWindow extends JFrame {
         }
 
         @Override
-        public void searchResultsAvailable(Collection<Location> results) {
-            System.err.println("UISearchResultListener");
-            DefaultListModel<Location> model = (DefaultListModel<Location>) list
-                    .getModel();
-            model.clear();
-            for (Location l : results) {
-                System.out.println("Add Element Details: "+l.details);
-                model.addElement(l);
-            }
+        public void searchResultsAvailable(final Collection<Location> results) {
+            SwingUtilities.invokeLater(new Runnable() {
+                
+                @Override
+                public void run() {
+                    System.err.println("UISearchResultListener");
+                    DefaultListModel<Location> model = (DefaultListModel<Location>) list
+                            .getModel();
+                    model.clear();
+                    for (Location l : results) {
+                        System.out.println("Add Element Details: "+l.details);
+                        model.addElement(l);
+                    }
+                }
+            });
+
         }
 
     }
