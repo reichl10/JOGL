@@ -4,6 +4,7 @@ import static de.joglearth.util.Resource.loadIcon;
 import static java.lang.Math.abs;
 import static java.lang.Math.signum;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -202,6 +203,7 @@ public class MainWindow extends JFrame {
     private Map<JButton, Location> buttonToLocationMap = new HashMap<JButton, Location>();
     private double cTiltX = 0.0d;
     private double cTiltY = 0.0d;
+    private Canvas scaleCanvas;
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -900,17 +902,20 @@ public class MainWindow extends JFrame {
         zoomMinusLabel.addMouseListener(new ZoomAdapter(zoomSlider, false));
         JPanel scalePanel = new JPanel();
         statusBar.add(scalePanel, "2, 1, fill, fill"); //$NON-NLS-1$
-        scalePanel.setLayout(new FormLayout(new ColumnSpec[] { ColumnSpec
-                .decode("center:default:grow"), }, //$NON-NLS-1$
-                new RowSpec[] { RowSpec.decode("default:grow"), //$NON-NLS-1$
-                        RowSpec.decode("default:grow"), })); //$NON-NLS-1$
-
-        JLabel scaleIcon = new JLabel(""); //$NON-NLS-1$
-        scaleIcon.setIcon(loadIcon("icons/scale.png")); //$NON-NLS-1$
-        scalePanel.add(scaleIcon, "1, 1"); //$NON-NLS-1$
+        scalePanel.setLayout(new FormLayout(new ColumnSpec[] {
+                ColumnSpec.decode("center:default:grow"),},
+            new RowSpec[] {
+                RowSpec.decode("default:grow"),
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                RowSpec.decode("default:grow"),}));
+        
+        scaleCanvas = new Canvas();
+        scaleCanvas.setBackground(Color.LIGHT_GRAY);
+        scalePanel.add(scaleCanvas, "1, 2, fill, fill");
 
         scaleLabel = new JLabel("1 km"); //$NON-NLS-1$
-        scalePanel.add(scaleLabel, "1, 2"); //$NON-NLS-1$
+        scalePanel.add(scaleLabel, "1, 3"); //$NON-NLS-1$
 
         JPanel coordPanel = new JPanel();
         statusBar.add(coordPanel, "4, 1, fill, fill"); //$NON-NLS-1$
@@ -1410,7 +1415,9 @@ public class MainWindow extends JFrame {
     }
 
     private class UICameraListener implements CameraListener {
-
+        private static final double rad = 6371.009 * 1000;
+        private Dimension dimensionCvas = new Dimension();
+        private Dimension dimensionScaleCanv = new Dimension();
         @Override
         public void cameraViewChanged() {
             GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
@@ -1422,6 +1429,18 @@ public class MainWindow extends JFrame {
                 longitudeTextField.setText(""); //$NON-NLS-1$
             }
             scaleLabel.setText(Double.toString(camera.getScale()));
+            System.out.println(String.valueOf(camera.getScale()));
+            System.out.println(String.valueOf(Math.round(camera.getScale()*rad) + "m"));
+            easel.getSize(dimensionCvas);
+            scaleCanvas.getSize(dimensionScaleCanv);
+            System.out.println("ScaleCanvSize Width: "+dimensionScaleCanv.getWidth());
+            double sizeScreen = camera.getScale()*rad;
+            System.out.println("SizeScreen: "+sizeScreen);
+            double scale = dimensionCvas.getWidth() / dimensionScaleCanv.getWidth();
+            System.out.println("Scale: "+scale);
+            double scaleSize = Math.round(sizeScreen / scale);
+            System.out.println("ScaleSize: "+scaleSize);
+            scaleLabel.setText(String.valueOf(scaleSize));
             // TODO: Other sutuff like asking Nomination for Details as soon as it is implemented
         }
 
