@@ -5,6 +5,7 @@
 \usepackage[Bjornstrup]{fncychap}
 \usepackage{ngerman}
 \usepackage{graphicx}
+\usepackage{blindtext,caption}
 \usepackage{epstopdf}
 \usepackage{etoolbox}
 \usepackage{enumitem}
@@ -138,9 +139,11 @@ Die folgende Formatierungen sind im Handbuch zu finden:
 \rule[-1ex]{0pt}{3ex} \textbf{Formatierung} & \textbf{Erläuterung} \\
 \hline
 \hline
-\rule[-1ex]{0pt}{4ex} \textit{kursiv} & kursiv formatierte Textausschnitte sind zum üben gedacht und sollen in \JoglEarth ausprobiert werden, sozusagen als Beispiele \\
-\hline
 \rule[-1ex]{0pt}{4ex} \textbf{fett} & wichtige Schlagwörter, verwendete Begriffe in \JoglEarth \\
+\hline
+\rule[-1ex]{0pt}{4ex} \textit{kursiv} & kursiv formatierte Texte dienen als Beispiele \\
+\hline
+\rule[-1ex]{0pt}{4ex} \underline{unterstrichen} & unterstrichene Texte sind zum Üben gedacht, diese Texte stellen Eingaben in \JoglEarth dar \\
 \hline
 \end{tabular}
 \end{center}
@@ -315,7 +318,12 @@ In den folgenden Kapiteln finden Sie als Einführung die Erklärungen zu den \te
 
 \newpage
 \subsection{Menüführung} \index{Menüführung}
-Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste}.
+Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und deckt die wichtigsten Funktionalitäten (\textref{Funktionen}) von \JoglEarth ab. 
+
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & Der Bereich \textbf{Details} in den angeführten Menüs verändert sich beim Wechseln der Menüs nicht.
+\end{tabular}
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
@@ -328,71 +336,78 @@ Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste}.
 \end{tabular}
 
 \vspace{5mm}
-\begin{enumerate}
-\item \textbf{\large Menü: Anzeige} \index{Menü Anzeige}
+\subsubsection{1. Menü: Anzeige} \index{Menü Anzeige}
 
-
-\begin{figure}[htb]
-\hspace{1cm}
 \begin{minipage}[t]{9cm}
-	\vspace{0pt}
+\vspace{-40mm}
 	\begin{itemize}
 	\item Ändern der \textref{Ansichtsmodi}
 	\item Ändern der \textref{Kartentypen}
-	\item \textref{Höhenprofil}
+	\item \textref{Höhenprofil} zu- oder abschalten
 	\end{itemize}
-
 \end{minipage}
 \begin{minipage}{7cm}
+\centering
 \includegraphics[scale=0.4]{images/anzeige_tab.png}
 \end{minipage}
-\end{figure}
 
 
-
-
-
-
-\newpage
-\item \textbf{\large Menü: Orte} \index{Menü Orte}
-\begin{itemize}
-\item \textref{Suche} nach gewünschten Orten
-\item Anzeige der Suchergebnisse
-\item Anzeige der gespeicherten \textref{Benutzermarkierungen}
-\item Ein- und ausblenden diverser \textref{Overlays}
-\end{itemize}
 
 \vspace{3mm}
-\begin{center}
+\subsubsection{2. Menü: Orte} \index{Menü Orte}
+\begin{minipage}[t]{9cm}
+\vspace{-40mm}
+	\begin{itemize}
+	\item \textref{Suche} nach gewünschten Orten
+	\item Anzeige der Suchergebnisse
+	\item Anzeige der gespeicherten \textref{Benutzermarkierungen}
+	\item Ein- und ausblenden diverser \textref{Overlays}
+	\end{itemize}
+\end{minipage}
+\begin{minipage}{7cm}
+\centering
 \includegraphics[scale=0.4]{images/orte_tab.png}
-\end{center}
+\end{minipage}
+
+
+
 
 \vspace{3mm}
-\item \textbf{\large Menü: Einstellungen} \index{Menü Einstellungen}
-\begin{itemize}
-\item Ändern der \textref{Sprache}
-\item Ändern von \textref{Grafikeinstellungen}
-\item Festlegen der \textref{Cachegrößen}
-\item Anzeige des Handbuchs im PDF-Format
-\item Anzeige des 'Über-uns-Fensters'
-\end{itemize}
-
-\vspace{3mm}
-\begin{center}
+\subsubsection{3. Menü: Einstellungen} \index{Menü Einstellungen}
+\begin{minipage}[t]{9cm}
+\vspace{-40mm}
+	\begin{itemize}
+	\item Ändern der \textref{Sprache}
+	\item Ändern von \textref{Grafikeinstellungen}
+	\item Festlegen der \textref{Cachegrößen}
+	\item Anzeige des Handbuchs im PDF-Format
+	\item Anzeige des 'Über-uns-Fensters'
+	\end{itemize}
+\end{minipage}
+\begin{minipage}{7cm}
+\centering
 \includegraphics[scale=0.4]{images/einstellungen_tab_DE.png}
-\end{center}
+\end{minipage}
+
+
 
 
 \vspace{3mm}
-\item \textbf{\large Menü: Details} \index{Menü Details}
+\subsubsection{4. Menü: Details} \index{Menü Details}
+Der Bereich \textbf{Details} zeigt verfügbare Informationen genau zum Mittelpunkt des aktuellen Kartenausschnitts an.\\
+
+Beispiel:
+\begin{itemize}
+\item \textit{Angenommen im Mittelpunkt des Kartenausschnitts befindet sich das Finanzamt der Stadt Regensburg, dann wird im Bereich \textbf{Details} 'Finanzamt Regensburg' angezeigt.}
+\end{itemize}
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} & Der Bereich \textbf{Details} verändert sich beim Wechseln der Menüs nicht.
+\includegraphics[scale=0.5]{images/info.eps} & Informationen zum Mittelpunkt des aktuellen Kartenausschnitts werden erst ab hohen Zoomstufen verfügbar.
 \end{tabular}
 
 
-\end{enumerate}
+
 
 
 \newpage
@@ -488,12 +503,12 @@ Diese Ansicht visualisiert einen Globus, welcher die Anzeige von den verfügbare
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} &  \textbf{Navigation:} Der Globus kann gedreht, vergrößert, verkleinert und gekippt werden.
+\includegraphics[scale=0.5]{images/info.eps} &  Navigation: Der Globus kann gedreht, vergrößert, verkleinert und gekippt werden.
 \end{tabular}
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} &  \textbf{Funktionalität:} Diese Ansicht unterstützt die gesamte Funktionalität von \JoglEarth , wie beispielsweise Aktivieren des Höhenprofils, Markieren von Punkten, etc.
+\includegraphics[scale=0.5]{images/info.eps} &  Funktionalität: Diese Ansicht unterstützt die gesamte Funktionalität von \JoglEarth , wie beispielsweise Aktivieren des Höhenprofils, Markieren von Punkten, etc.
 \end{tabular}
 
 \vspace{3mm}
@@ -511,12 +526,12 @@ Diese Ansicht visualisiert eine Kartenebene, welche die Anzeige von den verfügb
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} &  \textbf{Navigation:} Die Kartenebene kann gedreht, vergrößert, verkleinert und gekippt werden.
+\includegraphics[scale=0.5]{images/info.eps} &  Navigation: Die Kartenebene kann gedreht, vergrößert, verkleinert und gekippt werden.
 \end{tabular}
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} &  \textbf{Funktionalität:} Diese Ansicht unterstützt die gesamte Funktionalität von \JoglEarth , wie beispielsweise Aktivieren des Höhenprofils, Markieren von Punkten, etc.
+\includegraphics[scale=0.5]{images/info.eps} &  Funktionalität: Diese Ansicht unterstützt die gesamte Funktionalität von \JoglEarth , wie beispielsweise Aktivieren des Höhenprofils, Markieren von Punkten, etc.
 \end{tabular}
 
 \vspace{3mm}
@@ -606,22 +621,61 @@ Unter diesem Kartentyp versteht man Satellitenbilder, welche Aufnahmen der Erdob
 \chapter{Funktionen}
 %inkl. Übungsaufgaben/ Szenarien, wie was funktioniert Wichtig: Tipps \& Tricks nennen
 
+\vspace{3mm}
+\section{Ändern des Zoomlevels}
 
-\section{Sprache}
-Ändern der Sprache für die Benutzeroberfläche, die Suchergebnisse und die angezeigten Overlays.\\
-
-Einstellen der Benutzeroberfläche: \index{Benutzeroberfläche}
 
 \vspace{3mm}
-\begin{figure}[!htb]
-	\centering
-    \subfigure{\includegraphics[scale=0.4]{images/einstellungen_tab_DE.png}}
-    \hspace{5mm}
-    \subfigure{\includegraphics[scale=0.4]{images/einstellungen_tab_EN.png}}
-\end{figure} 
+\section{Ändern von Längen- und Breitengraden}
 
 
 
+
+\vspace{3mm}
+\section{Benutzermarkierungen}
+Das Feld der Benutzermarkierungen befindet sich im \textref{Menü Orte}.
+
+
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/quest.eps} & Markierungen einblenden / ausblenden
+\end{tabular}
+
+
+\vspace{3mm}
+\subsection{Markierungen setzen}
+
+
+\vspace{3mm}
+\subsection{Markierungen entfernen}
+
+
+
+
+\vspace{3mm}
+\section{Cachegrößen} \index{Cachegrößen}
+
+\vspace{3mm}
+\subsection{Arbeitsspeicher}
+
+\vspace{3mm}
+\subsection{Dateisystem}
+
+
+
+
+
+\vspace{3mm}
+\section{Grafikeinstellungen}
+
+\vspace{3mm}
+\subsection{Antialiasing} \index{Grafikeinstellungen!Antialiasing} \index{Antialiasing}
+
+\vspace{3mm}
+\subsection{Detaillevel} \index{Grafikeinstellungen!Detaillevel} \index{Detaillevel}
+
+\vspace{3mm}
+\subsection{Textur Filter} \index{Grafikeinstellungen!Texturfilter} \index{Texturfilter}
 
 
 
@@ -634,65 +688,11 @@ Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten er
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} &  Zur optimalen Darstellung des Höhenprofils empfiehlt sich Zoomlevel ... \\ 
+\includegraphics[scale=0.5]{images/info.eps} &  Zur optimalen Darstellung des Höhenprofils empfiehlt sich Zoomlevel ?? \\ 
 \end{tabular} 
 
 
-\vspace{3mm}
-\section{Eingabe von Längen- und Breitengraden}
 
-
-\vspace{3mm}
-\section{Ändern des Zoomlevels}
-
-
-\vspace{3mm}
-\section{Benutzermarkierungen}
-Das Feld der Benutzermarkierungen befindet sich im \textref{Menü Orte}.
-Übung: Markierungen einblenden / ausblenden
-
-
-\vspace{3mm}
-\subsection{Markierungen setzen}
-
-
-\vspace{3mm}
-\subsection{Markierungen entfernen}
-
-\vspace{3mm}
-\section{Suchfunkion}
-Die Suchfunktion wird über \textbf{Nominatim} \index{Nominatim} ausgeführt. Die Suchbegriffe werden von links nach rechts (vom Speziellen zum Allgemeinen) abgearbeitet, wenn dies fehlschlägt werden die Suchbegriffe von rechts nach links nochmals abgearbeitet.\\
-
-\vspace{3mm}
-\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} & Bei den Suchanfragen ist ein Limit gesetzt. Daher liefert eine Anfrage maximal 10 Suchergebnisse zurück. \\ 
-\end{tabular} 
-
-\vspace{3mm}
-\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} & Sollte eine Suche nicht erfolgreich sein, versuchen Sie den gewünschten Ort näher zu beschreiben (siehe unten stehende Beispiele). \\ 
-\end{tabular}
-
-\vspace{3mm}
-Beispiele: 
-\begin{itemize}
-\item \textit{Brandenburger Tor, Berlin}
-\item \textit{Berlin, Brandenburger Tor}
-\end{itemize}
-
-\vspace{3mm}
-\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} & Kommas sind nicht notwendig, verbessern aber die Suchgeschwindigkeit durch Reduzierung der Komplexität der Suchanfrage.  \\ 
-\end{tabular} 
-
-\vspace{3mm}
-Beispiel:
-\begin{itemize}
-\item \textit{Brandenburger Tor Berlin}
-\end{itemize}
-
-Die Suchergebnisse werden im \textref{Menü Orte} angezeigt.
-Übung: Suche Passau...
 
 \vspace{3mm}
 \section{POIs} \index{POIs}
@@ -731,38 +731,75 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 \hline
 \end{tabular}
 
-Übung: POIs einblenden / ausblenden
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/quest.eps} & Blenden Sie alle \underline{Restaurants} ein und anschließend wieder aus.
+\end{tabular}
 
 
+
+\newpage
+\section{Sprache}
+Ändern der Sprache für die Benutzeroberfläche, die Suchergebnisse und die angezeigten Overlays.\\
+
+Einstellen der Benutzeroberfläche: \index{Benutzeroberfläche}
+
+\vspace{3mm}
+\begin{figure}[!htb]
+	\centering
+    \subfigure{\includegraphics[scale=0.4]{images/einstellungen_tab_DE.png}}
+    \hspace{5mm}
+    \subfigure{\includegraphics[scale=0.4]{images/einstellungen_tab_EN.png}}
+\end{figure} 
 
 
 
 \vspace{3mm}
-\section{Grafikeinstellungen}
+\section{Suche}
+Die Suchfunktion wird über \textbf{Nominatim} \index{Nominatim} ausgeführt. Die Suchbegriffe werden von links nach rechts (vom Speziellen zum Allgemeinen) abgearbeitet, wenn dies fehlschlägt werden die Suchbegriffe von rechts nach links nochmals abgearbeitet.\\
 
 \vspace{3mm}
-\subsection{Antialiasing} \index{Grafikeinstellungen!Antialiasing} \index{Antialiasing}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & Bei den Suchanfragen ist ein Limit gesetzt. Daher liefert eine Anfrage maximal 10 Suchergebnisse zurück. \\ 
+\end{tabular} 
 
 \vspace{3mm}
-\subsection{Detaillevel} \index{Grafikeinstellungen!Detaillevel} \index{Detaillevel}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & Sollte eine Suche nicht erfolgreich sein, versuchen Sie den gewünschten Ort näher zu beschreiben (siehe unten stehende Beispiele). \\ 
+\end{tabular}
 
 \vspace{3mm}
-\subsection{Textur Filter} \index{Grafikeinstellungen!Texturfilter} \index{Texturfilter}
-
-
-
-
-
-
+Beispiele: 
+\begin{itemize}
+\item \textit{Brandenburger Tor, Berlin}
+\item \textit{Berlin, Brandenburger Tor}
+\end{itemize}
 
 \vspace{3mm}
-\section{Cachegrößen} \index{Cachegrößen}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & Kommas sind nicht notwendig, verbessern aber die Suchgeschwindigkeit durch Reduzierung der Komplexität der Suchanfrage.  \\ 
+\end{tabular} 
 
 \vspace{3mm}
-\subsection{Arbeitsspeicher}
+Beispiel:
+\begin{itemize}
+\item \textit{Brandenburger Tor Berlin}
+\end{itemize}
+
+Die Suchergebnisse werden im \textref{Menü Orte} angezeigt.
 
 \vspace{3mm}
-\subsection{Dateisystem}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/quest.eps} & Suchen Sie den Ort \underline{Passau} in Deutschland.
+\end{tabular}
+
+
+
+
+
+
+
+
 
 
 
