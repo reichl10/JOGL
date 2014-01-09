@@ -179,7 +179,7 @@ public class MainWindow extends JFrame {
     private UISettingsListener settingsListener;
     private JLabel scaleLabel;
     private static final double ZOOM_FACTOR = 10.d;
-    private static final double MAX_DIFF = 3.d;
+    private static final double MAX_DIST = 2.d;
     private static final double MIN_DIST = 1e-8d;
     private JButton searchButton;
     private JList<Location> searchResultList;
@@ -1488,8 +1488,9 @@ public class MainWindow extends JFrame {
             int value = slider.getValue();
             // TODO System.out.println("Zoome Changed to: "+value);
             double perc = value / (double) slider.getMaximum() * 10;
-            // TODO System.out.println("Set Distance to: "+(MIN_DIST + MAX_DIFF*perc));
-            camera.setDistance(MIN_DIST + MAX_DIFF * (1 / (1 + perc * perc * 10)));
+            // TODO System.out.println("Set Distance to: "+(MIN_DIST + MAX_DIST*perc));
+            camera.setDistance(MIN_DIST + (MAX_DIST - MIN_DIST)
+                    * (1 / (1 + perc * perc * perc * 10)));
 
         }
 
