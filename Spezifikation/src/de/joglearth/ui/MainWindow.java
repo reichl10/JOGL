@@ -1451,6 +1451,17 @@ public class MainWindow extends JFrame {
             lastPos = getScreenCoordinates(e.getPoint());
             super.mousePressed(e);
         }
+        
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() >= 2) {
+                ScreenCoordinates screenCoord = getScreenCoordinates(e.getPoint());
+                GeoCoordinates geoCoord = camera.getGeoCoordinates(screenCoord);
+                camera.setPosition(geoCoord);
+            }
+                
+            super.mouseClicked(e);
+        }
     }
 
     private class GLKeyboardListener extends KeyAdapter {
