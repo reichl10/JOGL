@@ -1334,6 +1334,7 @@ public class MainWindow extends JFrame {
                     @Override
                     public void run() {
                         buttonToLocationMap.clear();
+                        userTagListPanel.removeAll();
                         Set<Location> uLocations = Settings.getInstance().getLocations(SettingsContract.USER_LOCATIONS);
                         for (final Location l : uLocations) {
                             System.out.println("Name: "+l.name);
