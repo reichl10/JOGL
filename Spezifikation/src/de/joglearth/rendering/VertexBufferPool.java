@@ -32,7 +32,7 @@ public class VertexBufferPool<Key> extends MemoryCache<Key, VertexBuffer> {
         final VertexBuffer vbo = requestObject(k, null).value;
 
         if (vbo != null) {
-            gl.invokeSooner(new Runnable() {
+            gl.invokeLater(new Runnable() {
                 public void run() {
                     gl.deleteVertexBuffer(vbo);
                 };

@@ -39,6 +39,22 @@ public class NominatimQuery {
     public NominatimQuery(Type type) {
         this.type = type;
     }
+    
+    @Override
+    public boolean equals(Object other) {
+        if (!(other == null) && other.getClass() == this.getClass()) {
+            NominatimQuery o = (NominatimQuery) other;
+            if(o.type.equals(this.type)) {
+                if((o.area == null && this.area == null) || (o.area.equals(this.area))) {
+                    if((o.point == null && this.point == null) || (o.point.equals(this.point))) {
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
 
 
     /**
