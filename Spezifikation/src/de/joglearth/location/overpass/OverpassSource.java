@@ -75,7 +75,6 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
             return new SourceResponse<Collection<Location>>(SourceResponseType.MISSING, null);
         }
 
-        System.out.println("Overpass");
         ProgressManager.getInstance().requestArrived();
 
         executor.execute(new Runnable() {
@@ -83,7 +82,6 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
             @Override
             public void run() {
 
-                System.out.println("Startet Thread for Overpass");
                 Collection<Location> response = getLocations(key);
                 sender.requestCompleted(key, response);
                 ProgressManager.getInstance().requestCompleted();

@@ -156,7 +156,6 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
      */
     public Location reverseSearch(String osmId, String osmType, LocationType type) {
 
-        System.out.println();
 
         String url = "http://nominatim.openstreetmap.org/reverse";
         // Get-Request: "?accept-language=de&format=xml&osm_id=...&osm_type=[N|W|R]";
