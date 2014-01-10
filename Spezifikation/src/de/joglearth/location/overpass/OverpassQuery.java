@@ -2,6 +2,7 @@ package de.joglearth.location.overpass;
 
 import de.joglearth.geometry.Tile;
 import de.joglearth.location.LocationType;
+import de.joglearth.location.nominatim.NominatimQuery;
 
 
 /**
@@ -24,5 +25,20 @@ public class OverpassQuery {
     public OverpassQuery(LocationType type, Tile area) {
         this.area = area;
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other == null) && other.getClass() == this.getClass()) {
+            OverpassQuery o = (OverpassQuery) other;
+            if (o.type.equals(this.type)) {
+                if ((o.area == null && this.area == null) || (o.area.equals(this.area))) {
+                    return true;
+
+                }
+            }
+        }
+
+        return false;
     }
 }
