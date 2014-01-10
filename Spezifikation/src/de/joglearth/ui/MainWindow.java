@@ -572,14 +572,14 @@ public class MainWindow extends JFrame {
         checkboxToLocationTypeMap.put(box, LocationType.CITY);
         overlaysPanel.add(box);
         box.addItemListener(overlayListener);
-        box = new JCheckBox(Messages.getString("MainWindow.town")); //$NON-NLS-1$
-        checkboxToLocationTypeMap.put(box, LocationType.TOWN);
-        overlaysPanel.add(box);
-        box.addItemListener(overlayListener);
-        box = new JCheckBox(Messages.getString("MainWindow.village")); //$NON-NLS-1$
-        checkboxToLocationTypeMap.put(box, LocationType.VILLAGE);
-        overlaysPanel.add(box);
-        box.addItemListener(overlayListener);
+//        box = new JCheckBox(Messages.getString("MainWindow.town")); //$NON-NLS-1$
+//        checkboxToLocationTypeMap.put(box, LocationType.TOWN);
+//        overlaysPanel.add(box);
+//        box.addItemListener(overlayListener);
+//        box = new JCheckBox(Messages.getString("MainWindow.village")); //$NON-NLS-1$
+//        checkboxToLocationTypeMap.put(box, LocationType.VILLAGE);
+//        overlaysPanel.add(box);
+//        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.user_tags")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.USER_TAG);
         overlaysPanel.add(box);
