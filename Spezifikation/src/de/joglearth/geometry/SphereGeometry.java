@@ -14,10 +14,11 @@ public class SphereGeometry implements Geometry {
     public boolean isPointVisible(Vector3 cameraPosition, GeoCoordinates geo) {
         /* A point is on the back side of the sphere if its distance to the camera is greater
          * than the distance to the boundary point of the sphere and its tangent through the 
-         * camera origin. Because the distance to the boundary point is equal to the distance
-         * to the spere's center, that's what it's compared to.
+         * camera origin.
          */
-        return cameraPosition.to(getSpacePosition(geo)).length() <= cameraPosition.length();
+        double cameraRadius = cameraPosition.length(),
+               horizon = sqrt(cameraRadius*cameraRadius - 1);
+        return getSpacePosition(geo).to(cameraPosition).length() <= horizon;
     }
 
     @Override

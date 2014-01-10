@@ -60,17 +60,16 @@ public class Renderer {
     private TextureManager textureManager;
     private Camera camera;
     private DisplayMode activeDisplayMode = DisplayMode.SOLAR_SYSTEM;
-    private Texture earth, moon;
+    private Texture earth, moon, sky, crosshair;
     private VertexBufferManager tileMeshManager;
     private SurfaceListener surfaceListener = new SurfaceValidator();
     private GLContextListener glContextListener = new RendererGLListener();
     private Map<LocationType, Texture> overlayIconTextures;
     private SettingsListener settingsListener = new GraphicsSettingsListener();
-    private Texture sky;
     private MapConfiguration mapConfiguration = new SingleMapConfiguration(SingleMapType.SATELLITE);
     private Dimension screenSize = new Dimension(640, 480);
 
-    private final static int ICON_SIZE = 16;
+    private final static int ICON_SIZE = 24;
     
     private enum InitState {
         AWAITING,
@@ -233,8 +232,9 @@ public class Renderer {
             //locations.add(new Location(new GeoCoordinates(0, 0), LocationType.BANK, null, null));
             
             gl.setFeatureEnabled(GL_DEPTH_TEST, false);
+            gl.setFeatureEnabled(GL_BLEND, true);
             
-                        
+            gl.drawRectangle(new ScreenCoordinates(0.5 - xOffset, 0.5 - yOffset), new ScreenCoordinates(0.5 + xOffset, 0.5 + yOffset), crosshair);
             
             for (Location location : locations) {
                 if (location.point != null && camera.isPointVisible(location.point)) {
@@ -258,6 +258,8 @@ public class Renderer {
                     }*/
                 }
             }
+            
+            gl.setFeatureEnabled(GL_BLEND, false);
             gl.setFeatureEnabled(GL_DEPTH_TEST, true);
             //textRenderer.endRendering();
         }
@@ -314,13 +316,16 @@ public class Renderer {
                 textureFilter);
         moon = gl.loadTexture(Resource.loadTextureData("textures/moon.jpg", "jpg"), textureFilter);
         sky = gl.loadTexture(Resource.loadTextureData("textures/sky.jpg", "jpg"), textureFilter);
+        
+        crosshair = gl.loadTexture(Resource.loadTextureData("icons/crosshair.png", "png"), 
+                TextureFilter.TRILINEAR);
 
         overlayIconTextures = new LinkedHashMap<>();
         for (LocationType key : LocationType.values()) {
             String resourceName = "locationIcons/" + key.toString() + ".png";
             if (Resource.exists(resourceName)) {
                 Texture value = gl.loadTexture(Resource.loadTextureData(resourceName, "png"), 
-                        textureFilter);
+                        TextureFilter.TRILINEAR);
                 overlayIconTextures.put(key, value);
             }
         }
