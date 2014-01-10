@@ -19,4 +19,6 @@ class OverpassQueryGenerator {
     static String node = "<osm-script> <id-query ref=\"$ref$\" type=\"node\"/> <print/> </osm-script>";
     static String way = "<osm-script> <id-query ref=\"$ref$\" type=\"way\"/> <print/> </osm-script>";
     static String relation = "<osm-script> <id-query ref=\"\" type=\"relation\"/> <print/> </osm-script>";
+    static String city = "<osm-script> <union> <query type=\"node\">   <has-kv k=\"place\" v=\"city\" />   <bbox-query n=\"$north$\" s=\"$south$\" w=\"$west$\" e=\"$east$\"  /> </query> </union> <print/> </osm-script>";
+
 }

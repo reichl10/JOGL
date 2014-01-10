@@ -63,6 +63,7 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
         locationRequest.put(LocationType.POST, OverpassQueryGenerator.post);
         locationRequest.put(LocationType.SHOPS, OverpassQueryGenerator.shops);
         locationRequest.put(LocationType.TOILETS, OverpassQueryGenerator.toilets);
+        locationRequest.put(LocationType.CITY, OverpassQueryGenerator.city);
     }
 
     @Override
@@ -109,7 +110,7 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
         ArrayList<String> getRequest = new ArrayList<String>();
         getRequest.add("data");
         getRequest.add(query);
-
+        
         byte[] response = HTTP.get(url, getRequest);
         if (response == null) {
             return new ArrayList<Location>();
@@ -209,7 +210,7 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
 
     public static void main(String[] args) {
         OverpassSource source = new OverpassSource();
-        source.getLocations(new OverpassQuery(LocationType.ACTIVITY, new Tile() {
+        source.getLocations(new OverpassQuery(LocationType.CITY, new Tile() {
 
             @Override
             public boolean intersects(double lonFrom, double latFrom, double lonTo, double latTo) {
@@ -220,19 +221,19 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
             @Override
             public double getLongitudeTo() {
                 // TODO Auto-generated method stub
-                return 14;
+                return 15;
             }
 
             @Override
             public double getLongitudeFrom() {
                 // TODO Auto-generated method stub
-                return 13;
+                return 5;
             }
 
             @Override
             public double getLatitudeTo() {
                 // TODO Auto-generated method stub
-                return 49;
+                return 60;
             }
 
             @Override
