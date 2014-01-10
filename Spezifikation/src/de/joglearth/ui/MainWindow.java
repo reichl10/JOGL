@@ -7,6 +7,7 @@ import static java.lang.Math.signum;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -23,6 +24,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
@@ -103,6 +108,7 @@ import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.ProgressListener;
 import de.joglearth.source.ProgressManager;
+import de.joglearth.util.Resource;
 
 
 /**
@@ -387,10 +393,11 @@ public class MainWindow extends JFrame {
 
             private boolean lastSelected = false;
 
+
             @Override
             public void stateChanged(ChangeEvent e) {
                 JCheckBox box = (JCheckBox) e.getSource();
-                if (box.isSelected() != lastSelected ) {
+                if (box.isSelected() != lastSelected) {
                     if (box.isSelected()) {
                         renderer.setHeightMap(SRTMHeightMap.getInstance());
                     } else {
@@ -519,7 +526,7 @@ public class MainWindow extends JFrame {
         overlayScrollPane.setViewportView(overlaysPanel);
 
         UIOverlaySelectionListener overlayListener = new UIOverlaySelectionListener();
-        
+
         JCheckBox box = new JCheckBox(Messages.getString("MainWindow.restaurant")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.RESTAURANT);
         overlaysPanel.add(box);
@@ -612,7 +619,6 @@ public class MainWindow extends JFrame {
             }
         });
     }
-    
 
     private void initializeSettingsTab() {
         settingsTab
@@ -823,7 +829,22 @@ public class MainWindow extends JFrame {
         manualAboutPanel.add(manualButton, "1, 1"); //$NON-NLS-1$
         manualButton.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent arg0) {}
+            public void actionPerformed(ActionEvent arg0) {
+                try {
+                    File pdf = new File(System.getProperty("java.io.tmpdir") + File.separator
+                            + "JoglEarthManual.pdf");
+                    if (!pdf.exists()) {
+                        FileOutputStream fos = new FileOutputStream(pdf);
+                        byte[] bytes = Resource.loadBinary("Handbuch.pdf");
+                        fos.write(bytes);
+                        fos.close();
+                    }
+                    Desktop.getDesktop().open(pdf);
+                } catch (IOException e) {
+                    System.err.println("Error opening manual:");
+                    e.printStackTrace();
+                }
+            }
         });
         manualButton.setIcon(loadIcon("icons/manual.png")); //$NON-NLS-1$
 
@@ -927,13 +948,13 @@ public class MainWindow extends JFrame {
         JPanel scalePanel = new JPanel();
         statusBar.add(scalePanel, "2, 1, fill, fill"); //$NON-NLS-1$
         scalePanel.setLayout(new FormLayout(new ColumnSpec[] {
-                ColumnSpec.decode("center:default:grow"),},
-            new RowSpec[] {
-                RowSpec.decode("default:grow"),
-                FormFactory.RELATED_GAP_ROWSPEC,
-                FormFactory.DEFAULT_ROWSPEC,
-                RowSpec.decode("default:grow"),}));
-        
+                ColumnSpec.decode("center:default:grow"), },
+                new RowSpec[] {
+                        RowSpec.decode("default:grow"),
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        RowSpec.decode("default:grow"), }));
+
         scaleCanvas = new Canvas();
         scaleCanvas.setBackground(Color.LIGHT_GRAY);
         scalePanel.add(scaleCanvas, "1, 2, fill, fill");
@@ -1143,14 +1164,16 @@ public class MainWindow extends JFrame {
         Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS,
                 new UIUserLocationListener());
         searchResultList.addListSelectionListener(new ListSelectionListener() {
-            
+
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (e.getValueIsAdjusting() == false) {
-                     Location location = searchResultList.getSelectedValue();
-                     System.out.println("SearchResult Setting to lon: "+location.point.getLongitudeString()+" lat: "+location.point.getLatitudeString());
-                     camera.setPosition(location.point);
-                     updateDetails(location);
+                    Location location = searchResultList.getSelectedValue();
+                    System.out.println("SearchResult Setting to lon: "
+                            + location.point.getLongitudeString() + " lat: "
+                            + location.point.getLatitudeString());
+                    camera.setPosition(location.point);
+                    updateDetails(location);
                 }
             }
         });
@@ -1357,10 +1380,10 @@ public class MainWindow extends JFrame {
             detailNameLabel.setText(Messages.getString("MainWindow.3"));
         if (location.details != null)
             detailDescriptionLabel.setText(location.details);
-        else                
+        else
             detailDescriptionLabel.setText(Messages.getString("MainWindow.42"));
     }
-    
+
     /**
      * Constructor.
      * 
@@ -1462,9 +1485,12 @@ public class MainWindow extends JFrame {
     }
 
     private class UICameraListener implements CameraListener {
+
         private static final double rad = 6371.009 * 1000;
         private Dimension dimensionCvas = new Dimension();
         private Dimension dimensionScaleCanv = new Dimension();
+
+
         @Override
         public void cameraViewChanged() {
             GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
@@ -1477,18 +1503,19 @@ public class MainWindow extends JFrame {
             }
             scaleLabel.setText(Double.toString(camera.getScale()));
             System.out.println(String.valueOf(camera.getScale()));
-            System.out.println(String.valueOf(Math.round(camera.getScale()*rad) + "m"));
+            System.out.println(String.valueOf(Math.round(camera.getScale() * rad) + "m"));
             easel.getSize(dimensionCvas);
             scaleCanvas.getSize(dimensionScaleCanv);
-            System.out.println("ScaleCanvSize Width: "+dimensionScaleCanv.getWidth());
-            double sizeScreen = camera.getScale()*rad;
-            System.out.println("SizeScreen: "+sizeScreen);
+            System.out.println("ScaleCanvSize Width: " + dimensionScaleCanv.getWidth());
+            double sizeScreen = camera.getScale() * rad;
+            System.out.println("SizeScreen: " + sizeScreen);
             double scale = dimensionCvas.getWidth() / dimensionScaleCanv.getWidth();
-            System.out.println("Scale: "+scale);
+            System.out.println("Scale: " + scale);
             double scaleSize = Math.round(sizeScreen / scale);
-            System.out.println("ScaleSize: "+scaleSize);
+            System.out.println("ScaleSize: " + scaleSize);
             scaleLabel.setText(String.valueOf(scaleSize));
-            Location location = locationManager.getDetails(camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d)));
+            Location location = locationManager.getDetails(camera
+                    .getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d)));
             updateDetails(location);
         }
 
@@ -1619,25 +1646,25 @@ public class MainWindow extends JFrame {
                 case KeyEvent.VK_PLUS:
                 case KeyEvent.VK_ADD:
                     SwingUtilities.invokeLater(new Runnable() {
-                        
+
                         @Override
                         public void run() {
-                            zoomSlider.setValue(zoomSlider.getValue()+1);
+                            zoomSlider.setValue(zoomSlider.getValue() + 1);
                         }
                     });
                     break;
                 case KeyEvent.VK_MINUS:
                 case KeyEvent.VK_SUBTRACT:
                     SwingUtilities.invokeLater(new Runnable() {
-                        
+
                         @Override
                         public void run() {
-                            zoomSlider.setValue(zoomSlider.getValue()-1);
+                            zoomSlider.setValue(zoomSlider.getValue() - 1);
                         }
                     });
                     break;
                 default:
-                    System.out.println("KeyCode: "+e.getKeyCode());
+                    System.out.println("KeyCode: " + e.getKeyCode());
                     break;
             }
             if (newGeo != null) {
