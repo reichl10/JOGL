@@ -48,59 +48,59 @@ public class LocationEditDialog extends JDialog {
     public LocationEditDialog(Location location) {
         loc = location;
         setSize(370, 250);
-        setTitle("Add user tag");
+        setTitle(Messages.getString("LocationEditDialog.title")); //$NON-NLS-1$
         getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.RELATED_GAP_COLSPEC,
                 FormFactory.DEFAULT_COLSPEC,
                 FormFactory.RELATED_GAP_COLSPEC,
-                ColumnSpec.decode("default:grow"),
+                ColumnSpec.decode("default:grow"), //$NON-NLS-1$
                 FormFactory.RELATED_GAP_COLSPEC, },
                 new RowSpec[] {
                         FormFactory.RELATED_GAP_ROWSPEC,
-                        RowSpec.decode("top:default"),
+                        RowSpec.decode("top:default"), //$NON-NLS-1$
                         FormFactory.RELATED_GAP_ROWSPEC,
-                        RowSpec.decode("top:default"),
+                        RowSpec.decode("top:default"), //$NON-NLS-1$
                         FormFactory.RELATED_GAP_ROWSPEC,
-                        RowSpec.decode("top:default"),
+                        RowSpec.decode("top:default"), //$NON-NLS-1$
                         FormFactory.RELATED_GAP_ROWSPEC,
-                        RowSpec.decode("top:default:grow"),
+                        RowSpec.decode("top:default:grow"), //$NON-NLS-1$
                         FormFactory.RELATED_GAP_ROWSPEC,
-                        RowSpec.decode("top:default"),
+                        RowSpec.decode("top:default"), //$NON-NLS-1$
                         FormFactory.RELATED_GAP_ROWSPEC, }));
 
-        JLabel longitudeCaptionLabel = new JLabel("Longitude");
-        getContentPane().add(longitudeCaptionLabel, "2, 2");
+        JLabel longitudeCaptionLabel = new JLabel(Messages.getString("LocationEditDialog.longitude")); //$NON-NLS-1$
+        getContentPane().add(longitudeCaptionLabel, "2, 2"); //$NON-NLS-1$
 
         JLabel longitudeLabel = new JLabel(location.point.getLongitudeString());
-        getContentPane().add(longitudeLabel, "4, 2");
+        getContentPane().add(longitudeLabel, "4, 2"); //$NON-NLS-1$
 
-        JLabel latitudeCaptionLabel = new JLabel("Latitude");
-        getContentPane().add(latitudeCaptionLabel, "2, 4");
+        JLabel latitudeCaptionLabel = new JLabel(Messages.getString("LocationEditDialog.latitude")); //$NON-NLS-1$
+        getContentPane().add(latitudeCaptionLabel, "2, 4"); //$NON-NLS-1$
 
         JLabel latitudeLabel = new JLabel(location.point.getLatitudeString());
-        getContentPane().add(latitudeLabel, "4, 4");
+        getContentPane().add(latitudeLabel, "4, 4"); //$NON-NLS-1$
 
-        JLabel nameCaptionLabel = new JLabel("Name");
-        getContentPane().add(nameCaptionLabel, "2, 6, left, default");
+        JLabel nameCaptionLabel = new JLabel(Messages.getString("LocationEditDialog.name")); //$NON-NLS-1$
+        getContentPane().add(nameCaptionLabel, "2, 6, left, default"); //$NON-NLS-1$
 
         nameTextField = new JTextField();
-        getContentPane().add(nameTextField, "4, 6, fill, default");
+        getContentPane().add(nameTextField, "4, 6, fill, default"); //$NON-NLS-1$
         nameTextField.setColumns(10);
 
-        JLabel descriptionCaptionLabel = new JLabel("Description");
+        JLabel descriptionCaptionLabel = new JLabel(Messages.getString("LocationEditDialog.description")); //$NON-NLS-1$
         descriptionCaptionLabel.setVerticalAlignment(SwingConstants.TOP);
-        getContentPane().add(descriptionCaptionLabel, "2, 8, left, default");
+        getContentPane().add(descriptionCaptionLabel, "2, 8, left, default"); //$NON-NLS-1$
 
         descriptionTextField = new JTextField();
-        getContentPane().add(descriptionTextField, "4, 8, fill, fill");
+        getContentPane().add(descriptionTextField, "4, 8, fill, fill"); //$NON-NLS-1$
         descriptionTextField.setColumns(10);
 
         JPanel buttonPane = new JPanel();
-        getContentPane().add(buttonPane, "4, 10, fill, fill");
+        getContentPane().add(buttonPane, "4, 10, fill, fill"); //$NON-NLS-1$
         buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 0));
         
 
-        JButton okButton = new JButton("OK");
+        JButton okButton = new JButton(Messages.getString("LocationEditDialog.ok")); //$NON-NLS-1$
         okButton.addActionListener(new ActionListener() {
             
             @Override

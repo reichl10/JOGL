@@ -4,8 +4,10 @@ import static de.joglearth.util.Resource.loadIcon;
 import static java.lang.Math.abs;
 import static java.lang.Math.signum;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -22,6 +24,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
@@ -64,6 +70,8 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.ActionMapUIResource;
 
 import com.jgoodies.forms.factories.FormFactory;
@@ -100,6 +108,7 @@ import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.ProgressListener;
 import de.joglearth.source.ProgressManager;
+import de.joglearth.util.Resource;
 
 
 /**
@@ -127,6 +136,8 @@ public class MainWindow extends JFrame {
      * Default minimum height of the window.
      */
     private static final int MIN_HEIGHT = 600;
+
+    private static final double SCALE_TILT = 0.3d;
 
     /**
      * Stores the reference to the <code>LocationManager</code> that it gets through the
@@ -198,6 +209,9 @@ public class MainWindow extends JFrame {
     private JPanel userTagListPanel;
     private JScrollPane scrollPane;
     private Map<JButton, Location> buttonToLocationMap = new HashMap<JButton, Location>();
+    private double cTiltX = 0.0d;
+    private double cTiltY = 0.0d;
+    private Canvas scaleCanvas;
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -377,13 +391,19 @@ public class MainWindow extends JFrame {
         heightMapCheckBox = new JCheckBox(Messages.getString("MainWindow.65")); //$NON-NLS-1$
         heightMapCheckBox.addChangeListener(new ChangeListener() {
 
+            private boolean lastSelected = false;
+
+
             @Override
             public void stateChanged(ChangeEvent e) {
                 JCheckBox box = (JCheckBox) e.getSource();
-                if (box.isSelected()) {
-                    renderer.setHeightMap(SRTMHeightMap.getInstance());
-                } else {
-                    renderer.setHeightMap(FlatHeightMap.getInstance());
+                if (box.isSelected() != lastSelected) {
+                    if (box.isSelected()) {
+                        renderer.setHeightMap(SRTMHeightMap.getInstance());
+                    } else {
+                        renderer.setHeightMap(FlatHeightMap.getInstance());
+                    }
+                    lastSelected = box.isSelected();
                 }
             }
         });
@@ -473,15 +493,15 @@ public class MainWindow extends JFrame {
         userTagPanel.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
                 ColumnSpec.decode("default:grow"),
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,},
-            new RowSpec[] {
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,
-                RowSpec.decode("default:grow"),
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,}));
-        
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC, },
+                new RowSpec[] {
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                        RowSpec.decode("default:grow"),
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
+
         scrollPane = new JScrollPane();
         userTagPanel.add(scrollPane, "2, 2, fill, fill");
-        
+
         userTagListPanel = new JPanel();
         scrollPane.setViewportView(userTagListPanel);
         userTagListPanel.setLayout(new GridLayout(10, 0, 0, 0));
@@ -505,58 +525,99 @@ public class MainWindow extends JFrame {
         overlaysPanel = new JPanel();
         overlayScrollPane.setViewportView(overlaysPanel);
 
+        UIOverlaySelectionListener overlayListener = new UIOverlaySelectionListener();
+
         JCheckBox box = new JCheckBox(Messages.getString("MainWindow.restaurant")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.RESTAURANT);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.nightlife")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.NIGHTLIFE);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.bank")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.BANK);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.toilets")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.TOILETS);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.grocery_store")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.GROCERY_SHOPS);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.shops")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.SHOPS);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.activity")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.ACTIVITY);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.hiking_and_cycling")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.HIKING_AND_CYCLING);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.education")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.EDUCATION);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.health")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.HEALTH);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.post")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.POST);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.hotels")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.HOTELS);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.city")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.CITY);
         overlaysPanel.add(box);
-        box = new JCheckBox(Messages.getString("MainWindow.town")); //$NON-NLS-1$
-        checkboxToLocationTypeMap.put(box, LocationType.TOWN);
-        overlaysPanel.add(box);
-        box = new JCheckBox(Messages.getString("MainWindow.village")); //$NON-NLS-1$
-        checkboxToLocationTypeMap.put(box, LocationType.VILLAGE);
-        overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
+//        box = new JCheckBox(Messages.getString("MainWindow.town")); //$NON-NLS-1$
+//        checkboxToLocationTypeMap.put(box, LocationType.TOWN);
+//        overlaysPanel.add(box);
+//        box.addItemListener(overlayListener);
+//        box = new JCheckBox(Messages.getString("MainWindow.village")); //$NON-NLS-1$
+//        checkboxToLocationTypeMap.put(box, LocationType.VILLAGE);
+//        overlaysPanel.add(box);
+//        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.user_tags")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.USER_TAG);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.search")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.SEARCH);
         overlaysPanel.add(box);
+        box.addItemListener(overlayListener);
+        SwingUtilities.invokeLater(new Runnable() {
 
+            @Override
+            public void run() {
+                buttonToLocationMap.clear();
+                userTagListPanel.removeAll();
+                Set<Location> uLocations = Settings.getInstance().getLocations(
+                        SettingsContract.USER_LOCATIONS);
+                for (final Location l : uLocations) {
+                    System.out.println("Name: " + l.name);
+                    JButton button = new JButton(l.name);
+                    button.addActionListener(new ActionListener() {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            camera.setPosition(l.point);
+                        }
+                    });
+                    buttonToLocationMap.put(button, l);
+                    userTagListPanel.add(button);
+                }
+            }
+        });
     }
 
     private void initializeSettingsTab() {
@@ -625,9 +686,9 @@ public class MainWindow extends JFrame {
         antialiasingComboBox.addItem(new NamedItem<Antialiasing>(Messages
                 .getString("MainWindow.130"), //$NON-NLS-1$
                 Antialiasing.MSAA_4X));
-        antialiasingComboBox.addItem(new NamedItem<Antialiasing>("8x MSAA", 
+        antialiasingComboBox.addItem(new NamedItem<Antialiasing>("8x MSAA",
                 Antialiasing.MSAA_8X));
-        antialiasingComboBox.addItem(new NamedItem<Antialiasing>("16x MSAA", 
+        antialiasingComboBox.addItem(new NamedItem<Antialiasing>("16x MSAA",
                 Antialiasing.MSAA_16X));
         antialiasingComboBox.addItemListener(new ItemListener() {
 
@@ -655,10 +716,14 @@ public class MainWindow extends JFrame {
         texfilterComboBox.addItem(new NamedItem<TextureFilter>(Messages
                 .getString("MainWindow.135"), TextureFilter.NEAREST)); //$NON-NLS-1$
         texfilterComboBox.addItem(new NamedItem<TextureFilter>("Bilinear", TextureFilter.BILINEAR)); //$NON-NLS-1$
-        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 2x", TextureFilter.ANISOTROPIC_2X));
-        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 4x", TextureFilter.ANISOTROPIC_4X));
-        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 8x", TextureFilter.ANISOTROPIC_8X));
-        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 16x", TextureFilter.ANISOTROPIC_16X));
+        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 2x",
+                TextureFilter.ANISOTROPIC_2X));
+        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 4x",
+                TextureFilter.ANISOTROPIC_4X));
+        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 8x",
+                TextureFilter.ANISOTROPIC_8X));
+        texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 16x",
+                TextureFilter.ANISOTROPIC_16X));
         texfilterComboBox.addItemListener(new ItemListener() {
 
             @Override
@@ -764,7 +829,22 @@ public class MainWindow extends JFrame {
         manualAboutPanel.add(manualButton, "1, 1"); //$NON-NLS-1$
         manualButton.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent arg0) {}
+            public void actionPerformed(ActionEvent arg0) {
+                try {
+                    File pdf = new File(System.getProperty("java.io.tmpdir") + File.separator
+                            + "JoglEarthManual.pdf");
+                    if (!pdf.exists()) {
+                        FileOutputStream fos = new FileOutputStream(pdf);
+                        byte[] bytes = Resource.loadBinary("Handbuch.pdf");
+                        fos.write(bytes);
+                        fos.close();
+                    }
+                    Desktop.getDesktop().open(pdf);
+                } catch (IOException e) {
+                    System.err.println("Error opening manual:");
+                    e.printStackTrace();
+                }
+            }
         });
         manualButton.setIcon(loadIcon("icons/manual.png")); //$NON-NLS-1$
 
@@ -867,17 +947,20 @@ public class MainWindow extends JFrame {
         zoomMinusLabel.addMouseListener(new ZoomAdapter(zoomSlider, false));
         JPanel scalePanel = new JPanel();
         statusBar.add(scalePanel, "2, 1, fill, fill"); //$NON-NLS-1$
-        scalePanel.setLayout(new FormLayout(new ColumnSpec[] { ColumnSpec
-                .decode("center:default:grow"), }, //$NON-NLS-1$
-                new RowSpec[] { RowSpec.decode("default:grow"), //$NON-NLS-1$
-                        RowSpec.decode("default:grow"), })); //$NON-NLS-1$
+        scalePanel.setLayout(new FormLayout(new ColumnSpec[] {
+                ColumnSpec.decode("center:default:grow"), },
+                new RowSpec[] {
+                        RowSpec.decode("default:grow"),
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        RowSpec.decode("default:grow"), }));
 
-        JLabel scaleIcon = new JLabel(""); //$NON-NLS-1$
-        scaleIcon.setIcon(loadIcon("icons/scale.png")); //$NON-NLS-1$
-        scalePanel.add(scaleIcon, "1, 1"); //$NON-NLS-1$
+        scaleCanvas = new Canvas();
+        scaleCanvas.setBackground(Color.LIGHT_GRAY);
+        scalePanel.add(scaleCanvas, "1, 2, fill, fill");
 
         scaleLabel = new JLabel("1 km"); //$NON-NLS-1$
-        scalePanel.add(scaleLabel, "1, 2"); //$NON-NLS-1$
+        scalePanel.add(scaleLabel, "1, 3"); //$NON-NLS-1$
 
         JPanel coordPanel = new JPanel();
         statusBar.add(coordPanel, "4, 1, fill, fill"); //$NON-NLS-1$
@@ -897,28 +980,29 @@ public class MainWindow extends JFrame {
 
         latitudeTextField = new JTextField();
         latitudeTextField.addKeyListener(new KeyListener() {
-            
+
             @Override
             public void keyTyped(KeyEvent e) {
                 // TODO Auto-generated method stub
-                
+
             }
-            
+
             @Override
             public void keyReleased(KeyEvent e) {
                 // TODO Auto-generated method stub
-                
+
             }
-            
+
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_ENTER) {
                     System.out.println("Change By Lat");
-                    GeoCoordinates geo = GeoCoordinates.parseCoordinates(longitudeTextField.getText(), latitudeTextField.getText());
+                    GeoCoordinates geo = GeoCoordinates.parseCoordinates(
+                            longitudeTextField.getText(), latitudeTextField.getText());
                     camera.setPosition(geo);
                 }
-                
+
             }
         });
         coordPanel.add(latitudeTextField, "3, 1, fill, default"); //$NON-NLS-1$
@@ -933,28 +1017,29 @@ public class MainWindow extends JFrame {
         longitudeTextField.setColumns(8);
         longitudeTextField.setHorizontalAlignment(JTextField.RIGHT);
         longitudeTextField.addKeyListener(new KeyListener() {
-            
+
             @Override
             public void keyTyped(KeyEvent e) {
                 // TODO Auto-generated method stub
-                
+
             }
-            
+
             @Override
             public void keyReleased(KeyEvent e) {
                 // TODO Auto-generated method stub
-                
+
             }
-            
+
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_ENTER) {
                     System.out.println("Change By Long");
-                    GeoCoordinates geo = GeoCoordinates.parseCoordinates(longitudeTextField.getText(), latitudeTextField.getText());
+                    GeoCoordinates geo = GeoCoordinates.parseCoordinates(
+                            longitudeTextField.getText(), latitudeTextField.getText());
                     camera.setPosition(geo);
                 }
-                
+
             }
         });
 
@@ -1076,7 +1161,22 @@ public class MainWindow extends JFrame {
         locationManager.addLocationListener(new UISearchResultListener(searchResultList));
         progressManager.addProgressListener(new UIProgressListener());
         userTagButton.addActionListener(new UsertagButtonListener());
-        Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS, new UIUserLocationListener());
+        Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS,
+                new UIUserLocationListener());
+        searchResultList.addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (e.getValueIsAdjusting() == false) {
+                    Location location = searchResultList.getSelectedValue();
+                    System.out.println("SearchResult Setting to lon: "
+                            + location.point.getLongitudeString() + " lat: "
+                            + location.point.getLatitudeString());
+                    camera.setPosition(location.point);
+                    updateDetails(location);
+                }
+            }
+        });
     }
 
     private void loadLanguage() {
@@ -1143,9 +1243,9 @@ public class MainWindow extends JFrame {
                 antialiasingComboBox.addItem(new NamedItem<Antialiasing>(
                         Messages.getString("MainWindow.130"), //$NON-NLS-1$
                         Antialiasing.MSAA_4X));
-                antialiasingComboBox.addItem(new NamedItem<Antialiasing>("8x MSAA", 
+                antialiasingComboBox.addItem(new NamedItem<Antialiasing>("8x MSAA",
                         Antialiasing.MSAA_8X));
-                antialiasingComboBox.addItem(new NamedItem<Antialiasing>("16x MSAA", 
+                antialiasingComboBox.addItem(new NamedItem<Antialiasing>("16x MSAA",
                         Antialiasing.MSAA_16X));
                 antialiasingComboBox.setSelectedIndex(index);
                 texfilterLabel.setText(Messages.getString("MainWindow.132")); //$NON-NLS-1$
@@ -1155,11 +1255,16 @@ public class MainWindow extends JFrame {
                         .getString("MainWindow.134"), TextureFilter.TRILINEAR)); //$NON-NLS-1$
                 texfilterComboBox.addItem(new NamedItem<TextureFilter>(Messages
                         .getString("MainWindow.135"), TextureFilter.NEAREST)); //$NON-NLS-1$
-                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Bilinear", TextureFilter.BILINEAR)); //$NON-NLS-1$
-                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 2x", TextureFilter.ANISOTROPIC_2X));
-                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 4x", TextureFilter.ANISOTROPIC_4X));
-                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 8x", TextureFilter.ANISOTROPIC_8X));
-                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 16x", TextureFilter.ANISOTROPIC_16X));
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>(
+                        "Bilinear", TextureFilter.BILINEAR)); //$NON-NLS-1$
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 2x",
+                        TextureFilter.ANISOTROPIC_2X));
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 4x",
+                        TextureFilter.ANISOTROPIC_4X));
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 8x",
+                        TextureFilter.ANISOTROPIC_8X));
+                texfilterComboBox.addItem(new NamedItem<TextureFilter>("Anisotropic 16x",
+                        TextureFilter.ANISOTROPIC_16X));
                 texfilterComboBox.setSelectedIndex(index);
                 lodLabel.setText(Messages.getString("MainWindow.137")); //$NON-NLS-1$
                 index = lodComboBox_1.getSelectedIndex();
@@ -1268,6 +1373,17 @@ public class MainWindow extends JFrame {
 
     }
 
+    private void updateDetails(Location location) {
+        if (location.name != null)
+            detailNameLabel.setText(location.name);
+        else
+            detailNameLabel.setText(Messages.getString("MainWindow.3"));
+        if (location.details != null)
+            detailDescriptionLabel.setText(location.details);
+        else
+            detailDescriptionLabel.setText(Messages.getString("MainWindow.42"));
+    }
+
     /**
      * Constructor.
      * 
@@ -1320,25 +1436,26 @@ public class MainWindow extends JFrame {
         }
 
     }
-    
+
     private class UIUserLocationListener implements SettingsListener {
 
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
-            System.err.println("Got a UserLocation Change: "+key);
+            System.err.println("Got a UserLocation Change: " + key);
             if (key.equals(SettingsContract.USER_LOCATIONS)) {
                 SwingUtilities.invokeLater(new Runnable() {
-                    
+
                     @Override
                     public void run() {
                         buttonToLocationMap.clear();
                         userTagListPanel.removeAll();
-                        Set<Location> uLocations = Settings.getInstance().getLocations(SettingsContract.USER_LOCATIONS);
+                        Set<Location> uLocations = Settings.getInstance().getLocations(
+                                SettingsContract.USER_LOCATIONS);
                         for (final Location l : uLocations) {
-                            System.out.println("Name: "+l.name);
+                            System.out.println("Name: " + l.name);
                             JButton button = new JButton(l.name);
                             button.addActionListener(new ActionListener() {
-                                
+
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
                                     camera.setPosition(l.point);
@@ -1350,9 +1467,9 @@ public class MainWindow extends JFrame {
                     }
                 });
             }
-            
+
         }
-        
+
     }
 
     private class UIOverlaySelectionListener implements ItemListener {
@@ -1369,6 +1486,11 @@ public class MainWindow extends JFrame {
 
     private class UICameraListener implements CameraListener {
 
+        private static final double rad = 6371.009 * 1000;
+        private Dimension dimensionCvas = new Dimension();
+        private Dimension dimensionScaleCanv = new Dimension();
+
+
         @Override
         public void cameraViewChanged() {
             GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
@@ -1380,16 +1502,27 @@ public class MainWindow extends JFrame {
                 longitudeTextField.setText(""); //$NON-NLS-1$
             }
             scaleLabel.setText(Double.toString(camera.getScale()));
-            // TODO: Other sutuff like asking Nomination for Details as soon as it is implemented
+            System.out.println(String.valueOf(camera.getScale()));
+            System.out.println(String.valueOf(Math.round(camera.getScale() * rad) + "m"));
+            easel.getSize(dimensionCvas);
+            scaleCanvas.getSize(dimensionScaleCanv);
+            System.out.println("ScaleCanvSize Width: " + dimensionScaleCanv.getWidth());
+            double sizeScreen = camera.getScale() * rad;
+            System.out.println("SizeScreen: " + sizeScreen);
+            double scale = dimensionCvas.getWidth() / dimensionScaleCanv.getWidth();
+            System.out.println("Scale: " + scale);
+            double scaleSize = Math.round(sizeScreen / scale);
+            System.out.println("ScaleSize: " + scaleSize);
+            scaleLabel.setText(String.valueOf(scaleSize));
+            Location location = locationManager.getDetails(camera
+                    .getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d)));
+            updateDetails(location);
         }
 
     }
 
     private class GlMouseListener extends MouseAdapter {
 
-        double currentTiltX = 0.0d;
-        double currentTiltY = 0.0d;
-        private static final double SCALE_TILT = 0.3d;
         ScreenCoordinates lastPos;
 
 
@@ -1425,21 +1558,21 @@ public class MainWindow extends JFrame {
                 double diffY = newPos.x - lastPos.x;
                 double diffX = newPos.y - lastPos.y;
                 // -pi/2,pi/2
-                currentTiltX += (diffX * SCALE_TILT);
-                currentTiltY += (diffY * SCALE_TILT);
-                if (currentTiltX < -(Math.PI / 2)) {
-                    currentTiltX = -(Math.PI / 2);
+                cTiltX += (diffX * SCALE_TILT);
+                cTiltY += (diffY * SCALE_TILT);
+                if (cTiltX < -(Math.PI / 2)) {
+                    cTiltX = -(Math.PI / 2);
                 }
-                if (currentTiltY < -(Math.PI / 2)) {
-                    currentTiltY = -(Math.PI / 2);
+                if (cTiltY < -(Math.PI / 2)) {
+                    cTiltY = -(Math.PI / 2);
                 }
-                if (currentTiltX > (Math.PI / 2)) {
-                    currentTiltX = (Math.PI / 2);
+                if (cTiltX > (Math.PI / 2)) {
+                    cTiltX = (Math.PI / 2);
                 }
-                if (currentTiltY > (Math.PI / 2)) {
-                    currentTiltY = (Math.PI / 2);
+                if (cTiltY > (Math.PI / 2)) {
+                    cTiltY = (Math.PI / 2);
                 }
-                camera.setTilt(currentTiltX, currentTiltY);
+                camera.setTilt(cTiltX, cTiltY);
             }
             lastPos = newPos;
             super.mouseDragged(e);
@@ -1450,7 +1583,7 @@ public class MainWindow extends JFrame {
             lastPos = getScreenCoordinates(e.getPoint());
             super.mousePressed(e);
         }
-        
+
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() >= 2) {
@@ -1458,7 +1591,7 @@ public class MainWindow extends JFrame {
                 GeoCoordinates geoCoord = camera.getGeoCoordinates(screenCoord);
                 camera.setPosition(geoCoord);
             }
-                
+
             super.mouseClicked(e);
         }
     }
@@ -1471,24 +1604,67 @@ public class MainWindow extends JFrame {
             GeoCoordinates lastGeo = camera.getGeoCoordinates(lastPos);
             GeoCoordinates newGeo = null;
             ScreenCoordinates newPos = null;
+            boolean tiltChanged = false;
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
-                    newPos = new ScreenCoordinates(0.4d, 0.5d);
-                    newGeo = camera.getGeoCoordinates(newPos);
-                    break;
-                case KeyEvent.VK_RIGHT:
                     newPos = new ScreenCoordinates(0.6d, 0.5d);
                     newGeo = camera.getGeoCoordinates(newPos);
                     break;
-                case KeyEvent.VK_UP:
-                    newPos = new ScreenCoordinates(0.5d, 0.4d);
+                case KeyEvent.VK_RIGHT:
+                    newPos = new ScreenCoordinates(0.4d, 0.5d);
                     newGeo = camera.getGeoCoordinates(newPos);
                     break;
-                case KeyEvent.VK_DOWN:
+                case KeyEvent.VK_UP:
                     newPos = new ScreenCoordinates(0.5d, 0.6d);
                     newGeo = camera.getGeoCoordinates(newPos);
                     break;
+                case KeyEvent.VK_DOWN:
+                    newPos = new ScreenCoordinates(0.5d, 0.4d);
+                    newGeo = camera.getGeoCoordinates(newPos);
+                    break;
+                case KeyEvent.VK_PAGE_UP:
+                    cTiltX += 0.1;
+                    tiltChanged = true;
+                    break;
+                case KeyEvent.VK_PAGE_DOWN:
+                    cTiltX -= 0.1;
+                    tiltChanged = true;
+                    break;
+                case KeyEvent.VK_HOME:
+                    cTiltY += 0.1;
+                    tiltChanged = true;
+                    break;
+                case KeyEvent.VK_END:
+                    cTiltY -= 0.1;
+                    tiltChanged = true;
+                    break;
+                case KeyEvent.VK_0:
+                    cTiltY = 0.0d;
+                    cTiltX = 0.0d;
+                    tiltChanged = true;
+                    break;
+                case KeyEvent.VK_PLUS:
+                case KeyEvent.VK_ADD:
+                    SwingUtilities.invokeLater(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            zoomSlider.setValue(zoomSlider.getValue() + 1);
+                        }
+                    });
+                    break;
+                case KeyEvent.VK_MINUS:
+                case KeyEvent.VK_SUBTRACT:
+                    SwingUtilities.invokeLater(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            zoomSlider.setValue(zoomSlider.getValue() - 1);
+                        }
+                    });
+                    break;
                 default:
+                    System.out.println("KeyCode: " + e.getKeyCode());
                     break;
             }
             if (newGeo != null) {
@@ -1497,6 +1673,21 @@ public class MainWindow extends JFrame {
                 double deltaLat = signum(newPos.y - lastPos.y)
                         * abs(newGeo.getLatitude() - lastGeo.getLatitude());
                 camera.move(deltaLon, deltaLat);
+            }
+            if (tiltChanged) {
+                if (cTiltX < -(Math.PI / 2)) {
+                    cTiltX = -(Math.PI / 2);
+                }
+                if (cTiltY < -(Math.PI / 2)) {
+                    cTiltY = -(Math.PI / 2);
+                }
+                if (cTiltX > (Math.PI / 2)) {
+                    cTiltX = (Math.PI / 2);
+                }
+                if (cTiltY > (Math.PI / 2)) {
+                    cTiltY = (Math.PI / 2);
+                }
+                camera.setTilt(cTiltX, cTiltY);
             }
             super.keyPressed(e);
         }
@@ -1514,7 +1705,7 @@ public class MainWindow extends JFrame {
         @Override
         public void searchResultsAvailable(final Collection<Location> results) {
             SwingUtilities.invokeLater(new Runnable() {
-                
+
                 @Override
                 public void run() {
                     System.err.println("UISearchResultListener");
@@ -1522,7 +1713,7 @@ public class MainWindow extends JFrame {
                             .getModel();
                     model.clear();
                     for (Location l : results) {
-                        System.out.println("Add Element Details: "+l.details);
+                        System.out.println("Add Element Details: " + l.details);
                         model.addElement(l);
                     }
                 }
@@ -1599,10 +1790,10 @@ public class MainWindow extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.err.println("ActionPerformed! "+e.toString());
+            System.err.println("ActionPerformed! " + e.toString());
             final GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
             SwingUtilities.invokeLater(new Runnable() {
-                
+
                 @Override
                 public void run() {
                     Location loc = new Location(geo, LocationType.USER_TAG, "", "");
@@ -1634,7 +1825,7 @@ public class MainWindow extends JFrame {
         public void abortPendingRequests() {}
 
     }
-    
+
     private class LocationListCellRenderer extends JLabel implements ListCellRenderer<Location> {
 
         /**
@@ -1642,11 +1833,11 @@ public class MainWindow extends JFrame {
          */
         private static final long serialVersionUID = 1L;
 
-        
+
         public LocationListCellRenderer() {
             setOpaque(true);
         }
-        
+
         @Override
         public Component getListCellRendererComponent(JList<? extends Location> list,
                 Location value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -1655,12 +1846,12 @@ public class MainWindow extends JFrame {
                 setForeground(list.getSelectionForeground());
             } else {
                 setBackground(list.getBackground());
-               setForeground(list.getForeground());
+                setForeground(list.getForeground());
             }
             setText(value.details);
             return this;
         }
-        
+
     }
-    
+
 }

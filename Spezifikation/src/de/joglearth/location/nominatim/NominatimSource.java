@@ -95,10 +95,10 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
         if (query.type == NominatimQuery.Type.LOCAL) {
             getRequest.add("viewbox");
-            double left = query.area.getLongitudeFrom();
-            double right = query.area.getLongitudeTo();
-            double top = query.area.getLatitudeFrom();
-            double bottom = query.area.getLatitudeTo();
+            double left = Math.toDegrees(query.area.getLongitudeFrom());
+            double right = Math.toDegrees(query.area.getLongitudeTo());
+            double top = Math.toDegrees(query.area.getLatitudeFrom());
+            double bottom = Math.toDegrees(query.area.getLatitudeTo());
             getRequest.add(left + "," + top + "," + right + "," + bottom);
         }
 
@@ -126,10 +126,10 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         getRequest.add("xml");
 
         getRequest.add("lat");
-        getRequest.add("" + query.point.getLatitude());
+        getRequest.add("" + Math.toDegrees(query.point.getLatitude()));
         getRequest.add("lon");
-        getRequest.add("" + query.point.getLongitude());
-
+        getRequest.add("" + Math.toDegrees(query.point.getLongitude()));
+        
         byte[] httpRes = HTTP.get(url, getRequest);
 
         if (httpRes == null) {
@@ -156,7 +156,6 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
      */
     public Location reverseSearch(String osmId, String osmType, LocationType type) {
 
-        System.out.println();
 
         String url = "http://nominatim.openstreetmap.org/reverse";
         // Get-Request: "?accept-language=de&format=xml&osm_id=...&osm_type=[N|W|R]";
@@ -218,9 +217,9 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
                 }
             }
         } catch (XMLStreamException e) {
-            return new ArrayList<Location>();
+            return location;
         } catch (FactoryConfigurationError e) {
-            return new ArrayList<Location>();
+            return location;
         }
 
         return location;
@@ -263,7 +262,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         String details = xmlReader.getAttributeValue(null, "display_name");
         String[] name = details.split(",");
 
-        GeoCoordinates point = new GeoCoordinates(longitude, latitude);
+        GeoCoordinates point = new GeoCoordinates(Math.toRadians(longitude), Math.toRadians(latitude));
         
         if(query!=null && query.type == NominatimQuery.Type.LOCAL) {
             if(!(query.area.contains(point))) {
@@ -288,7 +287,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         String details = xmlReader.getElementText();
         String[] name = details.split(",");
 
-        GeoCoordinates point = new GeoCoordinates(longitude, latitude);
+        GeoCoordinates point = new GeoCoordinates(Math.toRadians(longitude), Math.toRadians(latitude));
 
         // TODO LocationType für Suchergebnisse?!
         Location current = new Location(point, type, details, name[0]);
@@ -301,7 +300,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
     @Override
     public void dispose() {
-
+        executor.shutdown();
     }
 
     public static void main(String[] args) {

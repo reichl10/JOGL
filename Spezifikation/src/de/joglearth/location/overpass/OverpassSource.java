@@ -43,13 +43,12 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
 
 
     /**
-     * Constructor.
-     * Initializes the {@link OverpassSource}.
+     * Constructor. Initializes the {@link OverpassSource}.
      */
     public OverpassSource() {
-        executor = Executors.newFixedThreadPool(2);
+        executor = Executors.newFixedThreadPool(1);
         info = new NominatimSource();
-
+        
         locationRequest = new HashMap<LocationType, String>();
         locationRequest.put(LocationType.RESTAURANT, OverpassQueryGenerator.restaurant);
         locationRequest.put(LocationType.ACTIVITY, OverpassQueryGenerator.activity);
@@ -72,18 +71,18 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
         if (!(key instanceof OverpassQuery)) {
             return new SourceResponse<Collection<Location>>(SourceResponseType.MISSING, null);
         }
-        
-        if (!(locationRequest.containsKey(key.type))) {
+
+        if (!(locationRequest.containsKey(key.type)) || (key.area == null)) {
             return new SourceResponse<Collection<Location>>(SourceResponseType.MISSING, null);
         }
-        
+
         ProgressManager.getInstance().requestArrived();
 
         executor.execute(new Runnable() {
 
             @Override
             public void run() {
-                  
+
                 Collection<Location> response = getLocations(key);
                 sender.requestCompleted(key, response);
                 ProgressManager.getInstance().requestCompleted();
@@ -97,10 +96,10 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
 
         String query = locationRequest.get(request.type);
 
-        double north = request.area.getLatitudeTo();
-        double south = request.area.getLatitudeFrom();
-        double east = request.area.getLongitudeTo();
-        double west = request.area.getLongitudeFrom();
+        double north = Math.toDegrees(request.area.getLatitudeTo());
+        double south = Math.toDegrees(request.area.getLatitudeFrom());
+        double east = Math.toDegrees(request.area.getLongitudeTo());
+        double west = Math.toDegrees(request.area.getLongitudeFrom());
 
         query = query.replace("$north$", north + "");
         query = query.replace("$south$", south + "");
@@ -110,12 +109,13 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
         ArrayList<String> getRequest = new ArrayList<String>();
         getRequest.add("data");
         getRequest.add(query);
-        
+
         byte[] response = HTTP.get(url, getRequest);
         if (response == null) {
             return new ArrayList<Location>();
         }
         String xml = new String(response);
+        System.out.println(xml);
 
         return parseXml(xml, request.type);
 
@@ -205,6 +205,7 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
     @Override
     public void dispose() {
         info.dispose();
+        executor.shutdown();
 
     }
 

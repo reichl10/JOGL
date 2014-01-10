@@ -18,8 +18,8 @@ public final class NominatimManager implements Source<NominatimQuery, Collection
 
     private static NominatimManager instance = null;
 
-    private Cache<NominatimQuery, Collection<Location>> cache; 
-    private Source<NominatimQuery, Collection<Location>> source; 
+    private Cache<NominatimQuery, Collection<Location>> cache;
+    private Source<NominatimQuery, Collection<Location>> source;
 
     private RequestDistributor<NominatimQuery, Collection<Location>> dist;
 
@@ -47,8 +47,8 @@ public final class NominatimManager implements Source<NominatimQuery, Collection
         dist = new RequestDistributor<NominatimQuery, Collection<Location>>();
         cache = new MemoryCache<NominatimQuery, Collection<Location>>();
         source = new NominatimSource();
-        
-        //TODO
+
+        // TODO
         dist.addCache(cache, 1000);
         dist.setSource(source);
 
@@ -71,6 +71,8 @@ public final class NominatimManager implements Source<NominatimQuery, Collection
 
     @Override
     public void dispose() {
-        dist.dispose();
+        if (instance != null) {
+            dist.dispose();
+        }
     }
 }
