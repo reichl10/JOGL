@@ -264,8 +264,8 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \includegraphics[scale=0.5]{images/info.eps} & \JoglEarth startet standardmäßig in der \textbf{Sonnensystemansicht} (\textref{Ansichtsmodi}).
 \end{tabular}
 
-\vspace{3mm} \index{Program-Icons} \index{Benutzeroberfläche} \index{Navigation Globus / Karte}
-In den folgenden Kapiteln finden Sie als Einführung die Erklärungen zu den \textref{Program-Icons}, zur \textref{Benutzeroberfläche}, zur \textref{Navigation} auf dem Globus und der Karten.
+\vspace{3mm} \index{Program-Icons} \index{Benutzeroberfläche} \index{Navigation Globus / Kartenebene}
+In den folgenden Kapiteln finden Sie als Einführung die Erklärungen zu den \textref{Program-Icons}, zur \textref{Benutzeroberfläche}, zur \textref{Navigation} auf dem Globus und der Kartenebene.
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
@@ -432,10 +432,10 @@ Beispiel:
 
 
 \newpage
-\subsection{Navigation der Erde / Karte} \index{Navigation Globus / Karte}
+\subsection{Navigation der Erde / Kartenebene} \index{Navigation Globus / Kartenebene}
 
 \vspace{3mm}
-\subsubsection*{Mausbelegung} \index{Navigation Globus / Karte!Mausbelegung}
+\subsubsection*{Mausbelegung} \index{Navigation Globus / Kartenebene!Mausbelegung}
 \begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline
 \includegraphics[scale=1.0]{images/mouseDrag_left.eps} & Drehen der Erdkugel / Verschieben der Karte \\ 
@@ -450,7 +450,7 @@ Beispiel:
 
 
 \vspace{3mm}
-\subsubsection*{Tastaturbelegung} \index{Navigation Globus / Karte!Tastaturbelegung}
+\subsubsection*{Tastaturbelegung} \index{Navigation Globus / Kartenebene!Tastaturbelegung}
 \begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline
 \rule[-1ex]{0pt}{7ex}\includegraphics[scale=0.08]{images/key_arrow_up.eps}& \multirow{3}{*}{Drehen der Erdkugel / Verschieben der Karte}\\
@@ -479,19 +479,19 @@ Bei erstmaligem Starten von \JoglEarth sind standardmäßig folgende Einstellung
 \item Ansichtsmodus: Sonnensystem
 \item Kartentyp: -
 \item Höhenprofil: deaktiviert
-\item Zoomlevel: 50\%
+\item Zoomlevel: 0\%
 \item Overlays: alle deaktiviert
 \item Sprache: Deutsch
 \item Grafikeinstellungen:
 	\begin{itemize}
-	\item Antialiasing: aus
-	\item Textur Filter: aus
+	\item Antialiasing: deaktiviert
+	\item Textur Filter: Nächster Nachbar
 	\item Detailgrad: niedrig
 	\end{itemize}
 \item Cachegrößen:
 	\begin{itemize}
-	\item Arbeitsspeicher: 50 MB
-	\item Dateisystem: 100 MB
+	\item Arbeitsspeicher: 200 MB
+	\item Dateisystem: 1.024 MB
 	\end{itemize}
 \end{itemize}
 
@@ -545,7 +545,7 @@ Diese Ansicht visualisiert einen Globus, welcher die Anzeige von den verfügbare
 
 
 \vspace{3mm}
-\section{Flache Karte} \index{Ansichtsmodi!Karte} \index{Karte} \index{Kartentypen}
+\section{Kartenebene} \index{Ansichtsmodi!Kartenebene} \index{Kartenebene} \index{Kartentypen}
 Diese Ansicht visualisiert eine Kartenebene, welche die Anzeige von den verfügbaren \textref{Kartentypen} unterstützt.
 
 
@@ -575,7 +575,7 @@ Diese Ansicht visualisiert eine Kartenebene, welche die Anzeige von den verfügb
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} &  Im folgenden wurden alle Abbildungen in der Ansicht \textref{flache Karte} (\textref{Ansichtsmodi}) gemacht, um die Unterschiede der Kartentypen eindeutig hervorzuheben.
+\includegraphics[scale=0.5]{images/info.eps} &  Im folgenden wurden alle Abbildungen in der Ansicht \textref{Kartenebene} (\textref{Ansichtsmodi}) gemacht, um die Unterschiede der Kartentypen eindeutig hervorzuheben.
 \end{tabular}
 
 
@@ -666,8 +666,8 @@ Die \textbf{OSM2World-Karte} errechnet auf Basis der OpenStreetMap-Daten 3D Mode
 
 
 \newpage
-\section{Kinderweltkarte} \index{Kartentypen!Kinderweltkarte} \index{Kinderweltkarte}
-Ein besonderer Kartentyp ist die Kinderweltkarte. Diese zeigt die einzelnen Kontinente, welche farblich unterschiedlich sind und zusätzlich werden beispielhaft je Kontinent, die dort einheimischen Tiere gezeigt. Dieser Kartentyp ist speziell für Kinder gedacht um die Neugierde an geografischen Karten zu wecken.
+\section{Kinderkarte} \index{Kartentypen!Kinderkarte} \index{Kinderkarte}
+Ein besonderer Kartentyp ist die Kinderkarte. Diese zeigt die einzelnen Kontinente, welche farblich unterschiedlich sind und zusätzlich werden beispielhaft je Kontinent, die dort einheimischen Tiere gezeigt. Dieser Kartentyp ist speziell für Kinder gedacht um die Neugierde an geografischen Karten zu wecken.
 
 \vspace{3mm}
 \begin{center}
@@ -676,7 +676,7 @@ Ein besonderer Kartentyp ist die Kinderweltkarte. Diese zeigt die einzelnen Kont
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} &  Für Kinder: Es kann von der Kinderweltkarte in den Kartentyp \textref{Satellit} gewechselt werden um den Übergang und die Orientierung auf geografische Karten einfach zu gestalten.
+\includegraphics[scale=0.5]{images/info.eps} &  Für Kinder: Es kann von der Kinderkarte im Kartentyp \textref{Kartenebene} in \textref{Satellit} gewechselt werden um den Übergang und die Orientierung auf geografische Karten einfach zu gestalten.
 \end{tabular}
 
 
@@ -780,12 +780,35 @@ Das Feld der Benutzermarkierungen befindet sich im \textref{Menü Orte}. Die Sch
 
 \vspace{3mm}
 \subsection{Antialiasing} \index{Grafikeinstellungen!Antialiasing} \index{Antialiasing}
+\begin{itemize}
+\item deaktiviert
+\item 2x MSAA
+\item 4x MSAA
+\item 8x MSAA
+\item 16x MSAA
+\end{itemize}
+
 
 \vspace{3mm}
 \subsection{Detaillevel} \index{Grafikeinstellungen!Detaillevel} \index{Detaillevel}
+\begin{itemize}
+\item niedrig
+\item mittel
+\item hoch
+\end{itemize}
+
 
 \vspace{3mm}
 \subsection{Textur Filter} \index{Grafikeinstellungen!Texturfilter} \index{Texturfilter}
+\begin{itemize}
+\item Nächster Nachbar
+\item Bilinear
+\item Trilinear
+\item 2x Anisotropisch
+\item 4x Anisotropisch
+\item 8x Anisotropisch
+\item 16x Anisotropisch
+\end{itemize}
 
 
 

@@ -55,7 +55,7 @@ public class AboutBox extends JDialog {
      * Creates the dialog.
      */
     public AboutBox() {
-        setTitle("About " + JoglEarth.PRODUCT_NAME);
+        setTitle(JoglEarth.PRODUCT_NAME);
         setResizable(false);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 385, 322);

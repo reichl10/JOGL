@@ -539,6 +539,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             throw new IllegalArgumentException();
         }
     }
+    
 
     /**
      * Sets the intensity of the specular component on the current material.
@@ -816,6 +817,9 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         if (drawable.getChosenGLCapabilities().getSampleBuffers()) {
             setFeatureEnabled(GL_MULTISAMPLE, true);
         }
+        
+        gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        GLError.throwIfActive(gl);
         
         for (GLContextListener l : listeners) {
             l.initialize(this);
