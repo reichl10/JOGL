@@ -1,8 +1,9 @@
 package de.joglearth.map.osm;
 
-import static java.lang.Math.*;
+import static java.lang.Math.PI;
+import static java.lang.Math.atan;
+import static java.lang.Math.sinh;
 import de.joglearth.geometry.AbstractTile;
-import de.joglearth.geometry.GeoCoordinates;
 
 
 /**
@@ -110,6 +111,40 @@ public final class OSMTile extends AbstractTile {
                 + latIndex + ", longitudeFrom()=" + getLongitudeFrom() + ", longitudeTo()="
                 + getLongitudeTo() + ", latitudeFrom()=" + getLatitudeFrom() + ", latitudeTo()="
                 + getLatitudeTo() + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + latIndex;
+        result = prime * result + lonIndex;
+        result = prime * result + zoomLevel;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OSMTile)) {
+            return false;
+        }
+        OSMTile other = (OSMTile) obj;
+        if (latIndex != other.latIndex) {
+            return false;
+        }
+        if (lonIndex != other.lonIndex) {
+            return false;
+        }
+        if (zoomLevel != other.zoomLevel) {
+            return false;
+        }
+        return true;
     }
     
 }
