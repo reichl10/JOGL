@@ -2,7 +2,6 @@ package de.joglearth.location.overpass;
 
 import de.joglearth.geometry.Tile;
 import de.joglearth.location.LocationType;
-import de.joglearth.location.nominatim.NominatimQuery;
 
 
 /**
@@ -27,18 +26,43 @@ public class OverpassQuery {
         this.type = type;
     }
 
+
     @Override
-    public boolean equals(Object other) {
-        if (!(other == null) && other.getClass() == this.getClass()) {
-            OverpassQuery o = (OverpassQuery) other;
-            if (o.type.equals(this.type)) {
-                if ((o.area == null && this.area == null) || (o.area.equals(this.area))) {
-                    return true;
-
-                }
-            }
-        }
-
-        return false;
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((area == null) ? 0 : area.hashCode());
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        return result;
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof OverpassQuery)) {
+            return false;
+        }
+        OverpassQuery other = (OverpassQuery) obj;
+        if (area == null) {
+            if (other.area != null) {
+                return false;
+            }
+        } else if (!area.equals(other.area)) {
+            return false;
+        }
+        if (type != other.type) {
+            return false;
+        }
+        return true;
+    }
+
+
+    
+    
 }

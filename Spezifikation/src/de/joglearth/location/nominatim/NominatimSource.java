@@ -107,6 +107,11 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         getRequest.add(query.query);
 
         byte[] httpRes = HTTP.get(url, getRequest);
+        
+        if(httpRes == null) {
+            return new ArrayList<Location>();
+        }
+        
         String xmlResponse = new String(httpRes);
 
         ArrayList<Location> response = parseXml(xmlResponse, LocationType.SEARCH, query);
