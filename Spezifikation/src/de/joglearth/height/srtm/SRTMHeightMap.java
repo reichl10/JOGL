@@ -69,7 +69,7 @@ public class SRTMHeightMap implements HeightMap {
         
         if (tile != null) {
             int lod = 0;
-            while (angularResolution > lodResolutions[lod] && lod <= 10) {
+            while (lod <= 10 && angularResolution > lodResolutions[lod]) {
                 ++lod;
             }
             short[][] values = tile.getTile(lod);
