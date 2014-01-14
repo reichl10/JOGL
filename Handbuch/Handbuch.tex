@@ -328,7 +328,7 @@ Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und 
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}} \index{Menüführung!Menü Details} \index{Menü Details}
-\includegraphics[scale=0.5]{images/info.eps} & Das Bereich \textbf{Details} in den angeführten Menüs verändert sich beim Wechseln der Menüs nicht.
+\includegraphics[scale=0.5]{images/info.eps} & Der Bereich \textbf{Details} in den angeführten Menüs verändert sich beim Wechseln der Menüs nicht.
 \end{tabular}
 
 \vspace{3mm}
@@ -341,11 +341,11 @@ Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und 
 \includegraphics[scale=0.5]{images/quest.eps} & Blenden Sie die \textbf{Seitenleiste} aus und anschließend wieder ein.
 \end{tabular}
 
-\vspace{5mm}
-\subsubsection{1. Menü: Anzeige} \index{Menü Anzeige} \index{Menüführung!Menü Anzeige}
 
+\vspace{10mm}
 \begin{minipage}[t]{9cm}
 \vspace{-40mm}
+\subsubsection{1. Menü: Ansicht} \index{Menü Ansicht} \index{Menüführung!Menü Ansicht}
 	\begin{itemize}
 	\item Ändern der \textref{Ansichtsmodi} \index{Ansichtsmodi}
 	\item Ändern der \textref{Kartentypen} \index{Kartentypen}
@@ -359,10 +359,10 @@ Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und 
 
 
 
-\vspace{3mm}
-\subsubsection{2. Menü: Orte} \index{Menü Orte} \index{Menüführung!Menü Orte}
+\vspace{10mm}
 \begin{minipage}[t]{9cm}
 \vspace{-40mm}
+\subsubsection{2. Menü: Orte} \index{Menü Orte} \index{Menüführung!Menü Orte}
 	\begin{itemize}
 	\item \textref{Suche} nach gewünschten Orten \index{Suche}
 	\item Anzeige der Suchergebnisse
@@ -378,11 +378,10 @@ Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und 
 
 
 
-\vspace{3mm}
-\subsubsection{3. Menü: Einstellungen} \index{Menü Einstellungen} \index{Menüführung!Menü Einstellungen}
-
+\newpage
 \begin{minipage}[t]{9cm}
 \vspace{-40mm}
+\subsubsection{3. Menü: Einstellungen} \index{Menü Einstellungen} \index{Menüführung!Menü Einstellungen}
 	\begin{itemize}
 	\item Ändern der \textref{Sprache} \index{Sprache} \index{Benutzeroberfläche!Sprache}
 	\item Ändern von \textref{Grafikeinstellungen} \index{Grafikeinstellungen}
@@ -397,20 +396,23 @@ Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und 
 \end{minipage}
 
 
-
-\newpage
-\vspace{3mm}
+\vspace{5mm}
 \subsubsection{4. Menü: Details} \index{Menü Details} \index{Benutzermarkierungen} \index{Menüführung!Menü Details}
+
+\begin{itemize}
+\item Erstellen von \textref{Benutzermarkierungen}
+\end{itemize}
+
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}} \index{Menüführung!Menü Details} \index{Menü Details}
-\includegraphics[scale=0.5]{images/info.eps} & Das Bereich \textbf{Details} in den angeführten Menüs verändert sich beim Wechseln der Menüs nicht.
+\includegraphics[scale=0.5]{images/info.eps} & Der Bereich \textbf{Details} in den angeführten Menüs verändert sich beim Wechseln der Menüs nicht.
 \end{tabular}
 
-\vspace{3mm}
+\vspace{5mm}
 \begin{minipage}[t]{9cm}
-\vspace{-8mm}
-Der Bereich \textbf{Details} zeigt verfügbare Informationen genau zum Mittelpunkt des aktuellen Kartenausschnitts an. Ebenso findet sich hier die Schaltfläche um \textref{Benutzermarkierungen} zu setzen und wieder zu entfernen. \\
+\vspace{-10mm}
+Der Bereich \textbf{Details} zeigt verfügbare Informationen genau zum Mittelpunkt des aktuellen Kartenausschnitts an. Der Mittelpunkt ist mit einem Rautensymbol gekennzeichnet. Ebenso findet sich hier die Schaltfläche um \textref{Benutzermarkierungen} zu setzen und wieder zu entfernen. \\
 \end{minipage}
 \begin{minipage}{7cm}
 \centering
@@ -488,10 +490,10 @@ Bei erstmaligem Starten von \JoglEarth sind standardmäßig folgende Einstellung
 	\item Textur Filter: Nächster Nachbar
 	\item Detailgrad: niedrig
 	\end{itemize}
-\item Cachegrößen:
+\item Cachegrößen [MB]:
 	\begin{itemize}
-	\item Arbeitsspeicher: 200 MB
-	\item Dateisystem: 1.024 MB
+	\item Arbeitsspeicher: 200
+	\item Dateisystem: 1.000
 	\end{itemize}
 \end{itemize}
 
@@ -733,27 +735,46 @@ Das Zoomlevel kann am rechten Rand der \textref{Benutzeroberfläche} über einen
 \vspace{3mm}
 \section{Ändern von Längen- und Breitengraden}
 \index{Längengrad!Ändern von Längen- und Breitengraden} \index{Breitengrad!Ändern von Längen- und Breitengraden}
+
 In der \textbf{Statusleiste} (\textref{Benutzeroberfläche}) können gewünschte Längen- und Breitengrade eingegeben werden. Anschließend werden die dafür benötigten Karten geladen und der eingegebene Punkt wird im \textbf{Ansichtsfenster} (\textref{Benutzeroberfläche}) zentriert.
 
 
 
 \vspace{3mm}
 \section{Benutzermarkierungen} \index{Benutzermarkierungen}
-Das Feld der Benutzermarkierungen befindet sich im \textref{Menü Orte}. Die Schaltfläche um Benutzermarkierungen zu setzen und wieder zu entfernen findet sich im \textref{Menü Details}.
+Die Schaltfläche um Benutzermarkierungen zu setzen und wieder zu entfernen befindet sich im \textref{Menü Details}. Die gespeicherten Benutzermarkierungen werden im \textref{Menü Orte} gelistet.
 
 
-\vspace{3mm}
-\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/quest.eps} & Markierungen einblenden / ausblenden
-\end{tabular}
+
 
 
 \vspace{3mm}
 \subsection{Markierungen setzen} \index{Benutzermarkierungen!Markierungen setzen} \index{Markierungen setzen}
 
 
+
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/quest.eps} & Erstellen Sie die Markierung  \underline{\textit{zu Hause}}.
+\end{tabular}
+
+
+
 \vspace{3mm}
 \subsection{Markierungen entfernen} \index{Benutzermarkierungen!Markierungen entfernen} \index{Markierungen entfernen}
+
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/quest.eps} & Löschen der Markierung \underline{\textit{zu Hause}}.
+\end{tabular}
+
+
+
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/quest.eps} & Blenden Sie diverse Markierungen ein und anschließend wieder aus.
+\end{tabular}
+
 
 
 
@@ -771,7 +792,7 @@ Das Feld der Benutzermarkierungen befindet sich im \textref{Menü Orte}. Die Sch
 \newpage
 \vspace{3mm}
 \section{Fortschrittsanzeige} \index{Fortschrittsanzeige}
-
+Die Fortschrittsanzeige visualisiert den aktuellen Stand der im Hintergrund geladenen Daten. Hierzu zählen Kartenmaterialien, SRTM-Daten, Suchanfragen usw.
 
 
 
@@ -780,34 +801,47 @@ Das Feld der Benutzermarkierungen befindet sich im \textref{Menü Orte}. Die Sch
 
 \vspace{3mm}
 \subsection{Antialiasing} \index{Grafikeinstellungen!Antialiasing} \index{Antialiasing}
+
+Antialiasing oder Kantenglättung, ist die Verminderung von unerwünschten Effekten, die bei der Erzeugung einer Computergrafik entstehen können.\\
+
+MSAA bedeutet 'multisample anti-aliasing' und ist eine Art Antialiasing zur Verbesserung der Bildqualität.\\
+
+Optionen:
 \begin{itemize}
-\item deaktiviert
-\item 2x MSAA
-\item 4x MSAA
-\item 8x MSAA
-\item 16x MSAA
+\item \textbf{deaktiviert}
+\item \textbf{2x MSAA}
+\item \textbf{4x MSAA}
+\item \textbf{8x MSAA}
+\item \textbf{16x MSAA}
 \end{itemize}
 
 
 \vspace{3mm}
 \subsection{Detaillevel} \index{Grafikeinstellungen!Detaillevel} \index{Detaillevel}
+
+Optionen:
 \begin{itemize}
-\item niedrig
-\item mittel
-\item hoch
+\item \textbf{niedrig}
+\item \textbf{mittel}
+\item \textbf{hoch}
 \end{itemize}
 
 
 \vspace{3mm}
 \subsection{Textur Filter} \index{Grafikeinstellungen!Texturfilter} \index{Texturfilter}
+
+
+'Anisotrope Filterung' ist eine Methode in der Grafikverarbeitung um den Schärfeeindruck bei entfernten Texturen zu erhalten.\\
+
+Optionen:
 \begin{itemize}
-\item Nächster Nachbar
-\item Bilinear
-\item Trilinear
-\item 2x Anisotropisch
-\item 4x Anisotropisch
-\item 8x Anisotropisch
-\item 16x Anisotropisch
+\item \textbf{Nächster Nachbar}
+\item \textbf{Bilinear}
+\item \textbf{Trilinear}
+\item \textbf{2x Anisotropisch}
+\item \textbf{4x Anisotropisch}
+\item \textbf{8x Anisotropisch}
+\item \textbf{16x Anisotropisch}
 \end{itemize}
 
 
@@ -894,12 +928,22 @@ Einstellen der Benutzeroberfläche: \index{Benutzeroberfläche}
 
 \vspace{3mm}
 \section{Suche} \index{Suche}
-Die Suchfunktion wird über Nominatim \index{Nominatim} ausgeführt. Die Suchbegriffe werden von links nach rechts (vom Speziellen zum Allgemeinen) abgearbeitet, wenn dies fehlschlägt werden die Suchbegriffe von rechts nach links nochmals abgearbeitet.\\
+Die Suchfunktion wird über Nominatim \index{Nominatim} ausgeführt. Es kann sowohl nach Orten, Städten und Ländern, als auch nach POIs oder anderen gewünschten Punkten gesucht werden.\\
+
+Die Suchbegriffe werden von links nach rechts (vom Speziellen zum Allgemeinen) abgearbeitet, wenn dies fehlschlägt werden die Suchbegriffe von rechts nach links nochmals abgearbeitet.\\
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/info.eps} & Bei den Suchanfragen ist ein Limit gesetzt. Daher liefert eine Anfrage maximal ?? Suchergebnisse zurück. \\ 
 \end{tabular} 
+
+\vspace{5mm}
+Optionen:
+\begin{itemize}
+\item \textbf{in der Nähe}: Es werden nur Suchergebnisse angezeigt, welche sich im aktuell sichtbaren Kartenausschnitt befinden.
+\item \textbf{Weltweit}: Es werden auch Suchergebnisse angezeigt, welche außerhalb des Kartenausschnitts liegen.
+\end{itemize}
+
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
@@ -924,12 +968,16 @@ Beispiel:
 \item \textit{Brandenburger Tor Berlin}
 \end{itemize}
 
-Die Suchergebnisse werden im \textref{Menü Orte} angezeigt.
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/quest.eps} & Suchen Sie den Ort \underline{\textit{Passau}} in Deutschland.
 \end{tabular}
+
+% Screenshot der angezeigten Suchergebnisse
+
+\vspace{3mm}
+Die Suchergebnisse werden im \textref{Menü Orte} angezeigt.
 
 
 
@@ -984,6 +1032,7 @@ Folgende getätigte Einstellungen werden bei ordnungsgemäßer Programmbeendigun
 	\item Arbeitsspeicher
 	\item Dateisystem
 	\end{itemize}
+\item Benutzermarkierungen
 \end{itemize}
 
 

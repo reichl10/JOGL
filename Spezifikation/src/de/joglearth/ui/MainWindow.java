@@ -1682,15 +1682,11 @@ public class MainWindow extends JFrame {
                     tiltChanged = true;
                     break;
                 case KeyEvent.VK_0:
+                case KeyEvent.VK_NUMPAD0:
                     cTiltY = 0.0d;
                     cTiltX = 0.0d;
                     tiltChanged = true;
-                    break;                
-                case 96:
-                        cTiltY = 0.0d;
-                        cTiltX = 0.0d;
-                        tiltChanged = true;
-                        break;
+                    break;
                 case KeyEvent.VK_PLUS:
                 case KeyEvent.VK_ADD:
                     SwingUtilities.invokeLater(new Runnable() {
