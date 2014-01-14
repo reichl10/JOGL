@@ -1001,9 +1001,21 @@ public class MainWindow extends JFrame {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_ENTER) {
                     System.out.println("Change By Lat");
-                    GeoCoordinates geo = GeoCoordinates.parseCoordinates(
-                            longitudeTextField.getText(), latitudeTextField.getText());
-                    camera.setPosition(geo);
+                    try {
+                        GeoCoordinates geo = GeoCoordinates.parseCoordinates(
+                                longitudeTextField.getText(), latitudeTextField.getText());
+                        camera.setPosition(geo);
+                    } catch (NumberFormatException nException) {
+                        GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d,
+                                0.5d));
+                        if (geo != null) {
+                            latitudeTextField.setText(geo.getLatitudeString());
+                            longitudeTextField.setText(geo.getLongitudeString());
+                        } else {
+                            latitudeTextField.setText(""); //$NON-NLS-1$
+                            longitudeTextField.setText(""); //$NON-NLS-1$
+                        }
+                    }
                 }
 
             }
