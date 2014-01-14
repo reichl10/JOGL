@@ -130,7 +130,7 @@ public final class SettingsContract {
         s.putString(TEXTURE_FILTER, TextureFilter.TRILINEAR.name());
         s.putString(ANTIALIASING, Antialiasing.NONE.name());
         s.putString(LEVEL_OF_DETAIL, LevelOfDetail.MEDIUM.name());
-        s.putInteger(CACHE_SIZE_FILESYSTEM, new Integer(1024*1024*1024));
+        s.putInteger(CACHE_SIZE_FILESYSTEM, new Integer(1000*1024*1024));
         s.putInteger(CACHE_SIZE_MEMORY, new Integer(200*1024*1024));
     }
 
