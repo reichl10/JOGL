@@ -13,7 +13,7 @@ import static java.lang.Double.*;
  */
 public final class Matrix4 implements Cloneable {
 
-    /**
+    /*
      * Holds the matrix data in column-first ordering.
      */
     private double[] m = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 };

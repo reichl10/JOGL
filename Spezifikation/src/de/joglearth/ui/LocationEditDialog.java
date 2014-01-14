@@ -1,6 +1,8 @@
 package de.joglearth.ui;
 
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,7 +16,10 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
-import de.joglearth.surface.Location;
+import de.joglearth.location.Location;
+import de.joglearth.location.LocationType;
+import de.joglearth.settings.Settings;
+import de.joglearth.settings.SettingsContract;
 
 
 /**
@@ -32,6 +37,7 @@ public class LocationEditDialog extends JDialog {
     private JTextField nameTextField;
 
     private JTextField descriptionTextField;
+    private Location loc;
 
 
     /**
@@ -40,71 +46,74 @@ public class LocationEditDialog extends JDialog {
      * @param location The <code>Location</code> object will be changed before closing
      */
     public LocationEditDialog(Location location) {
+        loc = location;
         setSize(370, 250);
-        setTitle("Add user tag");
+        setTitle(Messages.getString("LocationEditDialog.title")); //$NON-NLS-1$
         getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.RELATED_GAP_COLSPEC,
                 FormFactory.DEFAULT_COLSPEC,
                 FormFactory.RELATED_GAP_COLSPEC,
-                ColumnSpec.decode("default:grow"),
+                ColumnSpec.decode("default:grow"), //$NON-NLS-1$
                 FormFactory.RELATED_GAP_COLSPEC, },
                 new RowSpec[] {
                         FormFactory.RELATED_GAP_ROWSPEC,
-                        RowSpec.decode("top:default"),
+                        RowSpec.decode("top:default"), //$NON-NLS-1$
                         FormFactory.RELATED_GAP_ROWSPEC,
-                        RowSpec.decode("top:default"),
+                        RowSpec.decode("top:default"), //$NON-NLS-1$
                         FormFactory.RELATED_GAP_ROWSPEC,
-                        RowSpec.decode("top:default"),
+                        RowSpec.decode("top:default"), //$NON-NLS-1$
                         FormFactory.RELATED_GAP_ROWSPEC,
-                        RowSpec.decode("top:default:grow"),
+                        RowSpec.decode("top:default:grow"), //$NON-NLS-1$
                         FormFactory.RELATED_GAP_ROWSPEC,
-                        RowSpec.decode("top:default"),
+                        RowSpec.decode("top:default"), //$NON-NLS-1$
                         FormFactory.RELATED_GAP_ROWSPEC, }));
 
-        JLabel longitudeCaptionLabel = new JLabel("Longitude");
-        getContentPane().add(longitudeCaptionLabel, "2, 2");
+        JLabel longitudeCaptionLabel = new JLabel(Messages.getString("LocationEditDialog.longitude")); //$NON-NLS-1$
+        getContentPane().add(longitudeCaptionLabel, "2, 2"); //$NON-NLS-1$
 
-        JLabel longitudeLabel = new JLabel("12° 36' 13\" E");
-        getContentPane().add(longitudeLabel, "4, 2");
+        JLabel longitudeLabel = new JLabel(location.point.getLongitudeString());
+        getContentPane().add(longitudeLabel, "4, 2"); //$NON-NLS-1$
 
-        JLabel latitudeCaptionLabel = new JLabel("Latitude");
-        getContentPane().add(latitudeCaptionLabel, "2, 4");
+        JLabel latitudeCaptionLabel = new JLabel(Messages.getString("LocationEditDialog.latitude")); //$NON-NLS-1$
+        getContentPane().add(latitudeCaptionLabel, "2, 4"); //$NON-NLS-1$
 
-        JLabel latitudeLabel = new JLabel("54° 11' 54\" N");
-        getContentPane().add(latitudeLabel, "4, 4");
+        JLabel latitudeLabel = new JLabel(location.point.getLatitudeString());
+        getContentPane().add(latitudeLabel, "4, 4"); //$NON-NLS-1$
 
-        JLabel nameCaptionLabel = new JLabel("Name");
-        getContentPane().add(nameCaptionLabel, "2, 6, left, default");
+        JLabel nameCaptionLabel = new JLabel(Messages.getString("LocationEditDialog.name")); //$NON-NLS-1$
+        getContentPane().add(nameCaptionLabel, "2, 6, left, default"); //$NON-NLS-1$
 
         nameTextField = new JTextField();
-        getContentPane().add(nameTextField, "4, 6, fill, default");
+        getContentPane().add(nameTextField, "4, 6, fill, default"); //$NON-NLS-1$
         nameTextField.setColumns(10);
 
-        JLabel descriptionCaptionLabel = new JLabel("Description");
+        JLabel descriptionCaptionLabel = new JLabel(Messages.getString("LocationEditDialog.description")); //$NON-NLS-1$
         descriptionCaptionLabel.setVerticalAlignment(SwingConstants.TOP);
-        getContentPane().add(descriptionCaptionLabel, "2, 8, left, default");
+        getContentPane().add(descriptionCaptionLabel, "2, 8, left, default"); //$NON-NLS-1$
 
         descriptionTextField = new JTextField();
-        getContentPane().add(descriptionTextField, "4, 8, fill, fill");
+        getContentPane().add(descriptionTextField, "4, 8, fill, fill"); //$NON-NLS-1$
         descriptionTextField.setColumns(10);
 
         JPanel buttonPane = new JPanel();
-        getContentPane().add(buttonPane, "4, 10, fill, fill");
+        getContentPane().add(buttonPane, "4, 10, fill, fill"); //$NON-NLS-1$
         buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 0));
+        
 
-        JButton cancelButton = new JButton("Cancel");
-        buttonPane.add(cancelButton);
-
-        JButton okButton = new JButton("OK");
+        JButton okButton = new JButton(Messages.getString("LocationEditDialog.ok")); //$NON-NLS-1$
+        okButton.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                loc.details = descriptionTextField.getText();
+                loc.name = nameTextField.getText();
+                loc.type = LocationType.USER_TAG;
+                Settings.getInstance().putLocation(SettingsContract.USER_LOCATIONS, loc);
+                dispose();
+            }
+        });
         buttonPane.add(okButton);
 
-    }
-
-    /**
-     * @internal
-     */
-    public static void main(String[] args) {
-        new LocationEditDialog(null).setVisible(true);
     }
 
 }

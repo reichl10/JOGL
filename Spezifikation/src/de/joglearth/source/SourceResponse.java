@@ -16,6 +16,10 @@ public class SourceResponse<Value> {
      */
     public Value              value;
 
+    
+    public SourceResponse() {
+        
+    }
 
     /**
      * Constructor. Initializes the {@link SourceResponse}.

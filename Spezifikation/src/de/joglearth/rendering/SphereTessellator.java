@@ -3,7 +3,7 @@ package de.joglearth.rendering;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.Vector3;
-import de.joglearth.surface.HeightMap;
+import de.joglearth.height.HeightMap;
 import static de.joglearth.rendering.MeshUtils.*;
 import static java.lang.Math.*;
 import static javax.media.opengl.GL.GL_TRIANGLES;
@@ -15,23 +15,19 @@ import static javax.media.opengl.GL.GL_TRIANGLES;
  */
 public class SphereTessellator implements Tessellator {
 
-    private static Vector3 getSurfaceVector(double lon, double lat, double latStep, boolean useHeightMap) {
+    private static Vector3 getSurfaceVector(double lon, double lat, double latStep, HeightMap heightMap) {
         // The earth axis is equal to the y axis, lon=0, lat=0 has the coordinates (0, 0, 1).
         Vector3 vec = new Vector3(cos(lat) * sin(lon), sin(lat), cos(lat) * cos(lon));
-        if (useHeightMap) {
-            return vec.times(1 + HeightMap.getHeight(new GeoCoordinates(lon, lat), latStep));
-        } else {
-            return vec;
-        }
+        return vec.times(1 + heightMap.getHeight(new GeoCoordinates(lon, lat), latStep));
     }
 
     private static void writeSingleVertex(float[] vertices, int vIndex, double lon, double lat,
-            double lonStep, double latStep, boolean useHeightMap, double textureX, double textureY) {
-        Vector3 vertex = getSurfaceVector(lon, lat, latStep, useHeightMap), 
-                east = getSurfaceVector(lon + lonStep, lat, latStep, useHeightMap), 
-                north = getSurfaceVector(lon, lat + latStep, latStep, useHeightMap), 
-                west = getSurfaceVector(lon - lonStep, lat, latStep, useHeightMap), 
-                south = getSurfaceVector(lon, lat - latStep, latStep, useHeightMap);
+            double lonStep, double latStep, HeightMap heightMap, double textureX, double textureY) {
+        Vector3 vertex = getSurfaceVector(lon, lat, latStep, heightMap), 
+                east = getSurfaceVector(lon + lonStep, lat, latStep, heightMap), 
+                north = getSurfaceVector(lon, lat + latStep, latStep, heightMap), 
+                west = getSurfaceVector(lon - lonStep, lat, latStep, heightMap), 
+                south = getSurfaceVector(lon, lat - latStep, latStep, heightMap);
 
         Vector3 normal = east.minus(west).crossProduct(south.minus(north)).normalized();
         writeVertex(vertices, vIndex, vertex.x, vertex.y, vertex.z);
@@ -40,10 +36,10 @@ public class SphereTessellator implements Tessellator {
     }
 
     private static void writeVertexLine(float[] vertices, int vIndex, double lon, double lat,
-            double lonStep, double latStep, boolean useHeightMap, double textureY, int count) {
+            double lonStep, double latStep, HeightMap heightMap, double textureY, int count) {
         double textureX = 0, textureStep = 1.0 / (count - 1);
         for (int i = 0; i < count; ++i) {
-            writeSingleVertex(vertices, vIndex, lon, lat, lonStep, latStep, useHeightMap, textureX,
+            writeSingleVertex(vertices, vIndex, lon, lat, lonStep, latStep, heightMap, textureX,
                     textureY);
             vIndex += VERTEX_SIZE;
             lon += lonStep;
@@ -52,13 +48,13 @@ public class SphereTessellator implements Tessellator {
     }
 
     private static void writeInterpolatedVertexLine(float[] vertices, int vIndex, double lon,
-            double lat, double smallLonStep, int groupSize, double latStep, boolean useHeightMap,
+            double lat, double smallLonStep, int groupSize, double latStep, HeightMap heightMap,
             double textureY, int largeCount) {
 
         double textureX = 0, textureStep = 1.0 / (largeCount - 1);
 
         if (largeCount > 0) {
-            writeSingleVertex(vertices, vIndex, lon, lat, smallLonStep, latStep, useHeightMap,
+            writeSingleVertex(vertices, vIndex, lon, lat, smallLonStep, latStep, heightMap,
                     textureX, textureY);
         }
 
@@ -67,7 +63,7 @@ public class SphereTessellator implements Tessellator {
             textureX += textureStep;
 
             writeSingleVertex(vertices, vIndex + groupSize * VERTEX_SIZE, lon, lat, smallLonStep,
-                    latStep, useHeightMap, textureX, textureY);
+                    latStep, heightMap, textureX, textureY);
 
             for (int j = 1; j < groupSize; ++j) {
                 interpolateVertex(vertices, vIndex, vIndex + groupSize * VERTEX_SIZE, vIndex + j
@@ -99,7 +95,7 @@ public class SphereTessellator implements Tessellator {
         }
     }
 
-    private int getMaxShrinkCount(int quads) {
+    private int getMaxShrinkCount(int quads, double largeLonStep) {
         // Find out how often "quads" can be divided by 2.        
         int max = 0;
         double s = quads;
@@ -111,7 +107,15 @@ public class SphereTessellator implements Tessellator {
                 break;
             }
         }
-        return max;
+
+        int part = (int) round(2*PI / largeLonStep);
+        if (part < 2) {
+            return max - 2;
+        } else if (part < 4) {
+            return max - 1;
+        } else {
+            return max;
+        }
     }
 
     private static int getShrinkCount(double lat, int maxShrinkCount) {
@@ -124,28 +128,34 @@ public class SphereTessellator implements Tessellator {
     }
 
     @Override
-    public Mesh tessellateTile(Tile tile, int subdivisions, boolean useHeightMap) {
+    public Mesh tessellateTile(Tile tile, int subdivisions, HeightMap heightMap) {
         int nRows = subdivisions + 1, direction = tile.getLatitudeFrom() >= 0 ? +1 : -1;
 
         double lat = direction > 0 ? tile.getLatitudeFrom() : tile.getLatitudeTo(), lon = tile
                 .getLongitudeFrom();
 
-        int maxShrinkCount = tile.getDetailLevel() == 0 ? 0 : getMaxShrinkCount(subdivisions + 1),
+        boolean nearEquator = abs(tile.getLatitudeFrom() + tile.getLatitudeTo()) < PI/2;
+
+        double largeLonStep = tile.getLongitudeTo() - tile.getLongitudeFrom();
+        if (largeLonStep <= 0) {
+            largeLonStep += 2*PI;//2 * PI / pow(2, tile.getDetailLevel()), 
+        }
+                
+        int maxShrinkCount = nearEquator ? 0 : getMaxShrinkCount(subdivisions + 1, largeLonStep),
             shrinkCount = getShrinkCount(lat, maxShrinkCount), 
             rowWidth = max(2, (subdivisions + 1) / (int) pow(2, shrinkCount)) + 1;
-
-        double largeLonStep = 2 * PI / pow(2, tile.getDetailLevel()), 
-               lonStep = largeLonStep / (rowWidth - 1), 
+        
+        double lonStep = largeLonStep / (rowWidth - 1), 
                latStep = direction * (tile.getLatitudeTo() - tile.getLatitudeFrom()) / nRows;
 
         float[] vertices = new float[(nRows + 1) * rowWidth * VERTEX_SIZE * 2];
         int[] indices = new int[nRows * (rowWidth - 1) * 6];
         int vIndex = 0, iIndex = 0;
 
-        double textureY = direction > 0 ? 0 : 1,
-               textureStep = (double) direction / nRows;
+        double textureY = direction > 0 ? 0 : 1,                //bugfix: vorzeichenfehler
+               textureStep = (double) direction / nRows;       //bugfix: vorzeichenfehler
 
-        writeVertexLine(vertices, 0, lon, lat, lonStep, latStep, useHeightMap, textureY, rowWidth);
+        writeVertexLine(vertices, 0, lon, lat, lonStep, latStep, heightMap, textureY, rowWidth);
         vIndex += rowWidth;
 
         for (int i = 0; i < nRows; ++i) {
@@ -156,7 +166,7 @@ public class SphereTessellator implements Tessellator {
             if (newRowWidth < rowWidth) {
                 int groupSize = (rowWidth - 1) / (newRowWidth - 1);
                 writeInterpolatedVertexLine(vertices, vIndex * VERTEX_SIZE, lon, lat, lonStep,
-                        groupSize, latStep, useHeightMap, textureY, newRowWidth);
+                        groupSize, latStep, heightMap, textureY, newRowWidth);
                 vIndex += rowWidth;
                 writeIndicesLine(indices, iIndex, vIndex, rowWidth, direction);
                 iIndex += 6 * (rowWidth - 1);
@@ -164,11 +174,11 @@ public class SphereTessellator implements Tessellator {
                 rowWidth = newRowWidth;
                 lonStep = largeLonStep / (rowWidth - 1);
                 writeVertexLine(vertices, vIndex * VERTEX_SIZE, lon,
-                        lat, lonStep, latStep, useHeightMap, textureY, rowWidth);
+                        lat, lonStep, latStep, heightMap, textureY, rowWidth);
                 vIndex += rowWidth;
             } else {
                 writeVertexLine(vertices, vIndex * VERTEX_SIZE, lon, lat, lonStep,
-                        latStep, useHeightMap, textureY, rowWidth);
+                        latStep, heightMap, textureY, rowWidth);
                 vIndex += rowWidth;
 
                 writeIndicesLine(indices, iIndex, vIndex, rowWidth, direction);

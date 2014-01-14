@@ -3,7 +3,7 @@ package de.joglearth.rendering;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.Vector3;
-import de.joglearth.surface.HeightMap;
+import de.joglearth.height.HeightMap;
 import static java.lang.Math.*;
 import static de.joglearth.rendering.MeshUtils.*;
 import static javax.media.opengl.GL2.*;
@@ -13,13 +13,13 @@ import static javax.media.opengl.GL2.*;
  */
 public class PlaneTessellator implements Tessellator {
     
-    private double getZCoordinate(double lon, double lat, double latStep) {
-        return HeightMap.getHeight(new GeoCoordinates(lon, lat), latStep) + HeightMap.MIN_HEIGHT;
+    private double getZCoordinate(double lon, double lat, double latStep, HeightMap heightMap) {
+        return heightMap.getHeight(new GeoCoordinates(lon, lat), latStep) - HeightMap.MIN_HEIGHT;
     }
 
     @Override
-    public Mesh tessellateTile(Tile tile, int subdivisions, boolean useHeightMap) {
-        System.out.println(tile);
+    public Mesh tessellateTile(Tile tile, int subdivisions, HeightMap heightMap) {
+        //TODO System.out.println(tile);
         int nHorizontalVertices = subdivisions + 2, nHorizontalQuads = subdivisions + 1,
             nVerticalQuads = max(nHorizontalQuads / 2, 1), nVerticalVertices = nVerticalQuads + 1;
         float[] vertices = new float[8 * nVerticalVertices * nHorizontalVertices];
@@ -36,26 +36,21 @@ public class PlaneTessellator implements Tessellator {
         for (int line = 0; line < nVerticalVertices; ++line) {
             for (int col = 0; col < nHorizontalVertices; ++col) {
                 writeTextureCoordinates(vertices, vertIndex, (float) col / nHorizontalQuads, 
-                        1 - (float) line / nVerticalQuads);
+                         1 - (float) line / nVerticalQuads);   //bugfix: flipped textures upsite down
 
-                if (useHeightMap) {
-                    writeVertex(vertices, vertIndex, lon, lat, getZCoordinate(lon, lat, latStep));
+                writeVertex(vertices, vertIndex, lon, lat, getZCoordinate(lon, lat, latStep, heightMap));
 
-                    double heightEast = getZCoordinate(lon + lonStep, lat, latStep);
-                    double heightWest = getZCoordinate(lon - lonStep, lat, latStep);
-                    double heightSouth = getZCoordinate(lon, lat + latStep, latStep);
-                    double heightNorth = getZCoordinate(lon, lat - latStep, latStep);
+                double heightEast = getZCoordinate(lon + lonStep, lat, latStep, heightMap);
+                double heightWest = getZCoordinate(lon - lonStep, lat, latStep, heightMap);
+                double heightSouth = getZCoordinate(lon, lat + latStep, latStep, heightMap);
+                double heightNorth = getZCoordinate(lon, lat - latStep, latStep, heightMap);
 
-                    Vector3 westEast = new Vector3(2 * lonStep, 0, heightEast - heightWest);
-                    Vector3 northSouth = new Vector3(0, 2 * latStep, heightNorth - heightSouth);
+                Vector3 westEast = new Vector3(2 * lonStep, 0, heightEast - heightWest);
+                Vector3 northSouth = new Vector3(0, 2 * latStep, heightNorth - heightSouth);
 
-                    // TODO sign!
-                    Vector3 normal = westEast.crossProduct(northSouth).normalized();
-                    writeNormal(vertices, vertIndex, normal.x, normal.y, normal.z);
-                } else {
-                    writeVertex(vertices, vertIndex, lon, lat, 0);
-                    writeNormal(vertices, vertIndex, 0, 0, 1);
-                }
+                // TODO sign!
+                Vector3 normal = westEast.crossProduct(northSouth).normalized();
+                writeNormal(vertices, vertIndex, normal.x, normal.y, normal.z);
 
                 lon += lonStep;
                 vertIndex += VERTEX_SIZE;

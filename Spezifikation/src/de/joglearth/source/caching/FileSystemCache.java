@@ -8,7 +8,9 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -28,7 +30,10 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     private Path basePath;
     private PathTranslator<Key> pathTranslator;
     private Set<Key> keySet;
+    private Set<Key> lockedFileSet;
     private ExecutorService executorService;
+    private Set<Key> filesForDroping;
+    private Map<Key, Set<SourceListener<Key, byte[]>>> registredListeners;
 
 
     /**
@@ -45,22 +50,44 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
         this.basePath = Paths.get(folder);
         this.pathTranslator = p;
         this.keySet = new HashSet<Key>();
+        this.lockedFileSet = new HashSet<Key>();
+        this.filesForDroping = new HashSet<Key>();
+        this.registredListeners = new HashMap<Key, Set<SourceListener<Key, byte[]>>>();
         this.executorService = Executors.newFixedThreadPool(5);
+        try {
+            Files.walkFileTree(basePath, new FileIndexerWalker(keySet, basePath, pathTranslator));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public synchronized SourceResponse<byte[]> requestObject(Key key,
             SourceListener<Key, byte[]> sender) {
-        if (!keySet.contains(key)) {
-            return new SourceResponse<byte[]>(SourceResponseType.MISSING, null);
+        SourceResponseType responseType;
+        if (keySet.contains(key)) {
+            registerListener(key, sender);
+            lockedFileSet.add(key);
+            responseType = SourceResponseType.ASYNCHRONOUS;
+            executorService.execute(new FileLoaderRunnable(key));
+        } else {
+            responseType = SourceResponseType.MISSING;
         }
-        executorService.execute(new FileLoaderRunnable(key, sender));
-        return new SourceResponse<byte[]>(SourceResponseType.ASYNCHRONOUS, null);
+
+        //TODO System.err.println("FileSystemCache: requesting " + key + ": " + responseType.toString());
+        return new SourceResponse<byte[]>(responseType, null);
     }
 
     @Override
     public synchronized void putObject(Key k, byte[] v) {
+        //TODO System.err.println("FileSystemCache: adding key " + k);
         Path filePath = pathFromKey(k);
+        try {
+            Files.createDirectories(filePath.getParent());
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
         try {
             Files.write(filePath, v, StandardOpenOption.CREATE);
             keySet.add(k);
@@ -72,6 +99,11 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     @Override
     public synchronized void dropObject(Key k) {
         keySet.remove(k);
+        if (lockedFileSet.contains(k)) {
+            filesForDroping.add(k);
+            return;
+        }
+        //TODO System.err.println("FileSystemCache: dropping key " + k);
         try {
             Files.deleteIfExists(pathFromKey(k));
         } catch (IOException e) {
@@ -81,18 +113,19 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
     @Override
     public synchronized Iterable<Key> getExistingObjects() {
-        try {
-            Files.walkFileTree(basePath, new FileIndexerWalker(keySet, basePath, pathTranslator));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
         return new HashSet<Key>(keySet);
     }
 
     @Override
     public synchronized void dropAll() {
         keySet.clear();
+        if (lockedFileSet.size() > 0) {
+            for (Key key : keySet) {
+                filesForDroping.add(key);
+            }
+            return;
+        }
+        //TODO System.err.println("FileSystemCache: dropping all objects");
         try {
             Files.walkFileTree(basePath, new DirectoryCleaner());
         } catch (IOException e) {
@@ -104,6 +137,25 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
         String relativFilePathString = pathTranslator.toFileSystemPath(k);
         Path filePath = basePath.resolve(relativFilePathString);
         return filePath;
+    }
+
+    private void registerListener(Key k, SourceListener<Key, byte[]> sender) {
+        Set<SourceListener<Key, byte[]>> listenerSet = registredListeners.get(k);
+        if (listenerSet == null) {
+            listenerSet = new HashSet<SourceListener<Key, byte[]>>();
+            registredListeners.put(k, listenerSet);
+        }
+        listenerSet.add(sender);
+    }
+
+    private void callListener(Key k, byte[] data) {
+        Set<SourceListener<Key, byte[]>> listenerSet = registredListeners.get(k);
+        if (listenerSet == null)
+            return;
+        for (SourceListener<Key, byte[]> sourceListener : listenerSet) {
+            sourceListener.requestCompleted(k, data);
+        }
+        listenerSet.clear();
     }
 
 
@@ -189,24 +241,44 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
             return FileVisitResult.TERMINATE;
         }
     }
-    
+
     private class FileLoaderRunnable implements Runnable {
+
         private Key key;
-        private SourceListener<Key, byte[]> listener;
-        public FileLoaderRunnable(Key k, SourceListener<Key, byte[]> l) {
+
+
+        public FileLoaderRunnable(Key k) {
             this.key = k;
-            this.listener = l;
         }
+
         @Override
         public void run() {
             try {
                 byte[] content = Files.readAllBytes(pathFromKey(key));
-                listener.requestCompleted(key, content);
+                callListener(key, content);
             } catch (IOException e) {
-                listener.requestCompleted(key, null);
+                callListener(key, null);
                 e.printStackTrace();
             }
+            lockedFileSet.remove(key);
+            synchronized (FileSystemCache.this) {
+                for (Key k : filesForDroping) {
+                    if (!lockedFileSet.contains(k)) {
+                        //TODO System.err.println("FileSystemCache: dropping key " + k);
+                        try {
+                            Files.deleteIfExists(pathFromKey(k));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
         }
-        
+
+    }
+
+    @Override
+    public void dispose() {
+        executorService.shutdown();
     }
 }

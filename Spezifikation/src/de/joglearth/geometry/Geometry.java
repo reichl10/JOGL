@@ -39,11 +39,23 @@ public interface Geometry {
     public GeoCoordinates getSurfaceCoordinates(Vector3 cameraPosition, Vector3 viewVector);
 
     /**
-     * Returns the view matrix performing translations and rotations incurred by the camera
-     * position.
+     * Constructs the matrix transforming the default GL camera with position (0, 0, 0),
+     * direction (0, 0, -1) and upwards pointing vector (0, 1, 0) into the camera perspective
+     * for rendering the globe / plane model.
      * 
-     * @return The view matrix
+     * @return The camera transformation
      */
-    public Matrix4 getViewMatrix(GeoCoordinates position, double altitude);
+    public Matrix4 getModelCameraTransformation(GeoCoordinates position, double altitude);
+
+    /**
+     * Constructs the matrix transforming the default GL camera with position (0, 0, 0),
+     * direction (0, 0, -1) and upwards pointing vector (0, 1, 0) into the camera perspective
+     * for rendering the background. 
+     * This usually differs from {@link getModelCameraTransformation} in that it omits all
+     * translations while keeping rotations incurred by the camera's position over the surface.
+     * 
+     * @return The camera transformation
+     */
+    public Matrix4 getSkyCameraTransformation(GeoCoordinates position, double altitude);
 
 }

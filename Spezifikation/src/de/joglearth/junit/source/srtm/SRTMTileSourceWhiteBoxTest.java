@@ -4,12 +4,12 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import de.joglearth.height.srtm.SRTMBinarySource;
+import de.joglearth.height.srtm.SRTMTile;
+import de.joglearth.height.srtm.SRTMTileName;
+import de.joglearth.height.srtm.SRTMTileSource;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.source.srtm.SRTMBinarySource;
-import de.joglearth.source.srtm.SRTMTileIndex;
-import de.joglearth.source.srtm.SRTMTile;
-import de.joglearth.source.srtm.SRTMTileSource;
 
 
 public class SRTMTileSourceWhiteBoxTest {
@@ -18,13 +18,13 @@ public class SRTMTileSourceWhiteBoxTest {
     public void test() throws InterruptedException {
         SRTMTileSource ts = new SRTMTileSource(new SRTMBinarySource());
 
-        class Listener implements SourceListener<SRTMTileIndex, SRTMTile> {
+        class Listener implements SourceListener<SRTMTileName, SRTMTile> {
 
             public SRTMTile tile = null;
 
 
             @Override
-            public void requestCompleted(SRTMTileIndex key, SRTMTile value) {
+            public void requestCompleted(SRTMTileName key, SRTMTile value) {
                 tile = value;
                 synchronized (SRTMTileSourceWhiteBoxTest.this) {
                     SRTMTileSourceWhiteBoxTest.this.notify();
@@ -36,7 +36,7 @@ public class SRTMTileSourceWhiteBoxTest {
         Listener l = new Listener();
 
         synchronized (this) {
-            if (ts.requestObject(new SRTMTileIndex(61, 36), l).response 
+            if (ts.requestObject(new SRTMTileName(61, 36), l).response 
                     == SourceResponseType.ASYNCHRONOUS) {
                 this.wait();
             }

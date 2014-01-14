@@ -1,0 +1,25 @@
+Testszenario: Anwendungsstart
+/T050/: Seitenleiste ist zu klein nach wiedereinblenden
+
+Testszenario: Globusansicht
+/T150/ Kacheln dauern sehr lange zum laden, da welche davon 404 zurückhaben und für Minuten versucht wurde diese zu laden
+
+Testszenario: Navigation auf dem Globus
+/T230W/ Höhenprofil scheint nicht aktiviert zu werden
+
+Testszenario: Overlays
+Keine Overlays tauchen auf
+
+Testszenario: Lokale Suche
+/T570/ Ändern des Zoomlevels resultierte in OpenGL out of Memory error
+
+Testszenario: Globale Suche
+/T650W/ Suchergebnisse tauchen nie auf
+
+Testszenario: Punkte markieren
+/T660W/ GL Out of Memory Error
+
+Testszenario: Caching, Diverses
+/T800/ erstmal keine Textur
+/T820/ Ordner Größe verringert sich nicht
+/T850/ Passiert nicht

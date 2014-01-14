@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import de.joglearth.surface.Location;
+import de.joglearth.location.Location;
 
 
 /**
@@ -118,7 +118,7 @@ public final class Settings {
     }
 
     /**
-     * Stores a {@link de.joglearth.surface.Location} using a given key.
+     * Stores a {@link de.joglearth.location.Location} using a given key.
      * 
      * @param key The locations key. <code>Null</code> is not allowed.
      * @param value The location to add to this key
@@ -126,7 +126,7 @@ public final class Settings {
     public synchronized void putLocation(final String key, final Location value) {
         Object val = valueMap.get(key);
         Set<Location> set = null;
-        if (val == null || !(value instanceof Set<?>)) {
+        if (val == null || !(val instanceof Set<?>)) {
             val = new HashSet<Location>();
             set = (Set<Location>) val;
             valueMap.put(key, set);
@@ -138,10 +138,10 @@ public final class Settings {
     }
 
     /**
-     * Removes the given {@link de.joglearth.surface.Location} from the given key. The Location that
+     * Removes the given {@link de.joglearth.location.Location} from the given key. The Location that
      * is removed is found by <code>this == value || this.equals(value)</code>
      * 
-     * @param key The key of the {@link de.joglearth.surface.Location}, which should be removed.
+     * @param key The key of the {@link de.joglearth.location.Location}, which should be removed.
      *        <code>Null</code> is not allowed.
      * @param value The <code>Location</code> to remove
      */
@@ -276,7 +276,7 @@ public final class Settings {
     }
 
     /**
-     * Gets the {@link de.joglearth.surface.Location} objects stored using the given key.
+     * Gets the {@link de.joglearth.location.Location} objects stored using the given key.
      * 
      * @param key The key to use. <code>Null</code> is not allowed.
      * @return A <code>Set</code> of <code>Location</code> objects stored under the given key or

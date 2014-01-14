@@ -48,3 +48,9 @@ TextureCache
 
 TextureManager
 - Konstruktorargumente
+
+Camera
+- setHeightMapEnabled
+
+UI:
++ Messages Klasse

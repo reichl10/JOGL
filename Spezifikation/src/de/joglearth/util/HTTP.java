@@ -10,8 +10,6 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.CharsetEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 
@@ -42,6 +40,7 @@ public final class HTTP {
      */
     public static byte[] get(String url, Iterable<String> getRequest)
             throws IllegalArgumentException {
+        System.err.println("HTTP: beginning GET request for " + url);
         if (url == null) {
             throw new IllegalArgumentException("URL was null!");
         }
@@ -72,6 +71,8 @@ public final class HTTP {
         }
 
         url = url + request.toString();
+                
+        ////TODO System.err.println("HTTP: GET request for " + url + " with request " + request.toString());
 
         URL serverUrl;
         try {
@@ -129,6 +130,7 @@ public final class HTTP {
      */
     public static byte[] post(String url, Iterable<String> getRequest, Iterable<String> postRequest)
             throws IllegalArgumentException {
+        //TODO System.err.println("HTTP: beginning POST request");
         if (url == null) {
             throw new IllegalArgumentException("URL was null!");
         }
@@ -180,6 +182,8 @@ public final class HTTP {
         }
 
         url = url + request.toString();
+        
+        //TODO System.err.println("HTTP: POST request for " + url);
 
         URL serverUrl;
         try {

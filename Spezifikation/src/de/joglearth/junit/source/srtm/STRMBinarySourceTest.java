@@ -5,11 +5,11 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import de.joglearth.height.srtm.SRTMBinarySource;
+import de.joglearth.height.srtm.SRTMTileName;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.source.srtm.SRTMBinarySource;
-import de.joglearth.source.srtm.SRTMTileIndex;
 
 
 public class STRMBinarySourceTest {
@@ -22,7 +22,7 @@ public class STRMBinarySourceTest {
     @Test
     public final void testRequestObject() {
         SRTMBinarySource source = new SRTMBinarySource();
-        SRTMTileIndex key = new SRTMTileIndex(1, 1);
+        SRTMTileName key = new SRTMTileName(1, 1);
         TestSourceListener listener = new TestSourceListener(Thread.currentThread());
         SourceResponse<byte[]> response = source.requestObject(key, listener);
         if (response.response == SourceResponseType.MISSING) {
@@ -39,13 +39,13 @@ public class STRMBinarySourceTest {
             }
         }
     }
-    private class TestSourceListener implements SourceListener<SRTMTileIndex, byte[]> {
+    private class TestSourceListener implements SourceListener<SRTMTileName, byte[]> {
         private Thread waiterThread;
         public TestSourceListener(Thread t) {
             waiterThread = t;
         }
         @Override
-        public void requestCompleted(SRTMTileIndex key, byte[] value) {
+        public void requestCompleted(SRTMTileName key, byte[] value) {
             waiterThread.notify();
         }
         

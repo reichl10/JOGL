@@ -63,6 +63,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     public void addCache(Cache<Key, Value> cache, int maxSize) {
         if (cache == null)
             return;
+        //TODO System.out.println("Added Cache "+cache.getClass().getName()+"  with Size: "+maxSize);
         if (maxSize < 1) {
             throw new IllegalArgumentException("Cache size should be > 0");
         }
@@ -118,10 +119,13 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     public synchronized SourceResponse<Value> requestObject(Key key,
             final SourceListener<Key, Value> sender) {
         if (isAllreadyWaiting(key)) {
+            addRequestListener(key, sender);
             return new SourceResponse<Value>(SourceResponseType.ASYNCHRONOUS, null);
         }
         SourceResponse<Value> cacheResponse = askCaches(0, key, sender);
         if (cacheResponse.response != SourceResponseType.MISSING) {
+            if (cacheResponse.response == SourceResponseType.ASYNCHRONOUS)
+                addRequestListener(key, sender);
             return cacheResponse;
         } else {
             if (source == null) {
@@ -169,10 +173,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                 addRequestListener(key, listener);
                 return response;
             case SYNCHRONOUS:
-                updateLastUsed(cache, key);
+                cacheRequestCompleted(cache, key, response.value);
                 return response;
             default:
-                System.err.println("Sth. is to wrong here, enum has wrong type.");
+                //TODO System.err.println("Sth. is to wrong here, enum has wrong type.");
                 return new SourceResponse<Value>(SourceResponseType.MISSING, null);
         }
     }
@@ -200,10 +204,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             return false;
         return true;
 
-    }
-
-    private synchronized void removeRequestListeners(Key k) {
-        waitingRequestsMap.remove(k);
     }
 
     private synchronized void updateLastUsed(Cache<Key, Value> cache, Key k) {
@@ -242,9 +242,11 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     /**
      * Drops all cached objects.
      */
-    public void dropAll() {
+    public synchronized void dropAll() {
         for (Cache<Key, Value> cache : caches) {
             cache.dropAll();
+            lastUsedMap.get(cache).clear();
+            usedSizeMap.put(cache, new Integer(0));
         }
     }
 
@@ -254,12 +256,12 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * 
      * @param pred Conformance with that <code>Predicate</code> leads to deletion of that object
      */
-    public void dropAll(Predicate<Key> pred) {
+    public synchronized void dropAll(Predicate<Key> pred) {
         for (Cache<Key, Value> cache : caches) {
-            Iterable<Key> keys = cache.getExistingObjects();
+            Iterable<Key> keys = lastUsedMap.get(cache).keySet();
             for (Key k : keys) {
                 if (pred.test(k)) {
-                    cache.dropObject(k);
+                    dropObjectFromCache(cache, k);
                 }
             }
         }
@@ -271,13 +273,35 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * 
      * @param k The key identifying the object
      */
-    public void dropObject(Key k) {
+    public synchronized void dropObject(Key k) {
         for (Cache<Key, Value> c : caches) {
-            c.dropObject(k);
+            if (lastUsedMap.get(c).containsKey(k)) {
+                dropObjectFromCache(c, k);
+            }
         }
     }
+    
+    private void dropObjectFromCache(Cache<Key, Value> c, Key k) {
+        CacheMoveListener listener = new CacheMoveListener();
+        SourceResponse<Value> response = c.requestObject(k, listener);
+        Value value = null;
+        if (response.response == SourceResponseType.ASYNCHRONOUS) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            value = listener.value;
+        } else if (response.response == SourceResponseType.SYNCHRONOUS) {
+            value = response.value;
+        } else {
+            //TODO System.err.println("Cache didn't have a object, should not happen!");
+            return;
+        }
+        removeFromCache(c, k, value);
+    }
 
-    private synchronized void requestCompleted(Key k, Value v) {
+    private void requestCompleted(Key k, Value v) {
         if (v != null) {
             addToCaches(k, v);
         }
@@ -288,12 +312,39 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                 listener.requestCompleted(k, v);
             }
         }
-        removeRequestListeners(k);
+    }
+
+    private synchronized void cacheRequestCompleted(Cache<Key, Value> c, Key k, Value v) {
+        if (caches.size() > 0) {
+            int index = caches.indexOf(c);
+            if (index != -1 && index != 0) {
+                removeFromCache(c, k, v);
+                addToCaches(k, v);
+            }
+        }
+        Set<SourceListener<Key, Value>> listeners = waitingRequestsMap.remove(k);
+        if (listeners != null) {
+            for (SourceListener<Key, Value> listener : listeners) {
+                listener.requestCompleted(k, v);
+            }
+        }
+    }
+
+    private synchronized void removeFromCache(Cache<Key, Value> c, Key k, Value v) {
+        Integer size = measure.getSize(v);
+        removeUsedSpace(c, size);
+        c.dropObject(k);
+        lastUsedMap.get(c).remove(k);
     }
 
     private void addToCaches(Key k, Value v) {
         if (caches.size() < 1)
             return;
+        Cache<Key, Value> topCache = caches.get(0);
+        Integer sizeOfCache = cacheSizeMap.get(topCache);
+        if (sizeOfCache < measure.getSize(v)) {
+            throw new RuntimeException("The Object is bigger then the Level1 Cache");
+        }
         addToCache(0, k, v);
     }
 
@@ -305,7 +356,11 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         Integer freeSpace = getFreeSpaceInCache(cache);
         Integer sizeOfValue = measure.getSize(v);
         if (sizeOfValue > freeSpace) {
-            makeSpaceInCache(index, sizeOfValue * 5);
+            Integer cacheSize = cacheSizeMap.get(cache);
+            Integer spaceToMake = sizeOfValue * 5;
+            if (spaceToMake > cacheSize)
+                spaceToMake = cacheSize;
+            makeSpaceInCache(index, spaceToMake);
         }
         cache.putObject(k, v);
         addUsedSpace(cache, sizeOfValue);
@@ -315,10 +370,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     private Integer getFreeSpaceInCache(Cache<Key, Value> cache) {
         Integer sizeOfCache = cacheSizeMap.get(cache);
         Integer usedSizeOfCache = usedSizeMap.get(cache);
-        if (sizeOfCache == null)
-            System.err.println("SizeOfCache is null");
-        if (usedSizeOfCache == null)
-            System.err.println("UsedSizeOfCache is null");
+        //if (sizeOfCache == null)
+            //TODO System.err.println("SizeOfCache is null");
+        //if (usedSizeOfCache == null)
+            //TODO System.err.println("UsedSizeOfCache is null");
         return sizeOfCache - usedSizeOfCache;
     }
 
@@ -340,9 +395,12 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     private synchronized void makeSpaceInCache(int index, Integer space) {
-        if (caches.size() <= index)
+        if (caches.size() <= index || space == 0)
             return;
         Cache<Key, Value> cache = caches.get(index);
+        Integer cacheSize = cacheSizeMap.get(cache);
+        Integer spaceUsed = usedSizeMap.get(cache);
+        //TODO System.out.println("This Cache has "+cacheSize+" space, "+spaceUsed+" is used! We want: "+space);
         Map<Key, BigInteger> lastUsed = lastUsedMap.get(cache);
         Set<Entry<Key, BigInteger>> entrySet = lastUsed.entrySet();
         LinkedList<Entry<Key, BigInteger>> list = new LinkedList<Entry<Key, BigInteger>>(entrySet);
@@ -357,9 +415,12 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         int spaceMade = 0;
         Set<CacheEntry> removedSet = new HashSet<CacheEntry>();
         boolean hasNextCache = caches.size() > index + 1;
-        while (spaceMade < space) {
+        //TODO System.out.println("Space we want: "+space);
+        while (spaceMade < space && list.size() > 0) {
+            //TODO System.out.println("Remove One from " + list.size());
+            
             Entry<Key, BigInteger> entry = list.pop();
-            CacheMoveListener listener = new CacheMoveListener(Thread.currentThread());
+            CacheMoveListener listener = new CacheMoveListener();
             SourceResponse<Value> response = cache.requestObject(entry.getKey(), listener);
             if (response.response == SourceResponseType.SYNCHRONOUS) {
                 if (hasNextCache) {
@@ -368,32 +429,36 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                     removedSet.add(cEntry);
                 }
                 Integer sizeOfRemovedEntry = measure.getSize(response.value);
+                //TODO System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);
                 cache.dropObject(entry.getKey());
                 spaceMade += sizeOfRemovedEntry;
             } else if (response.response == SourceResponseType.ASYNCHRONOUS) {
-                synchronized (this) {
-                    try {
-                        wait();
-                        if (hasNextCache) {
-                            CacheEntry cEntry = new CacheEntry(listener.key, listener.value,
-                                    lastUsed.remove(listener.key));
-                            removedSet.add(cEntry);
-                        }
-                        Integer sizeOfRemovedEntry = measure.getSize(response.value);
-                        cache.dropObject(entry.getKey());
-                        spaceMade += sizeOfRemovedEntry;
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    //TODO System.out.println("Waiting for Async answer!");
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            } else {
-                throw new RuntimeException("Cache Failed");
+                if (hasNextCache) {
+                    CacheEntry cEntry = new CacheEntry(listener.key, listener.value,
+                            lastUsed.remove(listener.key));
+                    removedSet.add(cEntry);
+                }
+                Integer sizeOfRemovedEntry = measure.getSize(listener.value);
+                //TODO System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);
+                cache.dropObject(listener.key);
+                spaceMade += sizeOfRemovedEntry;
+
             }
+            //TODO System.out.println("We allready made:"+spaceMade);
         }
         removeUsedSpace(cache, spaceMade);
         if (hasNextCache) {
             Cache<Key, Value> s2Cache = caches.get(index + 1);
-            makeSpaceInCache(index + 1, spaceMade);
+            Integer usedSpaceL2 = usedSizeMap.get(s2Cache);
+            Integer sizeL2 = cacheSizeMap.get(s2Cache);
+            if (sizeL2-usedSpaceL2 < spaceMade)
+                makeSpaceInCache(index + 1, spaceMade-(sizeL2-usedSpaceL2));
             for (CacheEntry ce : removedSet) {
                 addToCache(index + 1, ce.key, ce.value);
                 Map<Key, BigInteger> usedMap = lastUsedMap.get(s2Cache);
@@ -421,20 +486,25 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
         @Override
         public void requestCompleted(Key key, Value value) {
+
+            //TODO System.err.println("RequestDistributor: async request completed "
+                //    + (value == null ? "(null) " : "") + "from cache for " + key);
+
             synchronized (RequestDistributor.this) {
                 if (value == null) {
                     if (caches.size() > cIndex + 1) {
                         Cache<Key, Value> nextCache = _caches.get(cIndex + 1);
+                        ObjectRequestListener listener = new ObjectRequestListener(_caches,
+                                cIndex + 1,
+                                _source, _rd);
                         SourceResponse<Value> response = nextCache.requestObject(key,
-                                new ObjectRequestListener(_caches, cIndex + 1,
-                                        _source, _rd));
+                                listener);
                         switch (response.response) {
                             case MISSING:
-                                _rd.requestCompleted(key, null);
+                                listener.requestCompleted(key, null);
                                 break;
                             case SYNCHRONOUS:
-                                updateLastUsed(nextCache, key);
-                                _rd.requestCompleted(key, response.value);
+                                _rd.cacheRequestCompleted(nextCache, key, response.value);
                                 break;
                             case ASYNCHRONOUS:
                                 break;
@@ -450,7 +520,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                                     _rd.requestCompleted(key, null);
                                     break;
                                 case SYNCHRONOUS:
-                                    addToCache(0, key, response.value);
                                     _rd.requestCompleted(key, response.value);
                                     break;
                                 case ASYNCHRONOUS:
@@ -481,11 +550,9 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
         @Override
         public void requestCompleted(Key key, Value value) {
-            synchronized (RequestDistributor.this) {
-                if (value != null)
-                    addToCache(0, key, value);
-                rd.requestCompleted(key, value);
-            }
+            //TODO System.err.println("RequestDistributor: async request completed "
+                //    + (value == null ? "(null) " : "") + "from source for " + key);
+            rd.requestCompleted(key, value);
         }
 
     }
@@ -503,21 +570,31 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             lastUsed = l;
         }
     }
-    
-    private class CacheMoveListener implements SourceListener<Key, Value> {
 
-        Thread waiterThread;
-        public Key key;
-        public Value value;
-        public CacheMoveListener(Thread t) {
-            waiterThread = t;
+    private class CacheMoveListener implements SourceListener<Key, Value> {
+        public volatile Key key;
+        public volatile Value value;
+
+
+        public CacheMoveListener() {
         }
+
         @Override
         public void requestCompleted(Key key, Value value) {
             this.key = key;
             this.value = value;
-            waiterThread.notify();
+            synchronized (RequestDistributor.this) {
+                RequestDistributor.this.notify();
+            }
         }
-        
+
+    }
+
+    @Override
+    public void dispose() {
+        for (Cache<Key, Value> c : caches) {
+            c.dispose();
+        }
+        source.dispose();
     }
 }

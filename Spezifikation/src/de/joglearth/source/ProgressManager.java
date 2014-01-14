@@ -106,11 +106,9 @@ public class ProgressManager {
     /**
      * Marks a pending request as completed, notifying all listeners of the change.
      */
-    public synchronized void requestCompleted() {
-        if (pending > 0) {
+    public synchronized void requestCompleted() {      
+        if (pending > 1) {
             --pending;
-        } else if (pending == 0) {
-            maxPending = 0;
         } else {
             //TODO: Request completed wird ausgeführt aber pending = 0. Error Exception...
             pending = 0;

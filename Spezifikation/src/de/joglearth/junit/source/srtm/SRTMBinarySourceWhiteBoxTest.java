@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import de.joglearth.height.srtm.SRTMBinarySource;
+import de.joglearth.height.srtm.SRTMTileName;
 import de.joglearth.source.SourceListener;
-import de.joglearth.source.srtm.SRTMBinarySource;
-import de.joglearth.source.srtm.SRTMTileIndex;
 
 
 public class SRTMBinarySourceWhiteBoxTest {
@@ -15,11 +15,11 @@ public class SRTMBinarySourceWhiteBoxTest {
     public void test() throws Exception {
         SRTMBinarySource srtm = new SRTMBinarySource();
         
-        class SRTMListener implements SourceListener<SRTMTileIndex, byte[]> {            
+        class SRTMListener implements SourceListener<SRTMTileName, byte[]> {            
             public byte[] result;
             
             @Override
-            public void requestCompleted(SRTMTileIndex key, byte[] value) {
+            public void requestCompleted(SRTMTileName key, byte[] value) {
                 result = value;
                 
                 synchronized (SRTMBinarySourceWhiteBoxTest.this) {
@@ -30,7 +30,7 @@ public class SRTMBinarySourceWhiteBoxTest {
         
         SRTMListener listener = new SRTMListener();
         
-        srtm.requestObject(new SRTMTileIndex(61,  36), listener);
+        srtm.requestObject(new SRTMTileName(61,  36), listener);
         
         synchronized (this) {
             //wait();

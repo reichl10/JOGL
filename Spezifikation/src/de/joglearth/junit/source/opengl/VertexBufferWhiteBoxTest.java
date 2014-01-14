@@ -9,17 +9,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.joglearth.async.AWTInvoker;
+import de.joglearth.async.RunnableWithResult;
 import de.joglearth.geometry.Tile;
 import de.joglearth.junit.GLTestWindow;
-import de.joglearth.rendering.GLError;
+import de.joglearth.opengl.GLError;
+import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.rendering.PlaneTessellator;
+import de.joglearth.rendering.VertexBufferLoader;
+import de.joglearth.rendering.VertexBufferPool;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.source.opengl.TileMeshSource;
-import de.joglearth.source.opengl.VertexBuffer;
-import de.joglearth.source.opengl.VertexBufferCache;
-import de.joglearth.util.AWTInvoker;
-import de.joglearth.util.RunnableWithResult;
 
 
 public class VertexBufferWhiteBoxTest {
@@ -47,9 +47,9 @@ public class VertexBufferWhiteBoxTest {
             @Override
             public void run() {
                 final GL2 gl = window.getGL();
-                final TileMeshSource source = new TileMeshSource(gl, new PlaneTessellator());
+                final VertexBufferLoader source = new VertexBufferLoader(gl, new PlaneTessellator());
                 source.setTileSubdivisions(19);
-                final VertexBufferCache<Tile> cache = new VertexBufferCache<Tile>(gl);
+                final VertexBufferPool<Tile> cache = new VertexBufferPool<Tile>(gl);
                 final Tile tile = new Tile(0, 0, 0);
 
                 SourceResponse<VertexBuffer> response;
