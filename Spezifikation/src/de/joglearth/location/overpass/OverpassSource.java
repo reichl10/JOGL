@@ -38,7 +38,7 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
 
     private Map<LocationType, String> locationRequest;
     private final ExecutorService executor;
-    private final String url = "http://overpass-api.de/api/interpreter";
+    private final String url = "http://overpass.osm.rambler.ru/cgi/interpreter";
     private NominatimSource info;
 
 
@@ -109,6 +109,8 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
         ArrayList<String> getRequest = new ArrayList<String>();
         getRequest.add("data");
         getRequest.add(query);
+        
+        System.out.println(query);
 
         byte[] response = HTTP.get(url, getRequest);
         if (response == null) {
@@ -211,7 +213,7 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
 
     public static void main(String[] args) {
         OverpassSource source = new OverpassSource();
-        source.getLocations(new OverpassQuery(LocationType.CITY, new Tile() {
+        source.getLocations(new OverpassQuery(LocationType.RESTAURANT, new Tile() {
 
             @Override
             public boolean intersects(double lonFrom, double latFrom, double lonTo, double latTo) {
@@ -222,25 +224,25 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
             @Override
             public double getLongitudeTo() {
                 // TODO Auto-generated method stub
-                return 15;
+                return Math.toRadians(14);
             }
 
             @Override
             public double getLongitudeFrom() {
                 // TODO Auto-generated method stub
-                return 5;
+                return Math.toRadians(13);
             }
 
             @Override
             public double getLatitudeTo() {
                 // TODO Auto-generated method stub
-                return 60;
+                return Math.toRadians(49);
             }
 
             @Override
             public double getLatitudeFrom() {
                 // TODO Auto-generated method stub
-                return 48;
+                return Math.toRadians(48);
             }
 
             @Override
