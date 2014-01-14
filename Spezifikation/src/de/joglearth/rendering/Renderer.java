@@ -55,7 +55,7 @@ import de.joglearth.util.Resource;
 public class Renderer {
 
     private GLContext gl;
-    private int tileSubdivisions = 8;
+    private int tileSubdivisions = 7;
     private LocationManager locationManager;
     private TextureManager textureManager;
     private Camera camera;
@@ -350,13 +350,13 @@ public class Renderer {
         synchronized (Renderer.this) {
             switch (lod) {
                 case LOW:
-                    tileSubdivisions = 8;
+                    tileSubdivisions = 7;
                     break;
                 case MEDIUM:
-                    tileSubdivisions = 16;
+                    tileSubdivisions = 15;
                     break;
                 case HIGH:
-                    tileSubdivisions = 32;
+                    tileSubdivisions = 31;
             }
             if (tileMeshManager != null) {
                 tileMeshManager.setTileSubdivisions(tileSubdivisions);
