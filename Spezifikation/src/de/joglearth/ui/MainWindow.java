@@ -603,6 +603,7 @@ public class MainWindow extends JFrame {
                 userTagListPanel.removeAll();
                 Set<Location> uLocations = Settings.getInstance().getLocations(
                         SettingsContract.USER_LOCATIONS);
+                if (uLocations != null)
                 for (final Location l : uLocations) {
                     System.out.println("Name: " + l.name);
                     JButton button = new JButton(l.name);
