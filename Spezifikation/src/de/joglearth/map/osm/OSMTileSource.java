@@ -23,7 +23,6 @@ public class OSMTileSource implements Source<TileName, byte[]> {
 
     private class ServerSet {
 
-        // public int offset = 0;
         public String[] servers;
 
 
