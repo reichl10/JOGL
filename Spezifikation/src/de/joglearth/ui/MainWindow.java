@@ -24,10 +24,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
@@ -834,20 +835,7 @@ public class MainWindow extends JFrame {
         manualButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent arg0) {
-                try {
-                    File pdf = new File(System.getProperty("java.io.tmpdir") + File.separator
-                            + "JoglEarthManual.pdf");
-                    if (!pdf.exists()) {
-                        FileOutputStream fos = new FileOutputStream(pdf);
-                        byte[] bytes = Resource.loadBinary("Handbuch.pdf");
-                        fos.write(bytes);
-                        fos.close();
-                    }
-                    Desktop.getDesktop().open(pdf);
-                } catch (IOException e) {
-                    System.err.println("Error opening manual:");
-                    e.printStackTrace();
-                }
+                openManual();
             }
         });
         manualButton.setIcon(loadIcon("icons/manual.png")); //$NON-NLS-1$
@@ -863,6 +851,18 @@ public class MainWindow extends JFrame {
         });
         manualAboutPanel.add(aboutButton, "3, 1"); //$NON-NLS-1$
         aboutButton.setIcon(loadIcon("icons/info.png")); //$NON-NLS-1$
+    }
+
+    private static void openManual() {
+        try {
+            Path pdfPath = Files.createTempFile(null, ".pdf");
+            InputStream in = Resource.open("Handbuch.pdf");
+            Files.copy(in, pdfPath, StandardCopyOption.REPLACE_EXISTING);
+            Desktop.getDesktop().open(pdfPath.toFile());
+        } catch (IOException e) {
+            System.err.println("Error opening manual:");
+            e.printStackTrace();
+        }
     }
 
     private void resetGLCanvas() {
@@ -1148,11 +1148,20 @@ public class MainWindow extends JFrame {
                 MainWindow.this.dispose();
             }
         };
+        Action showManualAction = new AbstractAction() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openManual();
+            }
+        };
         action.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control Q")); //$NON-NLS-1$
         ActionMap actionMap = new ActionMapUIResource();
         actionMap.put("action_quit", action); //$NON-NLS-1$
+        actionMap.put("action_showManual", showManualAction);
         InputMap inputMap = new ComponentInputMap(rootPane);
         inputMap.put(KeyStroke.getKeyStroke("control Q"), "action_quit"); //$NON-NLS-1$ //$NON-NLS-2$
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0), "action_showManual");
         SwingUtilities.replaceUIActionMap(rootPane, actionMap);
         SwingUtilities.replaceUIInputMap(rootPane, JComponent.WHEN_IN_FOCUSED_WINDOW,
                 inputMap);
