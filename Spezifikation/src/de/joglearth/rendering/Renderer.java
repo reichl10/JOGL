@@ -287,6 +287,7 @@ public class Renderer {
         
         tileMeshManager = new VertexBufferManager(gl, null);
         tileMeshManager.setTileSubdivisions(tileSubdivisions);
+        tileMeshManager.setHeightMap(heightMap);
         applyDisplayMode();
     }
     
@@ -524,6 +525,7 @@ public class Renderer {
     public void setHeightMap(HeightMap hm) {
         if (!hm.equals(heightMap)) {
             heightMap = hm;
+            if (tileMeshManager != null)
             tileMeshManager.setHeightMap(hm);
         }
     }

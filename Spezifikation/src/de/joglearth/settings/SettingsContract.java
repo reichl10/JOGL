@@ -132,6 +132,7 @@ public final class SettingsContract {
         s.putString(LEVEL_OF_DETAIL, LevelOfDetail.MEDIUM.name());
         s.putInteger(CACHE_SIZE_FILESYSTEM, new Integer(1000*1024*1024));
         s.putInteger(CACHE_SIZE_MEMORY, new Integer(200*1024*1024));
+        s.putBoolean(HEIGHT_MAP_ENABLED, false);
     }
 
     /**
@@ -363,6 +364,7 @@ public final class SettingsContract {
                     s.getInteger(CACHE_SIZE_FILESYSTEM));
             writeEntry(xmlWriter, CACHE_SIZE_MEMORY,
                     s.getInteger(CACHE_SIZE_MEMORY));
+            writeEntry(xmlWriter, HEIGHT_MAP_ENABLED, s.getBoolean(HEIGHT_MAP_ENABLED));
             writeLocationSet(xmlWriter, USER_LOCATIONS,
                     s.getLocations(USER_LOCATIONS));
             writeEnd(xmlWriter);

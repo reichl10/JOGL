@@ -168,7 +168,7 @@ public class MainWindow extends JFrame {
     private JComboBox<IconizedItem<Locale>> languageComboBox;
     private JComboBox<NamedItem<Antialiasing>> antialiasingComboBox;
     private JComboBox<NamedItem<TextureFilter>> texfilterComboBox;
-    private JComboBox<NamedItem<LevelOfDetail>> lodComboBox_1;
+    private JComboBox<NamedItem<LevelOfDetail>> lodComboBox;
     private JPanel graphicsPanel;
     private JLabel antialiasingLabel;
     private JLabel texfilterLabel;
@@ -224,7 +224,7 @@ public class MainWindow extends JFrame {
         public void mouseClicked(MouseEvent e) {
             visible = !visible;
             ((FormLayout) getContentPane().getLayout()).setColumnSpec(1,
-                    ColumnSpec.decode(visible ? "130dlu" : "0dlu")); //$NON-NLS-1$ //$NON-NLS-2$
+                    ColumnSpec.decode(visible ? "160dlu" : "0dlu")); //$NON-NLS-1$ //$NON-NLS-2$
             sidebarHideIconLabel.setIcon(visible ? hideIcon : showIcon);
             getContentPane().revalidate();
         }
@@ -390,24 +390,6 @@ public class MainWindow extends JFrame {
         paraMapTypeComboBox
                 .setRenderer(new IconListCellRenderer<IconizedItem<MapConfiguration>>());
         heightMapCheckBox = new JCheckBox(Messages.getString("MainWindow.65")); //$NON-NLS-1$
-        heightMapCheckBox.addChangeListener(new ChangeListener() {
-
-            private boolean lastSelected = false;
-
-
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                JCheckBox box = (JCheckBox) e.getSource();
-                if (box.isSelected() != lastSelected) {
-                    if (box.isSelected()) {
-                        renderer.setHeightMap(SRTMHeightMap.getInstance());
-                    } else {
-                        renderer.setHeightMap(FlatHeightMap.getInstance());
-                    }
-                    lastSelected = box.isSelected();
-                }
-            }
-        });
         mapOptionsPanel.add(heightMapCheckBox, "1, 5"); //$NON-NLS-1$
 
         JLabel logoLabel = new JLabel(""); //$NON-NLS-1$
@@ -746,14 +728,14 @@ public class MainWindow extends JFrame {
         lodLabel = new JLabel(Messages.getString("MainWindow.137")); //$NON-NLS-1$
         graphicsPanel.add(lodLabel, "2, 6, left, default"); //$NON-NLS-1$
 
-        lodComboBox_1 = new JComboBox<NamedItem<LevelOfDetail>>();
-        lodComboBox_1.addItem(new NamedItem<LevelOfDetail>(Messages
+        lodComboBox = new JComboBox<NamedItem<LevelOfDetail>>();
+        lodComboBox.addItem(new NamedItem<LevelOfDetail>(Messages
                 .getString("MainWindow.139"), LevelOfDetail.LOW)); //$NON-NLS-1$
-        lodComboBox_1.addItem(new NamedItem<LevelOfDetail>(Messages
+        lodComboBox.addItem(new NamedItem<LevelOfDetail>(Messages
                 .getString("MainWindow.140"), LevelOfDetail.MEDIUM)); //$NON-NLS-1$
-        lodComboBox_1.addItem(new NamedItem<LevelOfDetail>(Messages
+        lodComboBox.addItem(new NamedItem<LevelOfDetail>(Messages
                 .getString("MainWindow.141"), LevelOfDetail.HIGH)); //$NON-NLS-1$
-        lodComboBox_1.addItemListener(new ItemListener() {
+        lodComboBox.addItemListener(new ItemListener() {
 
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -764,7 +746,7 @@ public class MainWindow extends JFrame {
                 }
             }
         });
-        graphicsPanel.add(lodComboBox_1, "4, 6, fill, default"); //$NON-NLS-1$
+        graphicsPanel.add(lodComboBox, "4, 6, fill, default"); //$NON-NLS-1$
 
         cachePanel = new JPanel();
         cachePanel.setBorder(new TitledBorder(null, Messages
@@ -1135,8 +1117,10 @@ public class MainWindow extends JFrame {
                 Settings settings = Settings.getInstance();
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     settings.putBoolean(SettingsContract.HEIGHT_MAP_ENABLED, new Boolean(true));
+                    renderer.setHeightMap(SRTMHeightMap.getInstance());
                 } else if (e.getStateChange() == ItemEvent.DESELECTED) {
                     settings.putBoolean(SettingsContract.HEIGHT_MAP_ENABLED, new Boolean(false));
+                    renderer.setHeightMap(FlatHeightMap.getInstance());
                 }
             }
         });
@@ -1225,7 +1209,7 @@ public class MainWindow extends JFrame {
                         .getString("MainWindow.110"), TitledBorder.LEADING, //$NON-NLS-1$
                         TitledBorder.TOP, null, null));
                 int index = paraMapTypeComboBox.getSelectedIndex();
-                if (index == -1)
+                if (index < 0)
                     index = 0;
                 paraMapTypeComboBox.removeAllItems();
                 paraMapTypeComboBox
@@ -1259,6 +1243,8 @@ public class MainWindow extends JFrame {
                 paraMapTypeComboBox.setSelectedIndex(index);
                 antialiasingLabel.setText(Messages.getString("MainWindow.126")); //$NON-NLS-1$
                 index = antialiasingComboBox.getSelectedIndex();
+                if (index < 0)
+                    index = 0;
                 antialiasingComboBox.removeAllItems();
                 antialiasingComboBox.addItem(new NamedItem<Antialiasing>(
                         Messages.getString("MainWindow.noAntialiasing"), Antialiasing.NONE)); //$NON-NLS-1$
@@ -1277,6 +1263,8 @@ public class MainWindow extends JFrame {
                 antialiasingComboBox.setSelectedIndex(index);
                 texfilterLabel.setText(Messages.getString("MainWindow.132")); //$NON-NLS-1$
                 index = texfilterComboBox.getSelectedIndex();
+                if (index < 0)
+                    index = 0;
                 texfilterComboBox.removeAllItems();
                 texfilterComboBox.addItem(new NamedItem<TextureFilter>(Messages
                         .getString("MainWindow.nearestNeighbour"), TextureFilter.NEAREST)); //$NON-NLS-1$
@@ -1294,15 +1282,17 @@ public class MainWindow extends JFrame {
                         .getString("MainWindow.anisotropic16x"), TextureFilter.ANISOTROPIC_16X));//$NON-NLS-1$
                 texfilterComboBox.setSelectedIndex(index);
                 lodLabel.setText(Messages.getString("MainWindow.137")); //$NON-NLS-1$
-                index = lodComboBox_1.getSelectedIndex();
-                lodComboBox_1.removeAllItems();
-                lodComboBox_1.addItem(new NamedItem<LevelOfDetail>(Messages
+                index = lodComboBox.getSelectedIndex();
+                if (index < 0)
+                    index = 0;
+                lodComboBox.removeAllItems();
+                lodComboBox.addItem(new NamedItem<LevelOfDetail>(Messages
                         .getString("MainWindow.139"), LevelOfDetail.LOW)); //$NON-NLS-1$
-                lodComboBox_1.addItem(new NamedItem<LevelOfDetail>(Messages
+                lodComboBox.addItem(new NamedItem<LevelOfDetail>(Messages
                         .getString("MainWindow.140"), LevelOfDetail.MEDIUM)); //$NON-NLS-1$
-                lodComboBox_1.addItem(new NamedItem<LevelOfDetail>(Messages
+                lodComboBox.addItem(new NamedItem<LevelOfDetail>(Messages
                         .getString("MainWindow.141"), LevelOfDetail.HIGH)); //$NON-NLS-1$
-                lodComboBox_1.setSelectedIndex(index);
+                lodComboBox.setSelectedIndex(index);
                 cachePanel.setBorder(new TitledBorder(null, Messages
                         .getString("MainWindow.143"), TitledBorder.LEADING, //$NON-NLS-1$
                         TitledBorder.TOP, null, null));
@@ -1317,6 +1307,8 @@ public class MainWindow extends JFrame {
                 userTagButton.setText(Messages.getString("MainWindow.40")); //$NON-NLS-1$
                 displayModeLabel.setText(Messages.getString("MainWindow.48")); //$NON-NLS-1$
                 index = displayModeComboBox.getSelectedIndex();
+                if (index < 0)
+                    index = 0;
                 displayModeComboBox.removeAllItems();
                 displayModeComboBox.addItem(new IconizedItem<DisplayMode>(Messages
                         .getString("MainWindow.52"), //$NON-NLS-1$
@@ -1442,8 +1434,6 @@ public class MainWindow extends JFrame {
         initializeDetailsPanel();
         initializeViewPanel();
         loadLanguage();
-        // TODO: remove this hack for the GUIEditor
-
         if (l.getLanguage().equals(Locale.GERMAN.getLanguage())) {
             //TODO System.err.println("Set Lang to German at start!"); //$NON-NLS-1$
             languageComboBox.setSelectedIndex(1);
@@ -1451,13 +1441,25 @@ public class MainWindow extends JFrame {
             //TODO System.err.println("Set Lang to English at start!"); //$NON-NLS-1$
             languageComboBox.setSelectedIndex(0);
         }
+        
         registerListeners();
+        Settings settings = Settings.getInstance();
+        String setting = settings.getString(SettingsContract.ANTIALIASING);
+        Antialiasing aa = Antialiasing.valueOf(setting);
+        antialiasingComboBox.setSelectedItem(new NamedItem<Antialiasing>("", aa));
+        setting = settings.getString(SettingsContract.TEXTURE_FILTER);
+        TextureFilter tFilter = TextureFilter.valueOf(setting);
+        texfilterComboBox.setSelectedItem(new NamedItem<TextureFilter>("", tFilter));
+        setting = settings.getString(SettingsContract.LEVEL_OF_DETAIL);
+        LevelOfDetail lod = LevelOfDetail.valueOf(setting);
+        lodComboBox.setSelectedItem(new NamedItem<LevelOfDetail>("", lod));
+        Boolean heightProfBoolean = settings.getBoolean(SettingsContract.HEIGHT_MAP_ENABLED);
+        heightMapCheckBox.setSelected(heightProfBoolean);
         zoomSlider.setValue(0);
     }
 
 
     private class UISettingsListener implements SettingsListener {
-
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
             if (key.equals(SettingsContract.ANTIALIASING)) {
