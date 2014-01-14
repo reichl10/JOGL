@@ -350,13 +350,13 @@ public class Renderer {
         synchronized (Renderer.this) {
             switch (lod) {
                 case LOW:
-                    tileSubdivisions = 1;
+                    tileSubdivisions = 8;
                     break;
                 case MEDIUM:
-                    tileSubdivisions = 7;
+                    tileSubdivisions = 16;
                     break;
                 case HIGH:
-                    tileSubdivisions = 15;
+                    tileSubdivisions = 32;
             }
             if (tileMeshManager != null) {
                 tileMeshManager.setTileSubdivisions(tileSubdivisions);

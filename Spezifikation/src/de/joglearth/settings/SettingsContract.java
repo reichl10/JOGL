@@ -129,7 +129,7 @@ public final class SettingsContract {
         s.putString(LANGUAGE, "DE");
         s.putString(TEXTURE_FILTER, TextureFilter.TRILINEAR.name());
         s.putString(ANTIALIASING, Antialiasing.NONE.name());
-        s.putString(LEVEL_OF_DETAIL, LevelOfDetail.MEDIUM.name());
+        s.putString(LEVEL_OF_DETAIL, LevelOfDetail.LOW.name());
         s.putInteger(CACHE_SIZE_FILESYSTEM, new Integer(1000*1024*1024));
         s.putInteger(CACHE_SIZE_MEMORY, new Integer(200*1024*1024));
         s.putBoolean(HEIGHT_MAP_ENABLED, false);
