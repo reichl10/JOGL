@@ -110,14 +110,11 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
         getRequest.add("data");
         getRequest.add(query);
         
-        System.out.println(query);
-
         byte[] response = HTTP.get(url, getRequest);
         if (response == null) {
             return new ArrayList<Location>();
         }
         String xml = new String(response);
-        System.out.println(xml);
 
         return parseXml(xml, request.type);
 
