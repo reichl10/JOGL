@@ -1,17 +1,19 @@
 package de.joglearth.rendering;
 
-import static javax.media.opengl.GL2.*;
-import static java.lang.Math.*;
+import static java.lang.Math.PI;
+import static javax.media.opengl.GL.GL_BLEND;
+import static javax.media.opengl.GL.GL_CULL_FACE;
+import static javax.media.opengl.GL.GL_DEPTH_TEST;
+import static javax.media.opengl.GL.GL_TEXTURE_2D;
+import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHTING;
+import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
+import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 import com.jogamp.opengl.util.awt.TextRenderer;
 import com.jogamp.opengl.util.texture.Texture;
@@ -20,14 +22,12 @@ import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
 import de.joglearth.geometry.CameraUtils;
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.geometry.GridPoint;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.PlaneGeometry;
 import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.SphereGeometry;
 import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
-import de.joglearth.geometry.TileLayout;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.height.HeightMap;
 import de.joglearth.height.flat.FlatHeightMap;
@@ -55,7 +55,7 @@ import de.joglearth.util.Resource;
 public class Renderer {
 
     private GLContext gl;
-    private int tileSubdivisions = 7;
+    private int tileSubdivisions = 8;
     private LocationManager locationManager;
     private TextureManager textureManager;
     private Camera camera;
