@@ -37,4 +37,15 @@ public class NamedItem<E> {
     public E getValue() {
         return value;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (obj.getClass() == getClass()) {
+            NamedItem<E> item = (NamedItem<E>) obj;
+            return value.equals(item.value);
+        }
+        return false;
+    }
 }
