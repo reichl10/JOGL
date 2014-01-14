@@ -289,6 +289,9 @@ public class Renderer {
         tileMeshManager.setTileSubdivisions(tileSubdivisions);
         tileMeshManager.setHeightMap(heightMap);
         applyDisplayMode();
+        String lvlOfDetailsString = Settings.getInstance().getString(SettingsContract.LEVEL_OF_DETAIL);
+        LevelOfDetail lod = LevelOfDetail.valueOf(lvlOfDetailsString);
+        setLevelOfDetail(lod);
     }
     
     
@@ -343,6 +346,24 @@ public class Renderer {
         overlayIconTextures = null;
     }
 
+    private void setLevelOfDetail(LevelOfDetail lod) {
+        synchronized (Renderer.this) {
+            switch (lod) {
+                case LOW:
+                    tileSubdivisions = 1;
+                    break;
+                case MEDIUM:
+                    tileSubdivisions = 7;
+                    break;
+                case HIGH:
+                    tileSubdivisions = 15;
+            }
+            if (tileMeshManager != null) {
+                tileMeshManager.setTileSubdivisions(tileSubdivisions);
+            }
+        }
+        gl.postRedisplay();
+    }
 
 
     private class GraphicsSettingsListener implements SettingsListener {
@@ -369,26 +390,6 @@ public class Renderer {
                 }
             });
         }
-
-        private void setLevelOfDetail(LevelOfDetail lod) {
-            synchronized (Renderer.this) {
-                switch (lod) {
-                    case LOW:
-                        tileSubdivisions = 1;
-                        break;
-                    case MEDIUM:
-                        tileSubdivisions = 7;
-                        break;
-                    case HIGH:
-                        tileSubdivisions = 15;
-                }
-                if (tileMeshManager != null) {
-                    tileMeshManager.setTileSubdivisions(tileSubdivisions);
-                }
-            }
-            gl.postRedisplay();
-        }
-
     }
 
     /*
