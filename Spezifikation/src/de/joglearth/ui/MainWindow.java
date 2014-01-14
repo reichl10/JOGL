@@ -224,7 +224,7 @@ public class MainWindow extends JFrame {
         public void mouseClicked(MouseEvent e) {
             visible = !visible;
             ((FormLayout) getContentPane().getLayout()).setColumnSpec(1,
-                    ColumnSpec.decode(visible ? "130dlu" : "0dlu")); //$NON-NLS-1$ //$NON-NLS-2$
+                    ColumnSpec.decode(visible ? "160dlu" : "0dlu")); //$NON-NLS-1$ //$NON-NLS-2$
             sidebarHideIconLabel.setIcon(visible ? hideIcon : showIcon);
             getContentPane().revalidate();
         }
