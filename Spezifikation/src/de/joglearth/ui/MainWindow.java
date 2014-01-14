@@ -1198,7 +1198,7 @@ public class MainWindow extends JFrame {
                             + location.point.getLongitudeString() + " lat: "
                             + location.point.getLatitudeString());
                     camera.setPosition(location.point);
-                    updateDetails(location);
+                    updateDetails();
                 }
             }
         });
@@ -1400,7 +1400,9 @@ public class MainWindow extends JFrame {
 
     }
 
-    private void updateDetails(Location location) {
+    private void updateDetails() {
+        Location location = locationManager.getDetails(camera
+                .getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d)));
         if (location.name != null)
             detailNameLabel.setText(location.name);
         else
@@ -1541,9 +1543,6 @@ public class MainWindow extends JFrame {
             double scaleSize = Math.round(sizeScreen / scale);
             System.out.println("ScaleSize: " + scaleSize);
             scaleLabel.setText(String.valueOf(scaleSize));
-            Location location = locationManager.getDetails(camera
-                    .getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d)));
-            updateDetails(location);
         }
 
     }
@@ -1621,10 +1620,24 @@ public class MainWindow extends JFrame {
 
             super.mouseClicked(e);
         }
+    
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            updateDetails();
+            super.mouseReleased(e);
+        }
     }
 
     private class GLKeyboardListener extends KeyAdapter {
 
+        @Override
+        public void keyReleased(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_DOWN)
+                updateDetails();
+            super.keyReleased(e);
+        }
+        
         @Override
         public void keyPressed(KeyEvent e) {
             ScreenCoordinates lastPos = new ScreenCoordinates(0.5d, 0.5d);
