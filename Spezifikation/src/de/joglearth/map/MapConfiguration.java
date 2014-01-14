@@ -3,6 +3,7 @@ package de.joglearth.map;
 import java.awt.Dimension;
 
 import de.joglearth.geometry.Camera;
+import de.joglearth.geometry.MapProjection;
 import de.joglearth.geometry.TileLayout;
 import de.joglearth.source.Source;
 
@@ -31,4 +32,6 @@ public interface MapConfiguration {
      * @return The suffix. Must not be null.
      */
     String getImageFormatSuffix();
+    
+    MapProjection getProjection();
 }

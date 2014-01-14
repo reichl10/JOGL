@@ -1571,8 +1571,10 @@ public class MainWindow extends JFrame {
                     if (lastGeo != null && newGeo != null) {
                         double deltaLon = -signum(newPos.x - lastPos.x)
                                 * abs(newGeo.getLongitude() - lastGeo.getLongitude());
+                        System.out.println(camera.getPosition());
                         double deltaLat = signum(newPos.y - lastPos.y)
                                 * abs(newGeo.getLatitude() - lastGeo.getLatitude());
+
                         camera.move(deltaLon, deltaLat);
                         /*
                          * TODO System.out.format(

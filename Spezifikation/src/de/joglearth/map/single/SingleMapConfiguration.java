@@ -3,6 +3,8 @@ package de.joglearth.map.single;
 import java.awt.Dimension;
 
 import de.joglearth.geometry.Camera;
+import de.joglearth.geometry.LinearProjection;
+import de.joglearth.geometry.MapProjection;
 import de.joglearth.geometry.TileLayout;
 import de.joglearth.map.MapConfiguration;
 import de.joglearth.map.TileName;
@@ -81,6 +83,11 @@ public class SingleMapConfiguration implements MapConfiguration {
     @Override
     public String getImageFormatSuffix() {
         return "jpg";
+    }
+
+    @Override
+    public MapProjection getProjection() {
+        return new LinearProjection();
     }
 
 }
