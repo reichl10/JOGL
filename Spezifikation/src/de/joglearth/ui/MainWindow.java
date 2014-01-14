@@ -771,7 +771,7 @@ public class MainWindow extends JFrame {
         memCacheSpinner.setModel(new SpinnerNumberModel(Settings.getInstance().getInteger(
                 SettingsContract.CACHE_SIZE_MEMORY)
                 / (1024 * 1024),
-                new Integer(1), null, new Integer(1)));
+                new Integer(1), null, new Integer(10)));
         memCacheSpinner.addChangeListener(new ChangeListener() {
 
             @Override
@@ -791,7 +791,7 @@ public class MainWindow extends JFrame {
         fsCacheSpinner.setModel(new SpinnerNumberModel(Settings.getInstance().getInteger(
                 SettingsContract.CACHE_SIZE_FILESYSTEM)
                 / (1024 * 1024),
-                new Integer(1), null, new Integer(1)));
+                new Integer(1), null, new Integer(10)));
         fsCacheSpinner.addChangeListener(new ChangeListener() {
 
             @Override
@@ -1386,7 +1386,8 @@ public class MainWindow extends JFrame {
                             break;
                     }
                 }
-
+                latitudeLabel.setText(Messages.getString("MainWindow.2"));
+                longitudeLabel.setText(Messages.getString("MainWindow.209"));
             }
         });
 
@@ -1684,7 +1685,12 @@ public class MainWindow extends JFrame {
                     cTiltY = 0.0d;
                     cTiltX = 0.0d;
                     tiltChanged = true;
-                    break;
+                    break;                
+                case 96:
+                        cTiltY = 0.0d;
+                        cTiltX = 0.0d;
+                        tiltChanged = true;
+                        break;
                 case KeyEvent.VK_PLUS:
                 case KeyEvent.VK_ADD:
                     SwingUtilities.invokeLater(new Runnable() {
