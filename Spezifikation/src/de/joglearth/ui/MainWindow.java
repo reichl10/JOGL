@@ -1178,11 +1178,13 @@ public class MainWindow extends JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 if (e.getValueIsAdjusting() == false) {
                     Location location = searchResultList.getSelectedValue();
-                    System.out.println("SearchResult Setting to lon: "
-                            + location.point.getLongitudeString() + " lat: "
-                            + location.point.getLatitudeString());
-                    camera.setPosition(location.point);
-                    updateDetails();
+					if (location != null) {
+						System.out.println("SearchResult Setting to lon: "
+								+ location.point.getLongitudeString()
+								+ " lat: " + location.point.getLatitudeString());
+						camera.setPosition(location.point);
+						updateDetails();
+					}
                 }
             }
         });
