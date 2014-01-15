@@ -168,6 +168,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         ArrayList<String> getRequest = new ArrayList<String>();
         getRequest.add("accept-language");
         getRequest.add(Settings.getInstance().getString(SettingsContract.LANGUAGE).toLowerCase());
+//        getRequest.add("de");
         getRequest.add("format");
         getRequest.add("xml");
         getRequest.add("osm_id");
