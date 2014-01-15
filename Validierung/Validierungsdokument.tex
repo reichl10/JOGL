@@ -1,0 +1,261 @@
+\documentclass[10pt]{scrreprt}
+\usepackage[a4paper, top=30mm, left=25mm, right=25mm, bottom=30mm]{geometry}
+\usepackage[utf8]{inputenc}
+
+\usepackage[Bjornstrup]{fncychap}
+\usepackage{pdfpages}
+\usepackage{ngerman}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{etoolbox}
+\usepackage{wrapfig}
+\usepackage{enumitem}
+\usepackage{tabu}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{numprint}
+\usepackage{longtable}
+\usepackage{caption}
+ \usepackage{rotating}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{textcomp}
+\usepackage{calc}
+\usepackage{ulem}
+\usepackage[table]{xcolor}
+%\usepackage{hyperref}
+%\hypersetup{%
+%  colorlinks=false,%
+%  linkcolor=blue,%
+%  citecolor=blue,%
+%  unicode%
+%}
+\usepackage{mathptmx}
+\usepackage{courier}
+\usepackage{amssymb}
+
+\renewcommand{\em}{\sffamily\bfseries}
+\renewcommand{\bf}{\sffamily\bfseries}
+\newcommand{\hyperlink}[2]{#1}
+
+\makeatletter
+\patchcmd{\@makechapterhead}{\vspace*{50\p@}}{\vspace*{-20\p@}}{}{}
+\patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{\vspace*{7\p@}}{}{}
+\patchcmd{\DOTIS}{\vskip 40\p@}{\vskip -12\p@} 
+\makeatother
+  
+\captionsetup[figure]{labelfont={sf,bf},textfont={sf}}
+\deffootnotemark{[\thefootnotemark]}
+\deffootnote{1.5em}{1em}{[\thefootnotemark] }
+\setlength{\parindent}{0pt}
+\renewcommand{\labelitemi}{ \raisebox{0.3ex}{\small$\blacktriangleright$} }
+\renewcommand{\labelitemii}{ \raisebox{0.3ex}{\small$\triangleright$} }
+\lstset{language=Java}
+
+\newcommand{\sfbf}[1]{\textbf{\sffamily #1}}
+\newcommand{\sfit}[1]{\textit{\sffamily #1}}
+\newcommand{\W}{\sfbf{W}}
+\newcommand{\ziel}[1]{{\fontsize{9.5}{11}\textsf{/#1/}}}
+\newcommand{\ziellabel}{Z}
+\newcommand{\muss}{\renewcommand{\labelenumi}{\textbf{\ziel{\ziellabel\numprint{\theenumi}0}}}}
+\newcommand{\wunsch}{\renewcommand{\labelenumi}{\textbf{\ziel{\ziellabel\numprint{\theenumi}0W}}}}
+\newcommand{\JoglEarth}{\raisebox{-1.2mm}{\includegraphics[scale=0.33]{Logo-Text.eps}} }
+\newcommand{\textref}[1]{\mbox{\raisebox{0.1ex}{\small$\rightarrow$ }\textit{#1}}}
+
+\newenvironment{details}[1][6pt]{%
+  \parskip#1 \parindent6mm \raggedright%
+  \def\item{\par\ignorespaces\hangindent=5mm \hangafter1}}{%
+  \par\ignorespaces} 
+  
+ 
+\begin{document}
+
+\thispagestyle{empty}
+\sffamily
+ 
+\title{Validierung}
+
+\begin{figure}
+\begin{flushright}
+	\includegraphics[scale=0.4]{uniLogo.eps}
+\vspace{2.0 cm}
+\end{flushright}
+\end{figure}
+
+\begin{center}
+\vspace{2.0 cm}
+{\LARGE SEP – Wintersemester 2013/14}
+
+\vspace{1.0 cm}
+\textbf{{\Huge Validierungsbericht}}
+
+\vspace{0.4 cm}
+\begin{figure}[!htb]
+\begin{center}
+	%\includegraphics[scale=1.0]{projektLogo.eps}
+	\includegraphics[scale=1.5]{Logo-Print.eps}
+\end{center}
+\end{figure}
+
+\vspace{0.2 cm}
+\textbf{{\huge OpenStreetMap: Die Welt in 3D}}
+
+\vspace{1.5 cm}
+17.1.2014
+
+\vspace{0.5 cm}
+Version: 1.0
+
+\vspace{1.5 cm}
+{\Large Projektbetreuer: Peter Barth}
+
+\vspace{1.5 cm}
+\begin{tabular}{|c|c|c|}
+\hline 
+\rule[-1ex]{0pt}{4ex} \textbf{Phase} & \textbf{Verantwortlicher} & \textbf{E-Mail Adresse} \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Pflichtenheft & Gabriele Haas & haasgab@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Entwurf & Thomas Eder & ederthom@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Spezifikation & Christof Blauberger & blauberg@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Implementierung & Fabian Knorr & knorrfab@fim.uni-passau.de \\ 
+\hline \hline 
+\rule[-1ex]{0pt}{4ex} Testing & Constantin Wenger & wengerco@fim.uni-passau.de \\ 
+\hline  \hline
+\rule[-1ex]{0pt}{4ex} Präsentation & Sebastian Reichl & reichlse@fim.uni-passau.de \\ 
+\hline 
+\end{tabular}
+
+\end{center}
+
+
+\pagebreak
+\rmfamily
+\tableofcontents
+
+\chapter{Einleitung}
+
+\chapter{Bugs}
+\section{Gefundene Bugs}
+Die Nummerierung wurde aus dem Bugtracker von GitHub entnommen.
+Nicht in der Liste verzeichnet sind Verbesserungen und Duplikate.
+\begin{longtable}{|c|p{5.2cm}|p{8.2cm}|}
+\hline
+Nummer & Titel & Beschreibung \\
+\hline
+\hline
+\#1 & Sternenhimmel funktioniert unter Windows 8.1 nicht & \\
+\hline
+\#2 & Zu viele Nominatim-Anfragen & Es wird für jeden Pixel eine Anfrage gestellt \\
+\hline
+\#3 & Settings werden nicht korrekt in das UI geladen & \\
+\hline
+\#4 & Detaillevel-Einstellung stimmt nicht mit dem UI überein & Es wird 'Niedrig' angezeigt
+ bwohl 'Mittel' eingestellt ist \\
+\hline
+\#5 & Letzter Frame wird nicht angestoßen & Bei der Umstellung zu Globus oder Einblendung von Overlays wird der Rendervorgang nicht angestoßen\\
+\hline
+\#6 & Kugel wird bei kleinem Zoomlevel zu niedrig aufgelöst & \\
+\hline
+\#7 & Sichtbarkeitsberechnung funktioniert für die Pole nicht & Pole sind praktisch immer unsichtbar; Zentrieren einer Polkachel lässt Ebene/Kugel verschwinden \\
+\hline
+\#8 & Kugel zeigt bei bestimmtem Zoomlevel Artefakte & Zoomlevel 3 oder 4 führt dazu, dass am 60. Breitengrad Artefakte durch die Längengradreduktion des 'SphereTessellators' auftreten \\
+\hline
+\#9,\#10 & Layout der Oberfläche wird nicht korrekt angezeigt & Bei gewissen Fenstermanagern wird die Oberfläche nicht korrekt angezeigt; es wird ein grau/blauer Balken angezeigt der stört. Deshalb wird ein Stück der Oberfläche abgeschnitten \\
+\hline
+\#13 & Implementierung der Maßstabsanzeige zeigt Schwächen & \\
+\hline
+\#16 & Bestimmte PDF-Reader öffnen Handbuch inkorrekt & Es ist z.B. der Adobe Reader 9 unter Linux betroffen \\
+\hline
+\#17 & Sprachänderung inkonsistent & Bei der Änderung der Sprache von Deutsch nach Englisch wurden z.B. 'Längengrad' und 'Breitengrad' nicht übersetzt\\
+\hline
+\#18 & Zoombalken stimmt noch nicht mit Zoom bei OSM überein & Zoombalken 100\% sollte 'OSM' Zoomstufe 18 sein. Momentan Zoomstufe 14 maximal möglich\\
+\hline
+\#19 & Höhenprofil funktioniert noch nicht & Kacheln werden manchmal geladen, aber zu viele und sie werden nicht verarbeitet \\
+\hline
+\#20 & Kippen der Kamera mit Tastatureingaben zum Teil seltsam & Pos1, Ende, Bild Aus, Bild Ab macht seltsame Bewegungen (Zu ruckartig) \\
+\hline
+\#21 & Noch nicht implementierte Tastatureingaben & Numpad 0 zum Zurücksetzen des Kippens und F1 zur Anzeige des Handbuchs noch nicht implementiert \\
+\hline
+\#22 & Details zu Punkt noch nicht angezeigt & Detailfeld bleibt leer \\
+\hline
+\#23 & Knopf zum Löschen der Benutzermarkierungen fehlt & Löschen der Benutzermarkierungen noch nicht implementiert \\
+\hline
+\#24 & Markierung für Bildmittelpunkt nicht am korrekten Platz angezeigt & Overlays wurden an falsche Stellen gezeichnet \\
+\hline
+\#26 & Nach Auswahl des Kartentyps bewirkt Pfeil auf und Pfeil ab eine erneute Änderung des Typs & Statt die Karte zu bewegen wird durch die Kartentypen navigiert \\
+\hline
+\#27 & Exception im MainWindow bei initialem Programmstart & Ausgelöst durch fehlende Collection 'userLocations' \\
+\hline
+\#28 & Exception bei Nominatimanfragen & Nach Anwahl eines Ergebnisses entsteht eine Exception bei der zweiten Suche \\
+\hline
+\#30 & Aus- und Einblenden der Seitenleiste zerstört das Layout der Oberfläche & Nach Aus- und wieder Einblenden der Seitenleiste wird die Seitenleiste zu schmal angezeigt \\
+\hline
+\#31 & Kippen funktioniert nicht konsistent mit der Drehung & \\
+\hline
+\#32 & Verschieben ist nicht konsistent mit der Kartenoberfläche & Punkt unter der Maus sollte beim Verschieben unter selbiger bleiben \\
+\hline
+\#33 & Drehen über 180° E funktioniert mit Tastatur nicht & Navigation über Karte nicht mehr möglich, nachdem über 180° E geschoben wurde \\
+\hline
+\#34 & Liste der Auswahlmöglichkeiten verschiebt Labels bei langen Suchergebnissen & Die Labels 'In der Nähe', 'Weltweit' und der Suchknopf wurden verschoben \\
+\hline
+\#43 & GL Out of Memory Error tritt selten und zufällig auf & \\
+\hline
+\#44 & NumberFormatException bei 'GeoCoordinates' wird nicht gefangen & Beim Parsen der Koordinaten wird nicht auf Gültigkeit überprüft \\
+\hline
+\#45 & Position des Mittelpuktes bei Kartenansicht im Zoomlevel 0/1/2/3 stimmt nicht & \\
+\hline
+\#47 & 'ProgressManager' wird nach vollständigem Laden nicht zurückgesetzt & Ist 100\% einmal erreicht, sollte eine neue Anfrage den Fortschrittsbalken auf 0\% setzen \\
+\hline
+\#50 & Overpass-Anfragen dauern zu lange & Bei Einschalten der Overlays dauern die Anfragen zu Overpass ungewöhnlich lange \\
+\hline
+\#56 & Bildschirmecken werden bei der Sichtbarkeitsberechnung falsch behandelt & Es entstehen schwarze Löcher, obwohl die Kacheln sichtbar sein sollten \\
+\hline
+\#57 & Sichtbarkeitsberechnung der Ebene fehlerhaft. Es werden generell alle Kacheln geladen & \\
+\hline
+\#58 & Lokale Suche funktioniert nicht & Ergebnisse erscheinen kurz im Auswahlfenster, verschwinden dann aber wieder \\
+\hline
+\end{longtable}
+\section{Verbesserungsvorschläge}
+\begin{longtable}{|c|p{5.2cm}|p{8.2cm}|}
+\hline
+Nummer & Titel & Beschreibung \\
+\hline
+\hline
+\#11 & Mausrad-Zoomen sollte auf Mausposition statt Mittelpunkt arbeiten & Zur Erhöhung der Benutzerfreundlichkeit sollte auf die Mausposition gezoomt werden \\
+\hline
+\#12 & In der Kugelansicht sollte das Zoomlevel anders berechnet werden & Derzeitige Berechnung führt zu Unregelmäßigkeiten in Grenzregionen \\
+\hline
+\#13 & Ausgrauen von Längen- und Breitengradeingabe im Sonnensystemmodus & Eingabe des Benutzers in dieser Ansicht eventuell nicht gewünscht \\
+\hline
+\#15 & Mond im Sonnensystemmodus entzerren & Er scheint etwas in der Form verunstaltet zu sein \\
+\hline
+\#25 & Die Einheit der Cachegrößen sollte angezeigt werden & Momentan sind keine Einheiten angegeben \\  
+\hline
+\#26 & Hineinzoomen beim Sonnensystemmodus sollte in die Globusansicht wechseln & Durch die niedrige Auflösung der mitgelieferten Textur sollte bei hohem Zoomlevel in die Globusansicht gewechselt werden \\
+\hline
+\#36 & Fehlende OpenGL-Unterstützung sollte eine Meldung geben & Falls ein System OpenGl 2.0 nicht unterstützt, sollte eine Meldung erscheinen \\
+\hline
+\#40 & Anzeige-Tab sollte eventuell Ansichts-Tab heißen & \\
+\hline
+\#41 & \JoglEarth bleibt hängen, sollte es eine Kachel nicht geben & \\
+\hline
+\#48 & Erdachse einzeichnen & Man könnte eine Erdachse einzeichnen, die ähnlich einem Kompass eingefärbt ist \\
+\hline
+\#49 & Schrittgröße im Spinner für Cachegröße &
+Sollte in Zehnerschritten erfolgen \\
+\hline
+\#51 & Laden der Städtenamen bei niedrigen Zoomleveln & Anfragen bei Overpass dauern für große Bereiche sehr lange \\
+\hline
+\#52 & Reaktion auf HTTP-Fehler bei Suchanfrage & Bei Unerreichbarkeit von Servern oder Timeouts sollte noch eine Anfrage gesendet werden und dann ein leeres Suchergebnis geliefert werden, sollte das Problem weiterhin bestehen \\
+\hline
+\#53 & Globus wird niedriger Detailstufe zu einer Ebene & Es wird versucht aus 4 Punkten eine Kugel zu zeichnen \\
+\hline
+\#55 & Ausgewählte Overlays könnten gespeichert werden & Die Anwahl von Overlays könnten eventuell über das Beenden des Programms hinaus gespeichert werden um dann beim Start geladen zu werden \\
+\hline
+\end{longtable}
+\end{document}
