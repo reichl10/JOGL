@@ -231,13 +231,13 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
             @Override
             public double getLongitudeFrom() {
                 // TODO Auto-generated method stub
-                return Math.toRadians(13);
+                return Math.toRadians(12);
             }
 
             @Override
             public double getLatitudeTo() {
                 // TODO Auto-generated method stub
-                return Math.toRadians(49);
+                return Math.toRadians(50);
             }
 
             @Override
