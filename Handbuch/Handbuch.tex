@@ -84,10 +84,10 @@
 \textbf{{\huge OpenStreetMap: Die Welt in 3D}}
 
 \vspace{1.5 cm}
-03.12.2013
+31.01.2014
 
 \vspace{0.5 cm}
-Version: 0.3
+Version: 1.0
 
 \vspace{1.5 cm}
 {\Large Projektbetreuer: Peter Barth}
@@ -215,6 +215,27 @@ Primäre Zielgruppe des Systems sind Privatanwender, die eine andere Art der Kar
 Auch soll die Anwendung wissbegierige Kinder ansprechen. Voraussetzung ist lediglich der geübte Umgang mit der Maus und/ oder Tastatur.
 
 
+\vspace{3mm}
+\section{Sicherheit, Datenschutz}
+\JoglEarth wahrt von vornherein die Sicherheit des Systems und schützt die Privatsphäre des Nutzers. Da sie keine sicherheitskritischen Daten verarbeitet. 
+\begin{itemize}
+\item Es ist weder zur Bedienung, noch zum Beschaffen der Kartendaten eine Authentifikation erforderlich.
+\item Es werden keine persönlichen Daten des Anwenders über das Netz übertragen.
+\item Es wird kein Code aus dem Netz nachgeladen und ausgeführt.
+\item Das Programm hat keine (unter Umständen angreifbare) Serverfunktionalität.
+\end{itemize}
+
+\vspace{3mm}
+\section{Lizenzen}
+Lizenzen der verwendeten Bibliotheken und Datenquellen:
+\begin{itemize}
+\item Die Teile der JOGL-Bibliothek sind unter mehreren Versionen der BSD-Lizenz, der SGI Free Software License und der Apache-Lizenz, der Ubuntu Font License und mehreren proprietären Lizenzen veröffentlicht. Details dazu finden sich bei  \footnote{\url{https://jogamp.org/git/?p=jogl.git;a=blob;f=LICENSE.txt}}.
+\item OpenStreetMap ist „OpenData“ im Sinne der Open Database Lizenz (ODbL). Die Kartenkacheln stehen unter der Lizenz  Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen" 2.0 (CC BY-SA). Weitere Infos, wie auch eine Vorgabe zum Hinweisen auf die Urheberschaft des OSM-Projekts finden sich bei \footnote{\url{http://www.openstretmap.org/copyright}}.
+\item Die Daten der Overpass API sowie Nominatim stehen ebenfalls unter der ODbL.
+\item Die Satellitenbilder der NASA sind für die Zwecke des Projekts frei verfügbar und stehen unter der Lizenz, die sich bei \footnote{\url{http://www.nasa.gov/audience/formedia/features/MP_Photo_Guidelines.html}} findet.
+\item Die Verwendete Bibliothek JGoodies Forms steht unter der BSD-Lizenz bei \footnote{\url{http://opensource.org/licenses/bsd-license.html}}.
+\end{itemize}
+
 
 
 
@@ -259,7 +280,7 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 %Öffnen von \JoglEarth :
 
-\vspace{3mm} \index{Sonnensystemansicht}
+\vspace{3mm} \index{Sonnensystem}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/info.eps} & \JoglEarth startet standardmäßig in der \textbf{Sonnensystemansicht} (\textref{Ansichtsmodi}).
 \end{tabular}
@@ -277,28 +298,28 @@ In den folgenden Kapiteln finden Sie als Einführung die Erklärungen zu den \te
 \subsection{Programm-Icons} \index{Programm-Icons}
 \vspace{2mm}
 \begin{center}
-\begin{tabular}{|p{3cm}|p{10cm}|}
+\begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline 
-\rule[-1ex]{0pt}{4ex} \textbf{Symbol} & \textbf{Erläuterung} \\ 
+\textbf{Symbol} & \textbf{Erläuterung} \\ 
 \hline
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.6]{Logo-Print.eps}} &  Logo von \JoglEarth \\ 
+{\includegraphics[scale=0.6]{Logo-Print.eps}} &  Logo von \JoglEarth \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.2]{Logo.eps}} & Programm-Icon \\ 
+{\includegraphics[scale=0.2]{Logo.eps}} & Programm-Icon \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{images/Hinzufugen.eps}} &  Stecknadel zum markieren eines Punktes \\ 
+{\includegraphics[scale=1.4]{images/Hinzufugen.eps}} &  Stecknadel zum markieren eines Punktes \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.4]{images/Entfernen.eps}} & Stecknadel zum entfernen eines Punktes \\ 
+{\includegraphics[scale=1.4]{images/Entfernen.eps}} & Stecknadel zum entfernen eines Punktes \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{images/Zoom_plus.eps}} & Plus beim Zoomen \\ 
+{\includegraphics[scale=1.7]{images/Zoom_plus.eps}} & Plus beim Zoomen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.7]{images/Zoom_minus.eps}} & Minus beim Zoomen \\ 
+{\includegraphics[scale=1.7]{images/Zoom_minus.eps}} & Minus beim Zoomen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=0.6]{images/Massstab.eps}} & Maßstab \\ 
+\parbox[0pt][1cm][c]{0cm}{} {\includegraphics[scale=0.6]{images/Massstab.eps}} & Maßstab \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/Handbuch.eps}} &  Handbuch-Icon \\ 
+{\includegraphics[scale=1.6]{images/Handbuch.eps}} &  Handbuch-Icon \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/infoButton.eps}} &  About-Icon \\ 
+{\includegraphics[scale=1.6]{images/infoButton.eps}} &  About-Icon \\ 
 \hline
 \end{tabular}
 \end{center}
@@ -412,7 +433,7 @@ Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und 
 \vspace{5mm}
 \begin{minipage}[t]{9cm}
 \vspace{-10mm}
-Der Bereich \textbf{Details} zeigt verfügbare Informationen genau zum Mittelpunkt des aktuellen Kartenausschnitts an. Der Mittelpunkt ist mit einem Rautensymbol gekennzeichnet. Ebenso findet sich hier die Schaltfläche um \textref{Benutzermarkierungen} zu setzen und wieder zu entfernen. \\
+Der Bereich \textbf{Details} zeigt verfügbare Informationen genau zum Bildmittelpunkt des aktuellen Kartenausschnitts an. Der Bildmittelpunkt ist mit einem Rautensymbol gekennzeichnet. Ebenso findet sich hier die Schaltfläche um \textref{Benutzermarkierungen} zu setzen und wieder zu entfernen. \\
 \end{minipage}
 \begin{minipage}{7cm}
 \centering
@@ -422,12 +443,12 @@ Der Bereich \textbf{Details} zeigt verfügbare Informationen genau zum Mittelpun
 \vspace{3mm}
 Beispiel:
 \begin{itemize}
-\item \textit{Angenommen im Mittelpunkt des Kartenausschnitts befindet sich das Finanzamt der Stadt Regensburg, dann wird im Bereich \textbf{Details} 'Finanzamt Regensburg' angezeigt.}
+\item \textit{Angenommen im Bildmittelpunkt des Kartenausschnitts befindet sich das Finanzamt der Stadt Regensburg, dann wird im Bereich \textbf{Details} 'Finanzamt Regensburg' angezeigt.}
 \end{itemize}
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} & Informationen zum Mittelpunkt des aktuellen Kartenausschnitts werden erst ab hohen Zoomstufen verfügbar.
+\includegraphics[scale=0.5]{images/info.eps} & Informationen zum Bildmittelpunkt des aktuellen Kartenausschnitts werden erst ab hohen Zoomstufen verfügbar.
 \end{tabular}
 
 
@@ -750,28 +771,45 @@ Das Zoomlevel kann am rechten Rand der \textref{Benutzeroberfläche} über einen
 
 In der \textbf{Statusleiste} (\textref{Benutzeroberfläche}) können gewünschte Längen- und Breitengrade eingegeben werden. Anschließend werden die dafür benötigten Karten geladen und der eingegebene Punkt wird im \textbf{Ansichtsfenster} (\textref{Benutzeroberfläche}) zentriert.
 
-% Tabelle: Auf welchen Längen-/Breitengrad liegen die einzelnen Kontinente
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & \flushleft Format für die Eingabe der Längengrade: 0$^\circ$ 0' 0\"{} N \linebreak Format für die Eingabe der Breitengrade: 0$^\circ$ 00' 00\"{} E
+\end{tabular}
+
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & \flushleft Grenzen für die Eingabe der Längengrade: 180W bis 180E \linebreak Grenzen für die Eingabe der Breitengrade: 85N bis 85S
+\end{tabular}
+
+\vspace{5mm}
+Die folgende Tabelle gibt einen Überblick über die Längen- und Breitengrade der einzelnen Kontinente und gibt Anhaltspunkte für das Ändern von Längen- und/ oder Breitengraden.
+
+\vspace{3mm}
 \begin{center}
-\begin{tabular}{|c|c|c|}
+\begin{tabular}{|>{\centering \arraybackslash}p{3cm}|>{\centering \arraybackslash}p{3cm}|>{\centering \arraybackslash}p{3cm}|}
 \hline 
 \rule[-1ex]{0pt}{4ex} \textbf{Kontinent} & \textbf{Längengrad} & \textbf{Breitengrad} \\ 
 \hline
 \hline
+\rule[-1ex]{0pt}{4ex} Afrika & 30W bis 60E & 30N bis 40S\\
+\hline
 \rule[-1ex]{0pt}{4ex} Amerika & 180W bis 30W & 80N bis 60S \\
+\hline
+\rule[-1ex]{0pt}{4ex} Asien & 30E bis 172E & 80N bis 10S \\
 \hline
 \rule[-1ex]{0pt}{4ex} Australien & 110E bis 170E & 10S bis 50S \\
 \hline
 \rule[-1ex]{0pt}{4ex} Europa & 10W bis 30E & 80N bis 30N \\
 \hline
-\rule[-1ex]{0pt}{4ex} Afrika & 30W bis 60E & 30N bis 40S\\
-\hline
-\rule[-1ex]{0pt}{4ex} Asien & 30E bis 172E & 80N bis 10S \\
-\hline
 \end{tabular}
 \end{center}
 
 
-\vspace{3mm}
+
+
+
+
+\newpage
 \section{Benutzermarkierungen} \index{Benutzermarkierungen}
 Die Schaltfläche um Benutzermarkierungen zu setzen und wieder zu entfernen befindet sich im \textref{Menü Details}. Die gespeicherten Benutzermarkierungen werden im \textref{Menü Orte} gelistet.
 
@@ -862,7 +900,7 @@ Optionen:
 \subsection{Textur Filter} \index{Grafikeinstellungen!Texturfilter} \index{Texturfilter}
 
 
-'Anisotrope Filterung' ist eine Methode in der Grafikverarbeitung um den Schärfeeindruck bei entfernten Texturen zu erhalten.\\
+'Anisotropes Filtern' \index{Anisotropes Filtern} ist eine Methode in der Grafikverarbeitung um den Schärfeeindruck bei entfernten Texturen zu erhalten.\\
 
 Optionen:
 \begin{itemize}
@@ -902,34 +940,38 @@ Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten er
 Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann seitens \JoglEarth nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den Antworten der OverpassAPI vorgenommen.\\
 
 \vspace{3mm}
-\begin{tabular}{|p{3cm}|p{10cm}|}
+\begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline 
-\rule[-1ex]{0pt}{4ex} \textbf{Symbol} & \textbf{Erläuterung} \\ 
+\textbf{Symbol} & \textbf{Erläuterung} \\ 
 \hline
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Shop.eps}} &  Geschäfte \\ 
+{\includegraphics[scale=1.6]{images/POI_Activity.eps}} & Aktivitäten \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Restaurant.eps}} & Restaurants \\ 
+{\includegraphics[scale=1.6]{images/POI_Bank.eps}} & Bank \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_nightlife.eps}} &  Nachtleben \\ 
+{\includegraphics[scale=1.5]{images/USER_TAG.png}} & Benutzermarkierungen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Bank.eps}} & Bank \\ 
+{\includegraphics[scale=1.6]{images/POI_education.eps}} & Bildung \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Toilets.eps}} & Toiletten \\ 
+{\includegraphics[scale=1.6]{images/POI_Shop.eps}} & Geschäfte \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Grocery.eps}} & Lebensmittelgeschäft \\ 
+{\includegraphics[scale=1.6]{images/POI_health.eps}} & Gesundheitseinrichtungen \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_Activity.eps}} & Aktivitäten \\ 
+{\includegraphics[scale=1.6]{images/POI_hotels.eps}} & Hotels \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_hiking_cycling.eps}} & Wandern und Radfahren \\ 
+{\includegraphics[scale=1.6]{images/POI_Grocery.eps}} & Lebensmittelgeschäfte \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_education.eps}} &  Bildung \\ 
+{\includegraphics[scale=1.6]{images/POI_nightlife.eps}} & Nachtleben \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_health.eps}} &  Gesundheitseinrichtungen \\ 
+{\includegraphics[scale=1.6]{images/POI_post.eps}} & Post \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_post.eps}} &  Post \\ 
+{\includegraphics[scale=1.6]{images/POI_Restaurant.eps}} & Restaurants \\ 
 \hline
-\rule[-1ex]{0pt}{4ex}  \parbox[c]{1em}{\includegraphics[scale=1.6]{images/POI_hotels.eps}} &  Hotels \\ 
+{\includegraphics[scale=1.5]{images/SEARCH.png}} &  Suchergebnisse \\ 
+\hline
+{\includegraphics[scale=1.6]{images/POI_Toilets.eps}} & Toiletten \\ 
+\hline
+{\includegraphics[scale=1.6]{images/POI_hiking_cycling.eps}} & Wandern und Radfahren \\ 
 \hline
 \end{tabular}
 
@@ -1023,11 +1065,22 @@ Die Suchergebnisse werden im \textref{Menü Orte} angezeigt.
 
 
 \chapter{Datenorganisation}
-
 % Wo werden die Daten gespeichert. Im MemoryCache und FileSystemCache.
-% Welche Benutzereinstellungen werden in Settings gespeichert
-% Vom Benutzer markierte Punkte werden gespeichert.
+Von \JoglEarth angelegte Dateien werden im Datenverzeichnis, einem Unterordner des Benutzerverzeichnisses, gespeichert. Unter Windows ist das \%LOCALAPPDATA\%, auf anderen Systemen ~/.joglearth/.\\
 
+Um den verfügbaren Speicherplatz optimal zu nutzen, wendet \JoglEarth eine Verdrängungsstrategie \index{Verdrängungsstrategie}
+an. Das heißt, sobald die eingestellte \textref{Cachegröße} erreicht wird, werden aktuell nicht benötigte Dateien verdrängt.\\
+
+Es werden alle benötigten Bibliotheken mitgeliefert, diese sind im einzelnen:
+\begin{itemize}
+\item JOGL mit allen betriebssystemabhängigen Bibliotheken
+\item die Forms-Bibliothek von JGoodies
+\end{itemize}
+
+
+
+
+\vspace{3mm}
 \section{Speicherung Kartendaten \& Benutzermarkierungen} \index{Benutzermarkierungen}
 % Bildchen einfügen, welches zeigt, wo die Daten auf der Festplatte gespeichert werden
 
@@ -1037,8 +1090,6 @@ Während der Nutzung von \JoglEarth werden die benötigten Kartendaten und die v
 \item SRTM Höhendaten \index{SRTM}
 \item Benutzermarkierungen \index{Benutzermarkierungen}
 \end{itemize}
-
-Um den verfügbaren Speicherplatz optimal zu nutzen, wendet \JoglEarth eine Verdrängungsstrategie an. Das heißt, sobald die eingestellte Speichergröße erreicht wird, wird das aktuell nicht benötigte Kartenmaterial verdrängt. \index{Verdrängungsstrategie}
 
 
 
@@ -1050,15 +1101,15 @@ Um den verfügbaren Speicherplatz optimal zu nutzen, wendet \JoglEarth eine Verd
 \subsection*{Einstellungen:}
 Folgende getätigte Einstellungen werden bei ordnungsgemäßer Programmbeendigung gespeichert:
 \begin{itemize}
-\item Ansichtsmodus
-\item Kartentyp
 \item Höhenprofil
 \item Sprache
 \item Grafikeinstellungen:
 	\begin{itemize}
+	\item Antialiasing
+	\item Textur Filter
 	\item Detailgrad
 	\end{itemize}
-\item Cachegrößen
+\item Cachegrößen [MB]
 	\begin{itemize}
 	\item Arbeitsspeicher
 	\item Dateisystem
@@ -1067,6 +1118,57 @@ Folgende getätigte Einstellungen werden bei ordnungsgemäßer Programmbeendigun
 \end{itemize}
 
 
+
+\chapter*{Glossar}
+\addcontentsline{toc}{chapter}{Glossar}
+\newcolumntype{L}[1]{>{\sffamily\bfseries\hsize=#1\hsize\raggedright\arraybackslash}X}
+\newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}
+\setlength{\extrarowheight}{4mm}
+\begin{longtabu}{L{0.35} R{1.65}}
+Anisotropes Filtern \index{Anisotropes Filtern} & Methode um den Schärfeeindruck von perspektivisch verzerrten Texturen zu verbessern\\
+Ansichtsfenster \index{Ansichtsfenster} \index{Benutzeroberfläche!Ansichtsfenster} & Teil der \textref{Benutzeroberfläche} \index{Benutzeroberfläche} \\
+Ansichtsmodus \index{Ansichtsmodi} & Darstellungsmodus im \textbf{Ansichtsfenster} \index{Ansichtsfenster} \index{Benutzeroberfläche!Ansichtsfenster}, wie \textref{Kartenebene} \index{Ansichtsmodi!Kartenebene}, \textref{Globus} \index{Ansichtsmodi!Globus} oder die \textref{Sonnensystem} \index{Ansichtsmodi!Sonnensystem}\\
+Antialiasing \index{Antialiasing} & Methode zur Kantenglättung \\
+API \index{API} & (Application Programming Interface) Programmierschnittstelle zu einer Programmbibliothek oder einem Dienst\\
+Bibliothek \index{Bibliothek} & siehe Programmbibliothek\\
+Bildmittelpunkt \index{Bildmittelpunkt} & Mittelpunkt vom \textbf{Ansichtsfenster}\\
+BSD-Lizenz \index{BSD-Lizenz} & (Berkeley Software Distribution-Lizenz) Gruppe von Lizenzen aus dem Open-Source-Bereich\\
+Cache \index{Cache} & Kleiner, schneller Zwischenspeicher der hilft, Zugriffe auf ein langsameres Medium zu beschleunigen. Dazu wird eine Verdrängungsstrategie \index{Verdrängungsstrategie} implementiert, die aus statistischen Daten abzuleiten versucht, welche Daten in nächster Zeit abgerufen werden. Diese werden dann so lange wie möglich vorgehalten\\
+Detaillevel \index{Detaillevel} & Auflösung der räumlichen Unterteilungen. Ein höherer Wert löst das Höhenprofil detaillierter auf\\
+
+Globus \index{Ansichtsmodi!Globus} & \textref{Ansichtsmodus}\index{Ansichtsmodi}, in dem das Kartenmaterial auf einen Globus projiziert wird\\
+Höhenprofil \index{Höhenprofil} & Manipulation der Globus- oder Kartenebenenoberfläche um Geländeunebenheiten wie Berge und Täler dreidimensional darzustellen\\
+JAR \index{JAR} & (Java Archive) Datei, in der ein übersetztes Java-Programm oder eine Java-Bibliothek, optional mit zusätzlichen Dateien ausgeliefert wird\\
+Java \index{Java} & Programmiersprache (siehe JRE)\\
+JOGL \index{JOGL} & (Java Bindings for OpenGL) Softwarebibliothek, die die OpenGL-API in Java zur Verfügung stellt\\
+JRE \index{JRE} & (Java Runtime Environment) Laufzeitumgebung der Java Technik mit der Programme weitgehend plattformunabhängig ausgeführt werden\\
+Kartenebene \index{Ansichtsmodi!Kartenebene} & \textref{Ansichtsmodus}\index{Ansichtsmodi}, in dem die Karte auf die Ebene projiziert wird\\
+
+Kartenkachel \index{Kartenkachel} & Element einer rasterförmigen Aufteilung eines (für den Anwendungszweck zu großen) Bildes\\
+Kartentyp & Typ von Texturen, die als Kartenmaterial dienen. Das können beispielsweise Satellitenbilder oder Straßenkarten sein\\
+Linux & Freies Betriebssystem\\
+MSAA \index{MSAA} \index{Antialiasing!MSAA} & (Multisample anti-aliasing) siehe Antialiasing\\
+
+NASA \index{NASA} & (National Aeronautics and Space Administration) Zivile US-Bundesbehörde für Luft- und Raumfahrt\\
+Nominatim \index{Nominatim} & API zur Lokalisierung von Orten bei Suchanfragen\\
+Onboard-Grafik & Grafikhardware, die sich auf dem Prozessorchip des Systems oder fest verlötet auf der Hauptplatine befindet. Als Gegenstück zu dedizierter Grafikhardware bietet sie niedrige Leistung zu kleinem Preis und guter Energieeffizienz\\
+OpenGL \index{OpenGL} & API zur schnellen Generierung ansprechender 2D- und 3D-Computergrafik\\
+Open-Source & Software, deren Lizenzbestimmungen besagt, dass sie frei verwendbar ist\\
+OpenStreetMap \index{OpenStreetMap} & Projekt, das freies Kartenmaterial im Internet anbietet\\
+Overlay \index{Overlay} & Text- oder Symboleinblendungen auf der Karte oder dem Globus\\
+Plattform"-unabhängigkeit & Ein plattformunabhängiges Programm kann auf verschiedenen Betriebssystemen und/oder verschiedener Hardware ausgeführt werden, ohne Anpassungen zu erfordern\\
+POI \index{POIs} & (Point of Interest) POIs sind Orte auf der Weltkarte, die eine spezielle Bedeutung haben\\
+Programm"-bibliothek & Eine Sammlung von Unterprogrammen die nicht eigenständig lauffähig ist, aber dem benutzenden Programm eine Menge an Funktionen zur Verfügung stellt\\
+RAM & (Random Access Memory) Arbeitsspeicher\\
+Server & Gegenstelle im Netzwerk, die einen Dienst zur Verfügung stellt, hier u.A. Lieferung des Kartenmaterials\\
+Sonnensystem \index{Sonnensystem}\index{Ansichtsmodi!Sonnensystem}& \textref{Ansichtsmodus}\index{Ansichtsmodi}, in dem keine Karten, sondern eine Satellitendarstellung der Erde und anderer Himmelskörper möglich ist\\
+SRTM-Daten \index{SRTM}& (Shuttle Radar Topography Mission) Höhendaten der Erdoberfläche, die vom Space Shuttle Endeavour gemessen wurden\\
+Textur \index{Textur}& Zweidimensionale (Oberflächen-) Grafik\\
+Verdrängungs"-strategie \index{Verdrängungsstrategie} & siehe Cache\\
+Windows & Kommerzielles Betriebssystem von Microsoft\\
+x86\_64 & Prozessorarchitektur für 64-Bit-Rechner, die sich heute in den meisten verkauften Desktopsystemen findet. Entworfen von AMD, später von Intel übernommen, ist sie auch unter dem Namen AMD64, EM64T oder Intel 64 bekannt\\
+Zoomlevel \index{Zoomlevel} & Angabe zur Auflösung der Kartenkachel in der Ansicht\\
+\end{longtabu}
 
 
 \cleardoublepage
