@@ -1826,9 +1826,10 @@ public class MainWindow extends JFrame {
             int value = slider.getValue();
             // TODO System.out.println("Zoom Changed to: "+value);
             double perc = value / (double) slider.getMaximum() * 10;
-            // TODO System.out.println("Set Distance to: "+(MIN_DIST + MAX_DIST*perc));
+//            System.out.println("Set Distance to: "+(MIN_DIST + (MAX_DIST - MIN_DIST)
+//                    * (1 / (1 + perc * perc * perc * 10))));
             camera.setDistance(MIN_DIST + (MAX_DIST - MIN_DIST)
-                    * (1 / (1 + perc * perc * perc * 10)));
+                    * (1 / (1 + perc * perc * perc * 10)) - 1.0E-4);
 
         }
 
