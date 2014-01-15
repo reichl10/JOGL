@@ -2,6 +2,7 @@ package de.joglearth.rendering;
 
 import de.joglearth.async.RunnableResultListener;
 import de.joglearth.async.RunnableWithResult;
+import de.joglearth.geometry.ProjectedTile;
 import de.joglearth.geometry.Tile;
 import de.joglearth.height.HeightMap;
 import de.joglearth.height.flat.FlatHeightMap;
@@ -17,7 +18,7 @@ import de.joglearth.source.SourceResponseType;
  * Adapter for a {@link de.joglearth.rendering.Tessellator} to use it as a
  * {@link de.joglearth.source.Source}.
  */
-public class VertexBufferLoader implements Source<Tile, VertexBuffer> {
+public class VertexBufferLoader implements Source<ProjectedTile, VertexBuffer> {
 
     private Tessellator tess;
     private GLContext gl;
@@ -71,7 +72,7 @@ public class VertexBufferLoader implements Source<Tile, VertexBuffer> {
         return subdivisions;
     }
 
-    private VertexBuffer createVBO(Tile key) {
+    private VertexBuffer createVBO(ProjectedTile key) {
         Mesh mesh;
         synchronized (this) {
             mesh = tess.tessellateTile(key, subdivisions, heightMap);
@@ -81,8 +82,8 @@ public class VertexBufferLoader implements Source<Tile, VertexBuffer> {
     }
 
     @Override
-    public SourceResponse<VertexBuffer> requestObject(final Tile key,
-            final SourceListener<Tile, VertexBuffer> sender) {
+    public SourceResponse<VertexBuffer> requestObject(final ProjectedTile key,
+            final SourceListener<ProjectedTile, VertexBuffer> sender) {
 
         if (key == null) {
             throw new IllegalArgumentException();

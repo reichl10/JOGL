@@ -24,6 +24,7 @@ import de.joglearth.geometry.CameraUtils;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.PlaneGeometry;
+import de.joglearth.geometry.ProjectedTile;
 import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.SphereGeometry;
 import de.joglearth.geometry.SurfaceListener;
@@ -205,7 +206,8 @@ public class Renderer {
                 Texture texture = textureManager.getTexture(tile);
 //                tsb.append(texture.getTextureObject());
 //                tsb.append(", ");
-                VertexBuffer vbo = tileMeshManager.requestObject(tile, null).value;
+                ProjectedTile projected = new ProjectedTile(tile, mapConfiguration.getProjection());
+                VertexBuffer vbo = tileMeshManager.requestObject(projected, null).value;
 //                vsb.append(vbo.getVertices());
 //                vsb.append("/");
 //                vsb.append(vbo.getIndices());

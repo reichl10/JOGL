@@ -3,6 +3,8 @@ package de.joglearth.map.osm;
 import java.awt.Dimension;
 
 import de.joglearth.geometry.Camera;
+import de.joglearth.geometry.MapProjection;
+import de.joglearth.geometry.MercatorProjection;
 import de.joglearth.geometry.TileLayout;
 import de.joglearth.map.MapConfiguration;
 import de.joglearth.map.TileName;
@@ -81,6 +83,11 @@ public class OSMMapConfiguration implements MapConfiguration {
     @Override
     public String getImageFormatSuffix() {
         return OSMTileSource.getImageFormatSuffix(mapType);
+    }
+
+    @Override
+    public MapProjection getProjection() {
+        return new MercatorProjection();
     }
 
 }

@@ -3,6 +3,7 @@ package de.joglearth.rendering;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.joglearth.geometry.ProjectedTile;
 import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
 import de.joglearth.height.HeightMap;
@@ -19,12 +20,12 @@ import de.joglearth.util.Predicate;
 /**
  * Creates and cashes tile meshes as OpenGL vertex buffer objects.
  */
-public class VertexBufferManager implements Source<Tile, VertexBuffer> {
+public class VertexBufferManager implements Source<ProjectedTile, VertexBuffer> {
 
     private final int VERTEX_BUFFER_CACHE_SIZE = 500;
 
-    private RequestDistributor<Tile, VertexBuffer> dist;
-    private VertexBufferPool<Tile> cache;
+    private RequestDistributor<ProjectedTile, VertexBuffer> dist;
+    private VertexBufferPool<ProjectedTile> cache;
     private VertexBufferLoader source;
     private List<SurfaceListener> listeners;
     private GLContext gl;
@@ -47,8 +48,8 @@ public class VertexBufferManager implements Source<Tile, VertexBuffer> {
 
         this.gl = gl;
         source = new VertexBufferLoader(gl, t);
-        cache = new VertexBufferPool<Tile>(gl);
-        dist = new RequestDistributor<Tile, VertexBuffer>();
+        cache = new VertexBufferPool<ProjectedTile>(gl);
+        dist = new RequestDistributor<ProjectedTile, VertexBuffer>();
         dist.setSource(source);
         dist.addCache(cache, VERTEX_BUFFER_CACHE_SIZE);
 
@@ -60,11 +61,11 @@ public class VertexBufferManager implements Source<Tile, VertexBuffer> {
         @Override
         public void surfaceChanged(final double lonFrom, final double latFrom,
                 final double lonTo, final double latTo) {
-            dist.dropAll(new Predicate<Tile>() {
+            dist.dropAll(new Predicate<ProjectedTile>() {
 
                 @Override
-                public boolean test(Tile t) {
-                    return t.intersects(lonFrom, latFrom, lonTo, latTo);
+                public boolean test(ProjectedTile t) {
+                    return t.tile.intersects(lonFrom, latFrom, lonTo, latTo);
                 }
             });
             // notify listeners!
@@ -114,8 +115,8 @@ public class VertexBufferManager implements Source<Tile, VertexBuffer> {
     }
 
     @Override
-    public SourceResponse<VertexBuffer> requestObject(Tile key,
-            SourceListener<Tile, VertexBuffer> sender) {
+    public SourceResponse<VertexBuffer> requestObject(ProjectedTile key,
+            SourceListener<ProjectedTile, VertexBuffer> sender) {
         return dist.requestObject(key, sender);
     }
 
