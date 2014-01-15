@@ -43,13 +43,7 @@ public final class CameraUtils {
                 }
             }
         }
-        return center;
-    }
-    
-    public static Iterable<Tile> getVisibleTiles(Camera camera, int zoomLevel) {
-        Tile centerTile = getCenteredTile(camera, zoomLevel);
-        GridPoint center = getVisibleCornerPoint(camera, centerTile);
-        
+
         ArrayList<Tile> visibleTiles = new ArrayList<Tile>();
         if (start != null) {
             Set<GridPoint> visiblePoints = getVisibleGridPoints(start, camera, tileLayout);

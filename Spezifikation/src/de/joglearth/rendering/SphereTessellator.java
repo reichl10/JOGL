@@ -1,6 +1,7 @@
 package de.joglearth.rendering;
 
 import de.joglearth.geometry.GeoCoordinates;
+import de.joglearth.geometry.MapProjection;
 import de.joglearth.geometry.ProjectedTile;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.Vector3;
@@ -131,9 +132,12 @@ public class SphereTessellator implements Tessellator {
     @Override
     public Mesh tessellateTile(ProjectedTile projected, int subdivisions, HeightMap heightMap) {
         Tile tile = projected.tile;
+        MapProjection projection = projected.projection;
         int nRows = subdivisions + 1, direction = tile.getLatitudeFrom() >= 0 ? +1 : -1;
 
-        double lat = direction > 0 ? tile.getLatitudeFrom() : tile.getLatitudeTo(), lon = tile
+        double latStart = direction > 0 ? tile.getLatitudeFrom() : tile.getLatitudeTo(), 
+        	   latEnd = direction <= 0 ? tile.getLatitudeFrom() : tile.getLatitudeTo(),
+        			   lat = latStart, lon = tile
                 .getLongitudeFrom();
 
         boolean nearEquator = abs(tile.getLatitudeFrom() + tile.getLatitudeTo()) < PI/2;
@@ -154,15 +158,21 @@ public class SphereTessellator implements Tessellator {
         int[] indices = new int[nRows * (rowWidth - 1) * 6];
         int vIndex = 0, iIndex = 0;
 
-        double textureY = direction > 0 ? 0 : 1,                //bugfix: vorzeichenfehler
-               textureStep = (double) direction / nRows;       //bugfix: vorzeichenfehler
+        double textureY = direction > 0 ? 0 : 1;                //bugfix: vorzeichenfehler
+               //textureStep = (double) direction / nRows;       //bugfix: vorzeichenfehler
+        double projectedLatStart = projection.projectLatitude(latStart),
+        	   projectedLatRange = projection.projectLatitude(latEnd) - projectedLatStart;
 
         writeVertexLine(vertices, 0, lon, lat, lonStep, latStep, heightMap, textureY, rowWidth);
         vIndex += rowWidth;
 
         for (int i = 0; i < nRows; ++i) {
             lat += latStep;
-            textureY += textureStep;
+            textureY = (projection.projectLatitude(lat) - projectedLatStart) / projectedLatRange;
+            if (direction < 0) {
+            	textureY = 1-textureY;
+            }
+            
             int newRowWidth = max(2,
                     (subdivisions + 1) / (int) pow(2, getShrinkCount(lat, maxShrinkCount))) + 1;
             if (newRowWidth < rowWidth) {
