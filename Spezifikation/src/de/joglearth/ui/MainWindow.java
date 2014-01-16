@@ -110,6 +110,9 @@ import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.ProgressListener;
 import de.joglearth.source.ProgressManager;
 import de.joglearth.util.Resource;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 
 /**
@@ -210,9 +213,14 @@ public class MainWindow extends JFrame {
     private JPanel userTagListPanel;
     private JScrollPane scrollPane;
     private Map<JButton, Location> buttonToLocationMap = new HashMap<JButton, Location>();
+    private Map<JButton, JButton> closingMap = new HashMap<JButton, JButton>();
     private double cTiltX = 0.0d;
     private double cTiltY = 0.0d;
     private Canvas scaleCanvas;
+    private JButton btnNewButton;
+    private JButton btnNewButton_1;
+    private JButton btnNewButton_2;
+    private JButton btnNewButton_3;
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -486,8 +494,8 @@ public class MainWindow extends JFrame {
         userTagPanel.add(scrollPane, "2, 2, fill, fill");
 
         userTagListPanel = new JPanel();
+        userTagListPanel.setPreferredSize(new Dimension(10, 50));
         scrollPane.setViewportView(userTagListPanel);
-        userTagListPanel.setLayout(new GridLayout(10, 0, 0, 0));
 
         overlayPanel = new JPanel();
         overlayPanel.setBorder(BorderFactory.createTitledBorder(Messages
@@ -578,31 +586,8 @@ public class MainWindow extends JFrame {
         checkboxToLocationTypeMap.put(box, LocationType.SEARCH);
         overlaysPanel.add(box);
         box.addItemListener(overlayListener);
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                buttonToLocationMap.clear();
-                userTagListPanel.removeAll();
-                Set<Location> uLocations = Settings.getInstance().getLocations(
-                        SettingsContract.USER_LOCATIONS);
-                if (uLocations != null)
-                for (final Location l : uLocations) {
-                    System.out.println("Name: " + l.name);
-                    JButton button = new JButton(l.name);
-                    button.addActionListener(new ActionListener() {
-
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            camera.setPosition(l.point);
-                        }
-                    });
-                    buttonToLocationMap.put(button, l);
-                    userTagListPanel.add(button);
-                }
-            }
-        });
-    }
+        updateUserLocations();
+     }
 
     private void initializeSettingsTab() {
         settingsTab
@@ -1460,6 +1445,74 @@ public class MainWindow extends JFrame {
         zoomSlider.setValue(0);
     }
 
+    private void updateUserLocations() {
+        buttonToLocationMap.clear();
+        userTagListPanel.removeAll();
+        Set<Location> uLocations = Settings.getInstance().getLocations(
+                SettingsContract.USER_LOCATIONS);
+        int numLoc = uLocations.size();
+        System.out.println("Rows: "+numLoc);
+        int[] rowHeights = new int[numLoc];
+        double[] rowWeights = new double[numLoc];
+        for (int c = 0; c < numLoc; c++) {
+        	rowHeights[c] = 25;
+        	rowWeights[c] = 1.0d;
+        }
+        GridBagLayout gbl_userTagListPanel = new GridBagLayout();
+        gbl_userTagListPanel.columnWidths = new int[] {25, 0};
+        gbl_userTagListPanel.rowHeights = rowHeights;
+        gbl_userTagListPanel.columnWeights = new double[]{0.0, 1.0};
+        gbl_userTagListPanel.rowWeights = rowWeights;
+        userTagListPanel.setLayout(gbl_userTagListPanel);
+        
+        for (final Location l : uLocations) {
+            System.out.println("Name: " + l.name);
+            JButton button = new JButton(l.name);
+            JButton close = new JButton("X");
+            close.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					JButton self = (JButton) arg0.getSource();
+					JButton target = closingMap.get(self);
+					userTagListPanel.remove(target);
+					userTagListPanel.remove(self);
+					buttonToLocationMap.remove(target);
+					closingMap.remove(self);
+					Settings.getInstance().dropLocation(SettingsContract.USER_LOCATIONS,
+							buttonToLocationMap.get(target));
+
+				}
+            	
+            });
+            button.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    camera.setPosition(l.point);
+                }
+            });
+            closingMap.put(close, button);
+            buttonToLocationMap.put(button, l);
+            int gridy = closingMap.size() - 1;
+            System.out.println("Gridy: "+gridy);
+            GridBagConstraints gridBagClose = new GridBagConstraints();
+            gridBagClose.insets = new Insets(0, 0, 0, 0);
+            gridBagClose.gridx = 0;
+            gridBagClose.gridy = gridy;
+            gridBagClose.anchor = GridBagConstraints.NORTHWEST;
+            gridBagClose.fill = GridBagConstraints.BOTH;
+            userTagListPanel.add(close, gridBagClose);
+            
+            GridBagConstraints gridBagButton = new GridBagConstraints();
+            gridBagButton.insets = new Insets(0, 0, 0, 0);
+            gridBagButton.gridx = 1;
+            gridBagButton.gridy = gridy;
+            gridBagButton.anchor = GridBagConstraints.NORTHWEST;
+            gridBagButton.fill = GridBagConstraints.BOTH;
+            userTagListPanel.add(button, gridBagButton);
+        }
+    }
 
     private class UISettingsListener implements SettingsListener {
         @Override
@@ -1481,23 +1534,7 @@ public class MainWindow extends JFrame {
 
                     @Override
                     public void run() {
-                        buttonToLocationMap.clear();
-                        userTagListPanel.removeAll();
-                        Set<Location> uLocations = Settings.getInstance().getLocations(
-                                SettingsContract.USER_LOCATIONS);
-                        for (final Location l : uLocations) {
-                            System.out.println("Name: " + l.name);
-                            JButton button = new JButton(l.name);
-                            button.addActionListener(new ActionListener() {
-
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    camera.setPosition(l.point);
-                                }
-                            });
-                            buttonToLocationMap.put(button, l);
-                            userTagListPanel.add(button);
-                        }
+                    	updateUserLocations();
                     }
                 });
             }
