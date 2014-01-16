@@ -1520,7 +1520,7 @@ public class MainWindow extends JFrame {
 
     private class UICameraListener implements CameraListener {
 
-        private static final double rad = 6371.009 * 1000;
+        private static final double rad = 40074 * 1000;
         private Dimension dimensionCvas = new Dimension();
         private Dimension dimensionScaleCanv = new Dimension();
 
