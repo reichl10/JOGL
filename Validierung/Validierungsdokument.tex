@@ -139,6 +139,29 @@ Version: 1.0
 
 \chapter{Einleitung}
 
+\chapter{Testfälle im Pflichtenheft}
+\section{Vor der Validierung}
+\subsection{Anwendungsstart}
+/T050/: Seitenleiste ist zu klein nach dem wieder einblenden.
+\subsection{Globusansicht}
+/T150/: Kacheln dauern sehr lange zum laden, da welche davon 404 zurückhaben und für Minuten versucht wurde diese zu laden.
+\subsection{Navigation auf dem Globus}
+/T230W/: Höhenprofil scheint nicht aktiviert zu werden
+\subsection{Overlays}
+Keine Overlays tauchen auf
+\subsection{Locale Suche}
+/T570/ Ändern des Zoomlevels resultierte in OpenGL out of Memory Fehler
+\subsection{Globale Suche}
+/T650W/ Suchergebnisse tauchen nie auf
+\subsection{Punkte Markieren}
+/T660W/ GL Out of Memory Fehler
+\subsection{Caching, Diverses}
+/T800/ erstmal keine Textur
+/T820/ Ordner Größe verringert sich nicht
+/T850/ Passiert nicht
+
+\section{Nach der Validierung}
+
 \chapter{Bugs}
 \section{Gefundene Bugs}
 Die Nummerierung wurde aus dem Bugtracker von GitHub entnommen.
@@ -258,4 +281,11 @@ Sollte in Zehnerschritten erfolgen \\
 \#55 & Ausgewählte Overlays könnten gespeichert werden & Die Anwahl von Overlays könnten eventuell über das Beenden des Programms hinaus gespeichert werden um dann beim Start geladen zu werden \\
 \hline
 \end{longtable}
+
+\chapter{Code Coverage}
+\section{Pflichtenheft-Tests}
+\section{JUnit-Test}
+\section{Test per Hand}
+\chapter{Skalierungs- und Belastungstest}
+\chapter{Profiling}
 \end{document}

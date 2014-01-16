@@ -31,10 +31,6 @@ import de.joglearth.source.SourceResponseType;
  */
 public class LocationManager {
 
-    private NominatimQuery lastSearch;
-    private boolean[] selectedResults;
-    private boolean[] selectedUserTags;
-    private boolean[] selectedPOIs;
     private Set<SurfaceListener> surfaceListeners;
     private Set<LocationListener> locationListeners;
     private NominatimManager nominatimManager;
@@ -182,6 +178,9 @@ public class LocationManager {
 			}
 		}
     	
+		/**
+		 * Inner class to build a tile that covers a certain area. Used for local search
+		 */
 		final class QueryTile implements Tile {
 
 			private double lonTo;
@@ -210,19 +209,16 @@ public class LocationManager {
 
 			@Override
 			public double getLongitudeFrom() {
-				// TODO Auto-generated method stub
 				return lonFrom;
 			}
 
 			@Override
 			public double getLatitudeTo() {
-				// TODO Auto-generated method stub
 				return latTo;
 			}
 
 			@Override
 			public double getLatitudeFrom() {
-				// TODO Auto-generated method stub
 				return latFrom;
 			}
 
@@ -232,17 +228,18 @@ public class LocationManager {
 					throw new IllegalArgumentException();
 				}
 				double lon = coords.getLongitude(), lat = coords.getLatitude();
-				double lonFrom = getLongitudeFrom(), latFrom = getLatitudeFrom(), lonTo = getLongitudeTo(), latTo = getLatitudeTo();
+				double lonFrom = getLongitudeFrom(), latFrom = getLatitudeFrom(),
+						lonTo = getLongitudeTo(), latTo = getLatitudeTo();
 
 				return rectangleLongitudeContains(lonFrom, lonTo, lon)
 						&& ((lat >= latFrom && lat <= latTo) || (lat <= latFrom && lat >= latTo));
 			}
 
+			//Checks if a rectangle contains the given longitude
 			private boolean rectangleLongitudeContains(double lonFrom,
 					double lonTo, double lon) {
 
 				if (lonTo <= lonFrom) {
-					// TODO > 0 oder >= 0?
 					if (lon > 0) {
 						lonTo += 2 * PI;
 					} else {
