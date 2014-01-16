@@ -1756,6 +1756,8 @@ public class MainWindow extends JFrame {
 
                 @Override
                 public void run() {
+                    //Glaube hier ist der Fehler drin
+                    //springt hier nochmal rein und löscht model und damit sind auch keine Ergebnisse da
                     System.err.println("UISearchResultListener");
                     DefaultListModel<Location> model = (DefaultListModel<Location>) list
                             .getModel();
