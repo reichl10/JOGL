@@ -1,5 +1,7 @@
 package de.joglearth.location;
 
+import static java.lang.Math.PI;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -163,29 +165,122 @@ public class LocationManager {
      * @param area A collection of tiles where the search should be performed on
      */
     public void searchLocal(String query, Iterable<Tile> area) {
-        for (Tile t : area) {
-            NominatimQuery nominatimQuery = new NominatimQuery(NominatimQuery.Type.LOCAL);
-            nominatimQuery.query = query;
-            nominatimQuery.area = t;
-            SourceResponse<Collection<Location>> response = nominatimManager.requestObject(
-                    nominatimQuery, new SourceListener<NominatimQuery, Collection<Location>>() {
+        
+		double minLongitude = 0, maxLongitude = 0, minLatitude = 0, maxLatitude = 0;
+		for (Tile t : area) {
+			if (t.getLatitudeFrom() < minLatitude) {
+				minLatitude = t.getLatitudeFrom();
+			}
+			if (t.getLatitudeTo() > maxLatitude) {
+				maxLatitude = t.getLatitudeTo();
+			}
+			if (t.getLongitudeFrom() < minLongitude) {
+				minLongitude = t.getLongitudeFrom();
+			}
+			if (t.getLongitudeTo() > maxLongitude) {
+				maxLongitude = t.getLongitudeTo();
+			}
+		}
+    	
+		final class QueryTile implements Tile {
 
-                        @Override
-                        public void requestCompleted(NominatimQuery key, Collection<Location> value) {
-                            lastSearchLocations.clear();
-                            lastSearchLocations.addAll(value);
-                            callLocationListeners(value);
-                        }
-                    });
+			private double lonTo;
+			private double lonFrom;
+			private double latTo;
+			private double latFrom;
 
-            if (response.response != SourceResponseType.ASYNCHRONOUS
-                    && response.response != SourceResponseType.MISSING) {
-                lastSearchLocations.clear();
-                lastSearchLocations.addAll(response.value);
-                callLocationListeners(response.value);
-            }
-        }
-    }
+			public QueryTile(double lonFrom, double lonTo,
+					double latFrom, double latTo) {
+				this.lonFrom = lonFrom;
+				this.lonTo = lonTo;
+				this.latFrom = latFrom;
+				this.latTo = latTo;
+			}
+
+			@Override
+			public boolean intersects(double lonFrom, double latFrom,
+					double lonTo, double latTo) {
+				return false;
+			}
+
+			@Override
+			public double getLongitudeTo() {
+				return lonTo;
+			}
+
+			@Override
+			public double getLongitudeFrom() {
+				// TODO Auto-generated method stub
+				return lonFrom;
+			}
+
+			@Override
+			public double getLatitudeTo() {
+				// TODO Auto-generated method stub
+				return latTo;
+			}
+
+			@Override
+			public double getLatitudeFrom() {
+				// TODO Auto-generated method stub
+				return latFrom;
+			}
+
+			@Override
+			public boolean contains(GeoCoordinates coords) {
+				if (coords == null) {
+					throw new IllegalArgumentException();
+				}
+				double lon = coords.getLongitude(), lat = coords.getLatitude();
+				double lonFrom = getLongitudeFrom(), latFrom = getLatitudeFrom(), lonTo = getLongitudeTo(), latTo = getLatitudeTo();
+
+				return rectangleLongitudeContains(lonFrom, lonTo, lon)
+						&& ((lat >= latFrom && lat <= latTo) || (lat <= latFrom && lat >= latTo));
+			}
+
+			private boolean rectangleLongitudeContains(double lonFrom,
+					double lonTo, double lon) {
+
+				if (lonTo <= lonFrom) {
+					// TODO > 0 oder >= 0?
+					if (lon > 0) {
+						lonTo += 2 * PI;
+					} else {
+						lonFrom -= 2 * PI;
+					}
+				}
+				return ((lon >= lonFrom && lon <= lonTo) || (lon <= lonFrom && lon >= lonTo));
+			}
+
+		};
+		
+		QueryTile t = new QueryTile(minLongitude, maxLongitude, minLatitude, maxLatitude);
+
+		NominatimQuery nominatimQuery = new NominatimQuery(
+				NominatimQuery.Type.LOCAL);
+		nominatimQuery.query = query;
+		nominatimQuery.area = t;
+		SourceResponse<Collection<Location>> response = nominatimManager
+				.requestObject(
+						nominatimQuery,
+						new SourceListener<NominatimQuery, Collection<Location>>() {
+
+							@Override
+							public void requestCompleted(NominatimQuery key,
+									Collection<Location> value) {
+								lastSearchLocations.clear();
+								lastSearchLocations.addAll(value);
+								callLocationListeners(value);
+							}
+						});
+
+		if (response.response != SourceResponseType.ASYNCHRONOUS
+				&& response.response != SourceResponseType.MISSING) {
+			lastSearchLocations.clear();
+			lastSearchLocations.addAll(response.value);
+			callLocationListeners(response.value);
+		}
+	}
 
     private void callLocationListeners(Collection<Location> results) {
         for (LocationListener listener : locationListeners) {
