@@ -890,9 +890,9 @@ Optionen:
 
 Optionen:
 \begin{itemize}
-\item \textbf{niedrig}
-\item \textbf{mittel}
-\item \textbf{hoch}
+\item \textbf{niedrig}: Niedrigstes Detaillevel. Bietet jedoch die beste Rechenleistung (Performance).
+\item \textbf{mittel}: Mittleres Detaillevel.
+\item \textbf{hoch}: Höchstes Detaillevel. Bietet das bestmögliche visuelle Erlebnis auf Kosten der Rechenleistung (Performance).
 \end{itemize}
 
 
@@ -940,38 +940,38 @@ Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten er
 Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann seitens \JoglEarth nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den Antworten der OverpassAPI vorgenommen.\\
 
 \vspace{3mm}
-\begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
+\begin{tabular}{|>{\centering \arraybackslash}m{2cm}|m{4.5cm}|m{8.2cm}|}
 \hline 
-\textbf{Symbol} & \textbf{Erläuterung} \\ 
+\textbf{Symbol} & \textbf{Name} & \textbf{Erläuterung} \\ 
 \hline
 \hline
-{\includegraphics[scale=1.6]{images/POI_Activity.eps}} & Aktivitäten \\ 
+{\includegraphics[scale=1.6]{images/POI_Activity.eps}} & Aktivitäten & Zeigt Freizeitaktivitäten wie Freizeitparks, Museen, Picknickplätze und Aussichtspunkte an.\\ 
 \hline
-{\includegraphics[scale=1.6]{images/POI_Bank.eps}} & Bank \\ 
+{\includegraphics[scale=1.6]{images/POI_Bank.eps}} & Bank & Zeigt Banken an.\\ 
 \hline
-{\includegraphics[scale=1.5]{images/USER_TAG.png}} & Benutzermarkierungen \\ 
+{\includegraphics[scale=1.5]{images/USER_TAG.png}} & Benutzermarkierungen & Zeigt einen vom Benutzer markierten Punkt an.\\ 
 \hline
-{\includegraphics[scale=1.6]{images/POI_education.eps}} & Bildung \\ 
+{\includegraphics[scale=1.6]{images/POI_education.eps}} & Bildung & Zeigt Bildungseinrichtungen wie Schulen und dergleichen an.\\ 
 \hline
-{\includegraphics[scale=1.6]{images/POI_Shop.eps}} & Geschäfte \\ 
+{\includegraphics[scale=1.6]{images/POI_Shop.eps}} & Geschäfte & Zeigt eine Vielzahl von Geschäften an.\\ 
 \hline
-{\includegraphics[scale=1.6]{images/POI_health.eps}} & Gesundheitseinrichtungen \\ 
+{\includegraphics[scale=1.6]{images/POI_health.eps}} & Gesundheitseinrichtungen & Zeigt Ärzte, Krankenhäuser, Apotheken und Drogerien an.\\ 
 \hline
-{\includegraphics[scale=1.6]{images/POI_hotels.eps}} & Hotels \\ 
+{\includegraphics[scale=1.6]{images/POI_hotels.eps}} & Hotels & Zeigt Hotels und 'Bed \& Breakfast' Orte an. \\ 
 \hline
-{\includegraphics[scale=1.6]{images/POI_Grocery.eps}} & Lebensmittelgeschäfte \\ 
+{\includegraphics[scale=1.6]{images/POI_Grocery.eps}} & Lebensmittelgeschäfte & Zeigt Supermärkten, Bäckereien, Metzgereien und Drogerien an.\\ 
 \hline
-{\includegraphics[scale=1.6]{images/POI_nightlife.eps}} & Nachtleben \\ 
+{\includegraphics[scale=1.6]{images/POI_nightlife.eps}} & Nachtleben & Zeigt Bars, Clubs, Kinos und Solarien an.\\ 
 \hline
-{\includegraphics[scale=1.6]{images/POI_post.eps}} & Post \\ 
+{\includegraphics[scale=1.6]{images/POI_post.eps}} & Post & Zeigt Postämter, Briefkästen und Packstationen an.\\ 
 \hline
-{\includegraphics[scale=1.6]{images/POI_Restaurant.eps}} & Restaurants \\ 
+{\includegraphics[scale=1.6]{images/POI_Restaurant.eps}} & Restaurants & Zeigt Cafés, Restaurants und Biergärten an.\\ 
 \hline
-{\includegraphics[scale=1.5]{images/SEARCH.png}} &  Suchergebnisse \\ 
+{\includegraphics[scale=1.5]{images/SEARCH.png}} &  Suchergebnisse & Zeigt alle Suchergebnisse an.\\ 
 \hline
-{\includegraphics[scale=1.6]{images/POI_Toilets.eps}} & Toiletten \\ 
+{\includegraphics[scale=1.6]{images/POI_Toilets.eps}} & Toiletten & Zeigt öffentliche Toiletten an.\\ 
 \hline
-{\includegraphics[scale=1.6]{images/POI_hiking_cycling.eps}} & Wandern und Radfahren \\ 
+{\includegraphics[scale=1.6]{images/POI_hiking_cycling.eps}} & Wandern und Radfahren & Zeigt Outdoor-Aktivitäten für Radfahrer und Wanderer wie Picknickplätze Aussichtspunkte, Bänke, Mülltonnen-und Fahrradläden an.\\ 
 \hline
 \end{tabular}
 
@@ -1156,6 +1156,7 @@ OpenGL \index{OpenGL} & API zur schnellen Generierung ansprechender 2D- und 3D-C
 Open-Source & Software, deren Lizenzbestimmungen besagt, dass sie frei verwendbar ist\\
 OpenStreetMap \index{OpenStreetMap} & Projekt, das freies Kartenmaterial im Internet anbietet\\
 Overlay \index{Overlay} & Text- oder Symboleinblendungen auf der Karte oder dem Globus\\
+Performance & Rechenleistung bzw. Datenverarbeitungsgeschwindigkeit\\
 Plattform"-unabhängigkeit & Ein plattformunabhängiges Programm kann auf verschiedenen Betriebssystemen und/oder verschiedener Hardware ausgeführt werden, ohne Anpassungen zu erfordern\\
 POI \index{POIs} & (Point of Interest) POIs sind Orte auf der Weltkarte, die eine spezielle Bedeutung haben\\
 Programm"-bibliothek & Eine Sammlung von Unterprogrammen die nicht eigenständig lauffähig ist, aber dem benutzenden Programm eine Menge an Funktionen zur Verfügung stellt\\
