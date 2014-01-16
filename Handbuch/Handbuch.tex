@@ -179,7 +179,8 @@ Es werden im Handbuch einige Symbole verwendet, welche die Arbeit mit dem Handbu
 \vspace{5mm}
 Die Abbildungen im Handbuch können vom \JoglEarth Erscheinungsbild auf Ihrem PC abweichen, was durch das jeweils verwendete Betriebssystem bedingt ist. Die Funktionalitäten und Anordnungen der Schaltflächen sind jedoch unter allen Betriebssystemen identisch. Die in diesem Handbuch abgebildeten Screenshots wurden teilweise unter Windows und teilweise unter Linux erstellt.\\
 
-
+\vspace{5mm}
+Flussdiagramme erläutern
 
 
 
@@ -273,58 +274,31 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 
 
 \section{Starten von JoglEarth}
-%Öffnen der JAR, Jogl-Earth
-%Screenshot vom USB-Stick-Dateiverzeichnis?
+Öffnen von \textbf{joglearth.jar} durch Doppelklick auf die Datei.\\
+\JoglEarth startet in der folgenden \textref{Benutzeroberfläche}:
 
+\vspace{3mm}
+\begin{center}
+\includegraphics[scale=0.4]{images/sonnensystem.png}
+\end{center}
 
-
-%Öffnen von \JoglEarth :
-
-\vspace{3mm} \index{Sonnensystem}
+\vspace{5mm} \index{Sonnensystem}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/info.eps} & \JoglEarth startet standardmäßig in der \textbf{Sonnensystemansicht} (\textref{Ansichtsmodi}).
 \end{tabular}
 
-\vspace{3mm} \index{Program-Icons} \index{Benutzeroberfläche} \index{Navigation Globus / Kartenebene}
-In den folgenden Kapiteln finden Sie als Einführung die Erklärungen zu den \textref{Program-Icons}, zur \textref{Benutzeroberfläche}, zur \textref{Navigation} auf dem Globus und der Kartenebene.
+\vspace{3mm} \index{Sonnensystem}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & Die \textbf{Sprache} der Benutzeroberfläche kann im \textref{Menü Einstellungen} festgelegt werden. Die Vorgehensweise hierzu findet sich im Kapitel \textref{Sprache}.
+\end{tabular}
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/quest.eps} &  Versuchen Sie nun \JoglEarth zu starten. Machen Sie sich mit der Benutzeroberfläche vertraut.
 \end{tabular}
 
-
-\vspace{3mm}
-\subsection{Programm-Icons} \index{Programm-Icons}
-\vspace{2mm}
-\begin{center}
-\begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
-\hline 
-\textbf{Symbol} & \textbf{Erläuterung} \\ 
-\hline
-\hline
-{\includegraphics[scale=0.6]{Logo-Print.eps}} &  Logo von \JoglEarth \\ 
-\hline
-{\includegraphics[scale=0.2]{Logo.eps}} & Programm-Icon \\ 
-\hline
-{\includegraphics[scale=1.4]{images/Hinzufugen.eps}} &  Stecknadel zum markieren eines Punktes \\ 
-\hline
-{\includegraphics[scale=1.4]{images/Entfernen.eps}} & Stecknadel zum entfernen eines Punktes \\ 
-\hline
-{\includegraphics[scale=1.7]{images/Zoom_plus.eps}} & Plus beim Zoomen \\ 
-\hline
-{\includegraphics[scale=1.7]{images/Zoom_minus.eps}} & Minus beim Zoomen \\ 
-\hline
-\parbox[0pt][1cm][c]{0cm}{} {\includegraphics[scale=0.6]{images/Massstab.eps}} & Maßstab \\ 
-\hline
-{\includegraphics[scale=1.6]{images/Handbuch.eps}} &  Handbuch-Icon \\ 
-\hline
-{\includegraphics[scale=1.6]{images/infoButton.eps}} &  About-Icon \\ 
-\hline
-\end{tabular}
-\end{center}
-
-
+\vspace{5mm} \index{Benutzeroberfläche} \index{Navigation Globus / Kartenebene}
+In den folgenden Kapiteln finden Sie als Einführung die Erklärungen zur \textref{Benutzeroberfläche}, zur \textref{Navigation} auf dem Globus und der Kartenebene.
 
 
 \newpage
@@ -544,7 +518,7 @@ Diese Ansicht stellt ein detailliertes Modell von Sonne, Mond und Erde dar, wobe
 
 
 
-\vspace{3mm}
+\newpage
 \section{Globus} \index{Ansichtsmodi!Globus} \index{Globus} \index{Kartentypen}
 Diese Ansicht visualisiert einen Globus, welcher die Anzeige von den verfügbaren \textref{Kartentypen} unterstützt.
 
@@ -681,14 +655,12 @@ Die \textbf{Wanderkarte} ist eine Karte, die der unmittelbaren Orientierung im G
 
 
 
-
 \subsection{OSM2World} \index{OpenStreetMap!OSM2World} \index{OSM2World}
 Die \textbf{OSM2World-Karte} errechnet auf Basis der OpenStreetMap-Daten 3D Modelle. Derzeit sind nur einige Teile in Deutschland, in Österreich und in der Schweiz erfasst.
 
+% Screenshots
 
 
-
-\newpage
 \section{Kinderkarte} \index{Kartentypen!Kinderkarte} \index{Kinderkarte}
 Ein besonderer Kartentyp ist die Kinderkarte. Diese zeigt die einzelnen Kontinente, welche farblich unterschiedlich sind und zusätzlich werden beispielhaft je Kontinent, die dort einheimischen Tiere gezeigt. Dieser Kartentyp ist speziell für Kinder gedacht um die Neugierde an geografischen Karten zu wecken.
 
@@ -726,9 +698,6 @@ Die Platzhaltertextur erscheint, solange das Kartenmaterial geladen wird. Sollte
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/quest.eps} &  Versuchen Sie sich durch die zahlreichen Ansichten und Kartentypen zu navigieren.
 \end{tabular}
-
-
-
 
 
 
@@ -811,20 +780,32 @@ Die folgende Tabelle gibt einen Überblick über die Längen- und Breitengrade d
 
 \newpage
 \section{Benutzermarkierungen} \index{Benutzermarkierungen}
+Eine \textbf{Benutzermarkierung} ist ein Punkt auf der \textref{Kartenebene} bzw. auf dem \textref{Globus} (\textref{Ansichtsmodi}), welcher eine besondere Bedeutung für den Benutzer darstellt. Diese können seperat angezeigt und persistent gespeichert werden.\\
+
 Die Schaltfläche um Benutzermarkierungen zu setzen und wieder zu entfernen befindet sich im \textref{Menü Details}. Die gespeicherten Benutzermarkierungen werden im \textref{Menü Orte} gelistet.
-
-
-
 
 
 \vspace{3mm}
 \subsection{Markierungen setzen} \index{Benutzermarkierungen!Markierungen setzen} \index{Markierungen setzen}
-
+Um Benutzermarkierungen zu setzen muss im \textref{Menü Details} der Button angeklickt werden.
+% Vorgehensweise in Visio:
+% Start
+% Beliebigen Ansichtsmodi wählen
+% Beliebigen Kartentyp wählen
+% zum gewünschten Punkt/Ort navigieren bzw. Längen- und Breitengrad des Punkts/Orts eingeben
+% Auf den Button "Benutzermarkierung setzen" klicken
+% Der Dialog ... öffnet sich.
+% Um diesen Punkt zu speichern muss ein Name gesetzt werden.
+% Des weiteren können Details zu diesem Punkt eingetragen werden.
+% Den Dialog mittels OK bestätigen.
+% Der Punkt erscheint in der Liste im Menü Orte.
+% Bei ordnungsgemäßer Programmbeendigung werden die Punkte persistent gespeichert.
+% Ende
 
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/quest.eps} & Erstellen Sie die Markierung  \underline{\textit{zu Hause}}.
+\includegraphics[scale=0.5]{images/quest.eps} & Erstellen Sie die Markierung \underline{\textit{zu Hause}}.
 \end{tabular}
 
 
@@ -858,10 +839,10 @@ Die Schaltfläche um Benutzermarkierungen zu setzen und wieder zu entfernen befi
 \subsection{Dateisystem} \index{Cachegrößen!Dateisystem} \index{Dateisystem}
 
 
-\newpage
+
 \vspace{3mm}
 \section{Fortschrittsanzeige} \index{Fortschrittsanzeige}
-Die Fortschrittsanzeige visualisiert den aktuellen Stand der im Hintergrund geladenen Daten. Hierzu zählen Kartenmaterialien, SRTM-Daten, Suchanfragen usw.
+Die Fortschrittsanzeige visualisiert den aktuellen Stand der im Hintergrund geladenen Daten in Prozent. Hierzu zählen Kartenmaterialien, SRTM-Daten, Suchanfragen usw.
 
 
 
@@ -921,6 +902,10 @@ Optionen:
 \section{Höhenprofil} \index{Höhenprofil}
 Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten ermittelt.
 
+% Raumschiff Endevour erwähnen usw.
+
+% jede Menge Screenshots machen
+
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/info.eps} &  Zur optimalen Darstellung des Höhenprofils empfiehlt sich Zoomlevel ?? \\ 
@@ -930,13 +915,15 @@ Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten er
 
 \vspace{3mm}
 \section{Maßstabsanzeige} \index{Maßstab}
+% Ist relativ zum \textbf{Ansichtsfenster}.
 
 
 
-
-\newpage
+\vspace{3mm}
 \section{POIs} \index{POIs}
-\subsection*{Liste der POIs} \index{POIs!Liste der POIs} \index{Overpass}
+Ein POI ist ein Punkt auf der Karte mit einer speziellen Bedeutung.
+
+\subsection*{Liste verfügbarer POIs} \index{POIs!Liste verfügbarer POIs} \index{Overpass}
 Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann seitens \JoglEarth nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den Antworten der OverpassAPI vorgenommen.\\
 
 \vspace{3mm}
@@ -985,9 +972,15 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 \newpage
 \section{Sprache} \index{Sprache}
-Ändern der Sprache für die Benutzeroberfläche, die Suchergebnisse und die angezeigten Overlays.\\
+Die \textref{Benutzeroberfläche} ist in zwei Sprachen verfügbar:
+\begin{itemize}
+\item Deutsch
+\item Englisch
+\end{itemize}
 
-Einstellen der Benutzeroberfläche: \index{Benutzeroberfläche}
+Eine Änderung der Sprache beeinflusst die Benutzeroberfläche, die Sprache der Suchergebnisse und die Sprache der angezeigten Overlays.\\
+
+Ändern der Sprache ist im \textref{Menü Einstellungen} möglich: \index{Benutzeroberfläche} \index{Menü Einstellungen}
 
 \vspace{3mm}
 \begin{figure}[!htb]
@@ -997,7 +990,13 @@ Einstellen der Benutzeroberfläche: \index{Benutzeroberfläche}
     \subfigure{\includegraphics[scale=0.4]{images/einstellungen_tab_EN.png}}
 \end{figure} 
 
-
+% Ablauf Visio zum Ändern der Sprache:
+% Start
+% Ins Menü Einstellungen wechseln
+% Auswahlmenü Sprache öffnen
+% Die gewünschte Sprache anwählen
+% Die Benutzeroberfläche wechselt die Sprache
+% Ende
 
 \vspace{3mm}
 \section{Suche} \index{Suche}
@@ -1123,19 +1122,19 @@ Folgende getätigte Einstellungen werden bei ordnungsgemäßer Programmbeendigun
 \addcontentsline{toc}{chapter}{Glossar}
 \newcolumntype{L}[1]{>{\sffamily\bfseries\hsize=#1\hsize\raggedright\arraybackslash}X}
 \newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}
-\setlength{\extrarowheight}{4mm}
+\setlength{\extrarowheight}{3.5mm}
 \begin{longtabu}{L{0.35} R{1.65}}
 Anisotropes Filtern \index{Anisotropes Filtern} & Methode um den Schärfeeindruck von perspektivisch verzerrten Texturen zu verbessern\\
 Ansichtsfenster \index{Ansichtsfenster} \index{Benutzeroberfläche!Ansichtsfenster} & Teil der \textref{Benutzeroberfläche} \index{Benutzeroberfläche} \\
 Ansichtsmodus \index{Ansichtsmodi} & Darstellungsmodus im \textbf{Ansichtsfenster} \index{Ansichtsfenster} \index{Benutzeroberfläche!Ansichtsfenster}, wie \textref{Kartenebene} \index{Ansichtsmodi!Kartenebene}, \textref{Globus} \index{Ansichtsmodi!Globus} oder die \textref{Sonnensystem} \index{Ansichtsmodi!Sonnensystem}\\
 Antialiasing \index{Antialiasing} & Methode zur Kantenglättung \\
 API \index{API} & (Application Programming Interface) Programmierschnittstelle zu einer Programmbibliothek oder einem Dienst\\
+Benutzermarkierung & Benutzermarkierungen sind Orte auf der Weltkarte, die eine spezielle Bedeutung für den Benutzer haben\\
 Bibliothek \index{Bibliothek} & siehe Programmbibliothek\\
 Bildmittelpunkt \index{Bildmittelpunkt} & Mittelpunkt vom \textbf{Ansichtsfenster}\\
 BSD-Lizenz \index{BSD-Lizenz} & (Berkeley Software Distribution-Lizenz) Gruppe von Lizenzen aus dem Open-Source-Bereich\\
 Cache \index{Cache} & Kleiner, schneller Zwischenspeicher der hilft, Zugriffe auf ein langsameres Medium zu beschleunigen. Dazu wird eine Verdrängungsstrategie \index{Verdrängungsstrategie} implementiert, die aus statistischen Daten abzuleiten versucht, welche Daten in nächster Zeit abgerufen werden. Diese werden dann so lange wie möglich vorgehalten\\
 Detaillevel \index{Detaillevel} & Auflösung der räumlichen Unterteilungen. Ein höherer Wert löst das Höhenprofil detaillierter auf\\
-
 Globus \index{Ansichtsmodi!Globus} & \textref{Ansichtsmodus}\index{Ansichtsmodi}, in dem das Kartenmaterial auf einen Globus projiziert wird\\
 Höhenprofil \index{Höhenprofil} & Manipulation der Globus- oder Kartenebenenoberfläche um Geländeunebenheiten wie Berge und Täler dreidimensional darzustellen\\
 JAR \index{JAR} & (Java Archive) Datei, in der ein übersetztes Java-Programm oder eine Java-Bibliothek, optional mit zusätzlichen Dateien ausgeliefert wird\\
@@ -1143,12 +1142,10 @@ Java \index{Java} & Programmiersprache (siehe JRE)\\
 JOGL \index{JOGL} & (Java Bindings for OpenGL) Softwarebibliothek, die die OpenGL-API in Java zur Verfügung stellt\\
 JRE \index{JRE} & (Java Runtime Environment) Laufzeitumgebung der Java Technik mit der Programme weitgehend plattformunabhängig ausgeführt werden\\
 Kartenebene \index{Ansichtsmodi!Kartenebene} & \textref{Ansichtsmodus}\index{Ansichtsmodi}, in dem die Karte auf die Ebene projiziert wird\\
-
 Kartenkachel \index{Kartenkachel} & Element einer rasterförmigen Aufteilung eines (für den Anwendungszweck zu großen) Bildes\\
 Kartentyp & Typ von Texturen, die als Kartenmaterial dienen. Das können beispielsweise Satellitenbilder oder Straßenkarten sein\\
 Linux & Freies Betriebssystem\\
 MSAA \index{MSAA} \index{Antialiasing!MSAA} & (Multisample anti-aliasing) siehe Antialiasing\\
-
 NASA \index{NASA} & (National Aeronautics and Space Administration) Zivile US-Bundesbehörde für Luft- und Raumfahrt\\
 Nominatim \index{Nominatim} & API zur Lokalisierung von Orten bei Suchanfragen\\
 Onboard-Grafik & Grafikhardware, die sich auf dem Prozessorchip des Systems oder fest verlötet auf der Hauptplatine befindet. Als Gegenstück zu dedizierter Grafikhardware bietet sie niedrige Leistung zu kleinem Preis und guter Energieeffizienz\\
@@ -1165,7 +1162,7 @@ Server & Gegenstelle im Netzwerk, die einen Dienst zur Verfügung stellt, hier u
 Sonnensystem \index{Sonnensystem}\index{Ansichtsmodi!Sonnensystem}& \textref{Ansichtsmodus}\index{Ansichtsmodi}, in dem keine Karten, sondern eine Satellitendarstellung der Erde und anderer Himmelskörper möglich ist\\
 SRTM-Daten \index{SRTM}& (Shuttle Radar Topography Mission) Höhendaten der Erdoberfläche, die vom Space Shuttle Endeavour gemessen wurden\\
 Textur \index{Textur}& Zweidimensionale (Oberflächen-) Grafik\\
-Verdrängungs"-strategie \index{Verdrängungsstrategie} & siehe Cache\\
+Verdrängungs"-strategie \index{Verdrängungsstrategie}& siehe Cache\\
 Windows & Kommerzielles Betriebssystem von Microsoft\\
 x86\_64 & Prozessorarchitektur für 64-Bit-Rechner, die sich heute in den meisten verkauften Desktopsystemen findet. Entworfen von AMD, später von Intel übernommen, ist sie auch unter dem Namen AMD64, EM64T oder Intel 64 bekannt\\
 Zoomlevel \index{Zoomlevel} & Angabe zur Auflösung der Kartenkachel in der Ansicht\\
