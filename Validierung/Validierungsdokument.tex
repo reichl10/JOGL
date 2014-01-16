@@ -138,13 +138,26 @@ Version: 1.0
 \tableofcontents
 
 \chapter{Einleitung}
+Dieses Dokument stellt den Ablauf der Validierung von \JoglEarth vor.
+Ziel der Validierung ist das Finden und Beheben aller Fehler, die bei Abschluss der Implementierungsphase noch vorhanden waren.
+Dabei wird auch überprüft, welcher Anteil des Codes durch Testfälle abgedeckt wird.\\
+
+Dazu werden zuerst die Testfälle aus dem Pflichtenheft abgearbeitet und alle dabei auftretenden Fehler in einem Bugtracker gesammelt.\\
+Währenddessen entstanden weitere Verbesserungsvorschläge, die in den Prozess einfließen.\\
+
+Es wurden verschiedene Testmethoden verwendet. So entstanden während der Implementierung bereits JUnit-Tests, die als Blackbox-Tests fungieren.\\
+Außerdem werden manuelle Tests durchgeführt unter anderem von ausgesuchten Testpersonen. Diese dienen dazu die Intuitivität des Bedienkonzepts und die Alltagstauglichkeit zu evaluieren.
+
+Um die Qualität von \JoglEarth auch unter Extrembedingungen zu garantieren, wird es diversen Skalierungs- und Belastungstests unterzogen.\\
+
+Zum Zwecke der Optimierung erfolgt eine Performanzanalyse der kritischen Codeabschnitte mit Hilfe eines Profilers.
 
 \chapter{Testfälle im Pflichtenheft}
 \section{Vor der Validierung}
 \subsection{Anwendungsstart}
 /T050/: Seitenleiste ist zu klein nach dem wieder einblenden.
 \subsection{Globusansicht}
-/T150/: Kacheln dauern sehr lange zum laden, da welche davon 404 zurückhaben und für Minuten versucht wurde diese zu laden.
+/T150/: Kacheln dauern sehr lange zum laden, da manche davon 404 zurückgaben und für Minuten versucht wurde diese zu laden.
 \subsection{Navigation auf dem Globus}
 /T230W/: Höhenprofil scheint nicht aktiviert zu werden
 \subsection{Overlays}
@@ -163,9 +176,10 @@ Keine Overlays tauchen auf
 \section{Nach der Validierung}
 
 \chapter{Bugs}
+Die Nummerierung der Bugs und Verbesserungsvorschläge in den Tabellen entspricht der im verwendeten Bucktracker, GitHub Issues, zugewiesenen ID.
+Titel und Beschreibung können zu denen in Github geringfügig abweichen.\\
 \section{Gefundene Bugs}
-Die Nummerierung wurde aus dem Bugtracker von GitHub entnommen.
-Nicht in der Liste verzeichnet sind Verbesserungen und Duplikate.
+Hier sind alle eingetragenen Bugs mit Titel und Beschreibung verzeichnet.
 \begin{longtable}{|c|p{5.2cm}|p{8.2cm}|}
 \hline
 Nummer & Titel & Beschreibung \\
@@ -178,7 +192,7 @@ Nummer & Titel & Beschreibung \\
 \#3 & Settings werden nicht korrekt in das UI geladen & \\
 \hline
 \#4 & Detaillevel-Einstellung stimmt nicht mit dem UI überein & Es wird 'Niedrig' angezeigt
- bwohl 'Mittel' eingestellt ist \\
+ obwohl 'Mittel' eingestellt ist \\
 \hline
 \#5 & Letzter Frame wird nicht angestoßen & Bei der Umstellung zu Globus oder Einblendung von Overlays wird der Rendervorgang nicht angestoßen\\
 \hline
@@ -243,6 +257,40 @@ Nummer & Titel & Beschreibung \\
 \#58 & Lokale Suche funktioniert nicht & Ergebnisse erscheinen kurz im Auswahlfenster, verschwinden dann aber wieder \\
 \hline
 \end{longtable}
+\section{Gelöste Bugs}
+Diese Liste enthält alle gelösten Bugs.
+\begin{longtable}{|c|p{5.2cm}|p{8.2cm}|}
+\hline
+Nummer & Titel & Anmerkung \\
+\hline
+\hline
+\#2 & Zu viele Nominatim-Anfragen & Es wird für jeden Pixel eine Anfrage gestellt \\
+\hline
+\#3 & Settings werden nicht korrekt in das UI geladen & \\
+\hline
+\#4 & Detaillevel-Einstellung stimmt nicht mit dem UI überein &  \\
+\hline
+\#17 & Sprachänderung inkonsistent & \\
+\hline
+\#21 & Noch nicht implementierte Tastatureingaben & \\
+\hline
+\#27 & Exception im MainWindow bei initialem Programmstart & \\
+\hline
+\#28 & Exception bei Nominatimanfragen & \\
+\hline
+\#30 & Aus- und Einblenden der Seitenleiste zerstört das Layout der Oberfläche & \\
+\hline
+\#34 & Liste der Auswahlmöglichkeiten verschiebt Labels bei langen Suchergebnissen & Die Labels 'In der Nähe', 'Weltweit' und der Suchknopf wurden verschoben \\
+\hline
+\#44 & NumberFormatException bei 'GeoCoordinates' wird nicht gefangen & \\
+\hline
+\#47 & 'ProgressManager' wird nach vollständigem Laden nicht zurückgesetzt & \\
+\hline 
+\#50 & Overpass-Anfragen dauern zu lange & \\
+\hline
+\#58 & Lokale Suche funktioniert nicht & \\
+\hline
+\end{longtable}
 \section{Verbesserungsvorschläge}
 \begin{longtable}{|c|p{5.2cm}|p{8.2cm}|}
 \hline
@@ -257,7 +305,7 @@ Nummer & Titel & Beschreibung \\
 \hline
 \#15 & Mond im Sonnensystemmodus entzerren & Er scheint etwas in der Form verunstaltet zu sein \\
 \hline
-\#25 & Die Einheit der Cachegrößen sollte angezeigt werden & Momentan sind keine Einheiten angegeben \\  
+\#25 & Die Einheit der Cachegrößen sollte angezeigt werden & Momentan sind keine Einheiten angegeben \\
 \hline
 \#26 & Hineinzoomen beim Sonnensystemmodus sollte in die Globusansicht wechseln & Durch die niedrige Auflösung der mitgelieferten Textur sollte bei hohem Zoomlevel in die Globusansicht gewechselt werden \\
 \hline
@@ -282,44 +330,24 @@ Sollte in Zehnerschritten erfolgen \\
 \hline
 \end{longtable}
 
-\section{Gelöste Bugs}
+
+\section{Abgeschlossene Verbesserungen}
+Nicht umgesetzte Verbesserungen tragen einen entsprechenden Hinweis.
 \begin{longtable}{|c|p{5.2cm}|p{8.2cm}|}
-Nummer & Titel & Kommentar
 \hline
-\#2 & Zu viele Nominatim-Anfragen &
+Nummer & Titel & Anmerkung \\
 \hline
-\#3 & Settings werden nicht korrekt in die UI geladen &
 \hline
-\#4 & Detaillevel-Einstellung stimmt nicht mit der UI überein &
+\#15 & Mond im Sonnensystemmodus sieht verzerrt aus & Wird nicht umgesetzt \\
 \hline
-\#15 & Mond im Sonnensystemmodus sieht verzerrt aus & Wird nicht gefixt
+\#25 & Die Einheit der Cachegrößen sollte angezeigt werden & \\ 
 \hline
-\#17 & Sprachänderung klappt nicht immer. &
+\#40 & Anzeige-Tab sollte eventuell Ansichts-Tab heißen & \\
 \hline
-\#21 & Noch nicht implementierte Tastatureingaben &
+\#49 & Schrittgröße im Spinner für Cachegröße & \\
 \hline
-\#25 & Einheit bei Cachegrößen in der GUI fehlt &
+\#53 & Globus wird niedriger Detailstufe zu einer Ebene & Es wird versucht aus 4 Punkten eine Kugel zu zeichnen \\
 \hline
-\#27 & Exception im MainWindow beim Programmstart &
-\hline
-\#28 & Anfragen bei Nominatim geben bei der zweiten Suche Null zurück (NominatimSource Zeile 110) &
-\hline
-\#30 & Aus- und Einblenden der Seitenleiste zerschießt das Layout &
-\hline
-\#34 & Bei der Auswahl von langen Suchergebnissen verschiebt sich die Auswahlmöglichkeit "In der Nähe" und "Weltweit" &
-\#40 & Anzeige-Tab sollte eventuell Ansicht-Tabe heisen (wie im Pflichtenheft Text?) &
-\hline
-\#44 & Sollte Numberformat Exception abfangen &
-\hline
-\#47 & ProgressManager wird nach dem vollständigen Laden nicht zurückgesetzt &
-\hline
-\#49 & Step bei Cachegröße sollte 10 MB sein nicht 1 MB &
-\hline 
-\#50 & Overpassanfragen dauern zu lange. &
-\hline
-\#53 & Globus wird bei LevelOfDetail = LOW und rumgeklicke zu einer Ebene &
-\hline
-\#58 & Lokale Suche funktioniert nicht (Ergebnisse erscheinen kurz im Auswahlfenster, verschwinden dann aber wieder) &
 \end{longtable}
 
 \chapter{Code Coverage}
