@@ -179,7 +179,8 @@ Es werden im Handbuch einige Symbole verwendet, welche die Arbeit mit dem Handbu
 \vspace{5mm}
 Die Abbildungen im Handbuch können vom \JoglEarth Erscheinungsbild auf Ihrem PC abweichen, was durch das jeweils verwendete Betriebssystem bedingt ist. Die Funktionalitäten und Anordnungen der Schaltflächen sind jedoch unter allen Betriebssystemen identisch. Die in diesem Handbuch abgebildeten Screenshots wurden teilweise unter Windows und teilweise unter Linux erstellt.\\
 
-
+\vspace{5mm}
+Flussdiagramme erläutern
 
 
 
@@ -284,6 +285,11 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \vspace{5mm} \index{Sonnensystem}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/info.eps} & \JoglEarth startet standardmäßig in der \textbf{Sonnensystemansicht} (\textref{Ansichtsmodi}).
+\end{tabular}
+
+\vspace{3mm} \index{Sonnensystem}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & Die \textbf{Sprache} der Benutzeroberfläche kann im \textref{Menü Einstellungen} festgelegt werden. Die Vorgehensweise hierzu findet sich im Kapitel \textref{Sprache}.
 \end{tabular}
 
 \vspace{3mm}
@@ -774,20 +780,32 @@ Die folgende Tabelle gibt einen Überblick über die Längen- und Breitengrade d
 
 \newpage
 \section{Benutzermarkierungen} \index{Benutzermarkierungen}
+Eine \textbf{Benutzermarkierung} ist ein Punkt auf der \textref{Kartenebene} bzw. auf dem \textref{Globus} (\textref{Ansichtsmodi}), welcher eine besondere Bedeutung für den Benutzer darstellt. Diese können seperat angezeigt und persistent gespeichert werden.\\
+
 Die Schaltfläche um Benutzermarkierungen zu setzen und wieder zu entfernen befindet sich im \textref{Menü Details}. Die gespeicherten Benutzermarkierungen werden im \textref{Menü Orte} gelistet.
-
-
-
 
 
 \vspace{3mm}
 \subsection{Markierungen setzen} \index{Benutzermarkierungen!Markierungen setzen} \index{Markierungen setzen}
-
+Um Benutzermarkierungen zu setzen muss im \textref{Menü Details} der Button angeklickt werden.
+% Vorgehensweise in Visio:
+% Start
+% Beliebigen Ansichtsmodi wählen
+% Beliebigen Kartentyp wählen
+% zum gewünschten Punkt/Ort navigieren bzw. Längen- und Breitengrad des Punkts/Orts eingeben
+% Auf den Button "Benutzermarkierung setzen" klicken
+% Der Dialog ... öffnet sich.
+% Um diesen Punkt zu speichern muss ein Name gesetzt werden.
+% Des weiteren können Details zu diesem Punkt eingetragen werden.
+% Den Dialog mittels OK bestätigen.
+% Der Punkt erscheint in der Liste im Menü Orte.
+% Bei ordnungsgemäßer Programmbeendigung werden die Punkte persistent gespeichert.
+% Ende
 
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/quest.eps} & Erstellen Sie die Markierung  \underline{\textit{zu Hause}}.
+\includegraphics[scale=0.5]{images/quest.eps} & Erstellen Sie die Markierung \underline{\textit{zu Hause}}.
 \end{tabular}
 
 
@@ -821,10 +839,10 @@ Die Schaltfläche um Benutzermarkierungen zu setzen und wieder zu entfernen befi
 \subsection{Dateisystem} \index{Cachegrößen!Dateisystem} \index{Dateisystem}
 
 
-\newpage
+
 \vspace{3mm}
 \section{Fortschrittsanzeige} \index{Fortschrittsanzeige}
-Die Fortschrittsanzeige visualisiert den aktuellen Stand der im Hintergrund geladenen Daten. Hierzu zählen Kartenmaterialien, SRTM-Daten, Suchanfragen usw.
+Die Fortschrittsanzeige visualisiert den aktuellen Stand der im Hintergrund geladenen Daten in Prozent. Hierzu zählen Kartenmaterialien, SRTM-Daten, Suchanfragen usw.
 
 
 
@@ -884,6 +902,10 @@ Optionen:
 \section{Höhenprofil} \index{Höhenprofil}
 Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten ermittelt.
 
+% Raumschiff Endevour erwähnen usw.
+
+% jede Menge Screenshots machen
+
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/info.eps} &  Zur optimalen Darstellung des Höhenprofils empfiehlt sich Zoomlevel ?? \\ 
@@ -893,13 +915,15 @@ Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten er
 
 \vspace{3mm}
 \section{Maßstabsanzeige} \index{Maßstab}
+% Ist relativ zum \textbf{Ansichtsfenster}.
 
 
 
-
-\newpage
+\vspace{3mm}
 \section{POIs} \index{POIs}
-\subsection*{Liste der POIs} \index{POIs!Liste der POIs} \index{Overpass}
+Ein POI ist ein Punkt auf der Karte mit einer speziellen Bedeutung.
+
+\subsection*{Liste verfügbarer POIs} \index{POIs!Liste verfügbarer POIs} \index{Overpass}
 Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann seitens \JoglEarth nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den Antworten der OverpassAPI vorgenommen.\\
 
 \vspace{3mm}
@@ -966,7 +990,13 @@ Eine Änderung der Sprache beeinflusst die Benutzeroberfläche, die Sprache der 
     \subfigure{\includegraphics[scale=0.4]{images/einstellungen_tab_EN.png}}
 \end{figure} 
 
-
+% Ablauf Visio zum Ändern der Sprache:
+% Start
+% Ins Menü Einstellungen wechseln
+% Auswahlmenü Sprache öffnen
+% Die gewünschte Sprache anwählen
+% Die Benutzeroberfläche wechselt die Sprache
+% Ende
 
 \vspace{3mm}
 \section{Suche} \index{Suche}
@@ -1099,6 +1129,7 @@ Ansichtsfenster \index{Ansichtsfenster} \index{Benutzeroberfläche!Ansichtsfenst
 Ansichtsmodus \index{Ansichtsmodi} & Darstellungsmodus im \textbf{Ansichtsfenster} \index{Ansichtsfenster} \index{Benutzeroberfläche!Ansichtsfenster}, wie \textref{Kartenebene} \index{Ansichtsmodi!Kartenebene}, \textref{Globus} \index{Ansichtsmodi!Globus} oder die \textref{Sonnensystem} \index{Ansichtsmodi!Sonnensystem}\\
 Antialiasing \index{Antialiasing} & Methode zur Kantenglättung \\
 API \index{API} & (Application Programming Interface) Programmierschnittstelle zu einer Programmbibliothek oder einem Dienst\\
+Benutzermarkierung & Benutzermarkierungen sind Orte auf der Weltkarte, die eine spezielle Bedeutung für den Benutzer haben\\
 Bibliothek \index{Bibliothek} & siehe Programmbibliothek\\
 Bildmittelpunkt \index{Bildmittelpunkt} & Mittelpunkt vom \textbf{Ansichtsfenster}\\
 BSD-Lizenz \index{BSD-Lizenz} & (Berkeley Software Distribution-Lizenz) Gruppe von Lizenzen aus dem Open-Source-Bereich\\
