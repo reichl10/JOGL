@@ -300,21 +300,32 @@ public class LocationManager {
      * @return The <code>Location</code> with details that is located on the given point or a
      *         <code>Location</code> without details if the details are not yet loaded.
      */
-    public Location getDetails(GeoCoordinates coordinates) {
+    public Location getDetails(final GeoCoordinates coordinates, final SourceListener<GeoCoordinates, Location> sListener) {
         NominatimQuery nominatimQuery = new NominatimQuery(NominatimQuery.Type.POINT);
         nominatimQuery.point = coordinates;
+        final Location baseLocation = new Location(coordinates, null, null, null);
         SourceResponse<Collection<Location>> response = nominatimManager.requestObject(
                 nominatimQuery, new SourceListener<NominatimQuery, Collection<Location>>() {
 
                     @Override
-                    public void requestCompleted(NominatimQuery key, Collection<Location> value) {}
+                    public void requestCompleted(NominatimQuery key, Collection<Location> value) {
+                        Location location = baseLocation;
+                        if (value.size() > 0) {
+                            location = value.iterator().next();
+                            baseLocation.details = location.details;
+                            baseLocation.name = location.name;
+                            baseLocation.point = location.point;
+                            baseLocation.type = location.type;
+                        }
+                        sListener.requestCompleted(key.point, location);
+                    }
                 });
 
         if (response.response == SourceResponseType.SYNCHRONOUS) {
             if (response.value.size() > 0)
                 return response.value.iterator().next();
         }
-        return new Location(coordinates, null, null, null);
+        return baseLocation;
     }
 
     /**

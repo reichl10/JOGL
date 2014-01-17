@@ -10,6 +10,7 @@ import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -64,6 +65,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.ListCellRenderer;
@@ -112,6 +114,7 @@ import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.ProgressListener;
 import de.joglearth.source.ProgressManager;
+import de.joglearth.source.SourceListener;
 import de.joglearth.util.Resource;
 
 
@@ -187,7 +190,6 @@ public class MainWindow extends JFrame {
     private JPanel userTagPanel;
     private JPanel overlayPanel;
     private JLabel detailNameLabel;
-    private JLabel detailDescriptionLabel;
     private JButton userTagButton;
     private JLabel latitudeLabel;
     private JLabel longitudeLabel;
@@ -217,10 +219,9 @@ public class MainWindow extends JFrame {
     private double cTiltX = 0.0d;
     private double cTiltY = 0.0d;
     private Canvas scaleCanvas;
-    private JButton btnNewButton;
-    private JButton btnNewButton_1;
-    private JButton btnNewButton_2;
-    private JButton btnNewButton_3;
+    private DetailsListener lastDetailsListener = null;
+    private JTextArea detailsDescTextArea;
+    private JScrollPane scrollPane_1;
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -329,24 +330,38 @@ public class MainWindow extends JFrame {
                 .getString("MainWindow.35"))); //$NON-NLS-1$
         detailsPanel.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-                ColumnSpec.decode("default:grow"), //$NON-NLS-1$
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC, }, new RowSpec[] {
+                ColumnSpec.decode("default:grow"),
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,},
+            new RowSpec[] {
                 FormFactory.NARROW_LINE_GAP_ROWSPEC,
                 FormFactory.DEFAULT_ROWSPEC,
                 FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.decode("default:grow"), //$NON-NLS-1$
-                FormFactory.RELATED_GAP_ROWSPEC, FormFactory.DEFAULT_ROWSPEC,
-                FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
+                RowSpec.decode("default:grow"),
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.NARROW_LINE_GAP_ROWSPEC,}));
 
         detailNameLabel = new JLabel(Messages.getString("MainWindow.3")); //$NON-NLS-1$
+        detailNameLabel.setFocusTraversalKeysEnabled(false);
+        detailNameLabel.setFocusable(false);
         detailsPanel.add(detailNameLabel, "2, 2"); //$NON-NLS-1$
+        
+        scrollPane_1 = new JScrollPane();
+        detailsPanel.add(scrollPane_1, "2, 4, fill, fill");
+        
+        detailsDescTextArea = new JTextArea();
+        detailsDescTextArea.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        scrollPane_1.setViewportView(detailsDescTextArea);
+        detailsDescTextArea.setFocusTraversalKeysEnabled(false);
+        detailsDescTextArea.setFocusable(false);
+        detailsDescTextArea.setEditable(false);
+        detailsDescTextArea.setWrapStyleWord(true);
+        detailsDescTextArea.setLineWrap(true);
+        detailsDescTextArea.setText(Messages.getString("MainWindow.42"));
 
         userTagButton = new JButton(Messages.getString("MainWindow.40")); //$NON-NLS-1$
         userTagButton.setHorizontalAlignment(SwingConstants.LEFT);
-        userTagButton.setIcon(loadIcon("icons/addTag.png")); //$NON-NLS-1$
-
-        detailDescriptionLabel = new JLabel(Messages.getString("MainWindow.42")); //$NON-NLS-1$
-        detailsPanel.add(detailDescriptionLabel, "2, 4, default, top"); //$NON-NLS-1$
+        userTagButton.setIcon(loadIcon("icons/addTag.png"));
         detailsPanel.add(userTagButton, "2, 6"); //$NON-NLS-1$
     }
 
@@ -408,17 +423,17 @@ public class MainWindow extends JFrame {
 
     private void initializePlacesTab() {
         placesTab.setLayout(new FormLayout(new ColumnSpec[] {
-                ColumnSpec.decode("2dlu"), //$NON-NLS-1$
-                ColumnSpec.decode("default:grow"), //$NON-NLS-1$
-                ColumnSpec.decode("2dlu"), }, //$NON-NLS-1$
-                new RowSpec[] {
-                        FormFactory.RELATED_GAP_ROWSPEC,
-                        RowSpec.decode("max(60dlu;default):grow"), //$NON-NLS-1$
-                        FormFactory.RELATED_GAP_ROWSPEC,
-                        RowSpec.decode("default:grow"), //$NON-NLS-1$
-                        FormFactory.RELATED_GAP_ROWSPEC,
-                        RowSpec.decode("default:grow"), //$NON-NLS-1$
-                        FormFactory.RELATED_GAP_ROWSPEC, }));
+                ColumnSpec.decode("2dlu"),
+                ColumnSpec.decode("default:grow"),
+                ColumnSpec.decode("2dlu"),},
+            new RowSpec[] {
+                FormFactory.RELATED_GAP_ROWSPEC,
+                RowSpec.decode("max(60dlu;default):grow"),
+                FormFactory.RELATED_GAP_ROWSPEC,
+                RowSpec.decode("max(60dlu;default):grow"),
+                FormFactory.RELATED_GAP_ROWSPEC,
+                FormFactory.DEFAULT_ROWSPEC,
+                FormFactory.RELATED_GAP_ROWSPEC,}));
 
         searchPanel = new JPanel();
         searchPanel.setBorder(BorderFactory.createTitledBorder(Messages
@@ -494,7 +509,6 @@ public class MainWindow extends JFrame {
         userTagPanel.add(scrollPane, "2, 2, fill, fill");
 
         userTagListPanel = new JPanel();
-        userTagListPanel.setPreferredSize(new Dimension(10, 50));
         scrollPane.setViewportView(userTagListPanel);
 
         overlayPanel = new JPanel();
@@ -570,14 +584,14 @@ public class MainWindow extends JFrame {
         checkboxToLocationTypeMap.put(box, LocationType.CITY);
         overlaysPanel.add(box);
         box.addItemListener(overlayListener);
-//        box = new JCheckBox(Messages.getString("MainWindow.town")); //$NON-NLS-1$
-//        checkboxToLocationTypeMap.put(box, LocationType.TOWN);
-//        overlaysPanel.add(box);
-//        box.addItemListener(overlayListener);
-//        box = new JCheckBox(Messages.getString("MainWindow.village")); //$NON-NLS-1$
-//        checkboxToLocationTypeMap.put(box, LocationType.VILLAGE);
-//        overlaysPanel.add(box);
-//        box.addItemListener(overlayListener);
+        //        box = new JCheckBox(Messages.getString("MainWindow.town")); //$NON-NLS-1$
+        // checkboxToLocationTypeMap.put(box, LocationType.TOWN);
+        // overlaysPanel.add(box);
+        // box.addItemListener(overlayListener);
+        //        box = new JCheckBox(Messages.getString("MainWindow.village")); //$NON-NLS-1$
+        // checkboxToLocationTypeMap.put(box, LocationType.VILLAGE);
+        // overlaysPanel.add(box);
+        // box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.user_tags")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.USER_TAG);
         overlaysPanel.add(box);
@@ -587,7 +601,7 @@ public class MainWindow extends JFrame {
         overlaysPanel.add(box);
         box.addItemListener(overlayListener);
         updateUserLocations();
-     }
+    }
 
     private void initializeSettingsTab() {
         settingsTab
@@ -1118,7 +1132,7 @@ public class MainWindow extends JFrame {
             }
         };
         Action showManualAction = new AbstractAction() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 openManual();
@@ -1163,13 +1177,14 @@ public class MainWindow extends JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 if (e.getValueIsAdjusting() == false) {
                     Location location = searchResultList.getSelectedValue();
-					if (location != null) {
-						System.out.println("SearchResult Setting to lon: "
-								+ location.point.getLongitudeString()
-								+ " lat: " + location.point.getLatitudeString());
-						camera.setPosition(location.point);
-						updateDetails();
-					}
+                    if (location != null) {
+                        System.out.println("SearchResult Setting to lon: "
+                                + location.point.getLongitudeString()
+                                + " lat: " + location.point.getLatitudeString());
+                        camera.setPosition(location.point);
+                        requestDetails();
+                        
+                    }
                 }
             }
         });
@@ -1289,8 +1304,7 @@ public class MainWindow extends JFrame {
                 aboutButton.setText(Messages.getString("MainWindow.159")); //$NON-NLS-1$
                 detailsPanel.setBorder(BorderFactory.createTitledBorder(Messages
                         .getString("MainWindow.35"))); //$NON-NLS-1$
-                detailNameLabel.setText(Messages.getString("MainWindow.3")); //$NON-NLS-1$
-                detailDescriptionLabel.setText(Messages.getString("MainWindow.42")); //$NON-NLS-1$
+                detailNameLabel.setText(Messages.getString("MainWindow.3"));
                 userTagButton.setText(Messages.getString("MainWindow.40")); //$NON-NLS-1$
                 displayModeLabel.setText(Messages.getString("MainWindow.48")); //$NON-NLS-1$
                 index = displayModeComboBox.getSelectedIndex();
@@ -1380,17 +1394,44 @@ public class MainWindow extends JFrame {
 
     }
 
-    private void updateDetails() {
-        Location location = locationManager.getDetails(camera
-                .getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d)));
+    private void requestDetails() {
+        GeoCoordinates lookingAt = camera
+        .getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
+        Set<Location> uLocs = Settings.getInstance().getLocations(SettingsContract.USER_LOCATIONS);
+        for (final Location l : uLocs) {
+            if (l.point.equals(lookingAt) && l.details != null && l.name != null && !l.details.isEmpty() && !l.name.isEmpty()) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    
+                    @Override
+                    public void run() {
+                        updateDetails(l);
+                    }
+                });
+                return;
+            }
+        }
+        if (lastDetailsListener != null)
+            lastDetailsListener.disable();
+        lastDetailsListener = new DetailsListener();
+        final Location loc = locationManager.getDetails(lookingAt, lastDetailsListener);
+        SwingUtilities.invokeLater(new Runnable() {
+            
+            @Override
+            public void run() {
+                updateDetails(loc);
+            }
+        });
+    }
+    
+    private void updateDetails(Location location) {
         if (location.name != null)
             detailNameLabel.setText(location.name);
         else
             detailNameLabel.setText(Messages.getString("MainWindow.3"));
         if (location.details != null)
-            detailDescriptionLabel.setText(location.details);
+            detailsDescTextArea.setText(location.details);
         else
-            detailDescriptionLabel.setText(Messages.getString("MainWindow.42"));
+            detailsDescTextArea.setText(Messages.getString("MainWindow.42"));
     }
 
     /**
@@ -1428,7 +1469,7 @@ public class MainWindow extends JFrame {
             //TODO System.err.println("Set Lang to English at start!"); //$NON-NLS-1$
             languageComboBox.setSelectedIndex(0);
         }
-        
+
         registerListeners();
         Settings settings = Settings.getInstance();
         String setting = settings.getString(SettingsContract.ANTIALIASING);
@@ -1449,7 +1490,7 @@ public class MainWindow extends JFrame {
         } catch (Exception e) {
             lod = LevelOfDetail.LOW;
         }
-        
+
         lodComboBox.setSelectedItem(new NamedItem<LevelOfDetail>("", lod));
         Boolean heightProfBoolean = settings.getBoolean(SettingsContract.HEIGHT_MAP_ENABLED);
         heightMapCheckBox.setSelected(heightProfBoolean);
@@ -1458,76 +1499,101 @@ public class MainWindow extends JFrame {
 
     private void updateUserLocations() {
         buttonToLocationMap.clear();
+        closingMap.clear();
         userTagListPanel.removeAll();
         Set<Location> uLocations = Settings.getInstance().getLocations(
                 SettingsContract.USER_LOCATIONS);
         int numLoc = 0;
         if (uLocations != null)
             numLoc = uLocations.size();
-        System.out.println("Rows: "+numLoc);
+        System.out.println("Rows: " + numLoc);
         int[] rowHeights = new int[numLoc];
         double[] rowWeights = new double[numLoc];
         for (int c = 0; c < numLoc; c++) {
-        	rowHeights[c] = 25;
-        	rowWeights[c] = 1.0d;
+            rowHeights[c] = 20;
+            rowWeights[c] = 1.0d;
         }
         GridBagLayout gbl_userTagListPanel = new GridBagLayout();
-        gbl_userTagListPanel.columnWidths = new int[] {25, 0};
+        gbl_userTagListPanel.columnWidths = new int[] { 20, 0 };
         gbl_userTagListPanel.rowHeights = rowHeights;
-        gbl_userTagListPanel.columnWeights = new double[]{0.0, 1.0};
+        gbl_userTagListPanel.columnWeights = new double[] { 0.0, 1.0 };
         gbl_userTagListPanel.rowWeights = rowWeights;
         userTagListPanel.setLayout(gbl_userTagListPanel);
         if (uLocations != null)
-        for (final Location l : uLocations) {
-            System.out.println("Name: " + l.name);
-            JButton button = new JButton(l.name);
-            JButton close = new JButton("X");
-            close.addActionListener(new ActionListener() {
+            for (final Location l : uLocations) {
+                System.out.println("Name: " + l.name);
+                JButton button = new JButton(l.name);
+                JButton close = new JButton("X");
+                close.addActionListener(new ActionListener() {
 
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					JButton self = (JButton) arg0.getSource();
-					JButton target = closingMap.get(self);
-					userTagListPanel.remove(target);
-					userTagListPanel.remove(self);
-					buttonToLocationMap.remove(target);
-					closingMap.remove(self);
-					Settings.getInstance().dropLocation(SettingsContract.USER_LOCATIONS,
-							buttonToLocationMap.get(target));
+                    @Override
+                    public void actionPerformed(ActionEvent arg0) {
+                        JButton self = (JButton) arg0.getSource();
+                        JButton target = closingMap.get(self);
+                        Location location = buttonToLocationMap.get(target);
+                        buttonToLocationMap.remove(target);
+                        closingMap.remove(self);
+                        System.out.println("Trying to remove location: "+location.name);
+                        Settings.getInstance().dropLocation(SettingsContract.USER_LOCATIONS,
+                                location);
 
-				}
-            	
-            });
-            button.addActionListener(new ActionListener() {
+                    }
 
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    camera.setPosition(l.point);
-                }
-            });
-            closingMap.put(close, button);
-            buttonToLocationMap.put(button, l);
-            int gridy = closingMap.size() - 1;
-            System.out.println("Gridy: "+gridy);
-            GridBagConstraints gridBagClose = new GridBagConstraints();
-            gridBagClose.insets = new Insets(0, 0, 0, 0);
-            gridBagClose.gridx = 0;
-            gridBagClose.gridy = gridy;
-            gridBagClose.anchor = GridBagConstraints.NORTHWEST;
-            gridBagClose.fill = GridBagConstraints.BOTH;
-            userTagListPanel.add(close, gridBagClose);
-            
-            GridBagConstraints gridBagButton = new GridBagConstraints();
-            gridBagButton.insets = new Insets(0, 0, 0, 0);
-            gridBagButton.gridx = 1;
-            gridBagButton.gridy = gridy;
-            gridBagButton.anchor = GridBagConstraints.NORTHWEST;
-            gridBagButton.fill = GridBagConstraints.BOTH;
-            userTagListPanel.add(button, gridBagButton);
-        }
+                });
+                button.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        camera.setPosition(l.point);
+                        if (l.details != null && l.name != null && !l.details.isEmpty() && !l.name.isEmpty()) {
+                            SwingUtilities.invokeLater(new Runnable() {
+                                
+                                @Override
+                                public void run() {
+                                    updateDetails(l);
+                                    
+                                }
+                            });
+                            
+                        } else {
+                            SwingUtilities.invokeLater(new Runnable() {
+                                
+                                @Override
+                                public void run() {
+                                    requestDetails();
+                                    
+                                }
+                            });
+                            
+                        }
+                    }
+                });
+                closingMap.put(close, button);
+                buttonToLocationMap.put(button, l);
+                int gridy = closingMap.size() - 1;
+                System.out.println("Gridy: " + gridy);
+                GridBagConstraints gridBagClose = new GridBagConstraints();
+                gridBagClose.insets = new Insets(0, 0, 0, 0);
+                gridBagClose.gridx = 0;
+                gridBagClose.gridy = gridy;
+                gridBagClose.anchor = GridBagConstraints.WEST;
+                gridBagClose.fill = GridBagConstraints.HORIZONTAL;
+                userTagListPanel.add(close, gridBagClose);
+
+                GridBagConstraints gridBagButton = new GridBagConstraints();
+                gridBagButton.insets = new Insets(0, 0, 0, 0);
+                gridBagButton.gridx = GridBagConstraints.RELATIVE;
+                gridBagButton.gridy = gridy;
+                gridBagButton.anchor = GridBagConstraints.WEST;
+                gridBagButton.fill = GridBagConstraints.HORIZONTAL;
+                userTagListPanel.add(button, gridBagButton);
+                userTagListPanel.invalidate();
+            }
     }
 
+
     private class UISettingsListener implements SettingsListener {
+
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
             if (key.equals(SettingsContract.ANTIALIASING)) {
@@ -1547,7 +1613,7 @@ public class MainWindow extends JFrame {
 
                     @Override
                     public void run() {
-                    	updateUserLocations();
+                        updateUserLocations();
                     }
                 });
             }
@@ -1677,10 +1743,10 @@ public class MainWindow extends JFrame {
 
             super.mouseClicked(e);
         }
-    
+
         @Override
         public void mouseReleased(MouseEvent e) {
-            updateDetails();
+            requestDetails();
             super.mouseReleased(e);
         }
     }
@@ -1690,11 +1756,13 @@ public class MainWindow extends JFrame {
         @Override
         public void keyReleased(KeyEvent e) {
             int keyCode = e.getKeyCode();
-            if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_DOWN)
-                updateDetails();
+            if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_RIGHT
+                    || keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_DOWN) {
+                updateUserLocations();
+            }
             super.keyReleased(e);
         }
-        
+
         @Override
         public void keyPressed(KeyEvent e) {
             ScreenCoordinates lastPos = new ScreenCoordinates(0.5d, 0.5d);
@@ -1806,8 +1874,9 @@ public class MainWindow extends JFrame {
 
                 @Override
                 public void run() {
-                    //Glaube hier ist der Fehler drin
-                    //springt hier nochmal rein und löscht model und damit sind auch keine Ergebnisse da
+                    // Glaube hier ist der Fehler drin
+                    // springt hier nochmal rein und löscht model und damit sind auch keine
+                    // Ergebnisse da
                     System.err.println("UISearchResultListener");
                     DefaultListModel<Location> model = (DefaultListModel<Location>) list
                             .getModel();
@@ -1878,8 +1947,8 @@ public class MainWindow extends JFrame {
             int value = slider.getValue();
             // TODO System.out.println("Zoom Changed to: "+value);
             double perc = value / (double) slider.getMaximum() * 10;
-//            System.out.println("Set Distance to: "+(MIN_DIST + (MAX_DIST - MIN_DIST)
-//                    * (1 / (1 + perc * perc * perc * 10))));
+            // System.out.println("Set Distance to: "+(MIN_DIST + (MAX_DIST - MIN_DIST)
+            // * (1 / (1 + perc * perc * perc * 10))));
             camera.setDistance(MIN_DIST + (MAX_DIST - MIN_DIST)
                     * (1 / (1 + perc * perc * perc * 10)) - 1.0E-4);
 
@@ -1955,4 +2024,27 @@ public class MainWindow extends JFrame {
 
     }
 
+    private class DetailsListener implements SourceListener<GeoCoordinates, Location> {
+
+        volatile boolean enabled = true;
+
+
+        public void disable() {
+            enabled = false;
+        }
+
+        @Override
+        public void requestCompleted(GeoCoordinates key, final Location value) {
+            if (enabled) {
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        updateDetails(value);
+                    }
+                });
+            }
+        }
+
+    }
 }
