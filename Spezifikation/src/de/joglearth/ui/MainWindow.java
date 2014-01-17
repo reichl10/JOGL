@@ -10,7 +10,10 @@ import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -110,9 +113,6 @@ import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.ProgressListener;
 import de.joglearth.source.ProgressManager;
 import de.joglearth.util.Resource;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 
 /**
@@ -1435,10 +1435,21 @@ public class MainWindow extends JFrame {
         Antialiasing aa = Antialiasing.valueOf(setting);
         antialiasingComboBox.setSelectedItem(new NamedItem<Antialiasing>("", aa));
         setting = settings.getString(SettingsContract.TEXTURE_FILTER);
-        TextureFilter tFilter = TextureFilter.valueOf(setting);
+        TextureFilter tFilter = TextureFilter.BILINEAR;
+        try {
+            tFilter = TextureFilter.valueOf(setting);
+        } catch (NullPointerException ex) {
+            tFilter = TextureFilter.BILINEAR;
+        }
         texfilterComboBox.setSelectedItem(new NamedItem<TextureFilter>("", tFilter));
         setting = settings.getString(SettingsContract.LEVEL_OF_DETAIL);
-        LevelOfDetail lod = LevelOfDetail.valueOf(setting);
+        LevelOfDetail lod = LevelOfDetail.LOW;
+        try {
+            lod = LevelOfDetail.valueOf(setting);
+        } catch (Exception e) {
+            lod = LevelOfDetail.LOW;
+        }
+        
         lodComboBox.setSelectedItem(new NamedItem<LevelOfDetail>("", lod));
         Boolean heightProfBoolean = settings.getBoolean(SettingsContract.HEIGHT_MAP_ENABLED);
         heightMapCheckBox.setSelected(heightProfBoolean);
@@ -1450,7 +1461,9 @@ public class MainWindow extends JFrame {
         userTagListPanel.removeAll();
         Set<Location> uLocations = Settings.getInstance().getLocations(
                 SettingsContract.USER_LOCATIONS);
-        int numLoc = uLocations.size();
+        int numLoc = 0;
+        if (uLocations != null)
+            numLoc = uLocations.size();
         System.out.println("Rows: "+numLoc);
         int[] rowHeights = new int[numLoc];
         double[] rowWeights = new double[numLoc];
@@ -1464,7 +1477,7 @@ public class MainWindow extends JFrame {
         gbl_userTagListPanel.columnWeights = new double[]{0.0, 1.0};
         gbl_userTagListPanel.rowWeights = rowWeights;
         userTagListPanel.setLayout(gbl_userTagListPanel);
-        
+        if (uLocations != null)
         for (final Location l : uLocations) {
             System.out.println("Name: " + l.name);
             JButton button = new JButton(l.name);
