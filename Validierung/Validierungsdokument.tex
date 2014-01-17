@@ -143,7 +143,7 @@ Ziel der Validierung ist das Finden und Beheben aller Fehler, die bei Abschluss 
 Dabei wird auch überprüft, welcher Anteil des Codes durch Testfälle abgedeckt wird.\\
 
 Dazu werden zuerst die Testfälle aus dem Pflichtenheft abgearbeitet und alle dabei auftretenden Fehler in einem Bugtracker gesammelt.\\
-Währenddessen entstanden weitere Verbesserungsvorschläge, die in den Prozess einfließen.\\
+Währenddessen entstehen weitere Verbesserungsvorschläge, die in diese Phase einfließen.\\
 
 Es wurden verschiedene Testmethoden verwendet. So entstanden während der Implementierung bereits JUnit-Tests, die als Blackbox-Tests fungieren.\\
 Außerdem werden manuelle Tests durchgeführt unter anderem von ausgesuchten Testpersonen. Diese dienen dazu die Intuitivität des Bedienkonzepts und die Alltagstauglichkeit zu evaluieren.
@@ -155,23 +155,23 @@ Zum Zwecke der Optimierung erfolgt eine Performanzanalyse der kritischen Codeabs
 \chapter{Testfälle im Pflichtenheft}
 \section{Vor der Validierung}
 \subsection{Anwendungsstart}
-/T050/: Seitenleiste ist zu klein nach dem wieder einblenden.
+/T050/ Seitenleiste ist zu klein nach dem wieder einblenden.
 \subsection{Globusansicht}
-/T150/: Kacheln dauern sehr lange zum laden, da manche davon 404 zurückgaben und für Minuten versucht wurde diese zu laden.
+/T150/ Kacheln dauern sehr lange zum laden, da manche davon 404 zurückgaben und für Minuten versucht wurde diese zu laden.
 \subsection{Navigation auf dem Globus}
-/T230W/: Höhenprofil scheint nicht aktiviert zu werden
+/T230W/ Höhenprofil scheint nicht aktiviert zu werden
 \subsection{Overlays}
-Keine Overlays tauchen auf
-\subsection{Locale Suche}
+/T560/ + /T580/ Keine Overlays tauchen auf
+\subsection{Lokale Suche}
 /T570/ Ändern des Zoomlevels resultierte in OpenGL out of Memory Fehler
 \subsection{Globale Suche}
 /T650W/ Suchergebnisse tauchen nie auf
-\subsection{Punkte Markieren}
+\subsection{Punkte markieren}
 /T660W/ GL Out of Memory Fehler
 \subsection{Caching, Diverses}
-/T800/ erstmal keine Textur
-/T820/ Ordner Größe verringert sich nicht
-/T850/ Passiert nicht
+/T800/ erstmal keine Textur \\
+/T820/ Ordner Größe verringert sich nicht \\
+/T850/ Passiert nicht \\
 
 \section{Nach der Validierung}
 
@@ -202,7 +202,7 @@ Nummer & Titel & Beschreibung \\
 \hline
 \#8 & Kugel zeigt bei bestimmtem Zoomlevel Artefakte & Zoomlevel 3 oder 4 führt dazu, dass am 60. Breitengrad Artefakte durch die Längengradreduktion des 'SphereTessellators' auftreten \\
 \hline
-\#9,\#10 & Layout der Oberfläche wird nicht korrekt angezeigt & Bei gewissen Fenstermanagern wird die Oberfläche nicht korrekt angezeigt; es wird ein grau/blauer Balken angezeigt der stört. Deshalb wird ein Stück der Oberfläche abgeschnitten \\
+\#9,\#10 & Layout der Oberfläche wird nicht korrekt angezeigt & Bei gewissen Fenstermanagern wird die Oberfläche nicht korrekt angezeigt; es wird ein grau/blauer Balken angezeigt der optisch irritiert. Deshalb wird ein Stück der Oberfläche abgeschnitten \\
 \hline
 \#13 & Implementierung der Maßstabsanzeige zeigt Schwächen & \\
 \hline
@@ -223,8 +223,6 @@ Nummer & Titel & Beschreibung \\
 \#23 & Knopf zum Löschen der Benutzermarkierungen fehlt & Löschen der Benutzermarkierungen noch nicht implementiert \\
 \hline
 \#24 & Markierung für Bildmittelpunkt nicht am korrekten Platz angezeigt & Overlays wurden an falsche Stellen gezeichnet \\
-\hline
-\#26 & Nach Auswahl des Kartentyps bewirkt Pfeil auf und Pfeil ab eine erneute Änderung des Typs & Statt die Karte zu bewegen wird durch die Kartentypen navigiert \\
 \hline
 \#27 & Exception im MainWindow bei initialem Programmstart & Ausgelöst durch fehlende Collection 'userLocations' \\
 \hline
@@ -257,6 +255,9 @@ Nummer & Titel & Beschreibung \\
 \#58 & Lokale Suche funktioniert nicht & Ergebnisse erscheinen kurz im Auswahlfenster, verschwinden dann aber wieder \\
 \hline
 \end{longtable}
+
+\newpage
+
 \section{Gelöste Bugs}
 Diese Liste enthält alle gelösten Bugs.
 \begin{longtable}{|c|p{5.2cm}|p{8.2cm}|}
@@ -264,7 +265,7 @@ Diese Liste enthält alle gelösten Bugs.
 Nummer & Titel & Anmerkung \\
 \hline
 \hline
-\#2 & Zu viele Nominatim-Anfragen & Es wird für jeden Pixel eine Anfrage gestellt \\
+\#2 & Zu viele Nominatim-Anfragen &  \\
 \hline
 \#3 & Settings werden nicht korrekt in das UI geladen & \\
 \hline
@@ -280,7 +281,7 @@ Nummer & Titel & Anmerkung \\
 \hline
 \#30 & Aus- und Einblenden der Seitenleiste zerstört das Layout der Oberfläche & \\
 \hline
-\#34 & Liste der Auswahlmöglichkeiten verschiebt Labels bei langen Suchergebnissen & Die Labels 'In der Nähe', 'Weltweit' und der Suchknopf wurden verschoben \\
+\#34 & Liste der Auswahlmöglichkeiten verschiebt Labels bei langen Suchergebnissen & \\
 \hline
 \#44 & NumberFormatException bei 'GeoCoordinates' wird nicht gefangen & \\
 \hline
@@ -307,7 +308,9 @@ Nummer & Titel & Beschreibung \\
 \hline
 \#25 & Die Einheit der Cachegrößen sollte angezeigt werden & Momentan sind keine Einheiten angegeben \\
 \hline
-\#26 & Hineinzoomen beim Sonnensystemmodus sollte in die Globusansicht wechseln & Durch die niedrige Auflösung der mitgelieferten Textur sollte bei hohem Zoomlevel in die Globusansicht gewechselt werden \\
+\#26 & Nach Auswahl des Kartentyps bewirkt Pfeil auf und Pfeil ab eine erneute Änderung des Typs & Statt die Karte zu bewegen wird durch die Kartentypen navigiert \\
+\hline
+\#35 & Hineinzoomen beim Sonnensystemmodus sollte in die Globusansicht wechseln & Durch die niedrige Auflösung der mitgelieferten Textur sollte bei hohem Zoomlevel in die Globusansicht gewechselt werden \\
 \hline
 \#36 & Fehlende OpenGL-Unterstützung sollte eine Meldung geben & Falls ein System OpenGl 2.0 nicht unterstützt, sollte eine Meldung erscheinen \\
 \hline
@@ -345,8 +348,6 @@ Nummer & Titel & Anmerkung \\
 \#40 & Anzeige-Tab sollte eventuell Ansichts-Tab heißen & \\
 \hline
 \#49 & Schrittgröße im Spinner für Cachegröße & \\
-\hline
-\#53 & Globus wird niedriger Detailstufe zu einer Ebene & Es wird versucht aus 4 Punkten eine Kugel zu zeichnen \\
 \hline
 \end{longtable}
 
