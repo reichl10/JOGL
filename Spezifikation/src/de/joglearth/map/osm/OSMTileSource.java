@@ -14,6 +14,7 @@ import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
 import de.joglearth.util.HTTP;
+import de.joglearth.util.Resource;
 
 
 /**
@@ -70,25 +71,28 @@ public class OSMTileSource implements Source<TileName, byte[]> {
     @Override
     public SourceResponse<byte[]> requestObject(final TileName k,
             final SourceListener<TileName, byte[]> sender) {
-        if (!(k.tile instanceof OSMTile) || !(k.configuration instanceof OSMMapConfiguration)) {
-            return new SourceResponse<byte[]>(SourceResponseType.MISSING, null);
-        }
+        if (k.configuration instanceof OSMMapConfiguration) {
+            final OSMMapConfiguration configuration = (OSMMapConfiguration) k.configuration;
+            if (k.tile instanceof OSMTile) {
+                ProgressManager.getInstance().requestArrived();
+                executor.execute(new Runnable() {
         
-        ProgressManager.getInstance().requestArrived();
-
-        executor.execute(new Runnable() {
-
-            @Override
-            public void run() {
-                byte[] response = getOSMTile((OSMTile) k.tile,
-                        ((OSMMapConfiguration) k.configuration).getMapType());
-
-                sender.requestCompleted(k, response);
-                ProgressManager.getInstance().requestCompleted();
+                    @Override
+                    public void run() {
+                        byte[] response = getOSMTile((OSMTile) k.tile, configuration.getMapType());        
+                        sender.requestCompleted(k, response);
+                        ProgressManager.getInstance().requestCompleted();
+                    }
+                });
+                return new SourceResponse<byte[]>(SourceResponseType.ASYNCHRONOUS, null);
+                
+            } else if (k.tile instanceof OSMPole) {
+                return new SourceResponse<byte[]>(SourceResponseType.SYNCHRONOUS, 
+                        Resource.loadBinary("textures/osmPole." 
+                                + getImageFormatSuffix(configuration.getMapType())));
             }
-        });
-
-        return new SourceResponse<byte[]>(SourceResponseType.ASYNCHRONOUS, null);
+        }
+        return new SourceResponse<byte[]>(SourceResponseType.MISSING, null);
     }
 
     private byte[] getOSMTile(OSMTile tile, OSMMapType mapType) {

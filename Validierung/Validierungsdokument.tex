@@ -138,34 +138,48 @@ Version: 1.0
 \tableofcontents
 
 \chapter{Einleitung}
+Dieses Dokument stellt den Ablauf der Validierung von \JoglEarth vor.
+Ziel der Validierung ist das Finden und Beheben aller Fehler, die bei Abschluss der Implementierungsphase noch vorhanden waren.
+Dabei wird auch überprüft, welcher Anteil des Codes durch Testfälle abgedeckt wird.\\
+
+Dazu werden zuerst die Testfälle aus dem Pflichtenheft abgearbeitet und alle dabei auftretenden Fehler in einem Bugtracker gesammelt.\\
+Währenddessen entstehen weitere Verbesserungsvorschläge, die in diese Phase einfließen.\\
+
+Es wurden verschiedene Testmethoden verwendet. So entstanden während der Implementierung bereits JUnit-Tests, die als Blackbox-Tests fungieren.\\
+Außerdem werden manuelle Tests durchgeführt unter anderem von ausgesuchten Testpersonen. Diese dienen dazu die Intuitivität des Bedienkonzepts und die Alltagstauglichkeit zu evaluieren.
+
+Um die Qualität von \JoglEarth auch unter Extrembedingungen zu garantieren, wird es diversen Skalierungs- und Belastungstests unterzogen.\\
+
+Zum Zwecke der Optimierung erfolgt eine Performanzanalyse der kritischen Codeabschnitte mit Hilfe eines Profilers.
 
 \chapter{Testfälle im Pflichtenheft}
 \section{Vor der Validierung}
 \subsection{Anwendungsstart}
-/T050/: Seitenleiste ist zu klein nach dem wieder einblenden.
+/T050/ Seitenleiste ist zu klein nach dem wieder einblenden.
 \subsection{Globusansicht}
-/T150/: Kacheln dauern sehr lange zum laden, da welche davon 404 zurückhaben und für Minuten versucht wurde diese zu laden.
+/T150/ Kacheln dauern sehr lange zum laden, da manche davon 404 zurückgaben und für Minuten versucht wurde diese zu laden.
 \subsection{Navigation auf dem Globus}
-/T230W/: Höhenprofil scheint nicht aktiviert zu werden
+/T230W/ Höhenprofil scheint nicht aktiviert zu werden
 \subsection{Overlays}
-Keine Overlays tauchen auf
-\subsection{Locale Suche}
+/T560/ + /T580/ Keine Overlays tauchen auf
+\subsection{Lokale Suche}
 /T570/ Ändern des Zoomlevels resultierte in OpenGL out of Memory Fehler
 \subsection{Globale Suche}
 /T650W/ Suchergebnisse tauchen nie auf
-\subsection{Punkte Markieren}
+\subsection{Punkte markieren}
 /T660W/ GL Out of Memory Fehler
 \subsection{Caching, Diverses}
-/T800/ erstmal keine Textur
-/T820/ Ordner Größe verringert sich nicht
-/T850/ Passiert nicht
+/T800/ erstmal keine Textur \\
+/T820/ Ordner Größe verringert sich nicht \\
+/T850/ Passiert nicht \\
 
 \section{Nach der Validierung}
 
 \chapter{Bugs}
+Die Nummerierung der Bugs und Verbesserungsvorschläge in den Tabellen entspricht der im verwendeten Bucktracker, GitHub Issues, zugewiesenen ID.
+Titel und Beschreibung können zu denen in Github geringfügig abweichen.\\
 \section{Gefundene Bugs}
-Die Nummerierung wurde aus dem Bugtracker von GitHub entnommen.
-Nicht in der Liste verzeichnet sind Verbesserungen und Duplikate.
+Hier sind alle eingetragenen Bugs mit Titel und Beschreibung verzeichnet.
 \begin{longtable}{|c|p{5.2cm}|p{8.2cm}|}
 \hline
 Nummer & Titel & Beschreibung \\
@@ -178,7 +192,7 @@ Nummer & Titel & Beschreibung \\
 \#3 & Settings werden nicht korrekt in das UI geladen & \\
 \hline
 \#4 & Detaillevel-Einstellung stimmt nicht mit dem UI überein & Es wird 'Niedrig' angezeigt
- bwohl 'Mittel' eingestellt ist \\
+ obwohl 'Mittel' eingestellt ist \\
 \hline
 \#5 & Letzter Frame wird nicht angestoßen & Bei der Umstellung zu Globus oder Einblendung von Overlays wird der Rendervorgang nicht angestoßen\\
 \hline
@@ -188,7 +202,7 @@ Nummer & Titel & Beschreibung \\
 \hline
 \#8 & Kugel zeigt bei bestimmtem Zoomlevel Artefakte & Zoomlevel 3 oder 4 führt dazu, dass am 60. Breitengrad Artefakte durch die Längengradreduktion des 'SphereTessellators' auftreten \\
 \hline
-\#9,\#10 & Layout der Oberfläche wird nicht korrekt angezeigt & Bei gewissen Fenstermanagern wird die Oberfläche nicht korrekt angezeigt; es wird ein grau/blauer Balken angezeigt der stört. Deshalb wird ein Stück der Oberfläche abgeschnitten \\
+\#9,\#10 & Layout der Oberfläche wird nicht korrekt angezeigt & Bei gewissen Fenstermanagern wird die Oberfläche nicht korrekt angezeigt; es wird ein grau/blauer Balken angezeigt der optisch irritiert. Deshalb wird ein Stück der Oberfläche abgeschnitten \\
 \hline
 \#13 & Implementierung der Maßstabsanzeige zeigt Schwächen & \\
 \hline
@@ -209,8 +223,6 @@ Nummer & Titel & Beschreibung \\
 \#23 & Knopf zum Löschen der Benutzermarkierungen fehlt & Löschen der Benutzermarkierungen noch nicht implementiert \\
 \hline
 \#24 & Markierung für Bildmittelpunkt nicht am korrekten Platz angezeigt & Overlays wurden an falsche Stellen gezeichnet \\
-\hline
-\#26 & Nach Auswahl des Kartentyps bewirkt Pfeil auf und Pfeil ab eine erneute Änderung des Typs & Statt die Karte zu bewegen wird durch die Kartentypen navigiert \\
 \hline
 \#27 & Exception im MainWindow bei initialem Programmstart & Ausgelöst durch fehlende Collection 'userLocations' \\
 \hline
@@ -243,6 +255,43 @@ Nummer & Titel & Beschreibung \\
 \#58 & Lokale Suche funktioniert nicht & Ergebnisse erscheinen kurz im Auswahlfenster, verschwinden dann aber wieder \\
 \hline
 \end{longtable}
+
+\newpage
+
+\section{Gelöste Bugs}
+Diese Liste enthält alle gelösten Bugs.
+\begin{longtable}{|c|p{5.2cm}|p{8.2cm}|}
+\hline
+Nummer & Titel & Anmerkung \\
+\hline
+\hline
+\#2 & Zu viele Nominatim-Anfragen &  \\
+\hline
+\#3 & Settings werden nicht korrekt in das UI geladen & \\
+\hline
+\#4 & Detaillevel-Einstellung stimmt nicht mit dem UI überein &  \\
+\hline
+\#17 & Sprachänderung inkonsistent & \\
+\hline
+\#21 & Noch nicht implementierte Tastatureingaben & \\
+\hline
+\#27 & Exception im MainWindow bei initialem Programmstart & \\
+\hline
+\#28 & Exception bei Nominatimanfragen & \\
+\hline
+\#30 & Aus- und Einblenden der Seitenleiste zerstört das Layout der Oberfläche & \\
+\hline
+\#34 & Liste der Auswahlmöglichkeiten verschiebt Labels bei langen Suchergebnissen & \\
+\hline
+\#44 & NumberFormatException bei 'GeoCoordinates' wird nicht gefangen & \\
+\hline
+\#47 & 'ProgressManager' wird nach vollständigem Laden nicht zurückgesetzt & \\
+\hline 
+\#50 & Overpass-Anfragen dauern zu lange & \\
+\hline
+\#58 & Lokale Suche funktioniert nicht & \\
+\hline
+\end{longtable}
 \section{Verbesserungsvorschläge}
 \begin{longtable}{|c|p{5.2cm}|p{8.2cm}|}
 \hline
@@ -257,9 +306,11 @@ Nummer & Titel & Beschreibung \\
 \hline
 \#15 & Mond im Sonnensystemmodus entzerren & Er scheint etwas in der Form verunstaltet zu sein \\
 \hline
-\#25 & Die Einheit der Cachegrößen sollte angezeigt werden & Momentan sind keine Einheiten angegeben \\  
+\#25 & Die Einheit der Cachegrößen sollte angezeigt werden & Momentan sind keine Einheiten angegeben \\
 \hline
-\#26 & Hineinzoomen beim Sonnensystemmodus sollte in die Globusansicht wechseln & Durch die niedrige Auflösung der mitgelieferten Textur sollte bei hohem Zoomlevel in die Globusansicht gewechselt werden \\
+\#26 & Nach Auswahl des Kartentyps bewirkt Pfeil auf und Pfeil ab eine erneute Änderung des Typs & Statt die Karte zu bewegen wird durch die Kartentypen navigiert \\
+\hline
+\#35 & Hineinzoomen beim Sonnensystemmodus sollte in die Globusansicht wechseln & Durch die niedrige Auflösung der mitgelieferten Textur sollte bei hohem Zoomlevel in die Globusansicht gewechselt werden \\
 \hline
 \#36 & Fehlende OpenGL-Unterstützung sollte eine Meldung geben & Falls ein System OpenGl 2.0 nicht unterstützt, sollte eine Meldung erscheinen \\
 \hline
@@ -282,50 +333,82 @@ Sollte in Zehnerschritten erfolgen \\
 \hline
 \end{longtable}
 
-\section{Gelöste Bugs}
+
+\section{Abgeschlossene Verbesserungen}
+Nicht umgesetzte Verbesserungen tragen einen entsprechenden Hinweis.
 \begin{longtable}{|c|p{5.2cm}|p{8.2cm}|}
-Nummer & Titel & Kommentar
 \hline
-\#2 & Zu viele Nominatim-Anfragen &
+Nummer & Titel & Anmerkung \\
 \hline
-\#3 & Settings werden nicht korrekt in die UI geladen &
 \hline
-\#4 & Detaillevel-Einstellung stimmt nicht mit der UI überein &
+\#15 & Mond im Sonnensystemmodus sieht verzerrt aus & Wird nicht umgesetzt \\
 \hline
-\#15 & Mond im Sonnensystemmodus sieht verzerrt aus & Wird nicht gefixt
+\#25 & Die Einheit der Cachegrößen sollte angezeigt werden & \\ 
 \hline
-\#17 & Sprachänderung klappt nicht immer. &
+\#40 & Anzeige-Tab sollte eventuell Ansichts-Tab heißen & \\
 \hline
-\#21 & Noch nicht implementierte Tastatureingaben &
+\#49 & Schrittgröße im Spinner für Cachegröße & \\
 \hline
-\#25 & Einheit bei Cachegrößen in der GUI fehlt &
-\hline
-\#27 & Exception im MainWindow beim Programmstart &
-\hline
-\#28 & Anfragen bei Nominatim geben bei der zweiten Suche Null zurück (NominatimSource Zeile 110) &
-\hline
-\#30 & Aus- und Einblenden der Seitenleiste zerschießt das Layout &
-\hline
-\#34 & Bei der Auswahl von langen Suchergebnissen verschiebt sich die Auswahlmöglichkeit "In der Nähe" und "Weltweit" &
-\#40 & Anzeige-Tab sollte eventuell Ansicht-Tabe heisen (wie im Pflichtenheft Text?) &
-\hline
-\#44 & Sollte Numberformat Exception abfangen &
-\hline
-\#47 & ProgressManager wird nach dem vollständigen Laden nicht zurückgesetzt &
-\hline
-\#49 & Step bei Cachegröße sollte 10 MB sein nicht 1 MB &
-\hline 
-\#50 & Overpassanfragen dauern zu lange. &
-\hline
-\#53 & Globus wird bei LevelOfDetail = LOW und rumgeklicke zu einer Ebene &
-\hline
-\#58 & Lokale Suche funktioniert nicht (Ergebnisse erscheinen kurz im Auswahlfenster, verschwinden dann aber wieder) &
 \end{longtable}
 
 \chapter{Code Coverage}
 \section{Pflichtenheft-Tests}
 \section{JUnit-Test}
+\subsection{Line Coverage}
+\begin{longtable}{|l|p{4,4cm}|p{4,4cm}|p{4,5cm}|}
+\hline
+Abdeckung & Abgedeckte Zeilen & Nicht abgedeckte Zeilen & Gesamt Zeilen \\
+\hline
+\hline
+32,2\% & 2,127 & 4,484 & 6,611 \\
+\hline
+\end{longtable}
+\subsection{Branch Coverage}
+\begin{longtable}{|l|p{4,4cm}|p{4,4cm}|p{4,5cm}|}
+\hline
+Abdeckung & Abgedeckte Verzweigungen & Nicht abgedeckte Verzweigungen & Gesamt Verzweigungen \\
+\hline
+\hline
+26,1\% & 559 & 1,579 & 2,138 \\
+\hline
+\end{longtable}
+\subsection{Class Coverage}
+\begin{longtable}{|l|p{4,4cm}|p{4,4cm}|p{4,5cm}|}
+\hline
+Abdeckung & Abgedeckte Klassen & Nicht abgedeckte Klassen & Gesamt Klassen \\
+\hline
+\hline
+41,2\% & 105 & 150 & 255 \\
+\hline
+\end{longtable}
 \section{Test per Hand}
+\subsection{Line Coverage}
+\begin{longtable}{|l|p{4,4cm}|p{4,4cm}|p{4,5cm}|}
+\hline
+Abdeckung & Abgedeckte Zeilen & Nicht abgedeckte Zeilen & Gesamt Zeilen \\
+\hline
+\hline
+63,6\% & 4,210 & 2,411 & 6,621 \\
+\hline
+\end{longtable}
+\subsection{Branch Coverage}
+\begin{longtable}{|l|p{4,4cm}|p{4,4cm}|p{4,5cm}|}
+\hline
+Abdeckung & Abgedeckte Verzweigungen & Nicht abgedeckte Verzweigungen & Gesamt Verzweigungen \\
+\hline
+\hline
+48,9\% & 1,049 & 1,095 & 2,144 \\
+\hline
+\end{longtable}
+\subsection{Class Coverage}
+\begin{longtable}{|l|p{4,4cm}|p{4,4cm}|p{4,5cm}|}
+\hline
+Abdeckung & Abgedeckte Klassen & Nicht abgedeckte Klassen & Gesamt Klassen \\
+\hline
+\hline
+63,1\% & 161 & 94 & 255 \\
+\hline
+\end{longtable}
 \chapter{Skalierungs- und Belastungstest}
 \chapter{Profiling}
 \end{document}

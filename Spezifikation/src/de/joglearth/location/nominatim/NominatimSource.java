@@ -276,7 +276,6 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
             }
         }
 
-        // TODO LocationType für Suchergebnisse?!
         Location current = new Location(point, type, details, name[0]);
 
         location.add(current);
@@ -295,7 +294,6 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
         GeoCoordinates point = new GeoCoordinates(Math.toRadians(longitude), Math.toRadians(latitude));
 
-        // TODO LocationType für Suchergebnisse?!
         Location current = new Location(point, type, details, name[0]);
 
         location.add(current);

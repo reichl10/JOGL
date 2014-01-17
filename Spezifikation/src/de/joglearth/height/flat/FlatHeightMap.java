@@ -29,4 +29,14 @@ public class FlatHeightMap implements HeightMap {
     @Override
     public void removeSurfaceListener(SurfaceListener l) { }
 
+    @Override
+    public int hashCode() {
+        return "FlatHeightMap".hashCode();
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && this.getClass() == obj.getClass();
+    }
+    
 }

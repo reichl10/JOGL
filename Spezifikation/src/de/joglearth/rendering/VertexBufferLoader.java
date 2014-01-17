@@ -22,7 +22,6 @@ public class VertexBufferLoader implements Source<ProjectedTile, VertexBuffer> {
 
     private Tessellator tess;
     private GLContext gl;
-    private int subdivisions;
     private HeightMap heightMap = FlatHeightMap.getInstance();
     
 
@@ -55,27 +54,11 @@ public class VertexBufferLoader implements Source<ProjectedTile, VertexBuffer> {
         return tess;
     }
 
-    /**
-     * Sets the level of detail of the {@link de.joglearth.rendering.Tessellator}.
-     * 
-     * @param sub The new level of detail
-     */
-    public synchronized void setTileSubdivisions(int sub) {
-        if (subdivisions < 0) {
-            throw new IllegalArgumentException();
-        }
-
-        subdivisions = sub;
-    }
-
-    public int getTileSubdivisions() {
-        return subdivisions;
-    }
 
     private VertexBuffer createVBO(ProjectedTile key) {
         Mesh mesh;
         synchronized (this) {
-            mesh = tess.tessellateTile(key, subdivisions, heightMap);
+            mesh = tess.tessellateTile(key, heightMap);
         }
 
         return gl.loadMesh(mesh);

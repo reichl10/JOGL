@@ -94,7 +94,7 @@ public class OSMTileLayout implements TileLayout {
         
         if (coords.getLatitude() >= OSMTile.MAX_LATITUDE) {
             return new OSMPole(zoomLevel, OSMPole.NORTH);
-        } else if (coords.getLatitude() < OSMTile.MIN_LATITUDE) {
+        } else if (coords.getLatitude() <= OSMTile.MIN_LATITUDE) {
             return new OSMPole(zoomLevel, OSMPole.SOUTH);
         } else {
            
@@ -154,7 +154,7 @@ public class OSMTileLayout implements TileLayout {
             int slices = 1 << zoomLevel;
             GridPoint[] corners = new GridPoint[slices];
             for (int i=0; i<slices; ++i) {
-                corners[i] = new GridPoint(i, pole == OSMPole.NORTH ? -1 : slices-1);
+                corners[i] = new GridPoint(i, pole == OSMPole.NORTH ? maxLat : minLat);
             }
             return corners;
             

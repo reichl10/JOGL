@@ -17,7 +17,8 @@ import static javax.media.opengl.GL.GL_TRIANGLES;
  */
 public class SphereTessellator implements Tessellator {
 
-    private static Vector3 getSurfaceVector(double lon, double lat, double latStep, HeightMap heightMap) {
+    private static Vector3 getSurfaceVector(double lon, double lat, double latStep,
+            HeightMap heightMap) {
         // The earth axis is equal to the y axis, lon=0, lat=0 has the coordinates (0, 0, 1).
         Vector3 vec = new Vector3(cos(lat) * sin(lon), sin(lat), cos(lat) * cos(lon));
         return vec.times(1 + heightMap.getHeight(new GeoCoordinates(lon, lat), latStep));
@@ -25,11 +26,11 @@ public class SphereTessellator implements Tessellator {
 
     private static void writeSingleVertex(float[] vertices, int vIndex, double lon, double lat,
             double lonStep, double latStep, HeightMap heightMap, double textureX, double textureY) {
-        Vector3 vertex = getSurfaceVector(lon, lat, latStep, heightMap), 
-                east = getSurfaceVector(lon + lonStep, lat, latStep, heightMap), 
-                north = getSurfaceVector(lon, lat + latStep, latStep, heightMap), 
-                west = getSurfaceVector(lon - lonStep, lat, latStep, heightMap), 
-                south = getSurfaceVector(lon, lat - latStep, latStep, heightMap);
+        Vector3 vertex = getSurfaceVector(lon, lat, latStep, heightMap), east = getSurfaceVector(
+                lon + lonStep, lat, latStep, heightMap), north = getSurfaceVector(lon, lat
+                + latStep, latStep, heightMap), west = getSurfaceVector(lon - lonStep, lat,
+                latStep, heightMap), south = getSurfaceVector(lon, lat - latStep, latStep,
+                heightMap);
 
         Vector3 normal = east.minus(west).crossProduct(south.minus(north)).normalized();
         writeVertex(vertices, vIndex, vertex.x, vertex.y, vertex.z);
@@ -78,14 +79,14 @@ public class SphereTessellator implements Tessellator {
 
     private static void writeIndicesLine(int[] indices, int iIndex, int vIndex, int width,
             int direction) {
-        
+
         /*
          * To always draw front faces (i.e. counter-clockwise indices), the order of vertices is
          * dependent on the "vertex line direction", which is up (+1) for the northern hemisphere
          * and down (-1) for the southern one.
          */
         int shiftLeft = direction > 0 ? 0 : 1, shiftRight = 1 - shiftLeft;
-        
+
         for (int i = 0; i < width - 1; ++i) {
             indices[iIndex + 0] = vIndex - width + i + shiftRight;
             indices[iIndex + 1] = vIndex - width + i + shiftLeft;
@@ -97,27 +98,15 @@ public class SphereTessellator implements Tessellator {
         }
     }
 
-    private int getMaxShrinkCount(int quads, double largeLonStep) {
-        // Find out how often "quads" can be divided by 2.        
-        int max = 0;
-        double s = quads;
-        for (;;) {
-            s /= 2;
-            if (s % 1 == 0) {
-                ++max;
-            } else {
-                break;
-            }
+    private int getMaxShrinkCount(int quads, int minQuads) {
+        // Find out how often "quads" can be divided by 2.
+        int maxShrinkCount = 0;
+        while (quads % 2 == 0 && quads / 2 >= minQuads) {
+            ++maxShrinkCount;
+            quads /= 2;
         }
 
-        int part = (int) round(2*PI / largeLonStep);
-        if (part < 2) {
-            return max - 2;
-        } else if (part < 4) {
-            return max - 1;
-        } else {
-            return max;
-        }
+        return maxShrinkCount;
     }
 
     private static int getShrinkCount(double lat, int maxShrinkCount) {
@@ -125,43 +114,49 @@ public class SphereTessellator implements Tessellator {
             return maxShrinkCount;
         } else {
             int exponent = (int) (log(1 / cos(lat)) / log(2));
-            return min(exponent, maxShrinkCount);
+            return max(0, min(exponent, maxShrinkCount));
         }
     }
 
     @Override
-    public Mesh tessellateTile(ProjectedTile projected, int subdivisions, HeightMap heightMap) {
+    public Mesh tessellateTile(ProjectedTile projected, HeightMap heightMap) {
         Tile tile = projected.tile;
         MapProjection projection = projected.projection;
-        int nRows = subdivisions + 1, direction = tile.getLatitudeFrom() >= 0 ? +1 : -1;
 
-        double latStart = direction > 0 ? tile.getLatitudeFrom() : tile.getLatitudeTo(), 
-        	   latEnd = direction <= 0 ? tile.getLatitudeFrom() : tile.getLatitudeTo(),
-        			   lat = latStart, lon = tile
+        int direction = tile.getLatitudeFrom() >= 0 ? +1 : -1;
+
+        double latStart = direction > 0 ? tile.getLatitudeFrom() : tile.getLatitudeTo(), latEnd = direction <= 0 ? tile
+                .getLatitudeFrom() : tile.getLatitudeTo(), lat = latStart, lon = tile
                 .getLongitudeFrom();
-
-        boolean nearEquator = abs(tile.getLatitudeFrom() + tile.getLatitudeTo()) < PI/2;
 
         double largeLonStep = tile.getLongitudeTo() - tile.getLongitudeFrom();
         if (largeLonStep <= 0) {
-            largeLonStep += 2*PI;//2 * PI / pow(2, tile.getDetailLevel()), 
+            largeLonStep += 2 * PI;// 2 * PI / pow(2, tile.getDetailLevel()),
         }
-                
-        int maxShrinkCount = nearEquator ? 0 : getMaxShrinkCount(subdivisions + 1, largeLonStep),
-            shrinkCount = getShrinkCount(lat, maxShrinkCount), 
-            rowWidth = max(2, (subdivisions + 1) / (int) pow(2, shrinkCount)) + 1;
+
+        int horizontalTileCount =  (int) round((2*PI) / largeLonStep);
+        int horizontalQuads = projected.equatorSubdivisions / horizontalTileCount,
+            minHorizontalQuads = projected.minEquatorSubdivisions / horizontalTileCount;
+        int subdivisions = horizontalQuads - 1;
+        int nRows = (int) ceil(abs(latEnd - latStart) / (2*PI) * projected.equatorSubdivisions) + 1;
         
-        double lonStep = largeLonStep / (rowWidth - 1), 
-               latStep = direction * (tile.getLatitudeTo() - tile.getLatitudeFrom()) / nRows;
+        boolean bothHemispheres = tile.getLatitudeFrom() < 0 && tile.getLatitudeTo() > 0;
+
+        int maxShrinkCount = bothHemispheres ? 0 : getMaxShrinkCount(horizontalQuads, minHorizontalQuads), shrinkCount = getShrinkCount(
+                lat, maxShrinkCount), rowWidth = max(2,
+                (subdivisions + 1) / (int) pow(2, shrinkCount)) + 1;
+
+        double lonStep = largeLonStep / (rowWidth - 1), latStep = direction
+                * (tile.getLatitudeTo() - tile.getLatitudeFrom()) / nRows;
 
         float[] vertices = new float[(nRows + 1) * rowWidth * VERTEX_SIZE * 2];
         int[] indices = new int[nRows * (rowWidth - 1) * 6];
         int vIndex = 0, iIndex = 0;
 
-        double textureY = direction > 0 ? 0 : 1;                //bugfix: vorzeichenfehler
-               //textureStep = (double) direction / nRows;       //bugfix: vorzeichenfehler
-        double projectedLatStart = projection.projectLatitude(latStart),
-        	   projectedLatRange = projection.projectLatitude(latEnd) - projectedLatStart;
+        double textureY = direction > 0 ? 0 : 1; // bugfix: vorzeichenfehler
+        // textureStep = (double) direction / nRows; //bugfix: vorzeichenfehler
+        double projectedLatStart = projection.projectLatitude(latStart), projectedLatRange = projection
+                .projectLatitude(latEnd) - projectedLatStart;
 
         writeVertexLine(vertices, 0, lon, lat, lonStep, latStep, heightMap, textureY, rowWidth);
         vIndex += rowWidth;
@@ -170,11 +165,11 @@ public class SphereTessellator implements Tessellator {
             lat += latStep;
             textureY = (projection.projectLatitude(lat) - projectedLatStart) / projectedLatRange;
             if (direction < 0) {
-            	textureY = 1-textureY;
+                textureY = 1 - textureY;
             }
-            
+
             int newRowWidth = max(2,
-                    (subdivisions + 1) / (int) pow(2, getShrinkCount(lat, maxShrinkCount))) + 1;
+                    (subdivisions + 1) / (1 << getShrinkCount(lat, maxShrinkCount))) + 1;
             if (newRowWidth < rowWidth) {
                 int groupSize = (rowWidth - 1) / (newRowWidth - 1);
                 writeInterpolatedVertexLine(vertices, vIndex * VERTEX_SIZE, lon, lat, lonStep,
@@ -204,6 +199,11 @@ public class SphereTessellator implements Tessellator {
     @Override
     public boolean equals(Object other) {
         return other != null && other.getClass() == this.getClass();
+    }
+
+    @Override
+    public int hashCode() {
+        return "SphereTessellator".hashCode();
     }
 
 }
