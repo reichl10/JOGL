@@ -269,7 +269,6 @@ public class MainWindow extends JFrame {
                                 RowSpec.decode("default:grow"), })); //$NON-NLS-1$
 
         JPanel sideBar = new JPanel();
-        getContentPane().add(sideBar, "1, 1, left, fill"); //$NON-NLS-1$
         sideBar.setLayout(new FormLayout(new ColumnSpec[] { ColumnSpec
                 .decode("default:grow"), }, //$NON-NLS-1$
                 new RowSpec[] {
@@ -278,6 +277,7 @@ public class MainWindow extends JFrame {
                         FormFactory.RELATED_GAP_ROWSPEC,
                         RowSpec.decode("80dlu"), //$NON-NLS-1$
                         FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
+        getContentPane().add(sideBar, "1, 1, fill, fill"); //$NON-NLS-1$
 
         sideBarTabs = new JTabbedPane(JTabbedPane.TOP);
         sideBar.add(sideBarTabs, "1, 2, fill, fill"); //$NON-NLS-1$
