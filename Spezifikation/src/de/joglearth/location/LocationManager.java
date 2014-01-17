@@ -96,6 +96,7 @@ public class LocationManager {
         if (activeLocationTypes.contains(LocationType.USER_TAG)) {
             Set<Location> userLocations = Settings.getInstance().getLocations(
                     SettingsContract.USER_LOCATIONS);
+            if (userLocations != null)
             for (Location location : userLocations) {
                 if (activeLocationTypes.contains(location.type)) {
                     locations.add(location);
