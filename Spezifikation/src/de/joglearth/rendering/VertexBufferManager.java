@@ -86,18 +86,6 @@ public class VertexBufferManager implements Source<ProjectedTile, VertexBuffer> 
     }
 
     /**
-     * Sets the level of detail of the {@link de.joglearth.rendering.Tessellator}.
-     * 
-     * @param sub The new <code>level of detail</code>
-     */
-    public void setTileSubdivisions(int sub) {
-        if (sub != source.getTileSubdivisions()) {
-            source.setTileSubdivisions(sub);
-            dist.dropAll();
-        }
-    }
-
-    /**
      * Enables or disables the {@link de.joglearth.surface.HeightMap}.
      * 
      * @param enable Whether to enable or disable the <code>HeightMap</code>

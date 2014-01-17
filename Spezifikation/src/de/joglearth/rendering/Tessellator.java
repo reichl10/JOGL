@@ -24,6 +24,10 @@ public interface Tessellator {
      * @return A <code>Mesh</code> with (subdivisions + 1)^2 squares, with each divided in two
      *         triangles
      */
-    Mesh tessellateTile(ProjectedTile tile, int subdivisions, HeightMap heightMap);
+    Mesh tessellateTile(ProjectedTile tile, HeightMap heightMap);
+    
+    int hashCode();
+    
+    boolean equals(Object other);
 }
 

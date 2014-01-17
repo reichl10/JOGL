@@ -1,6 +1,7 @@
 package de.joglearth.rendering;
 
 import de.joglearth.geometry.GeoCoordinates;
+import de.joglearth.geometry.MapProjection;
 import de.joglearth.geometry.ProjectedTile;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.Vector3;
@@ -19,9 +20,11 @@ public class PlaneTessellator implements Tessellator {
     }
 
     @Override
-    public Mesh tessellateTile(ProjectedTile projected, int subdivisions, HeightMap heightMap) {
-    	
+    public Mesh tessellateTile(ProjectedTile projected, HeightMap heightMap) {
         Tile tile = projected.tile;
+        int subdivisions = projected.equatorSubdivisions;
+        MapProjection projection = projected.projection;
+        
         int nHorizontalVertices = subdivisions + 2, nHorizontalQuads = subdivisions + 1,
             nVerticalQuads = max(nHorizontalQuads / 2, 1), nVerticalVertices = nVerticalQuads + 1;
         float[] vertices = new float[8 * nVerticalVertices * nHorizontalVertices];
@@ -92,5 +95,10 @@ public class PlaneTessellator implements Tessellator {
     @Override
     public boolean equals(Object other) {
         return other != null && other.getClass() == this.getClass();
+    }
+    
+    @Override
+    public int hashCode() {
+        return "PlaneTessellator".hashCode();
     }
 }

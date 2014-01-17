@@ -45,5 +45,9 @@ public interface HeightMap {
      * @param l The listener to remove
      */
     void removeSurfaceListener(SurfaceListener l);
+
+    int hashCode();
+    
+    boolean equals(Object other);
         
 }

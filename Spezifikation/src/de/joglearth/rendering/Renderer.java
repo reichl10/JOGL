@@ -1,13 +1,7 @@
 package de.joglearth.rendering;
 
-import static java.lang.Math.PI;
-import static javax.media.opengl.GL.GL_BLEND;
-import static javax.media.opengl.GL.GL_CULL_FACE;
-import static javax.media.opengl.GL.GL_DEPTH_TEST;
-import static javax.media.opengl.GL.GL_TEXTURE_2D;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHTING;
-import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
-import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
+import static java.lang.Math.*;
+import static javax.media.opengl.GL2.*;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -29,6 +23,7 @@ import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.SphereGeometry;
 import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
+import de.joglearth.geometry.TileLayout;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.height.HeightMap;
 import de.joglearth.height.flat.FlatHeightMap;
@@ -56,7 +51,7 @@ import de.joglearth.util.Resource;
 public class Renderer {
 
     private GLContext gl;
-    private int tileSubdivisions = 1;
+    private int subdivisionPixels = 1;
     private LocationManager locationManager;
     private TextureManager textureManager;
     private Camera camera;
@@ -171,10 +166,13 @@ public class Renderer {
         } else {
             
             gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
-
-            Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, 
-                    mapConfiguration.getOptimalTileLayout(camera, screenSize));
             
+            TileLayout layout = mapConfiguration.getOptimalTileLayout(camera, screenSize);
+            int equatorSubdivisions = (1 << max(0, (int) ceil(log((double) screenSize.width / subdivisionPixels / camera.getScale()) / log(2)))),
+                    minEquatorSubdivisions = layout.getHoritzontalTileCount();
+
+            Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, layout);
+                        
 //            // TODO debug-code: prints a visual representation of the set of visible tiles
 //            TileLayout lay = mapConfiguration.getOptimalTileLayout(camera, screenSize);
 //            Set<GridPoint> origins = new HashSet<GridPoint>();
@@ -206,7 +204,7 @@ public class Renderer {
                 Texture texture = textureManager.getTexture(tile);
 //                tsb.append(texture.getTextureObject());
 //                tsb.append(", ");
-                ProjectedTile projected = new ProjectedTile(tile, mapConfiguration.getProjection());
+                ProjectedTile projected = new ProjectedTile(tile, mapConfiguration.getProjection(), minEquatorSubdivisions, equatorSubdivisions);
                 VertexBuffer vbo = tileMeshManager.requestObject(projected, null).value;
 //                vsb.append(vbo.getVertices());
 //                vsb.append("/");
@@ -288,7 +286,6 @@ public class Renderer {
                 settingsListener);
         
         tileMeshManager = new VertexBufferManager(gl, null);
-        tileMeshManager.setTileSubdivisions(tileSubdivisions);
         tileMeshManager.setHeightMap(heightMap);
         applyDisplayMode();
         String lvlOfDetailsString = Settings.getInstance().getString(SettingsContract.LEVEL_OF_DETAIL);
@@ -352,17 +349,14 @@ public class Renderer {
         synchronized (Renderer.this) {
             switch (lod) {
                 case LOW:
-                    tileSubdivisions = 1;
+                    subdivisionPixels = 100;
                     break;
                 case MEDIUM:
-                    tileSubdivisions = 7;
+                    subdivisionPixels = 45;
                     break;
                 case HIGH:
-                    tileSubdivisions = 15;
-            }
-            if (tileMeshManager != null) {
-                tileMeshManager.setTileSubdivisions(tileSubdivisions);
-            }
+                    subdivisionPixels = 20;
+            }            
         }
         gl.postRedisplay();
     }
@@ -439,6 +433,7 @@ public class Renderer {
             gl.setFeatureEnabled(GL_CULL_FACE, true);        
             gl.setFeatureEnabled(GL_TEXTURE_2D, true);
             gl.setFeatureEnabled(GL_BLEND, true);
+            //gl.setPolygonMode(GL_LINE);
                         
             initState = InitState.AWAITING;
         }
