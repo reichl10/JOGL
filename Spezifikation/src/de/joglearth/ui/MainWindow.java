@@ -1305,6 +1305,7 @@ public class MainWindow extends JFrame {
                 detailsPanel.setBorder(BorderFactory.createTitledBorder(Messages
                         .getString("MainWindow.35"))); //$NON-NLS-1$
                 detailNameLabel.setText(Messages.getString("MainWindow.3"));
+                detailsDescTextArea.setText(Messages.getString("MainWindow.42"));
                 userTagButton.setText(Messages.getString("MainWindow.40")); //$NON-NLS-1$
                 displayModeLabel.setText(Messages.getString("MainWindow.48")); //$NON-NLS-1$
                 index = displayModeComboBox.getSelectedIndex();
