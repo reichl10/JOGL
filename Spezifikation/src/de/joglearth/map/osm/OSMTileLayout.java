@@ -96,8 +96,7 @@ public class OSMTileLayout implements TileLayout {
             return new OSMPole(zoomLevel, OSMPole.NORTH);
         } else if (coords.getLatitude() <= OSMTile.MIN_LATITUDE) {
             return new OSMPole(zoomLevel, OSMPole.SOUTH);
-        } else {
-           
+        } else {           
             int lonIndex = (int) floor((coords.getLongitude() + PI) / (2*PI) * (1 << zoomLevel));
             if (lonIndex == (1 << zoomLevel)) {
                 lonIndex = 0;
