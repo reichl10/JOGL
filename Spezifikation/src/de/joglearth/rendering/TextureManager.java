@@ -157,7 +157,8 @@ public class TextureManager {
                 TransformedTile alternative = tile.getScaledAlternative();
                 if (alternative != null) {
                     tile = alternative.tile;
-                    transformation.mult(alternative.transformation);
+                    alternative.transformation.mult(transformation);
+                    transformation = alternative.transformation;
                 } else {
                     tile = null;
                 }
