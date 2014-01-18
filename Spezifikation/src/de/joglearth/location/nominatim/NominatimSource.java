@@ -17,7 +17,6 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.geometry.Tile;
 import de.joglearth.location.Location;
 import de.joglearth.location.LocationType;
 import de.joglearth.settings.Settings;

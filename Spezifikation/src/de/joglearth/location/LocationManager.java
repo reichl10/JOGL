@@ -11,6 +11,7 @@ import java.util.Set;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
+import de.joglearth.geometry.TransformedTile;
 import de.joglearth.location.nominatim.NominatimManager;
 import de.joglearth.location.nominatim.NominatimQuery;
 import de.joglearth.location.overpass.OverpassManager;
@@ -163,7 +164,7 @@ public class LocationManager {
      */
     public void searchLocal(String query, Iterable<Tile> area) {
         
-		double minLongitude = 0, maxLongitude = 0, minLatitude = 0, maxLatitude = 0;
+		double minLongitude = Math.PI, maxLongitude = -Math.PI, minLatitude = Math.PI/2, maxLatitude = -Math.PI/2;
 		for (Tile t : area) {
 			if (t.getLatitudeFrom() < minLatitude) {
 				minLatitude = t.getLatitudeFrom();
@@ -249,6 +250,12 @@ public class LocationManager {
 				}
 				return ((lon >= lonFrom && lon <= lonTo) || (lon <= lonFrom && lon >= lonTo));
 			}
+
+            @Override
+            public TransformedTile getScaledAlternative() {
+                // TODO Auto-generated method stub
+                return null;
+            }
 
 		};
 		
