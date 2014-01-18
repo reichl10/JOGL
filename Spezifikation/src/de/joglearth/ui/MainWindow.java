@@ -1507,7 +1507,6 @@ public class MainWindow extends JFrame {
         int numLoc = 0;
         if (uLocations != null)
             numLoc = uLocations.size();
-        System.out.println("Rows: " + numLoc);
         int[] rowHeights = new int[numLoc];
         double[] rowWeights = new double[numLoc];
         for (int c = 0; c < numLoc; c++) {
@@ -1522,7 +1521,6 @@ public class MainWindow extends JFrame {
         userTagListPanel.setLayout(gbl_userTagListPanel);
         if (uLocations != null)
             for (final Location l : uLocations) {
-                System.out.println("Name: " + l.name);
                 JButton button = new JButton(l.name);
                 JButton close = new JButton("X");
                 close.addActionListener(new ActionListener() {
@@ -1572,7 +1570,6 @@ public class MainWindow extends JFrame {
                 closingMap.put(close, button);
                 buttonToLocationMap.put(button, l);
                 int gridy = closingMap.size() - 1;
-                System.out.println("Gridy: " + gridy);
                 GridBagConstraints gridBagClose = new GridBagConstraints();
                 gridBagClose.insets = new Insets(0, 0, 0, 0);
                 gridBagClose.gridx = 0;
@@ -1653,17 +1650,11 @@ public class MainWindow extends JFrame {
                 longitudeTextField.setText(""); //$NON-NLS-1$
             }
             scaleLabel.setText(Double.toString(camera.getScale()));
-            System.out.println(String.valueOf(camera.getScale()));
-            System.out.println(String.valueOf(Math.round(camera.getScale() * rad) + "m"));
             easel.getSize(dimensionCvas);
             scaleCanvas.getSize(dimensionScaleCanv);
-            System.out.println("ScaleCanvSize Width: " + dimensionScaleCanv.getWidth());
             double sizeScreen = camera.getScale() * rad;
-            System.out.println("SizeScreen: " + sizeScreen);
             double scale = dimensionCvas.getWidth() / dimensionScaleCanv.getWidth();
-            System.out.println("Scale: " + scale);
             double scaleSize = Math.round(sizeScreen / scale);
-            System.out.println("ScaleSize: " + scaleSize);
             scaleLabel.setText(String.valueOf(scaleSize));
         }
 
