@@ -29,13 +29,13 @@ public class OSMPathTranslator implements PathTranslator<TileName> {
         OSMMapConfiguration osmConfig = (OSMMapConfiguration) name.configuration;
         if (name.tile instanceof OSMTile) {
             OSMTile osmTile = (OSMTile) name.tile;
-            fileName = String.format("%s-%d-%d-%d.jpg", osmConfig.getMapType().toString(),
+            fileName = String.format("%s-%d-%d-%d.%s", osmConfig.getMapType().toString(),
                     osmTile.getDetailLevel(), osmTile.getLongitudeIndex(),
-                    osmTile.getLatitudeIndex());
+                    osmTile.getLatitudeIndex(), osmConfig.getImageFormatSuffix());
         } else {
             OSMPole osmPole = (OSMPole) name.tile;
-            fileName = String.format("%s-%d.jpg", osmConfig.getMapType().toString(),
-                    osmPole.getPole());
+            fileName = String.format("%s-%d.%s", osmConfig.getMapType().toString(),
+                    osmPole.getPole(), osmConfig.getImageFormatSuffix());
         }
         // Divide the set of files into (at most) 4096 sub-folders to avoid file system bottlenecks
         byte[] bytesOfMessage = null;
@@ -60,9 +60,9 @@ public class OSMPathTranslator implements PathTranslator<TileName> {
 
 
     private final static Pattern TILEPATH_PATTERN = Pattern.compile("[0-9a-fA-F]{3}"
-            + Pattern.quote(File.separator) + "([A-Z0-9_]+)-([0-9]+)-([0-9]+)-([0-9]+)\\.png");
+            + Pattern.quote(File.separator) + "([A-Z0-9_]+)-([0-9]+)-([0-9]+)-([0-9]+)\\.\\w+");
     private final static Pattern POLEPATH_PATTERN = Pattern.compile("[0-9a-fA-F]{3}"
-            + Pattern.quote(File.separator) + "([A-Z0-9_]+)-([0-9]+)\\.png");
+            + Pattern.quote(File.separator) + "([A-Z0-9_]+)-([0-9]+)\\.\\w+");
 
 
     @Override
