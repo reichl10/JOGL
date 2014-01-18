@@ -645,9 +645,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                 }
             }
         }
+        source.dispose();
         for (Cache<Key, Value> c : caches) {
             c.dispose();
         }
-        source.dispose();
+        caches.clear();
     }
 }
