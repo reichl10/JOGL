@@ -47,7 +47,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
      * Constructor. Initializes the {@link de.joglearth.location.nominatim.NominatimSource}.
      */
     public NominatimSource() {
-        executor = Executors.newFixedThreadPool(2);
+        executor = Executors.newFixedThreadPool(1);
     }
 
     @Override
@@ -184,7 +184,11 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         String xmlResponse = new String(httpRes);
 
         ArrayList<Location> response = parseXml(xmlResponse, type, null);
-
+        
+        if(response.isEmpty()) {
+            return null;
+        }
+        
         return response.get(0);
     }
 
