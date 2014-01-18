@@ -905,14 +905,14 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     public void postRedisplay() {
         // When the initialization occurs, a frame will be drawn anyway.
         if (isInitialized()) {
-            synchronized (this) {
+            //synchronized (this) {
                 redisplayPending = true;
                 if (redisplayActive || animator.isAnimating()) {
                     return;
                 }
                 redisplayActive = true;
-            }
 
+            //}
             // Call invokeLater() while there are pending frames. Don't use a loop so that other
             // AWT events can be processed as well.
             AWTInvoker.getInstance().invokeLater(new Runnable() {
