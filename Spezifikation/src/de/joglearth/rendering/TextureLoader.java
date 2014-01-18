@@ -79,14 +79,22 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
     }
 
 
-    private void loadTexture(final Key key, final SourceListener<Key, Texture> sender, byte[] raw) {
-        gl.invokeLater(new LoaderRunnable(raw), new RunnableResultListener() {
-
-            @Override
-            public synchronized void runnableCompleted(Object result) {
-                sender.requestCompleted(key, (Texture) result);
-            }
-        });
+    private SourceResponse<Texture> loadTexture(final Key key, 
+            final SourceListener<Key, Texture> sender, byte[] raw) {
+        LoaderRunnable loader = new LoaderRunnable(raw);
+        if (gl.canInvokeDirectly()) {
+            return new SourceResponse<Texture>(SourceResponseType.SYNCHRONOUS, 
+                    (Texture) loader.run());
+        } else {
+            gl.invokeLater(new LoaderRunnable(raw), new RunnableResultListener() {
+    
+                @Override
+                public synchronized void runnableCompleted(Object result) {
+                    sender.requestCompleted(key, (Texture) result);
+                }
+            });
+            return new SourceResponse<Texture>(SourceResponseType.ASYNCHRONOUS, null);
+        }
     }
 
     @Override
@@ -109,15 +117,15 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
             SourceResponse<byte[]> response = imageSource.requestObject(key, imageSourceListener);
             if (response.response != SourceResponseType.MISSING) {
                 if (response.response == SourceResponseType.SYNCHRONOUS) {
-                    loadTexture(key, sender, response.value);
+                    return loadTexture(key, sender, response.value);
                 } else {
                     if (listeners == null) {
                         listeners = new LinkedList<>();
                         pendingRequests.put(key, listeners);
                     }
                     listeners.add(sender);
+                    return new SourceResponse<Texture>(SourceResponseType.ASYNCHRONOUS, null);
                 }
-                return new SourceResponse<Texture>(SourceResponseType.ASYNCHRONOUS, null);
             }
         }
         return new SourceResponse<Texture>(SourceResponseType.MISSING, null);

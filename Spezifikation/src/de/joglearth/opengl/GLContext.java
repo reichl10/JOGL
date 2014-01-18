@@ -951,7 +951,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     }
 
     @Override
-    protected boolean canInvokeDirectly() {
+    public boolean canInvokeDirectly() {
         return isInsideCallback();
     }
 

@@ -3,14 +3,6 @@ package de.joglearth.async;
 
 public abstract class AbstractInvoker implements Invoker {
 
-    /**
-     * Returns whether it is possible to call a runnable directly in the current context,
-     * i.e. if the caller is already in the invoker's thread.
-     * 
-     * @return Whether Runnables can be called directly.
-     */
-    protected abstract boolean canInvokeDirectly();
-    
     
     // Wraps a Runnable(-WithResult) and a Listener inside a Runnable, calling the callback on 
     // completion.
