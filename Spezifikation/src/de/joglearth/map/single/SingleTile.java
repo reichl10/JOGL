@@ -2,6 +2,7 @@ package de.joglearth.map.single;
 
 import static java.lang.Math.*;
 import de.joglearth.geometry.AbstractTile;
+import de.joglearth.geometry.TransformedTile;
 
 
 /**
@@ -27,6 +28,11 @@ public class SingleTile extends AbstractTile {
     @Override
     public double getLatitudeTo() {
         return PI/2;
+    }
+    
+    @Override
+    public TransformedTile getScaledAlternative() {
+        return null;
     }
 
 }

@@ -2,6 +2,7 @@ package de.joglearth.map.osm;
 
 import static java.lang.Math.*;
 import de.joglearth.geometry.AbstractTile;
+import de.joglearth.geometry.TransformedTile;
 
 
 /**
@@ -73,4 +74,9 @@ public class OSMPole extends AbstractTile {
         return "OSMPole [pole=" + (pole == NORTH ? "NORTH" : "SOUTH") + ", zoomLevel=" + zoomLevel + "]";
     }
 
+    @Override
+    public TransformedTile getScaledAlternative() {
+        return null;
+    }
+    
 }

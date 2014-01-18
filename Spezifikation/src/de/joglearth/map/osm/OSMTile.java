@@ -4,6 +4,8 @@ import static java.lang.Math.PI;
 import static java.lang.Math.atan;
 import static java.lang.Math.sinh;
 import de.joglearth.geometry.AbstractTile;
+import de.joglearth.geometry.Matrix4;
+import de.joglearth.geometry.TransformedTile;
 
 
 /**
@@ -103,6 +105,19 @@ public final class OSMTile extends AbstractTile {
      */
     public int getDetailLevel() {
         return zoomLevel;
+    }
+    
+    @Override
+    public TransformedTile getScaledAlternative() {
+        if (zoomLevel == 0) {
+            return null;
+        } else {
+            Matrix4 transformation = new Matrix4();
+            transformation.scale(0.5, 0.5, 1);
+            transformation.translate(lonIndex % 2, 1 - latIndex % 2, 0);
+            OSMTile scaledTile = new OSMTile(zoomLevel-1, lonIndex / 2, latIndex / 2);
+            return new TransformedTile(scaledTile, transformation);
+        }
     }
 
     @Override

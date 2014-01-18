@@ -10,6 +10,7 @@ import com.jogamp.opengl.util.texture.Texture;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
+import de.joglearth.geometry.TransformedTile;
 import de.joglearth.map.MapConfiguration;
 import de.joglearth.map.TileName;
 import de.joglearth.opengl.GLContext;
@@ -146,11 +147,23 @@ public class TextureManager {
      *         method returns a place holder texture
      */
     public synchronized TransformedTexture getTexture(Tile tile) {
-        //TODO System.err.println("TextureManager: requesting texture for " + tile);
-        Texture textureId = dist.requestObject(new TileName(mapConfiguration, tile), textureListener).value;
-        //TODO System.err.println("TextureManager: returning "
-        //        + (textureId == null ? "placeholder" : "real texture") + " for " + tile);
-        return new TransformedTexture(textureId != null ? textureId : placeholder, new Matrix4());
+        Matrix4 transformation = new Matrix4();
+        while (tile != null) {
+            Texture textureId = dist.requestObject(
+                    new TileName(mapConfiguration, tile), textureListener).value;
+            if (textureId != null) {
+                return new TransformedTexture(textureId, transformation);
+            } else {
+                TransformedTile alternative = tile.getScaledAlternative();
+                if (alternative != null) {
+                    tile = alternative.tile;
+                    transformation.mult(alternative.transformation);
+                } else {
+                    tile = null;
+                }
+            }
+        }
+        return new TransformedTexture(placeholder, new Matrix4());
     }
     
     

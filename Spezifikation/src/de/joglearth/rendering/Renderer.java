@@ -219,6 +219,7 @@ public class Renderer {
 
             gl.loadMatrix(GL_PROJECTION, new Matrix4());
             gl.loadMatrix(GL_MODELVIEW, new Matrix4());
+            gl.loadMatrix(GL_TEXTURE, new Matrix4());
             
             //TextRenderer textRenderer = new TextRenderer(new Font(Font.SANS_SERIF, 0, 10));
             //textRenderer.beginRendering(screenSize.width, screenSize.height);
