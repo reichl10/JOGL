@@ -1,8 +1,7 @@
 package de.joglearth.ui;
 
 import static de.joglearth.util.Resource.loadIcon;
-import static java.lang.Math.abs;
-import static java.lang.Math.signum;
+import static java.lang.Math.*;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -1748,27 +1747,21 @@ public class MainWindow extends JFrame {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            ScreenCoordinates lastPos = new ScreenCoordinates(0.5d, 0.5d);
-            GeoCoordinates lastGeo = camera.getGeoCoordinates(lastPos);
-            GeoCoordinates newGeo = null;
-            ScreenCoordinates newPos = null;
-            boolean tiltChanged = false;
+            boolean tiltChanged = false;            
+            double stepSize = 2*PI / 10 * camera.getSurfaceScale();
+            
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
-                    newPos = new ScreenCoordinates(0.6d, 0.5d);
-                    newGeo = camera.getGeoCoordinates(newPos);
+                    camera.move(-stepSize, 0);
                     break;
                 case KeyEvent.VK_RIGHT:
-                    newPos = new ScreenCoordinates(0.4d, 0.5d);
-                    newGeo = camera.getGeoCoordinates(newPos);
+                    camera.move(stepSize, 0);
                     break;
                 case KeyEvent.VK_UP:
-                    newPos = new ScreenCoordinates(0.5d, 0.6d);
-                    newGeo = camera.getGeoCoordinates(newPos);
+                    camera.move(0, -stepSize);
                     break;
                 case KeyEvent.VK_DOWN:
-                    newPos = new ScreenCoordinates(0.5d, 0.4d);
-                    newGeo = camera.getGeoCoordinates(newPos);
+                    camera.move(0, stepSize);
                     break;
                 case KeyEvent.VK_PAGE_UP:
                     cTiltX += 0.1;
@@ -1815,13 +1808,7 @@ public class MainWindow extends JFrame {
                 default:
                     break;
             }
-            if (newGeo != null) {
-                double deltaLon = -signum(newPos.x - lastPos.x)
-                        * abs(newGeo.getLongitude() - lastGeo.getLongitude());
-                double deltaLat = signum(newPos.y - lastPos.y)
-                        * abs(newGeo.getLatitude() - lastGeo.getLatitude());
-                camera.move(deltaLon, deltaLat);
-            }
+
             if (tiltChanged) {
                 if (cTiltX < -(Math.PI / 2)) {
                     cTiltX = -(Math.PI / 2);

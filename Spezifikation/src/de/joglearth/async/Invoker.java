@@ -96,4 +96,12 @@ public interface Invoker {
      * @throws InterruptedException Waiting for the runnable was interrupted
      */ 
     public Object invokeAndWait(RunnableWithResult runnable) throws InterruptedException;
+
+    /**
+     * Returns whether it is possible to call a runnable directly in the current context,
+     * i.e. if the caller is already in the invoker's thread.
+     * 
+     * @return Whether Runnables can be called directly.
+     */
+    public boolean canInvokeDirectly();
 }

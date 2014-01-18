@@ -20,6 +20,7 @@ import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
 import de.joglearth.source.SourceListener;
+import de.joglearth.source.SourceResponse;
 import de.joglearth.source.caching.RequestDistributor;
 
 /**
@@ -141,7 +142,7 @@ public class TextureManager {
 
     /**
      * Is called if a texture of a {@link de.joglearth.geometry.Tile} should be loaded.
-     * 
+     *  
      * @param tile The <code>Tile</code> that should be loaded
      * @return Returns a loaded OpenGl identifier for the texture or if it is not yet loaded, the
      *         method returns a place holder texture
@@ -149,8 +150,10 @@ public class TextureManager {
     public synchronized TransformedTexture getTexture(Tile tile) {
         Matrix4 transformation = new Matrix4();
         while (tile != null) {
-            Texture textureId = dist.requestObject(
-                    new TileName(mapConfiguration, tile), textureListener).value;
+            SourceResponse<Texture> response = dist.requestObject(
+                new TileName(mapConfiguration, tile), textureListener);
+            System.out.println("TextureManager: received " + response.response);
+            Texture textureId = response.value;
             if (textureId != null) {
                 return new TransformedTexture(textureId, transformation);
             } else {

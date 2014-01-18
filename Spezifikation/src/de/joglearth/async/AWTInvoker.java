@@ -17,7 +17,7 @@ public final class AWTInvoker extends AbstractInvoker {
     private AWTInvoker() {}
     
     @Override
-    protected boolean canInvokeDirectly() {
+    public boolean canInvokeDirectly() {
         return EventQueue.isDispatchThread();
     }
     
