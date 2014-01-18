@@ -1,0 +1,7 @@
+[Neue Methoden]
+geometry.Tile.getScaledAlternative()
+map.osm.OSMTile.getScaledAlternative()
+map.single.SingleTile.getScaledAlternative()
+
+[Geänderte Signaturen]
+rendering.TextureManager.getTexture()

@@ -1,0 +1,2 @@
+[Geänderte Funktionalität]
+rendering.TextureManager.getTexture()
