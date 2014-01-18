@@ -5,3 +5,6 @@ map.single.SingleTile.getScaledAlternative()
 
 [Geänderte Signaturen]
 rendering.TextureManager.getTexture()
+rendering.Tessellator.tessellateTile()
+rendering.PlaneTessellator.tessellateTile()
+rendering.SphereTessellator.tessellateTile()
