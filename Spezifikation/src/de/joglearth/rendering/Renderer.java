@@ -36,6 +36,7 @@ import de.joglearth.map.single.SingleMapType;
 import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.GLContextListener;
 import de.joglearth.opengl.TextureFilter;
+import de.joglearth.opengl.TransformedTexture;
 import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
@@ -201,7 +202,8 @@ public class Renderer {
 //            StringBuilder tsb = new StringBuilder("Texture IDs: "),
 //                    vsb = new StringBuilder("Vertex Buffers: ");
             for (Tile tile : tiles) {
-                Texture texture = textureManager.getTexture(tile);
+                TransformedTexture texture = textureManager.getTexture(tile);
+                gl.loadMatrix(GL_TEXTURE, texture.transformation);
 //                tsb.append(texture.getTextureObject());
 //                tsb.append(", ");
                 ProjectedTile projected = new ProjectedTile(tile, mapConfiguration.getProjection(), minEquatorSubdivisions, equatorSubdivisions);
@@ -210,7 +212,7 @@ public class Renderer {
 //                vsb.append("/");
 //                vsb.append(vbo.getIndices());
 //                vsb.append(", ");
-                gl.drawVertexBuffer(vbo, texture);
+                gl.drawVertexBuffer(vbo, texture.texture);
             }
 //            System.out.println(tsb.toString());
 //            System.out.println(vsb.toString());
