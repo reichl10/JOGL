@@ -204,7 +204,6 @@ public class MainWindow extends JFrame {
     private JLabel scaleLabel;
     private static final double ZOOM_FACTOR = 10.d;
     private static final double MAX_DIST = 2.d;
-    private static final double MIN_DIST = 1e-8d;
     private JButton searchButton;
     private JList<Location> searchResultList;
     private JPanel overlaysPanel;
@@ -222,6 +221,8 @@ public class MainWindow extends JFrame {
     private DetailsListener lastDetailsListener = null;
     private JTextArea detailsDescTextArea;
     private JScrollPane scrollPane_1;
+
+    private MapConfiguration mapConfiguration = null;
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -1096,8 +1097,9 @@ public class MainWindow extends JFrame {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     IconizedItem<MapConfiguration> item = (IconizedItem<MapConfiguration>) e
                             .getItem();
-                    renderer.setMapConfiguration((MapConfiguration) item.getValue());
-
+                    mapConfiguration = (MapConfiguration) item.getValue();
+                    updateZoom();
+                    renderer.setMapConfiguration(mapConfiguration);
                 }
             }
         });
@@ -1905,19 +1907,22 @@ public class MainWindow extends JFrame {
 
         @Override
         public void stateChanged(ChangeEvent e) {
-
             JSlider slider = (JSlider) e.getSource();
             label.setText(Integer.toString(slider.getValue()));
-            int value = slider.getValue();
-            // TODO System.out.println("Zoom Changed to: "+value);
-            double perc = value / (double) slider.getMaximum() * 10;
-            // System.out.println("Set Distance to: "+(MIN_DIST + (MAX_DIST - MIN_DIST)
-            // * (1 / (1 + perc * perc * perc * 10))));
-            camera.setDistance(MIN_DIST + (MAX_DIST - MIN_DIST)
-                    * (1 / (1 + perc * perc * perc * 10)) - 1.85E-4);
-
+            updateZoom();
         }
 
+    }
+    
+    private void updateZoom() {
+        double factor = 1 - zoomSlider.getValue() / (double) zoomSlider.getMaximum();
+        
+        double minDist = 0.5;
+        if (mapConfiguration != null) {
+            minDist = mapConfiguration.getMinimumCameraDistance();            
+        }
+        
+        camera.setDistance(minDist + (MAX_DIST - minDist) * pow(factor, 3));
     }
 
     private class UsertagButtonListener implements ActionListener {

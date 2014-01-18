@@ -2,9 +2,20 @@
 geometry.Tile.getScaledAlternative()
 map.osm.OSMTile.getScaledAlternative()
 map.single.SingleTile.getScaledAlternative()
+async.Invoker.canInvokeDirectly()
+geometry.Geometry.getLongitudeDisortion()
+geometry.PlaneGeometry.getLongitudeDisortion()
+geometry.SphereGeometry.getLongitudeDisortion()
+geometry.Geometry.allowsLongitudalTraversal()
+geometry.PlaneGeometry.allowsLongitudalTraversal()
+geometry.SphereGeometry.allowsLongitudalTraversal()
 
 [Geänderte Signaturen]
 rendering.TextureManager.getTexture()
 rendering.Tessellator.tessellateTile()
 rendering.PlaneTessellator.tessellateTile()
 rendering.SphereTessellator.tessellateTile()
+async.AbstractInvoker.canInvokeDirectly()
+opengl.GLContext.canInvokeDirectly()
+async.AWTInvoker.canInvokeDirectly()
+

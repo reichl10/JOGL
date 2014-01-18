@@ -34,4 +34,6 @@ public interface MapConfiguration {
     String getImageFormatSuffix();
     
     MapProjection getProjection();
+    
+    double getMinimumCameraDistance();
 }

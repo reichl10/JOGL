@@ -175,7 +175,7 @@ public class Camera {
      * @param coords The <code>GeoCoordinates</code> of the camera's position. Must not be null.
      */
     public synchronized void setPosition(GeoCoordinates coords) {
-        if (coords == null) {
+        if (coords == null || coords.getLatitude() >= PI/2 || coords.getLatitude() <= -PI/2) {
             throw new IllegalArgumentException();
         }
 

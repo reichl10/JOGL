@@ -90,4 +90,9 @@ public class OSMMapConfiguration implements MapConfiguration {
         return new MercatorProjection();
     }
 
+    @Override
+    public double getMinimumCameraDistance() {
+        return 1e-5;
+    }
+
 }

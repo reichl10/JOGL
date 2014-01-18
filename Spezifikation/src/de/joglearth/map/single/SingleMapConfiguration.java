@@ -90,4 +90,9 @@ public class SingleMapConfiguration implements MapConfiguration {
         return new LinearProjection();
     }
 
+    @Override
+    public double getMinimumCameraDistance() {
+        return 0.5;
+    }
+
 }
