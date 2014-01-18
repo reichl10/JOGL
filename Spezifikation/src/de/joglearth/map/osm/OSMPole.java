@@ -45,6 +45,10 @@ public class OSMPole extends AbstractTile {
     public int getPole() {
         return pole;
     }
+    
+    public int getZoomLevel() {
+        return zoomLevel;
+    }
 
     @Override
     public double getLongitudeFrom() {
