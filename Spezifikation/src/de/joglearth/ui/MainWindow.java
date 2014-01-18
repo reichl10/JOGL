@@ -1942,9 +1942,21 @@ public class MainWindow extends JFrame {
 
                 @Override
                 public void run() {
-                    Location loc = new Location(geo, LocationType.USER_TAG, "", "");
-                    LocationEditDialog dial = new LocationEditDialog(loc);
-                    dial.setVisible(true);
+                    GeoCoordinates lookingAt = camera
+                            .getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
+                    Location loc = locationManager.getDetails(lookingAt,
+                            new SourceListener<GeoCoordinates, Location>() {
+
+                                @Override
+                                public void requestCompleted(GeoCoordinates key, Location value) {
+                                    LocationEditDialog dial = new LocationEditDialog(value);
+                                    dial.setVisible(true);
+                                }
+                            });
+                    if (loc.name != null) {
+                        LocationEditDialog dial = new LocationEditDialog(loc);
+                        dial.setVisible(true);
+                    }
                 }
             });
         }
