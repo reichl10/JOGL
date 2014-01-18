@@ -291,10 +291,15 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         Double latitude = Double.valueOf(xmlReader.getAttributeValue(null, "lat"));
         String details = xmlReader.getElementText();
         String[] name = details.split(",");
+        String id = name[0];
+        
+        if(name[0].matches("[0-9]+[a-z]?") && name.length > 1) {
+            id = name[1];
+        }
 
         GeoCoordinates point = new GeoCoordinates(Math.toRadians(longitude), Math.toRadians(latitude));
 
-        Location current = new Location(point, type, details, name[0]);
+        Location current = new Location(point, type, details, id);
 
         location.add(current);
 
