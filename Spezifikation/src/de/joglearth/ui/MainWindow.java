@@ -1389,20 +1389,24 @@ public class MainWindow extends JFrame {
     private void requestDetails() {
         GeoCoordinates lookingAt = camera
                 .getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
-        Set<Location> uLocs = Settings.getInstance().getLocations(SettingsContract.USER_LOCATIONS);
-        for (final Location l : uLocs) {
-            if (l.point.equals(lookingAt) && l.details != null && l.name != null
-                    && !l.details.isEmpty() && !l.name.isEmpty()) {
-                SwingUtilities.invokeLater(new Runnable() {
+		Set<Location> uLocs = Settings.getInstance().getLocations(
+				SettingsContract.USER_LOCATIONS);
+		if (uLocs != null) {
+			for (final Location l : uLocs) {
+				if (l.point.equals(lookingAt) && l.details != null
+						&& l.name != null && !l.details.isEmpty()
+						&& !l.name.isEmpty()) {
+					SwingUtilities.invokeLater(new Runnable() {
 
-                    @Override
-                    public void run() {
-                        updateDetails(l);
-                    }
-                });
-                return;
-            }
-        }
+						@Override
+						public void run() {
+							updateDetails(l);
+						}
+					});
+					return;
+				}
+			}
+		}
         if (lastDetailsListener != null)
             lastDetailsListener.disable();
         lastDetailsListener = new DetailsListener();
