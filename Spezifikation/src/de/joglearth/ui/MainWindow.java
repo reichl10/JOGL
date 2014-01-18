@@ -983,7 +983,6 @@ public class MainWindow extends JFrame {
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_ENTER) {
-                    System.out.println("Change By Lat");
                     try {
                         GeoCoordinates geo = GeoCoordinates.parseCoordinates(
                                 longitudeTextField.getText(), latitudeTextField.getText());
@@ -1032,7 +1031,6 @@ public class MainWindow extends JFrame {
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_ENTER) {
-                    System.out.println("Change By Long");
                     GeoCoordinates geo = GeoCoordinates.parseCoordinates(
                             longitudeTextField.getText(), latitudeTextField.getText());
                     camera.setPosition(geo);
@@ -1061,7 +1059,6 @@ public class MainWindow extends JFrame {
                 Settings.getInstance().putString(SettingsContract.LANGUAGE,
                         language.getLanguage());
                 loadLanguage();
-                //TODO System.err.println("Change Language!"); //$NON-NLS-1$
             }
         });
         displayModeComboBox.addItemListener(new ItemListener() {
@@ -1085,14 +1082,9 @@ public class MainWindow extends JFrame {
                                             mode.name());
                                     break;
                                 default:
-                                    // TODO: prob remove this line
-                                    System.err
-                                            .println("Unknown DisplayMode in comboBox!"); //$NON-NLS-1$
                                     break;
                             }
                         }
-                    } else {
-                        //TODO System.err.println(Messages.getString("MainWindow.51")); //$NON-NLS-1$
                     }
                 }
 
@@ -1179,9 +1171,6 @@ public class MainWindow extends JFrame {
                 if (e.getValueIsAdjusting() == false) {
                     Location location = searchResultList.getSelectedValue();
                     if (location != null) {
-                        System.out.println("SearchResult Setting to lon: "
-                                + location.point.getLongitudeString()
-                                + " lat: " + location.point.getLatitudeString());
                         camera.setPosition(location.point);
                         requestDetails();
 
@@ -1451,15 +1440,12 @@ public class MainWindow extends JFrame {
         progressManager = ProgressManager.getInstance();
         String lang = Settings.getInstance().getString(
                 SettingsContract.LANGUAGE);
-        // TODO System.err.println("LangSetting At Start:" + lang);
         Locale.Builder builder = new Locale.Builder();
         builder.setLanguage(lang);
         Locale l = builder.build();
         if (l.getLanguage().equals(Locale.GERMAN.getLanguage())) {
-            //TODO System.err.println("Set Lang to German at start!"); //$NON-NLS-1$
             Messages.setLocale(Locale.GERMAN);
         } else {
-            //TODO System.err.println("Set Lang to English at start!"); //$NON-NLS-1$
             Messages.setLocale(Locale.ENGLISH);
         }
         initializeWindow();
@@ -1470,10 +1456,8 @@ public class MainWindow extends JFrame {
         initializeViewPanel();
         loadLanguage();
         if (l.getLanguage().equals(Locale.GERMAN.getLanguage())) {
-            //TODO System.err.println("Set Lang to German at start!"); //$NON-NLS-1$
             languageComboBox.setSelectedIndex(1);
         } else {
-            //TODO System.err.println("Set Lang to English at start!"); //$NON-NLS-1$
             languageComboBox.setSelectedIndex(0);
         }
 
@@ -1538,7 +1522,6 @@ public class MainWindow extends JFrame {
                         Location location = buttonToLocationMap.get(target);
                         buttonToLocationMap.remove(target);
                         closingMap.remove(self);
-                        System.out.println("Trying to remove location: " + location.name);
                         Settings.getInstance().dropLocation(SettingsContract.USER_LOCATIONS,
                                 location);
 
@@ -1612,7 +1595,6 @@ public class MainWindow extends JFrame {
 
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
-            System.err.println("Got a UserLocation Change: " + key);
             if (key.equals(SettingsContract.USER_LOCATIONS)) {
                 SwingUtilities.invokeLater(new Runnable() {
 
@@ -1689,7 +1671,6 @@ public class MainWindow extends JFrame {
                     if (lastGeo != null && newGeo != null) {
                         double deltaLon = -signum(newPos.x - lastPos.x)
                                 * abs(newGeo.getLongitude() - lastGeo.getLongitude());
-                        System.out.println(camera.getPosition());
                         double deltaLat = signum(newPos.y - lastPos.y)
                                 * abs(newGeo.getLatitude() - lastGeo.getLatitude());
 
@@ -1832,7 +1813,6 @@ public class MainWindow extends JFrame {
                     });
                     break;
                 default:
-                    System.out.println("KeyCode: " + e.getKeyCode());
                     break;
             }
             if (newGeo != null) {
@@ -1876,15 +1856,10 @@ public class MainWindow extends JFrame {
 
                 @Override
                 public void run() {
-                    // Glaube hier ist der Fehler drin
-                    // springt hier nochmal rein und löscht model und damit sind auch keine
-                    // Ergebnisse da
-                    System.err.println("UISearchResultListener");
                     DefaultListModel<Location> model = (DefaultListModel<Location>) list
                             .getModel();
                     model.clear();
                     for (Location l : results) {
-                        System.out.println("Add Element Details: " + l.details);
                         model.addElement(l);
                     }
                 }
@@ -1962,7 +1937,6 @@ public class MainWindow extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.err.println("ActionPerformed! " + e.toString());
             final GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
             SwingUtilities.invokeLater(new Runnable() {
 
@@ -1989,7 +1963,6 @@ public class MainWindow extends JFrame {
 
         @Override
         public void updateProgress(double prog) {
-            System.err.println("Progress Upade: " + prog);
             progressBar.setValue((int) (100 * prog));
         }
 
