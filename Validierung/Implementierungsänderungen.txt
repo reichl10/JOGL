@@ -1,0 +1,7 @@
+[Geänderte Funktionen]
+rendering.TextureManager.getTexture()
+
+[Geändertes Verhalten]
+Nominatim-Anfragen nur noch beim loslassen der Maus
+Angepasste Berechnung der LOD-Umsetzung im SphereTessellator
+Bestimmung der Texturkoordinaten im Tessellator über MapProjection

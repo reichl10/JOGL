@@ -1,0 +1,7 @@
+[Neue Klassen]
+geometry.TransformedTile
+opengl.TransformedTexture
+geometry.MapProjection
+geometry.LinearProjection
+geometry.MercatorProjection
+geometry.ProjectedTile
