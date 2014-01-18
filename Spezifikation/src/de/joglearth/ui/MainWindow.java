@@ -99,6 +99,7 @@ import de.joglearth.location.LocationType;
 import de.joglearth.map.MapConfiguration;
 import de.joglearth.map.osm.OSMMapConfiguration;
 import de.joglearth.map.osm.OSMMapType;
+import de.joglearth.map.osm.OSMTileManager;
 import de.joglearth.map.single.SingleMapConfiguration;
 import de.joglearth.map.single.SingleMapType;
 import de.joglearth.opengl.Antialiasing;
@@ -780,6 +781,8 @@ public class MainWindow extends JFrame {
                 Settings.getInstance().putInteger(
                         SettingsContract.CACHE_SIZE_MEMORY,
                         (Integer) spinner.getValue() * 1024 * 1024);
+                OSMTileManager.getInstance().setMemoryCacheSize(
+                        (int) ((Integer) spinner.getValue() * 1024 * 1024));
             }
         });
         cachePanel.add(memCacheSpinner, "4, 2"); //$NON-NLS-1$
@@ -800,6 +803,8 @@ public class MainWindow extends JFrame {
                 Settings.getInstance().putInteger(
                         SettingsContract.CACHE_SIZE_FILESYSTEM,
                         (Integer) spinner.getValue() * 1024 * 1024);
+                OSMTileManager.getInstance().setFileSystemCacheSize(
+                        (int) ((Integer) spinner.getValue() * 1024 * 1024 * 0.7));
             }
         });
         cachePanel.add(fsCacheSpinner, "4, 4"); //$NON-NLS-1$
