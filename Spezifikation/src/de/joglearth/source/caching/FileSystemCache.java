@@ -64,6 +64,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     @Override
     public synchronized SourceResponse<byte[]> requestObject(Key key,
             SourceListener<Key, byte[]> sender) {
+        System.out.println("Register for: "+key.toString());
         SourceResponseType responseType;
         if (keySet.contains(key)) {
             registerListener(key, sender);
@@ -257,6 +258,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
                 byte[] content = Files.readAllBytes(pathFromKey(key));
                 callListener(key, content);
             } catch (IOException e) {
+                System.err.println("Loading failed!");
                 callListener(key, null);
                 e.printStackTrace();
             }

@@ -905,14 +905,16 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     public void postRedisplay() {
         // When the initialization occurs, a frame will be drawn anyway.
         if (isInitialized()) {
+            System.out.println("Trying to sync");
             //synchronized (this) {
+                System.out.println("Synced");
                 redisplayPending = true;
                 if (redisplayActive || animator.isAnimating()) {
                     return;
                 }
                 redisplayActive = true;
-
             //}
+            System.out.println("Exited Sync");
             // Call invokeLater() while there are pending frames. Don't use a loop so that other
             // AWT events can be processed as well.
             AWTInvoker.getInstance().invokeLater(new Runnable() {
@@ -944,10 +946,14 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
 
     @Override
     public void invokeLater(Runnable runnable) {
+        System.out.println("Trying to sync");
         synchronized (pendingInvocations) {
+            System.out.println("Synced");
             pendingInvocations.add(runnable);
         }
+        System.out.println("Exited Sync");
         postRedisplay();
+        System.out.println("Redisplay");
     }
 
     @Override

@@ -304,14 +304,20 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     private void requestCompleted(Key k, Value v) {
         if (v != null) {
             addToCaches(k, v);
+            System.out.println("Finished adding to caches!");
         }
 
         Set<SourceListener<Key, Value>> listeners = waitingRequestsMap.remove(k);
         if (listeners != null) {
+            System.out.println("RequestDistributor: Starting calling listeners!");
             for (SourceListener<Key, Value> listener : listeners) {
+                System.out.println("RequestDistributor: Calling listener: "+listener.getClass().getCanonicalName());
                 listener.requestCompleted(k, v);
+                System.out.println("RequestDistributor: Finished Calling listener: "+listener.getClass().getCanonicalName());
             }
+            System.out.println("RequestDistributor: Calling Listeners");
         }
+        System.out.println("RequestDistributor: Finished requestCompleted");
     }
 
     private synchronized void cacheRequestCompleted(Cache<Key, Value> c, Key k, Value v) {
@@ -487,11 +493,13 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         @Override
         public void requestCompleted(Key key, Value value) {
 
-            //TODO System.err.println("RequestDistributor: async request completed "
-                //    + (value == null ? "(null) " : "") + "from cache for " + key);
-
+            System.err.println("RequestDistributor: async request completed "
+                    + (value == null ? "(null) " : "") + "from cache for " + key);
+            System.out.println("RequestDistributor: Waiting for Sync");
             synchronized (RequestDistributor.this) {
+                System.out.println("RequestDistributor: Entering Sync");
                 if (value == null) {
+                    System.out.println("Got No Value");
                     if (caches.size() > cIndex + 1) {
                         Cache<Key, Value> nextCache = _caches.get(cIndex + 1);
                         ObjectRequestListener listener = new ObjectRequestListener(_caches,
@@ -532,9 +540,12 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                         }
                     }
                 } else {
+                    System.out.println("RequestDistributor: Got a Value");
                     _rd.requestCompleted(key, value);
+                    System.out.println("RequestDistributor: Delivered Value");
                 }
             }
+            System.out.println("RequestDistributor: Exiting Sync");
         }
 
     }
