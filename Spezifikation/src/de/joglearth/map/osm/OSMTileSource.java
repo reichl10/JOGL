@@ -34,9 +34,15 @@ public class OSMTileSource implements Source<TileName, byte[]> {
 
 
     private Map<OSMMapType, ServerSet> serverSets;
-
+    
     private final ExecutorService executor;
-
+    
+    
+    private static byte[] loadLocalOSMTile(OSMMapType map, String type) {
+        return Resource.loadBinary(String.format("osmLocal/%s-%s.%s", map, type, 
+                getImageFormatSuffix(map)));
+    }
+    
 
     /**
      * Constructor. Initializes the {@link de.joglearth.map.osm.OSMTileSource}.
@@ -46,6 +52,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
     public OSMTileSource() {
         executor = Executors.newFixedThreadPool(2);
         //executor = new ThreadPoolExecutor(2, 2, 0L, TimeUnit.MILLISECONDS, new LIFOBlockingDeque<Runnable>());
+        
         serverSets = new HashMap<>();
         serverSets.put(OSMMapType.CYCLING, new ServerSet(new String[] {
                 "http://a.tile.opencyclemap.org/cycle/",
@@ -66,6 +73,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         serverSets.put(OSMMapType.MAPNIK, new ServerSet(new String[] {
                 "http://otile1.mqcdn.com/tiles/1.0.0/osm/",
                 "http://otile2.mqcdn.com/tiles/1.0.0/osm/" }));
+        
     }
 
     @Override
@@ -74,28 +82,36 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         if (k.configuration instanceof OSMMapConfiguration) {
             final OSMMapConfiguration configuration = (OSMMapConfiguration) k.configuration;
             if (k.tile instanceof OSMTile) {
-                ProgressManager.getInstance().requestArrived();
-                executor.execute(new Runnable() {
-        
-                    @Override
-                    public void run() {
-                        byte[] response = getOSMTile((OSMTile) k.tile, configuration.getMapType());        
-                        sender.requestCompleted(k, response);
-                        ProgressManager.getInstance().requestCompleted();
-                    }
-                });
-                return new SourceResponse<byte[]>(SourceResponseType.ASYNCHRONOUS, null);
+                OSMTile tile = (OSMTile) k.tile;
+                
+                if (tile.getDetailLevel() == 0) {
+                    return new SourceResponse<byte[]>(SourceResponseType.SYNCHRONOUS, 
+                            loadLocalOSMTile(configuration.getMapType(), "0"));
+                } else {
+                    ProgressManager.getInstance().requestArrived();
+                    executor.execute(new Runnable() {
+            
+                        @Override
+                        public void run() {
+                            byte[] response = fetchRemoteTile((OSMTile) k.tile, configuration.getMapType());        
+                            sender.requestCompleted(k, response);
+                            ProgressManager.getInstance().requestCompleted();
+                        }
+                    });
+                    return new SourceResponse<byte[]>(SourceResponseType.ASYNCHRONOUS, null);
+                }
                 
             } else if (k.tile instanceof OSMPole) {
+                OSMPole pole = (OSMPole) k.tile;
                 return new SourceResponse<byte[]>(SourceResponseType.SYNCHRONOUS, 
-                        Resource.loadBinary("textures/osmPole." 
-                                + getImageFormatSuffix(configuration.getMapType())));
+                        loadLocalOSMTile(configuration.getMapType(), 
+                                pole.getPole() == OSMPole.NORTH ? "north" : "south"));
             }
         }
         return new SourceResponse<byte[]>(SourceResponseType.MISSING, null);
     }
 
-    private byte[] getOSMTile(OSMTile tile, OSMMapType mapType) {
+    private byte[] fetchRemoteTile(OSMTile tile, OSMMapType mapType) {
         // TODO System.err.println("OSMTileSource: loading " + tile + " with type " +
         // type.toString());
 

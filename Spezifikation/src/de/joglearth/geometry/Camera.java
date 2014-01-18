@@ -226,8 +226,12 @@ public class Camera {
      * 
      * @return
      */
-    public double getScale() {
+    public double getSurfaceScale() {
         return distance * tan(horizontalFOV / 2) / PI;
+    }
+    
+    public double getLongitudeScale() {
+        return getSurfaceScale() / geometry.getLongitudeDisortion(position);
     }
 
     /**
@@ -345,8 +349,12 @@ public class Camera {
      * @param deltaLat The angular distance to move in latitude direction
      */
     public void move(double deltaLon, double deltaLat) {
-        setPosition(new GeoCoordinates(position.getLongitude() + deltaLon,
-                position.getLatitude() + deltaLat));
+        double newLon = position.getLongitude() + deltaLon;
+        double newLat = position.getLatitude() + deltaLat;
+        if (newLat < PI/2 && newLat > -PI/2 
+                && (newLon > -PI && newLon < PI || geometry.allowsLongitudinalTraversal())) {
+            setPosition(new GeoCoordinates(newLon, newLat));
+        }
     }
 
     private boolean isPointVisible(Vector3 point) {

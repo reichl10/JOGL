@@ -128,6 +128,7 @@ public class MainWindow extends JFrame {
     private static ImageIcon showIcon = loadIcon("icons/show.png"); //$NON-NLS-1$
 
     private GLEasel easel;
+    private GLProfile glProfile;
 
     /**
      * SerialVersionUID
@@ -262,11 +263,11 @@ public class MainWindow extends JFrame {
         Settings.getInstance().addSettingsListener(SettingsContract.ANTIALIASING, settingsListener);
         getContentPane().setLayout(
                 new FormLayout(new ColumnSpec[] {
-                ColumnSpec.decode("right:max(160dlu;min)"),
-                ColumnSpec.decode("15px"),
-                ColumnSpec.decode("default:grow"),},
-            new RowSpec[] {
-                RowSpec.decode("default:grow"),})); //$NON-NLS-1$
+                        ColumnSpec.decode("right:max(160dlu;min)"),
+                        ColumnSpec.decode("15px"),
+                        ColumnSpec.decode("default:grow"), },
+                        new RowSpec[] {
+                                RowSpec.decode("default:grow"), })); //$NON-NLS-1$
 
         JPanel sideBar = new JPanel();
         sideBar.setLayout(new FormLayout(new ColumnSpec[] { ColumnSpec
@@ -331,24 +332,24 @@ public class MainWindow extends JFrame {
         detailsPanel.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
                 ColumnSpec.decode("default:grow"),
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,},
-            new RowSpec[] {
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,
-                FormFactory.DEFAULT_ROWSPEC,
-                FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.decode("default:grow"),
-                FormFactory.RELATED_GAP_ROWSPEC,
-                FormFactory.DEFAULT_ROWSPEC,
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,}));
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC, },
+                new RowSpec[] {
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        RowSpec.decode("default:grow"),
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
 
         detailNameLabel = new JLabel(Messages.getString("MainWindow.3")); //$NON-NLS-1$
         detailNameLabel.setFocusTraversalKeysEnabled(false);
         detailNameLabel.setFocusable(false);
         detailsPanel.add(detailNameLabel, "2, 2"); //$NON-NLS-1$
-        
+
         scrollPane_1 = new JScrollPane();
         detailsPanel.add(scrollPane_1, "2, 4, fill, fill");
-        
+
         detailsDescTextArea = new JTextArea();
         detailsDescTextArea.setFont(new Font("Tahoma", Font.PLAIN, 11));
         scrollPane_1.setViewportView(detailsDescTextArea);
@@ -425,15 +426,15 @@ public class MainWindow extends JFrame {
         placesTab.setLayout(new FormLayout(new ColumnSpec[] {
                 ColumnSpec.decode("2dlu"),
                 ColumnSpec.decode("default:grow"),
-                ColumnSpec.decode("2dlu"),},
-            new RowSpec[] {
-                FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.decode("max(60dlu;default):grow"),
-                FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.decode("max(60dlu;default):grow"),
-                FormFactory.RELATED_GAP_ROWSPEC,
-                FormFactory.DEFAULT_ROWSPEC,
-                FormFactory.RELATED_GAP_ROWSPEC,}));
+                ColumnSpec.decode("2dlu"), },
+                new RowSpec[] {
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        RowSpec.decode("max(60dlu;default):grow"),
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        RowSpec.decode("max(60dlu;default):grow"),
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.RELATED_GAP_ROWSPEC, }));
 
         searchPanel = new JPanel();
         searchPanel.setBorder(BorderFactory.createTitledBorder(Messages
@@ -850,7 +851,7 @@ public class MainWindow extends JFrame {
         Antialiasing aa = Antialiasing.valueOf(Settings.getInstance().getString(
                 SettingsContract.ANTIALIASING));
 
-        GLCanvas canvas = easel.newCanvas(GLProfile.get(GLProfile.GL2), aa);
+        GLCanvas canvas = easel.newCanvas(glProfile, aa);
         GLContext context = new GLContext();
         canvas.addGLEventListener(context);
 
@@ -891,9 +892,9 @@ public class MainWindow extends JFrame {
                 ColumnSpec.decode("max(100dlu;default)"),
                 ColumnSpec.decode("4dlu:grow"),
                 ColumnSpec.decode("right:70dlu"),
-                FormFactory.RELATED_GAP_COLSPEC,},
-            new RowSpec[] {
-                RowSpec.decode("default:grow"),})); //$NON-NLS-1$
+                FormFactory.RELATED_GAP_COLSPEC, },
+                new RowSpec[] {
+                        RowSpec.decode("default:grow"), })); //$NON-NLS-1$
 
         JPanel zoomPanel = new JPanel();
         viewPanel.add(zoomPanel, "2, 1, center, fill"); //$NON-NLS-1$
@@ -956,9 +957,9 @@ public class MainWindow extends JFrame {
                 ColumnSpec.decode("5dlu"),
                 FormFactory.DEFAULT_COLSPEC,
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-                ColumnSpec.decode("max(20dlu;pref):grow"),},
-            new RowSpec[] {
-                RowSpec.decode("default:grow"),})); //$NON-NLS-1$
+                ColumnSpec.decode("max(20dlu;pref):grow"), },
+                new RowSpec[] {
+                        RowSpec.decode("default:grow"), })); //$NON-NLS-1$
 
         latitudeLabel = new JLabel(Messages.getString("MainWindow.2")); //$NON-NLS-1$
         coordPanel.add(latitudeLabel, "1, 1, right, default"); //$NON-NLS-1$
@@ -982,7 +983,6 @@ public class MainWindow extends JFrame {
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_ENTER) {
-                    System.out.println("Change By Lat");
                     try {
                         GeoCoordinates geo = GeoCoordinates.parseCoordinates(
                                 longitudeTextField.getText(), latitudeTextField.getText());
@@ -1031,7 +1031,6 @@ public class MainWindow extends JFrame {
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_ENTER) {
-                    System.out.println("Change By Long");
                     GeoCoordinates geo = GeoCoordinates.parseCoordinates(
                             longitudeTextField.getText(), latitudeTextField.getText());
                     camera.setPosition(geo);
@@ -1060,7 +1059,6 @@ public class MainWindow extends JFrame {
                 Settings.getInstance().putString(SettingsContract.LANGUAGE,
                         language.getLanguage());
                 loadLanguage();
-                //TODO System.err.println("Change Language!"); //$NON-NLS-1$
             }
         });
         displayModeComboBox.addItemListener(new ItemListener() {
@@ -1084,14 +1082,9 @@ public class MainWindow extends JFrame {
                                             mode.name());
                                     break;
                                 default:
-                                    // TODO: prob remove this line
-                                    System.err
-                                            .println("Unknown DisplayMode in comboBox!"); //$NON-NLS-1$
                                     break;
                             }
                         }
-                    } else {
-                        //TODO System.err.println(Messages.getString("MainWindow.51")); //$NON-NLS-1$
                     }
                 }
 
@@ -1178,12 +1171,9 @@ public class MainWindow extends JFrame {
                 if (e.getValueIsAdjusting() == false) {
                     Location location = searchResultList.getSelectedValue();
                     if (location != null) {
-                        System.out.println("SearchResult Setting to lon: "
-                                + location.point.getLongitudeString()
-                                + " lat: " + location.point.getLatitudeString());
                         camera.setPosition(location.point);
                         requestDetails();
-                        
+
                     }
                 }
             }
@@ -1397,12 +1387,13 @@ public class MainWindow extends JFrame {
 
     private void requestDetails() {
         GeoCoordinates lookingAt = camera
-        .getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
+                .getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
         Set<Location> uLocs = Settings.getInstance().getLocations(SettingsContract.USER_LOCATIONS);
         for (final Location l : uLocs) {
-            if (l.point.equals(lookingAt) && l.details != null && l.name != null && !l.details.isEmpty() && !l.name.isEmpty()) {
+            if (l.point.equals(lookingAt) && l.details != null && l.name != null
+                    && !l.details.isEmpty() && !l.name.isEmpty()) {
                 SwingUtilities.invokeLater(new Runnable() {
-                    
+
                     @Override
                     public void run() {
                         updateDetails(l);
@@ -1416,14 +1407,14 @@ public class MainWindow extends JFrame {
         lastDetailsListener = new DetailsListener();
         final Location loc = locationManager.getDetails(lookingAt, lastDetailsListener);
         SwingUtilities.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 updateDetails(loc);
             }
         });
     }
-    
+
     private void updateDetails(Location location) {
         if (location.name != null)
             detailNameLabel.setText(location.name);
@@ -1438,22 +1429,23 @@ public class MainWindow extends JFrame {
     /**
      * Constructor.
      * 
+     * @param prof
+     * 
      * @param locationManager The <code>LocationManager</code> associated with this window.
      */
-    public MainWindow(final LocationManager locationManager) {
+    public MainWindow(GLProfile prof, final LocationManager locationManager) {
         this.locationManager = locationManager;
+        this.glProfile = prof;
+
         progressManager = ProgressManager.getInstance();
         String lang = Settings.getInstance().getString(
                 SettingsContract.LANGUAGE);
-        // TODO System.err.println("LangSetting At Start:" + lang);
         Locale.Builder builder = new Locale.Builder();
         builder.setLanguage(lang);
         Locale l = builder.build();
         if (l.getLanguage().equals(Locale.GERMAN.getLanguage())) {
-            //TODO System.err.println("Set Lang to German at start!"); //$NON-NLS-1$
             Messages.setLocale(Locale.GERMAN);
         } else {
-            //TODO System.err.println("Set Lang to English at start!"); //$NON-NLS-1$
             Messages.setLocale(Locale.ENGLISH);
         }
         initializeWindow();
@@ -1464,10 +1456,8 @@ public class MainWindow extends JFrame {
         initializeViewPanel();
         loadLanguage();
         if (l.getLanguage().equals(Locale.GERMAN.getLanguage())) {
-            //TODO System.err.println("Set Lang to German at start!"); //$NON-NLS-1$
             languageComboBox.setSelectedIndex(1);
         } else {
-            //TODO System.err.println("Set Lang to English at start!"); //$NON-NLS-1$
             languageComboBox.setSelectedIndex(0);
         }
 
@@ -1507,7 +1497,6 @@ public class MainWindow extends JFrame {
         int numLoc = 0;
         if (uLocations != null)
             numLoc = uLocations.size();
-        System.out.println("Rows: " + numLoc);
         int[] rowHeights = new int[numLoc];
         double[] rowWeights = new double[numLoc];
         for (int c = 0; c < numLoc; c++) {
@@ -1522,7 +1511,6 @@ public class MainWindow extends JFrame {
         userTagListPanel.setLayout(gbl_userTagListPanel);
         if (uLocations != null)
             for (final Location l : uLocations) {
-                System.out.println("Name: " + l.name);
                 JButton button = new JButton(l.name);
                 JButton close = new JButton("X");
                 close.addActionListener(new ActionListener() {
@@ -1534,7 +1522,6 @@ public class MainWindow extends JFrame {
                         Location location = buttonToLocationMap.get(target);
                         buttonToLocationMap.remove(target);
                         closingMap.remove(self);
-                        System.out.println("Trying to remove location: "+location.name);
                         Settings.getInstance().dropLocation(SettingsContract.USER_LOCATIONS,
                                 location);
 
@@ -1546,33 +1533,33 @@ public class MainWindow extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         camera.setPosition(l.point);
-                        if (l.details != null && l.name != null && !l.details.isEmpty() && !l.name.isEmpty()) {
+                        if (l.details != null && l.name != null && !l.details.isEmpty()
+                                && !l.name.isEmpty()) {
                             SwingUtilities.invokeLater(new Runnable() {
-                                
+
                                 @Override
                                 public void run() {
                                     updateDetails(l);
-                                    
+
                                 }
                             });
-                            
+
                         } else {
                             SwingUtilities.invokeLater(new Runnable() {
-                                
+
                                 @Override
                                 public void run() {
                                     requestDetails();
-                                    
+
                                 }
                             });
-                            
+
                         }
                     }
                 });
                 closingMap.put(close, button);
                 buttonToLocationMap.put(button, l);
                 int gridy = closingMap.size() - 1;
-                System.out.println("Gridy: " + gridy);
                 GridBagConstraints gridBagClose = new GridBagConstraints();
                 gridBagClose.insets = new Insets(0, 0, 0, 0);
                 gridBagClose.gridx = 0;
@@ -1608,7 +1595,6 @@ public class MainWindow extends JFrame {
 
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
-            System.err.println("Got a UserLocation Change: " + key);
             if (key.equals(SettingsContract.USER_LOCATIONS)) {
                 SwingUtilities.invokeLater(new Runnable() {
 
@@ -1652,18 +1638,13 @@ public class MainWindow extends JFrame {
                 latitudeTextField.setText(""); //$NON-NLS-1$
                 longitudeTextField.setText(""); //$NON-NLS-1$
             }
-            scaleLabel.setText(Double.toString(camera.getScale()));
-            System.out.println(String.valueOf(camera.getScale()));
-            System.out.println(String.valueOf(Math.round(camera.getScale() * rad) + "m"));
+
+            scaleLabel.setText(Double.toString(camera.getSurfaceScale()));
             easel.getSize(dimensionCvas);
             scaleCanvas.getSize(dimensionScaleCanv);
-            System.out.println("ScaleCanvSize Width: " + dimensionScaleCanv.getWidth());
-            double sizeScreen = camera.getScale() * rad;
-            System.out.println("SizeScreen: " + sizeScreen);
+            double sizeScreen = camera.getSurfaceScale() * rad;
             double scale = dimensionCvas.getWidth() / dimensionScaleCanv.getWidth();
-            System.out.println("Scale: " + scale);
             double scaleSize = Math.round(sizeScreen / scale);
-            System.out.println("ScaleSize: " + scaleSize);
             scaleLabel.setText(String.valueOf(scaleSize));
         }
 
@@ -1690,7 +1671,6 @@ public class MainWindow extends JFrame {
                     if (lastGeo != null && newGeo != null) {
                         double deltaLon = -signum(newPos.x - lastPos.x)
                                 * abs(newGeo.getLongitude() - lastGeo.getLongitude());
-                        System.out.println(camera.getPosition());
                         double deltaLat = signum(newPos.y - lastPos.y)
                                 * abs(newGeo.getLatitude() - lastGeo.getLatitude());
 
@@ -1739,7 +1719,9 @@ public class MainWindow extends JFrame {
             if (e.getClickCount() >= 2) {
                 ScreenCoordinates screenCoord = getScreenCoordinates(e.getPoint());
                 GeoCoordinates geoCoord = camera.getGeoCoordinates(screenCoord);
-                camera.setPosition(geoCoord);
+                if (geoCoord != null) {
+                    camera.setPosition(geoCoord);
+                }
             }
 
             super.mouseClicked(e);
@@ -1831,7 +1813,6 @@ public class MainWindow extends JFrame {
                     });
                     break;
                 default:
-                    System.out.println("KeyCode: " + e.getKeyCode());
                     break;
             }
             if (newGeo != null) {
@@ -1875,15 +1856,10 @@ public class MainWindow extends JFrame {
 
                 @Override
                 public void run() {
-                    // Glaube hier ist der Fehler drin
-                    // springt hier nochmal rein und löscht model und damit sind auch keine
-                    // Ergebnisse da
-                    System.err.println("UISearchResultListener");
                     DefaultListModel<Location> model = (DefaultListModel<Location>) list
                             .getModel();
                     model.clear();
                     for (Location l : results) {
-                        System.out.println("Add Element Details: " + l.details);
                         model.addElement(l);
                     }
                 }
@@ -1951,7 +1927,7 @@ public class MainWindow extends JFrame {
             // System.out.println("Set Distance to: "+(MIN_DIST + (MAX_DIST - MIN_DIST)
             // * (1 / (1 + perc * perc * perc * 10))));
             camera.setDistance(MIN_DIST + (MAX_DIST - MIN_DIST)
-                    * (1 / (1 + perc * perc * perc * 10)) - 1.8E-4);
+                    * (1 / (1 + perc * perc * perc * 10)) - 1.85E-4);
 
         }
 
@@ -1961,15 +1937,26 @@ public class MainWindow extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.err.println("ActionPerformed! " + e.toString());
             final GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
             SwingUtilities.invokeLater(new Runnable() {
 
                 @Override
                 public void run() {
-                    Location loc = new Location(geo, LocationType.USER_TAG, "", "");
-                    LocationEditDialog dial = new LocationEditDialog(loc);
-                    dial.setVisible(true);
+                    GeoCoordinates lookingAt = camera
+                            .getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
+                    Location loc = locationManager.getDetails(lookingAt,
+                            new SourceListener<GeoCoordinates, Location>() {
+
+                                @Override
+                                public void requestCompleted(GeoCoordinates key, Location value) {
+                                    LocationEditDialog dial = new LocationEditDialog(value);
+                                    dial.setVisible(true);
+                                }
+                            });
+                    if (loc.name != null) {
+                        LocationEditDialog dial = new LocationEditDialog(loc);
+                        dial.setVisible(true);
+                    }
                 }
             });
         }
@@ -1988,7 +1975,6 @@ public class MainWindow extends JFrame {
 
         @Override
         public void updateProgress(double prog) {
-            System.err.println("Progress Upade: " + prog);
             progressBar.setValue((int) (100 * prog));
         }
 

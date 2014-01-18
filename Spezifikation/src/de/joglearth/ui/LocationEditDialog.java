@@ -113,7 +113,9 @@ public class LocationEditDialog extends JDialog {
             }
         });
         buttonPane.add(okButton);
-
+        
+        descriptionTextField.setText(loc.details);
+        nameTextField.setText(loc.name);
     }
 
 }
