@@ -1951,7 +1951,7 @@ public class MainWindow extends JFrame {
             // System.out.println("Set Distance to: "+(MIN_DIST + (MAX_DIST - MIN_DIST)
             // * (1 / (1 + perc * perc * perc * 10))));
             camera.setDistance(MIN_DIST + (MAX_DIST - MIN_DIST)
-                    * (1 / (1 + perc * perc * perc * 10)) - 1.0E-4);
+                    * (1 / (1 + perc * perc * perc * 10)) - 1.8E-4);
 
         }
 

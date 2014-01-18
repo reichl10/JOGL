@@ -441,7 +441,7 @@ public class Renderer {
         @Override
         public void reshape(GLContext context, int width, int height) {
             screenSize = new Dimension(width, height);
-            camera.setPerspective(PI / 2, (double) width/height, 1e-4, 100);
+            camera.setPerspective(PI / 2, (double) width/height, 1e-5, 100);
         }
     }
 
