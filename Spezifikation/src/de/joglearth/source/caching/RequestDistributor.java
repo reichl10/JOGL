@@ -63,14 +63,39 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     public void addCache(Cache<Key, Value> cache, int maxSize) {
         if (cache == null)
             return;
-        //TODO System.out.println("Added Cache "+cache.getClass().getName()+"  with Size: "+maxSize);
+        // TODO
+        // System.out.println("Added Cache "+cache.getClass().getName()+"  with Size: "+maxSize);
         if (maxSize < 1) {
             throw new IllegalArgumentException("Cache size should be > 0");
         }
         caches.add(cache);
         cacheSizeMap.put(cache, new Integer(maxSize));
-        usedSizeMap.put(cache, new Integer(0));
-        lastUsedMap.put(cache, new HashMap<Key, BigInteger>());
+        Map<Key, BigInteger> lastUsedHashMap = new HashMap<Key, BigInteger>();
+        lastUsedMap.put(cache, lastUsedHashMap);
+        Iterable<Key> cachedObjectKeysIterable = cache.getExistingObjects();
+        Integer sizeOfObjectsInCache = 0;
+        for (Key key : cachedObjectKeysIterable) {
+            CacheMoveListener listener = new CacheMoveListener();
+            SourceResponse<Value> response = cache.requestObject(key, listener);
+            if (response.response == SourceResponseType.SYNCHRONOUS) {
+                sizeOfObjectsInCache += measure.getSize(response.value);
+                lastUsedHashMap.put(key, getNextStamp());
+            } else if (response.response == SourceResponseType.ASYNCHRONOUS) {
+                synchronized (this) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                sizeOfObjectsInCache += measure.getSize(listener.value);
+                lastUsedHashMap.put(key, getNextStamp());
+            }
+        }
+        usedSizeMap.put(cache, sizeOfObjectsInCache);
+        if (sizeOfObjectsInCache > maxSize) {
+            makeSpaceInCache(cache, sizeOfObjectsInCache - maxSize);
+        }
     }
 
     /**
