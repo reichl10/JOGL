@@ -226,8 +226,12 @@ public class Camera {
      * 
      * @return
      */
-    public double getScale() {
+    public double getSurfaceScale() {
         return distance * tan(horizontalFOV / 2) / PI;
+    }
+    
+    public double getLongitudeScale() {
+        return getSurfaceScale() / geometry.getLongitudeDisortion(position);
     }
 
     /**

@@ -169,7 +169,7 @@ public class Renderer {
             gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
             
             TileLayout layout = mapConfiguration.getOptimalTileLayout(camera, screenSize);
-            int equatorSubdivisions = (1 << max(0, (int) ceil(log((double) screenSize.width / subdivisionPixels / camera.getScale()) / log(2)))),
+            int equatorSubdivisions = (1 << max(0, (int) ceil(log((double) screenSize.width / subdivisionPixels / camera.getSurfaceScale()) / log(2)))),
                     minEquatorSubdivisions = layout.getHoritzontalTileCount();
 
             Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, layout);
@@ -444,7 +444,7 @@ public class Renderer {
         @Override
         public void reshape(GLContext context, int width, int height) {
             screenSize = new Dimension(width, height);
-            camera.setPerspective(PI / 2, (double) width/height, 1e-5, 100);
+            camera.setPerspective(PI / 2, (double) width/height, 5e-6, 100);
         }
     }
 

@@ -1,6 +1,9 @@
 package de.joglearth;
 
+import javax.media.opengl.GLException;
+import javax.media.opengl.GLProfile;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -12,6 +15,7 @@ import de.joglearth.location.overpass.OverpassManager;
 import de.joglearth.map.osm.OSMTileManager;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.ui.MainWindow;
+import de.joglearth.ui.Messages;
 
 
 /**
@@ -57,11 +61,19 @@ public final class JoglEarth {
                 } catch (
                     ClassNotFoundException | InstantiationException | IllegalAccessException
                     | UnsupportedLookAndFeelException e) {
-                    //TODO System.err.println("Swing: Unable to set system look and feel");
                 }
 	            
+	            GLProfile prof = null;
+	            try {
+	                prof = GLProfile.get(GLProfile.GL2ES1);
+	            } catch (GLException e) {
+	                JOptionPane.showMessageDialog(null, Messages.getString("JoglEarth.noGL"), 
+	                        PRODUCT_NAME, JOptionPane.ERROR_MESSAGE);
+	                return;
+	            }
+	            
 	            LocationManager locationManager = new LocationManager();
-		        MainWindow gui = new MainWindow(locationManager);
+		        MainWindow gui = new MainWindow(prof, locationManager);
 		        gui.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		        gui.setVisible(true);
 			}

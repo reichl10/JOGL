@@ -126,7 +126,7 @@ public class OSMTileLayout implements TileLayout {
      */
     public static int getOptimalZoomLevel(Camera camera, int leastHorizontalTiles) {
         return min(max(0, 
-                (int) ceil(log(leastHorizontalTiles / camera.getScale()) / log(2))-1), 18);
+                (int) ceil(log(leastHorizontalTiles / camera.getLongitudeScale()) / log(2))), 18);
     }
 
     @Override

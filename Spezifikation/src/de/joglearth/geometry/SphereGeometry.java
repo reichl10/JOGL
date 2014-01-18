@@ -106,4 +106,9 @@ public class SphereGeometry implements Geometry {
         mat.rotate(earthAxis, position.getLongitude());
         return mat;
     }
+
+    @Override
+    public double getLongitudeDisortion(GeoCoordinates position) {
+        return cos(position.getLatitude());
+    }
 }

@@ -105,4 +105,9 @@ public class PlaneGeometry implements Geometry {
         
         return new Matrix4();
     }
+
+    @Override
+    public double getLongitudeDisortion(GeoCoordinates position) {
+        return 1;
+    }
 }

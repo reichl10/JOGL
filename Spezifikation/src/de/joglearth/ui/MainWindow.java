@@ -128,6 +128,7 @@ public class MainWindow extends JFrame {
     private static ImageIcon showIcon = loadIcon("icons/show.png"); //$NON-NLS-1$
 
     private GLEasel easel;
+    private GLProfile glProfile;
 
     /**
      * SerialVersionUID
@@ -262,11 +263,11 @@ public class MainWindow extends JFrame {
         Settings.getInstance().addSettingsListener(SettingsContract.ANTIALIASING, settingsListener);
         getContentPane().setLayout(
                 new FormLayout(new ColumnSpec[] {
-                ColumnSpec.decode("right:max(160dlu;min)"),
-                ColumnSpec.decode("15px"),
-                ColumnSpec.decode("default:grow"),},
-            new RowSpec[] {
-                RowSpec.decode("default:grow"),})); //$NON-NLS-1$
+                        ColumnSpec.decode("right:max(160dlu;min)"),
+                        ColumnSpec.decode("15px"),
+                        ColumnSpec.decode("default:grow"), },
+                        new RowSpec[] {
+                                RowSpec.decode("default:grow"), })); //$NON-NLS-1$
 
         JPanel sideBar = new JPanel();
         sideBar.setLayout(new FormLayout(new ColumnSpec[] { ColumnSpec
@@ -331,24 +332,24 @@ public class MainWindow extends JFrame {
         detailsPanel.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
                 ColumnSpec.decode("default:grow"),
-                FormFactory.LABEL_COMPONENT_GAP_COLSPEC,},
-            new RowSpec[] {
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,
-                FormFactory.DEFAULT_ROWSPEC,
-                FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.decode("default:grow"),
-                FormFactory.RELATED_GAP_ROWSPEC,
-                FormFactory.DEFAULT_ROWSPEC,
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,}));
+                FormFactory.LABEL_COMPONENT_GAP_COLSPEC, },
+                new RowSpec[] {
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        RowSpec.decode("default:grow"),
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
 
         detailNameLabel = new JLabel(Messages.getString("MainWindow.3")); //$NON-NLS-1$
         detailNameLabel.setFocusTraversalKeysEnabled(false);
         detailNameLabel.setFocusable(false);
         detailsPanel.add(detailNameLabel, "2, 2"); //$NON-NLS-1$
-        
+
         scrollPane_1 = new JScrollPane();
         detailsPanel.add(scrollPane_1, "2, 4, fill, fill");
-        
+
         detailsDescTextArea = new JTextArea();
         detailsDescTextArea.setFont(new Font("Tahoma", Font.PLAIN, 11));
         scrollPane_1.setViewportView(detailsDescTextArea);
@@ -425,15 +426,15 @@ public class MainWindow extends JFrame {
         placesTab.setLayout(new FormLayout(new ColumnSpec[] {
                 ColumnSpec.decode("2dlu"),
                 ColumnSpec.decode("default:grow"),
-                ColumnSpec.decode("2dlu"),},
-            new RowSpec[] {
-                FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.decode("max(60dlu;default):grow"),
-                FormFactory.RELATED_GAP_ROWSPEC,
-                RowSpec.decode("max(60dlu;default):grow"),
-                FormFactory.RELATED_GAP_ROWSPEC,
-                FormFactory.DEFAULT_ROWSPEC,
-                FormFactory.RELATED_GAP_ROWSPEC,}));
+                ColumnSpec.decode("2dlu"), },
+                new RowSpec[] {
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        RowSpec.decode("max(60dlu;default):grow"),
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        RowSpec.decode("max(60dlu;default):grow"),
+                        FormFactory.RELATED_GAP_ROWSPEC,
+                        FormFactory.DEFAULT_ROWSPEC,
+                        FormFactory.RELATED_GAP_ROWSPEC, }));
 
         searchPanel = new JPanel();
         searchPanel.setBorder(BorderFactory.createTitledBorder(Messages
@@ -850,7 +851,7 @@ public class MainWindow extends JFrame {
         Antialiasing aa = Antialiasing.valueOf(Settings.getInstance().getString(
                 SettingsContract.ANTIALIASING));
 
-        GLCanvas canvas = easel.newCanvas(GLProfile.get(GLProfile.GL2), aa);
+        GLCanvas canvas = easel.newCanvas(glProfile, aa);
         GLContext context = new GLContext();
         canvas.addGLEventListener(context);
 
@@ -891,9 +892,9 @@ public class MainWindow extends JFrame {
                 ColumnSpec.decode("max(100dlu;default)"),
                 ColumnSpec.decode("4dlu:grow"),
                 ColumnSpec.decode("right:70dlu"),
-                FormFactory.RELATED_GAP_COLSPEC,},
-            new RowSpec[] {
-                RowSpec.decode("default:grow"),})); //$NON-NLS-1$
+                FormFactory.RELATED_GAP_COLSPEC, },
+                new RowSpec[] {
+                        RowSpec.decode("default:grow"), })); //$NON-NLS-1$
 
         JPanel zoomPanel = new JPanel();
         viewPanel.add(zoomPanel, "2, 1, center, fill"); //$NON-NLS-1$
@@ -956,9 +957,9 @@ public class MainWindow extends JFrame {
                 ColumnSpec.decode("5dlu"),
                 FormFactory.DEFAULT_COLSPEC,
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-                ColumnSpec.decode("max(20dlu;pref):grow"),},
-            new RowSpec[] {
-                RowSpec.decode("default:grow"),})); //$NON-NLS-1$
+                ColumnSpec.decode("max(20dlu;pref):grow"), },
+                new RowSpec[] {
+                        RowSpec.decode("default:grow"), })); //$NON-NLS-1$
 
         latitudeLabel = new JLabel(Messages.getString("MainWindow.2")); //$NON-NLS-1$
         coordPanel.add(latitudeLabel, "1, 1, right, default"); //$NON-NLS-1$
@@ -1183,7 +1184,7 @@ public class MainWindow extends JFrame {
                                 + " lat: " + location.point.getLatitudeString());
                         camera.setPosition(location.point);
                         requestDetails();
-                        
+
                     }
                 }
             }
@@ -1397,12 +1398,13 @@ public class MainWindow extends JFrame {
 
     private void requestDetails() {
         GeoCoordinates lookingAt = camera
-        .getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
+                .getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
         Set<Location> uLocs = Settings.getInstance().getLocations(SettingsContract.USER_LOCATIONS);
         for (final Location l : uLocs) {
-            if (l.point.equals(lookingAt) && l.details != null && l.name != null && !l.details.isEmpty() && !l.name.isEmpty()) {
+            if (l.point.equals(lookingAt) && l.details != null && l.name != null
+                    && !l.details.isEmpty() && !l.name.isEmpty()) {
                 SwingUtilities.invokeLater(new Runnable() {
-                    
+
                     @Override
                     public void run() {
                         updateDetails(l);
@@ -1416,14 +1418,14 @@ public class MainWindow extends JFrame {
         lastDetailsListener = new DetailsListener();
         final Location loc = locationManager.getDetails(lookingAt, lastDetailsListener);
         SwingUtilities.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 updateDetails(loc);
             }
         });
     }
-    
+
     private void updateDetails(Location location) {
         if (location.name != null)
             detailNameLabel.setText(location.name);
@@ -1438,10 +1440,14 @@ public class MainWindow extends JFrame {
     /**
      * Constructor.
      * 
+     * @param prof
+     * 
      * @param locationManager The <code>LocationManager</code> associated with this window.
      */
-    public MainWindow(final LocationManager locationManager) {
+    public MainWindow(GLProfile prof, final LocationManager locationManager) {
         this.locationManager = locationManager;
+        this.glProfile = prof;
+
         progressManager = ProgressManager.getInstance();
         String lang = Settings.getInstance().getString(
                 SettingsContract.LANGUAGE);
@@ -1534,7 +1540,7 @@ public class MainWindow extends JFrame {
                         Location location = buttonToLocationMap.get(target);
                         buttonToLocationMap.remove(target);
                         closingMap.remove(self);
-                        System.out.println("Trying to remove location: "+location.name);
+                        System.out.println("Trying to remove location: " + location.name);
                         Settings.getInstance().dropLocation(SettingsContract.USER_LOCATIONS,
                                 location);
 
@@ -1546,26 +1552,27 @@ public class MainWindow extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         camera.setPosition(l.point);
-                        if (l.details != null && l.name != null && !l.details.isEmpty() && !l.name.isEmpty()) {
+                        if (l.details != null && l.name != null && !l.details.isEmpty()
+                                && !l.name.isEmpty()) {
                             SwingUtilities.invokeLater(new Runnable() {
-                                
+
                                 @Override
                                 public void run() {
                                     updateDetails(l);
-                                    
+
                                 }
                             });
-                            
+
                         } else {
                             SwingUtilities.invokeLater(new Runnable() {
-                                
+
                                 @Override
                                 public void run() {
                                     requestDetails();
-                                    
+
                                 }
                             });
-                            
+
                         }
                     }
                 });
@@ -1652,13 +1659,13 @@ public class MainWindow extends JFrame {
                 latitudeTextField.setText(""); //$NON-NLS-1$
                 longitudeTextField.setText(""); //$NON-NLS-1$
             }
-            scaleLabel.setText(Double.toString(camera.getScale()));
-            System.out.println(String.valueOf(camera.getScale()));
-            System.out.println(String.valueOf(Math.round(camera.getScale() * rad) + "m"));
+            scaleLabel.setText(Double.toString(camera.getSurfaceScale()));
+            System.out.println(String.valueOf(camera.getSurfaceScale()));
+            System.out.println(String.valueOf(Math.round(camera.getSurfaceScale() * rad) + "m"));
             easel.getSize(dimensionCvas);
             scaleCanvas.getSize(dimensionScaleCanv);
             System.out.println("ScaleCanvSize Width: " + dimensionScaleCanv.getWidth());
-            double sizeScreen = camera.getScale() * rad;
+            double sizeScreen = camera.getSurfaceScale() * rad;
             System.out.println("SizeScreen: " + sizeScreen);
             double scale = dimensionCvas.getWidth() / dimensionScaleCanv.getWidth();
             System.out.println("Scale: " + scale);
@@ -1739,7 +1746,9 @@ public class MainWindow extends JFrame {
             if (e.getClickCount() >= 2) {
                 ScreenCoordinates screenCoord = getScreenCoordinates(e.getPoint());
                 GeoCoordinates geoCoord = camera.getGeoCoordinates(screenCoord);
-                camera.setPosition(geoCoord);
+                if (geoCoord != null) {
+                    camera.setPosition(geoCoord);
+                }
             }
 
             super.mouseClicked(e);
@@ -1951,7 +1960,7 @@ public class MainWindow extends JFrame {
             // System.out.println("Set Distance to: "+(MIN_DIST + (MAX_DIST - MIN_DIST)
             // * (1 / (1 + perc * perc * perc * 10))));
             camera.setDistance(MIN_DIST + (MAX_DIST - MIN_DIST)
-                    * (1 / (1 + perc * perc * perc * 10)) - 1.8E-4);
+                    * (1 / (1 + perc * perc * perc * 10)) - 1.85E-4);
 
         }
 
