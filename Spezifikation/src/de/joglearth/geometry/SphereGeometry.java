@@ -111,4 +111,9 @@ public class SphereGeometry implements Geometry {
     public double getLongitudeDisortion(GeoCoordinates position) {
         return cos(position.getLatitude());
     }
+
+    @Override
+    public boolean allowsLongitudinalTraversal() {
+        return true;
+    }
 }

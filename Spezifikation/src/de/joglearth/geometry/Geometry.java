@@ -61,4 +61,6 @@ public interface Geometry {
     
     public double getLongitudeDisortion(GeoCoordinates position);
     
+    public boolean allowsLongitudinalTraversal();
+    
 }
