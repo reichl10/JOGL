@@ -157,6 +157,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
             sourceListener.requestCompleted(k, data);
         }
         listenerSet.clear();
+        registredListeners.remove(k);
     }
 
 
