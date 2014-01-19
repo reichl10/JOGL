@@ -224,6 +224,7 @@ public class MainWindow extends JFrame {
     private JScrollPane scrollPane_1;
 
     private MapConfiguration mapConfiguration = null;
+    private JPanel scalePanel;
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -941,7 +942,7 @@ public class MainWindow extends JFrame {
         zoomPanel.add(zoomLevelLabel, "1, 8"); //$NON-NLS-1$
         zoomPlusLabel.addMouseListener(new ZoomAdapter(zoomSlider, true));
         zoomMinusLabel.addMouseListener(new ZoomAdapter(zoomSlider, false));
-        JPanel scalePanel = new JPanel();
+        scalePanel = new JPanel();
         statusBar.add(scalePanel, "2, 1, 1, 3, fill, fill"); //$NON-NLS-1$
         scalePanel.setLayout(new FormLayout(new ColumnSpec[] {
                 ColumnSpec.decode("center:default:grow"), },
@@ -1088,14 +1089,18 @@ public class MainWindow extends JFrame {
                             renderer.setDisplayMode(mode);
                             switch (mode) {
                                 case SOLAR_SYSTEM:
+                                    setSolarsystemMode(true);
+                                    break;
                                 case GLOBE_MAP:
                                 case PLANE_MAP:
-                                    Settings.getInstance().putString(SettingsContract.DISPLAY_MODE,
-                                            mode.name());
+                                    setSolarsystemMode(false);
                                     break;
                                 default:
+                                    setSolarsystemMode(false);
                                     break;
                             }
+                            Settings.getInstance().putString(SettingsContract.DISPLAY_MODE,
+                                    mode.name());
                         }
                     }
                 }
@@ -1191,6 +1196,19 @@ public class MainWindow extends JFrame {
 
                     }
                 }
+            }
+        });
+    }
+
+    private void setSolarsystemMode(final boolean enabled) {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                latitudeTextField.setEnabled(!enabled);
+                longitudeTextField.setEnabled(!enabled);
+                zoomSlider.setEnabled(!enabled);
+                scalePanel.setVisible(!enabled);
             }
         });
     }
@@ -1811,7 +1829,8 @@ public class MainWindow extends JFrame {
 
                         @Override
                         public void run() {
-                            zoomSlider.setValue(zoomSlider.getValue() + 1);
+                            if (zoomSlider.isEnabled())
+                                zoomSlider.setValue(zoomSlider.getValue() + 1);
                         }
                     });
                     break;
@@ -1821,7 +1840,8 @@ public class MainWindow extends JFrame {
 
                         @Override
                         public void run() {
-                            zoomSlider.setValue(zoomSlider.getValue() - 1);
+                            if (zoomSlider.isEnabled())
+                                zoomSlider.setValue(zoomSlider.getValue() - 1);
                         }
                     });
                     break;
@@ -1890,6 +1910,8 @@ public class MainWindow extends JFrame {
         @Override
         public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
+            if (!slider.isEnabled())
+                return;
             int current = slider.getValue();
             if (increase) {
                 if (current < slider.getMaximum()) {
@@ -1904,6 +1926,8 @@ public class MainWindow extends JFrame {
 
         @Override
         public void mouseWheelMoved(MouseWheelEvent e) {
+            if (!slider.isEnabled())
+                return;
             int current = slider.getValue();
             int newCount = current - e.getWheelRotation();
             if (newCount < slider.getMinimum())
