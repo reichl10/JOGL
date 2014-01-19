@@ -125,6 +125,7 @@ public class LocationEditDialog extends JDialog {
         });
         buttonPane.add(okButton);
         nameTextField.setText(loc.name);
+        setLocationRelativeTo(parent);
     }
 
 }
