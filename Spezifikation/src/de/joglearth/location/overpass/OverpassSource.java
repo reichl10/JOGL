@@ -20,6 +20,7 @@ import javax.xml.stream.XMLStreamReader;
 
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Tile;
+import de.joglearth.geometry.TransformedTile;
 import de.joglearth.location.Location;
 import de.joglearth.location.LocationType;
 import de.joglearth.location.nominatim.NominatimSource;
@@ -250,6 +251,11 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
             public boolean contains(GeoCoordinates coords) {
                 // TODO Auto-generated method stub
                 return false;
+            }
+
+            @Override
+            public TransformedTile getScaledAlternative() {
+                return null;
             }
         }));
         
