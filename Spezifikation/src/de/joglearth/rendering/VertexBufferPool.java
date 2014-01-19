@@ -38,5 +38,6 @@ public class VertexBufferPool<Key> extends MemoryCache<Key, VertexBuffer> {
                 };
             });
         }
+        super.dropObject(k);
     }
 }
