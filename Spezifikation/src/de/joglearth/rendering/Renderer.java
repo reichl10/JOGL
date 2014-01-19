@@ -5,6 +5,7 @@ import static javax.media.opengl.GL2.*;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -67,19 +68,21 @@ public class Renderer {
     private Dimension screenSize = new Dimension(640, 480);
 
     private final static int ICON_SIZE = 24;
-    
+
     private final static double FOV = PI / 2;
     private double aspectRatio = 1;
-    
-    
+
+
     private enum InitState {
         AWAITING,
         LOADING,
-        DONE        
+        DONE
     }
-    
+
+
     private InitState initState;
     private HeightMap heightMap = FlatHeightMap.getInstance();
+
 
     /**
      * Constructor initializes the OpenGL functionalities.
@@ -92,7 +95,7 @@ public class Renderer {
         if (gl == null || locationManager == null) {
             throw new IllegalArgumentException();
         }
-        
+
         setGLContext(gl);
         setLocationManager(locationManager);
 
@@ -105,33 +108,32 @@ public class Renderer {
             }
         });
     }
-    
+
     public void setGLContext(GLContext gl) {
         if (gl == null) {
             throw new IllegalArgumentException();
         }
-        
+
         this.gl = gl;
         gl.addGLContextListener(glContextListener);
     }
-    
+
     public void setLocationManager(LocationManager manager) {
         if (manager == null) {
             throw new IllegalArgumentException();
         }
-        
+
         this.locationManager = manager;
-        locationManager.addSurfaceListener(surfaceListener);        
+        locationManager.addSurfaceListener(surfaceListener);
     }
-    
-    
+
     private void loading() {
         gl.clear();
-        
-        String text = Messages.getString("Renderer.0");        
-        Dimension screenSize = gl.getSize();        
-        TextRenderer textRenderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.BOLD, 16), 
-                true, false);        
+
+        String text = Messages.getString("Renderer.0");
+        Dimension screenSize = gl.getSize();
+        TextRenderer textRenderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.BOLD, 16),
+                true, false);
         textRenderer.beginRendering(screenSize.width, screenSize.height);
         Dimension textSize = textRenderer.getBounds(text).getBounds().getSize();
         textRenderer.draw(text, (screenSize.width - textSize.width) / 2,
@@ -143,145 +145,147 @@ public class Renderer {
         matrix = matrix.clone();
         matrix.rotate(new Vector3(-1, 0, 0), PI / 2);
         return matrix;
-    }    
+    }
 
     private void render() {
         gl.clear();
-        
+
         double zNear = camera.getDistance() / 2, zFar = zNear * 1000;
-    	camera.setPerspective(FOV, aspectRatio, zNear, zFar);
+        camera.setPerspective(FOV, aspectRatio, zNear, zFar);
         gl.loadMatrix(GL_PROJECTION, camera.getProjectionMatrix());
-        
+
         Matrix4 skyMatrix = correctGLUTransformation(camera.getSkyViewMatrix());
-        gl.loadMatrix(GL_MODELVIEW, skyMatrix);        
+        gl.loadMatrix(GL_MODELVIEW, skyMatrix);
 
         gl.setFeatureEnabled(GL_DEPTH_TEST, false);
-        gl.drawSphere(50, 15, 8, true, sky);               
+        gl.drawSphere(50, 15, 8, true, sky);
         gl.setFeatureEnabled(GL_DEPTH_TEST, true);
-        
+
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
-            
+
             gl.placeLight(0, new Vector3(0, -50, 0));
             gl.setFeatureEnabled(GL_LIGHTING, true);
-            
+
             Matrix4 modelMatrix = camera.getModelViewMatrix().clone();
             gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(modelMatrix));
             gl.drawSphere(1, 60, 40, false, earth);
-            
+
             modelMatrix.translate(-4, 0, 0);
             gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(modelMatrix));
             gl.drawSphere(0.2, 30, 20, false, moon);
-            
+
             gl.setFeatureEnabled(GL_LIGHTING, false);
-            
+
         } else {
-            
+
             gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
-            
+
             TileLayout layout = mapConfiguration.getOptimalTileLayout(camera, screenSize);
-            int equatorSubdivisions = (1 << max(0, (int) ceil(log((double) screenSize.width / subdivisionPixels / camera.getSurfaceScale()) / log(2)))),
-                    minEquatorSubdivisions = layout.getHoritzontalTileCount();
+            int equatorSubdivisions = (1 << max(0, (int) ceil(log((double) screenSize.width
+                    / subdivisionPixels / camera.getSurfaceScale())
+                    / log(2)))), minEquatorSubdivisions = layout.getHoritzontalTileCount();
 
             Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, layout);
-                        
-//            // TODO debug-code: prints a visual representation of the set of visible tiles
-//            TileLayout lay = mapConfiguration.getOptimalTileLayout(camera, screenSize);
-//            Set<GridPoint> origins = new HashSet<GridPoint>();
-//            int minx = 0, maxx = 0, miny = 0, maxy = 0;
-//            boolean first = true;
-//            for (Iterator<Tile> it = tiles.iterator(); it.hasNext(); ) {
-//                GridPoint p = lay.getTileOrigin(it.next());
-//                if (first || p.getLongitude() < minx) minx = p.getLongitude();
-//                if (first || p.getLongitude() > maxx) maxx = p.getLongitude();
-//                if (first || p.getLatitude() < miny) miny = p.getLatitude();
-//                if (first || p.getLatitude() > maxy) maxy = p.getLatitude();
-//                first = false;
-//                origins.add(p);
-//            }
-//            StringBuilder sb = new StringBuilder("Visible Tile Graph:\n");
-//            for (int y=miny; y <= maxy; ++y) {
-//                for (int x=minx; x <= maxx; ++x) {
-//                    sb.append(origins.contains(new GridPoint(x, y)) ? 'x' : ' '); 
-//                }
-//                sb.append('\n');
-//            }
-//            System.out.print(sb.toString());
-//            
-//            // --------------
-//            
-//            StringBuilder tsb = new StringBuilder("Texture IDs: "),
-//                    vsb = new StringBuilder("Vertex Buffers: ");
+
+            // // TODO debug-code: prints a visual representation of the set of visible tiles
+            // TileLayout lay = mapConfiguration.getOptimalTileLayout(camera, screenSize);
+            // Set<GridPoint> origins = new HashSet<GridPoint>();
+            // int minx = 0, maxx = 0, miny = 0, maxy = 0;
+            // boolean first = true;
+            // for (Iterator<Tile> it = tiles.iterator(); it.hasNext(); ) {
+            // GridPoint p = lay.getTileOrigin(it.next());
+            // if (first || p.getLongitude() < minx) minx = p.getLongitude();
+            // if (first || p.getLongitude() > maxx) maxx = p.getLongitude();
+            // if (first || p.getLatitude() < miny) miny = p.getLatitude();
+            // if (first || p.getLatitude() > maxy) maxy = p.getLatitude();
+            // first = false;
+            // origins.add(p);
+            // }
+            // StringBuilder sb = new StringBuilder("Visible Tile Graph:\n");
+            // for (int y=miny; y <= maxy; ++y) {
+            // for (int x=minx; x <= maxx; ++x) {
+            // sb.append(origins.contains(new GridPoint(x, y)) ? 'x' : ' ');
+            // }
+            // sb.append('\n');
+            // }
+            // System.out.print(sb.toString());
+            //
+            // // --------------
+            //
+            // StringBuilder tsb = new StringBuilder("Texture IDs: "),
+            // vsb = new StringBuilder("Vertex Buffers: ");
             for (Tile tile : tiles) {
                 TransformedTexture texture = textureManager.getTexture(tile);
                 gl.loadMatrix(GL_TEXTURE, texture.transformation);
-//                tsb.append(texture.getTextureObject());
-//                tsb.append(", ");
-                ProjectedTile projected = new ProjectedTile(tile, mapConfiguration.getProjection(), minEquatorSubdivisions, equatorSubdivisions);
+                // tsb.append(texture.getTextureObject());
+                // tsb.append(", ");
+                ProjectedTile projected = new ProjectedTile(tile, mapConfiguration.getProjection(),
+                        minEquatorSubdivisions, equatorSubdivisions);
                 VertexBuffer vbo = tileMeshManager.requestObject(projected, null).value;
-//                vsb.append(vbo.getVertices());
-//                vsb.append("/");
-//                vsb.append(vbo.getIndices());
-//                vsb.append(", ");
+                // vsb.append(vbo.getVertices());
+                // vsb.append("/");
+                // vsb.append(vbo.getIndices());
+                // vsb.append(", ");
                 gl.drawVertexBuffer(vbo, texture.texture);
             }
-//            System.out.println(tsb.toString());
-//            System.out.println(vsb.toString());
+            // System.out.println(tsb.toString());
+            // System.out.println(vsb.toString());
 
             gl.loadMatrix(GL_PROJECTION, new Matrix4());
             gl.loadMatrix(GL_MODELVIEW, new Matrix4());
             gl.loadMatrix(GL_TEXTURE, new Matrix4());
-            
-            //TextRenderer textRenderer = new TextRenderer(new Font(Font.SANS_SERIF, 0, 10));
-            //textRenderer.beginRendering(screenSize.width, screenSize.height);
-            
-            double xOffset = (double) ICON_SIZE / screenSize.width / 2,
-                   yOffset = (double) ICON_SIZE / screenSize.height / 2;
-            
-                        
+
+            // TextRenderer textRenderer = new TextRenderer(new Font(Font.SANS_SERIF, 0, 10));
+            // textRenderer.beginRendering(screenSize.width, screenSize.height);
+
+            double xOffset = (double) ICON_SIZE / screenSize.width / 2, yOffset = (double) ICON_SIZE
+                    / screenSize.height / 2;
+
             Collection<Location> locations = locationManager.getActiveLocations(tiles);
             System.out.println(locations);
             System.out.println();
-            //Collection<Location> locations = new ArrayList<>();
-            //locations.add(new Location(new GeoCoordinates(0, 0), LocationType.BANK, null, null));
-            
+            // Collection<Location> locations = new ArrayList<>();
+            // locations.add(new Location(new GeoCoordinates(0, 0), LocationType.BANK, null, null));
+
             gl.setFeatureEnabled(GL_DEPTH_TEST, false);
             gl.setFeatureEnabled(GL_BLEND, true);
-            
-            gl.drawRectangle(new ScreenCoordinates(0.5 - xOffset, 0.5 - yOffset), new ScreenCoordinates(0.5 + xOffset, 0.5 + yOffset), crosshair);
-            
+
+            gl.drawRectangle(new ScreenCoordinates(0.5 - xOffset, 0.5 - yOffset),
+                    new ScreenCoordinates(0.5 + xOffset, 0.5 + yOffset), crosshair);
+
             for (Location location : locations) {
                 if (location.point != null && camera.isPointVisible(location.point)) {
                     Texture overlayTexture = overlayIconTextures.get(location.type);
                     ScreenCoordinates center = camera.getScreenCoordinates(location.point);
                     if (overlayTexture != null) {
-                        ScreenCoordinates
-                            upperLeft = new ScreenCoordinates(center.x - xOffset, center.y - yOffset),
-                            lowerRight = new ScreenCoordinates(center.x + xOffset, center.y + yOffset);
-                        
+                        ScreenCoordinates upperLeft = new ScreenCoordinates(center.x - xOffset,
+                                center.y - yOffset), lowerRight = new ScreenCoordinates(center.x
+                                + xOffset, center.y + yOffset);
+
                         gl.drawRectangle(upperLeft, lowerRight, overlayTexture);
                     }
-                    
-                    /*if (location.name != null && (location.type == LocationType.CITY 
-                            || location.type == LocationType.TOWN 
-                            || location.type == LocationType.VILLAGE)) {
-                        String text = location.name;
-                        Dimension textSize = textRenderer.getBounds(text).getBounds().getSize();                    
-                        textRenderer.draw(text, (int)(center.x * screenSize.width) + ICON_SIZE / 2 + 4, 
-                                (int)(center.y * screenSize.width) - textSize.height);
-                    }*/
+
+                    /*
+                     * if (location.name != null && (location.type == LocationType.CITY ||
+                     * location.type == LocationType.TOWN || location.type == LocationType.VILLAGE))
+                     * { String text = location.name; Dimension textSize =
+                     * textRenderer.getBounds(text).getBounds().getSize(); textRenderer.draw(text,
+                     * (int)(center.x * screenSize.width) + ICON_SIZE / 2 + 4, (int)(center.y *
+                     * screenSize.width) - textSize.height); }
+                     */
                 }
             }
-            
+
             gl.setFeatureEnabled(GL_BLEND, false);
-            //textRenderer.endRendering();
+            // textRenderer.endRendering();
         }
     }
-    
+
     public Camera getCamera() {
         return camera;
     }
 
-    private void initialize() {        
+    private void initialize() {
         gl.setLightEnabled(0, true);
         gl.setLightIntensity(0, 1);
         gl.setAmbientLight(0.2);
@@ -296,16 +300,16 @@ public class Renderer {
                 settingsListener);
         Settings.getInstance().addSettingsListener(SettingsContract.TEXTURE_FILTER,
                 settingsListener);
-        
+
         tileMeshManager = new VertexBufferManager(gl, null);
         tileMeshManager.setHeightMap(heightMap);
         applyDisplayMode();
-        String lvlOfDetailsString = Settings.getInstance().getString(SettingsContract.LEVEL_OF_DETAIL);
+        String lvlOfDetailsString = Settings.getInstance().getString(
+                SettingsContract.LEVEL_OF_DETAIL);
         LevelOfDetail lod = LevelOfDetail.valueOf(lvlOfDetailsString);
         setLevelOfDetail(lod);
     }
-    
-    
+
     private void dispose() {
         if (textureManager != null)
             textureManager.dispose();
@@ -314,46 +318,78 @@ public class Renderer {
             tileMeshManager.dispose();
         tileMeshManager = null;
 
-        Settings.getInstance().removeSettingsListener(SettingsContract.TEXTURE_FILTER, 
+        Settings.getInstance().removeSettingsListener(SettingsContract.TEXTURE_FILTER,
                 settingsListener);
-        Settings.getInstance().removeSettingsListener(SettingsContract.LEVEL_OF_DETAIL, 
+        Settings.getInstance().removeSettingsListener(SettingsContract.LEVEL_OF_DETAIL,
                 settingsListener);
-        
+
         freeTextures();
     }
-    
 
     private void loadTextures() {
         TextureFilter textureFilter = TextureFilter.valueOf(Settings.getInstance().getString(
                 SettingsContract.TEXTURE_FILTER));
 
-        earth = gl.loadTexture(Resource.loadTextureData("textures/earth.jpg", "jpg"),
-                textureFilter);
-        moon = gl.loadTexture(Resource.loadTextureData("textures/moon.jpg", "jpg"), textureFilter);
-        sky = gl.loadTexture(Resource.loadTextureData("textures/sky.jpg", "jpg"), textureFilter);
-        
-        crosshair = gl.loadTexture(Resource.loadTextureData("icons/crosshair.png", "png"), 
-                TextureFilter.TRILINEAR);
-
-        overlayIconTextures = new LinkedHashMap<>();
-        for (LocationType key : LocationType.values()) {
-            String resourceName = "locationIcons/" + key.toString() + ".png";
-            if (Resource.exists(resourceName)) {
-                Texture value = gl.loadTexture(Resource.loadTextureData(resourceName, "png"), 
-                        TextureFilter.TRILINEAR);
-                overlayIconTextures.put(key, value);
+        try {
+            earth = gl.loadTexture(Resource.open("textures/earth.jpg"), "jpg", textureFilter);
+            System.err.println("Earth Texture loaded!");
+        } catch (IOException e) {
+            System.err.println("Loading of Textures failed.");
+            e.printStackTrace();
+        }
+            try {
+                moon = gl.loadTexture(Resource.open("textures/moon.jpg"), "jpg", textureFilter);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
-        }
+            System.err.println("Moon Texture loaded!");
+            try {
+                sky = gl.loadTexture(Resource.open("textures/sky.jpg"), "jpg", textureFilter);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            System.err.println("Sky Texture loaded!");
+            try {
+                crosshair = gl.loadTexture(Resource.open("icons/crosshair.png"), "png",
+                        TextureFilter.TRILINEAR);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            System.err.println("Crosshair Texture loaded!");
+            overlayIconTextures = new LinkedHashMap<>();
+            for (LocationType key : LocationType.values()) {
+                String resourceName = "locationIcons/" + key.toString() + ".png";
+                System.err.println(key.name() + " Texture loading...!");
+                if (Resource.exists(resourceName)) {
+                    Texture value;
+                    try {
+                        value = gl.loadTexture(Resource.open(resourceName), "png",
+                                TextureFilter.TRILINEAR);
+                        System.err.println(key.name() + " Texure loaded!");
+                        overlayIconTextures.put(key, value);
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    
+                }
+            }
     }
-    
-    
+
     private void freeTextures() {
-        for (Texture texture : overlayIconTextures.values()) {
-            gl.deleteTexture(texture);
-        }
-        gl.deleteTexture(sky);
-        gl.deleteTexture(moon);
-        gl.deleteTexture(earth);
+        if (overlayIconTextures != null)
+            for (Texture texture : overlayIconTextures.values()) {
+                gl.deleteTexture(texture);
+            }
+        if (sky != null)
+            gl.deleteTexture(sky);
+        if (moon != null)
+            gl.deleteTexture(moon);
+        if (earth != null)
+            gl.deleteTexture(earth);
         overlayIconTextures = null;
     }
 
@@ -368,7 +404,7 @@ public class Renderer {
                     break;
                 case HIGH:
                     subdivisionPixels = 20;
-            }            
+            }
         }
         gl.postRedisplay();
     }
@@ -384,15 +420,15 @@ public class Renderer {
                 reloadTextures();
             }
         }
-        
+
         private void reloadTextures() {
             gl.invokeLater(new Runnable() {
-                
+
                 @Override
                 public void run() {
                     freeTextures();
                     loadTextures();
-                    // TODO invokeLater() should already cause a redisplay. 
+                    // TODO invokeLater() should already cause a redisplay.
                     // Why is this insufficient?
                     gl.postRedisplay();
                 }
@@ -409,12 +445,12 @@ public class Renderer {
         public void beginFrame(GLContext context) {
             camera.setUpdatesEnabled(false);
         }
-        
+
         @Override
         public void endFrame(GLContext context) {
             camera.setUpdatesEnabled(true);
         }
-        
+
         @Override
         public void display(GLContext context) {
             switch (initState) {
@@ -423,12 +459,12 @@ public class Renderer {
                     loading();
                     gl.postRedisplay();
                     break;
-                    
+
                 case LOADING:
                     initState = InitState.DONE;
                     Renderer.this.initialize();
                     // fall through
-                    
+
                 case DONE:
                     render();
             }
@@ -442,11 +478,11 @@ public class Renderer {
         @Override
         public void initialize(GLContext context) {
             gl.setFeatureEnabled(GL_DEPTH_TEST, true);
-            gl.setFeatureEnabled(GL_CULL_FACE, true);        
+            gl.setFeatureEnabled(GL_CULL_FACE, true);
             gl.setFeatureEnabled(GL_TEXTURE_2D, true);
             gl.setFeatureEnabled(GL_BLEND, true);
-            //gl.setPolygonMode(GL_LINE);
-                        
+            // gl.setPolygonMode(GL_LINE);
+
             initState = InitState.AWAITING;
         }
 
@@ -456,7 +492,6 @@ public class Renderer {
             aspectRatio = (double) width / height;
         }
     }
-
 
     private class SurfaceValidator implements SurfaceListener {
 
@@ -475,7 +510,7 @@ public class Renderer {
         }
     }
 
-    
+
     private void applyDisplayMode() {
         switch (activeDisplayMode) {
             case GLOBE_MAP:
@@ -483,20 +518,19 @@ public class Renderer {
                     tileMeshManager.setTessellator(new SphereTessellator());
                 }
                 // fall through
-                
-            case SOLAR_SYSTEM:            
+
+            case SOLAR_SYSTEM:
                 camera.setGeometry(new SphereGeometry());
                 break;
-                
+
             case PLANE_MAP:
-                if (tileMeshManager != null)  {
+                if (tileMeshManager != null) {
                     tileMeshManager.setTessellator(new PlaneTessellator());
                 }
                 camera.setGeometry(new PlaneGeometry());
         }
         gl.postRedisplay();
     }
-    
 
     /**
      * Sets the {@link de.joglearth.rendering.DisplayMode} to a given value.
@@ -527,16 +561,17 @@ public class Renderer {
         }
         gl.postRedisplay();
     }
-    
+
     /**
      * Sets {@link HeightMap} for further tiles.
+     * 
      * @param hm The HeighMap
      */
     public void setHeightMap(HeightMap hm) {
         if (!hm.equals(heightMap)) {
             heightMap = hm;
             if (tileMeshManager != null)
-            tileMeshManager.setHeightMap(hm);
+                tileMeshManager.setHeightMap(hm);
         }
     }
 

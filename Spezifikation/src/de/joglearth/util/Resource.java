@@ -1,5 +1,8 @@
 package de.joglearth.util;
 
+import static javax.media.opengl.GL.GL_MAX_TEXTURE_SIZE;
+
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -10,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.media.opengl.GL2;
 import javax.media.opengl.GLProfile;
 import javax.swing.ImageIcon;
 
@@ -29,6 +33,7 @@ public final class Resource {
     }
     
     public static InputStream open(String name) throws IOException {
+        System.err.println("Opening "+name);
         URL url = getURL(name);
         if (url == null) {
             throw new IOException("Resource not found");
@@ -50,15 +55,6 @@ public final class Resource {
     public static ImageIcon loadIcon(String name) {
         try {
             return new ImageIcon(ImageIO.read(open(name)));
-        } catch (IOException e) {
-            throw new RuntimeException("Loading resource " + name + " failed", e);
-        }
-    }
-
-    public static TextureData loadTextureData(String name, String type) {
-        try {
-            return TextureIO.newTextureData(GLProfile.getDefault(), open(name),
-                    false, type);
         } catch (IOException e) {
             throw new RuntimeException("Loading resource " + name + " failed", e);
         }

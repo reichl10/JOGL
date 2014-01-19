@@ -1,6 +1,8 @@
 package de.joglearth.opengl;
 
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -8,6 +10,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
@@ -22,6 +25,7 @@ import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureData;
 import com.jogamp.opengl.util.texture.TextureIO;
+import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
 import de.joglearth.async.AWTInvoker;
 import de.joglearth.async.AbstractInvoker;
@@ -29,9 +33,12 @@ import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.rendering.Mesh;
+import de.joglearth.util.Resource;
+import static javax.media.opengl.GL.GL_MAX_TEXTURE_SIZE;
 import static javax.media.opengl.GL2.*;
 import static java.lang.Double.*;
 import static java.lang.Math.*;
+
 
 /**
  * Encapsulates OpenGL calls and callbacks.
@@ -39,7 +46,7 @@ import static java.lang.Math.*;
 public final class GLContext extends AbstractInvoker implements GLEventListener {
 
     private int lightCount = 0;
-    
+
     // The internal contexts
     private GL2 gl = null;
     private GLU glu = null;
@@ -69,9 +76,9 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     private volatile boolean redisplayActive;
 
     private FPSAnimator animator = null;
-    
+
     private boolean anisotropySupported;
-    private int maxAnisotropy;    
+    private int maxAnisotropy;
 
 
     // Throws if init() has not been called yet
@@ -106,7 +113,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             }
         }
     }
-    
+
     /**
      * Returns whether the context has yet been initialized by a GLEventListener.init() callback.
      * 
@@ -176,7 +183,8 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         GLError.throwIfActive(gl);
 
         // Write index array
-        gl.glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * mesh.indices.length, IntBuffer.wrap(mesh.indices),
+        gl.glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * mesh.indices.length,
+                IntBuffer.wrap(mesh.indices),
                 GL_STATIC_DRAW);
         GLError.throwIfActive(gl);
 
@@ -216,49 +224,62 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         if (data == null) {
             throw new IllegalArgumentException();
         }
-        
+
         // Mipmaps only make sense with trilinear or anisotropic filtering
         // TODO This is evil as it modifies the TextureData object.
         data.setMipmap(filter != TextureFilter.NEAREST && filter != TextureFilter.BILINEAR);
-        
+
         Texture tex = new Texture(gl, data);
-        
+
         // Set the GL interpolation filter.
         int minFilter, magFilter;
         switch (filter) {
             case NEAREST:
+                System.err.println("NEAREST");
                 minFilter = GL_NEAREST;
                 magFilter = GL_NEAREST;
                 break;
-                
+
             case BILINEAR:
+                System.err.println("BILINEAR");
                 minFilter = GL_LINEAR;
                 magFilter = GL_LINEAR;
                 break;
-             
+
             default:
                 // Anisotropic filtering is a variation of trilinear
+                System.err.println("ANISO");
                 minFilter = GL_LINEAR_MIPMAP_LINEAR;
                 magFilter = GL_LINEAR;
         }
 
         tex.setTexParameteri(gl, GL_TEXTURE_MIN_FILTER, minFilter);
         GLError.throwIfActive(gl);
-        
+
         tex.setTexParameteri(gl, GL_TEXTURE_MAG_FILTER, magFilter);
         GLError.throwIfActive(gl);
-        
+
         if (anisotropySupported) {
             int anisotropy;
             switch (filter) {
-                case ANISOTROPIC_16X: anisotropy = 16; break;
-                case ANISOTROPIC_8X: anisotropy = 8; break;
-                case ANISOTROPIC_4X: anisotropy = 4; break;
-                case ANISOTROPIC_2X: anisotropy = 2; break;
-                default: anisotropy = 0; break;
+                case ANISOTROPIC_16X:
+                    anisotropy = 16;
+                    break;
+                case ANISOTROPIC_8X:
+                    anisotropy = 8;
+                    break;
+                case ANISOTROPIC_4X:
+                    anisotropy = 4;
+                    break;
+                case ANISOTROPIC_2X:
+                    anisotropy = 2;
+                    break;
+                default:
+                    anisotropy = 0;
+                    break;
             }
             anisotropy = min(anisotropy, maxAnisotropy);
-            
+
             if (anisotropy != 0) {
                 tex.setTexParameteri(gl, GL_TEXTURE_MAX_ANISOTROPY_EXT, anisotropy);
                 GLError.throwIfActive(gl);
@@ -268,6 +289,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         return tex;
     }
 
+    
     /**
      * Loads a texture from an input stream via the JOGL Texture API.
      * 
@@ -283,18 +305,35 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         if (stream == null || suffix == null) {
             throw new IllegalArgumentException();
         }
-
         TextureData data;
-        /* TODO Catching RuntimeException in general is bad; the PNG loader throws
-         * PngjInputException which is a subclass of RuntimeException. Investigate whether 
-         * the JPEG loader does a similar thing and catch the exceptions separately.
+        /*
+         * TODO Catching RuntimeException in general is bad; the PNG loader throws
+         * PngjInputException which is a subclass of RuntimeException. Investigate whether the JPEG
+         * loader does a similar thing and catch the exceptions separately.
          */
+        BufferedImage bImg = ImageIO.read(stream);
+        bImg = new BufferedImage(bImg.getWidth(null), bImg.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        int[] maxtextureSize = { 0 };
+        gl.glGetIntegerv(GL_MAX_TEXTURE_SIZE, maxtextureSize, 0);
+        System.out.println("MaxTextureSize: "+maxtextureSize[0]);
+        int imgW = bImg.getWidth();
+        int imgH = bImg.getHeight();
+        if (maxtextureSize[0] < imgW || maxtextureSize[0] < imgH) {
+            System.out.println("Rescaling!");
+            int bigS = Math.max(imgW, imgH);
+            double scale = (maxtextureSize[0]/(double)bigS);
+            imgW = (int) Math.floor(imgW*scale);
+            imgH = (int) Math.floor(imgH*scale);
+            Image scaled = bImg.getScaledInstance(imgW, imgH, BufferedImage.SCALE_DEFAULT);
+            bImg = new BufferedImage(scaled.getWidth(null), scaled.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+            bImg.createGraphics().drawImage(scaled, 0, 0, null);
+        }
         try {
-            data = TextureIO.newTextureData(gl.getGLProfile(), stream, false, suffix);
+            data = AWTTextureIO.newTextureData(gl.getGLProfile(), bImg, false);
         } catch (RuntimeException e) {
             throw new IOException("Error loading texture data", e);
         }
-        
+
         return loadTexture(data, filter);
     }
 
@@ -317,7 +356,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         }
 
         return loadTexture(new TextureData(gl.getGLProfile(), internalFormat, width, height, 0,
-                format, GL_UNSIGNED_BYTE, false, false, false, ByteBuffer.wrap(image), null), 
+                format, GL_UNSIGNED_BYTE, false, false, false, ByteBuffer.wrap(image), null),
                 filter);
     }
 
@@ -410,7 +449,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         // Draw
         gl.glDrawElements(vbo.getPrimitiveType(), vbo.getIndexCount(), GL_UNSIGNED_INT, 0);
         GLError.throwIfActive(gl);
-        
+
         gl.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         GLError.throwIfActive(gl);
 
@@ -470,14 +509,10 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         }
     }
 
-    
     public void drawRectangle(ScreenCoordinates upperLeft, ScreenCoordinates lowerRight,
             Texture texture) {
 
-        float left = (float) upperLeft.x * 2 - 1,
-                top = (float) lowerRight.y *2 - 1,
-                right = (float) lowerRight.x * 2 - 1,
-                bottom = (float) upperLeft.y * 2 - 1;
+        float left = (float) upperLeft.x * 2 - 1, top = (float) lowerRight.y * 2 - 1, right = (float) lowerRight.x * 2 - 1, bottom = (float) upperLeft.y * 2 - 1;
 
         float[] vertices = {
                 left, bottom, 0,
@@ -485,16 +520,16 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
                 right, top, 0,
                 left, top, 0
         };
-        
+
         float[] texcoords = {
                 0, 0,
                 1, 0,
                 1, 1,
                 0, 1
         };
-        
+
         int[] indices = { 0, 1, 2, 3 };
-        
+
         if (texture != null) {
             texture.bind(gl);
             GLError.throwIfActive(gl);
@@ -502,32 +537,31 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
 
         gl.glEnableClientState(GL_VERTEX_ARRAY);
         GLError.throwIfActive(gl);
-        
+
         gl.glEnableClientState(GL_TEXTURE_COORD_ARRAY);
         GLError.throwIfActive(gl);
 
         gl.glVertexPointer(3, GL_FLOAT, 0, Buffers.newDirectFloatBuffer(vertices));
         GLError.throwIfActive(gl);
-        
+
         gl.glTexCoordPointer(2, GL_FLOAT, 0, Buffers.newDirectFloatBuffer(texcoords));
         GLError.throwIfActive(gl);
-                
-        gl.glDrawElements(GL_QUADS,  4, GL_UNSIGNED_INT, Buffers.newDirectIntBuffer(indices));
+
+        gl.glDrawElements(GL_QUADS, 4, GL_UNSIGNED_INT, Buffers.newDirectIntBuffer(indices));
         GLError.throwIfActive(gl);
 
         gl.glDisableClientState(GL_TEXTURE_COORD_ARRAY);
         GLError.throwIfActive(gl);
-        
+
         gl.glDisableClientState(GL_VERTEX_ARRAY);
         GLError.throwIfActive(gl);
-        
+
         if (texture != null) {
             gl.glBindTexture(GL_TEXTURE_2D, 0);
             GLError.throwIfActive(gl);
         }
     }
 
-    
     private void assertIsValidIntensity(double intensity) {
         if (intensity < 0 || intensity > 1 || isNaN(intensity)) {
             throw new IllegalArgumentException();
@@ -539,10 +573,10 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             throw new IllegalArgumentException();
         }
     }
-    
 
     /**
      * Sets the intensity of the specular component on the current material.
+     * 
      * @param intensity The intensity, in the range of [0, 1].
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      * @throws GLError An internal OpenGL error has occurred
@@ -551,15 +585,15 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         assertIsInitialized();
         assertIsInsideCallback();
         assertIsValidIntensity(intensity);
-        
+
         float fi = (float) intensity;
-        gl.glMaterialfv(GL_FRONT, GL_SPECULAR, new float[] { fi, fi, fi, 1}, 0);
+        gl.glMaterialfv(GL_FRONT, GL_SPECULAR, new float[] { fi, fi, fi, 1 }, 0);
         GLError.throwIfActive(gl);
     }
-    
 
     /**
      * Sets the ambient light intensity in the scene.
+     * 
      * @param intensity The intensity, in the range of [0, 1].
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      * @throws GLError An internal OpenGL error has occurred
@@ -573,10 +607,10 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         gl.glLightModelfv(GL_LIGHT_MODEL_AMBIENT, new float[] { fi, fi, fi, 1 }, 0);
         GLError.throwIfActive(gl);
     }
-    
-    
+
     /**
      * Returns the number of lights supported.
+     * 
      * @return The number of lights
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      */
@@ -584,10 +618,10 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         assertIsInitialized();
         return lightCount;
     }
-    
 
     /**
      * Places a GL light in the scene. The position is affected by the model-view-matrix.
+     * 
      * @param index The light index. Must be between (including) 0 and getLightCount()-1
      * @param position
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
@@ -597,15 +631,15 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         assertIsInitialized();
         assertIsInsideCallback();
         assertIsValidLight(index);
-        
+
         float[] floats = { (float) position.x, (float) position.y, (float) position.z, 1 };
         gl.glLightfv(GL_LIGHT0 + index, GL_POSITION, floats, 0);
         GLError.throwIfActive(gl);
     }
-    
-    
+
     /**
      * Sets the intensity of a light.
+     * 
      * @param index The light index. Must be between (including) 0 and getLightCount()-1
      * @param intensity The intensity, in the range [0, 1]
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
@@ -616,15 +650,15 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         assertIsInsideCallback();
         assertIsValidLight(index);
         assertIsValidIntensity(intensity);
-        
-        float fi = (float) intensity;        
+
+        float fi = (float) intensity;
         gl.glLightfv(GL_LIGHT0 + index, GL_DIFFUSE, new float[] { fi, fi, fi, 1 }, 0);
         GLError.throwIfActive(gl);
     }
-    
-    
+
     /**
      * Sets whether a light is used to light the next primitives rendered.
+     * 
      * @param index The light index. Must be between (including) 0 and getLightCount()-1
      * @param enabled Whether the light should be used
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
@@ -634,10 +668,10 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         assertIsValidLight(index);
         setFeatureEnabled(GL_LIGHT0 + index, enabled);
     }
-    
-    
+
     /**
      * Returns whether a light is currently enabled.
+     * 
      * @param index The light index. Must be between (including) 0 and getLightCount()-1
      * @return Whether the light is enabled
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
@@ -780,7 +814,6 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         quadric = null;
         glThread = null;
     }
-    
 
     @Override
     public synchronized void init(GLAutoDrawable caller) {
@@ -797,43 +830,39 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
 
         beginDisplay();
         /*
-        gl.glDepthFunc(GL_LEQUAL);
-        GLError.throwIfActive(gl);
-        
-        gl.glDepthMask(true);
-        GLError.throwIfActive(gl);
-        
-        gl.glDepthRange(0, 1);
-        GLError.throwIfActive(gl);
-        
-        gl.glClearDepth(1);
-        GLError.throwIfActive(gl);*/
-        
-        
+         * gl.glDepthFunc(GL_LEQUAL); GLError.throwIfActive(gl);
+         * 
+         * gl.glDepthMask(true); GLError.throwIfActive(gl);
+         * 
+         * gl.glDepthRange(0, 1); GLError.throwIfActive(gl);
+         * 
+         * gl.glClearDepth(1); GLError.throwIfActive(gl);
+         */
+
         int[] integers = new int[1];
         gl.glGetIntegerv(GL_MAX_LIGHTS, integers, 0);
         GLError.throwIfActive(gl);
         lightCount = integers[0];
-        
+
         String extensions = gl.glGetString(GL_EXTENSIONS);
         GLError.throwIfActive(gl);
-        
+
         anisotropySupported = extensions.contains("GL_EXT_texture_filter_anisotropic");
-        
+
         if (anisotropySupported) {
-            int[] ints = {0};
+            int[] ints = { 0 };
             gl.glGetIntegerv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, ints, 0);
             GLError.throwIfActive(gl);
             maxAnisotropy = ints[0];
         }
-        
+
         if (drawable.getChosenGLCapabilities().getSampleBuffers()) {
             setFeatureEnabled(GL_MULTISAMPLE, true);
         }
-        
+
         gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         GLError.throwIfActive(gl);
-        
+
         for (GLContextListener l : listeners) {
             l.initialize(this);
         }
@@ -841,7 +870,6 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         endDisplay(false);
     }
 
-    
     @Override
     public synchronized void reshape(GLAutoDrawable caller, int x, int y, int width, int height) {
         assertIsInitialized(caller);
@@ -919,14 +947,14 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         // When the initialization occurs, a frame will be drawn anyway.
         if (isInitialized()) {
             System.out.println("Trying to sync");
-            //synchronized (this) {
-                System.out.println("Synced");
-                redisplayPending = true;
-                if (redisplayActive || animator.isAnimating()) {
-                    return;
-                }
-                redisplayActive = true;
-            //}
+            // synchronized (this) {
+            System.out.println("Synced");
+            redisplayPending = true;
+            if (redisplayActive || animator.isAnimating()) {
+                return;
+            }
+            redisplayActive = true;
+            // }
             System.out.println("Exited Sync");
             // Call invokeLater() while there are pending frames. Don't use a loop so that other
             // AWT events can be processed as well.
@@ -937,7 +965,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
                     if (!isInitialized()) {
                         return;
                     }
-                    
+
                     drawable.display();
 
                     boolean doContinue;
