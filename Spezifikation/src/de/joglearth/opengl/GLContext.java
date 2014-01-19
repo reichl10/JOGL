@@ -172,11 +172,11 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         GLError.throwIfActive(gl);
 
         // Bind index buffer
-        gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.getIndices());
+        gl.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.getIndices());
         GLError.throwIfActive(gl);
 
         // Write index array
-        gl.glBufferData(GL_ARRAY_BUFFER, 4 * mesh.indices.length, IntBuffer.wrap(mesh.indices),
+        gl.glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * mesh.indices.length, IntBuffer.wrap(mesh.indices),
                 GL_STATIC_DRAW);
         GLError.throwIfActive(gl);
 
