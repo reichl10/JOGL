@@ -312,7 +312,9 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
          * loader does a similar thing and catch the exceptions separately.
          */
         BufferedImage bImg = ImageIO.read(stream);
-        bImg = new BufferedImage(bImg.getWidth(null), bImg.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage bImage2 = new BufferedImage(bImg.getWidth(null), bImg.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        bImage2.createGraphics().drawImage(bImg, 0, 0, null);
+        bImg = bImage2;
         int[] maxtextureSize = { 0 };
         gl.glGetIntegerv(GL_MAX_TEXTURE_SIZE, maxtextureSize, 0);
         System.out.println("MaxTextureSize: "+maxtextureSize[0]);
