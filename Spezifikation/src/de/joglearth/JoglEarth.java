@@ -65,7 +65,7 @@ public final class JoglEarth {
 	            
 	            GLProfile prof = null;
 	            try {
-	                prof = GLProfile.get(GLProfile.GL2ES1);
+	                prof = GLProfile.getDefault();//get(GLProfile.GL2ES1);
 	            } catch (GLException e) {
 	                JOptionPane.showMessageDialog(null, Messages.getString("JoglEarth.noGL"), 
 	                        PRODUCT_NAME, JOptionPane.ERROR_MESSAGE);
