@@ -1,7 +1,47 @@
 package de.joglearth.opengl;
 
+import static java.lang.Double.isNaN;
+import static java.lang.Math.min;
+import static javax.media.opengl.GL.GL_ARRAY_BUFFER;
+import static javax.media.opengl.GL.GL_COLOR_BUFFER_BIT;
+import static javax.media.opengl.GL.GL_DEPTH_BUFFER_BIT;
+import static javax.media.opengl.GL.GL_ELEMENT_ARRAY_BUFFER;
+import static javax.media.opengl.GL.GL_EXTENSIONS;
+import static javax.media.opengl.GL.GL_FLOAT;
+import static javax.media.opengl.GL.GL_FRONT;
+import static javax.media.opengl.GL.GL_FRONT_AND_BACK;
+import static javax.media.opengl.GL.GL_LINEAR;
+import static javax.media.opengl.GL.GL_LINEAR_MIPMAP_LINEAR;
+import static javax.media.opengl.GL.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT;
+import static javax.media.opengl.GL.GL_MAX_TEXTURE_SIZE;
+import static javax.media.opengl.GL.GL_MULTISAMPLE;
+import static javax.media.opengl.GL.GL_NEAREST;
+import static javax.media.opengl.GL.GL_ONE_MINUS_SRC_ALPHA;
+import static javax.media.opengl.GL.GL_SRC_ALPHA;
+import static javax.media.opengl.GL.GL_STATIC_DRAW;
+import static javax.media.opengl.GL.GL_TEXTURE_2D;
+import static javax.media.opengl.GL.GL_TEXTURE_MAG_FILTER;
+import static javax.media.opengl.GL.GL_TEXTURE_MAX_ANISOTROPY_EXT;
+import static javax.media.opengl.GL.GL_TEXTURE_MIN_FILTER;
+import static javax.media.opengl.GL.GL_UNSIGNED_BYTE;
+import static javax.media.opengl.GL.GL_UNSIGNED_INT;
+import static javax.media.opengl.GL2ES1.GL_LIGHT_MODEL_AMBIENT;
+import static javax.media.opengl.GL2ES1.GL_MAX_LIGHTS;
+import static javax.media.opengl.GL2GL3.GL_QUADS;
+import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_DIFFUSE;
+import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHT0;
+import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_POSITION;
+import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_SPECULAR;
+import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_NORMAL_ARRAY;
+import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_TEXTURE_COORD_ARRAY;
+import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_VERTEX_ARRAY;
+import static javax.media.opengl.glu.GLU.GLU_INSIDE;
+import static javax.media.opengl.glu.GLU.GLU_OUTSIDE;
+
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,16 +55,12 @@ import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
-
-import static javax.media.opengl.glu.GLU.*;
-
 import javax.media.opengl.glu.GLUquadric;
 
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureData;
-import com.jogamp.opengl.util.texture.TextureIO;
 import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
 import de.joglearth.async.AWTInvoker;
@@ -33,11 +69,6 @@ import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.rendering.Mesh;
-import de.joglearth.util.Resource;
-import static javax.media.opengl.GL.GL_MAX_TEXTURE_SIZE;
-import static javax.media.opengl.GL2.*;
-import static java.lang.Double.*;
-import static java.lang.Math.*;
 
 
 /**
@@ -330,6 +361,11 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             bImg = new BufferedImage(scaled.getWidth(null), scaled.getHeight(null), BufferedImage.TYPE_INT_ARGB);
             bImg.createGraphics().drawImage(scaled, 0, 0, null);
         }
+        AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
+        tx.translate(0, -bImg.getHeight(null));
+        AffineTransformOp op = new AffineTransformOp(tx,
+            AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        bImg = op.filter(bImg, null);
         try {
             data = AWTTextureIO.newTextureData(gl.getGLProfile(), bImg, false);
         } catch (RuntimeException e) {
