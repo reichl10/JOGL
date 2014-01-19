@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -36,7 +38,7 @@ public class LocationEditDialog extends JDialog {
 
     private JTextField nameTextField;
 
-    private JTextField descriptionTextField;
+    private JTextArea descriptionTextArea;
     private Location loc;
 
 
@@ -90,10 +92,17 @@ public class LocationEditDialog extends JDialog {
         JLabel descriptionCaptionLabel = new JLabel(Messages.getString("LocationEditDialog.description")); //$NON-NLS-1$
         descriptionCaptionLabel.setVerticalAlignment(SwingConstants.TOP);
         getContentPane().add(descriptionCaptionLabel, "2, 8, left, default"); //$NON-NLS-1$
+        
+        JScrollPane scrollPane = new JScrollPane();
+        getContentPane().add(scrollPane, "4, 8, fill, fill");
 
-        descriptionTextField = new JTextField();
-        getContentPane().add(descriptionTextField, "4, 8, fill, fill"); //$NON-NLS-1$
-        descriptionTextField.setColumns(10);
+        descriptionTextArea = new JTextArea();
+        descriptionTextArea.setLineWrap(true);
+        descriptionTextArea.setWrapStyleWord(true);
+        scrollPane.setViewportView(descriptionTextArea);
+        descriptionTextArea.setColumns(10);
+        
+        descriptionTextArea.setText(loc.details);
 
         JPanel buttonPane = new JPanel();
         getContentPane().add(buttonPane, "4, 10, fill, fill"); //$NON-NLS-1$
@@ -105,7 +114,7 @@ public class LocationEditDialog extends JDialog {
             
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                loc.details = descriptionTextField.getText();
+                loc.details = descriptionTextArea.getText();
                 loc.name = nameTextField.getText();
                 loc.type = LocationType.USER_TAG;
                 Settings.getInstance().putLocation(SettingsContract.USER_LOCATIONS, loc);
@@ -113,8 +122,6 @@ public class LocationEditDialog extends JDialog {
             }
         });
         buttonPane.add(okButton);
-        
-        descriptionTextField.setText(loc.details);
         nameTextField.setText(loc.name);
     }
 
