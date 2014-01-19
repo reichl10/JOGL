@@ -889,7 +889,6 @@ public class MainWindow extends JFrame {
 
         easel = new GLEasel();
         viewPanel.add(easel, "1, 1, fill, fill"); //$NON-NLS-1$
-        resetGLCanvas();
         this.addWindowListener(new UIWindowListener());
 
         JPanel statusBar = new JPanel();
@@ -1055,6 +1054,7 @@ public class MainWindow extends JFrame {
         progressBar.setStringPainted(!UIManager.getLookAndFeel().getClass().getName().equals(
         		"com.sun.java.swing.plaf.windows.WindowsLookAndFeel"));
         progressBar.setValue(100);
+        resetGLCanvas();
     }
 
     private void registerListeners() {
