@@ -1985,12 +1985,12 @@ public class MainWindow extends JFrame {
 
                                 @Override
                                 public void requestCompleted(GeoCoordinates key, Location value) {
-                                    LocationEditDialog dial = new LocationEditDialog(value);
+                                    LocationEditDialog dial = new LocationEditDialog(value, MainWindow.this);
                                     dial.setVisible(true);
                                 }
                             });
                     if (loc.name != null) {
-                        LocationEditDialog dial = new LocationEditDialog(loc);
+                        LocationEditDialog dial = new LocationEditDialog(loc, MainWindow.this);
                         dial.setVisible(true);
                     }
                 }

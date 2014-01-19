@@ -1,6 +1,7 @@
 package de.joglearth.ui;
 
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -47,7 +48,8 @@ public class LocationEditDialog extends JDialog {
      * 
      * @param location The <code>Location</code> object will be changed before closing
      */
-    public LocationEditDialog(Location location) {
+    public LocationEditDialog(Location location, Frame parent) {
+        super(parent);
         loc = location;
         setSize(370, 250);
         setTitle(Messages.getString("LocationEditDialog.title")); //$NON-NLS-1$
