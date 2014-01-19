@@ -6,6 +6,7 @@ import static javax.xml.stream.XMLStreamConstants.END_ELEMENT;
 import static javax.xml.stream.XMLStreamConstants.START_ELEMENT;
 
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ExecutorService;
@@ -111,8 +112,13 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
             return new ArrayList<Location>();
         }
         
-        String xmlResponse = new String(httpRes);
-
+        String xmlResponse;
+        try {
+            xmlResponse = new String(httpRes, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            xmlResponse = "";
+            e.printStackTrace();
+        }
         ArrayList<Location> response = parseXml(xmlResponse, LocationType.SEARCH, query);
 
         return response;
@@ -140,7 +146,13 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
             return new ArrayList<Location>();
         }
 
-        String xmlResponse = new String(httpRes);
+        String xmlResponse;
+        try {
+            xmlResponse = new String(httpRes, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            xmlResponse = "";
+            e.printStackTrace();
+        }
 
         ArrayList<Location> response = parseXml(xmlResponse, LocationType.SEARCH, query);
 
