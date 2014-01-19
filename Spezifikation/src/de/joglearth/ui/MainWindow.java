@@ -895,17 +895,17 @@ public class MainWindow extends JFrame {
         JPanel statusBar = new JPanel();
         viewPanel.add(statusBar, "1, 3, 2, 1, fill, fill"); //$NON-NLS-1$
         statusBar.setLayout(new FormLayout(new ColumnSpec[] {
-        		FormFactory.RELATED_GAP_COLSPEC,
-        		ColumnSpec.decode("50dlu"),
-        		ColumnSpec.decode("4dlu:grow"),
-        		ColumnSpec.decode("max(100dlu;default)"),
-        		ColumnSpec.decode("4dlu:grow"),
-        		ColumnSpec.decode("right:70dlu"),
-        		FormFactory.RELATED_GAP_COLSPEC,},
-        	new RowSpec[] {
-        		FormFactory.LINE_GAP_ROWSPEC,
-        		RowSpec.decode("default:grow"),
-        		FormFactory.NARROW_LINE_GAP_ROWSPEC,})); //$NON-NLS-1$
+                FormFactory.RELATED_GAP_COLSPEC,
+                ColumnSpec.decode("50dlu"),
+                ColumnSpec.decode("4dlu:grow"),
+                ColumnSpec.decode("max(180dlu;default)"),
+                ColumnSpec.decode("4dlu:grow"),
+                ColumnSpec.decode("right:70dlu"),
+                FormFactory.RELATED_GAP_COLSPEC,},
+            new RowSpec[] {
+                FormFactory.LINE_GAP_ROWSPEC,
+                RowSpec.decode("default:grow"),
+                FormFactory.NARROW_LINE_GAP_ROWSPEC,})); //$NON-NLS-1$
 
         JPanel zoomPanel = new JPanel();
         viewPanel.add(zoomPanel, "2, 1, center, fill"); //$NON-NLS-1$
@@ -964,13 +964,13 @@ public class MainWindow extends JFrame {
         coordPanel.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.DEFAULT_COLSPEC,
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-                ColumnSpec.decode("max(20dlu;pref):grow"),
+                ColumnSpec.decode("max(25dlu;pref):grow"),
                 ColumnSpec.decode("5dlu"),
                 FormFactory.DEFAULT_COLSPEC,
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-                ColumnSpec.decode("max(20dlu;pref):grow"), },
-                new RowSpec[] {
-                        RowSpec.decode("default:grow"), })); //$NON-NLS-1$
+                ColumnSpec.decode("max(25dlu;pref):grow"),},
+            new RowSpec[] {
+                RowSpec.decode("default:grow"),})); //$NON-NLS-1$
 
         latitudeLabel = new JLabel(Messages.getString("MainWindow.2")); //$NON-NLS-1$
         coordPanel.add(latitudeLabel, "1, 1, right, default"); //$NON-NLS-1$
