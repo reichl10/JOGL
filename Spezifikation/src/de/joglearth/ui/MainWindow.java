@@ -895,15 +895,17 @@ public class MainWindow extends JFrame {
         JPanel statusBar = new JPanel();
         viewPanel.add(statusBar, "1, 3, 2, 1, fill, fill"); //$NON-NLS-1$
         statusBar.setLayout(new FormLayout(new ColumnSpec[] {
-                FormFactory.RELATED_GAP_COLSPEC,
-                ColumnSpec.decode("50dlu"),
-                ColumnSpec.decode("4dlu:grow"),
-                ColumnSpec.decode("max(100dlu;default)"),
-                ColumnSpec.decode("4dlu:grow"),
-                ColumnSpec.decode("right:70dlu"),
-                FormFactory.RELATED_GAP_COLSPEC, },
-                new RowSpec[] {
-                        RowSpec.decode("default:grow"), })); //$NON-NLS-1$
+        		FormFactory.RELATED_GAP_COLSPEC,
+        		ColumnSpec.decode("50dlu"),
+        		ColumnSpec.decode("4dlu:grow"),
+        		ColumnSpec.decode("max(100dlu;default)"),
+        		ColumnSpec.decode("4dlu:grow"),
+        		ColumnSpec.decode("right:70dlu"),
+        		FormFactory.RELATED_GAP_COLSPEC,},
+        	new RowSpec[] {
+        		FormFactory.LINE_GAP_ROWSPEC,
+        		RowSpec.decode("default:grow"),
+        		FormFactory.NARROW_LINE_GAP_ROWSPEC,})); //$NON-NLS-1$
 
         JPanel zoomPanel = new JPanel();
         viewPanel.add(zoomPanel, "2, 1, center, fill"); //$NON-NLS-1$
@@ -941,7 +943,7 @@ public class MainWindow extends JFrame {
         zoomPlusLabel.addMouseListener(new ZoomAdapter(zoomSlider, true));
         zoomMinusLabel.addMouseListener(new ZoomAdapter(zoomSlider, false));
         JPanel scalePanel = new JPanel();
-        statusBar.add(scalePanel, "2, 1, fill, fill"); //$NON-NLS-1$
+        statusBar.add(scalePanel, "2, 1, 1, 3, fill, fill"); //$NON-NLS-1$
         scalePanel.setLayout(new FormLayout(new ColumnSpec[] {
                 ColumnSpec.decode("center:default:grow"), },
                 new RowSpec[] {
@@ -958,7 +960,7 @@ public class MainWindow extends JFrame {
         scalePanel.add(scaleLabel, "1, 3"); //$NON-NLS-1$
 
         JPanel coordPanel = new JPanel();
-        statusBar.add(coordPanel, "4, 1, fill, fill"); //$NON-NLS-1$
+        statusBar.add(coordPanel, "4, 2, fill, fill"); //$NON-NLS-1$
         coordPanel.setLayout(new FormLayout(new ColumnSpec[] {
                 FormFactory.DEFAULT_COLSPEC,
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
@@ -1011,7 +1013,7 @@ public class MainWindow extends JFrame {
 
             }
         });
-        coordPanel.add(latitudeTextField, "3, 1, fill, default"); //$NON-NLS-1$
+        coordPanel.add(latitudeTextField, "3, 1, fill, fill"); //$NON-NLS-1$
         latitudeTextField.setColumns(8);
         latitudeTextField.setHorizontalAlignment(JTextField.RIGHT);
 
@@ -1019,7 +1021,7 @@ public class MainWindow extends JFrame {
         coordPanel.add(longitudeLabel, "5, 1, right, default"); //$NON-NLS-1$
 
         longitudeTextField = new JTextField();
-        coordPanel.add(longitudeTextField, "7, 1, fill, default"); //$NON-NLS-1$
+        coordPanel.add(longitudeTextField, "7, 1, fill, fill"); //$NON-NLS-1$
         longitudeTextField.setColumns(8);
         longitudeTextField.setHorizontalAlignment(JTextField.RIGHT);
         longitudeTextField.addKeyListener(new KeyListener() {
@@ -1049,8 +1051,9 @@ public class MainWindow extends JFrame {
         });
 
         progressBar = new JProgressBar();
-        statusBar.add(progressBar, "6, 1"); //$NON-NLS-1$
-        progressBar.setStringPainted(true);
+        statusBar.add(progressBar, "6, 2, default, fill"); //$NON-NLS-1$
+        progressBar.setStringPainted(!UIManager.getLookAndFeel().getClass().getName().equals(
+        		"com.sun.java.swing.plaf.windows.WindowsLookAndFeel"));
         progressBar.setValue(100);
     }
 

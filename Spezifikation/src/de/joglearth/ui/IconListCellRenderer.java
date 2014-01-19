@@ -2,6 +2,7 @@ package de.joglearth.ui;
 
 import java.awt.Component;
 
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
@@ -24,7 +25,7 @@ public class IconListCellRenderer<E> extends JLabel implements ListCellRenderer<
      * Constructor.
      */
     public IconListCellRenderer() {
-        this.setOpaque(true);
+        this.setOpaque(false);
     }
 
     @Override
@@ -39,6 +40,8 @@ public class IconListCellRenderer<E> extends JLabel implements ListCellRenderer<
         if (value != null) {
             this.setText(value.toString());
         }
+        
+        this.setOpaque(list.isShowing());
         if (isSelected) {
             this.setBackground(list.getSelectionBackground());
             this.setForeground(list.getSelectionForeground());
