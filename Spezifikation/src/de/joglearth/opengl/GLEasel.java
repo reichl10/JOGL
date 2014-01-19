@@ -27,6 +27,7 @@ public class GLEasel extends JPanel {
     private static final long serialVersionUID = 3722896571146904415L;
 
     private GLCanvas canvas = null;
+    private boolean initialized = false;
 
 
     /**
@@ -37,6 +38,9 @@ public class GLEasel extends JPanel {
         setBackground(Color.BLACK);
     }
 
+    public boolean canReset() {
+    	return canvas == null || initialized;
+    }
     
     /**
      * Creates a new GL canvas, destroying a previously existing canvas.
@@ -49,10 +53,14 @@ public class GLEasel extends JPanel {
         }
 
         if (canvas != null) {
+        	if (!initialized) {
+        		throw new IllegalStateException();
+        	}
             canvas.destroy();
             remove(canvas);
         }
 
+        initialized = false;
         canvas = new GLCanvas(caps);
         canvas.addGLEventListener(new GLEventListener() {
 
@@ -63,7 +71,9 @@ public class GLEasel extends JPanel {
             }
 
             @Override
-            public void init(GLAutoDrawable drawable) {}
+            public void init(GLAutoDrawable drawable) {
+            	initialized = true;
+            }
 
             @Override
             public void dispose(GLAutoDrawable drawable) {}
