@@ -1185,6 +1185,8 @@ public class MainWindow extends JFrame {
                     Location location = searchResultList.getSelectedValue();
                     if (location != null) {
                         camera.setPosition(location.point);
+                        camera.setDistance(2.599987500000007E-4);
+                        zoomSlider.setValue(95);
                         requestDetails();
 
                     }
@@ -1939,6 +1941,8 @@ public class MainWindow extends JFrame {
         }
         
         camera.setDistance(minDist + (MAX_DIST - minDist) * pow(factor, 3));
+        System.out.println("Distance " + camera.getDistance());
+        System.out.println("SliderValue " + zoomSlider.getValue());
     }
 
     private class UsertagButtonListener implements ActionListener {
