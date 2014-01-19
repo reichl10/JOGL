@@ -68,6 +68,10 @@ public class Renderer {
 
     private final static int ICON_SIZE = 24;
     
+    private final static double FOV = PI / 2;
+    private double aspectRatio = 1;
+    
+    
     private enum InitState {
         AWAITING,
         LOADING,
@@ -143,11 +147,17 @@ public class Renderer {
 
     private void render() {
         gl.clear();
+        
+        double zNear = camera.getDistance() / 2, zFar = zNear * 1000;
+    	camera.setPerspective(FOV, aspectRatio, zNear, zFar);
         gl.loadMatrix(GL_PROJECTION, camera.getProjectionMatrix());
-
+        
         Matrix4 skyMatrix = correctGLUTransformation(camera.getSkyViewMatrix());
-        gl.loadMatrix(GL_MODELVIEW, skyMatrix);
-        gl.drawSphere(50, 15, 8, true, sky);       
+        gl.loadMatrix(GL_MODELVIEW, skyMatrix);        
+
+        gl.setFeatureEnabled(GL_DEPTH_TEST, false);
+        gl.drawSphere(50, 15, 8, true, sky);               
+        gl.setFeatureEnabled(GL_DEPTH_TEST, true);
         
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
             
@@ -263,7 +273,6 @@ public class Renderer {
             }
             
             gl.setFeatureEnabled(GL_BLEND, false);
-            gl.setFeatureEnabled(GL_DEPTH_TEST, true);
             //textRenderer.endRendering();
         }
     }
@@ -444,7 +453,7 @@ public class Renderer {
         @Override
         public void reshape(GLContext context, int width, int height) {
             screenSize = new Dimension(width, height);
-            camera.setPerspective(PI / 2, (double) width/height, 5e-6, 100);
+            aspectRatio = (double) width / height;
         }
     }
 

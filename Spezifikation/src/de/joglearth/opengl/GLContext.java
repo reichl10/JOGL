@@ -796,6 +796,19 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         animator = new FPSAnimator(drawable, 60);
 
         beginDisplay();
+        /*
+        gl.glDepthFunc(GL_LEQUAL);
+        GLError.throwIfActive(gl);
+        
+        gl.glDepthMask(true);
+        GLError.throwIfActive(gl);
+        
+        gl.glDepthRange(0, 1);
+        GLError.throwIfActive(gl);
+        
+        gl.glClearDepth(1);
+        GLError.throwIfActive(gl);*/
+        
         
         int[] integers = new int[1];
         gl.glGetIntegerv(GL_MAX_LIGHTS, integers, 0);

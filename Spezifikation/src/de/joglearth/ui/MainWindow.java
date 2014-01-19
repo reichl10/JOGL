@@ -261,7 +261,7 @@ public class MainWindow extends JFrame {
         setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
         this.viewEventListener = new ViewEventListener(camera);
         this.settingsListener = new UISettingsListener();
-        //Settings.getInstance().addSettingsListener(SettingsContract.ANTIALIASING, settingsListener);
+        Settings.getInstance().addSettingsListener(SettingsContract.ANTIALIASING, settingsListener);
         getContentPane().setLayout(
                 new FormLayout(new ColumnSpec[] {
                         ColumnSpec.decode("right:max(160dlu;min)"),
