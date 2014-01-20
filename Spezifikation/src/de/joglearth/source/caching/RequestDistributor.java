@@ -475,8 +475,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                             lastUsed.remove(listener.key));
                     removedSet.add(cEntry);
                 }
-                Integer sizeOfRemovedEntry = measure.getSize(listener.value);
-                //TODO System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);
                 if (listener.value != null) {
                     Integer sizeOfRemovedEntry = measure.getSize(listener.value);
                     // TODO System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);

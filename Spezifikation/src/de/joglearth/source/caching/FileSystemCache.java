@@ -67,8 +67,8 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
         System.out.println("Register for: "+key.toString());
         SourceResponseType responseType;
         if (keySet.contains(key)) {
-            registerListener(key, sender);
             lockedFileSet.add(key);
+            registerListener(key, sender);
             responseType = SourceResponseType.ASYNCHRONOUS;
             executorService.execute(new FileLoaderRunnable(key));
         } else {
@@ -150,14 +150,16 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     }
 
     private void callListener(Key k, byte[] data) {
-        Set<SourceListener<Key, byte[]>> listenerSet = registredListeners.get(k);
+        Set<SourceListener<Key, byte[]>> listenerSet;
+        synchronized (this) {
+            listenerSet = registredListeners.get(k);
+            registredListeners.remove(k);
+        }
         if (listenerSet == null)
             return;
         for (SourceListener<Key, byte[]> sourceListener : listenerSet) {
             sourceListener.requestCompleted(k, data);
         }
-        listenerSet.clear();
-        registredListeners.remove(k);
     }
 
 
@@ -267,7 +269,6 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
             synchronized (FileSystemCache.this) {
                 for (Key k : filesForDroping) {
                     if (!lockedFileSet.contains(k)) {
-                        //TODO System.err.println("FileSystemCache: dropping key " + k);
                         try {
                             Files.deleteIfExists(pathFromKey(k));
                         } catch (IOException e) {
