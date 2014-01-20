@@ -12,7 +12,7 @@ import de.joglearth.height.HeightMap;
  */
 public class PlaneGeometry implements Geometry {
 
-    private static final double DISTANCE_LIMIT = 10;
+    private static final double DISTANCE_LIMIT = 2;
 
 
     @Override
@@ -25,7 +25,7 @@ public class PlaneGeometry implements Geometry {
          * A point is visible if the intersection of the camera position's perpendicular with the
          * plane ("ground position") is not farther away from it than the distance of camera and
          * plane times the DISTANCE_LIMIT.
-         */
+        
 
         if (cameraPosition.z <= 0) {
             return false;
@@ -34,7 +34,8 @@ public class PlaneGeometry implements Geometry {
         Vector3 surfacePosition = cameraPosition.clone();
         surfacePosition.z = 0;
         return surfacePosition.to(getSpacePosition(geo)).length()
-                                <= cameraPosition.z * DISTANCE_LIMIT;
+                                <= cameraPosition.z * DISTANCE_LIMIT; */
+        return true;
     }
 
     @Override

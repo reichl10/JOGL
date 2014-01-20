@@ -33,6 +33,7 @@ import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.PlaneGeometry;
 import de.joglearth.geometry.ProjectedTile;
 import de.joglearth.geometry.ScreenCoordinates;
+import de.joglearth.geometry.SimpleTile;
 import de.joglearth.geometry.SphereGeometry;
 import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
@@ -490,15 +491,25 @@ public class Renderer {
 
         @Override
         public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
+            boolean visible = true;
             GeoCoordinates[] edges = { new GeoCoordinates(lonFrom, latFrom),
                     new GeoCoordinates(lonFrom, latTo),
                     new GeoCoordinates(lonTo, latFrom),
                     new GeoCoordinates(lonTo, latTo) };
             for (GeoCoordinates geo : edges) {
                 if (camera.isPointVisible(geo)) {
-                    gl.postRedisplay();
-                    break;
+                    visible = true;
                 }
+            }
+            if (!visible) {
+                Tile tile = new SimpleTile(lonFrom, latFrom, lonTo, latTo);
+                if (tile.contains(camera.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5)))) {
+                    visible = true;
+                } 
+            }
+            
+            if (visible) {
+                gl.postRedisplay();
             }
         }
     }
