@@ -147,7 +147,7 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
         public void requestCompleted(Key key, byte[] value) {
             Collection<SourceListener<Key, Texture>> senders = pendingRequests.remove(key);
 
-            if (senders != null) {
+            if (senders != null && value != null) {
                 for (SourceListener<Key, Texture> s : senders) {
                     loadTexture(key, s, value);
                 }

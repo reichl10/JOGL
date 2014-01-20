@@ -1122,11 +1122,14 @@ public class MainWindow extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
+                    System.out.println("Mapconfig-Listener (1)");
                     IconizedItem<MapConfiguration> item = (IconizedItem<MapConfiguration>) e
                             .getItem();
                     mapConfiguration = (MapConfiguration) item.getValue();
                     updateZoom();
+                    System.out.println("Mapconfig-Listener (2)");
                     renderer.setMapConfiguration(mapConfiguration);
+                    System.out.println("Mapconfig-Listener (3)");
                 }
             }
         });

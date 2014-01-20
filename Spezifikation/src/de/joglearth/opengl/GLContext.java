@@ -1004,6 +1004,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             System.out.println("Synced");
                 redisplayPending = true;
                 if (redisplayActive || animator.isAnimating()) {
+                    System.out.println("Exited Sync");
                     return;
                 }
                 redisplayActive = true;
