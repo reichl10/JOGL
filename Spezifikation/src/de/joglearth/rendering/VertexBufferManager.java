@@ -68,7 +68,10 @@ public class VertexBufferManager implements Source<ProjectedTile, VertexBuffer> 
                     return t.tile.intersects(lonFrom, latFrom, lonTo, latTo);
                 }
             });
-            // notify listeners!
+
+            for (SurfaceListener sirFace : listeners) {
+                sirFace.surfaceChanged(lonFrom, latFrom, lonTo, latTo);
+            }
         }
     };
     

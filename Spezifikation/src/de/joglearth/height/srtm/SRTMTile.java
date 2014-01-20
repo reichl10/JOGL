@@ -61,8 +61,9 @@ public final class SRTMTile {
         }
 
         //Fill missing spots in the data with interpolated data from the surrounding points.
-        boolean modified = false;        
+        boolean modified;        
         do {
+            modified = false;
             for (int i = 0; i < LOD0_WIDTH; ++i) {
                 for (int j = 0; j < LOD0_WIDTH; ++j) {
                     if (height[0][i][j] == INVALID_HEIGHT) {

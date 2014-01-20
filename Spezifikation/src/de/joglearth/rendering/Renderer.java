@@ -4,11 +4,7 @@ import static java.lang.Math.PI;
 import static java.lang.Math.ceil;
 import static java.lang.Math.log;
 import static java.lang.Math.max;
-import static javax.media.opengl.GL.GL_BLEND;
-import static javax.media.opengl.GL.GL_CULL_FACE;
-import static javax.media.opengl.GL.GL_DEPTH_TEST;
-import static javax.media.opengl.GL.GL_TEXTURE;
-import static javax.media.opengl.GL.GL_TEXTURE_2D;
+import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHTING;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
@@ -475,7 +471,7 @@ public class Renderer {
             gl.setFeatureEnabled(GL_CULL_FACE, true);
             gl.setFeatureEnabled(GL_TEXTURE_2D, true);
             gl.setFeatureEnabled(GL_BLEND, true);
-            // gl.setPolygonMode(GL_LINE);
+            gl.setPolygonMode(GL_LINE);
 
             initState = InitState.AWAITING;
         }

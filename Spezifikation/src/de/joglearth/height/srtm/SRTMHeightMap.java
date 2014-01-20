@@ -1,8 +1,6 @@
 package de.joglearth.height.srtm;
 
-import static java.lang.Math.PI;
-import static java.lang.Math.abs;
-import static java.lang.Math.floor;
+import static java.lang.Math.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +29,15 @@ public class SRTMHeightMap implements HeightMap {
 
     private class SRTMListener implements SourceListener<SRTMTileName, SRTMTile> {
 
+        private double degToRad(double deg) {
+            return (deg/180)*PI;
+        }
+        
         @Override
         public void requestCompleted(SRTMTileName key, SRTMTile value) {
             for (SurfaceListener l : listeners) {
-                l.surfaceChanged(key.longitude, key.latitude, key.longitude + 1, key.latitude + 1);
+                l.surfaceChanged(degToRad(key.longitude), degToRad(key.latitude),
+                        degToRad(key.longitude + 1), degToRad(key.latitude + 1));
             }
         }
     }
@@ -69,18 +72,20 @@ public class SRTMHeightMap implements HeightMap {
         
         if (tile != null) {
             int lod = 0;
-            while (lod <= 10 && angularResolution > lodResolutions[lod]) {
+            while (lod < 10 && angularResolution > lodResolutions[lod]) {
                 ++lod;
             }
+            System.out.println("AngularRes " + angularResolution);
             short[][] values = tile.getTile(lod);
             double x = getTileOffset(coords.getLongitude()) * values.length,
                    y = getTileOffset(coords.getLatitude()) * values.length;
             
-            int xIndex = (int) floor(x), yIndex = (int) floor(y);
-            short topLeft = values[yIndex][xIndex],
-                  topRight = values[yIndex][xIndex + 1], 
-                  bottomLeft = values[yIndex + 1][xIndex], 
-                  bottomRight = values[yIndex + 1][xIndex + 1];
+            int leftIndex = (int) floor(x), rightIndex = min(values.length-1, leftIndex+1), 
+                topIndex = (int) floor(y), bottomIndex = min(values.length-1, topIndex+1);
+            short topLeft = values[topIndex][leftIndex],
+                  topRight = values[bottomIndex][rightIndex], 
+                  bottomLeft = values[bottomIndex][leftIndex], 
+                  bottomRight = values[bottomIndex][rightIndex];
             
             double rightFraction = (x - floor(x)), bottomFraction = (y - floor(y)), 
                    leftFraction = 1 - rightFraction, topFraction = 1 - bottomFraction;
