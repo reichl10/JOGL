@@ -482,7 +482,7 @@ Bei erstmaligem Starten von \JoglEarth sind standardmäßig folgende Einstellung
 \item Grafikeinstellungen:
 	\begin{itemize}
 	\item Antialiasing: deaktiviert
-	\item Textur Filter: Nächster Nachbar
+	\item Textur Filter: Trilinear
 	\item Detailgrad: niedrig
 	\end{itemize}
 \item Cachegrößen [MB]:
@@ -834,11 +834,29 @@ Vorgehensweise zum Hinzufügen von Benutzermarkierungen:
 \vspace{3mm}
 \section{Cachegrößen} \index{Cachegrößen}
 
+Wenn man sich nicht auskennt, dann am Besten die Standardeinstellungen lassen.
+Filesystem ist dauerhaft belegt.
+
+% Bild von Verdrängung einbinden
+
 \vspace{3mm}
 \subsection{Arbeitsspeicher} \index{Cachegrößen!Arbeitsspeicher} \index{Arbeitsspeicher}
 
 \vspace{3mm}
 \subsection{Dateisystem} \index{Cachegrößen!Dateisystem} \index{Dateisystem}
+
+
+
+\vspace{3mm}
+\subsection{Detaillevel} \index{Grafikeinstellungen!Detaillevel} \index{Detaillevel}
+Genauigkeit der GLobus oder Kartenoberfläche. Weniger eckig, mehr Speicherplatz.
+
+Optionen:
+\begin{itemize}
+\item \textbf{niedrig}: Niedrigstes Detaillevel. Bietet jedoch die beste Rechenleistung (Performance).
+\item \textbf{mittel}: Mittleres Detaillevel.
+\item \textbf{hoch}: Höchstes Detaillevel. Bietet das bestmögliche visuelle Erlebnis auf Kosten der Rechenleistung (Performance).
+\end{itemize}
 
 
 
@@ -861,22 +879,13 @@ MSAA bedeutet 'multisample anti-aliasing' und ist eine Art Antialiasing zur Verb
 Optionen:
 \begin{itemize}
 \item \textbf{deaktiviert}
-\item \textbf{2x MSAA}
+\item \textbf{2x MSAA} Je höher der Wert, desto mehr Speicher siehe JavaDocs
 \item \textbf{4x MSAA}
 \item \textbf{8x MSAA}
 \item \textbf{16x MSAA}
 \end{itemize}
 
 
-\vspace{3mm}
-\subsection{Detaillevel} \index{Grafikeinstellungen!Detaillevel} \index{Detaillevel}
-
-Optionen:
-\begin{itemize}
-\item \textbf{niedrig}: Niedrigstes Detaillevel. Bietet jedoch die beste Rechenleistung (Performance).
-\item \textbf{mittel}: Mittleres Detaillevel.
-\item \textbf{hoch}: Höchstes Detaillevel. Bietet das bestmögliche visuelle Erlebnis auf Kosten der Rechenleistung (Performance).
-\end{itemize}
 
 
 \vspace{3mm}
@@ -887,9 +896,15 @@ Optionen:
 
 Optionen:
 \begin{itemize}
-\item \textbf{Nächster Nachbar}
-\item \textbf{Bilinear}
-\item \textbf{Trilinear}
+\item \textbf{Nächster Nachbar} schnellste Laufzeit; Ergebnisse verpixelt\\
+Nächster-Nachbar-Interpolation ist die schnellste und gröbsten Filterverfahren - es nutzt einfach die Farbe der Texel am nächsten an der Pixelzentrum für die Pixelfarbe. Während schnell, führt dies zu einer großen Anzahl von Artefakten - Textur "Blockbildung" während Vergrößerung und Aliasing und schimmernden während Verkleinerung.
+
+\item \textbf{Bilinear} nicht verpixelt, unscharf\\
+Bilineare Filterung ist der nächste Schritt. In diesem Verfahren werden die vier nächsten Texel zu der Pixel-Mitte sind (an der engsten Mipmapstufe) abgetastet, und ihre Farben durch gewichtete Durchschnitt je nach Entfernung kombiniert. Dies entfernt die "Blockbildung" während der Vergrößerung gesehen, da gibt es jetzt eine glatte Steigung der Farbänderung von ein Texel zum nächsten, statt eines abrupten Sprung wie der Pixel-Mitte überquert den Texel-Grenze. Bilineare Filterung wird fast immer mit mipmapping verwendet, obwohl es verwendet werden kann, ohne, würde es die gleiche Aliasing und schimmernde Probleme als nächsten Nachbarn leiden.
+
+\item \textbf{Trilinear} %-//-
+Trilineare Filterung ist ein Heilmittel zu einem gemeinsamen Artefakt in mipmapped bilinear gefilterten Bilder gesehen: eine plötzliche und sehr deutliche Veränderung in der Qualität an Grenzen, wo die Renderer schaltet von einem Mipmapstufe zum nächsten. Trilineare Filterung löst dieses Problem, indem Sie eine Textur-Lookup und bilineare Filterung auf den beiden nächsten Mipmap-Ebenen (eine höhere und eine niedrigere Qualität) und dann linear interpoliert die Ergebnisse. Dies führt zu einer Verschlechterung der Textur glatt Qualität als Abstand von dem Betrachter zu, statt einer Reihe von plötzlichen Tropfen. Natürlich näher als Stufe 0 gibt es nur eine Mipmapstufe zur Verfügung, und der Algorithmus kehrt zur Filterung bilineare.
+
 \item \textbf{2x Anisotropisch}
 \item \textbf{4x Anisotropisch}
 \item \textbf{8x Anisotropisch}
@@ -918,6 +933,7 @@ Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten er
 \vspace{3mm}
 \section{Maßstabsanzeige} \index{Maßstab}
 % Ist relativ zum \textbf{Ansichtsfenster}.
+Breite vom Balken entspricht im Ansichtsfenster, der Länge die angegeben ist.
 
 
 
@@ -1126,7 +1142,7 @@ Ansichtsfenster \index{Ansichtsfenster} \index{Benutzeroberfläche!Ansichtsfenst
 Ansichtsmodus \index{Ansichtsmodi} & Darstellungsmodus im \textbf{Ansichtsfenster} \index{Ansichtsfenster} \index{Benutzeroberfläche!Ansichtsfenster}, wie \textref{Kartenebene} \index{Ansichtsmodi!Kartenebene}, \textref{Globus} \index{Ansichtsmodi!Globus} oder die \textref{Sonnensystem} \index{Ansichtsmodi!Sonnensystem}\\
 Antialiasing \index{Antialiasing} & Methode zur Kantenglättung \\
 API \index{API} & (Application Programming Interface) Programmierschnittstelle zu einer Programmbibliothek oder einem Dienst\\
-Benutzermarkierung & Benutzermarkierungen sind Orte auf der Weltkarte, die eine spezielle Bedeutung für den Benutzer haben\\
+Benutzer"-markierung & Benutzermarkierungen sind Orte auf der Weltkarte, die eine spezielle Bedeutung für den Benutzer haben\\
 Bibliothek \index{Bibliothek} & siehe Programmbibliothek\\
 Bildmittelpunkt \index{Bildmittelpunkt} & Mittelpunkt vom \textbf{Ansichtsfenster}\\
 BSD-Lizenz \index{BSD-Lizenz} & (Berkeley Software Distribution-Lizenz) Gruppe von Lizenzen aus dem Open-Source-Bereich\\
@@ -1167,7 +1183,8 @@ Zoomlevel \index{Zoomlevel} & Angabe zur Auflösung der Kartenkachel in der Ansi
 
 
 \cleardoublepage
-\addcontentsline{toc}{chapter}{\indexname}
+\addcontentsline{toc}{chapter}{Stichwortverzeichnis}
+\chapter*{Stichwortverzeichnis}
 \printindex
 
 
