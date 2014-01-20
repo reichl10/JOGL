@@ -177,7 +177,7 @@ Es werden im Handbuch einige Symbole verwendet, welche die Arbeit mit dem Handbu
 \end{tabular}
 
 \vspace{5mm}
-Die Abbildungen im Handbuch können vom \JoglEarth Erscheinungsbild auf Ihrem PC abweichen, was durch das jeweils verwendete Betriebssystem bedingt ist. Die Funktionalitäten und Anordnungen der Schaltflächen sind jedoch unter allen Betriebssystemen identisch. Die in diesem Handbuch abgebildeten Screenshots wurden teilweise unter Windows und teilweise unter Linux erstellt.\\
+Die Abbildungen im Handbuch können vom \JoglEarth Erscheinungsbild auf Ihrem PC abweichen, was durch das jeweils verwendete Betriebssystem bedingt ist. Die Funktionalitäten und Anordnungen der Schaltflächen sind jedoch unter allen Betriebssystemen identisch. Die in diesem Handbuch abgebildeten Screenshots wurden teilweise unter Windows und teilweise unter Linux erstellt.
 
 \vspace{5mm}
 Bei komplexeren Funktionen wurden Ablaufdiagramme erstellt. Anhand des Ablaufdiagramms soll die Interaktion mit \JoglEarth verdeutlicht werden.
@@ -420,10 +420,6 @@ Beispiel:
 \item \textit{Angenommen im Bildmittelpunkt des Kartenausschnitts befindet sich das Finanzamt der Stadt Regensburg, dann wird im Bereich \textbf{Details} 'Finanzamt Regensburg' angezeigt.}
 \end{itemize}
 
-\vspace{3mm}
-\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} & Informationen zum Bildmittelpunkt des aktuellen Kartenausschnitts werden erst ab hohen Zoomstufen verfügbar.
-\end{tabular}
 
 
 
@@ -570,13 +566,13 @@ Diese Ansicht visualisiert eine Kartenebene, welche die Anzeige von den verfügb
 \chapter{Kartentypen} \index{Kartentypen}
 \JoglEarth bietet zahlreiche Kartentypen, die im folgenden näher betrachtet werden.
 
-\vspace{3mm}
+\vspace{5mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/info.eps} &  Im folgenden wurden alle Abbildungen in der Ansicht \textref{Kartenebene} (\textref{Ansichtsmodi}) gemacht, um die Unterschiede der Kartentypen eindeutig hervorzuheben.
 \end{tabular}
 
 
-\vspace{3mm}
+\vspace{5mm}
 \section{Satellit} \index{Kartentypen!Satellit} \index{Satellit}
 Unter diesem Kartentyp versteht man Satellitenbilder, welche Aufnahmen der Erdoberfläche aus der Perspektive eines Satelliten zeigen.
 
@@ -587,11 +583,18 @@ Unter diesem Kartentyp versteht man Satellitenbilder, welche Aufnahmen der Erdob
 
 
 
-\vspace{3mm}
+\newpage
 \section{OpenStreetMap} \index{Kartentypen!OpenStreetMap} \index{OpenStreetMap}
 \JoglEarth setzt auf die folgenden freien Kartenmaterialien des OpenStreetMap-Projekts, welche von den jeweiligen Servern zeitnahe geladen werden.
 
 
+\vspace{5mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & Im folgenden zeigen alle links dargestellten Abbildungen die jeweilige Einstiegsansicht des \textref{Kartentyps} und alle rechts dargestellten Abbildungen den \textref{Kartentyp} bei hoher Zoomstufe.
+\end{tabular}
+
+
+\vspace{5mm}
 \subsection{Straßenkarte} \index{OpenStreetMap!Straßenkarte} \index{Straßenkarte}
 Die \textbf{Straßenkarte} ist eine thematische Karte, die den Schwerpunkt auf den Straßenverlauf und das Straßenverkehrsnetz setzt.
 
@@ -599,68 +602,97 @@ Die \textbf{Straßenkarte} ist eine thematische Karte, die den Schwerpunkt auf d
 \vspace{3mm}
 \begin{figure}[!htb]
 	\centering
-    \subfigure{\includegraphics[scale=0.2]{images/flacheKarte_Strassenkarte1.png}}
-    \hspace{5mm}
-% Es fehlen bei der Straßenkarte noch die Labels, deshalb hab ich den zweiten Screenshot noch nicht gemacht.    
-%    \subfigure{\includegraphics[scale=0.2]{images/flacheKarte_Strassenkarte2.png}}
+    \subfigure{\includegraphics[scale=0.195]{images/flacheKarte_Strassenkarte1.png}}
+    \hspace{5mm}    
+    \subfigure{\includegraphics[scale=0.195]{images/flacheKarte_Strassenkarte2.png}}
 \end{figure} 
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} & Das detaillierte Straßenverkehrsnetz wird ab Zoomlevel ?? ersichtlich.
+\includegraphics[scale=0.5]{images/info.eps} & Autobahnen werden bereits ab Zoomlevel 54 \% dargestellt. Das detaillierte Straßenverkehrsnetz wird ab Zoomlevel 76 \% oder höher sichtbar.
 \end{tabular}
 
 
 
-
+\vspace{5mm}
 \subsection{Radkarte} \index{OpenStreetMap!Radkarte} \index{Radkarte}
 Bei der \textbf{Radkarte} (bzw. Radwegkarte, Fahrradkarte) handelt es sich um eine thematische Karte, die speziell auf die Bedürfnisse von Radfahrern zugeschnitten ist. Es werden Radwege mit deren Bezeichnung bzw. Nummerierung angezeigt. Zweck der Radkarte ist es, Wege zu finden, die für Radfahrer freigegeben sind.
 
 \vspace{3mm}
 \begin{figure}[!htb]
 	\centering
-    \subfigure{\includegraphics[scale=0.205]{images/flacheKarte_Radkarte1.png}}
+    \subfigure{\includegraphics[scale=0.195]{images/flacheKarte_Radkarte1.png}}
     \hspace{5mm}
-    \subfigure{\includegraphics[scale=0.205]{images/flacheKarte_Radkarte2.png}}
+    \subfigure{\includegraphics[scale=0.195]{images/flacheKarte_Radkarte2.png}}
 \end{figure} 
 
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & Die größeren Radwege werden bereits ab Zoomlevel 54 \% dargestellt. Die detaillierten Radwege mit Beschriftungen werden ab Zoomlevel 86 \% sichtbar.
+\end{tabular}
 
 
 
 
+\newpage
 \subsection{Landkarte} \index{OpenStreetMap!Landkarte} \index{Landkarte}
 Die \textbf{Landkarte} ist eine Straßenkarte, in der die Bezeichnungen in der jeweiligen Landessprache und der landestypischen Gestaltung gehalten sind.
 
 \vspace{3mm}
 \begin{figure}[!htb]
 	\centering
-    \subfigure{\includegraphics[scale=0.199]{images/flacheKarte_Landkarte1.png}}
+    \subfigure{\includegraphics[scale=0.195]{images/flacheKarte_Landkarte1.png}}
     \hspace{5mm}
-    \subfigure{\includegraphics[scale=0.199]{images/flacheKarte_Landkarte2.png}}
+    \subfigure{\includegraphics[scale=0.195]{images/flacheKarte_Landkarte2.png}}
 \end{figure}
 
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & Große Städte werden bereits ab Zoomlevel 26 \% dargestellt. Eine detaillierte Landkarte mit Beschriftungen wird ab Zoomlevel 70 \% sichtbar.
+\end{tabular}
 
 
 
+\vspace{5mm}
 \subsection{Wanderkarte} \index{OpenStreetMap!Wanderkarte} \index{Wanderkarte}
 Die \textbf{Wanderkarte} ist eine Karte, die der unmittelbaren Orientierung im Gelände dient. Zweck der Wanderkarte ist es, Wege zu finden, die für Wandertouren freigegeben sind.
 
 \vspace{3mm}
 \begin{figure}[!htb]
 	\centering
-    \subfigure{\includegraphics[scale=0.199]{images/flacheKarte_Wanderkarte1.png}}
+    \subfigure{\includegraphics[scale=0.195]{images/flacheKarte_Wanderkarte1.png}}
     \hspace{5mm}
-    \subfigure{\includegraphics[scale=0.199]{images/flacheKarte_Wanderkarte2.png}}
+    \subfigure{\includegraphics[scale=0.195]{images/flacheKarte_Wanderkarte2.png}}
 \end{figure} 
 
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & Wanderwege mit deren Symbolen werden ab Zoomlevel 91 \% dargestellt.
+\end{tabular}
 
 
+\newpage
 \subsection{OSM2World} \index{OpenStreetMap!OSM2World} \index{OSM2World}
 Die \textbf{OSM2World-Karte} errechnet auf Basis der OpenStreetMap-Daten 3D Modelle. Derzeit sind nur einige Teile in Deutschland, in Österreich und in der Schweiz erfasst.
 
-% Screenshots
+
+\vspace{3mm}
+\begin{figure}[!htb]
+	\centering
+    \subfigure{\includegraphics[scale=0.195]{images/flacheKarte_osmworld1.png}}
+    \hspace{5mm}
+    \subfigure{\includegraphics[scale=0.195]{images/flacheKarte_osmworld2.png}}
+\end{figure}
+
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} &  In niedrigen Zoomstufen wird lediglich die \textbf{Platzhaltertextur} angezeigt, da die 3D Modelle von \textbf{OSM2World} erst ab Zoomstufe 93 \% sichtbar werden.
+\end{tabular}
 
 
+
+
+\vspace{5mm}
 \section{Kinderweltkarte} \index{Kartentypen!Kinderweltkarte} \index{Kinderweltkarte}
 Ein besonderer Kartentyp ist die \textbf{Kinderweltkarte}. Diese zeigt die einzelnen Kontinente, welche farblich unterschiedlich sind und zusätzlich werden beispielhaft je Kontinent, die dort einheimischen Tiere gezeigt. Dieser Kartentyp ist speziell für Kinder gedacht um die Neugierde an geografischen Karten zu wecken.
 
@@ -676,7 +708,7 @@ Ein besonderer Kartentyp ist die \textbf{Kinderweltkarte}. Diese zeigt die einze
 
 
 
-\vspace{3mm}
+\newpage
 \section*{Platzhaltertextur} \index{Platzhaltertextur}
 \begin{minipage}[t]{9cm}
 \vspace{-20mm}
@@ -694,9 +726,9 @@ Die \textbf{Platzhaltertextur} erscheint, solange das Kartenmaterial geladen wir
 
 
 
-\vspace{3mm}
+\vspace{15mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/quest.eps} &  Versuchen Sie sich durch die zahlreichen Ansichten und Kartentypen zu navigieren.
+\includegraphics[scale=0.5]{images/quest.eps} &  Versuchen Sie sich durch die zahlreichen \textref{Ansichtsmodi} und \textref{Kartentypen} zu navigieren.
 \end{tabular}
 
 
@@ -847,16 +879,6 @@ Filesystem ist dauerhaft belegt.
 
 
 
-\vspace{3mm}
-\subsection{Detaillevel} \index{Grafikeinstellungen!Detaillevel} \index{Detaillevel}
-Genauigkeit der GLobus oder Kartenoberfläche. Weniger eckig, mehr Speicherplatz.
-
-Optionen:
-\begin{itemize}
-\item \textbf{niedrig}: Niedrigstes Detaillevel. Bietet jedoch die beste Rechenleistung (Performance).
-\item \textbf{mittel}: Mittleres Detaillevel.
-\item \textbf{hoch}: Höchstes Detaillevel. Bietet das bestmögliche visuelle Erlebnis auf Kosten der Rechenleistung (Performance).
-\end{itemize}
 
 
 
@@ -886,6 +908,16 @@ Optionen:
 \end{itemize}
 
 
+\vspace{3mm}
+\subsection{Detaillevel} \index{Grafikeinstellungen!Detaillevel} \index{Detaillevel}
+Genauigkeit der GLobus oder Kartenoberfläche. Weniger eckig, mehr Speicherplatz.
+
+Optionen:
+\begin{itemize}
+\item \textbf{niedrig}: Niedrigstes Detaillevel. Bietet jedoch die beste Rechenleistung (Performance).
+\item \textbf{mittel}: Mittleres Detaillevel.
+\item \textbf{hoch}: Höchstes Detaillevel. Bietet das bestmögliche visuelle Erlebnis auf Kosten der Rechenleistung (Performance).
+\end{itemize}
 
 
 \vspace{3mm}
@@ -897,10 +929,10 @@ Optionen:
 Optionen:
 \begin{itemize}
 \item \textbf{Nächster Nachbar} schnellste Laufzeit; Ergebnisse verpixelt\\
-Nächster-Nachbar-Interpolation ist die schnellste und gröbsten Filterverfahren - es nutzt einfach die Farbe der Texel am nächsten an der Pixelzentrum für die Pixelfarbe. Während schnell, führt dies zu einer großen Anzahl von Artefakten - Textur "Blockbildung" während Vergrößerung und Aliasing und schimmernden während Verkleinerung.
+Nächster-Nachbar-Interpolation ist die schnellste und gröbsten Filterverfahren - es nutzt einfach die Farbe der Texel am nächsten an der Pixelzentrum für die Pixelfarbe. Während schnell, führt dies zu einer großen Anzahl von Artefakten - Textur 'Blockbildung' während Vergrößerung und Aliasing und schimmernden während Verkleinerung.
 
 \item \textbf{Bilinear} nicht verpixelt, unscharf\\
-Bilineare Filterung ist der nächste Schritt. In diesem Verfahren werden die vier nächsten Texel zu der Pixel-Mitte sind (an der engsten Mipmapstufe) abgetastet, und ihre Farben durch gewichtete Durchschnitt je nach Entfernung kombiniert. Dies entfernt die "Blockbildung" während der Vergrößerung gesehen, da gibt es jetzt eine glatte Steigung der Farbänderung von ein Texel zum nächsten, statt eines abrupten Sprung wie der Pixel-Mitte überquert den Texel-Grenze. Bilineare Filterung wird fast immer mit mipmapping verwendet, obwohl es verwendet werden kann, ohne, würde es die gleiche Aliasing und schimmernde Probleme als nächsten Nachbarn leiden.
+Bilineare Filterung ist der nächste Schritt. In diesem Verfahren werden die vier nächsten Texel zu der Pixel-Mitte sind (an der engsten Mipmapstufe) abgetastet, und ihre Farben durch gewichtete Durchschnitt je nach Entfernung kombiniert. Dies entfernt die 'Blockbildung' während der Vergrößerung gesehen, da gibt es jetzt eine glatte Steigung der Farbänderung von ein Texel zum nächsten, statt eines abrupten Sprung wie der Pixel-Mitte überquert den Texel-Grenze. Bilineare Filterung wird fast immer mit mipmapping verwendet, obwohl es verwendet werden kann, ohne, würde es die gleiche Aliasing und schimmernde Probleme als nächsten Nachbarn leiden.
 
 \item \textbf{Trilinear} %-//-
 Trilineare Filterung ist ein Heilmittel zu einem gemeinsamen Artefakt in mipmapped bilinear gefilterten Bilder gesehen: eine plötzliche und sehr deutliche Veränderung in der Qualität an Grenzen, wo die Renderer schaltet von einem Mipmapstufe zum nächsten. Trilineare Filterung löst dieses Problem, indem Sie eine Textur-Lookup und bilineare Filterung auf den beiden nächsten Mipmap-Ebenen (eine höhere und eine niedrigere Qualität) und dann linear interpoliert die Ergebnisse. Dies führt zu einer Verschlechterung der Textur glatt Qualität als Abstand von dem Betrachter zu, statt einer Reihe von plötzlichen Tropfen. Natürlich näher als Stufe 0 gibt es nur eine Mipmapstufe zur Verfügung, und der Algorithmus kehrt zur Filterung bilineare.
@@ -933,7 +965,7 @@ Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten er
 \vspace{3mm}
 \section{Maßstabsanzeige} \index{Maßstab}
 % Ist relativ zum \textbf{Ansichtsfenster}.
-Breite vom Balken entspricht im Ansichtsfenster, der Länge die angegeben ist.
+Breite vom Balken entspricht im Ansichtsfenster, der Länge in Metern die angegeben ist.
 
 
 
@@ -1135,7 +1167,7 @@ Folgende getätigte Einstellungen werden bei ordnungsgemäßer Programmbeendigun
 \addcontentsline{toc}{chapter}{Glossar}
 \newcolumntype{L}[1]{>{\sffamily\bfseries\hsize=#1\hsize\raggedright\arraybackslash}X}
 \newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}
-\setlength{\extrarowheight}{3.5mm}
+\setlength{\extrarowheight}{3.2mm}
 \begin{longtabu}{L{0.35} R{1.65}}
 Anisotropes Filtern \index{Anisotropes Filtern} & Methode um den Schärfeeindruck von perspektivisch verzerrten Texturen zu verbessern\\
 Ansichtsfenster \index{Ansichtsfenster} \index{Benutzeroberfläche!Ansichtsfenster} & Teil der \textref{Benutzeroberfläche} \index{Benutzeroberfläche} \\
@@ -1183,8 +1215,7 @@ Zoomlevel \index{Zoomlevel} & Angabe zur Auflösung der Kartenkachel in der Ansi
 
 
 \cleardoublepage
-\addcontentsline{toc}{chapter}{Stichwortverzeichnis}
-\chapter*{Stichwortverzeichnis}
+\addcontentsline{toc}{chapter}{Index}
 \printindex
 
 
