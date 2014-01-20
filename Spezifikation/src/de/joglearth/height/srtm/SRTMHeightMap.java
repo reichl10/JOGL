@@ -18,9 +18,9 @@ public class SRTMHeightMap implements HeightMap {
     private final SRTMListener srtmListener = new SRTMListener();
     private final List<SurfaceListener> listeners = new ArrayList<>();
     private final static SRTMTileManager srtm = SRTMTileManager.getInstance();
-    private final static double[] lodResolutions = { 1.2110e-08, 2.4221e-08, 4.8441e-08,
-            9.6882e-08, 1.9376e-07, 3.8753e-07, 7.7506e-07, 1.5501e-06, 3.1002e-06, 6.2004e-06,
-            1.2401e-05 };
+    private final static double[] lodResolutions = { 1.7044e-05, 3.4088e-05, 6.8177e-05, 
+        1.3635e-04, 2.7271e-04, 5.4542e-04, 1.0908e-03, 2.1817e-03, 4.3633e-03, 8.7266e-03,
+        1.7453e-02 };
     
     public final static double EARTH_RADIUS_METERS = 6378000.0;
     public final static double MAX_HEIGHT = Short.MAX_VALUE / EARTH_RADIUS_METERS;
