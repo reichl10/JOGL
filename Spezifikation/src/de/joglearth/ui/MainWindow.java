@@ -1,7 +1,10 @@
 package de.joglearth.ui;
 
 import static de.joglearth.util.Resource.loadIcon;
-import static java.lang.Math.*;
+import static java.lang.Math.PI;
+import static java.lang.Math.abs;
+import static java.lang.Math.pow;
+import static java.lang.Math.signum;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -190,7 +193,7 @@ public class MainWindow extends JFrame {
     private JPanel searchPanel;
     private JPanel userTagPanel;
     private JPanel overlayPanel;
-    private JLabel detailNameLabel;
+    private JTextArea detailNameLabel;
     private JButton userTagButton;
     private JLabel latitudeLabel;
     private JLabel longitudeLabel;
@@ -236,7 +239,7 @@ public class MainWindow extends JFrame {
         public void mouseClicked(MouseEvent e) {
             visible = !visible;
             ((FormLayout) getContentPane().getLayout()).setColumnSpec(1,
-                    ColumnSpec.decode(visible ? "160dlu" : "0dlu")); //$NON-NLS-1$ //$NON-NLS-2$
+                    ColumnSpec.decode(visible ? "right:max(160dlu;min)" : "0dlu")); //$NON-NLS-1$ //$NON-NLS-2$
             sidebarHideIconLabel.setIcon(visible ? hideIcon : showIcon);
             getContentPane().revalidate();
         }
@@ -344,9 +347,13 @@ public class MainWindow extends JFrame {
                         FormFactory.DEFAULT_ROWSPEC,
                         FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
 
-        detailNameLabel = new JLabel(Messages.getString("MainWindow.3")); //$NON-NLS-1$
+        detailNameLabel = new JTextArea(Messages.getString("MainWindow.3")); //$NON-NLS-1$
+        detailNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        detailNameLabel.setLineWrap(true);
+        detailNameLabel.setWrapStyleWord(false);
         detailNameLabel.setFocusTraversalKeysEnabled(false);
         detailNameLabel.setFocusable(false);
+        detailNameLabel.setEditable(false);
         detailsPanel.add(detailNameLabel, "2, 2"); //$NON-NLS-1$
 
         scrollPane_1 = new JScrollPane();
