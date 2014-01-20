@@ -262,9 +262,6 @@ public class Renderer {
             gl.setFeatureEnabled(GL_DEPTH_TEST, false);
             gl.setFeatureEnabled(GL_BLEND, true);
 
-            gl.drawRectangle(new ScreenCoordinates(0.5 - xOffset, 0.5 - yOffset),
-                    new ScreenCoordinates(0.5 + xOffset, 0.5 + yOffset), crosshair);
-
             for (Location location : locations) {
                 if (location.point != null && camera.isPointVisible(location.point)) {
                     Texture overlayTexture = overlayIconTextures.get(location.type);
@@ -287,6 +284,9 @@ public class Renderer {
                      */
                 }
             }
+
+            gl.drawRectangle(new ScreenCoordinates(0.5 - xOffset, 0.5 - yOffset),
+                    new ScreenCoordinates(0.5 + xOffset, 0.5 + yOffset), crosshair);
 
             gl.setFeatureEnabled(GL_BLEND, false);
             // textRenderer.endRendering();

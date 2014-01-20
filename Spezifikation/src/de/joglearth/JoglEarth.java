@@ -1,5 +1,8 @@
 package de.joglearth;
 
+import java.awt.Toolkit;
+import java.lang.reflect.Field;
+
 import javax.media.opengl.GLException;
 import javax.media.opengl.GLProfile;
 import javax.swing.JFrame;
@@ -56,6 +59,7 @@ public final class JoglEarth {
 			
 			@Override
 			public void run() {
+			    // Set the system-specific look and feel
 	            try {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 } catch (
@@ -63,6 +67,16 @@ public final class JoglEarth {
                     | UnsupportedLookAndFeelException e) {
                 }
 	            
+	            // Set the window manager application name
+	            try {
+	                Toolkit tk = Toolkit.getDefaultToolkit();
+	                Field awtAppName = tk.getClass().getDeclaredField("awtAppClassName");
+	                awtAppName.setAccessible(true);
+	                awtAppName.set(tk, PRODUCT_NAME);
+	            } catch (NoSuchFieldException | IllegalAccessException e) {	                
+	            }
+	            
+	            // Check whether OpenGL2 ES1 is available
 	            GLProfile prof = null;
 	            try {
 	                prof = GLProfile.get(GLProfile.GL2ES1);
@@ -71,7 +85,7 @@ public final class JoglEarth {
 	                        PRODUCT_NAME, JOptionPane.ERROR_MESSAGE);
 	                return;
 	            }
-	            
+
 	            LocationManager locationManager = new LocationManager();
 		        MainWindow gui = new MainWindow(prof, locationManager);
 		        gui.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
