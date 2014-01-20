@@ -16,12 +16,14 @@ import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.jogamp.opengl.util.awt.TextRenderer;
 import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.TextureData;
 
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.CameraListener;
@@ -335,56 +337,37 @@ public class Renderer {
 
         freeTextures();
     }
+    
+    private Texture loadTextureResource(String name, String extension, TextureFilter textureFilter)
+    {
+        try {
+            InputStream rsrcStream = Resource.open(name);
+            TextureData data = gl.loadTextureData(rsrcStream, extension);
+            return gl.loadTexture(data, textureFilter);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     private void loadTextures() {
         TextureFilter textureFilter = TextureFilter.valueOf(Settings.getInstance().getString(
                 SettingsContract.TEXTURE_FILTER));
 
-        try {
-            earth = gl.loadTexture(Resource.open("textures/earth.jpg"), "jpg", textureFilter);
-            System.err.println("Earth Texture loaded!");
-        } catch (IOException e) {
-            System.err.println("Loading of Textures failed.");
-            e.printStackTrace();
-        }
-            try {
-                moon = gl.loadTexture(Resource.open("textures/moon.jpg"), "jpg", textureFilter);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            System.err.println("Moon Texture loaded!");
-            try {
-                sky = gl.loadTexture(Resource.open("textures/sky.png"), "png", textureFilter);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            System.err.println("Sky Texture loaded!");
-            try {
-                crosshair = gl.loadTexture(Resource.open("icons/crosshair.png"), "png",
-                        TextureFilter.TRILINEAR);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            System.err.println("Crosshair Texture loaded!");
+        earth = loadTextureResource("textures/earth.jpg", "jpg", textureFilter);
+        moon = loadTextureResource("textures/moon.jpg", "jpg", textureFilter);
+        sky = loadTextureResource("textures/sky.png", "png", textureFilter);
+        crosshair = loadTextureResource("icons/crosshair.png", "png", textureFilter);
+        
             overlayIconTextures = new LinkedHashMap<>();
             for (LocationType key : LocationType.values()) {
                 String resourceName = "locationIcons/" + key.toString() + ".png";
                 System.err.println(key.name() + " Texture loading...!");
                 if (Resource.exists(resourceName)) {
                     Texture value;
-                    try {
-                        value = gl.loadTexture(Resource.open(resourceName), "png",
-                                TextureFilter.TRILINEAR);
-                        System.err.println(key.name() + " Texure loaded!");
-                        overlayIconTextures.put(key, value);
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    
+                    value = loadTextureResource(resourceName, "png", TextureFilter.TRILINEAR);
+                    System.err.println(key.name() + " Texure loaded!");
+                    overlayIconTextures.put(key, value);                    
                 }
             }
     }
