@@ -322,8 +322,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             addToCaches(k, v);
             //TODO System.out.println("Finished adding to caches!");
         }
-
-        Set<SourceListener<Key, Value>> listeners = waitingRequestsMap.remove(k);
+        Set<SourceListener<Key, Value>> listeners;
+        synchronized (this) {
+            listeners = waitingRequestsMap.remove(k);
+        }
         if (listeners != null) {
           //TODO System.out.println("RequestDistributor: Starting calling listeners!");
             for (SourceListener<Key, Value> listener : listeners) {
@@ -559,6 +561,11 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                     }
                 } else {
                   //TODO System.out.println("RequestDistributor: Got a Value");
+                    if (cIndex > 0) {
+                        Cache<Key, Value> cache = caches.get(cIndex);
+                        cache.dropObject(key);
+                        removeFromCache(cache, key, value);
+                    }
                     _rd.requestCompleted(key, value);
                   //TODO System.out.println("RequestDistributor: Delivered Value");
                 }
