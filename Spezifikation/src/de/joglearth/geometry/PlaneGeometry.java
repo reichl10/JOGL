@@ -12,9 +12,7 @@ import de.joglearth.height.HeightMap;
  */
 public class PlaneGeometry implements Geometry {
 
-    private static final double DISTANCE_LIMIT = tan(PI/4); // = tan(fov/2)
-    // (Abstand Kamera zu Ebene  *  tan(FOV/2)  =  Abstand Mittelpunkt zu Bildschirmrand)
-    // (Gilt jedoch nur für ungekippte Kamera!)
+    private static final double DISTANCE_LIMIT = 10;
 
 
     @Override
@@ -33,15 +31,10 @@ public class PlaneGeometry implements Geometry {
             return false;
         }
 
-        //Das hier gilt auch nur für ungekippte Kamera:
         Vector3 surfacePosition = cameraPosition.clone();
         surfacePosition.z = 0;
-
-        Vector3 pointPosition = getSpacePosition(geo);
-        double hx = abs(surfacePosition.x - pointPosition.x) / DISTANCE_LIMIT;
-        double hy = abs(surfacePosition.y - pointPosition.y) / DISTANCE_LIMIT;
-
-        return (hx <= cameraPosition.z && hy <= cameraPosition.z);
+        return surfacePosition.to(getSpacePosition(geo)).length()
+                                <= cameraPosition.z * DISTANCE_LIMIT;
     }
 
     @Override
