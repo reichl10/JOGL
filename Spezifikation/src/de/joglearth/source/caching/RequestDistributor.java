@@ -477,8 +477,12 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                 }
                 Integer sizeOfRemovedEntry = measure.getSize(listener.value);
                 //TODO System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);
+                if (listener.value != null) {
+                    Integer sizeOfRemovedEntry = measure.getSize(listener.value);
+                    // TODO System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);
+                    spaceMade += sizeOfRemovedEntry;
+                }
                 cache.dropObject(listener.key);
-                spaceMade += sizeOfRemovedEntry;
 
             }
             //TODO System.out.println("We allready made:"+spaceMade);
