@@ -1,7 +1,17 @@
 package de.joglearth.rendering;
 
-import static java.lang.Math.*;
-import static javax.media.opengl.GL2.*;
+import static java.lang.Math.PI;
+import static java.lang.Math.ceil;
+import static java.lang.Math.log;
+import static java.lang.Math.max;
+import static javax.media.opengl.GL.GL_BLEND;
+import static javax.media.opengl.GL.GL_CULL_FACE;
+import static javax.media.opengl.GL.GL_DEPTH_TEST;
+import static javax.media.opengl.GL.GL_TEXTURE;
+import static javax.media.opengl.GL.GL_TEXTURE_2D;
+import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHTING;
+import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
+import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -345,7 +355,7 @@ public class Renderer {
             }
             System.err.println("Moon Texture loaded!");
             try {
-                sky = gl.loadTexture(Resource.open("textures/sky.jpg"), "jpg", textureFilter);
+                sky = gl.loadTexture(Resource.open("textures/sky.png"), "png", textureFilter);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
