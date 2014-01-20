@@ -834,7 +834,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     }
 
     @Override
-    public synchronized void display(GLAutoDrawable caller) {
+    public void display(GLAutoDrawable caller) {
         assertIsInitialized(caller);
 
         beginDisplay();
@@ -845,7 +845,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     }
 
     @Override
-    public synchronized void dispose(GLAutoDrawable caller) {
+    public void dispose(GLAutoDrawable caller) {
         assertIsInitialized(caller);
 
         animator.stop();
@@ -865,7 +865,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     }
 
     @Override
-    public synchronized void init(GLAutoDrawable caller) {
+    public void init(GLAutoDrawable caller) {
         if (drawable != null) {
             throw new IllegalStateException();
         }
@@ -924,7 +924,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     }
 
     @Override
-    public synchronized void reshape(GLAutoDrawable caller, int x, int y, int width, int height) {
+    public void reshape(GLAutoDrawable caller, int x, int y, int width, int height) {
         assertIsInitialized(caller);
 
         beginDisplay();
@@ -940,7 +940,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * 
      * @param l The listener.
      */
-    public synchronized void addGLContextListener(GLContextListener l) {
+    public void addGLContextListener(GLContextListener l) {
         listeners.add(l);
     }
 
@@ -949,7 +949,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * 
      * @param l The listener.
      */
-    public synchronized void removeGLContextListener(GLContextListener l) {
+    public void removeGLContextListener(GLContextListener l) {
         while (listeners.remove(l))
             ;
     }
@@ -960,7 +960,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * 
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      */
-    public synchronized void startDisplayLoop() {
+    public void startDisplayLoop() {
         assertIsInitialized();
         animator.start();
     }
@@ -972,7 +972,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * @param fps The target frame rate in FPS
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      */
-    public synchronized void startDisplayLoop(int fps) {
+    public void startDisplayLoop(int fps) {
         assertIsInitialized();
         animator.setFPS(fps);
         animator.start();
@@ -984,7 +984,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * 
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      */
-    public synchronized void stopDisplayLoop() {
+    public void stopDisplayLoop() {
         assertIsInitialized();
         animator.stop();
         if (redisplayPending) {
@@ -999,16 +999,17 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     public void postRedisplay() {
         // When the initialization occurs, a frame will be drawn anyway.
         if (isInitialized()) {
-            //System.out.println("Trying to sync");
-            // synchronized (this) {
-            //System.out.println("Synced");
-            redisplayPending = true;
-            if (redisplayActive || animator.isAnimating()) {
-                return;
+            System.out.println("Trying to sync");
+            synchronized (this) {
+            System.out.println("Synced");
+                redisplayPending = true;
+                if (redisplayActive || animator.isAnimating()) {
+                    return;
+                }
+                redisplayActive = true;
             }
-            redisplayActive = true;
-            // }
-            //System.out.println("Exited Sync");
+            System.out.println("Exited Sync");
+            
             // Call invokeLater() while there are pending frames. Don't use a loop so that other
             // AWT events can be processed as well.
             AWTInvoker.getInstance().invokeLater(new Runnable() {
