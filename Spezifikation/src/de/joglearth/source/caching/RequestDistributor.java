@@ -60,7 +60,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * @param maxSize The maximum size in units defined by the ObjectMeasure passed in the
      *        constructor, has to be greater than <code>0</code>
      */
-    public void addCache(Cache<Key, Value> cache, int maxSize) {
+    public synchronized void addCache(Cache<Key, Value> cache, int maxSize) {
         if (cache == null)
             return;
         //TODO System.out.println("Added Cache "+cache.getClass().getName()+"  with Size: "+maxSize);
@@ -69,8 +69,24 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         }
         caches.add(cache);
         cacheSizeMap.put(cache, new Integer(maxSize));
-        usedSizeMap.put(cache, new Integer(0));
-        lastUsedMap.put(cache, new HashMap<Key, BigInteger>());
+        HashMap<Key, BigInteger> lastUsedHashMap = new HashMap<Key, BigInteger>();
+        //usedSizeMap.put(cache, new Integer(0));
+        lastUsedMap.put(cache, lastUsedHashMap);
+        if (!(cache instanceof FileSystemCache)) {
+            usedSizeMap.put(cache, new Integer(0));
+        } else {
+            FileSystemCache<Key> fsCache = (FileSystemCache<Key>) cache;
+            Integer sizeOfObjects = 0;
+            Iterable<Key> cachedObjectsIterable = cache.getExistingObjects();
+            for (Key key : cachedObjectsIterable) {
+                lastUsedHashMap.put(key, getNextStamp());
+                sizeOfObjects += fsCache.sizeOf(key);
+            }
+            usedSizeMap.put(cache, sizeOfObjects);
+            if (sizeOfObjects >  maxSize) {
+                makeSpaceInCache(cache, sizeOfObjects-maxSize);
+            }
+        }
     }
 
     /**

@@ -285,4 +285,14 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     public void dispose() {
         executorService.shutdown();
     }
+
+    public int sizeOf(Key k) {
+        Path filePath = pathFromKey(k);
+        int size = 0;
+        try {
+           size = (int) Files.size(filePath);
+        } catch (IOException e) {
+        }
+        return size;
+    }
 }
