@@ -75,7 +75,6 @@ public class SRTMHeightMap implements HeightMap {
             while (lod < 10 && angularResolution > lodResolutions[lod]) {
                 ++lod;
             }
-            System.out.println("AngularRes " + angularResolution);
             short[][] values = tile.getTile(lod);
             double x = getTileOffset(coords.getLongitude()) * values.length,
                    y = getTileOffset(coords.getLatitude()) * values.length;

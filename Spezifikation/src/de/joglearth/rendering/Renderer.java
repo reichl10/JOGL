@@ -187,6 +187,10 @@ public class Renderer {
 
         } else {
 
+            gl.loadMatrix(GL_MODELVIEW, new Matrix4());
+            gl.placeLight(0, new Vector3(-camera.getDistance(), 0, 0));
+            gl.setFeatureEnabled(GL_LIGHTING, true);
+            
             gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
 
             TileLayout layout = mapConfiguration.getOptimalTileLayout(camera, screenSize);
@@ -240,6 +244,8 @@ public class Renderer {
             // System.out.println(tsb.toString());
             // System.out.println(vsb.toString());
 
+            gl.setFeatureEnabled(GL_LIGHTING, false);
+            
             gl.loadMatrix(GL_PROJECTION, new Matrix4());
             gl.loadMatrix(GL_MODELVIEW, new Matrix4());
             gl.loadMatrix(GL_TEXTURE, new Matrix4());
@@ -471,7 +477,7 @@ public class Renderer {
             gl.setFeatureEnabled(GL_CULL_FACE, true);
             gl.setFeatureEnabled(GL_TEXTURE_2D, true);
             gl.setFeatureEnabled(GL_BLEND, true);
-            gl.setPolygonMode(GL_LINE);
+//            gl.setPolygonMode(GL_LINE);
 
             initState = InitState.AWAITING;
         }

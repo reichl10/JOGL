@@ -42,7 +42,7 @@ public class SphereTessellator implements Tessellator {
             double lonStep, double latStep, HeightMap heightMap, double textureY, int count) {
         double textureX = 0, textureStep = 1.0 / (count - 1);
         for (int i = 0; i < count; ++i) {
-            writeSingleVertex(vertices, vIndex, lon, lat, lonStep, latStep, heightMap, textureX,
+            writeSingleVertex(vertices, vIndex, lon, lat, lonStep, -abs(latStep), heightMap, textureX,
                     textureY);
             vIndex += VERTEX_SIZE;
             lon += lonStep;

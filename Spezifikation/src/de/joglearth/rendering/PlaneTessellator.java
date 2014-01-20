@@ -21,12 +21,20 @@ public class PlaneTessellator implements Tessellator {
 
     @Override
     public Mesh tessellateTile(ProjectedTile projected, HeightMap heightMap) {
-        Tile tile = projected.tile;
-        int subdivisions = projected.equatorSubdivisions;
-        MapProjection projection = projected.projection;
+        Tile tile = projected.tile; 
         
-        int nHorizontalVertices = subdivisions + 2, nHorizontalQuads = subdivisions + 1,
-            nVerticalQuads = max(nHorizontalQuads / 2, 1), nVerticalVertices = nVerticalQuads + 1;
+        double largeLonStep = tile.getLongitudeTo() - tile.getLongitudeFrom();
+        if (largeLonStep <= 0) {
+            largeLonStep += 2 * PI;
+        }
+        
+        int horizontalTileCount =  (int) round((2*PI) / largeLonStep);
+        int nHorizontalQuads = projected.equatorSubdivisions / horizontalTileCount;
+        int subdivisions = nHorizontalQuads - 1;
+        
+        
+        int nHorizontalVertices = subdivisions + 2, nVerticalQuads = max(nHorizontalQuads / 2, 1),
+                nVerticalVertices = nVerticalQuads + 1;
         float[] vertices = new float[8 * nVerticalVertices * nHorizontalVertices];
         int vertIndex = 0;
         
