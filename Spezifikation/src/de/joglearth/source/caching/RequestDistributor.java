@@ -462,7 +462,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                     removedSet.add(cEntry);
                 }
                 Integer sizeOfRemovedEntry = measure.getSize(response.value);
-                cache.dropObject(entry.getKey());
+                removeFromCache(cache, entry.getKey(), response.value);
                 spaceMade += sizeOfRemovedEntry;
                 System.out.println("Removed Entry from "+cache.getClass().getSimpleName()+" was worth: "+sizeOfRemovedEntry);
                 if (cache.getClass().getSimpleName().equals(FileSystemCache.class.getSimpleName())) {
@@ -487,6 +487,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                 if (listener.value != null) {
                     Integer sizeOfRemovedEntry = measure.getSize(listener.value);
                     System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);
+	                removeFromCache(cache, listener.key, listener.value);
                     spaceMade += sizeOfRemovedEntry;
                 }
                 cache.dropObject(listener.key);
@@ -494,7 +495,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             }
             System.out.println("We allready made:"+spaceMade);
         }
-        removeUsedSpace(cache, spaceMade);
         if (hasNextCache) {
             Cache<Key, Value> s2Cache = caches.get(index + 1);
             Integer usedSpaceL2 = usedSizeMap.get(s2Cache);
