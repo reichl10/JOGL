@@ -60,6 +60,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
@@ -119,6 +120,8 @@ import de.joglearth.source.ProgressListener;
 import de.joglearth.source.ProgressManager;
 import de.joglearth.source.SourceListener;
 import de.joglearth.util.Resource;
+
+import java.awt.Toolkit;
 
 
 /**
@@ -848,15 +851,15 @@ public class MainWindow extends JFrame {
         aboutButton.setIcon(loadIcon("icons/info.png")); //$NON-NLS-1$
     }
 
-    private static void openManual() {
+    private void openManual() {
         try {
             Path pdfPath = Files.createTempFile(null, ".pdf");
             InputStream in = Resource.open("Handbuch.pdf");
             Files.copy(in, pdfPath, StandardCopyOption.REPLACE_EXISTING);
             Desktop.getDesktop().open(pdfPath.toFile());
         } catch (IOException e) {
-            System.err.println("Error opening manual:");
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, Messages.getString("MainWindow.manualFailed"), 
+                    JoglEarth.PRODUCT_NAME, JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -1478,6 +1481,7 @@ public class MainWindow extends JFrame {
      * @param locationManager The <code>LocationManager</code> associated with this window.
      */
     public MainWindow(GLProfile prof, final LocationManager locationManager) {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/icons/joglEarth.png")));
         this.locationManager = locationManager;
         this.glProfile = prof;
 
@@ -1972,8 +1976,8 @@ public class MainWindow extends JFrame {
         }
         
         camera.setDistance(minDist + (MAX_DIST - minDist) * pow(factor, 3));
-        System.out.println("Distance " + camera.getDistance());
-        System.out.println("SliderValue " + zoomSlider.getValue());
+        //TODO System.out.println("Distance " + camera.getDistance());
+      //TODO System.out.println("SliderValue " + zoomSlider.getValue());
     }
 
     private class UsertagButtonListener implements ActionListener {

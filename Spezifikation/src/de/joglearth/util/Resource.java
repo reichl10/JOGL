@@ -33,7 +33,7 @@ public final class Resource {
     }
     
     public static InputStream open(String name) throws IOException {
-        System.err.println("Opening "+name);
+        //System.err.println("Opening "+name);
         URL url = getURL(name);
         if (url == null) {
             throw new IOException("Resource not found");

@@ -73,7 +73,7 @@ public class TextureManager {
 
         @Override
         public void requestCompleted(TileName key, Texture value) {
-            System.out.println("Call Listeners!");
+            //System.out.println("Call Listeners!");
             notifyListeners(key.tile);
         }
     }
@@ -154,8 +154,8 @@ public class TextureManager {
             TileName key = new TileName(mapConfiguration, tile);
             SourceResponse<Texture> response = dist.requestObject(
                 key, textureListener);
-            System.out.println("TextureManager: received " + response.response);
-            System.out.println("For Key "+key);
+            // TODO System.out.println("TextureManager: received " + response.response);
+            // TODO System.out.println("For Key "+key);
             Texture textureId = response.value;
             if (textureId != null) {
                 return new TransformedTexture(textureId, transformation);

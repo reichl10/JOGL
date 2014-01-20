@@ -61,6 +61,7 @@ import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureData;
+import com.jogamp.opengl.util.texture.TextureIO;
 import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
 import de.joglearth.async.AWTInvoker;
@@ -110,6 +111,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
 
     private boolean anisotropySupported;
     private int maxAnisotropy;
+    private int maxTextureSize;
 
 
     // Throws if init() has not been called yet
@@ -266,20 +268,20 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         int minFilter, magFilter;
         switch (filter) {
             case NEAREST:
-                System.err.println("NEAREST");
+                //System.err.println("NEAREST");
                 minFilter = GL_NEAREST;
                 magFilter = GL_NEAREST;
                 break;
 
             case BILINEAR:
-                System.err.println("BILINEAR");
+                //System.err.println("BILINEAR");
                 minFilter = GL_LINEAR;
                 magFilter = GL_LINEAR;
                 break;
 
             default:
                 // Anisotropic filtering is a variation of trilinear
-                System.err.println("ANISO");
+                //System.err.println("ANISO");
                 minFilter = GL_LINEAR_MIPMAP_LINEAR;
                 magFilter = GL_LINEAR;
         }
@@ -336,44 +338,49 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         if (stream == null || suffix == null) {
             throw new IllegalArgumentException();
         }
-        TextureData data;
+        
         /*
          * TODO Catching RuntimeException in general is bad; the PNG loader throws
          * PngjInputException which is a subclass of RuntimeException. Investigate whether the JPEG
          * loader does a similar thing and catch the exceptions separately.
          */
-        BufferedImage bImg = ImageIO.read(stream);
-        if (bImg == null) {
-            bImg = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-            bImg.setRGB(0, 0, Integer.MAX_VALUE);
+        
+        TextureData data;
+        try {
+            data = TextureIO.newTextureData(gl.getGLProfile(), stream, false, suffix);
+        } catch (RuntimeException e) {
+            throw new IOException("Error loading texture data", e);
         }
-        BufferedImage bImage2 = new BufferedImage(bImg.getWidth(null), bImg.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-        bImage2.createGraphics().drawImage(bImg, 0, 0, null);
-        bImg = bImage2;
-        int[] maxtextureSize = { 0 };
-        gl.glGetIntegerv(GL_MAX_TEXTURE_SIZE, maxtextureSize, 0);
-        System.out.println("MaxTextureSize: "+maxtextureSize[0]);
-        int imgW = bImg.getWidth();
-        int imgH = bImg.getHeight();
-        if (maxtextureSize[0] < imgW || maxtextureSize[0] < imgH) {
-            System.out.println("Rescaling!");
+        
+        if (maxTextureSize < data.getWidth() || maxTextureSize < data.getHeight()) {        
+            BufferedImage bImg = ImageIO.read(stream);
+            if (bImg == null) {
+                bImg = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+                bImg.setRGB(0, 0, Integer.MAX_VALUE);
+            }
+            BufferedImage bImage2 = new BufferedImage(bImg.getWidth(null), bImg.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+            bImage2.createGraphics().drawImage(bImg, 0, 0, null);
+            bImg = bImage2;
+            int imgW = bImg.getWidth();
+            int imgH = bImg.getHeight();
+            //System.out.println("Rescaling!");
             int bigS = Math.max(imgW, imgH);
-            double scale = (maxtextureSize[0]/(double)bigS);
+            double scale = (maxTextureSize/(double)bigS);
             imgW = (int) Math.floor(imgW*scale);
             imgH = (int) Math.floor(imgH*scale);
             Image scaled = bImg.getScaledInstance(imgW, imgH, BufferedImage.SCALE_DEFAULT);
             bImg = new BufferedImage(scaled.getWidth(null), scaled.getHeight(null), BufferedImage.TYPE_INT_ARGB);
             bImg.createGraphics().drawImage(scaled, 0, 0, null);
-        }
-        AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
-        tx.translate(0, -bImg.getHeight(null));
-        AffineTransformOp op = new AffineTransformOp(tx,
-            AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-        bImg = op.filter(bImg, null);
-        try {
-            data = AWTTextureIO.newTextureData(gl.getGLProfile(), bImg, false);
-        } catch (RuntimeException e) {
-            throw new IOException("Error loading texture data", e);
+            AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
+            tx.translate(0, -bImg.getHeight(null));
+            AffineTransformOp op = new AffineTransformOp(tx,
+                AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+            bImg = op.filter(bImg, null);
+            try {
+                data = AWTTextureIO.newTextureData(gl.getGLProfile(), bImg, false);
+            } catch (RuntimeException e) {
+                throw new IOException("Error loading texture data", e);
+            }
         }
 
         return loadTexture(data, filter);
@@ -885,6 +892,10 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         gl.glGetIntegerv(GL_MAX_LIGHTS, integers, 0);
         GLError.throwIfActive(gl);
         lightCount = integers[0];
+        
+        gl.glGetIntegerv(GL_MAX_TEXTURE_SIZE, integers, 0);
+        GLError.throwIfActive(gl);
+        maxTextureSize = integers[0];
 
         String extensions = gl.glGetString(GL_EXTENSIONS);
         GLError.throwIfActive(gl);
@@ -988,16 +999,16 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     public void postRedisplay() {
         // When the initialization occurs, a frame will be drawn anyway.
         if (isInitialized()) {
-            System.out.println("Trying to sync");
+            //System.out.println("Trying to sync");
             // synchronized (this) {
-            System.out.println("Synced");
+            //System.out.println("Synced");
             redisplayPending = true;
             if (redisplayActive || animator.isAnimating()) {
                 return;
             }
             redisplayActive = true;
             // }
-            System.out.println("Exited Sync");
+            //System.out.println("Exited Sync");
             // Call invokeLater() while there are pending frames. Don't use a loop so that other
             // AWT events can be processed as well.
             AWTInvoker.getInstance().invokeLater(new Runnable() {
@@ -1029,14 +1040,14 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
 
     @Override
     public void invokeLater(Runnable runnable) {
-        System.out.println("Trying to sync");
+        //System.out.println("Trying to sync");
         synchronized (pendingInvocations) {
-            System.out.println("Synced");
+            //System.out.println("Synced");
             pendingInvocations.add(runnable);
         }
-        System.out.println("Exited Sync");
+        //System.out.println("Exited Sync");
         postRedisplay();
-        System.out.println("Redisplay");
+        //System.out.println("Redisplay");
     }
 
     @Override

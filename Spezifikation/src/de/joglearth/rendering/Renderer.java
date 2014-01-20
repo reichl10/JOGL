@@ -252,8 +252,8 @@ public class Renderer {
                     / screenSize.height / 2;
 
             Collection<Location> locations = locationManager.getActiveLocations(tiles);
-            System.out.println(locations);
-            System.out.println();
+            //System.out.println(locations);
+            //System.out.println();
             // Collection<Location> locations = new ArrayList<>();
             // locations.add(new Location(new GeoCoordinates(0, 0), LocationType.BANK, null, null));
 
