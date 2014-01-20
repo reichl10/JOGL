@@ -29,13 +29,13 @@ public class MemoryCache<Key, Value> implements Cache<Key, Value> {
 
     @Override
     public void putObject(Key key, Value value) {
-        //TODO System.err.println(getClass().getSimpleName() + ": adding key " + key);
+        System.err.println(getClass().getSimpleName() + ": adding key " + key);
         storage.put(key, value);
     }
 
     @Override
     public void dropObject(Key key) {
-        //TODO System.err.println(getClass().getSimpleName() + ": dropping key " + key);
+        System.err.println(getClass().getSimpleName() + ": dropping key " + key);
         storage.remove(key);
     }
 

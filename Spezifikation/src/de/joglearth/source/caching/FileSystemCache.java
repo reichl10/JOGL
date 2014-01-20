@@ -81,7 +81,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
     @Override
     public synchronized void putObject(Key k, byte[] v) {
-        //TODO System.err.println("FileSystemCache: adding key " + k);
+        System.err.println("FileSystemCache: adding key " + k);
         Path filePath = pathFromKey(k);
         try {
             Files.createDirectories(filePath.getParent());
@@ -102,9 +102,13 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
         keySet.remove(k);
         if (lockedFileSet.contains(k)) {
             filesForDroping.add(k);
+            System.err.println("FileSystemCache: dropping key " + k);
             return;
         }
-        //TODO System.err.println("FileSystemCache: dropping key " + k);
+        System.err.println("FileSystemCache: dropping key " + k);
+        System.err.println("------------------------------------------");
+        System.err.println("------------------------------------------");
+        System.err.println("------------------------------------------");
         try {
             Files.deleteIfExists(pathFromKey(k));
         } catch (IOException e) {
