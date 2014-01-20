@@ -333,7 +333,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * @throws IOException An error occurred while loading the image data
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      */
-    public Texture loadTexture(InputStream stream, String suffix, TextureFilter filter)
+    public TextureData loadTextureData(InputStream stream, String suffix)
             throws IOException {
         if (stream == null || suffix == null) {
             throw new IllegalArgumentException();
@@ -383,7 +383,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             }
         }
 
-        return loadTexture(data, filter);
+        return data;
     }
 
     /**

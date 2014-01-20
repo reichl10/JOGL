@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.TextureData;
 
 import de.joglearth.async.RunnableResultListener;
 import de.joglearth.async.RunnableWithResult;
@@ -56,24 +57,20 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
 
     private class LoaderRunnable implements RunnableWithResult {
 
-        private byte[] raw;
+        private TextureData data;
 
 
-        public LoaderRunnable(byte[] raw) {
-            this.raw = raw;
+        public LoaderRunnable(TextureData data) {
+            this.data = data;
         }
 
         @Override
         public Object run() {
-            if (raw == null) {
+            if (data == null) {
                 return null;
             }
 
-            try {
-                return gl.loadTexture(new ByteArrayInputStream(raw), formatSuffix, textureFilter);
-            } catch (IOException e) {
-                return null;
-            }
+            return gl.loadTexture(data, textureFilter);
         }
 
     }
@@ -82,14 +79,21 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
     private SourceResponse<Texture> loadTexture(final Key key, 
             final SourceListener<Key, Texture> sender, byte[] raw) {
       //TODO System.out.println("Load Texture");
-        LoaderRunnable loader = new LoaderRunnable(raw);
+        TextureData data;
+        try {
+            data = gl.loadTextureData(new ByteArrayInputStream(raw), formatSuffix);
+        } catch (IOException e) {
+           return new SourceResponse<Texture>(SourceResponseType.MISSING, null);
+        }
+        
+        LoaderRunnable loader = new LoaderRunnable(data);
         if (gl.canInvokeDirectly()) {
             //TODO System.out.println("Finished Loading Texture!");
             return new SourceResponse<Texture>(SourceResponseType.SYNCHRONOUS, 
                     (Texture) loader.run());
         } else {
           //TODO System.out.println("InvokeLater");
-            gl.invokeLater(new LoaderRunnable(raw), new RunnableResultListener() {
+            gl.invokeLater(loader, new RunnableResultListener() {
     
                 @Override
                 public synchronized void runnableCompleted(Object result) {
