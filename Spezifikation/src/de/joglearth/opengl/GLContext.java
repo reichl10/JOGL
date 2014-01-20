@@ -343,6 +343,10 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
          * loader does a similar thing and catch the exceptions separately.
          */
         BufferedImage bImg = ImageIO.read(stream);
+        if (bImg == null) {
+            bImg = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+            bImg.setRGB(0, 0, Integer.MAX_VALUE);
+        }
         BufferedImage bImage2 = new BufferedImage(bImg.getWidth(null), bImg.getHeight(null), BufferedImage.TYPE_INT_ARGB);
         bImage2.createGraphics().drawImage(bImg, 0, 0, null);
         bImg = bImage2;
