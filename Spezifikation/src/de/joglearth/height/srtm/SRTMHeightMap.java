@@ -15,6 +15,10 @@ public class SRTMHeightMap implements HeightMap {
 
     private static SRTMHeightMap instance = null;
     
+    public final static double EARTH_RADIUS_METERS = 6378000.0;
+    public final static double MAX_HEIGHT = Short.MAX_VALUE / EARTH_RADIUS_METERS;
+    public final static double MIN_HEIGHT = -MAX_HEIGHT;
+    
     private final SRTMListener srtmListener = new SRTMListener();
     private final ArrayList<SurfaceListener> listeners = new ArrayList<>();
     private final static SRTMTileManager srtm = SRTMTileManager.getInstance();
@@ -22,10 +26,43 @@ public class SRTMHeightMap implements HeightMap {
         1.3635e-04, 2.7271e-04, 5.4542e-04, 1.0908e-03, 2.1817e-03, 4.3633e-03, 8.7266e-03,
         1.7453e-02 };
     
-    public final static double EARTH_RADIUS_METERS = 6378000.0;
-    public final static double MAX_HEIGHT = Short.MAX_VALUE / EARTH_RADIUS_METERS;
-    public final static double MIN_HEIGHT = -MAX_HEIGHT;
-
+    
+    private static final class SRTMNameTilePair {
+        public final SRTMTileName name;
+        public final SRTMTile tile;
+        
+        public SRTMNameTilePair(SRTMTileName name, SRTMTile tile) {
+            this.name = name;
+            this.tile = tile;
+        }
+        
+        @Override
+        public boolean equals(Object other) {
+            if (other == null || this.getClass() != other.getClass()) {
+                return false;
+            }
+            SRTMNameTilePair pair = (SRTMNameTilePair) other;
+            return this.name.equals(pair.name) && this.tile == pair.tile;
+        }
+    }
+    
+    SRTMNameTilePair lastTile = null, nextToLastTile = null;
+    
+    private synchronized SRTMTile getSRTMTile(SRTMTileName tileName) {
+        if (lastTile == null || !tileName.equals(lastTile.name)) {
+            if (nextToLastTile != null && tileName.equals(nextToLastTile.name)) {
+                SRTMNameTilePair temp = lastTile;
+                lastTile = nextToLastTile;
+                nextToLastTile = temp;
+            } else {
+                nextToLastTile = lastTile;
+                lastTile = new SRTMNameTilePair(tileName, 
+                        srtm.requestObject(tileName, srtmListener).value);
+            }
+        }
+        return lastTile.tile;
+    }
+    
 
     private class SRTMListener implements SourceListener<SRTMTileName, SRTMTile> {
 
@@ -36,8 +73,12 @@ public class SRTMHeightMap implements HeightMap {
         @SuppressWarnings("unchecked")
         @Override
         public void requestCompleted(SRTMTileName key, SRTMTile value) {
-            ArrayList<SurfaceListener> listenersClone 
-                = (ArrayList<SurfaceListener>) listeners.clone();
+            ArrayList<SurfaceListener> listenersClone;
+            synchronized (SRTMHeightMap.this) {
+                lastTile = null;
+                nextToLastTile = null;
+                listenersClone = (ArrayList<SurfaceListener>) listeners.clone();
+            }
             for (SurfaceListener l : listenersClone) {
                 l.surfaceChanged(degToRad(key.longitude), degToRad(key.latitude),
                         degToRad(key.longitude + 1), degToRad(key.latitude + 1));
@@ -75,7 +116,7 @@ public class SRTMHeightMap implements HeightMap {
         
         SRTMTileName index = new SRTMTileName(toTileIndex(coords.getLongitude()), 
                 toTileIndex(coords.getLatitude()));
-        SRTMTile tile = srtm.requestObject(index, srtmListener).value;
+        SRTMTile tile = getSRTMTile(index);
         
         if (tile != null) {
             int lod = 0;
@@ -110,7 +151,7 @@ public class SRTMHeightMap implements HeightMap {
      * 
      * @param l The new listener
      */
-    public void addSurfaceListener(SurfaceListener l) {
+    public synchronized void addSurfaceListener(SurfaceListener l) {
         listeners.add(l);
     }
 
@@ -119,7 +160,7 @@ public class SRTMHeightMap implements HeightMap {
      * 
      * @param l The listener that should be removed
      */
-    public void removeSurfaceListener(SurfaceListener l) {
+    public synchronized void removeSurfaceListener(SurfaceListener l) {
         while (listeners.remove(l))
             ;
     }

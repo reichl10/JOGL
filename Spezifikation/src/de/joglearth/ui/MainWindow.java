@@ -80,8 +80,6 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.ActionMapUIResource;
 
 import com.jgoodies.forms.factories.FormFactory;
@@ -1203,20 +1201,18 @@ public class MainWindow extends JFrame {
         userTagButton.addActionListener(new UsertagButtonListener());
         Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS,
                 new UIUserLocationListener());
-        searchResultList.addListSelectionListener(new ListSelectionListener() {
-
+        searchResultList.addMouseListener(new MouseAdapter() {
+            
             @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (e.getValueIsAdjusting() == false) {
-                    Location location = searchResultList.getSelectedValue();
-                    if (location != null) {
-                        camera.setPosition(location.point);
-                        camera.setDistance(2.599987500000007E-4);
-                        zoomSlider.setValue(95);
-                        requestDetails();
-
-                    }
+            public void mouseClicked(MouseEvent e) {
+                Location location = searchResultList.getSelectedValue();
+                if (location != null) {
+                    camera.setPosition(location.point);
+                    camera.setDistance(2.599987500000007E-4);
+                    zoomSlider.setValue(95);
+                    requestDetails();
                 }
+                super.mouseClicked(e);
             }
         });
     }

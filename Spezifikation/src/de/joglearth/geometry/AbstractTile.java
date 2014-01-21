@@ -17,16 +17,15 @@ public abstract class AbstractTile implements Tile {
                 tileLonTo = this.getLongitudeTo(),
                 tileLatTo = this.getLatitudeTo();
         
-        rectangleLongitudeContains(tileLonFrom, tileLonTo, lonTo);
         return (rectangleLongitudeContains(tileLonFrom, tileLonTo, lonTo)
                         || rectangleLongitudeContains(lonFrom, lonTo, tileLonTo)
                         || rectangleLongitudeContains(lonFrom, lonTo, tileLonFrom)
                         || rectangleLongitudeContains(tileLonFrom, tileLonTo, lonFrom))
                         &&
-                ((tileLatFrom < latFrom && latFrom < tileLatTo)
-                        || (tileLatFrom < latTo && latTo < tileLatTo)
-                        || (latFrom < tileLatFrom && tileLatFrom < latTo)
-                        || (latFrom < tileLatTo && tileLatTo < latTo));
+                ((tileLatFrom <= latFrom && latFrom <= tileLatTo)
+                        || (tileLatFrom <= latTo && latTo <= tileLatTo)
+                        || (latFrom <= tileLatFrom && tileLatFrom <= latTo)
+                        || (latFrom <= tileLatTo && tileLatTo <= latTo));
     }
 
 
@@ -53,7 +52,7 @@ public abstract class AbstractTile implements Tile {
                 lonFrom -= 2*PI;
             }
         }
-        return ((lon >= lonFrom && lon <= lonTo) || (lon <= lonFrom && lon >= lonTo));
+        return lon >= lonFrom && lon <= lonTo;
     }
     
     
