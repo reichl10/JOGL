@@ -529,10 +529,10 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     }
     
     
-    public void drawSphere(double radius, int slices, int stacks, boolean inside, Color color) {
+    public void drawSphere(double radius, int slices, int stacks, boolean inside, float[] color4) {
         assertIsInitialized();
         assertIsInsideCallback();
-        if (radius <= 0 || slices < 3 || stacks < 3) {
+        if (radius <= 0 || slices < 3 || stacks < 3 || color4 == null) {
             throw new IllegalArgumentException();
         }
 
@@ -543,12 +543,14 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         glu.gluQuadricTexture(quadric, false);
         GLError.throwIfActive(gl);
         
-        float[] colorComponents = new float[4];
-        color.getColorComponents(colorComponents);
-        gl.glColor4fv(colorComponents, 0);
+        gl.glColor4fv(color4, 0);
+        GLError.throwIfActive(gl);     
 
         glu.gluSphere(quadric, radius, slices, stacks);
-        GLError.throwIfActive(gl);        
+        GLError.throwIfActive(gl);     
+        
+        gl.glColor4f(1, 1, 1, 1); 
+        GLError.throwIfActive(gl);     
     }
     
 

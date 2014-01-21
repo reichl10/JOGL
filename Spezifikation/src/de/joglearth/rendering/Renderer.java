@@ -1,9 +1,6 @@
 package de.joglearth.rendering;
 
-import static java.lang.Math.PI;
-import static java.lang.Math.ceil;
-import static java.lang.Math.log;
-import static java.lang.Math.max;
+import static java.lang.Math.*;
 import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHTING;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
@@ -160,20 +157,26 @@ public class Renderer {
     private void render() {
         gl.clear();
 
-        double zNear = camera.getDistance() / 2, zFar = zNear * 1000;
+        double zNear = camera.getDistance() / 2, zFar = zNear * 10000;
         camera.setPerspective(FOV, aspectRatio, zNear, zFar);
         gl.loadMatrix(GL_PROJECTION, camera.getProjectionMatrix());
 
         Matrix4 skyMatrix = correctGLUTransformation(camera.getSkyViewMatrix());
         gl.loadMatrix(GL_MODELVIEW, skyMatrix);
-
         gl.setFeatureEnabled(GL_DEPTH_TEST, false);        
+        
+        // Draw outer night sky
         gl.drawSphere(5, 15, 8, true, nightSky);        
-        //gl.setBlendingFunction(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
+        
+        // Blend inner day sky
+        gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         gl.setFeatureEnabled(GL_BLEND, true);
-        gl.drawSphere(4.9f, 15, 8, true, new Color(0.2734375f, 0.6484375f, 1.f, 0.23f));
+        float daySkyAlpha = (float) min(0.8, max(0.0, pow(camera.getDistance(), -2) / 1000 ));
+        gl.drawSphere(4.9f, 15, 8, true, new float[] { 0.2734375f, 0.5484375f, 1, daySkyAlpha });
         gl.setFeatureEnabled(GL_BLEND, false);        
+        
         gl.setFeatureEnabled(GL_DEPTH_TEST, true);
+        
 
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
 
@@ -276,7 +279,7 @@ public class Renderer {
             // locations.add(new Location(new GeoCoordinates(0, 0), LocationType.BANK, null, null));
 
             gl.setFeatureEnabled(GL_DEPTH_TEST, false);
-            //gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             gl.setFeatureEnabled(GL_BLEND, true);
 
             for (Location location : locations) {
