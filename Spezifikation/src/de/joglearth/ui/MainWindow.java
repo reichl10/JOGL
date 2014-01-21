@@ -985,8 +985,8 @@ public class MainWindow extends JFrame {
         latitudeLabel = new JLabel(Messages.getString("MainWindow.2")); //$NON-NLS-1$
         coordPanel.add(latitudeLabel, "1, 1, right, default"); //$NON-NLS-1$
 
-        latitudeTextField = new JTextField();
-        latitudeTextField.addKeyListener(new KeyListener() {
+        
+        KeyListener longitudeLatitudeKeyListener = new KeyListener() {
 
             @Override
             public void keyTyped(KeyEvent e) {
@@ -1022,7 +1022,10 @@ public class MainWindow extends JFrame {
                 }
 
             }
-        });
+        };
+        
+        latitudeTextField = new JTextField();
+        latitudeTextField.addKeyListener(longitudeLatitudeKeyListener);
         coordPanel.add(latitudeTextField, "3, 1, fill, fill"); //$NON-NLS-1$
         latitudeTextField.setColumns(8);
         latitudeTextField.setHorizontalAlignment(JTextField.RIGHT);
@@ -1034,37 +1037,7 @@ public class MainWindow extends JFrame {
         coordPanel.add(longitudeTextField, "7, 1, fill, fill"); //$NON-NLS-1$
         longitudeTextField.setColumns(8);
         longitudeTextField.setHorizontalAlignment(JTextField.RIGHT);
-        longitudeTextField.addKeyListener(new KeyListener() {
-
-            @Override
-            public void keyTyped(KeyEvent e) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                int keyCode = e.getKeyCode();
-                if (keyCode == KeyEvent.VK_ENTER) {
-                    try {
-                        GeoCoordinates geo = GeoCoordinates.parseCoordinates(
-                                longitudeTextField.getText(), latitudeTextField.getText());
-                        camera.setPosition(geo);
-                    } catch (NumberFormatException ex) { 
-                        GeoCoordinates geo = camera.getPosition();
-                        longitudeTextField.setText(geo.getLongitudeString());
-                        latitudeTextField.setText(geo.getLatitudeString());
-                    }
-                }
-
-            }
-        });
+        longitudeTextField.addKeyListener(longitudeLatitudeKeyListener);
 
         progressBar = new JProgressBar();
         statusBar.add(progressBar, "6, 2, default, fill"); //$NON-NLS-1$
