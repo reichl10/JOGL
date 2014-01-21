@@ -87,13 +87,13 @@ public class SRTMHeightMap implements HeightMap {
                    y = getTileOffset(coords.getLatitude()) * values.length;
             
             int leftIndex = (int) floor(x), rightIndex = min(values.length-1, leftIndex+1), 
-               topIndex = values.length - 1 - (int) floor(y), bottomIndex = min(values.length-1, topIndex+1);
+               bottomIndex = values.length - 1 - (int) floor(y), topIndex = max(0, bottomIndex-1);
             short topLeft = values[topIndex][leftIndex],
-                  topRight = values[bottomIndex][rightIndex], 
+                  topRight = values[topIndex][rightIndex], 
                   bottomLeft = values[bottomIndex][leftIndex], 
                   bottomRight = values[bottomIndex][rightIndex];
             
-            double rightFraction = (x - floor(x)), bottomFraction = (y - floor(y)), 
+            double rightFraction = (x - floor(x)), bottomFraction = 1 - (y - floor(y)), 
                    leftFraction = 1 - rightFraction, topFraction = 1 - bottomFraction;
             
             double interpolated = (topLeft * leftFraction + topRight * rightFraction) * topFraction
