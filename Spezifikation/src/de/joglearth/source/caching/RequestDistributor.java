@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
@@ -39,9 +38,9 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      */
     private Source<Key, Value> source;
     private ObjectMeasure<Value> measure;
-    private ConcurrentHashMap<Key, Set<SourceListener<Key, Value>>> waitingRequestsMap;
-    private ConcurrentHashMap<Cache<Key, Value>, Integer> usedSizeMap;
-    private ConcurrentHashMap<Cache<Key, Value>, ConcurrentHashMap<Key, BigInteger>> lastUsedMap;
+    private Map<Key, Set<SourceListener<Key, Value>>> waitingRequestsMap;
+    private Map<Cache<Key, Value>, Integer> usedSizeMap;
+    private Map<Cache<Key, Value>, Map<Key, BigInteger>> lastUsedMap;
     private BigInteger lastStamp;
 
 
@@ -60,8 +59,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         }
         caches.add(cache);
         cacheSizeMap.put(cache, new Integer(maxSize));
-        ConcurrentHashMap<Key, BigInteger> lastUsedHashMap = new ConcurrentHashMap<Key, BigInteger>();
-        //usedSizeMap.put(cache, new Integer(0));
+        HashMap<Key, BigInteger> lastUsedHashMap = new HashMap<Key, BigInteger>();
         lastUsedMap.put(cache, lastUsedHashMap);
         if (!(cache instanceof FileSystemCache)) {
             usedSizeMap.put(cache, new Integer(0));
@@ -231,9 +229,9 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         measure = m;
         caches = Collections.synchronizedList(new ArrayList<Cache<Key, Value>>(2));
         cacheSizeMap = new Hashtable<Cache<Key, Value>, Integer>();
-        waitingRequestsMap = new ConcurrentHashMap<Key, Set<SourceListener<Key, Value>>>();
-        lastUsedMap = new ConcurrentHashMap<Cache<Key, Value>, ConcurrentHashMap<Key, BigInteger>>();
-        usedSizeMap = new ConcurrentHashMap<Cache<Key, Value>, Integer>();
+        waitingRequestsMap = new Hashtable<Key, Set<SourceListener<Key, Value>>>();
+        lastUsedMap = new Hashtable<Cache<Key, Value>, Map<Key, BigInteger>>();
+        usedSizeMap = new Hashtable<Cache<Key, Value>, Integer>();
         lastStamp = new BigInteger("0");
     }
 
@@ -262,10 +260,9 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * 
      * @param pred Conformance with that <code>Predicate</code> leads to deletion of that object
      */
-    @SuppressWarnings("unchecked")
     public synchronized void dropAll(Predicate<Key> pred) {
         for (Cache<Key, Value> cache : caches) {
-            Iterable<Key> keys = new HashMap<Key, BigInteger>(lastUsedMap.get(cache)).keySet();
+            Iterable<Key> keys = lastUsedMap.get(cache).keySet();
             for (Key k : keys) {
                 if (pred.test(k)) {
                     dropObjectFromCache(cache, k);
