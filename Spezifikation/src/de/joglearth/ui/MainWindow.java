@@ -1475,14 +1475,23 @@ public class MainWindow extends JFrame {
     }
 
     private void updateDetails(Location location) {
-        if (location.name != null)
-            detailNameLabel.setText(location.name);
-        else
+        if (location.details != null) {
+            float zoomLevel = zoomSlider.getValue();
+            String[] partStrings = location.details.trim().replaceAll(", \\d+", "").split("(?:, )");
+            float len = partStrings.length;
+            float posf = (len - 1) * (zoomLevel / 100);
+            double posd = (len - 1) * pow(2, posf) / pow(2, len - 1);
+            int pos = (int) Math.round(posd);
+            detailNameLabel.setText(partStrings[(partStrings.length - 1) - pos]);
+        } else {
             detailNameLabel.setText(Messages.getString("MainWindow.3"));
-        if (location.details != null)
+        }
+        if (location.details != null) {
             detailsDescTextArea.setText(location.details);
-        else
+        } else {
             detailsDescTextArea.setText(Messages.getString("MainWindow.42"));
+        }
+
     }
 
     /**
