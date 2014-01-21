@@ -177,36 +177,37 @@ Es werden im Handbuch einige Symbole verwendet, welche die Arbeit mit dem Handbu
 \end{tabular}
 
 \vspace{5mm}
-Die Abbildungen im Handbuch können vom \JoglEarth Erscheinungsbild auf Ihrem PC abweichen, was durch das jeweils verwendete Betriebssystem bedingt ist. Die Funktionalitäten und Anordnungen der Schaltflächen sind jedoch unter allen Betriebssystemen identisch. Die in diesem Handbuch abgebildeten Screenshots wurden teilweise unter Windows und teilweise unter Linux erstellt.
+Die Abbildungen im Handbuch können vom \JoglEarth Erscheinungsbild auf Ihrem PC abweichen, was durch das jeweils verwendete Betriebssystem bedingt ist. Die Funktionalitäten und Anordnungen der Schaltflächen sind jedoch unter allen Betriebssystemen identisch. Die Abbildungen in diesem Handbuch wurden teilweise unter Windows und teilweise unter Linux erstellt.
 
 \vspace{5mm}
-Bei komplexeren Funktionen wurden Ablaufdiagramme erstellt. Anhand des Ablaufdiagramms soll die Interaktion mit \JoglEarth verdeutlicht werden.
+Bei manchen Funktionen wurden Ablaufdiagramme erstellt. Anhand des Ablaufdiagramms soll die Interaktion mit \JoglEarth verdeutlicht werden.
 
 
 
 \chapter{Allgemeines}
 \section{Ausgangssituation}
-Die Karten des OpenStreetMap-Projekts erfreuen sich immer größerer Beliebtheit. Der Detailgrad, die Menge an verschiedenen Merkmalen und die Genauigkeit der Daten sind denen ihrer Konkurrenz in den meisten Regionen der Welt weit voraus. Durch die große Auswahl an Informationen und die Flexibilität in der Darstellung eröffnen sich unzählige Anwendungsmöglichkeiten.
+Die Karten des OpenStreetMap-Projekts \index{OpenStreetMap} erfreuen sich immer größerer Beliebtheit. Der Detailgrad, die Menge an verschiedenen Merkmalen und die Genauigkeit der Daten sind denen ihrer Konkurrenz in den meisten Regionen der Welt weit voraus. Durch die große Auswahl an Informationen und die Flexibilität in der Darstellung eröffnen sich unzählige Anwendungsmöglichkeiten.
 
 \vspace{0.5cm}
-Die Projektion einer Straßenkarte auf einen dreidimensionalen Globus ist die intuitivste und geographisch korrekteste Darstellung. Bei \JoglEarth wurden folgende Schwerpunkte gesetzt:
+Die Projektion einer Straßenkarte \index{Kartentypen!OpenStreetMap!Straßenkarte} auf einen dreidimensionalen Globus ist die intuitivste und geographisch korrekteste Darstellung. Bei \JoglEarth wurden folgende Schwerpunkte gesetzt:
 \begin{itemize}
 \item Verwendung der freien Kartendaten des OpenStreetMap-Projekts
 \item Realisierung einer dreidimensionalen Globusoberfläche mit den Höhendaten der NASA \index{NASA}
 \item Intuitive Bedienung der Anwendung ohne Einarbeitungszeit
 \item Die Möglichkeit der spielerischen Benutzung durch Kinder ohne nennenswerte PC-Kenntnisse
-\item Vollständige Plattformunabhängigkeit durch Java
+\item Vollständige Plattformunabhängigkeit durch Java \index{Java}
 \item Effiziente Speicher- und Bandbreitennutzung
 \end{itemize}
 
 
 \vspace{2mm}
 \section{Anwendungsbereich}
-\JoglEarth bietet eine dreidimensionale Ansicht der Welt sowie eine ebene Kartenansicht. Beides erfolgt auf Basis des OpenStreetMap-Projekts und den Satellitendaten der NASA. \\
+\JoglEarth bietet eine dreidimensionale Ansicht der Welt sowie eine ebene Kartenansicht (\textref{Ansichtsmodi} und \textref{Kartentypen}). Beides erfolgt auf Basis des OpenStreetMap-Projekts und den Satellitendaten der NASA. \\
+\index{NASA}
 
-Die grafische Benutzeroberfläche zeigt dafür im dreidimensionalen Modus eine Weltkugel, die frei gedreht und gezoomt werden kann und im zweidimensionalen einen Ausschnitt der Weltkarte. Die Karte kann aus verschiedenen Kategorien wie Satellitenbildern oder Straßenkarten gewählt werden. Die Steuerung erfolgt mit Tastatur und Maus. \\
+Die grafische Benutzeroberfläche zeigt dafür im dreidimensionalen Modus eine Weltkugel, die frei gedreht und gezoomt werden kann und im zweidimensionalen einen Ausschnitt der Weltkarte (\textref{Ansichtsmodi} und \textref{Kartentypen}). Die Karte kann aus verschiedenen Kategorien wie Satellitenbildern oder Straßenkarten gewählt werden. Die Steuerung erfolgt mit Tastatur und Maus (\textref{Mausbelegung} und \textref{Tastaturbelegung}).\\
 
-Mit einer Suchfunktion \index{Suche} kann im Umkreis oder global nach Orten gesucht werden. Punkte besonderen Interesses wie Gaststätten oder Banken können über dem Kartenbild eingeblendet werden.
+Mit einer Suchfunktion (\textref{Suche}) kann im Umkreis oder global nach Orten gesucht werden. Punkte besonderen Interesses wie Gaststätten oder Banken können über dem Kartenbild eingeblendet werden.
 
 
 \vspace{3mm}
@@ -217,7 +218,7 @@ Auch soll die Anwendung wissbegierige Kinder ansprechen. Voraussetzung ist ledig
 
 
 \vspace{3mm}
-\section{Sicherheit, Datenschutz}
+\section{Sicherheit, Datenschutz} \index{Sicherheit} \index{Datenschutz}
 \JoglEarth wahrt von vornherein die Sicherheit des Systems und schützt die Privatsphäre des Nutzers. Da sie keine sicherheitskritischen Daten verarbeitet. 
 \begin{itemize}
 \item Es ist weder zur Bedienung, noch zum Beschaffen der Kartendaten eine Authentifikation erforderlich.
@@ -227,12 +228,12 @@ Auch soll die Anwendung wissbegierige Kinder ansprechen. Voraussetzung ist ledig
 \end{itemize}
 
 \vspace{3mm}
-\section{Lizenzen}
+\section{Lizenzen} \index{Lizenzen} \index{Bibliothek} \index{Kartenkachel}
 Lizenzen der verwendeten Bibliotheken und Datenquellen:
 \begin{itemize}
-\item Die Teile der JOGL-Bibliothek sind unter mehreren Versionen der BSD-Lizenz, der SGI Free Software License und der Apache-Lizenz, der Ubuntu Font License und mehreren proprietären Lizenzen veröffentlicht. Details dazu finden sich bei  \footnote{\url{https://jogamp.org/git/?p=jogl.git;a=blob;f=LICENSE.txt}}.
+\item Die Teile der JOGL-Bibliothek \index{JOGL} sind unter mehreren Versionen der BSD-Lizenz, der SGI Free Software License und der Apache-Lizenz, der Ubuntu Font License und mehreren proprietären Lizenzen veröffentlicht. Details dazu finden sich bei  \footnote{\url{https://jogamp.org/git/?p=jogl.git;a=blob;f=LICENSE.txt}}.
 \item OpenStreetMap ist „OpenData“ im Sinne der Open Database Lizenz (ODbL). Die Kartenkacheln stehen unter der Lizenz  Creative Commons „Namensnennung, Weitergabe unter gleichen Bedingungen" 2.0 (CC BY-SA). Weitere Infos, wie auch eine Vorgabe zum Hinweisen auf die Urheberschaft des OSM-Projekts finden sich bei \footnote{\url{http://www.openstretmap.org/copyright}}.
-\item Die Daten der Overpass API sowie Nominatim stehen ebenfalls unter der ODbL.
+\item Die Daten der Overpass API sowie Nominatim stehen ebenfalls unter der ODbL. \index{API} \index{Overpass}
 \item Die Satellitenbilder der NASA sind für die Zwecke des Projekts frei verfügbar und stehen unter der Lizenz, die sich bei \footnote{\url{http://www.nasa.gov/audience/formedia/features/MP_Photo_Guidelines.html}} findet.
 \item Die Verwendete Bibliothek JGoodies Forms steht unter der BSD-Lizenz bei \footnote{\url{http://opensource.org/licenses/bsd-license.html}}.
 \end{itemize}
@@ -242,7 +243,7 @@ Lizenzen der verwendeten Bibliotheken und Datenquellen:
 
 \chapter{Systemvoraussetzungen} \index{Systemvoraussetzungen}
 \section{Software}
-Da das Projekt auf Java setzt, ist es betriebssystemunabhängig. Es muss lediglich das Java Runtime Environment (JRE) in Version 7 sowie ein Fenstersystem und Netzwerkunterstützung zur Verfügung stehen. Um dieses Handbuch anzeigen zu können, muss auf dem System außerdem ein PDF-Betrachter installiert sein. Zusätzliche Programmbibliotheken, die zum Ausführen des Softwarepakets nötig sind, wurden mitgeliefert.\\
+Da das Projekt auf Java \index{Java} setzt, ist es betriebssystemunabhängig. Es muss lediglich das Java Runtime Environment (JRE) in Version 7 sowie ein Fenstersystem und Netzwerkunterstützung zur Verfügung stehen. Um dieses Handbuch anzeigen zu können, muss auf dem System außerdem ein PDF-Betrachter installiert sein. Zusätzliche Programmbibliotheken, die zum Ausführen des Softwarepakets nötig sind, wurden mitgeliefert.\\
 
 Folgende Konfigurationen sollen mindestens unterstützt werden:
 \begin{itemize}
@@ -257,7 +258,7 @@ Wie schon bei der Software der Fall sollte die Anwendung auch mit nahezu allen m
 \item Dual-Core-Prozessor mit 1 GHz Taktfrequenz
 \item 2 Gigabyte RAM
 \item 200 Megabyte freier Speicherplatz
-\item Grafikkarte: Onboard-Grafik mit OpenGL 2.0-Unterstützung
+\item Grafikkarte: Onboard-Grafik mit OpenGL 2.0-Unterstützung \index{OpenGL}
 \item Bildschirm mit 1024x768 Pixeln Auflösung und 24 Bit Farbtiefe
 \item Standard-Tastatur und Maus
 \end{itemize}
@@ -282,22 +283,22 @@ Zum Laden der Kartendaten wird eine durchgehende Internetverbindung benötigt. U
 \includegraphics[scale=0.4]{images/sonnensystem.png}
 \end{center}
 
-\vspace{5mm} \index{Sonnensystem}
+\vspace{5mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/info.eps} & \JoglEarth startet standardmäßig in der \textbf{Sonnensystemansicht} (\textref{Ansichtsmodi}).
 \end{tabular}
 
-\vspace{3mm} \index{Sonnensystem}
+\vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} & Die \textbf{Sprache} der Benutzeroberfläche kann im \textref{Menü Einstellungen} festgelegt werden. Die Vorgehensweise hierzu findet sich im Kapitel \textref{Sprache}.
+\includegraphics[scale=0.5]{images/info.eps} & Die \textbf{Sprache} der \textref{Benutzeroberfläche} kann im \textref{Menü Einstellungen} festgelegt werden. Die Vorgehensweise hierzu findet sich im Kapitel \textref{Sprache}.
 \end{tabular}
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/quest.eps} &  Versuchen Sie nun \JoglEarth zu starten. Machen Sie sich mit der Benutzeroberfläche vertraut.
+\includegraphics[scale=0.5]{images/quest.eps} &  Versuchen Sie nun \JoglEarth zu starten. Machen Sie sich mit der \textref{Benutzeroberfläche} vertraut.
 \end{tabular}
 
-\vspace{5mm} \index{Benutzeroberfläche} \index{Navigation Globus / Kartenebene}
+\vspace{5mm}
 In den folgenden Kapiteln finden Sie als Einführung die Erklärungen zur \textref{Benutzeroberfläche}, zur \textref{Navigation} auf dem Globus und der Kartenebene.
 
 
@@ -306,7 +307,7 @@ In den folgenden Kapiteln finden Sie als Einführung die Erklärungen zur \textr
 \vspace{3mm}
 \subsection{Bildschirmaufbau / Fensteransichten}
 \begin{itemize}
-	\item Das Hauptelement der Benutzeroberfläche ist das \textbf{Ansichtsfenster}  \raisebox{-1pt}{\includegraphics[scale=0.45]{images/1.eps}}, das sich in der Fenstermitte befindet. Darin wird der Globus, die Kartenebene oder eine Sonnensystemansicht angezeigt. Der sichtbare Kartenausschnitt kann interaktiv mit Maus oder Tastatur verschoben, gedreht gezoomt und gekippt werden.
+	\item Das Hauptelement der Benutzeroberfläche ist das \textbf{Ansichtsfenster}  \raisebox{-1pt}{\includegraphics[scale=0.45]{images/1.eps}}, das sich in der Fenstermitte befindet. Darin wird der Globus, die Kartenebene oder ein Sonnensystem (\textref{Ansichtsmodi}) angezeigt. Der sichtbare Kartenausschnitt kann interaktiv mit Maus oder Tastatur verschoben, gedreht gezoomt und gekippt werden (\textref{Mausbelegung} und \textref{Tastaturbelegung}).
 	\item Am linken Rand des Fensters befindet sich die \textbf{Seitenleiste} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/2.eps}}, die die meisten Steuerungsoptionen bereitstellt. Der obere Teil ist in Menüs unterteilt, mit denen Funktionen gruppiert werden; der untere Teil zeigt Details zum momentan zentrierten Punkt an. Um den sichtbaren Kartenbereich zu vergrößern, ist sie ausblendbar.
 	\item Am rechten Rand \raisebox{-1pt}{\includegraphics[scale=0.45]{images/3.eps}} befindet sich ein Schieber, mit dem das Zoomlevel angezeigt und geändert werden kann.
 	\item Die \textbf{Statusleiste} \raisebox{-1pt}{\includegraphics[scale=0.45]{images/4.eps}} am unteren Rand beinhaltet Informationen über den zentrierten Punkt, wie Koordinaten und Maßstab. Außerdem wird der Fortschritt im Hintergrund geladener Daten angezeigt.
@@ -322,7 +323,7 @@ In den folgenden Kapiteln finden Sie als Einführung die Erklärungen zur \textr
 Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und gruppiert die wichtigsten Funktionalitäten (\textref{Funktionen}) von \JoglEarth . 
 
 \vspace{3mm}
-\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}} \index{Menüführung!Menü Details} \index{Menü Details}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}} \index{Menüführung!Menü Details}
 \includegraphics[scale=0.5]{images/info.eps} & Der Bereich \textbf{Details} in den angeführten Menüs verändert sich beim Wechseln der Menüs nicht.
 \end{tabular}
 
@@ -340,7 +341,7 @@ Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und 
 \vspace{10mm}
 \begin{minipage}[t]{9cm}
 \vspace{-40mm}
-\subsubsection{1. Menü: Ansicht} \index{Menü Ansicht} \index{Menüführung!Menü Ansicht}
+\subsubsection{1. Menü: Ansicht} \index{Menüführung!Menü Ansicht}
 	\begin{itemize}
 	\item Ändern der \textref{Ansichtsmodi} \index{Ansichtsmodi}
 	\item Ändern der \textref{Kartentypen} \index{Kartentypen}
@@ -357,7 +358,7 @@ Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und 
 \vspace{10mm}
 \begin{minipage}[t]{9cm}
 \vspace{-40mm}
-\subsubsection{2. Menü: Orte} \index{Menü Orte} \index{Menüführung!Menü Orte}
+\subsubsection{2. Menü: Orte} \index{Menüführung!Menü Orte}
 	\begin{itemize}
 	\item \textref{Suche} nach gewünschten Orten \index{Suche}
 	\item Anzeige der Suchergebnisse
@@ -376,7 +377,7 @@ Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und 
 \newpage
 \begin{minipage}[t]{9cm}
 \vspace{-40mm}
-\subsubsection{3. Menü: Einstellungen} \index{Menü Einstellungen} \index{Menüführung!Menü Einstellungen}
+\subsubsection{3. Menü: Einstellungen} \index{Menüführung!Menü Einstellungen}
 	\begin{itemize}
 	\item Ändern der \textref{Sprache} \index{Sprache} \index{Benutzeroberfläche!Sprache}
 	\item Ändern von \textref{Grafikeinstellungen} \index{Grafikeinstellungen}
@@ -392,7 +393,7 @@ Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und 
 
 
 \vspace{5mm}
-\subsubsection{4. Menü: Details} \index{Menü Details} \index{Benutzermarkierungen} \index{Menüführung!Menü Details}
+\subsubsection{4. Menü: Details} \index{Benutzermarkierungen} \index{Menüführung!Menü Details}
 
 \begin{itemize}
 \item Erstellen von \textref{Benutzermarkierungen}
@@ -400,11 +401,11 @@ Die gesamte Menüführung befindet sich in der linken \textbf{Seitenleiste} und 
 
 
 \vspace{3mm}
-\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}} \index{Menüführung!Menü Details} \index{Menü Details}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/info.eps} & Der Bereich \textbf{Details} in den angeführten Menüs verändert sich beim Wechseln der Menüs nicht.
 \end{tabular}
 
-\vspace{5mm}
+\vspace{5mm} \index{Bildmittelpunkt}
 \begin{minipage}[t]{9cm}
 \vspace{-10mm}
 Der Bereich \textbf{Details} zeigt verfügbare Informationen genau zum Bildmittelpunkt des aktuellen Kartenausschnitts an. Der Bildmittelpunkt ist mit einem Rautensymbol gekennzeichnet. Ebenso findet sich hier die Schaltfläche um \textref{Benutzermarkierungen} hinzuzufügen und wieder zu entfernen. \\
@@ -416,7 +417,7 @@ Der Bereich \textbf{Details} zeigt verfügbare Informationen genau zum Bildmitte
 
 \vspace{3mm}
 Beispiel:
-\begin{itemize}
+\begin{itemize} \index{Bildmittelpunkt}
 \item \textit{Angenommen im Bildmittelpunkt des Kartenausschnitts befindet sich das Finanzamt der Stadt Regensburg, dann wird im Bereich \textbf{Details} 'Finanzamt Regensburg' angezeigt.}
 \end{itemize}
 
@@ -428,12 +429,16 @@ Beispiel:
 \subsection{Navigation der Erde / Kartenebene} \index{Navigation Globus / Kartenebene}
 
 \vspace{3mm}
-\subsubsection*{Mausbelegung} \index{Navigation Globus / Kartenebene!Mausbelegung}
+\subsubsection*{Mausbelegung} \index{Navigation Globus / Kartenebene!Mausbelegung} \index{Mausbelegung}
 \begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline
-\includegraphics[scale=1.0]{images/mouseDrag_left.eps} & Drehen der Erdkugel / Verschieben der Karte \\ 
+\includegraphics[scale=1.0]{images/mouseDrag_left.eps} & \begin{flushleft}
+Drehen des \textbf{Globus} / Verschieben der \textbf{Kartenebene} (\textref{Ansichtsmodi})
+\end{flushleft}\\ 
 \hline 
-\includegraphics[scale=1.0]{images/mouseDoubleClick_left.eps} & Punkt unter dem Mauszeiger im Kartenfenster zentrieren \\
+\includegraphics[scale=1.0]{images/mouseDoubleClick_left.eps} & \begin{flushleft}
+Punkt unter dem Mauszeiger im \textbf{Ansichtsfenster} (\textref{Benutzeroberfläche}) zentrieren 
+\end{flushleft}\\
 \hline
 \includegraphics[scale=1.0]{images/mouseDrag_right.eps} & Kippen der Ansicht \\
 \hline
@@ -443,10 +448,10 @@ Beispiel:
 
 
 \vspace{3mm}
-\subsubsection*{Tastaturbelegung} \index{Navigation Globus / Kartenebene!Tastaturbelegung}
+\subsubsection*{Tastaturbelegung} \index{Navigation Globus / Kartenebene!Tastaturbelegung} \index{Tastaturbelegung}
 \begin{tabular}{|>{\centering \arraybackslash}m{3cm}|m{10cm}|}
 \hline
-\rule[-1ex]{0pt}{7ex}\includegraphics[scale=0.08]{images/key_arrow_up.eps}& \multirow{3}{*}{Drehen der Erdkugel / Verschieben der Karte}\\
+\rule[-1ex]{0pt}{7ex}\includegraphics[scale=0.08]{images/key_arrow_up.eps}& \multirow{3}{*}{Drehen des \textbf{Globus} / Verschieben der \textbf{Kartenebene}}\\
 \includegraphics[scale=0.08] {images/key_arrow_left.eps} \includegraphics[scale=0.08]{images/key_arrow_down.eps} \includegraphics[scale=0.08]{images/key_arrow_right.eps} &  \\
 \hline
 \rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{images/key_Bild_Auf.eps}  \includegraphics[scale=0.08]{images/key_Bild_Ab.eps} & Kippen der Ansicht nach oben / unten\\
@@ -459,13 +464,15 @@ Beispiel:
 \hline
 \rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{images/key_F1.eps} & Anzeige des Benutzerhandbuchs \\ 
 \hline
+\rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{images/key_enter.eps} & \textref{Suche} starten (z.B. nach der Eingabe eines Orts) \\ 
+\hline
 \rule[-1ex]{0pt}{7ex} \includegraphics[scale=0.08]{images/key_Strg.eps} \rule[-1ex]{0pt}{7ex}\raisebox{0.7em}{\textbf{+}} \includegraphics[scale=0.08]{images/key_Q.eps} & Beenden der Anwendung \\ 
 \hline
 \end{tabular}
 
 
 \newpage
-\section{Standard-Einstellungen}
+\section{Standard-Einstellungen} \index{Einstellungen}
 Bei erstmaligem Starten von \JoglEarth sind standardmäßig folgende Einstellungen gesetzt:
 
 \begin{itemize}
@@ -477,9 +484,9 @@ Bei erstmaligem Starten von \JoglEarth sind standardmäßig folgende Einstellung
 \item Sprache: Deutsch
 \item Grafikeinstellungen:
 	\begin{itemize}
-	\item Antialiasing: deaktiviert
+	\item Antialiasing: Deaktiviert
 	\item Textur Filter: Trilinear
-	\item Detailgrad: niedrig
+	\item Detailgrad: Niedrig
 	\end{itemize}
 \item Cachegrößen [MB]:
 	\begin{itemize}
@@ -515,7 +522,7 @@ Diese Ansicht stellt ein detailliertes Modell von Sonne, Mond und Erde dar, wobe
 
 
 \newpage
-\section{Globus} \index{Ansichtsmodi!Globus} \index{Globus} \index{Kartentypen}
+\section{Globus} \index{Ansichtsmodi!Globus} \index{Globus}
 Diese Ansicht visualisiert einen Globus, welcher die Anzeige von den verfügbaren \textref{Kartentypen} unterstützt.
 
 
@@ -538,7 +545,7 @@ Diese Ansicht visualisiert einen Globus, welcher die Anzeige von den verfügbare
 
 
 \vspace{3mm}
-\section{Kartenebene} \index{Ansichtsmodi!Kartenebene} \index{Kartenebene} \index{Kartentypen}
+\section{Kartenebene} \index{Ansichtsmodi!Kartenebene} \index{Kartenebene} 
 Diese Ansicht visualisiert eine Kartenebene, welche die Anzeige von den verfügbaren \textref{Kartentypen} unterstützt.
 
 
@@ -595,7 +602,7 @@ Unter diesem Kartentyp versteht man Satellitenbilder, welche Aufnahmen der Erdob
 
 
 \vspace{5mm}
-\subsection{Straßenkarte} \index{OpenStreetMap!Straßenkarte} \index{Straßenkarte}
+\subsection{Straßenkarte} \index{Straßenkarte} \index{Kartentypen!OpenStreetMap!Straßenkarte}
 Die \textbf{Straßenkarte} ist eine thematische Karte, die den Schwerpunkt auf den Straßenverlauf und das Straßenverkehrsnetz setzt.
 
 
@@ -615,7 +622,7 @@ Die \textbf{Straßenkarte} ist eine thematische Karte, die den Schwerpunkt auf d
 
 
 \vspace{5mm}
-\subsection{Radkarte} \index{OpenStreetMap!Radkarte} \index{Radkarte}
+\subsection{Radkarte} \index{Radkarte} \index{Kartentypen!OpenStreetMap!Radkarte}
 Bei der \textbf{Radkarte} (bzw. Radwegkarte, Fahrradkarte) handelt es sich um eine thematische Karte, die speziell auf die Bedürfnisse von Radfahrern zugeschnitten ist. Es werden Radwege mit deren Bezeichnung bzw. Nummerierung angezeigt. Zweck der Radkarte ist es, Wege zu finden, die für Radfahrer freigegeben sind.
 
 \vspace{3mm}
@@ -635,7 +642,7 @@ Bei der \textbf{Radkarte} (bzw. Radwegkarte, Fahrradkarte) handelt es sich um ei
 
 
 \newpage
-\subsection{Landkarte} \index{OpenStreetMap!Landkarte} \index{Landkarte}
+\subsection{Landkarte} \index{Landkarte} \index{Kartentypen!OpenStreetMap!Landkarte}
 Die \textbf{Landkarte} ist eine Straßenkarte, in der die Bezeichnungen in der jeweiligen Landessprache und der landestypischen Gestaltung gehalten sind.
 
 \vspace{3mm}
@@ -654,7 +661,7 @@ Die \textbf{Landkarte} ist eine Straßenkarte, in der die Bezeichnungen in der j
 
 
 \vspace{5mm}
-\subsection{Wanderkarte} \index{OpenStreetMap!Wanderkarte} \index{Wanderkarte}
+\subsection{Wanderkarte} \index{Wanderkarte} \index{Kartentypen!OpenStreetMap!Wanderkarte}
 Die \textbf{Wanderkarte} ist eine Karte, die der unmittelbaren Orientierung im Gelände dient. Zweck der Wanderkarte ist es, Wege zu finden, die für Wandertouren freigegeben sind.
 
 \vspace{3mm}
@@ -672,7 +679,7 @@ Die \textbf{Wanderkarte} ist eine Karte, die der unmittelbaren Orientierung im G
 
 
 \newpage
-\subsection{OSM2World} \index{OpenStreetMap!OSM2World} \index{OSM2World}
+\subsection{OSM2World} \index{OSM2World} \index{Kartentypen!OpenStreetMap!OSM2World}
 Die \textbf{OSM2World-Karte} errechnet auf Basis der OpenStreetMap-Daten 3D Modelle. Derzeit sind nur einige Teile in Deutschland, in Österreich und in der Schweiz erfasst.
 
 
@@ -685,7 +692,7 @@ Die \textbf{OSM2World-Karte} errechnet auf Basis der OpenStreetMap-Daten 3D Mode
 \end{figure}
 
 \vspace{3mm}
-\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}} \index{Platzhaltertextur} \index{Textur!Platzhaltertextur}
 \includegraphics[scale=0.5]{images/info.eps} &  In niedrigen Zoomstufen wird lediglich die \textbf{Platzhaltertextur} angezeigt, da die 3D Modelle von \textbf{OSM2World} erst ab Zoomstufe 93 \% sichtbar werden.
 \end{tabular}
 
@@ -709,7 +716,7 @@ Ein besonderer Kartentyp ist die \textbf{Kinderweltkarte}. Diese zeigt die einze
 
 
 \newpage
-\section*{Platzhaltertextur} \index{Platzhaltertextur}
+\section*{Platzhaltertextur} \index{Platzhaltertextur} \index{Textur!Platzhaltertextur}
 \begin{minipage}[t]{9cm}
 \vspace{-20mm}
 Die \textbf{Platzhaltertextur} erscheint, solange das Kartenmaterial geladen wird. Sollten Kartenausschnitte nicht verfügbar sein, wird die Platzhaltertextur ebenfalls angezeigt. Diese zeigt ein grau-weißes Schachbrettmuster.
@@ -757,9 +764,7 @@ Das Ändern des Zoomlevels wirkt sich auf den Detailgehalt der Kartenausschnitte
 \end{tabular}
 
 \vspace{3mm}
-Das Zoomlevel kann am rechten Rand der \textref{Benutzeroberfläche} über einen Schieber geändert werden. Änderungen können auch über die Tastatur mittels der 'Plus'- oder 'Minus'-Taste erfolgen.
-
-%Screenshot
+Das Zoomlevel kann am rechten Rand der \textref{Benutzeroberfläche} über einen Schieber geändert werden. Änderungen können auch über die Tastatur mittels der 'Plus'- oder 'Minus'-Taste erfolgen (\textref{Tastaturbelegung}).
 
 
 
@@ -767,8 +772,8 @@ Das Zoomlevel kann am rechten Rand der \textref{Benutzeroberfläche} über einen
 
 
 \vspace{3mm}
-\section{Ändern von Längen- und Breitengraden}
-\index{Längengrad!Ändern von Längen- und Breitengraden} \index{Breitengrad!Ändern von Längen- und Breitengraden}
+\section{Ändern von Längen- und Breitengraden} \index{Breitengrad} \index{Längengrad}
+\index{Längengrad!Ändern von Längen- und Breitengraden} \index{Breitengrad!Ändern von Längen- und Breitengraden} \index{Statusleiste} \index{Benutzeroberfläche!Statusleiste}
 
 In der \textbf{Statusleiste} (\textref{Benutzeroberfläche}) können gewünschte Längen- und Breitengrade eingegeben werden. Anschließend werden die dafür benötigten Karten geladen und der eingegebene Punkt wird im \textbf{Ansichtsfenster} (\textref{Benutzeroberfläche}) zentriert.
 
@@ -814,23 +819,46 @@ Die folgende Tabelle gibt einen Überblick über die Längen- und Breitengrade d
 \section{Benutzermarkierungen} \index{Benutzermarkierungen}
 Eine \textbf{Benutzermarkierung} ist ein Punkt auf der \textref{Kartenebene} bzw. auf dem \textref{Globus} (\textref{Ansichtsmodi}), welcher eine besondere Bedeutung für den Benutzer darstellt. Diese können seperat angezeigt und persistent gespeichert werden.\\
 
-Die Schaltfläche um Benutzermarkierungen hinzuzufügen und wieder zu entfernen befindet sich im \textref{Menü Details}. Die gespeicherten Benutzermarkierungen werden im \textref{Menü Orte} gelistet.
+Die Schaltfläche \textbf{Benutzermarkierungen hinzuzufügen} befindet sich im \textref{Menü Details}. Die gespeicherten Benutzermarkierungen werden im \textref{Menü Orte} gelistet.
 
 
 \vspace{3mm}
-\subsection{Benutzermarkierung hinzufügen} \index{Benutzermarkierungen!Benutzermarkierung hinzufügen} \index{Benutzermarkierung hinzufügen}
+\subsection{Benutzermarkierung hinzufügen} \index{Benutzermarkierungen!Benutzermarkierung hinzufügen}
 
-\vspace{3mm}
-Vorgehensweise zum Hinzufügen von Benutzermarkierungen:
+
+\subsubsection*{Vorgehensweise zum Hinzufügen von Benutzermarkierungen:}
+\begin{enumerate}
+\item Auswahl eines beliebigen \textref{Ansichtsmodi}.
+\item Auswahl eines beliebigen \textref{Kartentyps}.
+\item Zum gewünschten Punkt/ Ort navigieren.
+\item Doppelklick auf den gewünschten Punkt/ Ort zentriert diesen im \textbf{Ansichtsfenster}.
+\item Klick auf die Schaltfläche \textbf{Benutzermarkierung hinzufügen}.
+\item Das Fenster \textbf{Punkt markieren} öffnet sich. Wenn Informationen zu diesem Punkt/ Ort verfügbar sind, werden der \textbf{Name} und die \textbf{Beschreibung} automatisch in das Fenster \textbf{Punkt markieren} übernommen.
+\item Geben Sie optional Ihren gewünschten \textbf{Namen} bzw. Ihre \textbf{Beschreibung} zu diesem Punkt/ Ort ein.
+	\vspace{2mm}
+	\begin{center}
+	\includegraphics[scale=0.4]{images/Benutzermarkierungs_Dialog2.png}
+	\end{center}
+\item Schließen des Fensters \textbf{Punkt markieren} mit Klick auf die Schaltfläche \textbf{OK}.
+\item Der Punkt/ Ort erscheint in der Liste \textbf{Benutzermarkierungen} im \textref{Menü Orte}.
+	\vspace{2mm}
+	\begin{center}
+	\includegraphics[scale=0.3]{images/Benutzermarkierungs_Dialog3.png}
+	\end{center}
+\end{enumerate}
+
+
+\newpage
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}} \index{Overlays}
+\includegraphics[scale=0.5]{images/info.eps} & Um das Symbol der Benutzermarkierungen im \textbf{Ansichtsfenster} einzublenden, muss im \textref{Menü Orte} in der Liste \textbf{Overlays} das Feld der \textbf{Benutzermarkierungen} angewählt werden.
+\end{tabular}
+
+
 \vspace{3mm}
 \begin{center}
-\includegraphics[scale=0.7]{images/benutzermarkierungsetzen.jpeg}
+\includegraphics[scale=0.3]{images/Benutzermarkierungs_Dialog4.png}
 \end{center}
 
-\vspace{3mm}
-\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} & Um Benutzermarkierungen anzuzeigen, müssen im \textref{Menü Orte} in der Liste \textbf{Overlays} die Symbole für die \textbf{Benutzermarkierungen} eingeblendet werden.
-\end{tabular}
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
@@ -844,74 +872,103 @@ Vorgehensweise zum Hinzufügen von Benutzermarkierungen:
 
 
 
+
+\vspace{5mm}
+\subsection{Benutzermarkierung entfernen} \index{Benutzermarkierungen!Benutzermarkierung entfernen} 
+
+Um Benutzermarkierungen endgültig aus der Liste \textbf{Benutzermarkierungen} zu entfernen, muss im \textref{Menü Orte} neben der zu löschenden Benutzermarkierung auf das \textbf{'X'} geklickt werden, wie im nachfolgenden linken Bild dargestellt. Das Ergebnis nachdem die Benutzermarkierung gelöscht wurde ist im nachfolgenden rechten Bild veranschaulicht.
+
 \vspace{3mm}
-\subsection{Benutzermarkierung entfernen} \index{Benutzermarkierungen!Benutzermarkierung entfernen} \index{Benutzermarkierung entfernen}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}} \index{Overlays}
+\includegraphics[scale=0.5]{images/info.eps} & Um lediglich das Symbol der Benutzermarkierungen im \textbf{Ansichtsfenster} auszublenden, muss im \textref{Menü Orte} in der Liste \textbf{Overlays} das Feld der \textbf{Benutzermarkierungen} abgewählt werden.
+\end{tabular}
+
+\vspace{3mm}
+\begin{figure}[!htb]
+	\centering
+    \subfigure{\includegraphics[scale=0.195]{images/Benutzermarkierungs_Dialog4.png}}
+    \hspace{5mm}
+    \subfigure{\includegraphics[scale=0.195]{images/Benutzermarkierungs_Dialog5.png}}
+\end{figure}
+
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/quest.eps} & Löschen der Benutzermarkierung \underline{\textit{zu Hause}}.
+\includegraphics[scale=0.5]{images/quest.eps} & Blenden Sie diverse \textbf{Benutzermarkierungen} ein und anschließend wieder aus.
+\end{tabular}
+
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/quest.eps} & Löschen der \textbf{Benutzermarkierung} \underline{\textit{zu Hause}}.
 \end{tabular}
 
 
 
-\vspace{3mm}
-\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/quest.eps} & Blenden Sie diverse Benutzermarkierungen ein und anschließend wieder aus.
-\end{tabular}
 
-
-
-
-
-\vspace{3mm}
+\newpage
 \section{Cachegrößen} \index{Cachegrößen}
-
-Wenn man sich nicht auskennt, dann am Besten die Standardeinstellungen lassen.
-Filesystem ist dauerhaft belegt.
-
-% Bild von Verdrängung einbinden
+\index{Cachegrößen!Arbeitsspeicher}
+\index{Cachegrößen!Dateisystem}
 
 \vspace{3mm}
-\subsection{Arbeitsspeicher} \index{Cachegrößen!Arbeitsspeicher} \index{Arbeitsspeicher}
+\begin{center}
+\begin{tabular}{|>{\centering \arraybackslash}m{15cm}|}
+\hline
+\rule[-1ex]{0pt}{4ex} \large{Die Cachegrößen des Arbeitsspeichers und des Dateisystems \textbf{unbedingt} auf den \textref{Standardeinstellungen} belassen.} \\ 
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{1mm}
+\subsubsection*{Information:}
+
+Die Cachegrößen geben jeweils an, wieviel Megabyte (MB) Speicherplatz im Arbeitsspeicher bzw. im Dateisystem durch temporäre Dateien von \JoglEarth belegt werden sollen.\\
+
+Wenn der Arbeitsspeicher voll gelaufen ist, kommt eine Verdrängungsstrategie \index{Verdrängungsstrategie} zur Anwendung. Diese verdrängt aktuell nicht benötigte Dateien aus dem Arbeitsspeicher in das Dateisystem.
 
 \vspace{3mm}
-\subsection{Dateisystem} \index{Cachegrößen!Dateisystem} \index{Dateisystem}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & Beachten Sie, dass der angegebene Speicherplatz des Dateisystems dauerhaft belegt bleibt. \\
+\end{tabular}
 
 
 
 
 
 
-\vspace{3mm}
+
+\vspace{5mm}
 \section{Fortschrittsanzeige} \index{Fortschrittsanzeige}
-Die Fortschrittsanzeige visualisiert den aktuellen Stand der im Hintergrund geladenen Daten in Prozent. Hierzu zählen Kartenmaterialien, SRTM-Daten, Suchanfragen usw.
+Die Fortschrittsanzeige visualisiert den aktuellen Stand der im Hintergrund geladenen Daten in Prozent. Hierzu zählen Kartenmaterialien, SRTM Daten, Suchanfragen usw.
+
+% Screenshot, wie bei Maßstab
 
 
-
-\vspace{3mm}
+\vspace{5mm}
 \section{Grafikeinstellungen} \index{Grafikeinstellungen}
 
 \vspace{3mm}
-\subsection{Antialiasing} \index{Grafikeinstellungen!Antialiasing} \index{Antialiasing}
+\subsection{Antialiasing} \index{Grafikeinstellungen!Antialiasing} \index{Antialiasing} \index{MSAA} \index{Antialiasing!MSAA}
 
-Antialiasing oder Kantenglättung, ist die Verminderung von unerwünschten Effekten, die bei der Erzeugung einer Computergrafik entstehen können.\\
+\textbf{Antialiasing} oder Kantenglättung, ist die Verminderung von unerwünschten Effekten, die bei der Erzeugung einer Computergrafik entstehen können.\\
 
-MSAA bedeutet 'multisample anti-aliasing' und ist eine Art Antialiasing zur Verbesserung der Bildqualität.\\
+\textbf{MSAA} bedeutet 'Multi-Sampling Anti-Aliasing' und ist eine Art Antialiasing zur Verbesserung der Bildqualität. Je höher der angegebene Wert, desto mehr Rechenleistung und Grafikspeicher wird benötigt.\\
 
 Optionen:
 \begin{itemize}
 \item \textbf{deaktiviert}
-\item \textbf{2x MSAA} Je höher der Wert, desto mehr Speicher siehe JavaDocs
-\item \textbf{4x MSAA}
-\item \textbf{8x MSAA}
-\item \textbf{16x MSAA}
+\item \textbf{2x MSAA}: 2x Multi-Sampling Anti-Aliasing
+\item \textbf{4x MSAA}: 4x Multi-Sampling Anti-Aliasing
+\item \textbf{8x MSAA}: 8x Multi-Sampling Anti-Aliasing
+\item \textbf{16x MSAA}: 16x Multi-Sampling Anti-Aliasing
 \end{itemize}
 
 
-\vspace{3mm}
+\newpage
 \subsection{Detaillevel} \index{Grafikeinstellungen!Detaillevel} \index{Detaillevel}
-Genauigkeit der GLobus oder Kartenoberfläche. Weniger eckig, mehr Speicherplatz.
+Das Detaillevel beeinflusst die Genauigkeit des Globus bzw. der Kartenoberfläche. 
 
+\vspace{3mm}
 Optionen:
 \begin{itemize}
 \item \textbf{niedrig}: Niedrigstes Detaillevel. Bietet jedoch die beste Rechenleistung (Performance).
@@ -919,61 +976,102 @@ Optionen:
 \item \textbf{hoch}: Höchstes Detaillevel. Bietet das bestmögliche visuelle Erlebnis auf Kosten der Rechenleistung (Performance).
 \end{itemize}
 
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & Das Detaillevel sollte abhängig von der Grafikleistung des PCs gewählt werden. \\
+\end{tabular}
+
 
 \vspace{3mm}
-\subsection{Textur Filter} \index{Grafikeinstellungen!Texturfilter} \index{Texturfilter}
-
+\subsection{Textur Filter} \index{Grafikeinstellungen!Texturfilter} \index{Textur!Texturfilter}
+\textbf{Textur Filter} sind Filterverfahren zur Verbesserung der Bildqualität der einzelnen Texturen.\\
 
 'Anisotropes Filtern' \index{Anisotropes Filtern} ist eine Methode in der Grafikverarbeitung um den Schärfeeindruck bei entfernten Texturen zu erhalten.\\
 
 Optionen:
-\begin{itemize}
-\item \textbf{Nächster Nachbar} schnellste Laufzeit; Ergebnisse verpixelt\\
-Nächster-Nachbar-Interpolation ist die schnellste und gröbsten Filterverfahren - es nutzt einfach die Farbe der Texel am nächsten an der Pixelzentrum für die Pixelfarbe. Während schnell, führt dies zu einer großen Anzahl von Artefakten - Textur 'Blockbildung' während Vergrößerung und Aliasing und schimmernden während Verkleinerung.
+\begin{itemize} \index{Grafikeinstellungen!Texturfilter!Nächster Nachbar} \index{Grafikeinstellungen!Texturfilter!Bilinear} \index{Grafikeinstellungen!Texturfilter!Trilinear} \index{Grafikeinstellungen!Texturfilter!Anisotropisch}
+\item \textbf{Nächster Nachbar}: Die Nächster-Nachbar-Interpolation ist das schnellste und gröbste Filterverfahren.
+\item \textbf{Bilinear}: Bei bilinearer Filterung werden die vier nächsten Texel zur Pixel-Mitte abgetastet und ihre Farben durch gewichtete Durchschnitte je nach Entfernung kombiniert.
+\item \textbf{Trilinear}: Bei trilinearer Filterung werden die vier nächsten Texel zur Pixel-Mitte auf den beiden nächsten 'MipMap'-Ebenen abgetastet. Korrigiert das Rauschen, welches durch bilineare Filterung entsteht, verursacht jedoch verschwommene Texturen bei der Anzeige von Flächen, die in einem schrägen Winkel betrachtet werden.
+\item \textbf{2x Anisotropisch}: Ähnlich zur trilinearen Filterung, verwendet anisotrope Filterung aber zusätzlich nicht-quadratische MipMaps zur Verringerung der Unschärfe von Flächen, die in einem schrägen Winkel betrachtet werden.
 
-\item \textbf{Bilinear} nicht verpixelt, unscharf\\
-Bilineare Filterung ist der nächste Schritt. In diesem Verfahren werden die vier nächsten Texel zu der Pixel-Mitte sind (an der engsten Mipmapstufe) abgetastet, und ihre Farben durch gewichtete Durchschnitt je nach Entfernung kombiniert. Dies entfernt die 'Blockbildung' während der Vergrößerung gesehen, da gibt es jetzt eine glatte Steigung der Farbänderung von ein Texel zum nächsten, statt eines abrupten Sprung wie der Pixel-Mitte überquert den Texel-Grenze. Bilineare Filterung wird fast immer mit mipmapping verwendet, obwohl es verwendet werden kann, ohne, würde es die gleiche Aliasing und schimmernde Probleme als nächsten Nachbarn leiden.
-
-\item \textbf{Trilinear} %-//-
-Trilineare Filterung ist ein Heilmittel zu einem gemeinsamen Artefakt in mipmapped bilinear gefilterten Bilder gesehen: eine plötzliche und sehr deutliche Veränderung in der Qualität an Grenzen, wo die Renderer schaltet von einem Mipmapstufe zum nächsten. Trilineare Filterung löst dieses Problem, indem Sie eine Textur-Lookup und bilineare Filterung auf den beiden nächsten Mipmap-Ebenen (eine höhere und eine niedrigere Qualität) und dann linear interpoliert die Ergebnisse. Dies führt zu einer Verschlechterung der Textur glatt Qualität als Abstand von dem Betrachter zu, statt einer Reihe von plötzlichen Tropfen. Natürlich näher als Stufe 0 gibt es nur eine Mipmapstufe zur Verfügung, und der Algorithmus kehrt zur Filterung bilineare.
-
-\item \textbf{2x Anisotropisch}
-\item \textbf{4x Anisotropisch}
-\item \textbf{8x Anisotropisch}
-\item \textbf{16x Anisotropisch}
+\textbf{'2x'} bedeutet, dass die horizontale Bildfrequenz 2-mal so hoch sein kann als die vertikale Bildfrequenz (und umgekehrt) ohne dabei Schärfe zu verlieren.
+\item \textbf{4x Anisotropisch}: Wie '2x Anisotropisch', jedoch mit einem 4:1 Frequenzverhältnis.
+\item \textbf{8x Anisotropisch}: Wie '2x Anisotropisch', jedoch mit einem 8:1 Frequenzverhältnis.
+\item \textbf{16x Anisotropisch}: Wie '2x Anisotropisch', jedoch mit einem 16:1 Frequenzverhältnis.
 \end{itemize}
 
 
 
 
 
-\vspace{3mm}
+\newpage
 \section{Höhenprofil} \index{Höhenprofil}
-Die Höhenprofile werden anhand von NASA \index{NASA} SRTM \index{SRTM} Daten ermittelt.
+Die \textbf{Höhenprofile} zeigen ein hochauflösendes digitales Geländemodell der Erdoberfläche. Diese errechnen sich aus den von der NASA \index{NASA} aufgezeichneten SRTM \index{SRTM} Daten.\\
 
-% Raumschiff Endevour erwähnen usw.
+SRTM Daten sind Fernerkundungsdaten der Erdoberfläche, die bei der 'STS-99 Shuttle Radar Topography Mission' im Februar 2000 aus dem Weltraum aufgezeichnet wurden. Das Radarsystem der SRTM gehörte zur Missionsausrüstung des Space Shuttle Endeavour auf der Transportmission 99. Innerhalb von 11 Tagen wurden selbst unwegsame Regionen der Erde erfasst und vermessen.\\
 
-% Screenshots machen von Bergen am Globus auf Karte, jeweils gekippt usw.
+Abgedeckt wurden Landflächen zwischen dem 60. nördlichen und 58. südlichen Breitengrad, durch die Neigung der Umlaufbahn bedingt sind die Pole in diesen Datenbeständen nicht enthalten. Die SRTM Daten haben eine Auflösung von 90 m x 90 m (je Pixel).
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/info.eps} &  Zur optimalen Darstellung des Höhenprofils empfiehlt sich Zoomlevel ?? \\ 
 \end{tabular} 
 
+%\vspace{3mm}
+%\begin{center}
+%\includegraphics[scale=0.3]{images/heightmap1.png}
+%\end{center}
+
+% Screenshots machen von Bergen am Globus auf Karte, jeweils gekippt usw.
+
+
+
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} &  Eine fantastische Ansicht entsteht, wenn die Karte gekippt wird (\textref{Mausbelegung} und \textref{Tastaturbelegung}). \\ 
+\end{tabular} 
+
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & Das \textbf{Höhenprofil} ist in mehreren \textref{Ansichtsmodi} (nicht für \textref{Sonnensystem}) für mehrere \textref{Kartentypen} (nicht für \textref{OSM2World} und \textref{Kinderweltkarte}) zuschaltbar. \\ 
+\end{tabular} 
+
+
 
 
 \vspace{3mm}
 \section{Maßstabsanzeige} \index{Maßstab}
-% Ist relativ zum \textbf{Ansichtsfenster}.
-Breite vom Balken entspricht im Ansichtsfenster, der Länge in Metern die angegeben ist.
+Die Breite des grauen Balkens entspricht der Länge in Metern im \textref{Ansichtsfenster}.
+
+\vspace{3mm}
+\begin{center}
+\includegraphics[scale=0.3]{images/flacheKarte_massstab.png}
+\end{center}
+
+
+
 
 
 
 \vspace{3mm}
 \section{POIs} \index{POIs}
-Ein POI ist ein Punkt auf der Karte mit einer speziellen Bedeutung.
+Ein \textbf{POI (Point of Interest)} ist ein Punkt auf der Karte mit spezieller Bedeutung.
 
-\subsection*{Liste verfügbarer POIs} \index{POIs!Liste verfügbarer POIs} \index{Overpass}
+\vspace{3mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}} \index{Overlays}
+\includegraphics[scale=0.5]{images/info.eps} & Um eines der Symbole für POIs im \textbf{Ansichtsfenster} einzublenden, muss im \textref{Menü Orte} in der Liste \textbf{Overlays} das Feld des jeweiligen POI-Types (\textref{Liste verfügbarer POIs}) angewählt werden.
+\end{tabular}
+
+
+\vspace{3mm}
+\begin{center}
+\includegraphics[scale=0.3]{images/flacheKarte_pois.png}
+\end{center}
+
+
+
+\subsection{Liste verfügbarer POIs} \index{POIs!Liste verfügbarer POIs} \index{Overpass} \index{API}
 Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege der OverpassAPI. Inwieweit die Daten konsistent geführt werden kann seitens \JoglEarth nicht beeinflusst werden. Es werden keinerlei Ergänzungen, Fehlerkorrekturen oder Ähnliches an den Antworten der OverpassAPI vorgenommen.\\
 
 \vspace{3mm}
@@ -1021,7 +1119,7 @@ Bei der Qualität des Detailgrads der POIs baut \JoglEarth auf die Datenpflege d
 
 
 \newpage
-\section{Sprache} \index{Sprache}
+\section{Sprache} \index{Sprache} \index{Benutzeroberfläche!Sprache}
 Die \textref{Benutzeroberfläche} ist in zwei Sprachen verfügbar:
 \begin{itemize}
 \item \textbf{Deutsch}
@@ -1029,11 +1127,13 @@ Die \textref{Benutzeroberfläche} ist in zwei Sprachen verfügbar:
 \end{itemize}
 
 \vspace{3mm}
-Eine Änderung der Sprache beeinflusst die Benutzeroberfläche, die Sprache der Suchergebnisse und die Sprache der angezeigten Overlays.\\
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}} \index{Overlays}
+\includegraphics[scale=0.5]{images/info.eps} & Eine Änderung der Sprache beeinflusst die Benutzeroberfläche, die Sprache der Suchergebnisse und die Sprache der angezeigten Overlays.
+\end{tabular}
 
-Ändern der Sprache ist im \textref{Menü Einstellungen} möglich: \index{Benutzeroberfläche} \index{Menü Einstellungen}
+\vspace{5mm}
+\textbf{Ändern der Sprache ist im} \textref{Menü Einstellungen} \textbf{möglich:} \index{Benutzeroberfläche} \index{Menüführung!Menü Einstellungen}
 
-\vspace{3mm}
 \begin{figure}[!htb]
 	\centering
     \subfigure{\includegraphics[scale=0.4]{images/einstellungen_tab_DE.png}}
@@ -1042,7 +1142,7 @@ Eine Änderung der Sprache beeinflusst die Benutzeroberfläche, die Sprache der 
 \end{figure} 
 
 \vspace{3mm}
-Vorgehensweise zum Ändern der Sprache:
+\textbf{Vorgehensweise zum Ändern der Sprache:}
 \vspace{3mm}
 \begin{center}
 \includegraphics[scale=0.7]{images/sprache.jpeg}
@@ -1058,38 +1158,65 @@ Die Suchbegriffe werden von links nach rechts (vom Speziellen zum Allgemeinen) a
 
 \vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} & Bei den Suchanfragen ist ein Limit gesetzt. Daher liefert eine Anfrage maximal ?? Suchergebnisse zurück. \\ 
+\includegraphics[scale=0.5]{images/info.eps} & Bei den Suchanfragen ist ein Limit gesetzt. Daher liefert eine Anfrage maximal 15 Suchergebnisse zurück. \\ 
 \end{tabular} 
 
 \vspace{5mm}
-Optionen:
-\begin{itemize}
-\item \textbf{in der Nähe}: Es werden nur Suchergebnisse angezeigt, welche sich im aktuell sichtbaren Kartenausschnitt befinden.
-\item \textbf{Weltweit}: Es werden auch Suchergebnisse angezeigt, welche außerhalb des Kartenausschnitts liegen.
-\end{itemize}
-
-
-\vspace{3mm}
-\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
-\includegraphics[scale=0.5]{images/info.eps} & Sollte eine Suche nicht erfolgreich sein, versuchen Sie den gewünschten Ort näher zu beschreiben (siehe unten stehende Beispiele). \\ 
-\end{tabular}
-
-\vspace{3mm}
-Beispiele: 
-\begin{itemize}
-\item \textit{Brandenburger Tor, Berlin}
-\item \textit{Berlin, Brandenburger Tor}
-\end{itemize}
-
-\vspace{3mm}
 \begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
 \includegraphics[scale=0.5]{images/info.eps} & Kommas sind nicht notwendig, verbessern aber die Suchgeschwindigkeit durch Reduzierung der Komplexität der Suchanfrage. \\ 
 \end{tabular} 
 
 \vspace{3mm}
-Beispiel:
+\textit{Beispiel:}
 \begin{itemize}
 \item \textit{Brandenburger Tor Berlin}
+\end{itemize}
+
+\vspace{3mm}
+Optionen:
+\begin{itemize}
+\item \textbf{in der Nähe}: Es werden nur Suchergebnisse angezeigt, welche sich im aktuell sichtbaren Kartenausschnitt (\textbf{Ansichtsfenster}) befinden.
+\item \textbf{Weltweit}: Es werden auch Suchergebnisse angezeigt, welche außerhalb des Kartenausschnitts liegen.
+\end{itemize}
+
+\vspace{3mm}
+\begin{center}
+\includegraphics[scale=0.3]{images/Benutzermarkierungs_Dialog5.png}
+\end{center}
+
+\vspace{3mm}
+Die Suchergebnisse werden im \textref{Menü Orte} angezeigt.
+
+\newpage
+\textbf{Vorgehensweise zum Suchen:}
+\begin{enumerate}
+\item Eingabe beispielsweise eines Orts, einer Stadt, eines Landes oder eines POIs in das Feld \textbf{Suche}.
+\item Optionen: \textbf{in der Nähe} oder \textbf{Weltweit} suchen auswählen
+\item Klick auf das Such-Symbol bzw. Drücken der Enter-Taste erwirkt die Ausgabe der Suchergebnisse im darunterliegenden Ausgabefeld. Das \textbf{Ansichtsfenster} blieb sich dato unverändert.
+	\vspace{2mm}
+	\begin{center}
+	\includegraphics[scale=0.3]{images/flacheKarte_suche1.png}
+	\end{center}
+\item Klick auf das entsprechende Suchergebnis zentriert den gewünschten Punkt im \textbf{Ansichtsfenster}.
+	\vspace{2mm}
+	\begin{center}
+	\includegraphics[scale=0.3]{images/flacheKarte_suche2.png}
+	\end{center}
+
+\end{enumerate}
+
+
+
+\vspace{5mm}
+\begin{tabular}{>{\centering \arraybackslash}m{1cm} m{14cm}}
+\includegraphics[scale=0.5]{images/info.eps} & Sollte eine Suche nicht erfolgreich sein, versuchen Sie den gewünschten Ort näher zu beschreiben (siehe unten stehende Beispiele). \\ 
+\end{tabular}
+
+\vspace{3mm}
+\textit{Beispiele:} 
+\begin{itemize}
+\item \textit{Brandenburger Tor, Berlin}
+\item \textit{Berlin, Brandenburger Tor}
 \end{itemize}
 
 
@@ -1098,10 +1225,8 @@ Beispiel:
 \includegraphics[scale=0.5]{images/quest.eps} & Suchen Sie den Ort \underline{\textit{Passau}} in Deutschland.
 \end{tabular}
 
-% Screenshot der angezeigten Suchergebnisse
 
-\vspace{3mm}
-Die Suchergebnisse werden im \textref{Menü Orte} angezeigt.
+
 
 
 
@@ -1121,9 +1246,9 @@ Von \JoglEarth angelegte Dateien werden im Datenverzeichnis, einem Unterordner d
 Um den verfügbaren Speicherplatz optimal zu nutzen, wendet \JoglEarth eine Verdrängungsstrategie \index{Verdrängungsstrategie}
 an. Das heißt, sobald die eingestellte \textref{Cachegröße} erreicht wird, werden aktuell nicht benötigte Dateien verdrängt.\\
 
-Es werden alle benötigten Bibliotheken mitgeliefert, diese sind im einzelnen:
+Es werden alle benötigten Bibliotheken mitgeliefert, diese sind im einzelnen: \index{Bibliothek}
 \begin{itemize}
-\item JOGL mit allen betriebssystemabhängigen Bibliotheken
+\item JOGL mit allen betriebssystemabhängigen Bibliotheken \index{JOGL}
 \item die Forms-Bibliothek von JGoodies
 \end{itemize}
 
@@ -1136,7 +1261,7 @@ Während der Nutzung von \JoglEarth werden die benötigten Kartendaten und die v
 \begin{itemize}
 \item OpenStreetMap Kartenmaterialien \index{OpenStreetMap}
 \item SRTM Höhendaten \index{SRTM}
-\item Benutzermarkierungen \index{Benutzermarkierungen}
+\item Benutzermarkierungen
 \end{itemize}
 
 
@@ -1167,45 +1292,48 @@ Folgende getätigte Einstellungen werden bei ordnungsgemäßer Programmbeendigun
 \addcontentsline{toc}{chapter}{Glossar}
 \newcolumntype{L}[1]{>{\sffamily\bfseries\hsize=#1\hsize\raggedright\arraybackslash}X}
 \newcolumntype{R}[1]{>{\hsize=#1\hsize\raggedright\arraybackslash}X}
-\setlength{\extrarowheight}{3.2mm}
+\setlength{\extrarowheight}{4mm}
 \begin{longtabu}{L{0.35} R{1.65}}
-Anisotropes Filtern \index{Anisotropes Filtern} & Methode um den Schärfeeindruck von perspektivisch verzerrten Texturen zu verbessern\\
-Ansichtsfenster \index{Ansichtsfenster} \index{Benutzeroberfläche!Ansichtsfenster} & Teil der \textref{Benutzeroberfläche} \index{Benutzeroberfläche} \\
-Ansichtsmodus \index{Ansichtsmodi} & Darstellungsmodus im \textbf{Ansichtsfenster} \index{Ansichtsfenster} \index{Benutzeroberfläche!Ansichtsfenster}, wie \textref{Kartenebene} \index{Ansichtsmodi!Kartenebene}, \textref{Globus} \index{Ansichtsmodi!Globus} oder die \textref{Sonnensystem} \index{Ansichtsmodi!Sonnensystem}\\
-Antialiasing \index{Antialiasing} & Methode zur Kantenglättung \\
+Anisotropes Filtern \index{Anisotropes Filtern}\index{Grafikeinstellungen!Texturfilter!Anisotropisch} & Methode um den Schärfeeindruck von perspektivisch verzerrten Texturen zu verbessern\\
+Ansichtsfenster \index{Ansichtsfenster} \index{Benutzeroberfläche!Ansichtsfenster} & Teil der \textref{Benutzeroberfläche} \\
+Ansichtsmodus \index{Ansichtsmodi} & Darstellungsmodus im \textbf{Ansichtsfenster}, wie \textref{Kartenebene}, \textref{Globus} oder die \textref{Sonnensystem} \\
+Antialiasing \index{Antialiasing}\index{Grafikeinstellungen!Antialiasing} & Methode zur Kantenglättung \\
 API \index{API} & (Application Programming Interface) Programmierschnittstelle zu einer Programmbibliothek oder einem Dienst\\
-Benutzer"-markierung & Benutzermarkierungen sind Orte auf der Weltkarte, die eine spezielle Bedeutung für den Benutzer haben\\
+Benutzer"-markierung \index{Benutzermarkierungen}& Benutzermarkierungen sind Orte auf der Weltkarte, die eine spezielle Bedeutung für den Benutzer haben\\
+Benutzer"-oberfläche \index{Benutzeroberfläche} & \\
 Bibliothek \index{Bibliothek} & siehe Programmbibliothek\\
 Bildmittelpunkt \index{Bildmittelpunkt} & Mittelpunkt vom \textbf{Ansichtsfenster}\\
-BSD-Lizenz \index{BSD-Lizenz} & (Berkeley Software Distribution-Lizenz) Gruppe von Lizenzen aus dem Open-Source-Bereich\\
-Cache \index{Cache} & Kleiner, schneller Zwischenspeicher der hilft, Zugriffe auf ein langsameres Medium zu beschleunigen. Dazu wird eine Verdrängungsstrategie \index{Verdrängungsstrategie} implementiert, die aus statistischen Daten abzuleiten versucht, welche Daten in nächster Zeit abgerufen werden. Diese werden dann so lange wie möglich vorgehalten\\
-Detaillevel \index{Detaillevel} & Auflösung der räumlichen Unterteilungen. Ein höherer Wert löst das Höhenprofil detaillierter auf\\
-Globus \index{Ansichtsmodi!Globus} & \textref{Ansichtsmodus}\index{Ansichtsmodi}, in dem das Kartenmaterial auf einen Globus projiziert wird\\
+BSD-Lizenz \index{Lizenzen} & (Berkeley Software Distribution-Lizenz) Gruppe von Lizenzen aus dem Open-Source-Bereich\\
+Cache \index{Cache} & Kleiner, schneller Zwischenspeicher der hilft, Zugriffe auf ein langsameres Medium zu beschleunigen. Dazu wird eine Verdrängungsstrategie implementiert, die aus statistischen Daten abzuleiten versucht, welche Daten in nächster Zeit abgerufen werden. Diese werden dann so lange wie möglich vorgehalten\\
+Detaillevel \index{Detaillevel}\index{Grafikeinstellungen!Detaillevel} & Auflösung der räumlichen Unterteilungen. Ein höherer Wert löst das Höhenprofil detaillierter auf\\
+Globus \index{Ansichtsmodi!Globus} \index{Globus} & \textref{Ansichtsmodus}\index{Ansichtsmodi}, in dem das Kartenmaterial auf einen Globus projiziert wird\\
 Höhenprofil \index{Höhenprofil} & Manipulation der Globus- oder Kartenebenenoberfläche um Geländeunebenheiten wie Berge und Täler dreidimensional darzustellen\\
-JAR \index{JAR} & (Java Archive) Datei, in der ein übersetztes Java-Programm oder eine Java-Bibliothek, optional mit zusätzlichen Dateien ausgeliefert wird\\
+JAR & (Java Archive) Datei, in der ein übersetztes Java-Programm oder eine Java-Bibliothek, optional mit zusätzlichen Dateien ausgeliefert wird\\
 Java \index{Java} & Programmiersprache (siehe JRE)\\
 JOGL \index{JOGL} & (Java Bindings for OpenGL) Softwarebibliothek, die die OpenGL-API in Java zur Verfügung stellt\\
-JRE \index{JRE} & (Java Runtime Environment) Laufzeitumgebung der Java Technik mit der Programme weitgehend plattformunabhängig ausgeführt werden\\
-Kartenebene \index{Ansichtsmodi!Kartenebene} & \textref{Ansichtsmodus}\index{Ansichtsmodi}, in dem die Karte auf die Ebene projiziert wird\\
+JRE & (Java Runtime Environment) Laufzeitumgebung der Java Technik mit der Programme weitgehend plattformunabhängig ausgeführt werden\\
+Kartenebene \index{Ansichtsmodi!Kartenebene} \index{Kartenebene} & \textref{Ansichtsmodus} in dem die Karte auf die Ebene projiziert wird\\
 Kartenkachel \index{Kartenkachel} & Element einer rasterförmigen Aufteilung eines (für den Anwendungszweck zu großen) Bildes\\
 Kartentyp & Typ von Texturen, die als Kartenmaterial dienen. Das können beispielsweise Satellitenbilder oder Straßenkarten sein\\
 Linux & Freies Betriebssystem\\
-MSAA \index{MSAA} \index{Antialiasing!MSAA} & (Multisample anti-aliasing) siehe Antialiasing\\
+MipMap & \\
+MSAA \index{MSAA} \index{Antialiasing!MSAA} & (Multisample anti-aliasing) siehe Antialiasing\index{Antialiasing}\index{Grafikeinstellungen!Antialiasing}\\
 NASA \index{NASA} & (National Aeronautics and Space Administration) Zivile US-Bundesbehörde für Luft- und Raumfahrt\\
 Nominatim \index{Nominatim} & API zur Lokalisierung von Orten bei Suchanfragen\\
 Onboard-Grafik & Grafikhardware, die sich auf dem Prozessorchip des Systems oder fest verlötet auf der Hauptplatine befindet. Als Gegenstück zu dedizierter Grafikhardware bietet sie niedrige Leistung zu kleinem Preis und guter Energieeffizienz\\
 OpenGL \index{OpenGL} & API zur schnellen Generierung ansprechender 2D- und 3D-Computergrafik\\
 Open-Source & Software, deren Lizenzbestimmungen besagt, dass sie frei verwendbar ist\\
 OpenStreetMap \index{OpenStreetMap} & Projekt, das freies Kartenmaterial im Internet anbietet\\
-Overlay \index{Overlay} & Text- oder Symboleinblendungen auf der Karte oder dem Globus\\
+Overlays \index{Overlays} & Text- oder Symboleinblendungen auf der Karte oder dem Globus\\
 Performance & Rechenleistung bzw. Datenverarbeitungsgeschwindigkeit\\
 Plattform"-unabhängigkeit & Ein plattformunabhängiges Programm kann auf verschiedenen Betriebssystemen und/oder verschiedener Hardware ausgeführt werden, ohne Anpassungen zu erfordern\\
 POI \index{POIs} & (Point of Interest) POIs sind Orte auf der Weltkarte, die eine spezielle Bedeutung haben\\
 Programm"-bibliothek & Eine Sammlung von Unterprogrammen die nicht eigenständig lauffähig ist, aber dem benutzenden Programm eine Menge an Funktionen zur Verfügung stellt\\
 RAM & (Random Access Memory) Arbeitsspeicher\\
 Server & Gegenstelle im Netzwerk, die einen Dienst zur Verfügung stellt, hier u.A. Lieferung des Kartenmaterials\\
-Sonnensystem \index{Sonnensystem}\index{Ansichtsmodi!Sonnensystem}& \textref{Ansichtsmodus}\index{Ansichtsmodi}, in dem keine Karten, sondern eine Satellitendarstellung der Erde und anderer Himmelskörper möglich ist\\
-SRTM-Daten \index{SRTM}& (Shuttle Radar Topography Mission) Höhendaten der Erdoberfläche, die vom Space Shuttle Endeavour gemessen wurden\\
+Sonnensystem \index{Sonnensystem}\index{Ansichtsmodi!Sonnensystem}& \textref{Ansichtsmodus} in dem keine Karten, sondern eine Satellitendarstellung der Erde und anderer Himmelskörper möglich ist \\
+SRTM Daten \index{SRTM}& (Shuttle Radar Topography Mission) Höhendaten der Erdoberfläche, die vom Space Shuttle Endeavour gemessen wurden\\
+Texel & \\
 Textur \index{Textur}& Zweidimensionale (Oberflächen-) Grafik\\
 Verdrängungs"-strategie \index{Verdrängungsstrategie}& siehe Cache\\
 Windows & Kommerzielles Betriebssystem von Microsoft\\
@@ -1215,7 +1343,8 @@ Zoomlevel \index{Zoomlevel} & Angabe zur Auflösung der Kartenkachel in der Ansi
 
 
 \cleardoublepage
-\addcontentsline{toc}{chapter}{Index}
+\renewcommand{\indexname}{Stichwortverzeichnis}
+\addcontentsline{toc}{chapter}{Stichwortverzeichnis}
 \printindex
 
 
