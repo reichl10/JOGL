@@ -61,7 +61,11 @@ public class SRTMHeightMap implements HeightMap {
     }
 
     private static double getTileOffset(double angle) {
-        return (abs(angle) / PI * 180) % 1;
+        if (angle < 0) {
+            angle += 2*PI;
+        }
+        
+        return (angle / PI * 180) % 1;
     }
 
     @Override
@@ -83,7 +87,7 @@ public class SRTMHeightMap implements HeightMap {
                    y = getTileOffset(coords.getLatitude()) * values.length;
             
             int leftIndex = (int) floor(x), rightIndex = min(values.length-1, leftIndex+1), 
-               bottomIndex = (int) floor(y), topIndex = min(values.length-1, bottomIndex+1);
+               topIndex = values.length - 1 - (int) floor(y), bottomIndex = min(values.length-1, topIndex+1);
             short topLeft = values[topIndex][leftIndex],
                   topRight = values[bottomIndex][rightIndex], 
                   bottomLeft = values[bottomIndex][leftIndex], 
