@@ -62,7 +62,7 @@ public class SRTMHeightMap implements HeightMap {
     }
 
     @Override
-    public synchronized double getHeight(GeoCoordinates coords, double angularResolution) {
+    public double getHeight(GeoCoordinates coords, double angularResolution) {
         //TODO System.err.println("HeightMap: requesting height of " + coords + " with resolution "
         //        + resolution);
         
@@ -80,7 +80,7 @@ public class SRTMHeightMap implements HeightMap {
                    y = getTileOffset(coords.getLatitude()) * values.length;
             
             int leftIndex = (int) floor(x), rightIndex = min(values.length-1, leftIndex+1), 
-                topIndex = (int) floor(y), bottomIndex = min(values.length-1, topIndex+1);
+               bottomIndex = (int) floor(y), topIndex = min(values.length-1, bottomIndex+1);
             short topLeft = values[topIndex][leftIndex],
                   topRight = values[bottomIndex][rightIndex], 
                   bottomLeft = values[bottomIndex][leftIndex], 
@@ -103,7 +103,7 @@ public class SRTMHeightMap implements HeightMap {
      * 
      * @param l The new listener
      */
-    public synchronized void addSurfaceListener(SurfaceListener l) {
+    public void addSurfaceListener(SurfaceListener l) {
         listeners.add(l);
     }
 
@@ -112,7 +112,7 @@ public class SRTMHeightMap implements HeightMap {
      * 
      * @param l The listener that should be removed
      */
-    public synchronized void removeSurfaceListener(SurfaceListener l) {
+    public void removeSurfaceListener(SurfaceListener l) {
         while (listeners.remove(l))
             ;
     }
