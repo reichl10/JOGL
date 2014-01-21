@@ -1984,6 +1984,7 @@ public class MainWindow extends JFrame {
             JSlider slider = (JSlider) e.getSource();
             label.setText(Integer.toString(slider.getValue()));
             updateZoom();
+            requestDetails();
         }
 
     }
