@@ -359,9 +359,13 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
     private synchronized void removeFromCache(Cache<Key, Value> c, Key k, Value v) {
         Integer size = measure.getSize(v);
-        removeUsedSpace(c, size);
-        c.dropObject(k);
-        lastUsedMap.get(c).remove(k);
+        removeFromCache(c, k, size);
+    }
+    
+    private synchronized void removeFromCache(Cache<Key, Value> cache, Key k, Integer size) {
+        removeUsedSpace(cache, size);
+        cache.dropObject(k);
+        lastUsedMap.get(cache).remove(k);
     }
 
     private void addToCaches(Key k, Value v) {
@@ -453,45 +457,51 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
             System.out.println("Remove One from " + list.size());
 
             Entry<Key, BigInteger> entry = list.pop();
-            CacheMoveListener listener = new CacheMoveListener();
-            SourceResponse<Value> response = cache.requestObject(entry.getKey(), listener);
-            if (response.response == SourceResponseType.SYNCHRONOUS) {
-                if (hasNextCache) {
-                    CacheEntry cEntry = new CacheEntry(entry.getKey(), response.value,
-                            lastUsed.remove(entry.getKey()));
-                    removedSet.add(cEntry);
-                }
-                Integer sizeOfRemovedEntry = measure.getSize(response.value);
-                removeFromCache(cache, entry.getKey(), response.value);
-                spaceMade += sizeOfRemovedEntry;
-                System.out.println("Removed Entry from "+cache.getClass().getSimpleName()+" was worth: "+sizeOfRemovedEntry);
-                if (cache.getClass().getSimpleName().equals(FileSystemCache.class.getSimpleName())) {
-                    System.err.println("------------------------------------------");
-                    System.err.println("------------------------------------------");
-                    System.err.println("------------------------------------------");
-                    System.err.println("------------------------------------------");
-                    System.err.println("------------------------------------------");
-                }
-            } else if (response.response == SourceResponseType.ASYNCHRONOUS) {
-                try {
-                    System.out.println("Waiting for Async answer!");
-                    wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if (hasNextCache) {
-                    CacheEntry cEntry = new CacheEntry(listener.key, listener.value,
-                            lastUsed.remove(listener.key));
-                    removedSet.add(cEntry);
-                }
-                if (listener.value != null) {
-                    Integer sizeOfRemovedEntry = measure.getSize(listener.value);
-                    System.out.println("Removed Entry was worth: "+sizeOfRemovedEntry);
-	                removeFromCache(cache, listener.key, listener.value);
+            if (!(cache instanceof FileSystemCache)) {
+                CacheMoveListener listener = new CacheMoveListener();
+                SourceResponse<Value> response = cache.requestObject(entry.getKey(), listener);
+                if (response.response == SourceResponseType.SYNCHRONOUS) {
+                    if (hasNextCache) {
+                        CacheEntry cEntry = new CacheEntry(entry.getKey(), response.value,
+                                lastUsed.remove(entry.getKey()));
+                        removedSet.add(cEntry);
+                    }
+                    Integer sizeOfRemovedEntry = measure.getSize(response.value);
+                    removeFromCache(cache, entry.getKey(), response.value);
                     spaceMade += sizeOfRemovedEntry;
+                    System.out.println("Removed Entry from " + cache.getClass().getSimpleName()
+                            + " was worth: " + sizeOfRemovedEntry);
+                } else if (response.response == SourceResponseType.ASYNCHRONOUS) {
+                    try {
+                        System.out.println("Waiting for Async answer!");
+                        wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (hasNextCache) {
+                        CacheEntry cEntry = new CacheEntry(listener.key, listener.value,
+                                lastUsed.remove(listener.key));
+                        removedSet.add(cEntry);
+                    }
+                    if (listener.value != null) {
+                        Integer sizeOfRemovedEntry = measure.getSize(listener.value);
+                        System.out.println("Removed Entry was worth: " + sizeOfRemovedEntry);
+                        removeFromCache(cache, listener.key, listener.value);
+                        spaceMade += sizeOfRemovedEntry;
+                    }
+                    cache.dropObject(listener.key);
+                    System.err.println("------------------------------------------");
+                    System.err.println("------------------------------------------");
+                    System.err.println("------------------------------------------");
+                    System.err.println("------------------------------------------");
+                    System.err.println("------------------------------------------");
                 }
-                cache.dropObject(listener.key);
-
+            } else {
+                FileSystemCache<Key> fsCache = (FileSystemCache<Key>) cache;
+                Integer itemSizeInteger = fsCache.sizeOf(entry.getKey());
+                removeFromCache(cache, entry.getKey(), itemSizeInteger);
+                spaceMade += itemSizeInteger;
+                fsCache.dropObject(entry.getKey());
             }
             System.out.println("We allready made:"+spaceMade);
         }
