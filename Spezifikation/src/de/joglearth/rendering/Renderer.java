@@ -1,18 +1,12 @@
 package de.joglearth.rendering;
 
-import static java.lang.Math.PI;
-import static java.lang.Math.ceil;
-import static java.lang.Math.log;
-import static java.lang.Math.max;
-import static javax.media.opengl.GL.GL_BLEND;
-import static javax.media.opengl.GL.GL_CULL_FACE;
-import static javax.media.opengl.GL.GL_DEPTH_TEST;
-import static javax.media.opengl.GL.GL_TEXTURE;
-import static javax.media.opengl.GL.GL_TEXTURE_2D;
+import static java.lang.Math.*;
+import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHTING;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
@@ -31,7 +25,6 @@ import de.joglearth.geometry.CameraUtils;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.PlaneGeometry;
-import de.joglearth.geometry.ProjectedTile;
 import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.SimpleTile;
 import de.joglearth.geometry.SphereGeometry;
@@ -39,6 +32,7 @@ import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.TileLayout;
 import de.joglearth.geometry.Vector3;
+import de.joglearth.geometry.Vector4;
 import de.joglearth.height.HeightMap;
 import de.joglearth.height.flat.FlatHeightMap;
 import de.joglearth.location.Location;
@@ -71,7 +65,7 @@ public class Renderer {
     private TextureManager textureManager;
     private Camera camera;
     private DisplayMode activeDisplayMode = DisplayMode.SOLAR_SYSTEM;
-    private Texture earth, moon, sky, crosshair;
+    private Texture earth, moon, nightSky, crosshair;
     private VertexBufferManager tileMeshManager;
     private SurfaceListener surfaceListener = new SurfaceValidator();
     private GLContextListener glContextListener = new RendererGLListener();
@@ -141,7 +135,8 @@ public class Renderer {
     }
 
     private void loading() {
-        gl.clear();
+        gl.clear(GL_COLOR_BUFFER_BIT);
+        gl.setFeatureEnabled(GL_DEPTH_TEST, false);        
 
         String text = Messages.getString("Renderer.0");
         Dimension screenSize = gl.getSize();
@@ -152,6 +147,8 @@ public class Renderer {
         textRenderer.draw(text, (screenSize.width - textSize.width) / 2,
                 (screenSize.height - textSize.height) / 2);
         textRenderer.endRendering();
+        
+        gl.setFeatureEnabled(GL_DEPTH_TEST, true);        
     }
 
     private Matrix4 correctGLUTransformation(Matrix4 matrix) {
@@ -161,22 +158,39 @@ public class Renderer {
     }
 
     private void render() {
-        gl.clear();
-
+        // Construct projection matrix based on the distance to avoid clipping. Constants cause
+        // problem with graphics adapters that don't support a 24 bit depth buffer.
         double zNear = camera.getDistance() / 2, zFar = zNear * 1000;
         camera.setPerspective(FOV, aspectRatio, zNear, zFar);
         gl.loadMatrix(GL_PROJECTION, camera.getProjectionMatrix());
-
+        
+        // Depth buffer is cleared later
+        gl.clear(GL_COLOR_BUFFER_BIT);
+        gl.setFeatureEnabled(GL_DEPTH_TEST, false);        
+        
+        // Draw outer night sky. Depth-testing and -buffering is disabled, so radius must just be
+        // larger than zNear.        
         Matrix4 skyMatrix = correctGLUTransformation(camera.getSkyViewMatrix());
         gl.loadMatrix(GL_MODELVIEW, skyMatrix);
-
-        gl.setFeatureEnabled(GL_DEPTH_TEST, false);
-        gl.drawSphere(50, 15, 8, true, sky);
+        gl.drawSphere(zNear * 10, 15, 8, true, nightSky);        
+        
+        // Blend inner day sky
+        gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        gl.setFeatureEnabled(GL_BLEND, true);
+        float daySkyAlpha = (float) min(0.8, max(0.0, pow(camera.getDistance(), -2) / 1000 ));
+        float[] daySkyColor = { 0.2734375f, 0.5484375f, 1, daySkyAlpha };
+        gl.drawSphere(zNear * 10, 15, 8, true, daySkyColor);
+        gl.setFeatureEnabled(GL_BLEND, false);        
+        
+        // The sky is drawn close to the camera to avoid clipping, but is always in the background
         gl.setFeatureEnabled(GL_DEPTH_TEST, true);
+        gl.clear(GL_DEPTH_BUFFER_BIT);
 
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
 
-            gl.placeLight(0, new Vector3(0, -50, 0));
+            gl.setAmbientLight(0.2);
+            
+            gl.placeLight(0, new Vector4(0, -5, 0, 0));
             gl.setFeatureEnabled(GL_LIGHTING, true);
 
             Matrix4 modelMatrix = camera.getModelViewMatrix().clone();
@@ -191,6 +205,15 @@ public class Renderer {
 
         } else {
 
+            gl.setAmbientLight(1.0);
+            
+            HeightMap effectiveHeightMap 
+                = camera.getSurfaceScale() < 0.005 ? heightMap : FlatHeightMap.getInstance();
+            
+            gl.loadMatrix(GL_MODELVIEW, new Matrix4());
+            gl.placeLight(0, new Vector4(-camera.getDistance(), 0, 0, 1));
+            gl.setFeatureEnabled(GL_LIGHTING, true);
+            
             gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
 
             TileLayout layout = mapConfiguration.getOptimalTileLayout(camera, screenSize);
@@ -233,7 +256,7 @@ public class Renderer {
                 // tsb.append(texture.getTextureObject());
                 // tsb.append(", ");
                 ProjectedTile projected = new ProjectedTile(tile, mapConfiguration.getProjection(),
-                        minEquatorSubdivisions, equatorSubdivisions);
+                        minEquatorSubdivisions, equatorSubdivisions, effectiveHeightMap);
                 VertexBuffer vbo = tileMeshManager.requestObject(projected, null).value;
                 // vsb.append(vbo.getVertices());
                 // vsb.append("/");
@@ -244,9 +267,12 @@ public class Renderer {
             // System.out.println(tsb.toString());
             // System.out.println(vsb.toString());
 
+            gl.setFeatureEnabled(GL_LIGHTING, false);
+            
             gl.loadMatrix(GL_PROJECTION, new Matrix4());
             gl.loadMatrix(GL_MODELVIEW, new Matrix4());
             gl.loadMatrix(GL_TEXTURE, new Matrix4());
+            
 
             // TextRenderer textRenderer = new TextRenderer(new Font(Font.SANS_SERIF, 0, 10));
             // textRenderer.beginRendering(screenSize.width, screenSize.height);
@@ -261,6 +287,7 @@ public class Renderer {
             // locations.add(new Location(new GeoCoordinates(0, 0), LocationType.BANK, null, null));
 
             gl.setFeatureEnabled(GL_DEPTH_TEST, false);
+            gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             gl.setFeatureEnabled(GL_BLEND, true);
 
             for (Location location : locations) {
@@ -301,7 +328,6 @@ public class Renderer {
     private void initialize() {
         gl.setLightEnabled(0, true);
         gl.setLightIntensity(0, 1);
-        gl.setAmbientLight(0.2);
         gl.setMaterialSpecularity(0.02);
 
         textureManager = new TextureManager(gl, 500, mapConfiguration);
@@ -315,12 +341,12 @@ public class Renderer {
                 settingsListener);
 
         tileMeshManager = new VertexBufferManager(gl, null);
-        tileMeshManager.setHeightMap(heightMap);
         applyDisplayMode();
         String lvlOfDetailsString = Settings.getInstance().getString(
                 SettingsContract.LEVEL_OF_DETAIL);
         LevelOfDetail lod = LevelOfDetail.valueOf(lvlOfDetailsString);
         setLevelOfDetail(lod);
+        gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
     private void dispose() {
@@ -357,7 +383,7 @@ public class Renderer {
 
         earth = loadTextureResource("textures/earth.jpg", "jpg", textureFilter);
         moon = loadTextureResource("textures/moon.jpg", "jpg", textureFilter);
-        sky = loadTextureResource("textures/sky.png", "png", textureFilter);
+        nightSky = loadTextureResource("textures/sky.png", "png", textureFilter);
         crosshair = loadTextureResource("icons/crosshair.png", "png", textureFilter);
         
             overlayIconTextures = new LinkedHashMap<>();
@@ -378,8 +404,8 @@ public class Renderer {
             for (Texture texture : overlayIconTextures.values()) {
                 gl.deleteTexture(texture);
             }
-        if (sky != null)
-            gl.deleteTexture(sky);
+        if (nightSky != null)
+            gl.deleteTexture(nightSky);
         if (moon != null)
             gl.deleteTexture(moon);
         if (earth != null)
@@ -475,8 +501,8 @@ public class Renderer {
             gl.setFeatureEnabled(GL_CULL_FACE, true);
             gl.setFeatureEnabled(GL_TEXTURE_2D, true);
             gl.setFeatureEnabled(GL_BLEND, true);
-            // gl.setPolygonMode(GL_LINE);
-
+//            gl.setPolygonMode(GL_LINE);
+            
             initState = InitState.AWAITING;
         }
 
@@ -572,10 +598,14 @@ public class Renderer {
      * @param hm The HeighMap
      */
     public void setHeightMap(HeightMap hm) {
+        if (hm == null) {
+            throw new IllegalArgumentException();
+        }
+        
         if (!hm.equals(heightMap)) {
             heightMap = hm;
-            if (tileMeshManager != null)
-                tileMeshManager.setHeightMap(hm);
+            camera.setHeightMap(hm);
+            gl.postRedisplay();
         }
     }
 

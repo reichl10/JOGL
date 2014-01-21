@@ -2,7 +2,6 @@ package de.joglearth.rendering;
 
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.MapProjection;
-import de.joglearth.geometry.ProjectedTile;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.height.HeightMap;
@@ -20,13 +19,22 @@ public class PlaneTessellator implements Tessellator {
     }
 
     @Override
-    public Mesh tessellateTile(ProjectedTile projected, HeightMap heightMap) {
-        Tile tile = projected.tile;
-        int subdivisions = projected.equatorSubdivisions;
-        MapProjection projection = projected.projection;
+    public Mesh tessellateTile(ProjectedTile projected) {
+        Tile tile = projected.tile; 
+        HeightMap heightMap = projected.heightMap;
         
-        int nHorizontalVertices = subdivisions + 2, nHorizontalQuads = subdivisions + 1,
-            nVerticalQuads = max(nHorizontalQuads / 2, 1), nVerticalVertices = nVerticalQuads + 1;
+        double largeLonStep = tile.getLongitudeTo() - tile.getLongitudeFrom();
+        if (largeLonStep <= 0) {
+            largeLonStep += 2 * PI;
+        }
+        
+        int horizontalTileCount =  (int) round((2*PI) / largeLonStep);
+        int nHorizontalQuads = projected.equatorSubdivisions / horizontalTileCount;
+        int subdivisions = nHorizontalQuads - 1;
+        
+        
+        int nHorizontalVertices = subdivisions + 2, nVerticalQuads = max(nHorizontalQuads / 2, 1),
+                nVerticalVertices = nVerticalQuads + 1;
         float[] vertices = new float[8 * nVerticalVertices * nHorizontalVertices];
         int vertIndex = 0;
         

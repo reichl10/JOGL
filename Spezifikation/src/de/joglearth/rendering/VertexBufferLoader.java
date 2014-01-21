@@ -2,7 +2,6 @@ package de.joglearth.rendering;
 
 import de.joglearth.async.RunnableResultListener;
 import de.joglearth.async.RunnableWithResult;
-import de.joglearth.geometry.ProjectedTile;
 import de.joglearth.geometry.Tile;
 import de.joglearth.height.HeightMap;
 import de.joglearth.height.flat.FlatHeightMap;
@@ -22,7 +21,6 @@ public class VertexBufferLoader implements Source<ProjectedTile, VertexBuffer> {
 
     private Tessellator tess;
     private GLContext gl;
-    private HeightMap heightMap = FlatHeightMap.getInstance();
     
 
     /**
@@ -58,7 +56,7 @@ public class VertexBufferLoader implements Source<ProjectedTile, VertexBuffer> {
     private VertexBuffer createVBO(ProjectedTile key) {
         Mesh mesh;
         synchronized (this) {
-            mesh = tess.tessellateTile(key, heightMap);
+            mesh = tess.tessellateTile(key);
         }
 
         return gl.loadMesh(mesh);
@@ -103,7 +101,4 @@ public class VertexBufferLoader implements Source<ProjectedTile, VertexBuffer> {
     public void dispose() {
     }
 
-    public void setHeightMap(HeightMap heightMap) {
-        this.heightMap = heightMap;
-    }
 }

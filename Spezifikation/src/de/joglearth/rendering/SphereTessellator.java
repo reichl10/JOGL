@@ -2,7 +2,6 @@ package de.joglearth.rendering;
 
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.MapProjection;
-import de.joglearth.geometry.ProjectedTile;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.height.HeightMap;
@@ -42,7 +41,7 @@ public class SphereTessellator implements Tessellator {
             double lonStep, double latStep, HeightMap heightMap, double textureY, int count) {
         double textureX = 0, textureStep = 1.0 / (count - 1);
         for (int i = 0; i < count; ++i) {
-            writeSingleVertex(vertices, vIndex, lon, lat, lonStep, latStep, heightMap, textureX,
+            writeSingleVertex(vertices, vIndex, lon, lat, lonStep, -abs(latStep), heightMap, textureX,
                     textureY);
             vIndex += VERTEX_SIZE;
             lon += lonStep;
@@ -57,7 +56,7 @@ public class SphereTessellator implements Tessellator {
         double textureX = 0, textureStep = 1.0 / (largeCount - 1);
 
         if (largeCount > 0) {
-            writeSingleVertex(vertices, vIndex, lon, lat, smallLonStep, latStep, heightMap,
+            writeSingleVertex(vertices, vIndex, lon, lat, smallLonStep, -abs(latStep), heightMap,
                     textureX, textureY);
         }
 
@@ -66,7 +65,7 @@ public class SphereTessellator implements Tessellator {
             textureX += textureStep;
 
             writeSingleVertex(vertices, vIndex + groupSize * VERTEX_SIZE, lon, lat, smallLonStep,
-                    latStep, heightMap, textureX, textureY);
+                    -abs(latStep), heightMap, textureX, textureY);
 
             for (int j = 1; j < groupSize; ++j) {
                 interpolateVertex(vertices, vIndex, vIndex + groupSize * VERTEX_SIZE, vIndex + j
@@ -119,9 +118,10 @@ public class SphereTessellator implements Tessellator {
     }
 
     @Override
-    public Mesh tessellateTile(ProjectedTile projected, HeightMap heightMap) {
+    public Mesh tessellateTile(ProjectedTile projected) {
         Tile tile = projected.tile;
         MapProjection projection = projected.projection;
+        HeightMap heightMap = projected.heightMap;
 
         int direction = tile.getLatitudeFrom() >= 0 ? +1 : -1;
 
