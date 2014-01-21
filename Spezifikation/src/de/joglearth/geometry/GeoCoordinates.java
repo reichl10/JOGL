@@ -1,8 +1,11 @@
 package de.joglearth.geometry;
 
+import static java.lang.Math.PI;
+import static java.lang.Math.abs;
+import static java.lang.Math.floor;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static java.lang.Math.*;
 
 
 /**
@@ -13,6 +16,7 @@ public final class GeoCoordinates implements Cloneable {
 
     private double longitude; // Longitude, in radians
     private double latitude; // Latitude, in radians
+    private static final double ALLOWEDDIFF = 1.0E-13;
 
 
     /**
@@ -202,7 +206,7 @@ public final class GeoCoordinates implements Cloneable {
             return false;
         }
         GeoCoordinates other = (GeoCoordinates) obj;
-        return this.longitude == other.longitude && this.latitude == other.latitude;
+        return ((Math.abs(this.longitude - other.longitude)) < ALLOWEDDIFF && (Math.abs(this.latitude - other.latitude)) < ALLOWEDDIFF);
     }
 
 }
