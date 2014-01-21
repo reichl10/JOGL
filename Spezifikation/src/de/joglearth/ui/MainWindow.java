@@ -18,6 +18,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -120,8 +121,6 @@ import de.joglearth.source.ProgressListener;
 import de.joglearth.source.ProgressManager;
 import de.joglearth.source.SourceListener;
 import de.joglearth.util.Resource;
-
-import java.awt.Toolkit;
 
 
 /**
@@ -859,16 +858,16 @@ public class MainWindow extends JFrame {
             Files.copy(in, pdfPath, StandardCopyOption.REPLACE_EXISTING);
             Desktop.getDesktop().open(pdfPath.toFile());
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, Messages.getString("MainWindow.manualFailed"), 
+            JOptionPane.showMessageDialog(this, Messages.getString("MainWindow.manualFailed"),
                     JoglEarth.PRODUCT_NAME, JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private void resetGLCanvas() {
-    	if (!easel.canReset()) {
-    		return;
-    	}
-    	
+        if (!easel.canReset()) {
+            return;
+        }
+
         Antialiasing aa = Antialiasing.valueOf(Settings.getInstance().getString(
                 SettingsContract.ANTIALIASING));
 
@@ -912,11 +911,11 @@ public class MainWindow extends JFrame {
                 ColumnSpec.decode("max(180dlu;default)"),
                 ColumnSpec.decode("4dlu:grow"),
                 ColumnSpec.decode("right:70dlu"),
-                FormFactory.RELATED_GAP_COLSPEC,},
-            new RowSpec[] {
-                FormFactory.LINE_GAP_ROWSPEC,
-                RowSpec.decode("default:grow"),
-                FormFactory.NARROW_LINE_GAP_ROWSPEC,})); //$NON-NLS-1$
+                FormFactory.RELATED_GAP_COLSPEC, },
+                new RowSpec[] {
+                        FormFactory.LINE_GAP_ROWSPEC,
+                        RowSpec.decode("default:grow"),
+                        FormFactory.NARROW_LINE_GAP_ROWSPEC, })); //$NON-NLS-1$
 
         JPanel zoomPanel = new JPanel();
         viewPanel.add(zoomPanel, "2, 1, center, fill"); //$NON-NLS-1$
@@ -979,9 +978,9 @@ public class MainWindow extends JFrame {
                 ColumnSpec.decode("5dlu"),
                 FormFactory.DEFAULT_COLSPEC,
                 FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-                ColumnSpec.decode("max(25dlu;pref):grow"),},
-            new RowSpec[] {
-                RowSpec.decode("default:grow"),})); //$NON-NLS-1$
+                ColumnSpec.decode("max(25dlu;pref):grow"), },
+                new RowSpec[] {
+                        RowSpec.decode("default:grow"), })); //$NON-NLS-1$
 
         latitudeLabel = new JLabel(Messages.getString("MainWindow.2")); //$NON-NLS-1$
         coordPanel.add(latitudeLabel, "1, 1, right, default"); //$NON-NLS-1$
@@ -1064,7 +1063,7 @@ public class MainWindow extends JFrame {
         progressBar = new JProgressBar();
         statusBar.add(progressBar, "6, 2, default, fill"); //$NON-NLS-1$
         progressBar.setStringPainted(!UIManager.getLookAndFeel().getClass().getName().equals(
-        		"com.sun.java.swing.plaf.windows.WindowsLookAndFeel"));
+                "com.sun.java.swing.plaf.windows.WindowsLookAndFeel"));
         progressBar.setValue(100);
         resetGLCanvas();
     }
@@ -1443,24 +1442,24 @@ public class MainWindow extends JFrame {
     private void requestDetails() {
         GeoCoordinates lookingAt = camera
                 .getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
-		Set<Location> uLocs = Settings.getInstance().getLocations(
-				SettingsContract.USER_LOCATIONS);
-		if (uLocs != null) {
-			for (final Location l : uLocs) {
-				if (l.point.equals(lookingAt) && l.details != null
-						&& l.name != null && !l.details.isEmpty()
-						&& !l.name.isEmpty()) {
-					SwingUtilities.invokeLater(new Runnable() {
+        Set<Location> uLocs = Settings.getInstance().getLocations(
+                SettingsContract.USER_LOCATIONS);
+        if (uLocs != null) {
+            for (final Location l : uLocs) {
+                if (l.point.equals(lookingAt) && l.details != null
+                        && l.name != null && !l.details.isEmpty()
+                        && !l.name.isEmpty()) {
+                    SwingUtilities.invokeLater(new Runnable() {
 
-						@Override
-						public void run() {
-							updateDetails(l);
-						}
-					});
-					return;
-				}
-			}
-		}
+                        @Override
+                        public void run() {
+                            updateDetails(l);
+                        }
+                    });
+                    return;
+                }
+            }
+        }
         if (lastDetailsListener != null)
             lastDetailsListener.disable();
         lastDetailsListener = new DetailsListener();
@@ -1502,7 +1501,8 @@ public class MainWindow extends JFrame {
      * @param locationManager The <code>LocationManager</code> associated with this window.
      */
     public MainWindow(GLProfile prof, final LocationManager locationManager) {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/icons/joglEarth.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(
+                MainWindow.class.getResource("/icons/joglEarth.png")));
         this.locationManager = locationManager;
         this.glProfile = prof;
 
@@ -1817,9 +1817,9 @@ public class MainWindow extends JFrame {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            boolean tiltChanged = false;            
-            double stepSize = 2*PI / 10 * camera.getSurfaceScale();
-            
+            boolean tiltChanged = false;
+            double stepSize = 2 * PI / 10 * camera.getSurfaceScale();
+
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
                     camera.move(-stepSize, 0);
@@ -1987,19 +1987,21 @@ public class MainWindow extends JFrame {
         }
 
     }
-    
+
+
     private void updateZoom() {
         double factor = 1 - zoomSlider.getValue() / (double) zoomSlider.getMaximum();
-        
+
         double minDist = 0.5;
         if (mapConfiguration != null) {
-            minDist = mapConfiguration.getMinimumCameraDistance();            
+            minDist = mapConfiguration.getMinimumCameraDistance();
         }
-        
+
         camera.setDistance(minDist + (MAX_DIST - minDist) * pow(factor, 3));
-        //TODO System.out.println("Distance " + camera.getDistance());
-      //TODO System.out.println("SliderValue " + zoomSlider.getValue());
+        // TODO System.out.println("Distance " + camera.getDistance());
+        // TODO System.out.println("SliderValue " + zoomSlider.getValue());
     }
+
 
     private class UsertagButtonListener implements ActionListener {
 
@@ -2017,7 +2019,8 @@ public class MainWindow extends JFrame {
 
                                 @Override
                                 public void requestCompleted(GeoCoordinates key, Location value) {
-                                    LocationEditDialog dial = new LocationEditDialog(value, MainWindow.this);
+                                    LocationEditDialog dial = new LocationEditDialog(value,
+                                            MainWindow.this);
                                     dial.setVisible(true);
                                 }
                             });
