@@ -742,11 +742,11 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      * @throws GLError An internal OpenGL error has occurred
      */
-    public void clear() {
+    public void clear(int mask) {
         assertIsInitialized();
         assertIsInsideCallback();
 
-        gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        gl.glClear(mask);
         GLError.throwIfActive(gl);
     }
 

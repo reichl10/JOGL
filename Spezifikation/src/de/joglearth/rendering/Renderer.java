@@ -65,7 +65,7 @@ public class Renderer {
     private TextureManager textureManager;
     private Camera camera;
     private DisplayMode activeDisplayMode = DisplayMode.SOLAR_SYSTEM;
-    private Texture earth, moon, nightSky, daySky, crosshair;
+    private Texture earth, moon, nightSky, crosshair;
     private VertexBufferManager tileMeshManager;
     private SurfaceListener surfaceListener = new SurfaceValidator();
     private GLContextListener glContextListener = new RendererGLListener();
@@ -135,7 +135,8 @@ public class Renderer {
     }
 
     private void loading() {
-        gl.clear();
+        gl.clear(GL_COLOR_BUFFER_BIT);
+        gl.setFeatureEnabled(GL_DEPTH_TEST, false);        
 
         String text = Messages.getString("Renderer.0");
         Dimension screenSize = gl.getSize();
@@ -146,6 +147,8 @@ public class Renderer {
         textRenderer.draw(text, (screenSize.width - textSize.width) / 2,
                 (screenSize.height - textSize.height) / 2);
         textRenderer.endRendering();
+        
+        gl.setFeatureEnabled(GL_DEPTH_TEST, true);        
     }
 
     private Matrix4 correctGLUTransformation(Matrix4 matrix) {
@@ -155,28 +158,33 @@ public class Renderer {
     }
 
     private void render() {
-        gl.clear();
-
-        double zNear = camera.getDistance() / 2, zFar = zNear * 10000;
+        // Construct projection matrix based on the distance to avoid clipping. Constants cause
+        // problem with graphics adapters that don't support a 24 bit depth buffer.
+        double zNear = camera.getDistance() / 2, zFar = zNear * 1000;
         camera.setPerspective(FOV, aspectRatio, zNear, zFar);
         gl.loadMatrix(GL_PROJECTION, camera.getProjectionMatrix());
-
-        Matrix4 skyMatrix = correctGLUTransformation(camera.getSkyViewMatrix());
-        gl.loadMatrix(GL_MODELVIEW, skyMatrix);
+        
+        // Depth buffer is cleared later
+        gl.clear(GL_COLOR_BUFFER_BIT);
         gl.setFeatureEnabled(GL_DEPTH_TEST, false);        
         
-        // Draw outer night sky
-        gl.drawSphere(5, 15, 8, true, nightSky);        
+        // Draw outer night sky. Depth-testing and -buffering is disabled, so radius must just be
+        // larger than zNear.        
+        Matrix4 skyMatrix = correctGLUTransformation(camera.getSkyViewMatrix());
+        gl.loadMatrix(GL_MODELVIEW, skyMatrix);
+        gl.drawSphere(zNear * 10, 15, 8, true, nightSky);        
         
         // Blend inner day sky
         gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         gl.setFeatureEnabled(GL_BLEND, true);
         float daySkyAlpha = (float) min(0.8, max(0.0, pow(camera.getDistance(), -2) / 1000 ));
-        gl.drawSphere(4.9f, 15, 8, true, new float[] { 0.2734375f, 0.5484375f, 1, daySkyAlpha });
+        float[] daySkyColor = { 0.2734375f, 0.5484375f, 1, daySkyAlpha };
+        gl.drawSphere(zNear * 10, 15, 8, true, daySkyColor);
         gl.setFeatureEnabled(GL_BLEND, false);        
         
+        // The sky is drawn close to the camera to avoid clipping, but is always in the background
         gl.setFeatureEnabled(GL_DEPTH_TEST, true);
-        
+        gl.clear(GL_DEPTH_BUFFER_BIT);
 
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
 
@@ -376,7 +384,6 @@ public class Renderer {
         earth = loadTextureResource("textures/earth.jpg", "jpg", textureFilter);
         moon = loadTextureResource("textures/moon.jpg", "jpg", textureFilter);
         nightSky = loadTextureResource("textures/sky.png", "png", textureFilter);
-        daySky = loadTextureResource("textures/daySky.png", "png", textureFilter);
         crosshair = loadTextureResource("icons/crosshair.png", "png", textureFilter);
         
             overlayIconTextures = new LinkedHashMap<>();
