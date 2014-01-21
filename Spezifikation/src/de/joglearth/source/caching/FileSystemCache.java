@@ -53,7 +53,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
         this.lockedFileSet = new HashSet<Key>();
         this.filesForDroping = new HashSet<Key>();
         this.registredListeners = new HashMap<Key, Set<SourceListener<Key, byte[]>>>();
-        this.executorService = Executors.newFixedThreadPool(5);
+        this.executorService = Executors.newSingleThreadScheduledExecutor();
         try {
             Files.walkFileTree(basePath, new FileIndexerWalker(keySet, basePath, pathTranslator));
         } catch (IOException e) {
@@ -65,14 +65,12 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     public synchronized SourceResponse<byte[]> requestObject(Key key,
             SourceListener<Key, byte[]> sender) {
         SourceResponseType responseType;
-        if (keySet.contains(key) && Files.exists(pathFromKey(key))) {
+        if (keySet.contains(key)) {
             lockedFileSet.add(key);
             registerListener(key, sender);
             responseType = SourceResponseType.ASYNCHRONOUS;
             executorService.execute(new FileLoaderRunnable(key));
         } else {
-            if (!Files.exists(pathFromKey(key)) && keySet.contains(key))
-                keySet.remove(key);
             responseType = SourceResponseType.MISSING;
         }
 
@@ -80,19 +78,8 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     }
 
     @Override
-    public synchronized void putObject(Key k, byte[] v) {
-        Path filePath = pathFromKey(k);
-        try {
-            Files.createDirectories(filePath.getParent());
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        try {
-            Files.write(filePath, v, StandardOpenOption.CREATE);
-            keySet.add(k);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void putObject(Key k, byte[] v) {
+        executorService.execute(new FileWriterRunnable(k, v));
     }
 
     @Override
@@ -275,9 +262,32 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
                 }
             }
         }
-
     }
 
+    private class FileWriterRunnable implements Runnable {
+        private Key key;
+        private byte[] data;
+        
+        public FileWriterRunnable(Key key, byte[] data) {
+            this.key = key;
+            this.data = data;
+        }
+
+        @Override
+        public void run() {
+            try {
+                Path filePath = pathFromKey(key);
+                Files.createDirectories(filePath.getParent());
+                Files.write(filePath, data, StandardOpenOption.CREATE);
+                synchronized (FileSystemCache.this) {
+                    keySet.add(key);                    
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
     @Override
     public void dispose() {
         executorService.shutdown();
