@@ -271,6 +271,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                     dropObjectFromCache(cache, k);
                 }
             }
+            lastUsedMap.get(cache).clear();
         }
     }
 
@@ -284,8 +285,11 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         for (Cache<Key, Value> c : caches) {
             if (lastUsedMap.get(c).containsKey(k)) {
                 dropObjectFromCache(c, k);
+                lastUsedMap.get(c).remove(k);
             }
+            
         }
+        
     }
 
     private void dropObjectFromCache(Cache<Key, Value> c, Key k) {
@@ -304,7 +308,9 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         } else {
             return;
         }
-        removeFromCache(c, k, value);
+        Integer size = measure.getSize(value);
+        removeUsedSpace(c, size);
+        c.dropObject(k);
     }
 
     private void requestCompleted(Key k, Value v) {
