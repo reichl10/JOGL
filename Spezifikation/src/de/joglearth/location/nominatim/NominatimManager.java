@@ -47,9 +47,7 @@ public final class NominatimManager implements Source<NominatimQuery, Collection
         dist = new RequestDistributor<NominatimQuery, Collection<Location>>();
         cache = new MemoryCache<NominatimQuery, Collection<Location>>();
         source = new NominatimSource();
-
-        // TODO
-        dist.addCache(cache, 1000);
+        dist.addCache(cache, 100000);
         dist.setSource(source);
 
     }
