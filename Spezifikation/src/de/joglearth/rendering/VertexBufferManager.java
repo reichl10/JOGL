@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.joglearth.geometry.SimpleTile;
 import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
 import de.joglearth.height.HeightMap;
@@ -62,13 +63,15 @@ public class VertexBufferManager implements Source<ProjectedTile, VertexBuffer> 
         @Override
         public void surfaceChanged(final double lonFrom, final double latFrom,
                 final double lonTo, final double latTo) {
-            dist.dropAll(new Predicate<ProjectedTile>() {
+             
+            dist.dropAll();/* TODO new Predicate<ProjectedTile>() {
 
                 @Override
                 public boolean test(ProjectedTile t) {
-                    return t.tile.intersects(lonFrom, latFrom, lonTo, latTo);
+                    return t.tile.intersects(lonFrom - 0.001, latFrom - 0.001, 
+                            lonTo + 0.001, latTo + 0.001);
                 }
-            });
+            });*/
 
             for (SurfaceListener sirFace : listeners) {
                 sirFace.surfaceChanged(lonFrom, latFrom, lonTo, latTo);
