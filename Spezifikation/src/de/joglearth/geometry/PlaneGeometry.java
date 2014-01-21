@@ -44,7 +44,7 @@ public class PlaneGeometry implements Geometry {
          * The plane is laid out to be 2 units wide, 1 unit high and perpendicular to the Z axis,
          * with lon=0/lat=0 being the center (0, 0, 0).
          */
-        return new Vector3(geo.getLongitude(), geo.getLatitude(), 0);
+        return new Vector3(geo.getLongitude(), geo.getLatitude(), -HeightMap.MIN_HEIGHT);
     }
 
     @Override
