@@ -50,7 +50,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
      * @param servers An array containing the server strings
      */
     public OSMTileSource() {
-        executor = Executors.newFixedThreadPool(2);
+        executor = Executors.newFixedThreadPool(4);
         //executor = new ThreadPoolExecutor(2, 2, 0L, TimeUnit.MILLISECONDS, new LIFOBlockingDeque<Runnable>());
         
         serverSets = new HashMap<>();

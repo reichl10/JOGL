@@ -61,8 +61,9 @@ public final class SRTMTile {
         }
 
         //Fill missing spots in the data with interpolated data from the surrounding points.
-        boolean modified = false;        
+        boolean modified;        
         do {
+            modified = false;
             for (int i = 0; i < LOD0_WIDTH; ++i) {
                 for (int j = 0; j < LOD0_WIDTH; ++j) {
                     if (height[0][i][j] == INVALID_HEIGHT) {
@@ -75,7 +76,8 @@ public final class SRTMTile {
                         int[][] offsets = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
                        for (int[] offset : offsets) {
                            int iOff = i + offset[0], jOff = j + offset[1];
-                           if (iOff >= 0 && iOff < LOD0_WIDTH && jOff >= 0 && jOff < LOD0_WIDTH) {
+                           if (iOff >= 0 && iOff < LOD0_WIDTH && jOff >= 0 && jOff < LOD0_WIDTH 
+                                   && height[0][iOff][jOff] != INVALID_HEIGHT) {
                                ++validNeightbours;
                                neighboursSum += height[0][iOff][jOff];
                            }

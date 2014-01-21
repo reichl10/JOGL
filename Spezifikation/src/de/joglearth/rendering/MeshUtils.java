@@ -1,6 +1,7 @@
 package de.joglearth.rendering;
 
 import static javax.media.opengl.GL2.*;
+import de.joglearth.geometry.Vector3;
 
 
 /**
@@ -80,6 +81,13 @@ public final class MeshUtils {
             vertices[iOut + i] = vertices[iLeft + i] * (float) leftFactor + vertices[iRight + i]
                     * (float) (1 - leftFactor);
         }
+        
+        // Normalize normal
+        Vector3 normal = new Vector3(vertices[iOut + 2], vertices[iOut + 3], vertices[iOut + 4])
+                .normalized();
+        vertices[iOut + 2] = (float) normal.x;
+        vertices[iOut + 3] = (float) normal.y;
+        vertices[iOut + 4] = (float) normal.z;
     }
 
 }
