@@ -76,7 +76,8 @@ public final class SRTMTile {
                         int[][] offsets = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
                        for (int[] offset : offsets) {
                            int iOff = i + offset[0], jOff = j + offset[1];
-                           if (iOff >= 0 && iOff < LOD0_WIDTH && jOff >= 0 && jOff < LOD0_WIDTH) {
+                           if (iOff >= 0 && iOff < LOD0_WIDTH && jOff >= 0 && jOff < LOD0_WIDTH 
+                                   && height[0][iOff][jOff] != INVALID_HEIGHT) {
                                ++validNeightbours;
                                neighboursSum += height[0][iOff][jOff];
                            }

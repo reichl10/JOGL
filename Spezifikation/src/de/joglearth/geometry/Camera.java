@@ -71,8 +71,12 @@ public class Camera {
     private boolean updateCamera() {
         // TODO sign!
         // TODO Height map resolution is a wild guess
-        
-        double altitude = distance + heightMap.getHeight(position, 1e-6);
+
+       
+        double altitude = distance;
+        if (getSurfaceScale() < 0.005) {
+            altitude += heightMap.getHeight(position, 1e-6); 
+        }
         //TODO System.err.println("Camera: updating, altitude=" + altitude);
         
         Matrix4 newCameraMatrix = geometry.getModelCameraTransformation(position, altitude);

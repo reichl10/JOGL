@@ -604,6 +604,7 @@ public class Renderer {
         
         if (!hm.equals(heightMap)) {
             heightMap = hm;
+            camera.setHeightMap(hm);
             gl.postRedisplay();
         }
     }
