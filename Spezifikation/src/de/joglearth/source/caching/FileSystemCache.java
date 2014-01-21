@@ -65,12 +65,14 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     public synchronized SourceResponse<byte[]> requestObject(Key key,
             SourceListener<Key, byte[]> sender) {
         SourceResponseType responseType;
-        if (keySet.contains(key)) {
+        if (keySet.contains(key) && Files.exists(pathFromKey(key))) {
             lockedFileSet.add(key);
             registerListener(key, sender);
             responseType = SourceResponseType.ASYNCHRONOUS;
             executorService.execute(new FileLoaderRunnable(key));
         } else {
+            if (!Files.exists(pathFromKey(key)) && keySet.contains(key))
+                keySet.remove(key);
             responseType = SourceResponseType.MISSING;
         }
 
@@ -120,11 +122,13 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
                 filesForDroping.add(key);
             }
             return;
-        }
-        try {
-            Files.walkFileTree(basePath, new DirectoryCleaner());
-        } catch (IOException e) {
-            e.printStackTrace();
+        } else {
+            try {
+                System.out.println(getClass().getSimpleName()+" Delete all!");
+                Files.walkFileTree(basePath, new DirectoryCleaner());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -146,8 +150,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     private void callListener(Key k, byte[] data) {
         Set<SourceListener<Key, byte[]>> listenerSet;
         synchronized (this) {
-            listenerSet = registredListeners.get(k);
-            registredListeners.remove(k);
+            listenerSet = registredListeners.remove(k);
         }
         if (listenerSet == null)
             return;
@@ -258,9 +261,10 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
                 callListener(key, null);
                 e.printStackTrace();
             }
-            lockedFileSet.remove(key);
             synchronized (FileSystemCache.this) {
+                lockedFileSet.remove(key);
                 for (Key k : filesForDroping) {
+                    keySet.remove(k);
                     if (!lockedFileSet.contains(k)) {
                         try {
                             Files.deleteIfExists(pathFromKey(k));
@@ -283,9 +287,8 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
         Path filePath = pathFromKey(k);
         int size = 0;
         try {
-           size = (int) Files.size(filePath);
-        } catch (IOException e) {
-        }
+            size = (int) Files.size(filePath);
+        } catch (IOException e) {}
         return size;
     }
 }
