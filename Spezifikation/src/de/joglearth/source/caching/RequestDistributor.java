@@ -540,7 +540,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                 } else {
                     if (cIndex > 0) {
                         Cache<Key, Value> cache = caches.get(cIndex);
-                        cache.dropObject(key);
                         removeFromCache(cache, key, value);
                     }
                     _rd.requestCompleted(key, value);
@@ -607,6 +606,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         if (caches.size() > 1) {
             Cache<Key, Value> lastCache = caches.get(caches.size() - 1);
             if (lastCache instanceof FileSystemCache) {
+                Integer freeSpaceInFS = 0;
                 Integer sizeOfFilesystem = cacheSizeMap.get(lastCache);
                 Integer sizeOfMovedEntrys = 0;
                 for (int p = 0; p < (caches.size() - 1); p++) {
@@ -618,7 +618,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                         sizeToMoveFromThisCache = sizeOfFilesystem - sizeOfMovedEntrys;
                     }
                     Integer sizeOfRemovedFromThisCache = 0;
-                    makeSpaceInCache(lastCache, sizeToMoveFromThisCache);
+                    freeSpaceInFS = getFreeSpaceInCache(lastCache);
+                    if (freeSpaceInFS < sizeToMoveFromThisCache) {
+                        makeSpaceInCache(lastCache, sizeToMoveFromThisCache - freeSpaceInFS);
+                    }
                     Map<Key, BigInteger> lastUsed = lastUsedMap.get(cacheToMove);
                     Set<Entry<Key, BigInteger>> entrySet = lastUsed.entrySet();
                     LinkedList<Entry<Key, BigInteger>> list = new LinkedList<Entry<Key, BigInteger>>(
@@ -637,7 +640,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                         SourceResponse<Value> response = cacheToMove.requestObject(entry.getKey(),
                                 listener);
                         if (response.response == SourceResponseType.SYNCHRONOUS) {
-                            lastCache.putObject(entry.getKey(), response.value);
+                            addToCache(caches.size()-1, entry.getKey(), response.value);
                             Integer sizeOfRemovedEntry = measure.getSize(response.value);
                             cacheToMove.dropObject(entry.getKey());
                             sizeOfRemovedFromThisCache += sizeOfRemovedEntry;
@@ -647,7 +650,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            lastCache.putObject(entry.getKey(), listener.value);
+                            addToCache(caches.size()-1, entry.getKey(), response.value);
                             Integer sizeOfRemovedEntry = measure.getSize(listener.value);
                             cacheToMove.dropObject(entry.getKey());
                             sizeOfRemovedFromThisCache += sizeOfRemovedEntry;
