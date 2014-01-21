@@ -485,12 +485,12 @@ public class MainWindow extends JFrame {
         ButtonGroup searchTypeButtonGroup = new ButtonGroup();
 
         localSearchRadioButton = new JRadioButton(
-                Messages.getString("MainWindow.96")); //$NON-NLS-1$
-        localSearchRadioButton.setSelected(true);
+                Messages.getString("MainWindow.96"));
         panel.add(localSearchRadioButton);
 
         globalSearchRadioButton = new JRadioButton(
                 Messages.getString("MainWindow.97")); //$NON-NLS-1$
+        globalSearchRadioButton.setSelected(true);
         panel.add(globalSearchRadioButton);
 
         searchTypeButtonGroup.add(localSearchRadioButton);
@@ -1173,7 +1173,7 @@ public class MainWindow extends JFrame {
         SwingUtilities.replaceUIInputMap(rootPane, JComponent.WHEN_IN_FOCUSED_WINDOW,
                 inputMap);
         searchButton.setActionCommand(AC_SEARCH);
-        searchButton.addActionListener(new ActionListener() {
+        ActionListener searchListener = new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1189,7 +1189,9 @@ public class MainWindow extends JFrame {
                     locationManager.searchGlobal(queryString);
                 }
             }
-        });
+        };
+        searchButton.addActionListener(searchListener);
+        searchTextField.addActionListener(searchListener);
         locationManager.addLocationListener(new UISearchResultListener(searchResultList));
         progressManager.addProgressListener(new UIProgressListener());
         userTagButton.addActionListener(new UsertagButtonListener());
