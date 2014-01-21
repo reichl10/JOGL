@@ -172,6 +172,8 @@ public class Renderer {
 
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
 
+            gl.setAmbientLight(0.2);
+            
             gl.placeLight(0, new Vector3(0, -50, 0));
             gl.setFeatureEnabled(GL_LIGHTING, true);
 
@@ -187,6 +189,8 @@ public class Renderer {
 
         } else {
 
+            gl.setAmbientLight(1.0);
+            
             gl.loadMatrix(GL_MODELVIEW, new Matrix4());
             gl.placeLight(0, new Vector3(-camera.getDistance(), 0, 0));
             gl.setFeatureEnabled(GL_LIGHTING, true);
@@ -303,7 +307,6 @@ public class Renderer {
     private void initialize() {
         gl.setLightEnabled(0, true);
         gl.setLightIntensity(0, 1);
-        gl.setAmbientLight(0.2);
         gl.setMaterialSpecularity(0.02);
 
         textureManager = new TextureManager(gl, 500, mapConfiguration);
