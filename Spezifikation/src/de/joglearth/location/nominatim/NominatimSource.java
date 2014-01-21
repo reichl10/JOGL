@@ -82,7 +82,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
     private Collection<Location> getLocations(NominatimQuery query) {
 
-        String url = "http://nominatim.openstreetmap.org/search";
+        String url = "http://open.mapquestapi.com/nominatim/v1/search";
         // Get-Request: "?accept-language=de&format=xml&q=Rom";
 
         ArrayList<String> getRequest = new ArrayList<String>();
@@ -92,6 +92,8 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         // getRequest.add("de");
         getRequest.add("format");
         getRequest.add("xml");
+        getRequest.add("limit");
+        getRequest.add(15+"");
 
         if (query.type == NominatimQuery.Type.LOCAL) {
             getRequest.add("viewbox");
@@ -126,7 +128,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
     private Collection<Location> getPoint(NominatimQuery query) {
 
-        String url = "http://nominatim.openstreetmap.org/reverse";
+        String url = "http://open.mapquestapi.com/nominatim/v1/reverse.php";
         // Get-Request : "?accept-language=de&format=xml&q=Rom";
 
         ArrayList<String> getRequest = new ArrayList<String>();
@@ -173,7 +175,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
     public Location reverseSearch(String osmId, String osmType, LocationType type) {
 
 
-        String url = "http://nominatim.openstreetmap.org/reverse";
+        String url = "http://open.mapquestapi.com/nominatim/v1/reverse.php";
         // Get-Request: "?accept-language=de&format=xml&osm_id=...&osm_type=[N|W|R]";
 
         ArrayList<String> getRequest = new ArrayList<String>();
@@ -206,7 +208,6 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
     private ArrayList<Location> parseXml(String xml, LocationType type, NominatimQuery query) {
         ArrayList<Location> location = new ArrayList<Location>();
 
-        // TODO Limit z.b. 10
         try {
             XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(
                     new StringReader(xml));
