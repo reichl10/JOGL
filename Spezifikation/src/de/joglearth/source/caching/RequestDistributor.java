@@ -342,7 +342,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         Integer size = measure.getSize(v);
         removeFromCache(c, k, size);
     }
-    
+
     private synchronized void removeFromCache(Cache<Key, Value> cache, Key k, Integer size) {
         removeUsedSpace(cache, size);
         cache.dropObject(k);
@@ -498,7 +498,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         @Override
         public void requestCompleted(Key key, Value value) {
 
-
+            boolean doReqComp = false;
             synchronized (RequestDistributor.this) {
                 if (value == null) {
                     if (caches.size() > cIndex + 1) {
@@ -510,7 +510,9 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                                 listener);
                         switch (response.response) {
                             case MISSING:
-                                listener.requestCompleted(key, null);
+                                value = null;
+                                doReqComp = true;
+
                                 break;
                             case SYNCHRONOUS:
                                 _rd.cacheRequestCompleted(nextCache, key, response.value);
@@ -526,10 +528,14 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                                     new SourceAsker(_rd));
                             switch (response.response) {
                                 case MISSING:
-                                    _rd.requestCompleted(key, null);
+                                    value = null;
+                                    doReqComp = true;
+
                                     break;
                                 case SYNCHRONOUS:
-                                    _rd.requestCompleted(key, response.value);
+                                    value = null;
+                                    doReqComp = true;
+
                                     break;
                                 case ASYNCHRONOUS:
                                     break;
@@ -537,6 +543,8 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                                     break;
                             }
                         } else {
+                            value = null;
+                            doReqComp = true;
                             _rd.requestCompleted(key, null);
                         }
                     }
@@ -545,8 +553,13 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                         Cache<Key, Value> cache = caches.get(cIndex);
                         removeFromCache(cache, key, value);
                     }
-                    _rd.requestCompleted(key, value);
+                    doReqComp = true;
+
                 }
+
+            }
+            if (doReqComp) {
+                _rd.requestCompleted(key, value);
             }
         }
 
@@ -643,7 +656,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                         SourceResponse<Value> response = cacheToMove.requestObject(entry.getKey(),
                                 listener);
                         if (response.response == SourceResponseType.SYNCHRONOUS) {
-                            addToCache(caches.size()-1, entry.getKey(), response.value);
+                            addToCache(caches.size() - 1, entry.getKey(), response.value);
                             Integer sizeOfRemovedEntry = measure.getSize(response.value);
                             cacheToMove.dropObject(entry.getKey());
                             sizeOfRemovedFromThisCache += sizeOfRemovedEntry;
@@ -653,7 +666,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            addToCache(caches.size()-1, entry.getKey(), response.value);
+                            addToCache(caches.size() - 1, entry.getKey(), response.value);
                             Integer sizeOfRemovedEntry = measure.getSize(listener.value);
                             cacheToMove.dropObject(entry.getKey());
                             sizeOfRemovedFromThisCache += sizeOfRemovedEntry;

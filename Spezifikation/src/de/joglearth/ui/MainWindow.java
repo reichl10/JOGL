@@ -1720,7 +1720,7 @@ public class MainWindow extends JFrame {
             double sizeScreen = camera.getSurfaceScale() * rad;
             double scale = dimensionCvas.getWidth() / dimensionScaleCanv.getWidth();
             double scaleSize = Math.round(sizeScreen / scale);
-            scaleLabel.setText(String.valueOf(scaleSize));
+            scaleLabel.setText(String.valueOf(scaleSize)+" m");
         }
 
     }
