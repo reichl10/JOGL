@@ -231,6 +231,7 @@ public class MainWindow extends JFrame {
 
     private MapConfiguration mapConfiguration = null;
     private JPanel scalePanel;
+    private Integer oldZoomInteger = 0;
 
 
     private class HideSideBarListener extends MouseAdapter {
@@ -1220,6 +1221,12 @@ public class MainWindow extends JFrame {
 
             @Override
             public void run() {
+                if (enabled) {
+                    oldZoomInteger = zoomSlider.getValue();
+                    zoomSlider.setValue(0);
+                } else {
+                    zoomSlider.setValue(oldZoomInteger);
+                }
                 latitudeTextField.setEnabled(!enabled);
                 longitudeTextField.setEnabled(!enabled);
                 zoomSlider.setEnabled(!enabled);
