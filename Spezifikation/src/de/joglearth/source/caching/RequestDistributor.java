@@ -647,7 +647,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                         }
 
                     });
-                    while (sizeToMoveFromThisCache > sizeOfRemovedFromThisCache) {
+                    while (sizeToMoveFromThisCache > sizeOfRemovedFromThisCache && list.size() > 0) {
                         Entry<Key, BigInteger> entry = list.pop();
                         CacheMoveListener listener = new CacheMoveListener();
                         SourceResponse<Value> response = cacheToMove.requestObject(entry.getKey(),
