@@ -2,7 +2,6 @@ package de.joglearth.rendering;
 
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.MapProjection;
-import de.joglearth.geometry.ProjectedTile;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.height.HeightMap;
@@ -20,8 +19,9 @@ public class PlaneTessellator implements Tessellator {
     }
 
     @Override
-    public Mesh tessellateTile(ProjectedTile projected, HeightMap heightMap) {
+    public Mesh tessellateTile(ProjectedTile projected) {
         Tile tile = projected.tile; 
+        HeightMap heightMap = projected.heightMap;
         
         double largeLonStep = tile.getLongitudeTo() - tile.getLongitudeFrom();
         if (largeLonStep <= 0) {

@@ -2,7 +2,6 @@ package de.joglearth.rendering;
 
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.MapProjection;
-import de.joglearth.geometry.ProjectedTile;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.height.HeightMap;
@@ -119,9 +118,10 @@ public class SphereTessellator implements Tessellator {
     }
 
     @Override
-    public Mesh tessellateTile(ProjectedTile projected, HeightMap heightMap) {
+    public Mesh tessellateTile(ProjectedTile projected) {
         Tile tile = projected.tile;
         MapProjection projection = projected.projection;
+        HeightMap heightMap = projected.heightMap;
 
         int direction = tile.getLatitudeFrom() >= 0 ? +1 : -1;
 

@@ -1052,9 +1052,15 @@ public class MainWindow extends JFrame {
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
                 if (keyCode == KeyEvent.VK_ENTER) {
-                    GeoCoordinates geo = GeoCoordinates.parseCoordinates(
-                            longitudeTextField.getText(), latitudeTextField.getText());
-                    camera.setPosition(geo);
+                    try {
+                        GeoCoordinates geo = GeoCoordinates.parseCoordinates(
+                                longitudeTextField.getText(), latitudeTextField.getText());
+                        camera.setPosition(geo);
+                    } catch (NumberFormatException ex) { 
+                        GeoCoordinates geo = camera.getPosition();
+                        longitudeTextField.setText(geo.getLongitudeString());
+                        latitudeTextField.setText(geo.getLatitudeString());
+                    }
                 }
 
             }

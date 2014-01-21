@@ -27,7 +27,6 @@ import de.joglearth.geometry.CameraUtils;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.PlaneGeometry;
-import de.joglearth.geometry.ProjectedTile;
 import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.SimpleTile;
 import de.joglearth.geometry.SphereGeometry;
@@ -191,6 +190,9 @@ public class Renderer {
 
             gl.setAmbientLight(1.0);
             
+            HeightMap effectiveHeightMap 
+                = camera.getSurfaceScale() < 0.005 ? heightMap : FlatHeightMap.getInstance();
+            
             gl.loadMatrix(GL_MODELVIEW, new Matrix4());
             gl.placeLight(0, new Vector3(-camera.getDistance(), 0, 0));
             gl.setFeatureEnabled(GL_LIGHTING, true);
@@ -237,7 +239,7 @@ public class Renderer {
                 // tsb.append(texture.getTextureObject());
                 // tsb.append(", ");
                 ProjectedTile projected = new ProjectedTile(tile, mapConfiguration.getProjection(),
-                        minEquatorSubdivisions, equatorSubdivisions);
+                        minEquatorSubdivisions, equatorSubdivisions, effectiveHeightMap);
                 VertexBuffer vbo = tileMeshManager.requestObject(projected, null).value;
                 // vsb.append(vbo.getVertices());
                 // vsb.append("/");
@@ -320,7 +322,6 @@ public class Renderer {
                 settingsListener);
 
         tileMeshManager = new VertexBufferManager(gl, null);
-        tileMeshManager.setHeightMap(heightMap);
         applyDisplayMode();
         String lvlOfDetailsString = Settings.getInstance().getString(
                 SettingsContract.LEVEL_OF_DETAIL);
@@ -577,10 +578,13 @@ public class Renderer {
      * @param hm The HeighMap
      */
     public void setHeightMap(HeightMap hm) {
+        if (hm == null) {
+            throw new IllegalArgumentException();
+        }
+        
         if (!hm.equals(heightMap)) {
             heightMap = hm;
-            if (tileMeshManager != null)
-                tileMeshManager.setHeightMap(hm);
+            gl.postRedisplay();
         }
     }
 

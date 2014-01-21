@@ -16,7 +16,7 @@ public class SRTMHeightMap implements HeightMap {
     private static SRTMHeightMap instance = null;
     
     private final SRTMListener srtmListener = new SRTMListener();
-    private final List<SurfaceListener> listeners = new ArrayList<>();
+    private final ArrayList<SurfaceListener> listeners = new ArrayList<>();
     private final static SRTMTileManager srtm = SRTMTileManager.getInstance();
     private final static double[] lodResolutions = { 1.7044e-05, 3.4088e-05, 6.8177e-05, 
         1.3635e-04, 2.7271e-04, 5.4542e-04, 1.0908e-03, 2.1817e-03, 4.3633e-03, 8.7266e-03,
@@ -33,9 +33,12 @@ public class SRTMHeightMap implements HeightMap {
             return (deg/180)*PI;
         }
         
+        @SuppressWarnings("unchecked")
         @Override
         public void requestCompleted(SRTMTileName key, SRTMTile value) {
-            for (SurfaceListener l : listeners) {
+            ArrayList<SurfaceListener> listenersClone 
+                = (ArrayList<SurfaceListener>) listeners.clone();
+            for (SurfaceListener l : listenersClone) {
                 l.surfaceChanged(degToRad(key.longitude), degToRad(key.latitude),
                         degToRad(key.longitude + 1), degToRad(key.latitude + 1));
             }
