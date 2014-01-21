@@ -57,7 +57,7 @@ public class SphereTessellator implements Tessellator {
         double textureX = 0, textureStep = 1.0 / (largeCount - 1);
 
         if (largeCount > 0) {
-            writeSingleVertex(vertices, vIndex, lon, lat, smallLonStep, latStep, heightMap,
+            writeSingleVertex(vertices, vIndex, lon, lat, smallLonStep, -abs(latStep), heightMap,
                     textureX, textureY);
         }
 
@@ -66,7 +66,7 @@ public class SphereTessellator implements Tessellator {
             textureX += textureStep;
 
             writeSingleVertex(vertices, vIndex + groupSize * VERTEX_SIZE, lon, lat, smallLonStep,
-                    latStep, heightMap, textureX, textureY);
+                    -abs(latStep), heightMap, textureX, textureY);
 
             for (int j = 1; j < groupSize; ++j) {
                 interpolateVertex(vertices, vIndex, vIndex + groupSize * VERTEX_SIZE, vIndex + j
