@@ -1578,7 +1578,7 @@ public class MainWindow extends JFrame {
         gbl_userTagListPanel.columnWeights = new double[] { 0.0, 1.0 };
         gbl_userTagListPanel.rowWeights = rowWeights;
         userTagListPanel.setLayout(gbl_userTagListPanel);
-        if (uLocations != null)
+        if (uLocations != null) {
             for (final Location l : uLocations) {
                 JButton button = new JButton(l.name);
                 JButton close = new JButton("X");
@@ -1633,7 +1633,7 @@ public class MainWindow extends JFrame {
                 gridBagClose.insets = new Insets(0, 0, 0, 0);
                 gridBagClose.gridx = 0;
                 gridBagClose.gridy = gridy;
-                gridBagClose.anchor = GridBagConstraints.WEST;
+                gridBagClose.anchor = GridBagConstraints.NORTHWEST;
                 gridBagClose.fill = GridBagConstraints.HORIZONTAL;
                 userTagListPanel.add(close, gridBagClose);
 
@@ -1641,11 +1641,14 @@ public class MainWindow extends JFrame {
                 gridBagButton.insets = new Insets(0, 0, 0, 0);
                 gridBagButton.gridx = GridBagConstraints.RELATIVE;
                 gridBagButton.gridy = gridy;
-                gridBagButton.anchor = GridBagConstraints.WEST;
+                gridBagButton.anchor = GridBagConstraints.NORTHWEST;
                 gridBagButton.fill = GridBagConstraints.HORIZONTAL;
                 userTagListPanel.add(button, gridBagButton);
-                userTagListPanel.invalidate();
             }
+        }
+        userTagListPanel.doLayout();
+        userTagListPanel.invalidate();
+        userTagListPanel.repaint();
     }
 
 
