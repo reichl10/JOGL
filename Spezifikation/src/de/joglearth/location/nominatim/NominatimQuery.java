@@ -40,6 +40,23 @@ public class NominatimQuery {
         this.type = type;
     }
     
+    
+    @Override
+    public int hashCode() {
+        StringBuffer sBuffer = new StringBuffer();
+        if (point != null) {
+            sBuffer.append(point.toString());
+        }
+        if (query != null) {
+            sBuffer.append(query);
+        }
+        if (area != null) {
+            sBuffer.append(area);
+        }
+        sBuffer.append(type.name());
+        return sBuffer.toString().hashCode();
+    }
+    
     @Override
     public boolean equals(Object other) {
         if (!(other == null) && other.getClass() == this.getClass()) {

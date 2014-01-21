@@ -82,8 +82,8 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
     private Collection<Location> getLocations(NominatimQuery query) {
 
-        String url = "http://nominatim.openstreetmap.org/search";
-        // Get-Request: "?accept-language=de&format=xml&q=Rom";
+        String url = "http://open.mapquestapi.com/nominatim/v1/search";
+        // Layout eines Nominatim Get-Requests: "?accept-language=de&format=xml&q=<Suchbegriff>";
 
         ArrayList<String> getRequest = new ArrayList<String>();
         getRequest.add("accept-language");
@@ -92,6 +92,8 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         // getRequest.add("de");
         getRequest.add("format");
         getRequest.add("xml");
+        getRequest.add("limit");
+        getRequest.add(15+"");
 
         if (query.type == NominatimQuery.Type.LOCAL) {
             getRequest.add("viewbox");
@@ -102,7 +104,6 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
             getRequest.add(left + "," + top + "," + right + "," + bottom);
         }
 
-        // TODO weiteres, wie bounding box
         getRequest.add("q");
         getRequest.add(query.query);
 
@@ -126,8 +127,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
     private Collection<Location> getPoint(NominatimQuery query) {
 
-        String url = "http://nominatim.openstreetmap.org/reverse";
-        // Get-Request : "?accept-language=de&format=xml&q=Rom";
+        String url = "http://open.mapquestapi.com/nominatim/v1/reverse.php";
 
         ArrayList<String> getRequest = new ArrayList<String>();
         getRequest.add("accept-language");
@@ -173,13 +173,12 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
     public Location reverseSearch(String osmId, String osmType, LocationType type) {
 
 
-        String url = "http://nominatim.openstreetmap.org/reverse";
-        // Get-Request: "?accept-language=de&format=xml&osm_id=...&osm_type=[N|W|R]";
+        String url = "http://open.mapquestapi.com/nominatim/v1/reverse.php";
+        // Layout eines Reverse Get-Requests: "?accept-language=de&format=xml&osm_id=...&osm_type=[N|W|R]";
 
         ArrayList<String> getRequest = new ArrayList<String>();
         getRequest.add("accept-language");
         getRequest.add(Settings.getInstance().getString(SettingsContract.LANGUAGE).toLowerCase());
-//        getRequest.add("de");
         getRequest.add("format");
         getRequest.add("xml");
         getRequest.add("osm_id");
@@ -206,7 +205,6 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
     private ArrayList<Location> parseXml(String xml, LocationType type, NominatimQuery query) {
         ArrayList<Location> location = new ArrayList<Location>();
 
-        // TODO Limit z.b. 10
         try {
             XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(
                     new StringReader(xml));
