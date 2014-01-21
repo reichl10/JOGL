@@ -34,6 +34,7 @@ import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.TileLayout;
 import de.joglearth.geometry.Vector3;
+import de.joglearth.geometry.Vector4;
 import de.joglearth.height.HeightMap;
 import de.joglearth.height.flat.FlatHeightMap;
 import de.joglearth.location.Location;
@@ -173,7 +174,7 @@ public class Renderer {
 
             gl.setAmbientLight(0.2);
             
-            gl.placeLight(0, new Vector3(0, -50, 0));
+            gl.placeLight(0, new Vector4(0, -50, 0, 1));
             gl.setFeatureEnabled(GL_LIGHTING, true);
 
             Matrix4 modelMatrix = camera.getModelViewMatrix().clone();
@@ -194,7 +195,7 @@ public class Renderer {
                 = camera.getSurfaceScale() < 0.005 ? heightMap : FlatHeightMap.getInstance();
             
             gl.loadMatrix(GL_MODELVIEW, new Matrix4());
-            gl.placeLight(0, new Vector3(-camera.getDistance(), 0, 0));
+            gl.placeLight(0, new Vector4(-camera.getDistance(), 0, 0, 1));
             gl.setFeatureEnabled(GL_LIGHTING, true);
             
             gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());

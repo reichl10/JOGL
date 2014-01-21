@@ -69,6 +69,7 @@ import de.joglearth.async.AbstractInvoker;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.Vector3;
+import de.joglearth.geometry.Vector4;
 import de.joglearth.rendering.Mesh;
 
 
@@ -676,12 +677,13 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      * @throws GLError An internal OpenGL error has occurred
      */
-    public void placeLight(int index, Vector3 position) {
+    public void placeLight(int index, Vector4 position) {
         assertIsInitialized();
         assertIsInsideCallback();
         assertIsValidLight(index);
 
-        float[] floats = { (float) position.x, (float) position.y, (float) position.z, 1 };
+        float[] floats = { (float) position.x, (float) position.y, (float) position.z,
+                    (float) position.w };
         gl.glLightfv(GL_LIGHT0 + index, GL_POSITION, floats, 0);
         GLError.throwIfActive(gl);
     }
