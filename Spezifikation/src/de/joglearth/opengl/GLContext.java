@@ -2,42 +2,11 @@ package de.joglearth.opengl;
 
 import static java.lang.Double.isNaN;
 import static java.lang.Math.min;
-import static javax.media.opengl.GL.GL_ARRAY_BUFFER;
-import static javax.media.opengl.GL.GL_COLOR_BUFFER_BIT;
-import static javax.media.opengl.GL.GL_DEPTH_BUFFER_BIT;
-import static javax.media.opengl.GL.GL_ELEMENT_ARRAY_BUFFER;
-import static javax.media.opengl.GL.GL_EXTENSIONS;
-import static javax.media.opengl.GL.GL_FLOAT;
-import static javax.media.opengl.GL.GL_FRONT;
-import static javax.media.opengl.GL.GL_FRONT_AND_BACK;
-import static javax.media.opengl.GL.GL_LINEAR;
-import static javax.media.opengl.GL.GL_LINEAR_MIPMAP_LINEAR;
-import static javax.media.opengl.GL.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT;
-import static javax.media.opengl.GL.GL_MAX_TEXTURE_SIZE;
-import static javax.media.opengl.GL.GL_MULTISAMPLE;
-import static javax.media.opengl.GL.GL_NEAREST;
-import static javax.media.opengl.GL.GL_ONE_MINUS_SRC_ALPHA;
-import static javax.media.opengl.GL.GL_SRC_ALPHA;
-import static javax.media.opengl.GL.GL_STATIC_DRAW;
-import static javax.media.opengl.GL.GL_TEXTURE_2D;
-import static javax.media.opengl.GL.GL_TEXTURE_MAG_FILTER;
-import static javax.media.opengl.GL.GL_TEXTURE_MAX_ANISOTROPY_EXT;
-import static javax.media.opengl.GL.GL_TEXTURE_MIN_FILTER;
-import static javax.media.opengl.GL.GL_UNSIGNED_BYTE;
-import static javax.media.opengl.GL.GL_UNSIGNED_INT;
-import static javax.media.opengl.GL2ES1.GL_LIGHT_MODEL_AMBIENT;
-import static javax.media.opengl.GL2ES1.GL_MAX_LIGHTS;
-import static javax.media.opengl.GL2GL3.GL_QUADS;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_DIFFUSE;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHT0;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_POSITION;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_SPECULAR;
-import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_NORMAL_ARRAY;
-import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_TEXTURE_COORD_ARRAY;
-import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_VERTEX_ARRAY;
+import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.glu.GLU.GLU_INSIDE;
 import static javax.media.opengl.glu.GLU.GLU_OUTSIDE;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
@@ -558,6 +527,30 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             GLError.throwIfActive(gl);
         }
     }
+    
+    
+    public void drawSphere(double radius, int slices, int stacks, boolean inside, Color color) {
+        assertIsInitialized();
+        assertIsInsideCallback();
+        if (radius <= 0 || slices < 3 || stacks < 3) {
+            throw new IllegalArgumentException();
+        }
+
+        glu.gluQuadricOrientation(quadric, inside ? GLU_INSIDE : GLU_OUTSIDE);
+        GLError.throwIfActive(gl);
+        
+        // Enable texturing
+        glu.gluQuadricTexture(quadric, false);
+        GLError.throwIfActive(gl);
+        
+        float[] colorComponents = new float[4];
+        color.getColorComponents(colorComponents);
+        gl.glColor4fv(colorComponents, 0);
+
+        glu.gluSphere(quadric, radius, slices, stacks);
+        GLError.throwIfActive(gl);        
+    }
+    
 
     public void drawRectangle(ScreenCoordinates upperLeft, ScreenCoordinates lowerRight,
             Texture texture) {
@@ -731,6 +724,14 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     public boolean isLightEnabled(int index) {
         assertIsValidLight(index);
         return isFeatureEnabled(GL_LIGHT0 + index);
+    }
+    
+    public void setBlendingFunction(int sourceFactor, int destFactor) {
+        assertIsInitialized();
+        assertIsInsideCallback();
+
+        gl.glBlendFunc(sourceFactor, destFactor);
+        GLError.throwIfActive(gl);
     }
 
     /**

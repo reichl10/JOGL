@@ -9,6 +9,7 @@ import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHTING;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
@@ -67,7 +68,7 @@ public class Renderer {
     private TextureManager textureManager;
     private Camera camera;
     private DisplayMode activeDisplayMode = DisplayMode.SOLAR_SYSTEM;
-    private Texture earth, moon, sky, crosshair;
+    private Texture earth, moon, nightSky, daySky, crosshair;
     private VertexBufferManager tileMeshManager;
     private SurfaceListener surfaceListener = new SurfaceValidator();
     private GLContextListener glContextListener = new RendererGLListener();
@@ -166,15 +167,19 @@ public class Renderer {
         Matrix4 skyMatrix = correctGLUTransformation(camera.getSkyViewMatrix());
         gl.loadMatrix(GL_MODELVIEW, skyMatrix);
 
-        gl.setFeatureEnabled(GL_DEPTH_TEST, false);
-        gl.drawSphere(50, 15, 8, true, sky);
+        gl.setFeatureEnabled(GL_DEPTH_TEST, false);        
+        gl.drawSphere(5, 15, 8, true, nightSky);        
+        //gl.setBlendingFunction(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
+        gl.setFeatureEnabled(GL_BLEND, true);
+        gl.drawSphere(4.9f, 15, 8, true, new Color(0.2734375f, 0.6484375f, 1.f, 0.23f));
+        gl.setFeatureEnabled(GL_BLEND, false);        
         gl.setFeatureEnabled(GL_DEPTH_TEST, true);
 
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
 
             gl.setAmbientLight(0.2);
             
-            gl.placeLight(0, new Vector4(0, -50, 0, 1));
+            gl.placeLight(0, new Vector4(0, -5, 0, 0));
             gl.setFeatureEnabled(GL_LIGHTING, true);
 
             Matrix4 modelMatrix = camera.getModelViewMatrix().clone();
@@ -256,6 +261,7 @@ public class Renderer {
             gl.loadMatrix(GL_PROJECTION, new Matrix4());
             gl.loadMatrix(GL_MODELVIEW, new Matrix4());
             gl.loadMatrix(GL_TEXTURE, new Matrix4());
+            
 
             // TextRenderer textRenderer = new TextRenderer(new Font(Font.SANS_SERIF, 0, 10));
             // textRenderer.beginRendering(screenSize.width, screenSize.height);
@@ -270,6 +276,7 @@ public class Renderer {
             // locations.add(new Location(new GeoCoordinates(0, 0), LocationType.BANK, null, null));
 
             gl.setFeatureEnabled(GL_DEPTH_TEST, false);
+            //gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             gl.setFeatureEnabled(GL_BLEND, true);
 
             for (Location location : locations) {
@@ -328,6 +335,7 @@ public class Renderer {
                 SettingsContract.LEVEL_OF_DETAIL);
         LevelOfDetail lod = LevelOfDetail.valueOf(lvlOfDetailsString);
         setLevelOfDetail(lod);
+        gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
     private void dispose() {
@@ -364,7 +372,8 @@ public class Renderer {
 
         earth = loadTextureResource("textures/earth.jpg", "jpg", textureFilter);
         moon = loadTextureResource("textures/moon.jpg", "jpg", textureFilter);
-        sky = loadTextureResource("textures/sky.png", "png", textureFilter);
+        nightSky = loadTextureResource("textures/sky.png", "png", textureFilter);
+        daySky = loadTextureResource("textures/daySky.png", "png", textureFilter);
         crosshair = loadTextureResource("icons/crosshair.png", "png", textureFilter);
         
             overlayIconTextures = new LinkedHashMap<>();
@@ -385,8 +394,8 @@ public class Renderer {
             for (Texture texture : overlayIconTextures.values()) {
                 gl.deleteTexture(texture);
             }
-        if (sky != null)
-            gl.deleteTexture(sky);
+        if (nightSky != null)
+            gl.deleteTexture(nightSky);
         if (moon != null)
             gl.deleteTexture(moon);
         if (earth != null)
@@ -483,7 +492,7 @@ public class Renderer {
             gl.setFeatureEnabled(GL_TEXTURE_2D, true);
             gl.setFeatureEnabled(GL_BLEND, true);
 //            gl.setPolygonMode(GL_LINE);
-
+            
             initState = InitState.AWAITING;
         }
 
