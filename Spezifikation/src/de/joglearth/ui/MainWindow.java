@@ -1240,6 +1240,14 @@ public class MainWindow extends JFrame {
                 longitudeTextField.setEnabled(!enabled);
                 zoomSlider.setEnabled(!enabled);
                 scalePanel.setVisible(!enabled);
+                searchButton.setEnabled(!enabled);
+                searchTextField.setText("");
+                searchTextField.setEnabled(!enabled);
+                searchResultList.removeAll();
+                searchResultList.setEnabled(!enabled);
+                localSearchRadioButton.setEnabled(!enabled);
+                globalSearchRadioButton.setEnabled(!enabled);
+                detailsPanel.setVisible(!enabled);
             }
         });
     }
