@@ -82,16 +82,20 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
 
         ProgressManager.getInstance().requestArrived();
 
-        executor.execute(new Runnable() {
-
-            @Override
-            public void run() {
-
-                Collection<Location> response = getLocations(key);
-                sender.requestCompleted(key, response);
-                ProgressManager.getInstance().requestCompleted();
+        synchronized (executor) {
+            if (!executor.isShutdown()) {
+                executor.execute(new Runnable() {
+        
+                    @Override
+                    public void run() {
+        
+                        Collection<Location> response = getLocations(key);
+                        sender.requestCompleted(key, response);
+                        ProgressManager.getInstance().requestCompleted();
+                    }
+                });
             }
-        });
+        }
 
         return new SourceResponse<Collection<Location>>(SourceResponseType.ASYNCHRONOUS, null);
     }
@@ -209,8 +213,10 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
     @Override
     public void dispose() {
         info.dispose();
-        executor.shutdownNow();
-
+        
+        synchronized (executor) {
+            executor.shutdownNow();
+        }
     }
 
     public static void main(String[] args) {

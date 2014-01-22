@@ -83,28 +83,34 @@ public class OSMTileSource implements Source<TileName, byte[]> {
             final OSMMapConfiguration configuration = (OSMMapConfiguration) k.configuration;
             if (k.tile instanceof OSMTile) {
                 OSMTile tile = (OSMTile) k.tile;
-                
+
                 if (tile.getDetailLevel() == 0) {
-                    return new SourceResponse<byte[]>(SourceResponseType.SYNCHRONOUS, 
+                    return new SourceResponse<byte[]>(SourceResponseType.SYNCHRONOUS,
                             loadLocalOSMTile(configuration.getMapType(), "0"));
                 } else {
                     ProgressManager.getInstance().requestArrived();
-                    executor.execute(new Runnable() {
-            
-                        @Override
-                        public void run() {
-                            byte[] response = fetchRemoteTile((OSMTile) k.tile, configuration.getMapType());        
-                            sender.requestCompleted(k, response);
-                            ProgressManager.getInstance().requestCompleted();
+                    synchronized (executor) {
+                        if (!executor.isShutdown()) {
+                            executor.execute(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    byte[] response = fetchRemoteTile((OSMTile) k.tile,
+                                            configuration.getMapType());
+                                    sender.requestCompleted(k, response);
+                                    ProgressManager.getInstance().requestCompleted();
+                                }
+                            });
+
                         }
-                    });
+                    }
                     return new SourceResponse<byte[]>(SourceResponseType.ASYNCHRONOUS, null);
                 }
-                
+
             } else if (k.tile instanceof OSMPole) {
                 OSMPole pole = (OSMPole) k.tile;
-                return new SourceResponse<byte[]>(SourceResponseType.SYNCHRONOUS, 
-                        loadLocalOSMTile(configuration.getMapType(), 
+                return new SourceResponse<byte[]>(SourceResponseType.SYNCHRONOUS,
+                        loadLocalOSMTile(configuration.getMapType(),
                                 pole.getPole() == OSMPole.NORTH ? "north" : "south"));
             }
         }
@@ -252,7 +258,9 @@ public class OSMTileSource implements Source<TileName, byte[]> {
 
     @Override
     public void dispose() {
-        executor.shutdownNow();
+        synchronized (executor) {
+            executor.shutdownNow();
+        }
     }
 
     public static String getImageFormatSuffix(OSMMapType mapType) {

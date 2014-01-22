@@ -435,21 +435,13 @@ public class Camera {
         
         double yAngle = atan((1-2*screen.x))*tan(horizontalFOV/2);
         double xAngle = atan((1-2*screen.y))*tan(verticalFOV/2);
-        System.out.format(
-                "FOV: H=%f, V=%f\n\nCameraPosition = %s\nearthAxis=%s\nzAxis=%s\nxAxis=%s\nyAxis=%s\nyAngle=%f\nxAngle=%f\n\n",
-                horizontalFOV, verticalFOV, cameraPosition, earthAxis, zAxis, xAxis, yAxis, yAngle, xAngle);
-
+        
         Matrix4 directionMatrix = new Matrix4();
         directionMatrix.rotate(yAxis, yAngle);
         directionMatrix.rotate(xAxis, -xAngle);
 
         Vector3 viewVector = directionMatrix.transform(zAxis).divide();
 
-        /*System.err.format("Camera.getGeoCoordinates(): Screen Position: %s, Camera Position: %s,"
-                + " Camera Axes: X=%s, Y=%s, Z=%s, Direction angles: Y-Rotation=%.3f°, X-Rotation="
-                + "%.3f°, View Vector: %s, Model intersection at: %s\n", screen, cameraPosition, 
-                xAxis, yAxis, zAxis, yAngle * 180 / PI, xAngle * 180 / PI, viewVector, 
-                geometry.getSurfaceCoordinates(cameraPosition, viewVector));*/
         return geometry.getSurfaceCoordinates(cameraPosition, viewVector);
     }
 
