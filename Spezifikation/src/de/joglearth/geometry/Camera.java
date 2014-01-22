@@ -433,11 +433,11 @@ public class Camera {
         Vector3 xAxis = earthAxis.crossProduct(zAxis).normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
         
-        double yAngle = atan((1-2*screen.x)*sin(horizontalFOV));
-        double xAngle = atan((1-2*screen.y)*sin(verticalFOV));
+        double yAngle = atan((1-2*screen.x))*tan(horizontalFOV/2);
+        double xAngle = atan((1-2*screen.y))*tan(verticalFOV/2);
         System.out.format(
-                "\nCameraPosition = %s\nearthAxis=%s\nzAxis=%s\nxAxis=%s\nyAxis=%s\nyAngle=%f\nxAngle=%f\n\n",
-                cameraPosition, earthAxis, zAxis, xAxis, yAxis, yAngle, xAngle);
+                "FOV: H=%f, V=%f\n\nCameraPosition = %s\nearthAxis=%s\nzAxis=%s\nxAxis=%s\nyAxis=%s\nyAngle=%f\nxAngle=%f\n\n",
+                horizontalFOV, verticalFOV, cameraPosition, earthAxis, zAxis, xAxis, yAxis, yAngle, xAngle);
 
         Matrix4 directionMatrix = new Matrix4();
         directionMatrix.rotate(yAxis, yAngle);
