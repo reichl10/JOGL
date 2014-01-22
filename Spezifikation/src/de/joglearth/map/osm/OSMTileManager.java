@@ -41,9 +41,9 @@ public final class OSMTileManager implements Source<TileName, byte[]> {
         }
         return instance;
     }
-    
+
     /**
-     * TODO
+     *  Called if the program has been closed to terminate all pending processes.
      */
     public static void shutDown() {
         if (instance != null) {

@@ -38,7 +38,7 @@ public final class JoglEarth {
     public static String PRODUCT_VERSION = "0.3";
 
     /**
-     *  //TODO
+     *  Called if the program has been closed to terminate all pending processes.
      */
     public static void shutDown() {
         SRTMTileManager.shutDown();

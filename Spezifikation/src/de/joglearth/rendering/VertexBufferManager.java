@@ -59,7 +59,9 @@ public class VertexBufferManager implements Source<ProjectedTile, VertexBuffer> 
         public void surfaceChanged(final double lonFrom, final double latFrom,
                 final double lonTo, final double latTo) {
              
-            dist.dropAll();/* TODO new Predicate<ProjectedTile>() {
+            dist.dropAll();
+            
+            /* TODO new Predicate<ProjectedTile>() {
 
                 @Override
                 public boolean test(ProjectedTile t) {

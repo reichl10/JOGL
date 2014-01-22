@@ -241,34 +241,6 @@ public class Renderer {
 
             Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, layout);
 
-            // TODO: Bis runtern kommen sehr viele Kommentare, welche wahrscheinlich weg gehören?
-            // // TODO debug-code: prints a visual representation of the set of visible tiles
-            // TileLayout lay = mapConfiguration.getOptimalTileLayout(camera, screenSize);
-            // Set<GridPoint> origins = new HashSet<GridPoint>();
-            // int minx = 0, maxx = 0, miny = 0, maxy = 0;
-            // boolean first = true;
-            // for (Iterator<Tile> it = tiles.iterator(); it.hasNext(); ) {
-            // GridPoint p = lay.getTileOrigin(it.next());
-            // if (first || p.getLongitude() < minx) minx = p.getLongitude();
-            // if (first || p.getLongitude() > maxx) maxx = p.getLongitude();
-            // if (first || p.getLatitude() < miny) miny = p.getLatitude();
-            // if (first || p.getLatitude() > maxy) maxy = p.getLatitude();
-            // first = false;
-            // origins.add(p);
-            // }
-            // StringBuilder sb = new StringBuilder("Visible Tile Graph:\n");
-            // for (int y=miny; y <= maxy; ++y) {
-            // for (int x=minx; x <= maxx; ++x) {
-            // sb.append(origins.contains(new GridPoint(x, y)) ? 'x' : ' ');
-            // }
-            // sb.append('\n');
-            // }
-            // System.out.print(sb.toString());
-            //
-            // // --------------
-            //
-            // StringBuilder tsb = new StringBuilder("Texture IDs: "),
-            // vsb = new StringBuilder("Vertex Buffers: ");
             for (Tile tile : tiles) {
                 TransformedTexture texture = textureManager.getTexture(tile);
                 gl.loadMatrix(GL_TEXTURE, texture.transformation);

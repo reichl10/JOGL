@@ -32,7 +32,7 @@ public class NamedItem<E> {
     }
 
     /**
-     * Returns the item's svalue.
+     * Returns the item's value.
      */
     public E getValue() {
         return value;

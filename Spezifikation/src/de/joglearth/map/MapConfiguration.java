@@ -35,14 +35,14 @@ public interface MapConfiguration {
     String getImageFormatSuffix();
     
     /**
-     * TODO
-     * @return
+     * Determines the projection of a tile.
+     * @return The projection format of a Tile.
      */
     MapProjection getProjection();
     
     /**
-     * TODO
-     * @return
+     * Determines the minimal distance of the surface to the camera-
+     * @return The minimal distance
      */
     double getMinimumCameraDistance();
 }

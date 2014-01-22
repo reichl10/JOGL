@@ -28,7 +28,8 @@ public class PlaneTessellatorTest {
         		subdivision, FlatHeightMap.getInstance());
         
 
-        System.out.println("latFrom: " + t.getLatitudeFrom() + "  latTo: " + t.getLatitudeTo() + "  longFrom: " + t.getLongitudeFrom() + "  longTo: " + t.getLongitudeTo());
+        System.out.println("latFrom: " + t.getLatitudeFrom() + "  latTo: " + t.getLatitudeTo()
+                + "  longFrom: " + t.getLongitudeFrom() + "  longTo: " + t.getLongitudeTo());
         Mesh mLin = p.tessellateTile(lin);
         Mesh mMerc = p.tessellateTile(merc);
         

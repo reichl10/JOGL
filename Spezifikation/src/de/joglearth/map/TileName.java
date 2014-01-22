@@ -10,12 +10,12 @@ import de.joglearth.geometry.Tile;
 public final class TileName {
     
     /**
-     * TODO
+     * The projection of the Tile.
      */
     public final MapConfiguration configuration;
     
     /**
-     * TODO
+     * The tile that is constructed.
      */
     public final Tile tile;
     

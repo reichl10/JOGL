@@ -22,18 +22,11 @@ public interface Tessellator {
      *         triangles
      */
     Mesh tessellateTile(ProjectedTile tile);
-    
-    /**
-     * TODO
-     * @return
-     */
+
+    @Override
     int hashCode();
     
-    /**
-     * TODO
-     * @param other
-     * @return
-     */
+    @Override
     boolean equals(Object other);
 }
 

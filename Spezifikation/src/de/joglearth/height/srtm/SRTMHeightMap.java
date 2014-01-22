@@ -13,7 +13,8 @@ import de.joglearth.height.HeightMap;
 import de.joglearth.source.SourceListener;
 
 /**
- * TODO
+ * Singleton class that returns certain values for height requests.
+ * 
  */
 public class SRTMHeightMap implements HeightMap {
 
@@ -93,8 +94,9 @@ public class SRTMHeightMap implements HeightMap {
     private SRTMHeightMap() {}
     
     /**
-     * TODO
-     * @return
+     * Returns the instance of the class or creates it, if it does not exist yet.
+     * 
+     * @return The instance of <code>SRTMHeightMap</code>
      */
     public static SRTMHeightMap getInstance() {
         if (instance == null) {
@@ -118,8 +120,6 @@ public class SRTMHeightMap implements HeightMap {
 
     @Override
     public double getHeight(GeoCoordinates coords, double angularResolution) {
-        //TODO System.err.println("HeightMap: requesting height of " + coords + " with resolution "
-        //        + resolution);
         
         SRTMTileName index = new SRTMTileName(toTileIndex(coords.getLongitude()), 
                 toTileIndex(coords.getLatitude()));

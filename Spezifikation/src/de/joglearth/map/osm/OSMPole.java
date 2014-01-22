@@ -47,8 +47,8 @@ public class OSMPole extends AbstractTile {
     }
     
     /**
-     * TODO
-     * @return
+     * Determines the actual zoom level.
+     * @return The zoom level
      */
     public int getZoomLevel() {
         return zoomLevel;

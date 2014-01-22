@@ -69,10 +69,7 @@ public class Camera {
     
 
     private boolean updateCamera() {
-        // TODO sign!
-        // TODO Height map resolution is a wild guess
-
-       
+        
         double altitude = distance;
         if (getSurfaceScale() < 0.005) {
             altitude += heightMap.getHeight(position, 1e-6); 
@@ -161,8 +158,9 @@ public class Camera {
     }
     
    /**
-    *  //TODO
-    * @param heightMap
+    *  Sets the HeightMap to a given value, e.g. the height profile was activated and has
+    *  been deactivated, the HeightMap would be changed to another value.
+    * @param heightMap The new HeightMap
     */
     public synchronized void setHeightMap(HeightMap heightMap) {
         if (heightMap == null) {

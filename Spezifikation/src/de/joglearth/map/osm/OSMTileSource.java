@@ -170,78 +170,10 @@ public class OSMTileSource implements Source<TileName, byte[]> {
             response = HTTP.get(builder.toString(), null);
 
             ++i;
-            //TODO
-            /*
-             * if (response == null) { set.offset++; }
-             * 
-             * if (set.offset == set.servers.length) { set.offset = 0; }
-             */
         }
 
         return response;
     }
-
-    //TODO: Bitte rauslöschen, wenn's nicht mehr gebraucht wird??
-    /*
-     * public static void main(String[] args) { // Tile tile1 = new Tile(2, 0, 0); // Tile tile2 =
-     * new Tile(2, 0, 1); // Tile tile3 = new Tile(2, 0, 2); // Tile tile4 = new Tile(2, 0, 3); //
-     * Tile tile5 = new Tile(2, 1, 0); // Tile tile6 = new Tile(2, 1, 1); // Tile tile7 = new
-     * Tile(2, 1, 2); // Tile tile8 = new Tile(2, 1, 3); // Tile tile9 = new Tile(2, 2, 0); // Tile
-     * tile10 = new Tile(2, 2, 1); // Tile tile11 = new Tile(2, 2, 2); // Tile tile12 = new Tile(2,
-     * 2, 3); // Tile tile13 = new Tile(2, 3, 0); // Tile tile14 = new Tile(2, 1, 1); // Tile tile15
-     * = new Tile(2, 3, 2); // Tile tile16 = new Tile(2, 3, 3); // // OSMTile osm1 = new
-     * OSMTile(tile1, TiledMapType.OSM_MAPNIK); // OSMTile osm2 = new OSMTile(tile2,
-     * TiledMapType.OSM_MAPNIK); // OSMTile osm3 = new OSMTile(tile3, TiledMapType.OSM_MAPNIK); //
-     * OSMTile osm4 = new OSMTile(tile4, TiledMapType.OSM_MAPNIK); // OSMTile osm5 = new
-     * OSMTile(tile5, TiledMapType.OSM_MAPNIK); // OSMTile osm6 = new OSMTile(tile6,
-     * TiledMapType.OSM_MAPNIK); // OSMTile osm7 = new OSMTile(tile7, TiledMapType.OSM_MAPNIK); //
-     * OSMTile osm8 = new OSMTile(tile8, TiledMapType.OSM_MAPNIK); // OSMTile osm9 = new
-     * OSMTile(tile9, TiledMapType.OSM_MAPNIK); // OSMTile osm10 = new OSMTile(tile10,
-     * TiledMapType.OSM_MAPNIK); // OSMTile osm11 = new OSMTile(tile11, TiledMapType.OSM_MAPNIK); //
-     * OSMTile osm12 = new OSMTile(tile12, TiledMapType.OSM_MAPNIK); // OSMTile osm13 = new
-     * OSMTile(tile13, TiledMapType.OSM_MAPNIK); // OSMTile osm14 = new OSMTile(tile14,
-     * TiledMapType.OSM_MAPNIK); // OSMTile osm15 = new OSMTile(tile15, TiledMapType.OSM_MAPNIK); //
-     * OSMTile osm16 = new OSMTile(tile16, TiledMapType.OSM_MAPNIK);
-     * 
-     * OSMTileSource source = new OSMTileSource(); final int zoom = 5; int n = (int) Math.pow(2,
-     * zoom);
-     * 
-     * for (int i = 0; i < n; i++) { OSMTile tile = new OSMTile(zoom, n/2 , i); TileName osm = new
-     * TileName(tile, OSMMapType.MAPNIK); source.requestObject(osm, new TestRequester());
-     * 
-     * }
-     * 
-     * // source.requestObject(osm1, new TestRequester()); // source.requestObject(osm2, new
-     * TestRequester()); // source.requestObject(osm3, new TestRequester()); //
-     * source.requestObject(osm4, new TestRequester()); // source.requestObject(osm5, new
-     * TestRequester()); // source.requestObject(osm6, new TestRequester()); //
-     * source.requestObject(osm7, new TestRequester()); // source.requestObject(osm8, new
-     * TestRequester()); // source.requestObject(osm9, new TestRequester()); //
-     * source.requestObject(osm10, new TestRequester()); // source.requestObject(osm11, new
-     * TestRequester()); // source.requestObject(osm12, new TestRequester()); //
-     * source.requestObject(osm13, new TestRequester()); // source.requestObject(osm14, new
-     * TestRequester()); // source.requestObject(osm15, new TestRequester()); //
-     * source.requestObject(osm16, new TestRequester());
-     * 
-     * // //TODO System.out.println(Math.cos(((1 - Math.log(Math.tan(Math.PI/2) + // 1 /
-     * Math.cos(Math.PI/2)) / Math.PI) /2 * Math.pow(2, 6)))); // //TODO
-     * System.out.println(Math.cos(((1 - Math.log(Math.tan(Math.PI/2) + //
-     * Math.sqrt((Math.tan(Math.PI/2)) + 1)) / Math.PI) /2 * Math.pow(2, 6))));
-     * 
-     * }
-     * 
-     * 
-     * static class TestRequester implements SourceListener<TileName, byte[]> {
-     * 
-     * public TestRequester() {
-     * 
-     * }
-     * 
-     * @Override public void requestCompleted(TileName key, byte[] value) { // TODO Auto-generated
-     * method stub
-     * 
-     * } }
-     */
 
     @Override
     public void dispose() {
@@ -263,7 +195,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         }
     }
 
-    //TODO: Wird das benötigt - wird nämlich nie verwendet?
+    //TODO: Vorlage für prio
     private class LIFOBlockingDeque<C> extends LinkedBlockingDeque<C> {
 
         @Override

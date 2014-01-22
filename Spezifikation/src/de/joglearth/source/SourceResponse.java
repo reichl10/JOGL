@@ -11,16 +11,18 @@ public class SourceResponse<Value> {
      * The type of this response.
      */
     public SourceResponseType response;
+
     /**
      * The value of this response.
      */
     public Value              value;
 
+
     /**
      * TODO: leer? JavaDoc fehlt?
      */
     public SourceResponse() {
-        
+
     }
 
     /**

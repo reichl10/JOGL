@@ -1,5 +1,9 @@
 package de.joglearth.geometry;
 
+/**
+ * Defines a linear projection for map types that don't require a projection, as the values
+ * are already valid.
+ */
 public class LinearProjection implements MapProjection {
 
 	@Override

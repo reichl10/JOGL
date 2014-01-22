@@ -46,8 +46,8 @@ public class VertexBufferLoader implements Source<ProjectedTile, VertexBuffer> {
     }
 
     /**
-     * TODO
-     * @return
+     * Determines the used </code>Tessellator</code>.
+     * @return The used Tessellator
      */
     public Tessellator getTessellator() {
         return tess;
@@ -100,6 +100,5 @@ public class VertexBufferLoader implements Source<ProjectedTile, VertexBuffer> {
 
     @Override
     public void dispose() {
-        //TODO: leer?
     }
 }

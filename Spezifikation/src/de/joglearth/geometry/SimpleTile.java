@@ -1,6 +1,9 @@
 package de.joglearth.geometry;
 
-
+/**
+ * Defines a tile that only contains the edges as longitude and latitude values and implements
+ * getters to access those values.
+ */
 public class SimpleTile extends AbstractTile {
 
     private final double lonFrom, lonTo, latFrom, latTo;

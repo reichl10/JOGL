@@ -996,13 +996,11 @@ public class MainWindow extends JFrame {
 
             @Override
             public void keyTyped(KeyEvent e) {
-                // TODO Auto-generated method stub
 
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                // TODO Auto-generated method stub
 
             }
 
@@ -1044,13 +1042,11 @@ public class MainWindow extends JFrame {
 
             @Override
             public void keyTyped(KeyEvent e) {
-                // TODO Auto-generated method stub
 
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                // TODO Auto-generated method stub
 
             }
 
@@ -1757,13 +1753,6 @@ public class MainWindow extends JFrame {
                                 * abs(newGeo.getLatitude() - lastGeo.getLatitude());
 
                         camera.move(deltaLon, deltaLat);
-                        /*
-                         * TODO System.out.format(
-                         * 
-                         * "Move: deltaX=%g,  deltaY=%g, deltaLon=%g, deltaLat=%g\n", newPos.x -
-                         * lastPos.x, newPos.y - lastPos.y, newGeo.getLongitude() -
-                         * lastGeo.getLongitude(), newGeo.getLatitude() - lastGeo.getLatitude());
-                         */
                     }
                 }
             } else if (SwingUtilities.isRightMouseButton(e)) {
@@ -2038,8 +2027,6 @@ public class MainWindow extends JFrame {
         }
 
         camera.setDistance(minDist + (MAX_DIST - minDist) * pow(factor, 3));
-        // TODO System.out.println("Distance " + camera.getDistance());
-        // TODO System.out.println("SliderValue " + zoomSlider.getValue());
     }
 
 

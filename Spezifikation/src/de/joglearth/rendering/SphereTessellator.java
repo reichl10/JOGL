@@ -153,8 +153,7 @@ public class SphereTessellator implements Tessellator {
         int[] indices = new int[nRows * (rowWidth - 1) * 6];
         int vIndex = 0, iIndex = 0;
 
-        double textureY = direction > 0 ? 0 : 1; // TODO bugfix: vorzeichenfehler
-        // textureStep = (double) direction / nRows; //bugfix: vorzeichenfehler
+        double textureY = direction > 0 ? 0 : 1;
         double projectedLatStart = projection.projectLatitude(latStart), projectedLatRange = projection
                 .projectLatitude(latEnd) - projectedLatStart;
 

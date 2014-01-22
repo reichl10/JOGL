@@ -35,7 +35,7 @@ public final class SRTMTileManager implements Source<SRTMTileName, SRTMTile> {
     }
 
     /**
-     * TODO
+     *  Called if the program has been closed to terminate all pending processes.
      */
     public static void shutDown() {
         if (instance != null) {

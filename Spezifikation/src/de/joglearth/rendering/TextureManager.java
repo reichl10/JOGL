@@ -141,7 +141,7 @@ public class TextureManager {
     }
 
     /**
-     * //TODO
+     *  Called if the program has been closed to terminate all pending processes.
      */
     public void dispose() {
         dist.dispose();

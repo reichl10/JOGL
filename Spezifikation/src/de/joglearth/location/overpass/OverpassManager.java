@@ -46,7 +46,7 @@ public final class OverpassManager implements Source<OverpassQuery, Collection<L
     }
 
     /**
-     *  //TODO
+     *  Called if the program has been closed to terminate all pending processes.
      */
     public static void shutDown() {
         if (instance != null) {

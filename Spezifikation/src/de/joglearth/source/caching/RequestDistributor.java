@@ -33,6 +33,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      */
     private List<Cache<Key, Value>> caches;
     private Map<Cache<Key, Value>, Integer> cacheSizeMap;
+    
     /**
      * Holds the source.
      */
@@ -459,7 +460,8 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                     cache.dropObject(listener.key);
                 }
             } else {
-                //TODO: unsafety cast
+                
+                @SuppressWarnings("unchecked")
                 FileSystemCache<Key> fsCache = (FileSystemCache<Key>) cache;
                 Integer itemSizeInteger = fsCache.sizeOf(entry.getKey());
                 removeFromCache(cache, entry.getKey(), itemSizeInteger);
@@ -489,13 +491,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         Source<Key, Value> _source;
         RequestDistributor<Key, Value> _rd;
 
-        /**
-         * TODO
-         * @param caches
-         * @param currentIndex
-         * @param s
-         * @param r
-         */
         public ObjectRequestListener(List<Cache<Key, Value>> caches, int currentIndex,
                 Source<Key, Value> s, RequestDistributor<Key, Value> r) {
             this._caches = caches;
@@ -578,10 +573,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
         RequestDistributor<Key, Value> rd;
 
-        /**
-         * TODO
-         * @param r
-         */
         public SourceAsker(RequestDistributor<Key, Value> r) {
             rd = r;
         }
@@ -595,19 +586,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
     private class CacheEntry {
 
-        /**
-         * TODO: JavaDocs für public Variablen
-         */
         public Key key;
         public Value value;
         public BigInteger lastUsed;
 
-        /**
-         * TODO
-         * @param k
-         * @param v
-         * @param l
-         */
         public CacheEntry(Key k, Value v, BigInteger l) {
             key = k;
             value = v;
@@ -616,13 +598,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     private class CacheMoveListener implements SourceListener<Key, Value> {
-        //TODO: JavaDocs für public Variablen
+        
         public volatile Key key;
         public volatile Value value;
 
-        /**
-         * TODO: wird das gebraucht?
-         */
         public CacheMoveListener() {}
 
         @Override
@@ -639,8 +618,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
     @Override
     public void dispose() {
-        // TODO: Block incomming changes
-        // move to filesystemcache if last cache is one!
         if (caches.size() > 1) {
             Cache<Key, Value> lastCache = caches.get(caches.size() - 1);
             if (lastCache instanceof FileSystemCache) {

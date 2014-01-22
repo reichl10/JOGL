@@ -49,10 +49,10 @@ public interface HeightMap {
      */
     void removeSurfaceListener(SurfaceListener l);
 
-    //TODO: JavaDoc
+    @Override
     int hashCode();
     
-    //TODO: JavaDoc
+    @Override
     boolean equals(Object other);
         
 }

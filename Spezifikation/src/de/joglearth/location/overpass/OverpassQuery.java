@@ -11,12 +11,12 @@ import de.joglearth.location.LocationType;
 public class OverpassQuery {
 
     /**
-     * TODO
+     * The area where certain operations should be made given as a Tile.
      */
     public Tile area;
     
     /**
-     * TODO
+     * The location type that should be displayed.
      */
     public LocationType type;
 
