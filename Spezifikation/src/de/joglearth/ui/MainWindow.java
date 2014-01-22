@@ -1792,7 +1792,9 @@ public class MainWindow extends JFrame {
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() >= 2) {
                 ScreenCoordinates screenCoord = getScreenCoordinates(e.getPoint());
+                System.out.println("ScreenCoords: " + screenCoord);
                 GeoCoordinates geoCoord = camera.getGeoCoordinates(screenCoord);
+                System.out.println("GeoCoords: " + geoCoord);
                 if (geoCoord != null) {
                     camera.setPosition(geoCoord);
                 }
