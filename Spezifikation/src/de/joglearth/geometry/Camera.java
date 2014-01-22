@@ -77,7 +77,6 @@ public class Camera {
         if (getSurfaceScale() < 0.005) {
             altitude += heightMap.getHeight(position, 1e-6); 
         }
-        //TODO System.err.println("Camera: updating, altitude=" + altitude);
         
         Matrix4 newCameraMatrix = geometry.getModelCameraTransformation(position, altitude);
         tiltTransformation(newCameraMatrix);
@@ -161,7 +160,10 @@ public class Camera {
         }
     }
     
-   
+   /**
+    *  //TODO
+    * @param heightMap
+    */
     public synchronized void setHeightMap(HeightMap heightMap) {
         if (heightMap == null) {
             throw new IllegalArgumentException();

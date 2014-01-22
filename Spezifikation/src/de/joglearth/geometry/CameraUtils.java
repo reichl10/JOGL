@@ -32,8 +32,6 @@ public final class CameraUtils {
         
         Tile centeredTile = tileLayout.getContainingTile(
                 camera.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5)));
-      //TODO System.out.print(camera.getGeoCoordinates(new ScreenCoordinates(0.5, 0.5)));
-      //TODO System.out.println(centeredTile);
                 
         // Find a grid point to start from, i.e. a visible corner of the centered tile
         GridPoint start = null;        

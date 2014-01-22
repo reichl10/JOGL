@@ -5,6 +5,13 @@ public class SimpleTile extends AbstractTile {
 
     private final double lonFrom, lonTo, latFrom, latTo;
     
+    /**
+     *  //TODO
+     * @param lonFrom
+     * @param latFrom
+     * @param lonTo
+     * @param latTo
+     */
     public SimpleTile(double lonFrom, double latFrom, double lonTo, double latTo) {
         this.lonFrom = lonFrom;
         this.latFrom = latFrom;

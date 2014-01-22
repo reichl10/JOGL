@@ -12,6 +12,7 @@ import de.joglearth.height.HeightMap;
  */
 public class PlaneGeometry implements Geometry {
 
+    // TODO: Wird die Variable noch benötigt?
     private static final double DISTANCE_LIMIT = 2;
 
 
@@ -21,6 +22,7 @@ public class PlaneGeometry implements Geometry {
             throw new IllegalArgumentException();
         }
 
+        //TODO: Wird das noch benötigt?
         /*
          * A point is visible if the intersection of the camera position's perpendicular with the
          * plane ("ground position") is not farther away from it than the distance of camera and

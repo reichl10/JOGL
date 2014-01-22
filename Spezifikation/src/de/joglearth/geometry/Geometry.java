@@ -58,9 +58,17 @@ public interface Geometry {
      */
     public Matrix4 getSkyCameraTransformation(GeoCoordinates position, double altitude);
 
-    
+    /**
+     *  // TODO
+     * @param position
+     * @return
+     */
     public double getLongitudeDisortion(GeoCoordinates position);
     
+    /**
+     *  // TODO
+     * @return
+     */
     public boolean allowsLongitudinalTraversal();
     
 }

@@ -37,7 +37,9 @@ public final class JoglEarth {
      */
     public static String PRODUCT_VERSION = "0.3";
 
-    
+    /**
+     *  //TODO
+     */
     public static void shutDown() {
         SRTMTileManager.shutDown();
         OSMTileManager.shutDown();

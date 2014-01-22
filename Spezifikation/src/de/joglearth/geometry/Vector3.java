@@ -9,12 +9,12 @@ public final class Vector3 implements Cloneable {
      * The X (first) component of the vector.
      */
     public double x;
-    
+
     /**
      * The Y (second) component of the vector.
      */
     public double y;
-    
+
     /**
      * The Z (third) component of the vector.
      */
@@ -127,11 +127,11 @@ public final class Vector3 implements Cloneable {
      * @return The cross product of the vector
      */
     public Vector3 crossProduct(Vector3 v) {
-        return new Vector3(this.y*v.z - this.z*v.y,
-                           this.z*v.x - this.x*v.z,
-                           this.x*v.y - this.y*v.x);
+        return new Vector3(this.y * v.z - this.z * v.y,
+                this.z * v.x - this.x * v.z,
+                this.x * v.y - this.y * v.x);
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;

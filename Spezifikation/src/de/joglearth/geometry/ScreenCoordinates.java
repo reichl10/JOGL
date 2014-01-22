@@ -10,7 +10,7 @@ public final class ScreenCoordinates implements Cloneable {
      * The horizontal position in [0.0; 1.0], where 0.0 is the left, 1.0 the right border.
      */
     public double x;
-    
+
     /**
      * The vertical position in [0.0; 1.0], where 0.0 is the top, 1.0 the bottom border.
      */
@@ -19,6 +19,7 @@ public final class ScreenCoordinates implements Cloneable {
 
     /**
      * Constructor.
+     * 
      * @param x The horizontal position (this.x)
      * @param y The vertical position (this.y)
      */
