@@ -14,7 +14,7 @@ import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
-import de.joglearth.source.osm.OSMTileName;
+import de.joglearth.map.osm.OSMTileName;
 
 
 public class TextureManagerTest {
