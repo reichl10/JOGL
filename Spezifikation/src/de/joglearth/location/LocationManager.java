@@ -248,6 +248,7 @@ public class LocationManager {
             }
 
         };
+        ;
 
         QueryTile t = new QueryTile(minLongitude, maxLongitude, minLatitude, maxLatitude);
         NominatimQuery nominatimQuery = new NominatimQuery(
