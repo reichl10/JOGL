@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import de.joglearth.source.ProgressManager;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
@@ -65,14 +66,13 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     public synchronized SourceResponse<byte[]> requestObject(Key key,
             SourceListener<Key, byte[]> sender) {
         SourceResponseType responseType;
-        if (keySet.contains(key) && Files.exists(pathFromKey(key))) {
+        if (keySet.contains(key)) {
             lockedFileSet.add(key);
             registerListener(key, sender);
             responseType = SourceResponseType.ASYNCHRONOUS;
+            ProgressManager.getInstance().requestArrived();
             executorService.execute(new FileLoaderRunnable(key));
         } else {
-            if (!Files.exists(pathFromKey(key)) && keySet.contains(key))
-                keySet.remove(key);
             responseType = SourceResponseType.MISSING;
         }
 
@@ -80,19 +80,9 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     }
 
     @Override
-    public synchronized void putObject(Key k, byte[] v) {
-        Path filePath = pathFromKey(k);
-        try {
-            Files.createDirectories(filePath.getParent());
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        try {
-            Files.write(filePath, v, StandardOpenOption.CREATE);
-            keySet.add(k);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void putObject(Key k, byte[] v) {
+        ProgressManager.getInstance().requestArrived();
+        executorService.execute(new FileWriterRunnable(k, v));
     }
 
     @Override
@@ -274,10 +264,35 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
                     }
                 }
             }
+            ProgressManager.getInstance().requestCompleted();
         }
-
     }
 
+    private class FileWriterRunnable implements Runnable {
+        private Key key;
+        private byte[] data;
+        
+        public FileWriterRunnable(Key key, byte[] data) {
+            this.key = key;
+            this.data = data;
+        }
+
+        @Override
+        public void run() {
+            try {
+                Path filePath = pathFromKey(key);
+                Files.createDirectories(filePath.getParent());
+                Files.write(filePath, data, StandardOpenOption.CREATE);
+                synchronized (FileSystemCache.this) {
+                    keySet.add(key);                    
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ProgressManager.getInstance().requestCompleted();
+        }
+    }
+    
     @Override
     public void dispose() {
         executorService.shutdown();

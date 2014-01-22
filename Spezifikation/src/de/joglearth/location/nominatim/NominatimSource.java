@@ -315,6 +315,6 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
     @Override
     public void dispose() {
-        executor.shutdown();
+        executor.shutdownNow();
     }
 }

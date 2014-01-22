@@ -54,7 +54,7 @@ public class SRTMHeightMap implements HeightMap {
     
     SRTMNameTilePair lastTile = null, nextToLastTile = null;
     
-    private SRTMTile getSRTMTile(SRTMTileName tileName) {
+    private synchronized SRTMTile getSRTMTile(SRTMTileName tileName) {
         if (lastTile == null || !tileName.equals(lastTile.name)) {
             if (nextToLastTile != null && tileName.equals(nextToLastTile.name)) {
                 SRTMNameTilePair temp = lastTile;
@@ -79,10 +79,12 @@ public class SRTMHeightMap implements HeightMap {
         @SuppressWarnings("unchecked")
         @Override
         public void requestCompleted(SRTMTileName key, SRTMTile value) {
-            lastTile = null;
-            nextToLastTile = null;
-            ArrayList<SurfaceListener> listenersClone 
-                = (ArrayList<SurfaceListener>) listeners.clone();
+            ArrayList<SurfaceListener> listenersClone;
+            synchronized (SRTMHeightMap.this) {
+                lastTile = null;
+                nextToLastTile = null;
+                listenersClone = (ArrayList<SurfaceListener>) listeners.clone();
+            }
             for (SurfaceListener l : listenersClone) {
                 l.surfaceChanged(degToRad(key.longitude), degToRad(key.latitude),
                         degToRad(key.longitude + 1), degToRad(key.latitude + 1));
@@ -158,7 +160,7 @@ public class SRTMHeightMap implements HeightMap {
      * 
      * @param l The new listener
      */
-    public void addSurfaceListener(SurfaceListener l) {
+    public synchronized void addSurfaceListener(SurfaceListener l) {
         listeners.add(l);
     }
 
@@ -167,7 +169,7 @@ public class SRTMHeightMap implements HeightMap {
      * 
      * @param l The listener that should be removed
      */
-    public void removeSurfaceListener(SurfaceListener l) {
+    public synchronized void removeSurfaceListener(SurfaceListener l) {
         while (listeners.remove(l))
             ;
     }

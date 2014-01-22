@@ -86,9 +86,24 @@ public class TextureManager {
      * @return Returns a loaded OpenGl identifier for the texture or if it is not yet loaded, the
      *         method returns a place holder texture
      */
-    public synchronized TransformedTexture getTexture(Tile tile) {
+    public synchronized TransformedTexture getTexture(Tile tile, int scaleDown) {
+        if (tile == null || scaleDown < 0) {
+            throw new IllegalArgumentException();
+        }
+        
         Matrix4 transformation = new Matrix4();
-
+        while (scaleDown > 0) {
+            TransformedTile scaledTile = tile.getScaledAlternative();
+            if (scaledTile != null) {
+                tile = scaledTile.tile;
+                scaledTile.transformation.mult(transformation);
+                transformation = scaledTile.transformation;
+            } else {
+                break;
+            }
+            --scaleDown;
+        }
+        
         while (tile != null) {
             TileName key = new TileName(mapConfiguration, tile);
             SourceResponse<Texture> response = dist.requestObject(

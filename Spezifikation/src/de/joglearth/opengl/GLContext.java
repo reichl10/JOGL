@@ -2,37 +2,7 @@ package de.joglearth.opengl;
 
 import static java.lang.Double.isNaN;
 import static java.lang.Math.min;
-import static javax.media.opengl.GL.GL_ARRAY_BUFFER;
-import static javax.media.opengl.GL.GL_ELEMENT_ARRAY_BUFFER;
-import static javax.media.opengl.GL.GL_EXTENSIONS;
-import static javax.media.opengl.GL.GL_FLOAT;
-import static javax.media.opengl.GL.GL_FRONT;
-import static javax.media.opengl.GL.GL_FRONT_AND_BACK;
-import static javax.media.opengl.GL.GL_LINEAR;
-import static javax.media.opengl.GL.GL_LINEAR_MIPMAP_LINEAR;
-import static javax.media.opengl.GL.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT;
-import static javax.media.opengl.GL.GL_MAX_TEXTURE_SIZE;
-import static javax.media.opengl.GL.GL_MULTISAMPLE;
-import static javax.media.opengl.GL.GL_NEAREST;
-import static javax.media.opengl.GL.GL_ONE_MINUS_SRC_ALPHA;
-import static javax.media.opengl.GL.GL_SRC_ALPHA;
-import static javax.media.opengl.GL.GL_STATIC_DRAW;
-import static javax.media.opengl.GL.GL_TEXTURE_2D;
-import static javax.media.opengl.GL.GL_TEXTURE_MAG_FILTER;
-import static javax.media.opengl.GL.GL_TEXTURE_MAX_ANISOTROPY_EXT;
-import static javax.media.opengl.GL.GL_TEXTURE_MIN_FILTER;
-import static javax.media.opengl.GL.GL_UNSIGNED_BYTE;
-import static javax.media.opengl.GL.GL_UNSIGNED_INT;
-import static javax.media.opengl.GL2ES1.GL_LIGHT_MODEL_AMBIENT;
-import static javax.media.opengl.GL2ES1.GL_MAX_LIGHTS;
-import static javax.media.opengl.GL2GL3.GL_QUADS;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_DIFFUSE;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHT0;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_POSITION;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_SPECULAR;
-import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_NORMAL_ARRAY;
-import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_TEXTURE_COORD_ARRAY;
-import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_VERTEX_ARRAY;
+import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.glu.GLU.GLU_INSIDE;
 import static javax.media.opengl.glu.GLU.GLU_OUTSIDE;
 
@@ -683,6 +653,25 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         float fi = (float) intensity;
         gl.glLightModelfv(GL_LIGHT_MODEL_AMBIENT, new float[] { fi, fi, fi, 1 }, 0);
         GLError.throwIfActive(gl);
+    }
+    
+    
+    public void setFogParameters(int mode, float[] color, double density, int hint) {
+        assertIsInitialized();
+        assertIsInsideCallback();
+        assertIsValidIntensity(density);
+        
+        gl.glFogi(GL_FOG_MODE, mode);
+        GLError.throwIfActive(gl);
+        
+        gl.glFogfv(GL_FOG_COLOR, color, 0);
+        GLError.throwIfActive(gl);
+        
+        gl.glFogf(GL_FOG_DENSITY, (float) density);
+        GLError.throwIfActive(gl);
+        
+        gl.glHint(GL_FOG_HINT, hint);
+        GLError.throwIfActive(gl);        
     }
 
     /**

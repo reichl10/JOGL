@@ -70,6 +70,6 @@ public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
 
     @Override
     public void dispose() {
-        executor.shutdown();
+        executor.shutdownNow();
     }
 }

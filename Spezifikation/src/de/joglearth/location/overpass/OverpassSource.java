@@ -208,7 +208,7 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
     @Override
     public void dispose() {
         info.dispose();
-        executor.shutdown();
+        executor.shutdownNow();
 
     }
 }

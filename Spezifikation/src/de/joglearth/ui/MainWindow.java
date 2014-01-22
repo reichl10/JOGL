@@ -1192,7 +1192,7 @@ public class MainWindow extends JFrame {
                     locationManager.searchLocal(
                             queryString,
                             CameraUtils.getVisibleTiles(camera,
-                                    configuration.getOptimalTileLayout(camera, easel.getSize())));
+                                    configuration.getOptimalTileLayout(camera, easel.getSize()), 500));
                 } else if (globalSearchRadioButton.isSelected()) {
                     locationManager.searchGlobal(queryString);
                 }
@@ -1769,17 +1769,17 @@ public class MainWindow extends JFrame {
                 // -pi/2,pi/2
                 cTiltX += (diffX * SCALE_TILT);
                 cTiltY += (diffY * SCALE_TILT);
-                if (cTiltX < -(Math.PI / 2)) {
-                    cTiltX = -(Math.PI / 2);
+                if (cTiltX < -(Math.PI / 6)) {
+                    cTiltX = -(Math.PI / 6);
                 }
-                if (cTiltY < -(Math.PI / 2)) {
-                    cTiltY = -(Math.PI / 2);
+                if (cTiltY < -(Math.PI / 6)) {
+                    cTiltY = -(Math.PI / 6);
                 }
-                if (cTiltX > (Math.PI / 2)) {
-                    cTiltX = (Math.PI / 2);
+                if (cTiltX > (Math.PI / 6)) {
+                    cTiltX = (Math.PI / 6);
                 }
-                if (cTiltY > (Math.PI / 2)) {
-                    cTiltY = (Math.PI / 2);
+                if (cTiltY > (Math.PI / 6)) {
+                    cTiltY = (Math.PI / 6);
                 }
                 camera.setTilt(cTiltX, cTiltY);
             }
@@ -1797,7 +1797,9 @@ public class MainWindow extends JFrame {
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() >= 2) {
                 ScreenCoordinates screenCoord = getScreenCoordinates(e.getPoint());
+                System.out.println("ScreenCoords: " + screenCoord);
                 GeoCoordinates geoCoord = camera.getGeoCoordinates(screenCoord);
+                System.out.println("GeoCoords: " + geoCoord);
                 if (geoCoord != null) {
                     camera.setPosition(geoCoord);
                 }
@@ -1838,10 +1840,10 @@ public class MainWindow extends JFrame {
                     camera.move(stepSize, 0);
                     break;
                 case KeyEvent.VK_UP:
-                    camera.move(0, -stepSize);
+                    camera.move(0, stepSize);
                     break;
                 case KeyEvent.VK_DOWN:
-                    camera.move(0, stepSize);
+                    camera.move(0, -stepSize);
                     break;
                 case KeyEvent.VK_PAGE_UP:
                     cTiltX += 0.1;
@@ -1892,17 +1894,17 @@ public class MainWindow extends JFrame {
             }
 
             if (tiltChanged) {
-                if (cTiltX < -(Math.PI / 2)) {
-                    cTiltX = -(Math.PI / 2);
+                if (cTiltX < -(Math.PI / 6)) {
+                    cTiltX = -(Math.PI / 6);
                 }
-                if (cTiltY < -(Math.PI / 2)) {
-                    cTiltY = -(Math.PI / 2);
+                if (cTiltY < -(Math.PI / 6)) {
+                    cTiltY = -(Math.PI / 6);
                 }
-                if (cTiltX > (Math.PI / 2)) {
-                    cTiltX = (Math.PI / 2);
+                if (cTiltX > (Math.PI / 6)) {
+                    cTiltX = (Math.PI / 6);
                 }
-                if (cTiltY > (Math.PI / 2)) {
-                    cTiltY = (Math.PI / 2);
+                if (cTiltY > (Math.PI / 6)) {
+                    cTiltY = (Math.PI / 6);
                 }
                 camera.setTilt(cTiltX, cTiltY);
             }
