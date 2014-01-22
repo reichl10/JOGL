@@ -40,6 +40,15 @@ public class LocationManager {
     private Set<LocationType> activeLocationTypes;
 
 
+    private class UserTagsListener implements SettingsListener {
+
+        @Override
+        public void settingsChanged(String key, Object valOld, Object valNew) {
+            callSurfaceListeners(-Math.PI, -(Math.PI / 2), Math.PI, Math.PI / 2);
+        }
+    }
+
+
     /**
      * Constructor. Initializes the {@link LocationManager} and its underlying caches.
      */
