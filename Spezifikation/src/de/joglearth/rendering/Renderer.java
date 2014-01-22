@@ -1,12 +1,24 @@
 package de.joglearth.rendering;
 
-import static java.lang.Math.*;
-import static javax.media.opengl.GL2.*;
+import static java.lang.Math.PI;
+import static java.lang.Math.ceil;
+import static java.lang.Math.log;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+import static java.lang.Math.pow;
+import static javax.media.opengl.GL.GL_BLEND;
+import static javax.media.opengl.GL.GL_COLOR_BUFFER_BIT;
+import static javax.media.opengl.GL.GL_CULL_FACE;
+import static javax.media.opengl.GL.GL_DEPTH_BUFFER_BIT;
+import static javax.media.opengl.GL.GL_DEPTH_TEST;
+import static javax.media.opengl.GL.GL_ONE_MINUS_SRC_ALPHA;
+import static javax.media.opengl.GL.GL_SRC_ALPHA;
+import static javax.media.opengl.GL.GL_TEXTURE;
+import static javax.media.opengl.GL.GL_TEXTURE_2D;
 import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHTING;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
 import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
@@ -73,9 +85,7 @@ public class Renderer {
     private SettingsListener settingsListener = new GraphicsSettingsListener();
     private MapConfiguration mapConfiguration = new SingleMapConfiguration(SingleMapType.SATELLITE);
     private Dimension screenSize = new Dimension(640, 480);
-
     private final static int ICON_SIZE = 24;
-
     private final static double FOV = PI / 2;
     private double aspectRatio = 1;
 
@@ -116,6 +126,10 @@ public class Renderer {
         });
     }
 
+    /**
+     * TODO
+     * @param gl
+     */
     public void setGLContext(GLContext gl) {
         if (gl == null) {
             throw new IllegalArgumentException();
@@ -125,6 +139,10 @@ public class Renderer {
         gl.addGLContextListener(glContextListener);
     }
 
+    /**
+     * TODO
+     * @param manager
+     */
     public void setLocationManager(LocationManager manager) {
         if (manager == null) {
             throw new IllegalArgumentException();
@@ -223,6 +241,7 @@ public class Renderer {
 
             Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, layout);
 
+            // TODO: Bis runtern kommen sehr viele Kommentare, welche wahrscheinlich weg gehören?
             // // TODO debug-code: prints a visual representation of the set of visible tiles
             // TileLayout lay = mapConfiguration.getOptimalTileLayout(camera, screenSize);
             // Set<GridPoint> origins = new HashSet<GridPoint>();
@@ -264,8 +283,7 @@ public class Renderer {
                 // vsb.append(", ");
                 gl.drawVertexBuffer(vbo, texture.texture);
             }
-            // System.out.println(tsb.toString());
-            // System.out.println(vsb.toString());
+
 
             gl.setFeatureEnabled(GL_LIGHTING, false);
             
@@ -280,9 +298,7 @@ public class Renderer {
             double xOffset = (double) ICON_SIZE / screenSize.width / 2, yOffset = (double) ICON_SIZE
                     / screenSize.height / 2;
 
-            Collection<Location> locations = locationManager.getActiveLocations(tiles);
-            //System.out.println(locations);
-            //System.out.println();
+            Collection<Location> locations = locationManager.getActiveLocations(tiles);;
             // Collection<Location> locations = new ArrayList<>();
             // locations.add(new Location(new GeoCoordinates(0, 0), LocationType.BANK, null, null));
 
@@ -321,6 +337,10 @@ public class Renderer {
         }
     }
 
+    /**
+     * TODO
+     * @return
+     */
     public Camera getCamera() {
         return camera;
     }
@@ -608,5 +628,4 @@ public class Renderer {
             gl.postRedisplay();
         }
     }
-
 }

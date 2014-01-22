@@ -98,6 +98,7 @@ public final class SRTMTile {
 
         //Interpolate lower LODs
         int width = LOD0_WIDTH;
+        
         //TODO last row/column is ignored!
         for (int lod = 1; lod <= MAX_LOD; ++lod) {
             width /= 2;

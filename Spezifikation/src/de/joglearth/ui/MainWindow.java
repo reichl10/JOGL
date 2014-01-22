@@ -7,7 +7,6 @@ import static java.lang.Math.pow;
 import static java.lang.Math.signum;
 
 import java.awt.Canvas;
-import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
@@ -160,7 +159,7 @@ public class MainWindow extends JFrame {
     /**
      * Stores the reference to the <code>ViewEventListener</code> that is created on initialization.
      */
-    private ViewEventListener viewEventListener;
+    private ViewEventListener viewEventListener; //TODO: not used
 
     /**
      * Stores the reference to the <code>Camera</code> that it gets through the constructor.

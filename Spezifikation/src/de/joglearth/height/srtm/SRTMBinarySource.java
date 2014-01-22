@@ -22,10 +22,8 @@ import de.joglearth.util.Resource;
 public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
 
     private final static String serverURL = "http://dds.cr.usgs.gov/srtm/version2_1/SRTM3/";
-
     private final static Map<String, String> tileRegionMap = Resource.loadCSVMap("srtm_map.csv",
             "\\s");
-
     private ExecutorService executor;
 
 

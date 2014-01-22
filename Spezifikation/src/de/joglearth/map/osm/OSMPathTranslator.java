@@ -88,5 +88,4 @@ public class OSMPathTranslator implements PathTranslator<TileName> {
 
         return null;
     }
-
 }

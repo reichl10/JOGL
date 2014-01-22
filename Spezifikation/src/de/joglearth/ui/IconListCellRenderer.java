@@ -2,7 +2,6 @@ package de.joglearth.ui;
 
 import java.awt.Component;
 
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
@@ -51,5 +50,4 @@ public class IconListCellRenderer<E> extends JLabel implements ListCellRenderer<
         }
         return this;
     }
-
 }

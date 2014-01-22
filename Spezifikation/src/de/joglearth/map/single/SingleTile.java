@@ -34,5 +34,4 @@ public class SingleTile extends AbstractTile {
     public TransformedTile getScaledAlternative() {
         return null;
     }
-
 }

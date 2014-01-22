@@ -1,7 +1,5 @@
 package de.joglearth.rendering;
 
-import de.joglearth.geometry.Tile;
-import de.joglearth.height.HeightMap;
 
 
 /**
@@ -25,8 +23,17 @@ public interface Tessellator {
      */
     Mesh tessellateTile(ProjectedTile tile);
     
+    /**
+     * TODO
+     * @return
+     */
     int hashCode();
     
+    /**
+     * TODO
+     * @param other
+     * @return
+     */
     boolean equals(Object other);
 }
 

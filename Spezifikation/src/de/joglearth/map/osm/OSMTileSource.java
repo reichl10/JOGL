@@ -149,9 +149,6 @@ public class OSMTileSource implements Source<TileName, byte[]> {
 
         int ytile = tile.getLatitudeIndex();
 
-        // TODO
-        // //TODO System.out.println("ytile: "+ytile+" latitude: "+y);
-
         // Build URL
         ServerSet set = serverSets.get(mapType);
         StringBuilder builder = new StringBuilder();
@@ -173,6 +170,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
             response = HTTP.get(builder.toString(), null);
 
             ++i;
+            //TODO
             /*
              * if (response == null) { set.offset++; }
              * 
@@ -180,12 +178,10 @@ public class OSMTileSource implements Source<TileName, byte[]> {
              */
         }
 
-        // TODO System.err.println("OSMTileSource: done " + (response == null ? "(null) " : "")
-        // + "loading " + tile);
-
         return response;
     }
 
+    //TODO: Bitte rauslöschen, wenn's nicht mehr gebraucht wird??
     /*
      * public static void main(String[] args) { // Tile tile1 = new Tile(2, 0, 0); // Tile tile2 =
      * new Tile(2, 0, 1); // Tile tile3 = new Tile(2, 0, 2); // Tile tile4 = new Tile(2, 0, 3); //
@@ -252,6 +248,11 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         executor.shutdown();
     }
 
+    /**
+     * TODO
+     * @param mapType
+     * @return
+     */
     public static String getImageFormatSuffix(OSMMapType mapType) {
         switch (mapType) {
             case MAPNIK:
@@ -262,7 +263,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         }
     }
 
-
+    //TODO: Wird das benötigt - wird nämlich nie verwendet?
     private class LIFOBlockingDeque<C> extends LinkedBlockingDeque<C> {
 
         @Override

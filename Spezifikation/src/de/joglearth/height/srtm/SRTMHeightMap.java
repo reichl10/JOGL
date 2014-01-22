@@ -1,20 +1,25 @@
 package de.joglearth.height.srtm;
 
-import static java.lang.Math.*;
+import static java.lang.Math.PI;
+import static java.lang.Math.floor;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.height.HeightMap;
 import de.joglearth.source.SourceListener;
 
-
+/**
+ * TODO
+ */
 public class SRTMHeightMap implements HeightMap {
 
     private static SRTMHeightMap instance = null;
     
+    //TODO: JavaDoc für alle public Variablen
     public final static double EARTH_RADIUS_METERS = 6378000.0;
     public final static double MAX_HEIGHT = Short.MAX_VALUE / EARTH_RADIUS_METERS;
     public final static double MIN_HEIGHT = -MAX_HEIGHT;
@@ -87,6 +92,10 @@ public class SRTMHeightMap implements HeightMap {
 
     private SRTMHeightMap() {}
     
+    /**
+     * TODO
+     * @return
+     */
     public static SRTMHeightMap getInstance() {
         if (instance == null) {
             instance = new SRTMHeightMap();

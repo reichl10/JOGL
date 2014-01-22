@@ -4,13 +4,21 @@ import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.height.HeightMap;
 
-
+/**
+ *  TODO
+ * 
+ *
+ */
 public class FlatHeightMap implements HeightMap {
 
     private static FlatHeightMap instance;
     
     private FlatHeightMap() {  }
     
+    /**
+     * TODO
+     * @return
+     */
     public static FlatHeightMap getInstance() {
         if (instance == null) {
             instance = new FlatHeightMap();

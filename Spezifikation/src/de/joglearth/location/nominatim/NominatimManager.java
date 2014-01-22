@@ -34,6 +34,9 @@ public final class NominatimManager implements Source<NominatimQuery, Collection
         return instance;
     }
 
+    /**
+     * TODO
+     */
     public static void shutDown() {
         if (instance != null) {
             instance.dispose();

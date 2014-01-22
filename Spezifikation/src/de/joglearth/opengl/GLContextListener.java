@@ -6,6 +6,7 @@ package de.joglearth.opengl;
  * Listener interface for @link{GLContext} events.
  */
 public interface GLContextListener {
+    
     /**
      * Called at the very beginning of every rendered frame, before any other listener function is
      * invoked.

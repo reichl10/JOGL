@@ -84,5 +84,4 @@ public final class VertexBuffer {
         primitiveType = type;
         indexCount = count;
     }
-
 }

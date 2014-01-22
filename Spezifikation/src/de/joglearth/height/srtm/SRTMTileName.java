@@ -62,7 +62,11 @@ public final class SRTMTileName {
     private static final Pattern srtmStringPattern 
         = Pattern.compile("([NS])([0-9]{2})([EW])([0-9]{3})");
     
-
+    /**
+     * TODO
+     * @param s
+     * @return
+     */
     public static SRTMTileName parseTileIndex(String s) {
         Matcher m = srtmStringPattern.matcher(s);
         

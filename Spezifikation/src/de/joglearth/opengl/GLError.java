@@ -68,5 +68,4 @@ public class GLError extends RuntimeException {
             throw new GLError(code);
         }
     }
-
 }

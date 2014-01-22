@@ -4,13 +4,27 @@ import com.jogamp.opengl.util.texture.Texture;
 
 import de.joglearth.geometry.Matrix4;
 
-
+/**
+ * TODO
+ *
+ */
 public final class TransformedTexture {
-
+    
+    /**
+     * TODO
+     */
     public final Texture texture;
     
+    /**
+     * TODO
+     */
     public final Matrix4 transformation;
     
+    /**
+     * TODO
+     * @param texture
+     * @param transformation
+     */
     public TransformedTexture(Texture texture, Matrix4 transformation) {
         this.texture = texture;
         this.transformation = transformation;
@@ -59,5 +73,4 @@ public final class TransformedTexture {
         }
         return true;
     }
-    
 }

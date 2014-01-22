@@ -45,5 +45,4 @@ public class IconizedItem<E> extends NamedItem<E> {
     public Icon getIcon() {
         return icon;
     }
-
 }

@@ -3,7 +3,10 @@ package de.joglearth.height;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.SurfaceListener;
 
-
+/**
+ *  //TODO
+ *
+ */
 public interface HeightMap {
     
     /**
@@ -46,8 +49,10 @@ public interface HeightMap {
      */
     void removeSurfaceListener(SurfaceListener l);
 
+    //TODO: JavaDoc
     int hashCode();
     
+    //TODO: JavaDoc
     boolean equals(Object other);
         
 }

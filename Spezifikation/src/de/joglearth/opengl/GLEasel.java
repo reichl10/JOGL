@@ -38,6 +38,10 @@ public class GLEasel extends JPanel {
         setBackground(Color.BLACK);
     }
 
+    /**
+     * TODO
+     * @return
+     */
     public boolean canReset() {
     	return canvas == null || initialized;
     }

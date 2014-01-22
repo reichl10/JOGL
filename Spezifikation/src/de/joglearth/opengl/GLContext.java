@@ -2,11 +2,40 @@ package de.joglearth.opengl;
 
 import static java.lang.Double.isNaN;
 import static java.lang.Math.min;
-import static javax.media.opengl.GL2.*;
+import static javax.media.opengl.GL.GL_ARRAY_BUFFER;
+import static javax.media.opengl.GL.GL_ELEMENT_ARRAY_BUFFER;
+import static javax.media.opengl.GL.GL_EXTENSIONS;
+import static javax.media.opengl.GL.GL_FLOAT;
+import static javax.media.opengl.GL.GL_FRONT;
+import static javax.media.opengl.GL.GL_FRONT_AND_BACK;
+import static javax.media.opengl.GL.GL_LINEAR;
+import static javax.media.opengl.GL.GL_LINEAR_MIPMAP_LINEAR;
+import static javax.media.opengl.GL.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT;
+import static javax.media.opengl.GL.GL_MAX_TEXTURE_SIZE;
+import static javax.media.opengl.GL.GL_MULTISAMPLE;
+import static javax.media.opengl.GL.GL_NEAREST;
+import static javax.media.opengl.GL.GL_ONE_MINUS_SRC_ALPHA;
+import static javax.media.opengl.GL.GL_SRC_ALPHA;
+import static javax.media.opengl.GL.GL_STATIC_DRAW;
+import static javax.media.opengl.GL.GL_TEXTURE_2D;
+import static javax.media.opengl.GL.GL_TEXTURE_MAG_FILTER;
+import static javax.media.opengl.GL.GL_TEXTURE_MAX_ANISOTROPY_EXT;
+import static javax.media.opengl.GL.GL_TEXTURE_MIN_FILTER;
+import static javax.media.opengl.GL.GL_UNSIGNED_BYTE;
+import static javax.media.opengl.GL.GL_UNSIGNED_INT;
+import static javax.media.opengl.GL2ES1.GL_LIGHT_MODEL_AMBIENT;
+import static javax.media.opengl.GL2ES1.GL_MAX_LIGHTS;
+import static javax.media.opengl.GL2GL3.GL_QUADS;
+import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_DIFFUSE;
+import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHT0;
+import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_POSITION;
+import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_SPECULAR;
+import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_NORMAL_ARRAY;
+import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_TEXTURE_COORD_ARRAY;
+import static javax.media.opengl.fixedfunc.GLPointerFunc.GL_VERTEX_ARRAY;
 import static javax.media.opengl.glu.GLU.GLU_INSIDE;
 import static javax.media.opengl.glu.GLU.GLU_OUTSIDE;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
@@ -30,14 +59,12 @@ import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureData;
-import com.jogamp.opengl.util.texture.TextureIO;
 import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
 import de.joglearth.async.AWTInvoker;
 import de.joglearth.async.AbstractInvoker;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.ScreenCoordinates;
-import de.joglearth.geometry.Vector3;
 import de.joglearth.geometry.Vector4;
 import de.joglearth.rendering.Mesh;
 
@@ -238,20 +265,20 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         int minFilter, magFilter;
         switch (filter) {
             case NEAREST:
-                //System.err.println("NEAREST");
+                // System.err.println("NEAREST");
                 minFilter = GL_NEAREST;
                 magFilter = GL_NEAREST;
                 break;
 
             case BILINEAR:
-                //System.err.println("BILINEAR");
+                // System.err.println("BILINEAR");
                 minFilter = GL_LINEAR;
                 magFilter = GL_LINEAR;
                 break;
 
             default:
                 // Anisotropic filtering is a variation of trilinear
-                //System.err.println("ANISO");
+                // System.err.println("ANISO");
                 minFilter = GL_LINEAR_MIPMAP_LINEAR;
                 magFilter = GL_LINEAR;
         }
@@ -292,7 +319,6 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         return tex;
     }
 
-    
     /**
      * Loads a texture from an input stream via the JOGL Texture API.
      * 
@@ -520,8 +546,16 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             GLError.throwIfActive(gl);
         }
     }
-    
-    
+
+    /**
+     * TODO
+     * 
+     * @param radius
+     * @param slices
+     * @param stacks
+     * @param inside
+     * @param color4
+     */
     public void drawSphere(double radius, int slices, int stacks, boolean inside, float[] color4) {
         assertIsInitialized();
         assertIsInsideCallback();
@@ -531,22 +565,27 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
 
         glu.gluQuadricOrientation(quadric, inside ? GLU_INSIDE : GLU_OUTSIDE);
         GLError.throwIfActive(gl);
-        
+
         // Enable texturing
         glu.gluQuadricTexture(quadric, false);
         GLError.throwIfActive(gl);
-        
+
         gl.glColor4fv(color4, 0);
-        GLError.throwIfActive(gl);     
+        GLError.throwIfActive(gl);
 
         glu.gluSphere(quadric, radius, slices, stacks);
-        GLError.throwIfActive(gl);     
-        
-        gl.glColor4f(1, 1, 1, 1); 
-        GLError.throwIfActive(gl);     
-    }
-    
+        GLError.throwIfActive(gl);
 
+        gl.glColor4f(1, 1, 1, 1);
+        GLError.throwIfActive(gl);
+    }
+
+    /**
+     * TODO
+     * @param upperLeft
+     * @param lowerRight
+     * @param texture
+     */
     public void drawRectangle(ScreenCoordinates upperLeft, ScreenCoordinates lowerRight,
             Texture texture) {
 
@@ -671,7 +710,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         assertIsValidLight(index);
 
         float[] floats = { (float) position.x, (float) position.y, (float) position.z,
-                    (float) position.w };
+                (float) position.w };
         gl.glLightfv(GL_LIGHT0 + index, GL_POSITION, floats, 0);
         GLError.throwIfActive(gl);
     }
@@ -720,7 +759,12 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         assertIsValidLight(index);
         return isFeatureEnabled(GL_LIGHT0 + index);
     }
-    
+
+    /**
+     * TODO
+     * @param sourceFactor
+     * @param destFactor
+     */
     public void setBlendingFunction(int sourceFactor, int destFactor) {
         assertIsInitialized();
         assertIsInsideCallback();
@@ -890,7 +934,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         gl.glGetIntegerv(GL_MAX_LIGHTS, integers, 0);
         GLError.throwIfActive(gl);
         lightCount = integers[0];
-        
+
         gl.glGetIntegerv(GL_MAX_TEXTURE_SIZE, integers, 0);
         GLError.throwIfActive(gl);
         maxTextureSize = integers[0];
@@ -948,8 +992,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * @param l The listener.
      */
     public void removeGLContextListener(GLContextListener l) {
-        while (listeners.remove(l))
-            ;
+        while (listeners.remove(l));
     }
 
     /**
@@ -1004,7 +1047,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
                 }
                 redisplayActive = true;
             }
-            
+
             // Call invokeLater() while there are pending frames. Don't use a loop so that other
             // AWT events can be processed as well.
             AWTInvoker.getInstance().invokeLater(new Runnable() {
@@ -1036,19 +1079,18 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
 
     @Override
     public void invokeLater(Runnable runnable) {
-        //System.out.println("Trying to sync");
+        // System.out.println("Trying to sync");
         synchronized (pendingInvocations) {
-            //System.out.println("Synced");
+            // System.out.println("Synced");
             pendingInvocations.add(runnable);
         }
-        //System.out.println("Exited Sync");
+        // System.out.println("Exited Sync");
         postRedisplay();
-        //System.out.println("Redisplay");
+        // System.out.println("Redisplay");
     }
 
     @Override
     public boolean canInvokeDirectly() {
         return isInsideCallback();
     }
-
 }

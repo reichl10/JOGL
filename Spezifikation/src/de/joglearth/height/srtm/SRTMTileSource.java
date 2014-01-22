@@ -75,7 +75,6 @@ public class SRTMTileSource implements Source<SRTMTileName, SRTMTile> {
 					if (tileBytes != null) {
 						tile = new SRTMTile(tileBytes);
 					}
-                    //TODO System.err.println("SRTMTileSource: done loading " + key);
 					sender.requestCompleted(key, tile);
 				}
 		});

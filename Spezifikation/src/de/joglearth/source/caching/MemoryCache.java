@@ -20,10 +20,11 @@ public class MemoryCache<Key, Value> implements Cache<Key, Value> {
     @Override
     public SourceResponse<Value> requestObject(Key key,
             SourceListener<Key, Value> sender) {
+        
         Value object = storage.get(key);
         SourceResponseType responseType = object != null
                 ? SourceResponseType.SYNCHRONOUS : SourceResponseType.MISSING;
-        //TODO System.err.println(getClass().getSimpleName() + ": requesting " + key + ": " + responseType.toString());
+        
         return new SourceResponse<Value>(responseType, object);
     }
 

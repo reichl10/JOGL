@@ -16,7 +16,9 @@ public class SourceResponse<Value> {
      */
     public Value              value;
 
-    
+    /**
+     * TODO: leer? JavaDoc fehlt?
+     */
     public SourceResponse() {
         
     }

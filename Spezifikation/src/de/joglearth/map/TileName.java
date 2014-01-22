@@ -8,8 +8,15 @@ import de.joglearth.geometry.Tile;
  * uniquely.
  */
 public final class TileName {
-
+    
+    /**
+     * TODO
+     */
     public final MapConfiguration configuration;
+    
+    /**
+     * TODO
+     */
     public final Tile tile;
     
     /**
@@ -68,6 +75,5 @@ public final class TileName {
             return false;
         }
         return true;
-    }
-    
+    }   
 }

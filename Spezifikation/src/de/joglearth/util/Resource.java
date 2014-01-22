@@ -1,8 +1,5 @@
 package de.joglearth.util;
 
-import static javax.media.opengl.GL.GL_MAX_TEXTURE_SIZE;
-
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,12 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-import javax.media.opengl.GL2;
-import javax.media.opengl.GLProfile;
 import javax.swing.ImageIcon;
-
-import com.jogamp.opengl.util.texture.TextureData;
-import com.jogamp.opengl.util.texture.TextureIO;
 
 
 /**
@@ -32,8 +24,13 @@ public final class Resource {
         return Thread.currentThread().getContextClassLoader().getResource(name);
     }
     
+    /**
+     * TODO
+     * @param name
+     * @return
+     * @throws IOException
+     */
     public static InputStream open(String name) throws IOException {
-        //System.err.println("Opening "+name);
         URL url = getURL(name);
         if (url == null) {
             throw new IOException("Resource not found");
@@ -42,6 +39,11 @@ public final class Resource {
         }
     }
     
+    /**
+     * TODO
+     * @param name
+     * @return
+     */
     public static boolean exists(String name) {
         return getURL(name) != null;
     }
@@ -60,6 +62,12 @@ public final class Resource {
         }
     }
 
+    /**
+     * TODO
+     * @param name
+     * @param separatorRegex
+     * @return
+     */
     public static Map<String, String> loadCSVMap(String name, String separatorRegex) {
         Map<String, String> map = new HashMap<>();
         try {
@@ -81,6 +89,11 @@ public final class Resource {
         return map;
     }
     
+    /**
+     * TODO
+     * @param name
+     * @return
+     */
     public static byte[] loadBinary(String name) {
         try {
             InputStream input = open(name);

@@ -98,7 +98,7 @@ public class SphereTessellator implements Tessellator {
     }
 
     private int getMaxShrinkCount(int quads, int minQuads) {
-        // Find out how often "quads" can be divided by 2.
+        // Finds out how often "quads" can be divided by 2.
         int maxShrinkCount = 0;
         while (quads % 2 == 0 && quads / 2 >= minQuads) {
             ++maxShrinkCount;
@@ -153,7 +153,7 @@ public class SphereTessellator implements Tessellator {
         int[] indices = new int[nRows * (rowWidth - 1) * 6];
         int vIndex = 0, iIndex = 0;
 
-        double textureY = direction > 0 ? 0 : 1; // bugfix: vorzeichenfehler
+        double textureY = direction > 0 ? 0 : 1; // TODO bugfix: vorzeichenfehler
         // textureStep = (double) direction / nRows; //bugfix: vorzeichenfehler
         double projectedLatStart = projection.projectLatitude(latStart), projectedLatRange = projection
                 .projectLatitude(latEnd) - projectedLatStart;
@@ -205,5 +205,4 @@ public class SphereTessellator implements Tessellator {
     public int hashCode() {
         return "SphereTessellator".hashCode();
     }
-
 }

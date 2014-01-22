@@ -78,7 +78,7 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
 
     private SourceResponse<Texture> loadTexture(final Key key, 
             final SourceListener<Key, Texture> sender, byte[] raw) {
-      //TODO System.out.println("Load Texture");
+        
         TextureData data;
         try {
             data = gl.loadTextureData(new ByteArrayInputStream(raw), formatSuffix);
@@ -88,11 +88,9 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
         
         LoaderRunnable loader = new LoaderRunnable(data);
         if (gl.canInvokeDirectly()) {
-            //TODO System.out.println("Finished Loading Texture!");
             return new SourceResponse<Texture>(SourceResponseType.SYNCHRONOUS, 
                     (Texture) loader.run());
         } else {
-          //TODO System.out.println("InvokeLater");
             gl.invokeLater(loader, new RunnableResultListener() {
     
                 @Override
@@ -100,10 +98,9 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
                     sender.requestCompleted(key, (Texture) result);
                 }
             });
-          //TODO System.out.println("Finished Loading Texture!");
+            
             return new SourceResponse<Texture>(SourceResponseType.ASYNCHRONOUS, null);
         }
-        
     }
 
     @Override
@@ -137,6 +134,7 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
                 }
             }
         }
+        
         return new SourceResponse<Texture>(SourceResponseType.MISSING, null);
     }
 

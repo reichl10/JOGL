@@ -2,9 +2,6 @@ package de.joglearth.rendering;
 
 import de.joglearth.async.RunnableResultListener;
 import de.joglearth.async.RunnableWithResult;
-import de.joglearth.geometry.Tile;
-import de.joglearth.height.HeightMap;
-import de.joglearth.height.flat.FlatHeightMap;
 import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.source.Source;
@@ -48,6 +45,10 @@ public class VertexBufferLoader implements Source<ProjectedTile, VertexBuffer> {
         tess = t;
     }
 
+    /**
+     * TODO
+     * @return
+     */
     public Tessellator getTessellator() {
         return tess;
     }
@@ -99,6 +100,6 @@ public class VertexBufferLoader implements Source<ProjectedTile, VertexBuffer> {
 
     @Override
     public void dispose() {
+        //TODO: leer?
     }
-
 }

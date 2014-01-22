@@ -94,5 +94,4 @@ public class OSMMapConfiguration implements MapConfiguration {
     public double getMinimumCameraDistance() {
         return 1e-5;
     }
-
 }

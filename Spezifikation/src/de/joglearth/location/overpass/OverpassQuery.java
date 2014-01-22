@@ -10,7 +10,14 @@ import de.joglearth.location.LocationType;
  */
 public class OverpassQuery {
 
+    /**
+     * TODO
+     */
     public Tile area;
+    
+    /**
+     * TODO
+     */
     public LocationType type;
 
 

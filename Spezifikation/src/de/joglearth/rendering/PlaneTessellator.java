@@ -1,13 +1,19 @@
 package de.joglearth.rendering;
 
+import static de.joglearth.rendering.MeshUtils.VERTEX_FORMAT;
+import static de.joglearth.rendering.MeshUtils.VERTEX_SIZE;
+import static de.joglearth.rendering.MeshUtils.writeNormal;
+import static de.joglearth.rendering.MeshUtils.writeTextureCoordinates;
+import static de.joglearth.rendering.MeshUtils.writeVertex;
+import static java.lang.Math.PI;
+import static java.lang.Math.abs;
+import static java.lang.Math.max;
+import static java.lang.Math.round;
+import static javax.media.opengl.GL.GL_TRIANGLES;
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.geometry.MapProjection;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.height.HeightMap;
-import static java.lang.Math.*;
-import static de.joglearth.rendering.MeshUtils.*;
-import static javax.media.opengl.GL2.*;
 
 /**
  * Generates {@link de.joglearth.rendering.Mesh}es for a tile on the map plane.
@@ -49,7 +55,7 @@ public class PlaneTessellator implements Tessellator {
         for (int line = 0; line < nVerticalVertices; ++line) {
             for (int col = 0; col < nHorizontalVertices; ++col) {
                 writeTextureCoordinates(vertices, vertIndex, (float) col / nHorizontalQuads, 
-                         1 - (float) line / nVerticalQuads);   //bugfix: flipped textures upsite down
+                         1 - (float) line / nVerticalQuads);   // TODO bugfix: flipped textures upsite down
 
                 writeVertex(vertices, vertIndex, lon, lat, getZCoordinate(lon, lat, latStep, heightMap));
 

@@ -8,8 +8,7 @@ import de.joglearth.source.Source;
  * request according to their ID.
  * 
  */
-public interface Cache<Key, Value>
-        extends Source<Key, Value> {
+public interface Cache<Key, Value> extends Source<Key, Value> {
 
     /**
      * Stores object identified by a <code>Key</code>. An existing object with that <code>Key</code>
@@ -29,6 +28,7 @@ public interface Cache<Key, Value>
 
     /**
      * Can be used to get the objects that already exist when the cache is initialized.
+     * 
      * @return All stored objects
      */
     Iterable<Key> getExistingObjects();

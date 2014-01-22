@@ -4,14 +4,27 @@ import de.joglearth.geometry.MapProjection;
 import de.joglearth.geometry.Tile;
 import de.joglearth.height.HeightMap;
 
+/**
+ * TODO
+ *
+ */
 public final class ProjectedTile {
 	
+    //TODO: Alle public Variablen JavaDoc'en
 	public final Tile tile;
 	public final MapProjection projection;
 	public final int equatorSubdivisions;
 	public final int minEquatorSubdivisions;
 	public final HeightMap heightMap;
 	
+	/**
+	 * TODO
+	 * @param tile
+	 * @param projection
+	 * @param minEquatorSubdivisions
+	 * @param equatorSubdivisions
+	 * @param heightMap
+	 */
 	public ProjectedTile (Tile tile, MapProjection projection, int minEquatorSubdivisions,
 	        int equatorSubdivisions, HeightMap heightMap) {
 	    if (tile == null || projection == null || minEquatorSubdivisions < 0 
@@ -85,6 +98,4 @@ public final class ProjectedTile {
         }
         return true;
     }
-
-
 }
