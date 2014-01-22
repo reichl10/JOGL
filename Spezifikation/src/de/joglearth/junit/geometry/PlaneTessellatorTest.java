@@ -10,6 +10,7 @@ import de.joglearth.height.HeightMap;
 import de.joglearth.map.osm.OSMTile;
 import de.joglearth.rendering.Mesh;
 import de.joglearth.rendering.PlaneTessellator;
+import de.joglearth.rendering.ProjectedTile;
 
 
 public class PlaneTessellatorTest {
@@ -19,7 +20,9 @@ public class PlaneTessellatorTest {
 
         PlaneTessellator p = new PlaneTessellator();
         OSMTile t = new OSMTile(2, 1, 0);
-        int subdivision = 1;
+        int subdivision = 1;       
+        
+        
         HeightMap h = new HeightMap() {
             
             @Override

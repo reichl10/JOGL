@@ -22,17 +22,20 @@ public class CameraTest {
         double testDistance = 1.9;
         GeoCoordinates testCoord = new GeoCoordinates(-0.345, (Math.PI/4));
 
+        /* variables not null */
         assertNotNull(cam);
         assertNotNull(g);
 
+        /* check distance */
         cam.setDistance(testDistance);
         assertTrue(cam.getDistance() == testDistance);
 
-
+        /* check position with geographic coordinates */
         cam.setPosition(testCoord);
         assertEquals(cam.getPosition(), testCoord);
         assertTrue(cam.getPosition() != null);
 
+        /* check tilt of the camera */
         try {
             cam.setTilt(0, 0);
         } catch (IllegalArgumentException e) {

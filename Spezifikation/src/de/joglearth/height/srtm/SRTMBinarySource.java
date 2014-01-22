@@ -44,7 +44,7 @@ public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
         if (key == null) {
             throw new IllegalArgumentException();
         }
-        
+
         ProgressManager.getInstance().requestArrived();
 
         String region = tileRegionMap.get(key.toString());
@@ -52,6 +52,7 @@ public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
             return new SourceResponse<byte[]>(SourceResponseType.MISSING, null);
         }
 
+        /* builds the url to gets the srtm data from internet */
         final String url = serverURL + tileRegionMap.get(key.toString()) + "/" + key.toString()
                 + ".hgt.zip";
 
@@ -59,13 +60,7 @@ public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
 
             @Override
             public void run() {
-                //TODO System.out.println(url);
                 byte[] zipBytes = HTTP.get(url, null);
-
-                //if (zipBytes == null) {
-                    //TODO System.err.println("Loading SRTM server data for "
-               //             + key.toString() + " failed");
-                //}
 
                 sender.requestCompleted(key, zipBytes);
                 ProgressManager.getInstance().requestCompleted();

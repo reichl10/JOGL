@@ -16,12 +16,12 @@ public class ProgressManager {
     /**
      * Number of unfinished requests
      */
-    private int                    pending;
+    private int pending;
 
     /**
      * Total number of request added since the last pending == 0
      */
-    private int                    maxPending;
+    private int maxPending;
 
 
     /**
@@ -106,11 +106,10 @@ public class ProgressManager {
     /**
      * Marks a pending request as completed, notifying all listeners of the change.
      */
-    public synchronized void requestCompleted() {      
+    public synchronized void requestCompleted() {
         if (pending > 1) {
             --pending;
         } else {
-            //TODO: Request completed wird ausgeführt aber pending = 0. Error Exception...
             pending = 0;
             maxPending = 0;
         }

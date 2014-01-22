@@ -22,6 +22,10 @@ import de.joglearth.util.Resource;
  */
 public class OSMTileSource implements Source<TileName, byte[]> {
 
+    private Map<OSMMapType, ServerSet> serverSets;
+    private final ExecutorService executor;
+
+
     private class ServerSet {
 
         public String[] servers;
@@ -33,16 +37,10 @@ public class OSMTileSource implements Source<TileName, byte[]> {
     }
 
 
-    private Map<OSMMapType, ServerSet> serverSets;
-    
-    private final ExecutorService executor;
-    
-    
     private static byte[] loadLocalOSMTile(OSMMapType map, String type) {
-        return Resource.loadBinary(String.format("osmLocal/%s-%s.%s", map, type, 
+        return Resource.loadBinary(String.format("osmLocal/%s-%s.%s", map, type,
                 getImageFormatSuffix(map)));
     }
-    
 
     /**
      * Constructor. Initializes the {@link de.joglearth.map.osm.OSMTileSource}.
@@ -51,8 +49,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
      */
     public OSMTileSource() {
         executor = Executors.newFixedThreadPool(4);
-        //executor = new ThreadPoolExecutor(2, 2, 0L, TimeUnit.MILLISECONDS, new LIFOBlockingDeque<Runnable>());
-        
+
         serverSets = new HashMap<>();
         serverSets.put(OSMMapType.CYCLING, new ServerSet(new String[] {
                 "http://a.tile.opencyclemap.org/cycle/",
@@ -73,38 +70,40 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         serverSets.put(OSMMapType.MAPNIK, new ServerSet(new String[] {
                 "http://otile1.mqcdn.com/tiles/1.0.0/osm/",
                 "http://otile2.mqcdn.com/tiles/1.0.0/osm/" }));
-        
+
     }
 
     @Override
     public SourceResponse<byte[]> requestObject(final TileName k,
             final SourceListener<TileName, byte[]> sender) {
+        
         if (k.configuration instanceof OSMMapConfiguration) {
             final OSMMapConfiguration configuration = (OSMMapConfiguration) k.configuration;
             if (k.tile instanceof OSMTile) {
                 OSMTile tile = (OSMTile) k.tile;
-                
+
                 if (tile.getDetailLevel() == 0) {
-                    return new SourceResponse<byte[]>(SourceResponseType.SYNCHRONOUS, 
+                    return new SourceResponse<byte[]>(SourceResponseType.SYNCHRONOUS,
                             loadLocalOSMTile(configuration.getMapType(), "0"));
                 } else {
                     ProgressManager.getInstance().requestArrived();
                     executor.execute(new Runnable() {
-            
+
                         @Override
                         public void run() {
-                            byte[] response = fetchRemoteTile((OSMTile) k.tile, configuration.getMapType());        
+                            byte[] response = fetchRemoteTile((OSMTile) k.tile,
+                                    configuration.getMapType());
                             sender.requestCompleted(k, response);
                             ProgressManager.getInstance().requestCompleted();
                         }
                     });
                     return new SourceResponse<byte[]>(SourceResponseType.ASYNCHRONOUS, null);
                 }
-                
+
             } else if (k.tile instanceof OSMPole) {
                 OSMPole pole = (OSMPole) k.tile;
-                return new SourceResponse<byte[]>(SourceResponseType.SYNCHRONOUS, 
-                        loadLocalOSMTile(configuration.getMapType(), 
+                return new SourceResponse<byte[]>(SourceResponseType.SYNCHRONOUS,
+                        loadLocalOSMTile(configuration.getMapType(),
                                 pole.getPole() == OSMPole.NORTH ? "north" : "south"));
             }
         }
@@ -112,8 +111,6 @@ public class OSMTileSource implements Source<TileName, byte[]> {
     }
 
     private byte[] fetchRemoteTile(OSMTile tile, OSMMapType mapType) {
-        // TODO System.err.println("OSMTileSource: loading " + tile + " with type " +
-        // type.toString());
 
         // Spezialfall Kartenrand (Longitude)
         double lonFrom = tile.getLongitudeFrom();
@@ -257,31 +254,32 @@ public class OSMTileSource implements Source<TileName, byte[]> {
 
     public static String getImageFormatSuffix(OSMMapType mapType) {
         switch (mapType) {
-            case MAPNIK: 
+            case MAPNIK:
                 return "jpg";
-                
-            default: 
+
+            default:
                 return "png";
         }
     }
 
-    private class LIFOBlockingDeque <C> extends LinkedBlockingDeque<C> {
+
+    private class LIFOBlockingDeque<C> extends LinkedBlockingDeque<C> {
+
         @Override
         public boolean offer(C e) {
             return super.offerFirst(e);
         }
-        
+
         @Override
         public boolean offer(C e, long timeout, TimeUnit unit) throws InterruptedException {
             return super.offerFirst(e, timeout, unit);
         }
-        
+
         @Override
         public boolean add(C e) {
             return super.offerFirst(e);
         }
-        
-        
+
         @Override
         public void put(C e) throws InterruptedException {
             super.putFirst(e);

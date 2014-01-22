@@ -17,10 +17,8 @@ import de.joglearth.source.caching.RequestDistributor;
 public final class NominatimManager implements Source<NominatimQuery, Collection<Location>> {
 
     private static NominatimManager instance = null;
-
     private Cache<NominatimQuery, Collection<Location>> cache;
     private Source<NominatimQuery, Collection<Location>> source;
-
     private RequestDistributor<NominatimQuery, Collection<Location>> dist;
 
 

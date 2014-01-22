@@ -86,10 +86,14 @@ public class SettingsContractTest {
 
     @Test
     public void testLoadSettings() {
+
+        /* check if settings are loaded */
         Settings settings = Settings.getInstance();
         settings.putInteger(SettingsContract.CACHE_SIZE_FILESYSTEM, new Integer(23712));
         settings.putString(SettingsContract.LEVEL_OF_DETAIL, "WrongValue");
         SettingsContract.loadSettings();
+
+        /* check different attributes */
         assertEquals("MEDIUM", settings.getString(SettingsContract.LEVEL_OF_DETAIL));
         assertEquals("GERMAN", settings.getString(SettingsContract.LANGUAGE));
         assertEquals(new Boolean(false), settings.getBoolean(SettingsContract.TEXTURE_FILTER));
@@ -102,6 +106,8 @@ public class SettingsContractTest {
 
     @Test
     public void testSaveSettings() {
+
+        /* check if settings are written */
         Settings settings = Settings.getInstance();
         settings.putInteger(SettingsContract.CACHE_SIZE_FILESYSTEM, TV_INTEGER);
         settings.putInteger(SettingsContract.CACHE_SIZE_MEMORY, TV_INTEGER);
@@ -116,6 +122,8 @@ public class SettingsContractTest {
         settings.putString(SettingsContract.LANGUAGE, null);
         settings.putBoolean(SettingsContract.TEXTURE_FILTER, null);
         SettingsContract.loadSettings();
+
+        /* check different attributes */
         assertEquals(TV_INTEGER, settings.getInteger(SettingsContract.CACHE_SIZE_FILESYSTEM));
         assertEquals(TV_INTEGER, settings.getInteger(SettingsContract.CACHE_SIZE_MEMORY));
         assertEquals(Antialiasing.MSAA_2X.name(),
@@ -127,5 +135,4 @@ public class SettingsContractTest {
         assertTrue(locationSet1.contains(TV_LOCATION));
         assertTrue(locationSet1.size() == 1);
     }
-
 }

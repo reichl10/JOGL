@@ -18,21 +18,21 @@ import de.joglearth.source.caching.RequestDistributor;
 public final class OverpassManager implements Source<OverpassQuery, Collection<Location>> {
 
     private static OverpassManager instance;
-
     private RequestDistributor<OverpassQuery, Collection<Location>> dist;
     private Source<OverpassQuery, Collection<Location>> source;
     private Cache<OverpassQuery, Collection<Location>> cache;
+
 
     /* Default constructor */
     private OverpassManager() {
         dist = new RequestDistributor<OverpassQuery, Collection<Location>>();
         source = new OverpassSource();
         cache = new MemoryCache<OverpassQuery, Collection<Location>>();
-        
+
         dist.setSource(source);
         dist.addCache(cache, 1000);
     }
-    
+
     /**
      * Returns the instance of the class or creates it, if it does not exist yet.
      * 
@@ -45,6 +45,9 @@ public final class OverpassManager implements Source<OverpassQuery, Collection<L
         return instance;
     }
 
+    /**
+     *  //TODO
+     */
     public static void shutDown() {
         if (instance != null) {
             instance.dispose();
@@ -65,7 +68,7 @@ public final class OverpassManager implements Source<OverpassQuery, Collection<L
     public void setCacheSize(int size) {
         dist.setCacheSize(cache, size);
     }
-    
+
     @Override
     public void dispose() {
         dist.dispose();

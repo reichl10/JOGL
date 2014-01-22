@@ -20,6 +20,7 @@ public class SphereTessellatorTest {
         SphereTessellator p = new SphereTessellator();
         OSMTile t = new OSMTile(5, 10, 10);
         int subdivision = 1;
+        
         HeightMap h = new HeightMap() {
             
             @Override
