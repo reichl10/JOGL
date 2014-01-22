@@ -38,7 +38,7 @@ public class LocationManager {
     private Collection<Location> lastSearchLocations;
     private OverpassManager overpassManager = OverpassManager.getInstance();
     private Set<LocationType> activeLocationTypes;
-
+    private boolean locationTypesEnabled;
 
     private class UserTagsListener implements SettingsListener {
 
@@ -60,6 +60,7 @@ public class LocationManager {
         activeLocationTypes = new HashSet<LocationType>();
         Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS,
                 new UserTagsListener());
+        locationTypesEnabled = false;
 
     }
 
@@ -105,24 +106,25 @@ public class LocationManager {
                     }
                 }
         }
+        if (locationTypesEnabled) {
+            for (final Tile tile : area) {
+                for (LocationType lType : activeLocationTypes) {
+                    OverpassQuery opQuery = new OverpassQuery(lType, tile);
+                    SourceResponse<Collection<Location>> response = overpassManager.requestObject(
+                            opQuery, new SourceListener<OverpassQuery, Collection<Location>>() {
 
-        for (final Tile tile : area) {
-            for (LocationType lType : activeLocationTypes) {
-                OverpassQuery opQuery = new OverpassQuery(lType, tile);
-                SourceResponse<Collection<Location>> response = overpassManager.requestObject(
-                        opQuery, new SourceListener<OverpassQuery, Collection<Location>>() {
+                                @Override
+                                public void requestCompleted(OverpassQuery key,
+                                        Collection<Location> value) {
+                                    callSurfaceListeners(tile.getLongitudeFrom(),
+                                            tile.getLatitudeFrom(), tile.getLongitudeTo(),
+                                            tile.getLatitudeTo());
+                                }
+                            });
 
-                            @Override
-                            public void requestCompleted(OverpassQuery key,
-                                    Collection<Location> value) {
-                                callSurfaceListeners(tile.getLongitudeFrom(),
-                                        tile.getLatitudeFrom(), tile.getLongitudeTo(),
-                                        tile.getLatitudeTo());
-                            }
-                        });
-
-                if (response.response == SourceResponseType.SYNCHRONOUS) {
-                    locations.addAll(response.value);
+                    if (response.response == SourceResponseType.SYNCHRONOUS) {
+                        locations.addAll(response.value);
+                    }
                 }
             }
         }
@@ -333,6 +335,14 @@ public class LocationManager {
                 return response.value.iterator().next();
         }
         return baseLocation;
+    }
+    
+    /**
+     * Enabled or Disabled LocationTypes that need to be loaded.
+     * @param enabled true to enable or false to disable
+     */
+    public void enableLocations(boolean enabled) {
+        locationTypesEnabled = enabled;
     }
 
     /**
