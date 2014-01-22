@@ -75,7 +75,7 @@ public class Camera {
        
         double altitude = distance;
         if (getSurfaceScale() < 0.005) {
-            altitude += heightMap.getHeight(position, 1e-6); 
+            altitude += heightMap.getHeight(position, 1e-4); 
         }
         //TODO System.err.println("Camera: updating, altitude=" + altitude);
         
@@ -383,6 +383,10 @@ public class Camera {
 
         return isPointVisible(geometry.getSpacePosition(geo))
                 && geometry.isPointVisible(cameraPosition, geo);
+    }
+    
+    public Vector3 getSpacePosition(GeoCoordinates geo) {
+        return geometry.getSpacePosition(geo);
     }
 
     /**

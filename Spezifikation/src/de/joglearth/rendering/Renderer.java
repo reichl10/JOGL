@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.jogamp.opengl.util.awt.TextRenderer;
@@ -160,7 +161,7 @@ public class Renderer {
     private void render() {
         // Construct projection matrix based on the distance to avoid clipping. Constants cause
         // problem with graphics adapters that don't support a 24 bit depth buffer.
-        double zNear = camera.getDistance() / 2, zFar = zNear * 1000;
+        double zNear = camera.getDistance() / 10, zFar = zNear * 2000;
         camera.setPerspective(FOV, aspectRatio, zNear, zFar);
         gl.loadMatrix(GL_PROJECTION, camera.getProjectionMatrix());
         
@@ -222,6 +223,7 @@ public class Renderer {
                     / log(2)))), minEquatorSubdivisions = layout.getHoritzontalTileCount();
 
             Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, layout);
+            System.out.println(((ArrayList<Tile>) tiles).size() + " Kacheln");
 
             // // TODO debug-code: prints a visual representation of the set of visible tiles
             // TileLayout lay = mapConfiguration.getOptimalTileLayout(camera, screenSize);
@@ -250,8 +252,13 @@ public class Renderer {
             //
             // StringBuilder tsb = new StringBuilder("Texture IDs: "),
             // vsb = new StringBuilder("Vertex Buffers: ");
+            int i = 0;
             for (Tile tile : tiles) {
-                TransformedTexture texture = textureManager.getTexture(tile);
+                //if (++i > 500) break;
+                int scaleDown = (int) abs(camera.getSpacePosition(
+                        new GeoCoordinates(tile.getLongitudeFrom(), tile.getLatitudeFrom()))
+                        .to(camera.getSpacePosition(camera.getPosition())).length() / camera.getSurfaceScale() / 5);
+                TransformedTexture texture = textureManager.getTexture(tile, scaleDown);
                 gl.loadMatrix(GL_TEXTURE, texture.transformation);
                 // tsb.append(texture.getTextureObject());
                 // tsb.append(", ");
