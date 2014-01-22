@@ -29,7 +29,7 @@ public final class SRTMTileManager implements Source<SRTMTileName, SRTMTile> {
      */
     public static SRTMTileManager getInstance() {
         if (instance == null) {
-            instance = new SRTMTileManager(ApplicationData.getDirectory("srtm"), 100*1024*1024, 
+            instance = new SRTMTileManager(ApplicationData.getDirectory("srtm"), 200*1024*1024, 
                     1000*1024*1024);
         }
         return instance;

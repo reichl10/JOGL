@@ -55,28 +55,34 @@ public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
         final String url = serverURL + tileRegionMap.get(key.toString()) + "/" + key.toString()
                 + ".hgt.zip";
 
-        executor.execute(new Runnable() {
-
-            @Override
-            public void run() {
-                //TODO System.out.println(url);
-                byte[] zipBytes = HTTP.get(url, null);
-
-                //if (zipBytes == null) {
-                    //TODO System.err.println("Loading SRTM server data for "
-               //             + key.toString() + " failed");
-                //}
-
-                sender.requestCompleted(key, zipBytes);
-                ProgressManager.getInstance().requestCompleted();
+        synchronized (executor) {
+            if (!executor.isShutdown()) {
+                executor.execute(new Runnable() {
+        
+                    @Override
+                    public void run() {
+                        //TODO System.out.println(url);
+                        byte[] zipBytes = HTTP.get(url, null);
+        
+                        //if (zipBytes == null) {
+                            //TODO System.err.println("Loading SRTM server data for "
+                       //             + key.toString() + " failed");
+                        //}
+        
+                        sender.requestCompleted(key, zipBytes);
+                        ProgressManager.getInstance().requestCompleted();
+                    }
+                });
             }
-        });
-
+        }
+        
         return new SourceResponse<byte[]>(SourceResponseType.ASYNCHRONOUS, null);
     }
 
     @Override
     public void dispose() {
-        executor.shutdown();
+        synchronized (executor) {
+            executor.shutdownNow();
+        }
     }
 }
