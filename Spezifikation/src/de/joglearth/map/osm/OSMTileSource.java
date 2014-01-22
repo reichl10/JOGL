@@ -252,7 +252,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
 
     @Override
     public void dispose() {
-        executor.shutdown();
+        executor.shutdownNow();
     }
 
     public static String getImageFormatSuffix(OSMMapType mapType) {

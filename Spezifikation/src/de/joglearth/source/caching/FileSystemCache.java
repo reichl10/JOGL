@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import de.joglearth.source.ProgressManager;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
@@ -69,6 +70,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
             lockedFileSet.add(key);
             registerListener(key, sender);
             responseType = SourceResponseType.ASYNCHRONOUS;
+            ProgressManager.getInstance().requestArrived();
             executorService.execute(new FileLoaderRunnable(key));
         } else {
             responseType = SourceResponseType.MISSING;
@@ -79,6 +81,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
     @Override
     public void putObject(Key k, byte[] v) {
+        ProgressManager.getInstance().requestArrived();
         executorService.execute(new FileWriterRunnable(k, v));
     }
 
@@ -261,6 +264,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
                     }
                 }
             }
+            ProgressManager.getInstance().requestCompleted();
         }
     }
 
@@ -285,6 +289,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            ProgressManager.getInstance().requestCompleted();
         }
     }
     
