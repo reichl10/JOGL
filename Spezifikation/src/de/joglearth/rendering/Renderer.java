@@ -90,6 +90,7 @@ public class Renderer {
 
     private InitState initState;
     private HeightMap heightMap = FlatHeightMap.getInstance();
+    private LevelOfDetail levelOfDetail;
 
 
     /**
@@ -175,19 +176,11 @@ public class Renderer {
         gl.loadMatrix(GL_MODELVIEW, skyMatrix);
         gl.drawSphere(zNear * 10, 15, 8, true, nightSky);        
         
-        // Blend inner day sky
-        gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        gl.setFeatureEnabled(GL_BLEND, true);
-        float daySkyAlpha = (float) min(0.8, max(0.0, pow(camera.getDistance(), -2) / 1000 ));
-        float[] daySkyColor = { 0.2734375f, 0.5484375f, 1, daySkyAlpha };
-        gl.drawSphere(zNear * 10, 15, 8, true, daySkyColor);
-        gl.setFeatureEnabled(GL_BLEND, false);        
-        
-        // The sky is drawn close to the camera to avoid clipping, but is always in the background
-        gl.setFeatureEnabled(GL_DEPTH_TEST, true);
-        gl.clear(GL_DEPTH_BUFFER_BIT);
-
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
+
+            // The sky is drawn close to the camera to avoid clipping, but is always in the background
+            gl.setFeatureEnabled(GL_DEPTH_TEST, true);
+            gl.clear(GL_DEPTH_BUFFER_BIT);
 
             gl.setAmbientLight(0.2);
             
@@ -205,75 +198,65 @@ public class Renderer {
             gl.setFeatureEnabled(GL_LIGHTING, false);
 
         } else {
+            
+            // Blend inner day sky
+            gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            gl.setFeatureEnabled(GL_BLEND, true);
+            float daySkyAlpha = (float) min(0.8, max(0.0, pow(camera.getDistance(), -2) / 1000 ));
+            float[] daySkyColor = { 0.2734375f, 0.5484375f, 1, daySkyAlpha };
+            gl.drawSphere(zNear * 10, 15, 8, true, daySkyColor);
+            gl.setFeatureEnabled(GL_BLEND, false);
 
             gl.setAmbientLight(1.0);
-            
-            HeightMap effectiveHeightMap 
-                = camera.getSurfaceScale() < 0.005 ? heightMap : FlatHeightMap.getInstance();
             
             gl.loadMatrix(GL_MODELVIEW, new Matrix4());
             gl.placeLight(0, new Vector4(-camera.getDistance(), 0, 0, 1));
             gl.setFeatureEnabled(GL_LIGHTING, true);
             
             gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
+            /*
+            int slices = 0;
+            switch (levelOfDetail) {
+                case LOW: slices = 100; break;
+                case MEDIUM: slices = 250; break;
+                case HIGH: slices = 750; break;
+            }
+            
+            gl.drawSphere(1, slices, slices / 2, false, new float[] {0.8f, 0.8f, 0.8f, 1});*/
+            
+            // The sky is drawn close to the camera to avoid clipping, but is always in the background
+            gl.setFeatureEnabled(GL_DEPTH_TEST, true);
+            gl.clear(GL_DEPTH_BUFFER_BIT);
 
             TileLayout layout = mapConfiguration.getOptimalTileLayout(camera, screenSize);
             int equatorSubdivisions = (1 << max(0, (int) ceil(log((double) screenSize.width
                     / subdivisionPixels / camera.getSurfaceScale())
                     / log(2)))), minEquatorSubdivisions = layout.getHoritzontalTileCount();
 
-            Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, layout);
+            Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, layout, 500);
             System.out.println(((ArrayList<Tile>) tiles).size() + " Kacheln");
-
-            // // TODO debug-code: prints a visual representation of the set of visible tiles
-            // TileLayout lay = mapConfiguration.getOptimalTileLayout(camera, screenSize);
-            // Set<GridPoint> origins = new HashSet<GridPoint>();
-            // int minx = 0, maxx = 0, miny = 0, maxy = 0;
-            // boolean first = true;
-            // for (Iterator<Tile> it = tiles.iterator(); it.hasNext(); ) {
-            // GridPoint p = lay.getTileOrigin(it.next());
-            // if (first || p.getLongitude() < minx) minx = p.getLongitude();
-            // if (first || p.getLongitude() > maxx) maxx = p.getLongitude();
-            // if (first || p.getLatitude() < miny) miny = p.getLatitude();
-            // if (first || p.getLatitude() > maxy) maxy = p.getLatitude();
-            // first = false;
-            // origins.add(p);
-            // }
-            // StringBuilder sb = new StringBuilder("Visible Tile Graph:\n");
-            // for (int y=miny; y <= maxy; ++y) {
-            // for (int x=minx; x <= maxx; ++x) {
-            // sb.append(origins.contains(new GridPoint(x, y)) ? 'x' : ' ');
-            // }
-            // sb.append('\n');
-            // }
-            // System.out.print(sb.toString());
-            //
-            // // --------------
-            //
-            // StringBuilder tsb = new StringBuilder("Texture IDs: "),
-            // vsb = new StringBuilder("Vertex Buffers: ");
-            int i = 0;
+            
             for (Tile tile : tiles) {
-                //if (++i > 500) break;
                 int scaleDown = (int) abs(camera.getSpacePosition(
                         new GeoCoordinates(tile.getLongitudeFrom(), tile.getLatitudeFrom()))
-                        .to(camera.getSpacePosition(camera.getPosition())).length() / camera.getSurfaceScale() / 5);
-                TransformedTexture texture = textureManager.getTexture(tile, scaleDown);
-                gl.loadMatrix(GL_TEXTURE, texture.transformation);
+                        .to(camera.getSpacePosition(camera.getPosition())).length()
+                        / camera.getDistance() / 2);
+                TransformedTexture texture = null;
+                if (scaleDown <= 2) {
+                    texture = textureManager.getTexture(tile, scaleDown);
+                    gl.loadMatrix(GL_TEXTURE, texture.transformation);
+                }
+                HeightMap effectiveHeightMap = (camera.getSurfaceScale() < 0.005 && scaleDown <= 2 )? heightMap
+                        : FlatHeightMap.getInstance();
+
                 // tsb.append(texture.getTextureObject());
                 // tsb.append(", ");
                 ProjectedTile projected = new ProjectedTile(tile, mapConfiguration.getProjection(),
                         minEquatorSubdivisions, equatorSubdivisions, effectiveHeightMap);
                 VertexBuffer vbo = tileMeshManager.requestObject(projected, null).value;
-                // vsb.append(vbo.getVertices());
-                // vsb.append("/");
-                // vsb.append(vbo.getIndices());
-                // vsb.append(", ");
-                gl.drawVertexBuffer(vbo, texture.texture);
+                gl.drawVertexBuffer(vbo, texture != null ? texture.texture : null);
             }
-            // System.out.println(tsb.toString());
-            // System.out.println(vsb.toString());
-
+            
             gl.setFeatureEnabled(GL_LIGHTING, false);
             
             gl.loadMatrix(GL_PROJECTION, new Matrix4());
@@ -421,7 +404,7 @@ public class Renderer {
     }
 
     private void setLevelOfDetail(LevelOfDetail lod) {
-        synchronized (Renderer.this) {
+        synchronized (this) {
             switch (lod) {
                 case LOW:
                     subdivisionPixels = 100;
@@ -432,6 +415,7 @@ public class Renderer {
                 case HIGH:
                     subdivisionPixels = 20;
             }
+            this.levelOfDetail = lod;
         }
         gl.postRedisplay();
     }

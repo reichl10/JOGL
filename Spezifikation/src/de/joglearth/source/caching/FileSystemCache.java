@@ -53,7 +53,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
         this.lockedFileSet = new HashSet<Key>();
         this.filesForDroping = new HashSet<Key>();
         this.registredListeners = new HashMap<Key, Set<SourceListener<Key, byte[]>>>();
-        this.executorService = Executors.newSingleThreadScheduledExecutor();
+        this.executorService = Executors.newFixedThreadPool(5);
         try {
             Files.walkFileTree(basePath, new FileIndexerWalker(keySet, basePath, pathTranslator));
         } catch (IOException e) {

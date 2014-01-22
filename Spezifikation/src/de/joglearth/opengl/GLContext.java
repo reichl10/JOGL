@@ -652,6 +652,25 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         gl.glLightModelfv(GL_LIGHT_MODEL_AMBIENT, new float[] { fi, fi, fi, 1 }, 0);
         GLError.throwIfActive(gl);
     }
+    
+    
+    public void setFogParameters(int mode, float[] color, double density, int hint) {
+        assertIsInitialized();
+        assertIsInsideCallback();
+        assertIsValidIntensity(density);
+        
+        gl.glFogi(GL_FOG_MODE, mode);
+        GLError.throwIfActive(gl);
+        
+        gl.glFogfv(GL_FOG_COLOR, color, 0);
+        GLError.throwIfActive(gl);
+        
+        gl.glFogf(GL_FOG_DENSITY, (float) density);
+        GLError.throwIfActive(gl);
+        
+        gl.glHint(GL_FOG_HINT, hint);
+        GLError.throwIfActive(gl);        
+    }
 
     /**
      * Returns the number of lights supported.

@@ -25,8 +25,8 @@ public final class CameraUtils {
      * @return The array of visible tiles
      */
     public static Iterable<Tile> getVisibleTiles(Camera camera,
-            TileLayout tileLayout) {
-        if (camera == null || tileLayout == null) {
+            TileLayout tileLayout, int maxTiles) {
+        if (camera == null || tileLayout == null || maxTiles <= 0) {
             throw new IllegalArgumentException();
         }
         
@@ -54,13 +54,14 @@ public final class CameraUtils {
             // Use a set to skip already added tiles. This may happen if the walker rounds the
             // earth.
             HashSet<Tile> addedTiles = new HashSet<>();
+            int i = 0;
             do {
                 Tile t = walker.getTile();
                 if (!addedTiles.contains(t)) {
                     visibleTiles.add(t);
                     addedTiles.add(t);
                 }
-            } while (walker.step());
+            } while (walker.step() && ++i < maxTiles);
         } else if (centeredTile != null) {
             // If no corner is visible, only the centered tile is part of the set
             visibleTiles.add(centeredTile);
