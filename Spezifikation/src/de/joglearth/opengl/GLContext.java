@@ -308,50 +308,43 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         if (stream == null || suffix == null) {
             throw new IllegalArgumentException();
         }
-        
-        /*
-         * TODO Catching RuntimeException in general is bad; the PNG loader throws
-         * PngjInputException which is a subclass of RuntimeException. Investigate whether the JPEG
-         * loader does a similar thing and catch the exceptions separately.
-         */
-        
+
         TextureData data;
+        System.out.println("Load Texture Data");
+        long start = System.currentTimeMillis();
+        BufferedImage bImg = ImageIO.read(stream);
+        if (bImg == null) {
+            bImg = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+            bImg.setRGB(0, 0, Integer.MAX_VALUE);
+        }
+        BufferedImage bImage2 = new BufferedImage(bImg.getWidth(null), bImg.getHeight(null),
+                BufferedImage.TYPE_INT_ARGB);
+        bImage2.createGraphics().drawImage(bImg, 0, 0, null);
+        bImg = bImage2;
+        int imgW = bImg.getWidth();
+        int imgH = bImg.getHeight();
+        if (maxTextureSize < imgW || maxTextureSize < imgH) {
+            int bigS = Math.max(imgW, imgH);
+            double scale = (maxTextureSize / (double) bigS);
+            imgW = (int) Math.floor(imgW * scale);
+            imgH = (int) Math.floor(imgH * scale);
+            Image scaled = bImg.getScaledInstance(imgW, imgH, BufferedImage.SCALE_DEFAULT);
+            bImg = new BufferedImage(scaled.getWidth(null), scaled.getHeight(null),
+                    BufferedImage.TYPE_INT_ARGB);
+            bImg.createGraphics().drawImage(scaled, 0, 0, null);
+        }
+        AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
+        tx.translate(0, -bImg.getHeight(null));
+        AffineTransformOp op = new AffineTransformOp(tx,
+                AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        bImg = op.filter(bImg, null);
         try {
-            data = TextureIO.newTextureData(gl.getGLProfile(), stream, false, suffix);
+            data = AWTTextureIO.newTextureData(gl.getGLProfile(), bImg, false);
         } catch (RuntimeException e) {
             throw new IOException("Error loading texture data", e);
         }
-        
-        if (maxTextureSize < data.getWidth() || maxTextureSize < data.getHeight()) {        
-            BufferedImage bImg = ImageIO.read(stream);
-            if (bImg == null) {
-                bImg = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-                bImg.setRGB(0, 0, Integer.MAX_VALUE);
-            }
-            BufferedImage bImage2 = new BufferedImage(bImg.getWidth(null), bImg.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-            bImage2.createGraphics().drawImage(bImg, 0, 0, null);
-            bImg = bImage2;
-            int imgW = bImg.getWidth();
-            int imgH = bImg.getHeight();
-            //System.out.println("Rescaling!");
-            int bigS = Math.max(imgW, imgH);
-            double scale = (maxTextureSize/(double)bigS);
-            imgW = (int) Math.floor(imgW*scale);
-            imgH = (int) Math.floor(imgH*scale);
-            Image scaled = bImg.getScaledInstance(imgW, imgH, BufferedImage.SCALE_DEFAULT);
-            bImg = new BufferedImage(scaled.getWidth(null), scaled.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-            bImg.createGraphics().drawImage(scaled, 0, 0, null);
-            AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
-            tx.translate(0, -bImg.getHeight(null));
-            AffineTransformOp op = new AffineTransformOp(tx,
-                AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
-            bImg = op.filter(bImg, null);
-            try {
-                data = AWTTextureIO.newTextureData(gl.getGLProfile(), bImg, false);
-            } catch (RuntimeException e) {
-                throw new IOException("Error loading texture data", e);
-            }
-        }
+        long end = System.currentTimeMillis();
+        System.out.println("Loading took: " + (end - start));
 
         return data;
     }
