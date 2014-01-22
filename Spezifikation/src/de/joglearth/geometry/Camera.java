@@ -427,24 +427,23 @@ public class Camera {
             return null;
         }
         Vector3 cameraPosition = modelCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
-        Vector3 earthAxis = modelCameraMatrix.transform(new Vector3(0, 1, 0)).divide();
+        Vector3 earthAxis = new Vector3(0, 1, 0);
         
-        Vector3 zAxis = modelCameraMatrix.transform(new Vector3(0, 0, 1)).divide()
-                .minus(cameraPosition).normalized();
+        Vector3 zAxis = cameraPosition.times(-1).normalized();
         Vector3 xAxis = earthAxis.crossProduct(zAxis).normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
         
         double yAngle = atan((1-2*screen.x)*sin(horizontalFOV));
         double xAngle = atan((1-2*screen.y)*sin(verticalFOV));
-        System.out.println("Horizontal FOV: " + horizontalFOV);
-        System.out.println("Vertical FOV: " + verticalFOV);
+        System.out.format(
+                "\nCameraPosition = %s\nearthAxis=%s\nzAxis=%s\nxAxis=%s\nyAxis=%s\nyAngle=%f\nxAngle=%f\n\n",
+                cameraPosition, earthAxis, zAxis, xAxis, yAxis, yAngle, xAngle);
 
-        Matrix4 directionMatrix = modelCameraMatrix.clone();
+        Matrix4 directionMatrix = new Matrix4();
         directionMatrix.rotate(yAxis, yAngle);
-        directionMatrix.rotate(xAxis, xAngle);
+        directionMatrix.rotate(xAxis, -xAngle);
 
-        Vector3 viewVector = directionMatrix.transform(new Vector3(0, 0, -1)).divide()
-                .minus(cameraPosition);
+        Vector3 viewVector = directionMatrix.transform(zAxis).divide();
 
         /*System.err.format("Camera.getGeoCoordinates(): Screen Position: %s, Camera Position: %s,"
                 + " Camera Axes: X=%s, Y=%s, Z=%s, Direction angles: Y-Rotation=%.3f°, X-Rotation="
