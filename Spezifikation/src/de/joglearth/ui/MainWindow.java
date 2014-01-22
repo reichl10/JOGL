@@ -7,6 +7,7 @@ import static java.lang.Math.pow;
 import static java.lang.Math.signum;
 
 import java.awt.Canvas;
+import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
@@ -1054,7 +1055,7 @@ public class MainWindow extends JFrame {
                         GeoCoordinates geo = GeoCoordinates.parseCoordinates(
                                 longitudeTextField.getText(), latitudeTextField.getText());
                         camera.setPosition(geo);
-                    } catch (NumberFormatException ex) { 
+                    } catch (NumberFormatException ex) {
                         GeoCoordinates geo = camera.getPosition();
                         longitudeTextField.setText(geo.getLongitudeString());
                         latitudeTextField.setText(geo.getLatitudeString());
@@ -1202,7 +1203,7 @@ public class MainWindow extends JFrame {
         Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS,
                 new UIUserLocationListener());
         searchResultList.addMouseListener(new MouseAdapter() {
-            
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 Location location = searchResultList.getSelectedValue();
@@ -1719,7 +1720,7 @@ public class MainWindow extends JFrame {
             double sizeScreen = camera.getSurfaceScale() * rad;
             double scale = dimensionCvas.getWidth() / dimensionScaleCanv.getWidth();
             double scaleSize = Math.round(sizeScreen / scale);
-            scaleLabel.setText(String.valueOf(scaleSize)+" m");
+            scaleLabel.setText(String.valueOf(scaleSize) + " m");
         }
 
     }
@@ -1987,13 +1988,39 @@ public class MainWindow extends JFrame {
         @Override
         public void stateChanged(ChangeEvent e) {
             JSlider slider = (JSlider) e.getSource();
-            label.setText(Integer.toString(slider.getValue()));
+            int value = slider.getValue();
+            label.setText(Integer.toString(value));
             updateZoom();
             requestDetails();
+            if (value < 90) {
+                enableOptionalOverlays(false);
+            } else {
+                enableOptionalOverlays(true);
+            }
         }
 
     }
 
+
+    private void enableOptionalOverlays(boolean enable) {
+        locationManager.enableLocations(enable);
+        Set<Entry<JCheckBox, LocationType>> entrys = checkboxToLocationTypeMap.entrySet();
+        for (Entry<JCheckBox, LocationType> entry : entrys) {
+            LocationType type = entry.getValue();
+            if (type != LocationType.SEARCH && type != LocationType.USER_TAG) {
+                JCheckBox box = entry.getKey();
+                if (enable) {
+                    if (!box.isEnabled()) {
+                        box.setEnabled(true);
+                    }
+                } else {
+                    if (box.isEnabled()) {
+                        box.setEnabled(false);
+                    }
+                }
+            }
+        }
+    }
 
     private void updateZoom() {
         double factor = 1 - zoomSlider.getValue() / (double) zoomSlider.getMaximum();
