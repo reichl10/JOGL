@@ -54,7 +54,6 @@ public class PlaneGeometry implements Geometry {
         if (cameraPosition == null || viewVector == null) {
             throw new IllegalArgumentException();
         }
-
         /*
          * If the viewer looks in positive Z direction, the camera has a negative Z coordinate, or
          * the view vector is the zero vector, he is not looking down on the plane. Therefore, there
@@ -63,9 +62,13 @@ public class PlaneGeometry implements Geometry {
         if (viewVector.z >= 0 || cameraPosition.z <= 0 || viewVector.length() == 0) {
             return null;
         }
+        
+        double lon = cameraPosition.x 
+                + (-HeightMap.MIN_HEIGHT - cameraPosition.z) / viewVector.z * viewVector.x;
+        double lat = cameraPosition.y
+                + (-HeightMap.MIN_HEIGHT - cameraPosition.z) / viewVector.z * viewVector.y;
 
-        double lon = (cameraPosition.x - cameraPosition.z / viewVector.z * viewVector.x);
-        double lat = (cameraPosition.y - cameraPosition.z / viewVector.z * viewVector.y);
+        System.out.println("Camera: " + cameraPosition + ", View: " + viewVector + ", Lon: " + lon + ", Lat: " + lat);
 
         // These conditions hold if and only if the centered point is on the plane.
         if (lon > -PI && lon <= PI && lat >= -PI / 2 && lat <= PI / 2) {
