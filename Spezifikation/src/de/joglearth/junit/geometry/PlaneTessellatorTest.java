@@ -4,9 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.geometry.SurfaceListener;
-import de.joglearth.height.HeightMap;
+
+import de.joglearth.geometry.LinearProjection;
+import de.joglearth.geometry.MercatorProjection;
+import de.joglearth.height.flat.FlatHeightMap;
 import de.joglearth.map.osm.OSMTile;
 import de.joglearth.rendering.Mesh;
 import de.joglearth.rendering.PlaneTessellator;
@@ -20,32 +21,22 @@ public class PlaneTessellatorTest {
 
         PlaneTessellator p = new PlaneTessellator();
         OSMTile t = new OSMTile(2, 1, 0);
-        int subdivision = 1;       
+        int subdivision = 1;
+        ProjectedTile lin = new ProjectedTile(t, new LinearProjection(), 0,
+        		subdivision, FlatHeightMap.getInstance());
+        ProjectedTile merc = new ProjectedTile(t, new MercatorProjection(), 0,
+        		subdivision, FlatHeightMap.getInstance());
         
-        
-        HeightMap h = new HeightMap() {
-            
-            @Override
-            public void removeSurfaceListener(SurfaceListener l) {
-                // TODO Auto-generated method stub
-                
-            }
-            
-            @Override
-            public double getHeight(GeoCoordinates coords, double angularResolution) {
-                // TODO Auto-generated method stub
-                return 0;
-            }
-            
-            @Override
-            public void addSurfaceListener(SurfaceListener l) {
-                // TODO Auto-generated method stub
-                
-            }
-        };
 
-        Mesh m = p.tessellateTile(t, subdivision, h);
-        assertEquals((9 * 8), m.vertices.length);
-        assertEquals((8 * 3), m.indices.length);
+        System.out.println("latFrom: " + t.getLatitudeFrom() + "  latTo: " + t.getLatitudeTo() + "  longFrom: " + t.getLongitudeFrom() + "  longTo: " + t.getLongitudeTo());
+        Mesh mLin = p.tessellateTile(lin);
+        Mesh mMerc = p.tessellateTile(merc);
+        
+        
+        assertEquals((9 * 8), mLin.vertices.length);
+        assertEquals((8 * 3), mLin.indices.length);
+        
+        assertEquals((9 * 8), mMerc.vertices.length);
+        assertEquals((8 * 3), mMerc.indices.length);
     }
 }

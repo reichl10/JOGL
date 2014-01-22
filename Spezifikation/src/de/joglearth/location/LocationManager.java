@@ -379,13 +379,4 @@ public class LocationManager {
     public void removeLocationListener(LocationListener listener) {
         locationListeners.remove(listener);
     }
-
-
-    private class UserTagsListener implements SettingsListener {
-
-        @Override
-        public void settingsChanged(String key, Object valOld, Object valNew) {
-
-        }
-    }
 }

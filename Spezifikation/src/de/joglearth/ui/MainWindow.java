@@ -517,6 +517,10 @@ public class MainWindow extends JFrame {
                         FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
 
         scrollPane = new JScrollPane();
+        scrollPane.getHorizontalScrollBar().setUnitIncrement(5);
+        scrollPane.getHorizontalScrollBar().setBlockIncrement(50);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(5);
+        scrollPane.getVerticalScrollBar().setBlockIncrement(50);
         userTagPanel.add(scrollPane, "2, 2, fill, fill");
 
         userTagListPanel = new JPanel();
@@ -536,6 +540,10 @@ public class MainWindow extends JFrame {
                         FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
 
         overlayScrollPane = new JScrollPane();
+        overlayScrollPane.getHorizontalScrollBar().setUnitIncrement(5);
+        overlayScrollPane.getHorizontalScrollBar().setBlockIncrement(50);
+        overlayScrollPane.getVerticalScrollBar().setUnitIncrement(5);
+        overlayScrollPane.getVerticalScrollBar().setBlockIncrement(50);
         overlayPanel.add(overlayScrollPane, "2, 2, fill, fill"); //$NON-NLS-1$
 
         overlaysPanel = new JPanel();
