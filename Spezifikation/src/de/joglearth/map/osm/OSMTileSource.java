@@ -1,11 +1,21 @@
 package de.joglearth.map.osm;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBuffer;
+import java.awt.image.DataBufferByte;
+import java.awt.image.Raster;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
+
+import javax.imageio.ImageIO;
 
 import de.joglearth.map.TileName;
 import de.joglearth.source.ProgressManager;
@@ -70,6 +80,11 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         serverSets.put(OSMMapType.MAPNIK, new ServerSet(new String[] {
                 "http://otile1.mqcdn.com/tiles/1.0.0/osm/",
                 "http://otile2.mqcdn.com/tiles/1.0.0/osm/" }));
+        serverSets.put(OSMMapType.SATELLITE, new ServerSet(new String[] {
+                "http://otile1.mqcdn.com/tiles/1.0.0/sat/",
+                "http://otile2.mqcdn.com/tiles/1.0.0/sat/",
+                "http://otile3.mqcdn.com/tiles/1.0.0/sat/",
+                "http://otile4.mqcdn.com/tiles/1.0.0/sat/" }));
 
     }
 
@@ -110,6 +125,42 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         return new SourceResponse<byte[]>(SourceResponseType.MISSING, null);
     }
 
+    
+    private static void colorCorrectImage(BufferedImage img) {           
+        Raster raster = img.getData();
+        DataBuffer buffer = raster.getDataBuffer();
+        if (buffer.getDataType() != DataBuffer.TYPE_BYTE) 
+            System.err.println("Fuck");
+        DataBufferByte bytebuf = (DataBufferByte) buffer;
+        byte[] data = bytebuf.getData();
+        System.out.println(bytebuf.getNumBanks());
+        float[] hsb = new float[3];
+        for (int j = 0; j < data.length; j += 3) {
+            
+            int red = data[j+2] < 0 ? 0x100 +data[j+2] : data[j+2];
+            int green = data[j+1] < 0 ? 0x100 + data[j+1] : data[j+1];
+            int blue = data[j] < 0 ? 0x100 + data[j] : data[j];
+
+            green = (int) (green * 1.2);
+            if (green > 255) green = 255;
+                                    
+            Color.RGBtoHSB(red, green, blue, hsb);
+            
+            hsb[1] += 0.1;
+            if (hsb[1] > 1) hsb[1] = 1;
+            hsb[2] -= 0.15;
+            if (hsb[2] < 0) hsb[2] = 0;
+            
+            int rgb = Color.HSBtoRGB(hsb[0], hsb[1], hsb[2]);
+            data[j] = (byte) (rgb & 0xff);
+            data[j+1] = (byte) ((rgb >> 8) & 0xff);
+            data[j+2] = (byte) ((rgb >> 16) & 0xff);
+                
+        }
+        img.setData(raster);
+    }
+    
+    
     private byte[] fetchRemoteTile(OSMTile tile, OSMMapType mapType) {
 
         // Spezialfall Kartenrand (Longitude)
@@ -171,6 +222,28 @@ public class OSMTileSource implements Source<TileName, byte[]> {
 
             ++i;
         }
+        
+        
+        if (response != null && mapType == OSMMapType.SATELLITE && tile.getDetailLevel() > 8) {
+            BufferedImage img;
+            try {
+                img = ImageIO.read(new ByteArrayInputStream(response));
+            } catch (IOException e) {
+                return null;
+            }
+            
+            colorCorrectImage(img);
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+            try {
+                ImageIO.write(img, "jpg", out);
+            } catch (IOException e) {
+                return null;
+            }
+            
+            response = out.toByteArray();
+        }
+        
 
         return response;
     }
@@ -188,6 +261,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
     public static String getImageFormatSuffix(OSMMapType mapType) {
         switch (mapType) {
             case MAPNIK:
+            case SATELLITE:
                 return "jpg";
 
             default:

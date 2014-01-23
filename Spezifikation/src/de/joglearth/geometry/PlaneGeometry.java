@@ -68,8 +68,6 @@ public class PlaneGeometry implements Geometry {
         double lat = cameraPosition.y
                 + (-HeightMap.MIN_HEIGHT - cameraPosition.z) / viewVector.z * viewVector.y;
 
-        System.out.println("Camera: " + cameraPosition + ", View: " + viewVector + ", Lon: " + lon + ", Lat: " + lat);
-
         // These conditions hold if and only if the centered point is on the plane.
         if (lon > -PI && lon <= PI && lat >= -PI / 2 && lat <= PI / 2) {
             return new GeoCoordinates(lon, lat);

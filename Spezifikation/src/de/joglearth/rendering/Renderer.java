@@ -83,6 +83,7 @@ public class Renderer {
     private InitState initState;
     private HeightMap heightMap = FlatHeightMap.getInstance();
     private LevelOfDetail levelOfDetail;
+    private TextRenderer locationTextRenderer;
 
 
     /**
@@ -259,11 +260,8 @@ public class Renderer {
             
             gl.loadMatrix(GL_PROJECTION, new Matrix4());
             gl.loadMatrix(GL_MODELVIEW, new Matrix4());
-            gl.loadMatrix(GL_TEXTURE, new Matrix4());
-            
+            gl.loadMatrix(GL_TEXTURE, new Matrix4());            
 
-            // TextRenderer textRenderer = new TextRenderer(new Font(Font.SANS_SERIF, 0, 10));
-            // textRenderer.beginRendering(screenSize.width, screenSize.height);
 
             double xOffset = (double) ICON_SIZE / screenSize.width / 2, yOffset = (double) ICON_SIZE
                     / screenSize.height / 2;
@@ -287,23 +285,33 @@ public class Renderer {
 
                         gl.drawRectangle(upperLeft, lowerRight, overlayTexture);
                     }
-
-                    /*
-                     * if (location.name != null && (location.type == LocationType.CITY ||
-                     * location.type == LocationType.TOWN || location.type == LocationType.VILLAGE))
-                     * { String text = location.name; Dimension textSize =
-                     * textRenderer.getBounds(text).getBounds().getSize(); textRenderer.draw(text,
-                     * (int)(center.x * screenSize.width) + ICON_SIZE / 2 + 4, (int)(center.y *
-                     * screenSize.width) - textSize.height); }
-                     */
                 }
             }
+            
+            locationTextRenderer.beginRendering(screenSize.width, screenSize.height);
+
+            for (Location location : locations) {
+                if (location.point != null && camera.isPointVisible(location.point)) {
+                    ScreenCoordinates center = camera.getScreenCoordinates(location.point);
+                    if (location.name != null)
+                    {
+                        String text = location.name;
+                        Dimension textSize =
+                                locationTextRenderer.getBounds(text).getBounds().getSize();
+                        locationTextRenderer.draw(text,
+                                (int) (center.x * screenSize.width) + ICON_SIZE / 2 + 4,
+                                (int) (center.y * screenSize.height) - textSize.height);
+                    }
+
+                }
+            }
+            
+            locationTextRenderer.endRendering();
 
             gl.drawRectangle(new ScreenCoordinates(0.5 - xOffset, 0.5 - yOffset),
                     new ScreenCoordinates(0.5 + xOffset, 0.5 + yOffset), crosshair);
 
             gl.setFeatureEnabled(GL_BLEND, false);
-            // textRenderer.endRendering();
         }
     }
 
@@ -336,7 +344,10 @@ public class Renderer {
                 SettingsContract.LEVEL_OF_DETAIL);
         LevelOfDetail lod = LevelOfDetail.valueOf(lvlOfDetailsString);
         setLevelOfDetail(lod);
+        
         gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        locationTextRenderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.BOLD, 12));
     }
 
     private void dispose() {

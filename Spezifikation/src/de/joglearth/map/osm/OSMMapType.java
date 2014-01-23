@@ -33,5 +33,7 @@ public enum OSMMapType {
     /**
      * Standard OpenStreetMap without labels.
      */
-    OSM_NOLABELS
+    OSM_NOLABELS,
+    
+    SATELLITE
 }

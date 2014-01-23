@@ -439,8 +439,6 @@ public class Camera {
         Vector3 xAxis = earthAxis.crossProduct(zAxis).normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
         
-        System.out.println("X: " + xAxis + ", Y: " + yAxis + ", Z: " + zAxis);
-        
         double yAngle = atan((1-2*screen.x))*tan(horizontalFOV/2);
         double xAngle = atan((1-2*screen.y))*tan(verticalFOV/2);
         

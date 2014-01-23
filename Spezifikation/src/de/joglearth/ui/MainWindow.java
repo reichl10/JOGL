@@ -1275,7 +1275,7 @@ public class MainWindow extends JFrame {
                 paraMapTypeComboBox
                         .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.70"), //$NON-NLS-1$
-                                loadIcon("icons/mapSatellite.png"), new SingleMapConfiguration(SingleMapType.SATELLITE))); //$NON-NLS-1$
+                                loadIcon("icons/mapSatellite.png"), new OSMMapConfiguration(OSMMapType.SATELLITE))); //$NON-NLS-1$
                 paraMapTypeComboBox
                         .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.72"), //$NON-NLS-1$
