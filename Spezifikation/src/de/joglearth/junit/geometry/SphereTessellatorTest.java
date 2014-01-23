@@ -4,11 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.geometry.SurfaceListener;
-import de.joglearth.height.HeightMap;
+import de.joglearth.geometry.LinearProjection;
+import de.joglearth.geometry.MercatorProjection;
+import de.joglearth.height.flat.FlatHeightMap;
 import de.joglearth.map.osm.OSMTile;
 import de.joglearth.rendering.Mesh;
+import de.joglearth.rendering.ProjectedTile;
 import de.joglearth.rendering.SphereTessellator;
 
 
@@ -20,36 +21,23 @@ public class SphereTessellatorTest {
         SphereTessellator p = new SphereTessellator();
         OSMTile t = new OSMTile(5, 10, 10);
         int subdivision = 1;
-        
-        HeightMap h = new HeightMap() {
-            
-            @Override
-            public void removeSurfaceListener(SurfaceListener l) {
-                // TODO Auto-generated method stub
-                
-            }
-            
-            @Override
-            public double getHeight(GeoCoordinates coords, double angularResolution) {
-                // TODO Auto-generated method stub
-                return 0;
-            }
-            
-            @Override
-            public void addSurfaceListener(SurfaceListener l) {
-                // TODO Auto-generated method stub
-                
-            }
-        };
+        ProjectedTile lin = new ProjectedTile(t, new LinearProjection(), 0,
+                subdivision, FlatHeightMap.getInstance());
+        ProjectedTile merc = new ProjectedTile(t, new MercatorProjection(), 0,
+                subdivision, FlatHeightMap.getInstance());
 
-        Mesh m = p.tessellateTile(t, subdivision, h);
-        // assertEquals((9*8), m.vertices.length);
+        Mesh mLin = p.tessellateTile(lin);
+        Mesh mMerc = p.tessellateTile(merc);
         
+        assertEquals((9 * 8), mLin.vertices.length);
+        assertEquals((9 * 8), mMerc.vertices.length);
         
         /* Number of triangles */
-        assertEquals((3 * 8), m.indices.length);
+        assertEquals((3 * 8), mLin.indices.length);
+        assertEquals((3 * 8), mMerc.indices.length);
 
         /* mod 8: Each point in the mesh is represented by 8 vectors */
-        assertEquals(0, (m.vertices.length % 8));
+        assertEquals(0, (mLin.vertices.length % 8));
+        assertEquals(0, (mMerc.vertices.length % 8));
     }
 }
