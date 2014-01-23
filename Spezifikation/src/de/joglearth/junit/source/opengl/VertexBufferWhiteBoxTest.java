@@ -1,21 +1,23 @@
 package de.joglearth.junit.source.opengl;
 
-import static org.junit.Assert.*;
-import static javax.media.opengl.GL2.*;
-
-import javax.media.opengl.GL2;
+import static javax.media.opengl.GL.GL_TRIANGLES;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.joglearth.async.AWTInvoker;
-import de.joglearth.async.RunnableWithResult;
-import de.joglearth.geometry.Tile;
+import de.joglearth.geometry.LinearProjection;
+import de.joglearth.height.flat.FlatHeightMap;
 import de.joglearth.junit.GLTestWindow;
-import de.joglearth.opengl.GLError;
+import de.joglearth.map.osm.OSMTile;
+import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.rendering.PlaneTessellator;
+import de.joglearth.rendering.ProjectedTile;
 import de.joglearth.rendering.VertexBufferLoader;
 import de.joglearth.rendering.VertexBufferPool;
 import de.joglearth.source.SourceResponse;
@@ -46,12 +48,12 @@ public class VertexBufferWhiteBoxTest {
 
             @Override
             public void run() {
-                final GL2 gl = window.getGL();
+                final GLContext gl = window.getGLContext();
                 final VertexBufferLoader source = new VertexBufferLoader(gl, new PlaneTessellator());
-                source.setTileSubdivisions(19);
-                final VertexBufferPool<Tile> cache = new VertexBufferPool<Tile>(gl);
-                final Tile tile = new Tile(0, 0, 0);
-
+                source.setTessellator(new PlaneTessellator());
+                final VertexBufferPool<ProjectedTile> cache = new VertexBufferPool<ProjectedTile>(gl);
+                final ProjectedTile tile = new ProjectedTile(new OSMTile(0, 0, 0), new LinearProjection(), 5, 10, FlatHeightMap.getInstance());
+                        
                 SourceResponse<VertexBuffer> response;
 
                 // Acquire Mesh
@@ -60,10 +62,10 @@ public class VertexBufferWhiteBoxTest {
                 assertNotNull(response.value);
 
                 VertexBuffer vbo = response.value;
-                assertTrue(vbo.indices > 0);
-                assertTrue(vbo.vertices > 0);
-                assertEquals(vbo.primitiveType, GL_TRIANGLES);
-                assertEquals(vbo.indexCount, 800);
+                assertTrue(vbo.getIndices() > 0);
+                assertTrue(vbo.getVertices() > 0);
+                assertEquals(vbo.getPrimitiveType(), GL_TRIANGLES);
+                assertEquals(vbo.getIndexCount(), 800);
 
                 // Put into cache
                 cache.putObject(tile, vbo);
@@ -72,50 +74,8 @@ public class VertexBufferWhiteBoxTest {
                 response = cache.requestObject(tile, null);
                 assertEquals(response.response, SourceResponseType.SYNCHRONOUS);
                 assertEquals(response.value, vbo);
+                gl.drawVertexBuffer(vbo, null);
 
-                // Bind vertex buffer
-                gl.glBindBuffer(GL_ARRAY_BUFFER, vbo.vertices);
-                assertEquals(gl.glGetError(), GL_NO_ERROR);
-
-                // Set vertex / normal / texcoord pointers
-                gl.glEnableClientState(GL_VERTEX_ARRAY);
-                assertEquals(gl.glGetError(), GL_NO_ERROR);
-
-                gl.glVertexPointer(3, GL_FLOAT, 8*4, 5*4);
-                assertEquals(gl.glGetError(), GL_NO_ERROR);
-
-                gl.glEnableClientState(GL_NORMAL_ARRAY);
-                assertEquals(gl.glGetError(), GL_NO_ERROR);
-
-                gl.glNormalPointer(GL_FLOAT, 8*4, 2*4);
-                assertEquals(gl.glGetError(), GL_NO_ERROR);
-
-                gl.glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-                assertEquals(gl.glGetError(), GL_NO_ERROR);
-
-                gl.glTexCoordPointer(2, GL_FLOAT, 8*4, 0);
-                assertEquals(gl.glGetError(), GL_NO_ERROR);
-                
-                // Bind index buffer
-                gl.glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo.indices);
-                assertEquals(gl.glGetError(), GL_NO_ERROR);
-
-                // Draw
-                gl.glDrawElements(vbo.primitiveType, vbo.indexCount, GL_UNSIGNED_INT, 0);
-                assertEquals(gl.glGetError(), GL_NO_ERROR);
-
-                // Disable pointers
-                gl.glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-                assertEquals(gl.glGetError(), GL_NO_ERROR);
-                
-                gl.glDisableClientState(GL_NORMAL_ARRAY);
-                assertEquals(gl.glGetError(), GL_NO_ERROR);
-                
-                gl.glDisableClientState(GL_VERTEX_ARRAY);
-                assertEquals(gl.glGetError(), GL_NO_ERROR);
-
-                gl.glBindBuffer(GL_ARRAY_BUFFER, 0);
-                assertEquals(gl.glGetError(), GL_NO_ERROR);
 
                 // Drop all meshes
                 cache.dropAll();
