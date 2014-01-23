@@ -126,6 +126,7 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
 
     private Collection<Location> parseXml(String xml, LocationType type) {
         ArrayList<Location> location = new ArrayList<Location>();
+        ArrayList<String> nodes = new ArrayList<String>();
 
         try {
             XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(
@@ -140,7 +141,7 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
                     case START_ELEMENT:
                         if (xmlReader.getLocalName().equals(
                                 "osm")) {
-                            readNodes(xmlReader, location, type);
+                            readNodes(xmlReader, location, type, nodes);
                             xmlReader.require(END_ELEMENT, null,
                                     "osm");
                         }
@@ -158,12 +159,14 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
             return new ArrayList<Location>();
         }
 
+        getNodes(nodes, location, type);
+
         return location;
 
     }
 
     private boolean readNodes(XMLStreamReader xmlReader, ArrayList<Location> location,
-            LocationType type) throws XMLStreamException {
+            LocationType type, ArrayList<String> nodes) throws XMLStreamException {
         while (xmlReader.hasNext()) {
             int event = xmlReader.next();
             switch (event) {
@@ -171,7 +174,7 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
                     return false;
                 case START_ELEMENT:
                     if (xmlReader.getLocalName().equals("node")) {
-                        readEntry(xmlReader, location, type, "N");
+                        nodes.add(xmlReader.getAttributeValue(null, "id"));
                     } else if (xmlReader.getLocalName().equals("way")) {
                         readEntry(xmlReader, location, type, "W");
                     } else if (xmlReader.getLocalName().equals("relation")) {
@@ -203,6 +206,110 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
 
         return true;
 
+    }
+
+    /*
+     * Resolve the nodes IDs to get the details.
+     */
+    private boolean getNodes(ArrayList<String> nodes, ArrayList<Location> locations,
+            LocationType type) {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(OverpassQueryGenerator.head);
+
+        for (String s : nodes) {
+            String query = OverpassQueryGenerator.node;
+            query = query.replace("$ref$", s);
+
+            builder.append(query);
+        }
+
+        builder.append(OverpassQueryGenerator.foot);
+
+        ArrayList<String> getRequest = new ArrayList<String>();
+        getRequest.add("data");
+        getRequest.add(builder.toString());
+
+        byte[] response = HTTP.get(url, getRequest);
+        if (response == null) {
+            return false;
+        }
+        String xml = new String(response);
+
+        parseXmlNode(xml, type, locations);
+
+        return true;
+
+    }
+
+
+    private void parseXmlNode(String xml, LocationType type, ArrayList<Location> location) {
+
+        try {
+            XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(
+                    new StringReader(xml));
+
+            while (xmlReader.hasNext()) {
+                int event = xmlReader.next();
+                switch (event) {
+                    case END_DOCUMENT:
+                        xmlReader.close();
+                        break;
+                    case START_ELEMENT:
+                        if (xmlReader.getLocalName().equals(
+                                "osm")) {
+                            nodeEntry(xmlReader, location, type);
+                            xmlReader.require(END_ELEMENT, null,
+                                    "osm");
+                        }
+                    case END_ELEMENT:
+                    case CHARACTERS:
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        } catch (XMLStreamException e) {} catch (FactoryConfigurationError e) {}
+    }
+
+    private boolean nodeEntry(XMLStreamReader xmlReader, ArrayList<Location> location,
+            LocationType type) throws XMLStreamException {
+
+        Location temp = new Location(null, null, null, null);
+
+        while (xmlReader.hasNext()) {
+            int event = xmlReader.next();
+            switch (event) {
+                case END_DOCUMENT:
+                    return false;
+                case START_ELEMENT:
+                    if (xmlReader.getLocalName().equals("node")) {
+                        String latString = xmlReader.getAttributeValue(null, "lat");
+                        String lonString = xmlReader.getAttributeValue(null, "lon");
+                        double lat = Math.toRadians(new Double(latString));
+                        double lon = Math.toRadians(new Double(lonString));
+                        GeoCoordinates point = new GeoCoordinates(lon, lat);
+                        temp = new Location(point, type, "", "");
+                    } else if (xmlReader.getLocalName().equals("tag")) {
+                        if (xmlReader.getAttributeValue(null, "k").equals("name")) {
+                            temp.name = xmlReader.getAttributeValue(null, "v");
+                            // TODO Details suchen.
+                            temp.details = temp.name;
+                        }
+                    }
+                    break;
+                case END_ELEMENT:
+                    if (xmlReader.getLocalName().equals("osm")) {
+                        return true;
+                    } else if (xmlReader.getLocalName().equals("node")) {
+                        location.add(temp);                    }
+                default:
+                    break;
+            }
+        }
+
+        return true;
     }
 
     @Override
