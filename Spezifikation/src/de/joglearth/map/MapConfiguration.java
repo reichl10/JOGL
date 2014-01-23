@@ -30,18 +30,21 @@ public interface MapConfiguration {
     
     /**
      * Returns the file name suffix of the image format delivered by the source, e.g. "jpg".
+     * 
      * @return The suffix. Must not be null.
      */
     String getImageFormatSuffix();
     
     /**
      * Determines the projection of a tile.
+     * 
      * @return The projection format of a Tile.
      */
     MapProjection getProjection();
     
     /**
-     * Determines the minimal distance of the surface to the camera-
+     * Determines the minimal distance of the surface to the camera.
+     * 
      * @return The minimal distance
      */
     double getMinimumCameraDistance();

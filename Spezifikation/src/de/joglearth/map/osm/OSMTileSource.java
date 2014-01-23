@@ -176,26 +176,14 @@ public class OSMTileSource implements Source<TileName, byte[]> {
             lonTo -= Math.PI;
         }
 
-        // Mittelpunkt der Kachel
+        //Centered Point of the tile
         double x = ((lonFrom + lonTo) / 2) * 180 / Math.PI;
 
-        /*
-         * n = 2 ^ zoom
-         * 
-         * xtile = n * ((lon_deg + 180) / 360)
-         * 
-         * ytile = n * (1 - (log(tan(lat_rad) + sec(lat_rad)) / π)) / 2
-         * 
-         * sec = 1/cos(lat_rad)
-         * 
-         * Als ytile kann der latitudeIndex der Tile verwendet werden.
-         */
         int zoom = tile.getDetailLevel();
 
         int n = (int) Math.pow(2, zoom);
         int xtile = (int) (n * ((x + 180) / 360));
 
-        // Blödsinn den die Formel macht abfangen
         if (xtile < 0) {
             xtile = 0;
         }
@@ -261,9 +249,10 @@ public class OSMTileSource implements Source<TileName, byte[]> {
     }
 
     /**
-     * TODO
-     * @param mapType
-     * @return
+     * Returns the file suffix describing the format for a given map type.
+     * 
+     * @param mapType The map type
+     * @return The suffix
      */
     public static String getImageFormatSuffix(OSMMapType mapType) {
         switch (mapType) {

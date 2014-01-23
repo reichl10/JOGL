@@ -58,6 +58,7 @@ public class NominatimManagerTest {
                 fail("InterruptException");
             }
         }
+        manager.setCacheSize(1000);
         manager.shutDown();
         manager.dispose();
     }

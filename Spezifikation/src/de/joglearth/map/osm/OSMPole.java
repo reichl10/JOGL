@@ -6,7 +6,7 @@ import de.joglearth.geometry.TransformedTile;
 
 
 /**
- * A {@link de.joglearth.geometry.Tile} implementation modeling a pole in the OpenStreetMap tile
+ * A {@link Tile} implementation modeling a pole in the OpenStreetMap tile
  * layout.
  */
 public class OSMPole extends AbstractTile {

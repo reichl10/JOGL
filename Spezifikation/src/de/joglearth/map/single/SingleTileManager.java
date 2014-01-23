@@ -29,6 +29,7 @@ public final class SingleTileManager implements Source<TileName, byte[]> {
     
     /**
      * Returns the instance, creating it if it does not yet exist.
+     * 
      * @return The instance.
      */
     public static SingleTileManager getInstance() {

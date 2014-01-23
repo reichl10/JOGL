@@ -54,15 +54,13 @@ public class OSMMapConfiguration implements MapConfiguration {
     
     /**
      * Returns the map type.
+     * 
      * @return The map type, as passed to the constructor
      */
     public OSMMapType getMapType() {
         return mapType;
     }
 
-    /* (nicht-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -71,9 +69,6 @@ public class OSMMapConfiguration implements MapConfiguration {
         return result;
     }
 
-    /* (nicht-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

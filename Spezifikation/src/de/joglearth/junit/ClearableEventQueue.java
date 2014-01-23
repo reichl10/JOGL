@@ -37,7 +37,7 @@ public final class ClearableEventQueue extends EventQueue {
             instance = new ClearableEventQueue();
 
             try {
-                AWTInvoker.invoke(new Runnable() {
+                AWTInvoker.getInstance().invokeLater(new Runnable() {
 
                     @Override
                     public void run() {

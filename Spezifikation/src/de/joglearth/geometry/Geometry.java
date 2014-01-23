@@ -59,17 +59,18 @@ public interface Geometry {
     public Matrix4 getSkyCameraTransformation(GeoCoordinates position, double altitude);
 
     /**
-     * // TODO
+     * Determines the surface distortion factor in longitudinal direction at a given position.
      * 
-     * @param position
-     * @return
+     * @param position the position
+     * @return The surface distortion where 1 means no distortion
      */
-    public double getLongitudeDisortion(GeoCoordinates position);
+    public double getLongitudeDistortion(GeoCoordinates position);
 
     /**
-     * // TODO
-     * 
-     * @return
+     * Whether the underlying geometric model allows traversal of the 180° line of longitude. This
+     * is e.g. true for a sphere, butt false for a plane.
+     *  
+     * @return true or false. duh
      */
     public boolean allowsLongitudinalTraversal();
 
