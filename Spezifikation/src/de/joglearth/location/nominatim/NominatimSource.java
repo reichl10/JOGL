@@ -59,23 +59,27 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
         ProgressManager.getInstance().requestArrived();
 
-        executor.execute(new Runnable() {
-
-            @Override
-            public void run() {
-                Collection<Location> response;
-
-                if (key.type == NominatimQuery.Type.POINT) {
-                    response = getPoint(key);
-                } else {
-                    response = getLocations(key);
-                }
-
-                sender.requestCompleted(key, response);
-
-                ProgressManager.getInstance().requestCompleted();
+        synchronized (executor) {
+            if (!executor.isShutdown()) {
+                executor.execute(new Runnable() {
+    
+                    @Override
+                    public void run() {
+                        Collection<Location> response;
+        
+                        if (key.type == NominatimQuery.Type.POINT) {
+                            response = getPoint(key);
+                        } else {
+                            response = getLocations(key);
+                        }
+        
+                        sender.requestCompleted(key, response);
+                        
+                        ProgressManager.getInstance().requestCompleted();
+                    }
+                });
             }
-        });
+        }
 
         return new SourceResponse<Collection<Location>>(SourceResponseType.ASYNCHRONOUS, null);
     }
@@ -315,6 +319,8 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
     @Override
     public void dispose() {
-        executor.shutdownNow();
+        synchronized (executor) {
+            executor.shutdownNow();
+        }
     }
 }

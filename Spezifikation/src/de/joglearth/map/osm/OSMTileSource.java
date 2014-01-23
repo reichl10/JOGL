@@ -102,16 +102,21 @@ public class OSMTileSource implements Source<TileName, byte[]> {
                             loadLocalOSMTile(configuration.getMapType(), "0"));
                 } else {
                     ProgressManager.getInstance().requestArrived();
-                    executor.execute(new Runnable() {
+                    synchronized (executor) {
+                        if (!executor.isShutdown()) {
+                            executor.execute(new Runnable() {
 
-                        @Override
-                        public void run() {
-                            byte[] response = fetchRemoteTile((OSMTile) k.tile,
-                                    configuration.getMapType());
-                            sender.requestCompleted(k, response);
-                            ProgressManager.getInstance().requestCompleted();
+                                @Override
+                                public void run() {
+                                    byte[] response = fetchRemoteTile((OSMTile) k.tile,
+                                            configuration.getMapType());
+                                    sender.requestCompleted(k, response);
+                                    ProgressManager.getInstance().requestCompleted();
+                                }
+                            });
+
                         }
-                    });
+                    }
                     return new SourceResponse<byte[]>(SourceResponseType.ASYNCHRONOUS, null);
                 }
 
@@ -250,7 +255,9 @@ public class OSMTileSource implements Source<TileName, byte[]> {
 
     @Override
     public void dispose() {
-        executor.shutdownNow();
+        synchronized (executor) {
+            executor.shutdownNow();
+        }
     }
 
     /**
