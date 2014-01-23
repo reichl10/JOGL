@@ -51,7 +51,7 @@ public final class Vector4 implements Cloneable {
     }
 
     /**
-     * Constructor copying the position from a Vector3. The scaling factor w is set to 1.
+     * Constructor copying the position from a {@link Vector3}. The scaling factor w is set to 1.
      * 
      * @param copyFrom The vector to copy from
      */

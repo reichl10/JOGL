@@ -60,13 +60,12 @@ public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
         
                     @Override
                     public void run() {
-                        //TODO System.out.println(url);
                         byte[] zipBytes = HTTP.get(url, null);
         
-                        //if (zipBytes == null) {
-                            //TODO System.err.println("Loading SRTM server data for "
-                       //             + key.toString() + " failed");
-                        //}
+                        if (zipBytes == null) {
+                            System.err.println("Loading SRTM server data for "
+                                    + key.toString() + " failed");
+                       }
         
                         sender.requestCompleted(key, zipBytes);
                         ProgressManager.getInstance().requestCompleted();

@@ -78,7 +78,7 @@ public final class GeoCoordinates implements Cloneable {
         return rad;
     }
 
-
+    //Defines the pattern which describes coordinates
     private static final Pattern coordinatePattern = Pattern.compile(
             "\\s*(\\d{1,3})\\s*°\\s*((\\d{1,2})\\s*'\\s*" +
                     "((\\d{1,2}(\\.\\d+)?)\\s*\"\\s*)?)?([NSEOW])\\s*");
@@ -92,7 +92,7 @@ public final class GeoCoordinates implements Cloneable {
         }
 
         assert matcher.groupCount() == 8;
-        
+
         double deg = Double.parseDouble(matcher.group(1));
         if (matcher.group(3) != null) {
             deg += Double.parseDouble(matcher.group(3)) / 60;
@@ -108,7 +108,7 @@ public final class GeoCoordinates implements Cloneable {
     }
 
     /**
-     * Parses two coordinate strings, returning the GeoCoordinates.
+     * Parses two coordinate strings, returning the {@link GeoCoordinates}.
      * 
      * @param lon The longitude, e.g. 55° 17' 48.2" E
      * @param lat The latitude, e.g. 55° 17' 48.2" N
@@ -136,7 +136,7 @@ public final class GeoCoordinates implements Cloneable {
     }
 
     /**
-     * Returns the longitude, in radians.
+     * Returns the longitude in radians.
      * 
      * @return The longitude
      */
@@ -145,7 +145,7 @@ public final class GeoCoordinates implements Cloneable {
     }
 
     /**
-     * Returns the latitude, in radians.
+     * Returns the latitude in radians.
      * 
      * @return The latitude
      */
@@ -206,7 +206,8 @@ public final class GeoCoordinates implements Cloneable {
             return false;
         }
         GeoCoordinates other = (GeoCoordinates) obj;
-        return ((Math.abs(this.longitude - other.longitude)) < ALLOWEDDIFF && (Math.abs(this.latitude - other.latitude)) < ALLOWEDDIFF);
+        return ((Math.abs(this.longitude - other.longitude)) < ALLOWEDDIFF && (Math
+                .abs(this.latitude - other.latitude)) < ALLOWEDDIFF);
     }
 
 }
