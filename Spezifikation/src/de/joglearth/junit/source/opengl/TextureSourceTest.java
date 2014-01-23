@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import de.joglearth.geometry.Tile;
 import de.joglearth.junit.GLTestWindow;
+import de.joglearth.map.TileName;
 import de.joglearth.map.osm.OSMMapType;
 import de.joglearth.map.osm.OSMTile;
 import de.joglearth.map.osm.OSMTileManager;
@@ -59,7 +60,7 @@ public class TextureSourceTest {
 		});
 	}
 
-	private class TestSourceListener implements SourceListener<OSMTileName, Integer> {
+	private class TestSourceListener implements SourceListener<TileName, Integer> {
 		private Thread waiterThread;
 
 		public TestSourceListener(Thread t) {
@@ -67,7 +68,7 @@ public class TextureSourceTest {
 		}
 
 		@Override
-		public void requestCompleted(OSMTileName key, Integer value) {
+		public void requestCompleted(TileName key, Integer value) {
 			waiterThread.notify();
 		}
 
