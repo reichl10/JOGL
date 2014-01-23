@@ -32,8 +32,8 @@ public class Location implements Cloneable {
     /**
      * Assigns values to the local variables point, type and details.
      * 
-     * @param point The <code>GeoCoordinates</code> of a point
-     * @param type The <code>LocationType</code> of that specific point
+     * @param point The {@link GeoCoordinates} of a point
+     * @param type The {@link LocationType} of that specific point
      * @param details A string containing gathered details about that point
      * @param name A string containing the name of the <code>Location</code>
      *        this should be used to display it in short form

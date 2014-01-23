@@ -23,7 +23,7 @@ public class OverpassQuery {
 
     /**
      * Constructor for a query in a given area. Assigns a value to a
-     * {@link de.joglearth.surface.LocationType} and a {@link de.joglearth.geometry.Tile}.
+     * {@link LocationType} and a {@link Tile}.
      * 
      * @param type The <code>LocationType</code> of the query
      * @param area The <code>Tile</code> that determines where the query should be performed

@@ -102,7 +102,7 @@ public class PlaneGeometry implements Geometry {
     }
 
     @Override
-    public double getLongitudeDisortion(GeoCoordinates position) {
+    public double getLongitudeDistortion(GeoCoordinates position) {
         return 1;
     }
 

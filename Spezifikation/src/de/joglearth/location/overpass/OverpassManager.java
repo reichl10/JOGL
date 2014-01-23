@@ -12,8 +12,7 @@ import de.joglearth.source.caching.RequestDistributor;
 
 
 /**
- * Singleton class that retrieves data from the
- * {@link de.joglearth.location.overpass.OverpassSource}.
+ * Singleton class that retrieves data from the {@link OverpassSource}.
  */
 public final class OverpassManager implements Source<OverpassQuery, Collection<Location>> {
 

@@ -2,6 +2,7 @@ package de.joglearth.rendering;
 
 import static java.lang.Math.*;
 import static javax.media.opengl.GL2.*;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
@@ -34,6 +35,8 @@ import de.joglearth.location.Location;
 import de.joglearth.location.LocationManager;
 import de.joglearth.location.LocationType;
 import de.joglearth.map.MapConfiguration;
+import de.joglearth.map.osm.OSMMapConfiguration;
+import de.joglearth.map.osm.OSMMapType;
 import de.joglearth.map.single.SingleMapConfiguration;
 import de.joglearth.map.single.SingleMapType;
 import de.joglearth.opengl.GLContext;
@@ -66,7 +69,7 @@ public class Renderer {
     private GLContextListener glContextListener = new RendererGLListener();
     private Map<LocationType, Texture> overlayIconTextures;
     private SettingsListener settingsListener = new GraphicsSettingsListener();
-    private MapConfiguration mapConfiguration = new SingleMapConfiguration(SingleMapType.SATELLITE);
+    private MapConfiguration mapConfiguration = new OSMMapConfiguration(OSMMapType.SATELLITE);
     private Dimension screenSize = new Dimension(640, 480);
     private final static int ICON_SIZE = 24;
     private final static double FOV = PI / 2;

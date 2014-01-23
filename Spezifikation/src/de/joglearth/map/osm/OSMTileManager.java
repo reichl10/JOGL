@@ -15,7 +15,7 @@ import de.joglearth.util.ApplicationData;
 
 
 /**
- * Singleton class that retrieves data from the {@link de.joglearth.map.osm.OSMTileSource}.
+ * Singleton class that retrieves data from the {@link OSMTileSource}.
  */
 public final class OSMTileManager implements Source<TileName, byte[]> {
 
@@ -77,7 +77,7 @@ public final class OSMTileManager implements Source<TileName, byte[]> {
     }
     
     /**
-     * Sets the size of a {@link de.joglearth.source.caching.FileSystemCache}.
+     * Sets the size of a {@link FileSystemCache}.
      * 
      * @param cacheSize the new size of the <code>Cache</code>
      */
