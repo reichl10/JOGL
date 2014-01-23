@@ -494,6 +494,34 @@ Abdeckung & Abgedeckte Klassen & Nicht abgedeckte Klassen & Gesamt Klassen \\
 63,1\% & 161 & 94 & 255 \\
 \hline
 \end{longtable}
-\chapter{Skalierungs- und Belastungstest}
+\chapter{Belastungstest}
+Es wurde eine Automatisierung der GUI mit Hilfe der AWT Robot Class geschrieben, diese wurde unter Windows 7 für einige Zeit benutzt.
+Dabei traten keine sonderlichen Fehler auf.
 \chapter{Profiling}
+\subsection{CPU-Profiling}
+Beim CPU-Profiling wurden die Erwartungen bestätigt, dass die meiste Zeit mit Laden von Daten aus dem Netz verwendet wird.
+Zudem befanden sich auch andere Funktionen deren Zeitlast abzusehen war unter den Methoden mit dem höchsten Zeitverbrauch. Hier fielen uns keine Methoden auf deren Zeitverbrauch ungewöhnlich war.
+\subsection{Speicher-Profiling}
+Das Speicher-Profiling verhielt sich im allgemeinen auch wie erwartet, die hohe Anzahl an ints entsteht durch die gespeicherten VertexBuffer und Texturen.
+Bei einem Weiteren Profilingvorgang trat auf einmal ein rasanter Anstieg an Speicherverbrauch durch Vector3 Objecte hervor.
+\chapter{Änderungen zur Implementierung}
+\chapter{Lines of Code}
+Zu Ende von Milestone 3:
+\begin{longtable}{|l|p{4,4cm}|p{4,4cm}||}
+\hline
+Code & Kommentare & Leere Zeilen\\
+\hline
+\hline
+11088 & 3180 & 2861 \\
+\hline
+\end{longtable}
+Zu Ende von der Validierung:
+\begin{longtable}{|l|p{4,4cm}|p{4,4cm}||}
+\hline
+Code & Kommentare & Leere Zeilen\\
+\hline
+\hline
+12569 & 3325 & 2971 \\
+\hline
+\end{longtable}
 \end{document}

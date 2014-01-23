@@ -10,6 +10,8 @@ geometry.Geometry.allowsLongitudalTraversal()
 geometry.PlaneGeometry.allowsLongitudalTraversal()
 geometry.SphereGeometry.allowsLongitudalTraversal()
 
+location.LocationManager.enableLocations()
+
 [Geänderte Signaturen]
 rendering.TextureManager.getTexture()
 rendering.Tessellator.tessellateTile()
