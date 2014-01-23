@@ -142,6 +142,8 @@ public class SRTMHeightMap implements HeightMap {
             while (lod < 10 && angularResolution > lodResolutions[lod]) {
                 ++lod;
             }
+            if (lod < 10) ++lod;
+            if (lod < 10) ++lod;
             short[][] values = tile.getTile(lod);
             double x = getTileOffset(coords.getLongitude()) * values.length,
                    y = getTileOffset(coords.getLatitude()) * values.length;
