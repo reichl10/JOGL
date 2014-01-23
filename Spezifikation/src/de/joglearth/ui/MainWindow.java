@@ -159,7 +159,7 @@ public class MainWindow extends JFrame {
     /**
      * Stores the reference to the <code>ViewEventListener</code> that is created on initialization.
      */
-    private ViewEventListener viewEventListener; //TODO: not used
+    private ViewEventListener viewEventListener; // TODO: not used
 
     /**
      * Stores the reference to the <code>Camera</code> that it gets through the constructor.
@@ -1202,7 +1202,8 @@ public class MainWindow extends JFrame {
                     locationManager.searchLocal(
                             queryString,
                             CameraUtils.getVisibleTiles(camera,
-                                    configuration.getOptimalTileLayout(camera, easel.getSize()), 500));
+                                    configuration.getOptimalTileLayout(camera, easel.getSize()),
+                                    500));
                 } else if (globalSearchRadioButton.isSelected()) {
                     locationManager.searchGlobal(queryString);
                 }
@@ -1742,7 +1743,7 @@ public class MainWindow extends JFrame {
             double scale = dimensionCvas.getWidth() / dimensionScaleCanv.getWidth();
             int scaleSize = (int) Math.round(sizeScreen / scale);
             if (scaleSize > 1000) {
-                scaleLabel.setText(String.valueOf(scaleSize/1000)+ " km");
+                scaleLabel.setText(String.valueOf(scaleSize / 1000) + " km");
             } else {
                 scaleLabel.setText(String.valueOf(scaleSize) + " m");
             }
