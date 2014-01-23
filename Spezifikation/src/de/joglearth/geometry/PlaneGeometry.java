@@ -32,18 +32,18 @@ public class PlaneGeometry implements Geometry {
 
         Vector3 surfacePosition = cameraPosition.clone();
         surfacePosition.z = 0;
-        return surfacePosition.to(getSpacePosition(geo)).length()
+        return surfacePosition.to(getSpacePosition(geo, 0)).length()
                 <= cameraPosition.z * DISTANCE_LIMIT;
     }
 
     @Override
-    public Vector3 getSpacePosition(GeoCoordinates geo) {
+    public Vector3 getSpacePosition(GeoCoordinates geo, double altitude) {
         
         /*
          * The plane is laid out to be 2 units wide, 1 unit high and perpendicular to the Z axis,
          * with lon=0/lat=0 being the center (0, 0, 0).
          */
-        return new Vector3(geo.getLongitude(), geo.getLatitude(), -HeightMap.MIN_HEIGHT);
+        return new Vector3(geo.getLongitude(), geo.getLatitude(), altitude - HeightMap.MIN_HEIGHT);
     }
 
     @Override

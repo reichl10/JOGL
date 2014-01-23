@@ -385,12 +385,12 @@ public class Camera {
 
         Vector3 cameraPosition = modelCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
 
-        return isPointVisible(geometry.getSpacePosition(geo))
+        return isPointVisible(geometry.getSpacePosition(geo, 0))
                 && geometry.isPointVisible(cameraPosition, geo);
     }
 
     public Vector3 getSpacePosition(GeoCoordinates geo) {
-        return geometry.getSpacePosition(geo);
+        return geometry.getSpacePosition(geo, heightMap.getHeight(geo, 1e-4));
     }
 
     /**
@@ -405,7 +405,7 @@ public class Camera {
             throw new IllegalArgumentException();
         }
 
-        Vector3 t = transformationMatrix.transform(geometry.getSpacePosition(geo)).divide();
+        Vector3 t = transformationMatrix.transform(getSpacePosition(geo)).divide();
 
         if ((t.x >= -1 && t.x <= 1) && (t.y >= -1 && t.y <= 1)) {
             return new ScreenCoordinates((t.x + 1) / 2, (t.y + 1) / 2);

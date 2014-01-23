@@ -91,7 +91,8 @@ public class Renderer {
     private final static int ICON_SIZE = 24;
     private final static double FOV = PI / 2;
     private double aspectRatio = 1;
-
+    private double solarSystemEarthRotation = 0, solarSystemMoonRevolution = 0;
+    
 
     private enum InitState {
         AWAITING,
@@ -217,6 +218,9 @@ public class Renderer {
         gl.drawSphere(zNear * 10, 15, 8, true, nightSky);        
         
         if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
+            
+            solarSystemEarthRotation += 0.002;
+            solarSystemMoonRevolution += 0.0005;
 
             // The sky is drawn close to the camera to avoid clipping, but is always in the background
             gl.setFeatureEnabled(GL_DEPTH_TEST, true);
@@ -226,13 +230,18 @@ public class Renderer {
             
             gl.placeLight(0, new Vector4(0, -5, 0, 0));
             gl.setFeatureEnabled(GL_LIGHTING, true);
-
-            Matrix4 modelMatrix = camera.getModelViewMatrix().clone();
-            gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(modelMatrix));
+            
+            Matrix4 earthMatrix = camera.getModelViewMatrix().clone();
+            earthMatrix.rotate(new Vector3(1, 0, 0), 23.0*PI/180.0);
+            earthMatrix.rotate(new Vector3(0, 1, 0), solarSystemEarthRotation);
+            earthMatrix = correctGLUTransformation(earthMatrix);
+            gl.loadMatrix(GL_MODELVIEW, earthMatrix);
             gl.drawSphere(1, 60, 40, false, earth);
 
-            modelMatrix.translate(-4, 0, 0);
-            gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(modelMatrix));
+            Matrix4 moonMatrix = camera.getModelViewMatrix().clone();
+            moonMatrix.rotate(new Vector3(0, 1, 0), solarSystemMoonRevolution);
+            moonMatrix.translate(-3, 0, 0);
+            gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(moonMatrix));
             gl.drawSphere(0.2, 30, 20, false, moon);
 
             gl.setFeatureEnabled(GL_LIGHTING, false);
@@ -315,7 +324,7 @@ public class Renderer {
                 if (location.point != null && camera.isPointVisible(location.point)) {
                     Texture overlayTexture = overlayIconTextures.get(location.type);
                     ScreenCoordinates center = camera.getScreenCoordinates(location.point);
-                    if (overlayTexture != null) {
+                    if (center != null && overlayTexture != null) {
                         ScreenCoordinates upperLeft = new ScreenCoordinates(center.x - xOffset,
                                 center.y - yOffset), lowerRight = new ScreenCoordinates(center.x
                                 + xOffset, center.y + yOffset);
@@ -330,7 +339,8 @@ public class Renderer {
             for (Location location : locations) {
                 if (location.point != null && camera.isPointVisible(location.point)) {
                     ScreenCoordinates center = camera.getScreenCoordinates(location.point);
-                    if (location.name != null && (location.type == LocationType.USER_TAG 
+                    if (center != null && location.name != null 
+                            && (location.type == LocationType.USER_TAG 
                             || location.type == LocationType.SEARCH_RESULT 
                             || location.type == LocationType.CITY
                             || location.type == LocationType.TOWN
@@ -392,6 +402,8 @@ public class Renderer {
 
         locationTextRenderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.BOLD, 12), true, 
                 false);
+        
+        camera.setPosition(new GeoCoordinates(30*PI/180, 15*PI/180));
     }
 
     private void dispose() {
@@ -604,7 +616,13 @@ public class Renderer {
                 }
                 camera.setGeometry(new PlaneGeometry());
         }
-        gl.postRedisplay();
+        
+        if (activeDisplayMode == DisplayMode.SOLAR_SYSTEM) {
+            gl.startDisplayLoop();
+        } else {
+            gl.stopDisplayLoop();
+            gl.postRedisplay();
+        }        
     }
 
     /**

@@ -19,15 +19,15 @@ public class SphereGeometry implements Geometry {
          */
         double cameraRadius = cameraPosition.length(),
                horizon = sqrt(cameraRadius*cameraRadius - 1);
-        return getSpacePosition(geo).to(cameraPosition).length() <= horizon;
+        return getSpacePosition(geo, 0).to(cameraPosition).length() <= horizon;
     }
 
     @Override
-    public Vector3 getSpacePosition(GeoCoordinates geo) {
+    public Vector3 getSpacePosition(GeoCoordinates geo, double altitude) {
         // The earth axis is equal to the y axis, lon=0, lat=0 has the coordinates (0, 0, 1).
         return new Vector3(cos(geo.getLatitude()) * sin(geo.getLongitude()),
                 sin(geo.getLatitude()),
-                cos(geo.getLatitude()) * cos(geo.getLongitude()));
+                cos(geo.getLatitude()) * cos(geo.getLongitude())).times(1 + altitude);
     }
 
     @Override

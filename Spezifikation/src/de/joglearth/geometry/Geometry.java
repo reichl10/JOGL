@@ -25,7 +25,7 @@ public interface Geometry {
      * @param geo The surface point
      * @return The position
      */
-    public Vector3 getSpacePosition(GeoCoordinates geo);
+    public Vector3 getSpacePosition(GeoCoordinates geo, double altitude);
 
     /**
      * Calculates the surface coordinates of the intersection from a straight line between a given
