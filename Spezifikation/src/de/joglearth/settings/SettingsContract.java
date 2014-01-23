@@ -109,7 +109,7 @@ public final class SettingsContract {
     private static final String XML_ATTR_LOC_DETAILS  = "details";
     private static final String XML_ATTR_LOC_NAME     = "name";
     private static final String XML_ATTR_LOC_TYPE     = "type";
-    private static final String XML_ELEMENT_GEO       = "GeoCoordinates";
+    private static final String XML_ELEMENT_GEO       = "geocoordinates";
     private static final String XML_ATTR_GEO_LONG     = "longitude";
     private static final String XML_ATTR_GEO_LAT      = "latitude";
 
@@ -216,7 +216,6 @@ public final class SettingsContract {
         String typeString = reader.getAttributeValue(null, XML_ATTR_ENTRY_TYPE);
         String valueString = reader.getAttributeValue(null,
                 XML_ATTR_ENTRY_VALUE);
-        // TODO: convert and add to settings
         if (keyString != null && typeString != null && valueString != null) {
             Object value = null;
             if (typeString.equals(XML_ATTR_TYPE_INTEGER)) {
@@ -255,7 +254,6 @@ public final class SettingsContract {
             int event = reader.next();
             switch (event) {
                 case START_ELEMENT:
-                    // Allowed: Location
                     if (reader.getLocalName().equals(XML_ELEMENT_LOC)) {
                         Location location = readLocation(reader);
                         settings.putLocation(keyString, location);
@@ -319,7 +317,6 @@ public final class SettingsContract {
         reader.require(START_ELEMENT, null, XML_ELEMENT_GEO);
         String latString = reader.getAttributeValue(null, XML_ATTR_GEO_LAT);
         String longString = reader.getAttributeValue(null, XML_ATTR_GEO_LONG);
-        // go to end of element
         while (reader.hasNext() && reader.next() != END_ELEMENT
                 && reader.getLocalName().equals(XML_ELEMENT_GEO)) {
 

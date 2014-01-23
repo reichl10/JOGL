@@ -1,10 +1,12 @@
 package de.joglearth.junit.source.osm;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import de.joglearth.geometry.Tile;
+import de.joglearth.map.MapConfiguration;
+import de.joglearth.map.TileName;
+import de.joglearth.map.osm.OSMMapConfiguration;
 import de.joglearth.map.osm.OSMMapType;
 import de.joglearth.map.osm.OSMTile;
 
@@ -35,6 +37,12 @@ public class OSMTileTest {
         OSMTile n = (OSMTile) t3.getScaledAlternative().tile;
         assertTrue(t3.getDetailLevel() > n.getDetailLevel());
         
-    }
 
+        MapConfiguration config = new OSMMapConfiguration(OSMMapType.CYCLING);
+        OSMTile testTile = new OSMTile(3, 1, 1);
+        TileName testName = new TileName(config, testTile);
+
+        assertEquals(testTile, testName.tile);
+        assertEquals(config, testName.configuration);
+    }
 }

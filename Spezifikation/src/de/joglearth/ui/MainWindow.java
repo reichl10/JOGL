@@ -159,7 +159,7 @@ public class MainWindow extends JFrame {
     /**
      * Stores the reference to the <code>ViewEventListener</code> that is created on initialization.
      */
-    private ViewEventListener viewEventListener; //TODO: not used
+    private ViewEventListener viewEventListener; // TODO: not used
 
     /**
      * Stores the reference to the <code>Camera</code> that it gets through the constructor.
@@ -1109,20 +1109,30 @@ public class MainWindow extends JFrame {
                                 case SOLAR_SYSTEM:
                                     setSolarsystemMode(true);
                                     break;
-                                case GLOBE_MAP:
-                                case PLANE_MAP:
-                                    setSolarsystemMode(false);
-                                    break;
                                 default:
-                                    setSolarsystemMode(false);
                                     break;
                             }
                             Settings.getInstance().putString(SettingsContract.DISPLAY_MODE,
                                     mode.name());
                         }
+
+                    }
+                } else if (arg0.getStateChange() == ItemEvent.DESELECTED) {
+                    System.out.println("Deselected!");
+                    IconizedItem<DisplayMode> selected = (IconizedItem<DisplayMode>) arg0
+                            .getItem();
+                    if (selected != null) {
+                        DisplayMode mode = selected.getValue();
+                        switch (mode) {
+                            case SOLAR_SYSTEM:
+                                setSolarsystemMode(false);
+                                break;
+
+                            default:
+                                break;
+                        }
                     }
                 }
-
             }
         });
         paraMapTypeComboBox.addItemListener(new ItemListener() {
@@ -1192,7 +1202,8 @@ public class MainWindow extends JFrame {
                     locationManager.searchLocal(
                             queryString,
                             CameraUtils.getVisibleTiles(camera,
-                                    configuration.getOptimalTileLayout(camera, easel.getSize()), 500));
+                                    configuration.getOptimalTileLayout(camera, easel.getSize()),
+                                    500));
                 } else if (globalSearchRadioButton.isSelected()) {
                     locationManager.searchGlobal(queryString);
                 }
@@ -1730,8 +1741,12 @@ public class MainWindow extends JFrame {
             scaleCanvas.getSize(dimensionScaleCanv);
             double sizeScreen = camera.getSurfaceScale() * rad;
             double scale = dimensionCvas.getWidth() / dimensionScaleCanv.getWidth();
-            double scaleSize = Math.round(sizeScreen / scale);
-            scaleLabel.setText(String.valueOf(scaleSize) + " m");
+            int scaleSize = (int) Math.round(sizeScreen / scale);
+            if (scaleSize > 1000) {
+                scaleLabel.setText(String.valueOf(scaleSize / 1000) + " km");
+            } else {
+                scaleLabel.setText(String.valueOf(scaleSize) + " m");
+            }
         }
 
     }

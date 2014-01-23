@@ -382,7 +382,7 @@ public class Renderer {
         TextureFilter textureFilter = TextureFilter.valueOf(Settings.getInstance().getString(
                 SettingsContract.TEXTURE_FILTER));
 
-        earth = loadTextureResource("textures/earth.jpg", "jpg", textureFilter);
+        earth = loadTextureResource("textures/earth.png", "png", textureFilter);
         moon = loadTextureResource("textures/moon.jpg", "jpg", textureFilter);
         nightSky = loadTextureResource("textures/sky.png", "png", textureFilter);
         crosshair = loadTextureResource("icons/crosshair.png", "png", textureFilter);
