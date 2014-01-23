@@ -25,10 +25,10 @@ public final class Resource {
     }
     
     /**
-     * TODO
-     * @param name
-     * @return
-     * @throws IOException
+     * Reads an URL given as an input String and opens the download stream.
+     * @param name The URL in String representation
+     * @return The InputStream opened with the URL
+     * @throws IOException If the name can't be resolved to a valid URL
      */
     public static InputStream open(String name) throws IOException {
         URL url = getURL(name);
@@ -40,9 +40,9 @@ public final class Resource {
     }
     
     /**
-     * TODO
-     * @param name
-     * @return
+     * Checks if the URL to a given name exists.
+     * @param name The name of the URL to check
+     * @return true, if the URL exists, false if not
      */
     public static boolean exists(String name) {
         return getURL(name) != null;
@@ -63,10 +63,11 @@ public final class Resource {
     }
 
     /**
-     * TODO
-     * @param name
-     * @param separatorRegex
-     * @return
+     * Loads a CSVMap that contains a certain name and opens a Stream to load the right part
+     * of the CSVMap.
+     * @param name The name to look for in the map
+     * @param separatorRegex The separator of the values
+     * @return A map containing the searched values
      */
     public static Map<String, String> loadCSVMap(String name, String separatorRegex) {
         Map<String, String> map = new HashMap<>();
@@ -90,9 +91,9 @@ public final class Resource {
     }
     
     /**
-     * TODO
-     * @param name
-     * @return
+     * Loads a binary file from a given source.
+     * @param name The String representation of the source
+     * @return A byte array containing the wanted binary.
      */
     public static byte[] loadBinary(String name) {
         try {

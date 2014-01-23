@@ -9,11 +9,11 @@ public class SimpleTile extends AbstractTile {
     private final double lonFrom, lonTo, latFrom, latTo;
     
     /**
-     *  //TODO
-     * @param lonFrom
-     * @param latFrom
-     * @param lonTo
-     * @param latTo
+     * Creates a {@link SimpleTile} with the given values.
+     * @param lonFrom The longitude where the tile starts
+     * @param latFrom The latitude where the tile starts
+     * @param lonTo The longitude where the tile ends
+     * @param latTo The latitude where the tile ends
      */
     public SimpleTile(double lonFrom, double latFrom, double lonTo, double latTo) {
         this.lonFrom = lonFrom;

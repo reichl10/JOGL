@@ -3,36 +3,37 @@ package de.joglearth.opengl;
 import com.jogamp.opengl.util.texture.Texture;
 
 import de.joglearth.geometry.Matrix4;
+import de.joglearth.geometry.TransformedTile;
+
 
 /**
- * TODO
- *
+ * Structure that creates a texture that contains a certain transformation matrix. It is used for
+ * the different transformations that exist.
  */
 public final class TransformedTexture {
     
+
     /**
-     * TODO
+     * The texture that is given in a certain transformation.
      */
     public final Texture texture;
     
     /**
-     * TODO
+     * The transformation matrix that describes the transformation of the texture.
      */
     public final Matrix4 transformation;
     
     /**
-     * TODO
-     * @param texture
-     * @param transformation
+     * Creates a {@link TransformedTexture} as it assigns values to the attributes of the tile.
+     * 
+     * @param texture The texture that is given under a transformation
+     * @param transformation The transformation matrix of the texture
      */
     public TransformedTexture(Texture texture, Matrix4 transformation) {
         this.texture = texture;
         this.transformation = transformation;
     }
 
-    /* (nicht-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -42,9 +43,6 @@ public final class TransformedTexture {
         return result;
     }
 
-    /* (nicht-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

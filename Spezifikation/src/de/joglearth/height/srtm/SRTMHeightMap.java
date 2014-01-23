@@ -20,9 +20,19 @@ public class SRTMHeightMap implements HeightMap {
 
     private static SRTMHeightMap instance = null;
     
-    //TODO: JavaDoc für alle public Variablen
+    /**
+     * The radius of the earth given in meters.
+     */
     public final static double EARTH_RADIUS_METERS = 6378000.0;
+    
+    /**
+     * The maximal height of a point on the sphere.
+     */
     public final static double MAX_HEIGHT = Short.MAX_VALUE / EARTH_RADIUS_METERS;
+    
+    /**
+     * The minimal height of a point on the sphere.
+     */
     public final static double MIN_HEIGHT = -MAX_HEIGHT;
     
     private final SRTMListener srtmListener = new SRTMListener();

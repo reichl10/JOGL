@@ -5,25 +5,45 @@ import de.joglearth.geometry.Tile;
 import de.joglearth.height.HeightMap;
 
 /**
- * TODO
- *
+ * Structure that describes a tile that is projected with a certain projection. That is necessary
+ * because a tile that is used for a globe has to have other surface coordinates as a tile that
+ * is used for a flat map. (e.g. mercator projection for the earth)
  */
 public final class ProjectedTile {
 	
-    //TODO: Alle public Variablen JavaDoc'en
+    /**
+     * The tile that is projected in a certain way.
+     */
 	public final Tile tile;
+	
+	/**
+	 * The projection of the tile.
+	 */
 	public final MapProjection projection;
+	
+	/**
+	 * The number of subdivisions of the vertices on the equator.
+	 */
 	public final int equatorSubdivisions;
+	
+	/**
+	 * The number of subdivisions that at least have to be fulfilled.
+	 */
 	public final int minEquatorSubdivisions;
+	
+	/**
+	 * The used {@link HeightMap}.
+	 */
 	public final HeightMap heightMap;
 	
 	/**
-	 * TODO
-	 * @param tile
-	 * @param projection
-	 * @param minEquatorSubdivisions
-	 * @param equatorSubdivisions
-	 * @param heightMap
+	 * Creates a {@link ProjectedTile} using different values.
+	 * 
+	 * @param tile The tile that is given under a certain projection
+	 * @param projection The projection of the tile
+	 * @param minEquatorSubdivisions The minimal number of subdivisions on the equator
+	 * @param equatorSubdivisions The actual number of subdivisions on the equator
+	 * @param heightMap The used {@link HeightMap}
 	 */
 	public ProjectedTile (Tile tile, MapProjection projection, int minEquatorSubdivisions,
 	        int equatorSubdivisions, HeightMap heightMap) {
@@ -33,6 +53,7 @@ public final class ProjectedTile {
 	    }
 	    
 		this.tile = tile;
+		
 		this.projection = projection;
 		this.minEquatorSubdivisions = minEquatorSubdivisions;
 		this.equatorSubdivisions = equatorSubdivisions;

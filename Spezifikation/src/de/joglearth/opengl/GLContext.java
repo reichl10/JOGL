@@ -518,13 +518,15 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     }
 
     /**
-     * TODO
+     * Draws a sphere with the given values with the primitives of JOGL and catches exceptions
+     * that occur in OpenGL.
      * 
-     * @param radius
-     * @param slices
-     * @param stacks
-     * @param inside
-     * @param color4
+     * @param radius The radius of the sphere
+     * @param slices The slices of the sphere
+     * @param stacks The stacks of the sphere
+     * @param inside Whether to draw the vertices facing inside (<code>true</code>)
+     *                  or outside (<code>false</code>)
+     * @param color4 A float array describing the color of the sphere
      */
     public void drawSphere(double radius, int slices, int stacks, boolean inside, float[] color4) {
         assertIsInitialized();
@@ -551,15 +553,20 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     }
 
     /**
-     * TODO
-     * @param upperLeft
-     * @param lowerRight
-     * @param texture
+     * Draws a rectangle described by the given values (Two corners of the rectangle),
+     * draws a texture on it and catches exceptions that occur in OpenGL.
+     * 
+     * @param upperLeft The upper left corner of the rectangle
+     * @param lowerRight The lower right corner of the rectangle
+     * @param texture The texture to draw on the rectangle
      */
     public void drawRectangle(ScreenCoordinates upperLeft, ScreenCoordinates lowerRight,
             Texture texture) {
 
-        float left = (float) upperLeft.x * 2 - 1, top = (float) lowerRight.y * 2 - 1, right = (float) lowerRight.x * 2 - 1, bottom = (float) upperLeft.y * 2 - 1;
+        float left = (float) upperLeft.x * 2 - 1,
+              top = (float) lowerRight.y * 2 - 1,
+              right = (float) lowerRight.x * 2 - 1,
+              bottom = (float) upperLeft.y * 2 - 1;
 
         float[] vertices = {
                 left, bottom, 0,
@@ -750,9 +757,11 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     }
 
     /**
-     * TODO
-     * @param sourceFactor
-     * @param destFactor
+     * Sets the blending function of OpenGL. It is used for combing textures and uses factors to
+     * determine the degree to which one should be considered more.
+     * 
+     * @param sourceFactor The factor of the source
+     * @param destFactor The factor of the destination
      */
     public void setBlendingFunction(int sourceFactor, int destFactor) {
         assertIsInitialized();
