@@ -6,7 +6,6 @@ import static java.lang.Math.abs;
 import static java.lang.Math.pow;
 import static java.lang.Math.signum;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Desktop;
@@ -1578,6 +1577,11 @@ public class MainWindow extends JFrame {
         Boolean heightProfBoolean = settings.getBoolean(SettingsContract.HEIGHT_MAP_ENABLED);
         heightMapCheckBox.setSelected(heightProfBoolean);
         zoomSlider.setValue(0);
+        for (Entry<JCheckBox, LocationType> entry : checkboxToLocationTypeMap.entrySet()) {
+            if (entry.getValue() == LocationType.USER_TAG || entry.getValue() == LocationType.SEARCH_RESULT) {
+                entry.getKey().setSelected(true);
+            }
+        }
     }
 
     private void updateUserLocations() {
