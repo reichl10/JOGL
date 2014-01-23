@@ -90,5 +90,5 @@ public enum LocationType {
     /**
      * Returns a search result.
      */
-    SEARCH
+    SEARCH_RESULT
 }

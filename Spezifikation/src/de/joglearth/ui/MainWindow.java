@@ -616,7 +616,7 @@ public class MainWindow extends JFrame {
         overlaysPanel.add(box);
         box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.search")); //$NON-NLS-1$
-        checkboxToLocationTypeMap.put(box, LocationType.SEARCH);
+        checkboxToLocationTypeMap.put(box, LocationType.SEARCH_RESULT);
         overlaysPanel.add(box);
         box.addItemListener(overlayListener);
         updateUserLocations();
@@ -1450,7 +1450,7 @@ public class MainWindow extends JFrame {
                         case USER_TAG:
                             box.setText(Messages.getString("MainWindow.user_tags")); //$NON-NLS-1$
                             break;
-                        case SEARCH:
+                        case SEARCH_RESULT:
                             box.setText(Messages.getString("MainWindow.search")); //$NON-NLS-1$
                             break;
                         default:
@@ -2028,7 +2028,7 @@ public class MainWindow extends JFrame {
         Set<Entry<JCheckBox, LocationType>> entrys = checkboxToLocationTypeMap.entrySet();
         for (Entry<JCheckBox, LocationType> entry : entrys) {
             LocationType type = entry.getValue();
-            if (type != LocationType.SEARCH && type != LocationType.USER_TAG) {
+            if (type != LocationType.SEARCH_RESULT && type != LocationType.USER_TAG) {
                 JCheckBox box = entry.getKey();
                 if (enable) {
                     if (!box.isEnabled()) {

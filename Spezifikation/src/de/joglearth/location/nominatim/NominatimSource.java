@@ -121,7 +121,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
             xmlResponse = "";
             e.printStackTrace();
         }
-        ArrayList<Location> response = parseXml(xmlResponse, LocationType.SEARCH, query);
+        ArrayList<Location> response = parseXml(xmlResponse, LocationType.SEARCH_RESULT, query);
 
         return response;
     }
@@ -154,7 +154,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
             e.printStackTrace();
         }
 
-        ArrayList<Location> response = parseXml(xmlResponse, LocationType.SEARCH, query);
+        ArrayList<Location> response = parseXml(xmlResponse, LocationType.SEARCH_RESULT, query);
 
         return response;
     }

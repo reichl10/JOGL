@@ -313,7 +313,7 @@ public class Renderer {
                 if (location.point != null && camera.isPointVisible(location.point)) {
                     ScreenCoordinates center = camera.getScreenCoordinates(location.point);
                     if (location.name != null && (location.type == LocationType.USER_TAG 
-                            || location.type == LocationType.SEARCH))
+                            || location.type == LocationType.SEARCH_RESULT))
                     {
                         String text = location.name;
                         Dimension textSize =
