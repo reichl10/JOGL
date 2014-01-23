@@ -28,7 +28,7 @@ public class STRMTileIndexTest {
         index3.latitude = 4;
         index3.longitude = 5;
         assertEquals(index, index2);
-        assertNotEquals(index, index3);
+        assertFalse((index.equals(index3)));
     }
 
 }
