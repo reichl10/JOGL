@@ -12,6 +12,7 @@ public class GLError extends RuntimeException {
 
     private static final long serialVersionUID = -6553317277500865406L;
 
+
     private static String errorCodeToString(int code) {
         switch (code) {
             case GL_NO_ERROR:
@@ -34,16 +35,17 @@ public class GLError extends RuntimeException {
                 return "Unknown cause";
         }
     }
-    
+
     /**
      * Constructor. Creates an exception with unknown cause.
      */
     public GLError() {
         this(-1);
     }
-    
+
     /**
-     * Constructor. 
+     * Constructor.
+     * 
      * @param errorCode The error code given by OpenGL
      */
     public GLError(int errorCode) {
@@ -51,7 +53,8 @@ public class GLError extends RuntimeException {
     }
 
     /**
-     * Constructor. 
+     * Constructor.
+     * 
      * @param string The error message
      */
     public GLError(String string) {
@@ -60,6 +63,7 @@ public class GLError extends RuntimeException {
 
     /**
      * Throws a GLError if an error is active for a given GL2 object.
+     * 
      * @param gl The GL2 object
      */
     public static void throwIfActive(GL2 gl) {

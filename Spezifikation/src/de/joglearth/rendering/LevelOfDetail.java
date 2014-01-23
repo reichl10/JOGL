@@ -17,7 +17,8 @@ public enum LevelOfDetail {
     MEDIUM,
     
     /**
-     * Highest detail level. Provides the best possible visual experience at the expense of performance.
+     * Highest detail level. Provides the best possible visual experience
+     * at the expense of performance.
      */
     HIGH
 }

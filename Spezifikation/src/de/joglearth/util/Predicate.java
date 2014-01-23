@@ -9,6 +9,7 @@ public interface Predicate<T> {
 
     /**
      * Tests an object if it satisfies the predicate condition.
+     * 
      * @param t The object
      * @return Whether the predicate is satisfied
      */

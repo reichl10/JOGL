@@ -5,7 +5,7 @@ import javax.swing.Icon;
 
 /**
  * An aggregation of a generic value, a caption and a Swing icon, used with a
- * {@link de.joglearth.ui.IconListCellRenderer} to display iconized List and ComboBox items.
+ * {@link IconListCellRenderer} to display iconized List and ComboBox items.
  * 
  * @param E The generic value type.
  */

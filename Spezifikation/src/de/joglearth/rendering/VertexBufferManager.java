@@ -32,11 +32,10 @@ public class VertexBufferManager implements Source<ProjectedTile, VertexBuffer> 
 
     /**
      * Creates a new {@link VertexBufferManager} as it initializes the source, the cache, sets the
-     * {@link de.joglearth.source.caching.RequestDistributor} and adds a surface listener from
-     * {@link de.joglearth.surface.HeightMap}.
+     * {@link RequestDistributor} and adds a surface listener from {@link HeightMap}.
      * 
      * @param gl The GL context. May not be null.
-     * @param t The <code>Tessellator</code> that should be used. May be null.
+     * @param t The {@link Tessellator} that should be used. May be null.
      */
     public VertexBufferManager(GLContext gl, Tessellator t) {
         if (gl == null) {
@@ -53,32 +52,26 @@ public class VertexBufferManager implements Source<ProjectedTile, VertexBuffer> 
         listeners = new LinkedList<SurfaceListener>();
     }
 
+
     private class SurfaceHeightListener implements SurfaceListener {
 
         @Override
         public void surfaceChanged(final double lonFrom, final double latFrom,
                 final double lonTo, final double latTo) {
-             
-            dist.dropAll();
-            
-            /* TODO new Predicate<ProjectedTile>() {
 
-                @Override
-                public boolean test(ProjectedTile t) {
-                    return t.tile.intersects(lonFrom - 0.001, latFrom - 0.001, 
-                            lonTo + 0.001, latTo + 0.001);
-                }
-            });*/
+            //drop for predicate
+            dist.dropAll();
 
             for (SurfaceListener sirFace : listeners) {
                 sirFace.surfaceChanged(lonFrom, latFrom, lonTo, latTo);
             }
         }
     };
-    
+
+
     /**
-     * Sets the {@link de.joglearth.rendering.Tessellator} of the
-     * {@link de.joglearth.rendering.VertexBufferLoader}
+     * Sets the {@link Tessellator} of the
+     * {@link VertexBufferLoader}
      * 
      * @param t The new <code>Tesselator</code>
      */
@@ -124,12 +117,10 @@ public class VertexBufferManager implements Source<ProjectedTile, VertexBuffer> 
         listeners.remove(l);
     }
 
-    /**
-     * TODO
-     */
+    @Override
     public void dispose() {
         gl.invokeSooner(new Runnable() {
-            
+
             @Override
             public void run() {
                 dist.dropAll();

@@ -86,7 +86,7 @@ public class LocationManager {
      */
     public Collection<Location> getActiveLocations(Iterable<Tile> area) {
         Collection<Location> locations = new ArrayList<Location>();
-        if (activeLocationTypes.contains(LocationType.SEARCH)) {
+        if (activeLocationTypes.contains(LocationType.SEARCH_RESULT)) {
             for (Iterator<Location> iterator = lastSearchLocations.iterator(); iterator.hasNext();) {
                 Location location = iterator.next();
                 if (activeLocationTypes.contains(location.type)) {

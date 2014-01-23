@@ -11,6 +11,7 @@ public final class VertexBuffer {
                 + primitiveType + ", primitiveCount=" + indexCount + "]";
     }
 
+
     /**
      * The vertex buffer handle.
      */
@@ -30,42 +31,42 @@ public final class VertexBuffer {
 
     private int indexCount;
 
-    
+
     /**
      * Returns the OpenGL vertex buffer ID.
+     * 
      * @return vertices
      */
     public int getVertices() {
         return vertices;
     }
 
-    
     /**
      * Returns the OpenGL index buffer ID.
+     * 
      * @return The buffer ID
      */
     public int getIndices() {
         return indices;
     }
 
-    
     /**
      * Returns the type of primitives described by the index buffer
+     * 
      * @return The type of primitives
      */
     public int getPrimitiveType() {
         return primitiveType;
     }
 
-    
     /**
      * Returns the number of indices contained in the index buffer
+     * 
      * @return The number of indices
      */
     public int getIndexCount() {
         return indexCount;
     }
-
 
     /**
      * Constructor.
@@ -77,7 +78,7 @@ public final class VertexBuffer {
         if (count < 0 || vertices <= 0 || indices <= 0) {
             throw new IllegalArgumentException();
         }
-        
+
         this.indices = indices;
         this.vertices = vertices;
         primitiveType = type;

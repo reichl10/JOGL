@@ -21,8 +21,8 @@ import de.joglearth.source.SourceResponseType;
 
 
 /**
- * Loads the textures into OpenGL returning the ID. Implements {@link de.joglearth.source.Source} to
- * get a new texture, when it is needed. Owns a {@link de.joglearth.source.Source} for image data.
+ * Loads the textures into OpenGL returning the ID. Implements {@link Source} to get a new texture,
+ * when it is needed. Owns a {@link Source} for image data.
  */
 public class TextureLoader<Key> implements Source<Key, Texture> {
 
@@ -31,23 +31,24 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
     private ImageSourceListener imageSourceListener = new ImageSourceListener();
     private TextureFilter textureFilter;
     private String formatSuffix;
-    
+
     // Stores requests requiring a callback on completion
     private Map<Key, Collection<SourceListener<Key, Texture>>> pendingRequests = new HashMap<>();
 
-    
+
     /**
      * Constructor
+     * 
      * @param gl The GL context to load textures with. Must not be null
      * @param imageSource The image source providing the raw image data. Must not be null
-     * @param formatSuffix The file suffix of the image format provided (e.g. "jpg"). Must not be 
-     * null
+     * @param formatSuffix The file suffix of the image format provided (e.g. "jpg"). Must not be
+     *        null
      */
     public TextureLoader(GLContext gl, Source<Key, byte[]> imageSource, String formatSuffix) {
         if (gl == null || imageSource == null || formatSuffix == null) {
             throw new IllegalArgumentException();
         }
-        
+
         this.gl = gl;
         this.imageSource = imageSource;
         this.textureFilter = TextureFilter.TRILINEAR;
@@ -76,29 +77,29 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
     }
 
 
-    private SourceResponse<Texture> loadTexture(final Key key, 
+    private SourceResponse<Texture> loadTexture(final Key key,
             final SourceListener<Key, Texture> sender, byte[] raw) {
-        
+
         TextureData data;
         try {
             data = gl.loadTextureData(new ByteArrayInputStream(raw), formatSuffix);
         } catch (IOException e) {
-           return new SourceResponse<Texture>(SourceResponseType.MISSING, null);
+            return new SourceResponse<Texture>(SourceResponseType.MISSING, null);
         }
-        
+
         LoaderRunnable loader = new LoaderRunnable(data);
         if (gl.canInvokeDirectly()) {
-            return new SourceResponse<Texture>(SourceResponseType.SYNCHRONOUS, 
+            return new SourceResponse<Texture>(SourceResponseType.SYNCHRONOUS,
                     (Texture) loader.run());
         } else {
             gl.invokeLater(loader, new RunnableResultListener() {
-    
+
                 @Override
                 public synchronized void runnableCompleted(Object result) {
                     sender.requestCompleted(key, (Texture) result);
                 }
             });
-            
+
             return new SourceResponse<Texture>(SourceResponseType.ASYNCHRONOUS, null);
         }
     }
@@ -134,7 +135,7 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
                 }
             }
         }
-        
+
         return new SourceResponse<Texture>(SourceResponseType.MISSING, null);
     }
 
@@ -155,31 +156,33 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
 
 
     @Override
-    public void dispose() { }
+    public void dispose() {}
 
     /**
      * Sets the texture filter used for the following textures.
+     * 
      * @param textureFilter The filter. Must not be null
      */
     public void setTextureFilter(TextureFilter textureFilter) {
         if (textureFilter == null) {
             throw new IllegalArgumentException();
         }
-        
+
         this.textureFilter = textureFilter;
     }
 
     /**
      * Sets the image source used to load image data from.
+     * 
      * @param imageSource The source. Must not be null
-     * @param formatSuffix The file suffix of the image format provided (e.g. "jpg"). Must not
-     * be null
+     * @param formatSuffix The file suffix of the image format provided (e.g. "jpg"). Must not be
+     *        null
      */
     public void setImageSource(Source<Key, byte[]> imageSource, String formatSuffix) {
         if (imageSource == null || formatSuffix == null) {
             throw new IllegalArgumentException();
         }
-        
+
         this.imageSource = imageSource;
         this.formatSuffix = formatSuffix;
     }

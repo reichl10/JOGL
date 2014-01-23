@@ -9,7 +9,7 @@ package de.joglearth.source;
 public interface SourceListener<Key, Value> {
 
     /**
-     * Asynchronous request of a {@link source} to the web.
+     * Asynchronous request of a {@link Source} to the web.
      * 
      * @param key Identifier for the objects
      * @param value The type of value retrieved by the <code>Source</code>

@@ -13,6 +13,7 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -157,11 +158,6 @@ public class MainWindow extends JFrame {
     private LocationManager locationManager;
 
     /**
-     * Stores the reference to the <code>ViewEventListener</code> that is created on initialization.
-     */
-    private ViewEventListener viewEventListener; // TODO: not used
-
-    /**
      * Stores the reference to the <code>Camera</code> that it gets through the constructor.
      */
     private Camera camera;
@@ -206,7 +202,6 @@ public class MainWindow extends JFrame {
     private JSlider zoomSlider;
     private UISettingsListener settingsListener;
     private JLabel scaleLabel;
-    private static final double ZOOM_FACTOR = 10.d;
     private static final double MAX_DIST = 2.d;
     private JButton searchButton;
     private JList<Location> searchResultList;
@@ -221,7 +216,7 @@ public class MainWindow extends JFrame {
     private Map<JButton, JButton> closingMap = new HashMap<JButton, JButton>();
     private double cTiltX = 0.0d;
     private double cTiltY = 0.0d;
-    private Canvas scaleCanvas;
+    private JPanel scaleCanvasPanel;
     private DetailsListener lastDetailsListener = null;
     private JTextArea detailsDescTextArea;
     private JScrollPane scrollPane_1;
@@ -264,7 +259,6 @@ public class MainWindow extends JFrame {
         setTitle(JoglEarth.PRODUCT_NAME);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
-        this.viewEventListener = new ViewEventListener(camera);
         this.settingsListener = new UISettingsListener();
         Settings.getInstance().addSettingsListener(SettingsContract.ANTIALIASING, settingsListener);
         getContentPane().setLayout(
@@ -603,20 +597,12 @@ public class MainWindow extends JFrame {
         checkboxToLocationTypeMap.put(box, LocationType.CITY);
         overlaysPanel.add(box);
         box.addItemListener(overlayListener);
-        //        box = new JCheckBox(Messages.getString("MainWindow.town")); //$NON-NLS-1$
-        // checkboxToLocationTypeMap.put(box, LocationType.TOWN);
-        // overlaysPanel.add(box);
-        // box.addItemListener(overlayListener);
-        //        box = new JCheckBox(Messages.getString("MainWindow.village")); //$NON-NLS-1$
-        // checkboxToLocationTypeMap.put(box, LocationType.VILLAGE);
-        // overlaysPanel.add(box);
-        // box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.user_tags")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.USER_TAG);
         overlaysPanel.add(box);
         box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.search")); //$NON-NLS-1$
-        checkboxToLocationTypeMap.put(box, LocationType.SEARCH);
+        checkboxToLocationTypeMap.put(box, LocationType.SEARCH_RESULT);
         overlaysPanel.add(box);
         box.addItemListener(overlayListener);
         updateUserLocations();
@@ -699,6 +685,7 @@ public class MainWindow extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
+                    @SuppressWarnings("unchecked")
                     NamedItem<Antialiasing> item = (NamedItem<Antialiasing>) e
                             .getItem();
                     Antialiasing type = item.getValue();
@@ -734,6 +721,7 @@ public class MainWindow extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
+                    @SuppressWarnings("unchecked")
                     NamedItem<TextureFilter> item = (NamedItem<TextureFilter>) e.getItem();
                     Settings.getInstance().putString(
                             SettingsContract.TEXTURE_FILTER, item.getValue().name());
@@ -755,9 +743,12 @@ public class MainWindow extends JFrame {
                 .getString("MainWindow.141"), LevelOfDetail.HIGH)); //$NON-NLS-1$
         lodComboBox.addItemListener(new ItemListener() {
 
+            @SuppressWarnings("static-access")
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == e.SELECTED) {
+                    
+                    @SuppressWarnings("unchecked")
                     LevelOfDetail detail = ((NamedItem<LevelOfDetail>) e.getItem()).getValue();
                     Settings.getInstance().putString(
                             SettingsContract.LEVEL_OF_DETAIL, detail.name());
@@ -968,9 +959,8 @@ public class MainWindow extends JFrame {
                         FormFactory.DEFAULT_ROWSPEC,
                         RowSpec.decode("default:grow"), }));
 
-        scaleCanvas = new Canvas();
-        scaleCanvas.setBackground(Color.LIGHT_GRAY);
-        scalePanel.add(scaleCanvas, "1, 2, fill, fill");
+        scaleCanvasPanel = new ScaleJPanel();
+        scalePanel.add(scaleCanvasPanel, "1, 2, fill, fill");
 
         scaleLabel = new JLabel("1 km"); //$NON-NLS-1$
         scalePanel.add(scaleLabel, "1, 3"); //$NON-NLS-1$
@@ -1081,8 +1071,10 @@ public class MainWindow extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                @SuppressWarnings("unchecked")
                 JComboBox<IconizedItem<Locale>> cBox = (JComboBox<IconizedItem<Locale>>) e
                         .getSource();
+                @SuppressWarnings("unchecked")
                 IconizedItem<Locale> item = (IconizedItem<Locale>) cBox
                         .getSelectedItem();
                 Locale language = item.getValue();
@@ -1098,6 +1090,7 @@ public class MainWindow extends JFrame {
             public void itemStateChanged(ItemEvent arg0) {
                 if (arg0.getStateChange() == ItemEvent.SELECTED) {
                     if (camera != null) {
+                        @SuppressWarnings("unchecked")
                         IconizedItem<DisplayMode> selected = (IconizedItem<DisplayMode>) arg0
                                 .getItem();
                         if (selected != null) {
@@ -1119,6 +1112,7 @@ public class MainWindow extends JFrame {
                     }
                 } else if (arg0.getStateChange() == ItemEvent.DESELECTED) {
                     System.out.println("Deselected!");
+                    @SuppressWarnings("unchecked")
                     IconizedItem<DisplayMode> selected = (IconizedItem<DisplayMode>) arg0
                             .getItem();
                     if (selected != null) {
@@ -1141,6 +1135,7 @@ public class MainWindow extends JFrame {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     System.out.println("Mapconfig-Listener (1)");
+                    @SuppressWarnings("unchecked")
                     IconizedItem<MapConfiguration> item = (IconizedItem<MapConfiguration>) e
                             .getItem();
                     mapConfiguration = (MapConfiguration) item.getValue();
@@ -1165,6 +1160,7 @@ public class MainWindow extends JFrame {
                 }
             }
         });
+        @SuppressWarnings("serial")
         Action action = new AbstractAction() {
 
             @Override
@@ -1173,6 +1169,7 @@ public class MainWindow extends JFrame {
                 MainWindow.this.dispose();
             }
         };
+        @SuppressWarnings("serial")
         Action showManualAction = new AbstractAction() {
 
             @Override
@@ -1197,6 +1194,7 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String queryString = searchTextField.getText();
                 if (localSearchRadioButton.isSelected()) {
+                    @SuppressWarnings("unchecked")
                     MapConfiguration configuration = ((IconizedItem<MapConfiguration>) paraMapTypeComboBox
                             .getSelectedItem()).getValue();
                     locationManager.searchLocal(
@@ -1450,7 +1448,7 @@ public class MainWindow extends JFrame {
                         case USER_TAG:
                             box.setText(Messages.getString("MainWindow.user_tags")); //$NON-NLS-1$
                             break;
-                        case SEARCH:
+                        case SEARCH_RESULT:
                             box.setText(Messages.getString("MainWindow.search")); //$NON-NLS-1$
                             break;
                         default:
@@ -1738,7 +1736,7 @@ public class MainWindow extends JFrame {
 
             scaleLabel.setText(Double.toString(camera.getSurfaceScale()));
             easel.getSize(dimensionCvas);
-            scaleCanvas.getSize(dimensionScaleCanv);
+            scaleCanvasPanel.getSize(dimensionScaleCanv);
             double sizeScreen = camera.getSurfaceScale() * rad;
             double scale = dimensionCvas.getWidth() / dimensionScaleCanv.getWidth();
             int scaleSize = (int) Math.round(sizeScreen / scale);
@@ -2028,7 +2026,7 @@ public class MainWindow extends JFrame {
         Set<Entry<JCheckBox, LocationType>> entrys = checkboxToLocationTypeMap.entrySet();
         for (Entry<JCheckBox, LocationType> entry : entrys) {
             LocationType type = entry.getValue();
-            if (type != LocationType.SEARCH && type != LocationType.USER_TAG) {
+            if (type != LocationType.SEARCH_RESULT && type != LocationType.USER_TAG) {
                 JCheckBox box = entry.getKey();
                 if (enable) {
                     if (!box.isEnabled()) {
@@ -2059,7 +2057,6 @@ public class MainWindow extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            final GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
             SwingUtilities.invokeLater(new Runnable() {
 
                 @Override
@@ -2156,5 +2153,23 @@ public class MainWindow extends JFrame {
             }
         }
 
+    }
+    
+    private class ScaleJPanel extends JPanel {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = -6147161184990032887L;
+
+        
+        @Override
+        public void paint(Graphics g) {
+            g.setColor(Color.BLACK);
+            Dimension d = getSize();
+            System.out.println("W: "+d.width+ "H: "+d.height);
+            g.fillRect(0, (d.height/2-1), d.width, 2);
+            g.fillRect(0, 0, 2, d.height);
+            g.fillRect(d.width-2, 0, 2, d.height);
+        }
     }
 }

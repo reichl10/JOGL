@@ -25,9 +25,9 @@ public class TileMeshSourceTest {
     @Test(timeout=100)
     public void testTileMeshSource() {
         TestTessellator tessl = new TestTessellator();
-        VertexBufferLoader s = new VertexBufferLoader(window.getGL(), tessl);
-        s.setTileSubdivisions(2732);
-        s.setHeightMapEnabled(true);
+        VertexBufferLoader s = new VertexBufferLoader(window.getGLContext(), tessl);
+//        s.setTileSubdivisions(2732);
+//        s.setHeightMapEnabled(true);
         TestSourceListener l = new TestSourceListener();
         
         
@@ -38,7 +38,7 @@ public class TileMeshSourceTest {
 
         s.requestObject(lin, l);
         while (l.buffer == null);
-        assertTrue(tessl.m.indexCount == l.buffer.indexCount);
+        assertTrue(tessl.m.indexCount == l.buffer.getIndexCount());
         assertTrue(tessl.lastSubDiv == 2732);
         assertTrue(tessl.lastHeightMap);
     }
@@ -47,6 +47,7 @@ public class TileMeshSourceTest {
         public int lastSubDiv = 0;
         public boolean lastHeightMap = false;
         public Mesh m = new Mesh();
+        
         @Override
         public Mesh tessellateTile(ProjectedTile tile) {
             return m;

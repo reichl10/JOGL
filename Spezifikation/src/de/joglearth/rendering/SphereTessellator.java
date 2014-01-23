@@ -11,13 +11,14 @@ import static javax.media.opengl.GL.GL_TRIANGLES;
 
 
 /**
- * Generates {@link de.joglearth.rendering.Mesh}es for tiles on the globe.
+ * Generates {@link Mesh}es for tiles on the globe.
  * 
  */
 public class SphereTessellator implements Tessellator {
 
     private static Vector3 getSurfaceVector(double lon, double lat, double latStep,
             HeightMap heightMap) {
+        
         // The earth axis is equal to the y axis, lon=0, lat=0 has the coordinates (0, 0, 1).
         Vector3 vec = new Vector3(cos(lat) * sin(lon), sin(lat), cos(lat) * cos(lon));
         return vec.times(1 + heightMap.getHeight(new GeoCoordinates(lon, lat), latStep));

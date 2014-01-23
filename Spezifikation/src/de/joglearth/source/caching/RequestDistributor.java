@@ -29,7 +29,7 @@ import de.joglearth.util.Predicate;
 public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
     /**
-     * Holds my caches.
+     * Holds the caches.
      */
     private List<Cache<Key, Value>> caches;
     private Map<Cache<Key, Value>, Integer> cacheSizeMap;
@@ -65,7 +65,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         if (!(cache instanceof FileSystemCache)) {
             usedSizeMap.put(cache, new Integer(0));
         } else {
-            //TODO: unsafety cast
             FileSystemCache<Key> fsCache = (FileSystemCache<Key>) cache;
             Integer sizeOfObjects = 0;
             Iterable<Key> cachedObjectsIterable = cache.getExistingObjects();
@@ -103,7 +102,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     /**
-     * Replaces the {@link de.joglearth.source.Source}.
+     * Replaces the {@link Source}.
      * 
      * @param source The new source
      */
@@ -112,15 +111,15 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     /**
-     * Tries to retrieve a requested object. Asks {@link de.joglearth.source.caching.Cache} in the
-     * order of their hierarchy, if the object is not in the <code>Caches</code> it asks its
-     * {@link de.joglearth.source.Source}. Objects that are not found in the primary
-     * <code>Cache</code>, but in another <code>Cache</code> or the <code>Source</code> are stored
-     * in the primary <code>Cache</code>. This may lead to displacements of other objects from the
-     * primary <code>Cache</code>.
+     * Tries to retrieve a requested object. Asks {@link Cache} in the order of their hierarchy, if
+     * the object is not in the <code>Caches</code> it asks its {@link Source}. Objects that are not
+     * found in the primary <code>Cache</code>, but in another <code>Cache</code> or the
+     * <code>Source</code> are stored in the primary <code>Cache</code>. This may lead to
+     * displacements of other objects from the primary <code>Cache</code>.
      * 
      * @param key Identifier of the requested object
-     * @param sender Entity to be notified when request is completed asynchronous
+     * @param sender Entity to be notified when request is completed
+     *        {@link SourceResponseType#ASYNCHRONOUS}
      */
     @Override
     public synchronized SourceResponse<Value> requestObject(Key key,
@@ -187,12 +186,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         }
     }
 
-    /**
-     * Returns True if this request was already registed.
-     * 
-     * @param k
-     * @param s
-     */
     private synchronized void addRequestListener(Key k, SourceListener<Key, Value> s) {
         Set<SourceListener<Key, Value>> set = waitingRequestsMap.get(k);
         if (set == null) {
@@ -225,7 +218,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     /**
      * Constructor.
      * 
-     * @param m The <code>ObjectMeasure</code> to use
+     * @param m The {@link ObjectMeasure} to use
      */
     public RequestDistributor(ObjectMeasure<Value> m) {
         measure = m;
@@ -238,8 +231,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     /**
-     * Default constructor. Uses {@link de.joglearth.source.caching.UnityMeasure} as
-     * {@link de.joglearth.source.caching.ObjectMeasure}.
+     * Default constructor. Uses {@link UnityMeasure} as {@link ObjectMeasure}.
      */
     public RequestDistributor() {
         this(new UnityMeasure<Value>());
@@ -257,8 +249,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     /**
-     * Removes all objects from the {@link de.joglearth.source.caching.Cache} that fulfill the
-     * {@link de.joglearth.util.Predicate}.
+     * Removes all objects from the {@link Cache} that fulfill the {@link Predicate}.
      * 
      * @param pred Conformance with that <code>Predicate</code> leads to deletion of that object
      */
@@ -275,8 +266,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     /**
-     * Removes an object stored under a <code>Key</code> from the
-     * {@link de.joglearth.source.caching.Cache} that contains it.
+     * Removes an object stored under a <code>Key</code> from the {@link Cache} that contains it.
      * 
      * @param k The key identifying the object
      */

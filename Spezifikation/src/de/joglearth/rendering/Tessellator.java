@@ -1,17 +1,14 @@
 package de.joglearth.rendering;
 
-
-
 /**
- * An implementation of the {@link de.joglearth.rendering.Tesselator} interface provides the
- * occasion to generate a {@link de.joglearth.rendering.Mesh}.
+ * An implementation of the {@link Tesselator} interface provides the occasion to generate a
+ * {@link Mesh}.
  * 
  */
 public interface Tessellator {
 
     /**
-     * Creates a {@link de.joglearth.rendering.Mesh} for a {@link de.joglearth.geometry.Tile} with
-     * height data.
+     * Creates a {@link Mesh} for a {@link Tile} with height data.
      * 
      * 
      * @param tile The location where the <code>Mesh</code> should be rendered
@@ -25,8 +22,7 @@ public interface Tessellator {
 
     @Override
     int hashCode();
-    
+
     @Override
     boolean equals(Object other);
 }
-

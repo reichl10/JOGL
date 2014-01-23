@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 
 /**
- * TODO
+ * Implements the {@link Invoker} interface for the AWTEventQueue
  */
 public final class AWTInvoker extends AbstractInvoker {
 
@@ -12,9 +12,9 @@ public final class AWTInvoker extends AbstractInvoker {
 
 
     /**
-     * TODO
+     * Returns the instance of the class or creates it, if it does not exist yet.
      * 
-     * @return
+     * @return The instance of {@link AWTInvoker}
      */
     public static AWTInvoker getInstance() {
         if (instance == null) {
