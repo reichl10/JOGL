@@ -104,6 +104,7 @@ public final class CameraUtils {
             
             // Try turning outside if possible, else try stepping straight, turning right or back
             walker.turnLeft();
+            border.add(walker.peek());
             int turns = 0;
             while (turns < 4 && !walker.step()) {
                 walker.turnRight();
@@ -203,7 +204,7 @@ public final class CameraUtils {
         /*
          * Returns a grid point that would be next in line if it is actually visible, else null.
          */
-        private GridPoint peekPoint() {
+        private GridPoint peek() {
             int peekLon = pos.getLongitude(), peekLat = pos.getLatitude();
             switch (direction) {
                 case RIGHT:
@@ -222,15 +223,7 @@ public final class CameraUtils {
 
             GridPoint peek = new GridPoint(peekLon, peekLat);
 
-            // Prevent "running in a circle" around the globe by artificially treating points too
-            // far away as invisible
-            if (camera.isPointVisible(tileLayout.getGeoCoordinates(peek))
-                    && peekLon >= -2 * maxLon && peekLon <= 2 * maxLon
-                    && peekLat >= -2 * maxLat && peekLat <= 2 * maxLat) {
-                return peek;
-            } else {
-                return null;
-            }
+            return peek;
         }
 
         public void turnLeft() {
@@ -242,9 +235,14 @@ public final class CameraUtils {
         }
 
         public boolean step() {
-            GridPoint newPos = peekPoint();
-            if (newPos != null) {
-                pos = newPos;
+            GridPoint p = peek();
+
+            // Prevent "running in a circle" around the globe by artificially treating points too
+            // far away as invisible
+            if (camera.isPointVisible(tileLayout.getGeoCoordinates(p))
+                    && p.getLongitude() >= -2 * maxLon && p.getLongitude() <= 2 * maxLon
+                    && p.getLatitude() >= -2 * maxLat && p.getLatitude() <= 2 * maxLat) {
+                pos = p;
                 return true;
             } else {
                 return false;

@@ -102,7 +102,7 @@ public class SphereTessellator implements Tessellator {
     private int getMaxShrinkCount(int quads, int minQuads) {
         // Finds out how often "quads" can be divided by 2.
         int maxShrinkCount = 0;
-        while (quads % 2 == 0 && quads / 2 >= minQuads) {
+        while (quads % 2 == 0 && quads / 2 > minQuads) {
             ++maxShrinkCount;
             quads /= 2;
         }

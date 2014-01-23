@@ -315,7 +315,10 @@ public class Renderer {
                 if (location.point != null && camera.isPointVisible(location.point)) {
                     ScreenCoordinates center = camera.getScreenCoordinates(location.point);
                     if (location.name != null && (location.type == LocationType.USER_TAG 
-                            || location.type == LocationType.SEARCH_RESULT))
+                            || location.type == LocationType.SEARCH_RESULT 
+                            || location.type == LocationType.CITY
+                            || location.type == LocationType.TOWN
+                            || location.type == LocationType.VILLAGE))
                     {
                         String text = location.name;
                         Dimension textSize =
@@ -527,7 +530,7 @@ public class Renderer {
             gl.setFeatureEnabled(GL_DEPTH_TEST, true);
             gl.setFeatureEnabled(GL_CULL_FACE, true);
             gl.setFeatureEnabled(GL_TEXTURE_2D, true);
-            gl.setFeatureEnabled(GL_BLEND, true);s
+            gl.setFeatureEnabled(GL_BLEND, true);
             
             initState = InitState.AWAITING;
         }
