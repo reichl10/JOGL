@@ -35,7 +35,7 @@ public class PlaneTessellator implements Tessellator {
         }
         
         int horizontalTileCount =  (int) round((2*PI) / largeLonStep);
-        int nHorizontalQuads = projected.equatorSubdivisions / horizontalTileCount;
+        int nHorizontalQuads = max(1, projected.equatorSubdivisions / horizontalTileCount);
         int subdivisions = nHorizontalQuads - 1;
         
         

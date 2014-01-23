@@ -1,20 +1,15 @@
 package de.joglearth.junit;
 
-import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.JFrame;
 
-import com.jogamp.opengl.util.Animator;
-
 import de.joglearth.async.AWTInvoker;
 import de.joglearth.opengl.Antialiasing;
 import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.GLEasel;
-import de.joglearth.opengl.GLError;
 
 
 /**
@@ -27,18 +22,8 @@ public class GLTestWindow {
     private GLProfile prof = GLProfile.get(GLProfile.GL2ES1);
     private GLContext context = new GLContext();
     private GLCanvas canvas;
-    private Animator anim;
-    private boolean quit;
     private Runnable nextDisplay = null;
-    private boolean insideFrame;
-    private Object done = new Object();
-    private Throwable lastException = null;
-
-
-    private synchronized boolean isInsideFrame() {
-        return insideFrame;
-    }
-
+    
     /**
      * Constructor.
      * 
@@ -47,16 +32,14 @@ public class GLTestWindow {
      */
     public GLTestWindow() {
         ClearableEventQueue.impose();
-        final GLTestWindow that = this;
         try {
-            AWTInvoker.invoke(new Runnable() {
+            AWTInvoker.getInstance().invokeLater(new Runnable() {
 
                 @Override
                 public void run() {
                     frame = new JFrame("GL Test Window");
                     frame.setSize(400, 300);
 
-                    quit = false;
                     canvas = eas.newCanvas(prof, Antialiasing.MSAA_16X);
                     canvas.addGLEventListener(new GLEventListener() {
 
@@ -122,7 +105,7 @@ public class GLTestWindow {
     }
     public void display(Runnable r) throws Throwable {
         nextDisplay = r;
-        AWTInvoker.invoke(new Runnable() {
+        AWTInvoker.getInstance().invokeLater(new Runnable() {
             @Override
             public void run() {
                 canvas.display();
@@ -134,10 +117,6 @@ public class GLTestWindow {
      * Disposes the frame.
      */
     public void dispose() {
-        synchronized (this) {
-            quit = true;
-            notify();
-        }
         frame.dispose();
     }
 

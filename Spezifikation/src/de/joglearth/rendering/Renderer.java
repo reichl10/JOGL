@@ -3,6 +3,7 @@ package de.joglearth.rendering;
 import static java.lang.Math.*;
 import static javax.media.opengl.GL2.*;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
@@ -164,7 +165,24 @@ public class Renderer {
         matrix.rotate(new Vector3(-1, 0, 0), PI / 2);
         return matrix;
     }
+    
 
+    private void drawOutlinedText(TextRenderer tr, int x, int y, String text, double fborder) {
+        int border = (int) ceil(fborder);
+        for (int xoff = -border; xoff <= border; ++xoff) {
+            for (int yoff = -border; yoff <= border; ++yoff) {
+                if (xoff != 0 || yoff != 0) {
+                    double shade = exp(-(2/fborder)*(max(abs(xoff), max(abs(yoff), 1)) - 1));
+                    tr.setColor(new Color(255, 255, 255, (int) (255*shade)));
+                    tr.draw(text,  x+xoff, y+yoff);
+                }
+            }
+        }
+        tr.setColor(Color.BLACK);
+        tr.draw(text, x, y);
+        tr.setColor(Color.WHITE);
+    }
+    
     private void render() {
         // Construct projection matrix based on the distance to avoid clipping. Constants cause
         // problem with graphics adapters that don't support a 24 bit depth buffer.
@@ -272,8 +290,6 @@ public class Renderer {
                     / screenSize.height / 2;
 
             Collection<Location> locations = locationManager.getActiveLocations(tiles);;
-            // Collection<Location> locations = new ArrayList<>();
-            // locations.add(new Location(new GeoCoordinates(0, 0), LocationType.BANK, null, null));
 
             gl.setFeatureEnabled(GL_DEPTH_TEST, false);
             gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -298,14 +314,16 @@ public class Renderer {
             for (Location location : locations) {
                 if (location.point != null && camera.isPointVisible(location.point)) {
                     ScreenCoordinates center = camera.getScreenCoordinates(location.point);
-                    if (location.name != null)
+                    if (location.name != null && (location.type == LocationType.USER_TAG 
+                            || location.type == LocationType.SEARCH))
                     {
                         String text = location.name;
                         Dimension textSize =
                                 locationTextRenderer.getBounds(text).getBounds().getSize();
-                        locationTextRenderer.draw(text,
+                        drawOutlinedText(locationTextRenderer,
                                 (int) (center.x * screenSize.width) + ICON_SIZE / 2 + 4,
-                                (int) (center.y * screenSize.height) - textSize.height);
+                                (int) (center.y * screenSize.height) - textSize.height / 2,
+                                text, 1.2);
                     }
 
                 }
@@ -353,7 +371,8 @@ public class Renderer {
         
         gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        locationTextRenderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+        locationTextRenderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.BOLD, 12), true, 
+                false);
     }
 
     private void dispose() {

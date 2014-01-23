@@ -2,8 +2,7 @@ package de.joglearth.junit.geometry;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
@@ -119,7 +118,7 @@ public class Vector3Test {
                     if (10.0d-x == x && 10.0d-y == y && 10-z == z) {
                         assertEquals(v1, v2);
                     } else {
-                        assertNotEquals(v1, v2);
+                        assertFalse(v1.equals(v2));
                     }
                 }
             }
