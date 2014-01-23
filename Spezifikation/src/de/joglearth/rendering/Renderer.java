@@ -527,8 +527,7 @@ public class Renderer {
             gl.setFeatureEnabled(GL_DEPTH_TEST, true);
             gl.setFeatureEnabled(GL_CULL_FACE, true);
             gl.setFeatureEnabled(GL_TEXTURE_2D, true);
-            gl.setFeatureEnabled(GL_BLEND, true);
-//            gl.setPolygonMode(GL_LINE);
+            gl.setFeatureEnabled(GL_BLEND, true);s
             
             initState = InitState.AWAITING;
         }

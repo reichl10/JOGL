@@ -156,7 +156,7 @@ public class OSMTileLayout implements TileLayout {
             int slices = 1 << zoomLevel;
             GridPoint[] corners = new GridPoint[slices];
             for (int i = 0; i < slices; ++i) {
-                corners[i] = new GridPoint(i, pole == OSMPole.NORTH ? maxLat : minLat);
+                corners[i] = new GridPoint(i, pole == OSMPole.NORTH ? maxLat - 1 : minLat + 1);
             }
             return corners;
 

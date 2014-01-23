@@ -11,6 +11,7 @@ import static java.lang.Math.max;
 import static java.lang.Math.round;
 import static javax.media.opengl.GL.GL_TRIANGLES;
 import de.joglearth.geometry.GeoCoordinates;
+import de.joglearth.geometry.MapProjection;
 import de.joglearth.geometry.Tile;
 import de.joglearth.geometry.Vector3;
 import de.joglearth.height.HeightMap;
@@ -28,6 +29,7 @@ public class PlaneTessellator implements Tessellator {
     public Mesh tessellateTile(ProjectedTile projected) {
         Tile tile = projected.tile; 
         HeightMap heightMap = projected.heightMap;
+        MapProjection projection = projected.projection;
         
         double largeLonStep = tile.getLongitudeTo() - tile.getLongitudeFrom();
         if (largeLonStep <= 0) {
@@ -51,11 +53,16 @@ public class PlaneTessellator implements Tessellator {
         double lon = lonStart, lat = tile.getLatitudeTo();
         double latStep = abs(tile.getLatitudeTo() - tile.getLatitudeFrom()) / nVerticalQuads, 
                lonStep = abs(tile.getLongitudeTo() - lonStart) / nHorizontalQuads;
+        
+        double projectedLatStart = projection.projectLatitude(tile.getLatitudeTo()),
+                projectedLatRange = projection.projectLatitude(tile.getLatitudeFrom())
+                                                                    - projectedLatStart;
 
         for (int line = 0; line < nVerticalVertices; ++line) {
             for (int col = 0; col < nHorizontalVertices; ++col) {
+                double textureY = (projection.projectLatitude(lat) - projectedLatStart) / projectedLatRange;
                 writeTextureCoordinates(vertices, vertIndex, (float) col / nHorizontalQuads, 
-                         1 - (float) line / nVerticalQuads);
+                         1 - textureY);
 
                 writeVertex(vertices, vertIndex, lon, lat, getZCoordinate(lon, lat, latStep, heightMap));
 

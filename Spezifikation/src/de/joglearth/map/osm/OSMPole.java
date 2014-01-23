@@ -56,12 +56,12 @@ public class OSMPole extends AbstractTile {
 
     @Override
     public double getLongitudeFrom() {
-        return 0;
+        return -PI;
     }
 
     @Override
     public double getLongitudeTo() {
-        return 0;
+        return PI;
     }
 
     @Override
