@@ -21,6 +21,6 @@ public class OSMTileTest {
         TileName testName = new TileName(config, testTile);
 
         assertEquals(testTile, testName.tile);
-        assertEquals(OSMMapType.CYCLING, testName.configuration);
+        assertEquals(config, testName.configuration);
     }
 }
