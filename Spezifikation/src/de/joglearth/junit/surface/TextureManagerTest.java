@@ -39,16 +39,15 @@ public class TextureManagerTest {
     }
 
     @Test
-    
     public final void testTextureManager() {
         TestSource source = new TestSource();
-        TextureManager man = new TextureManager((GLContext) window.getEasel(), 200000, mapconf);
+        TextureManager man = new TextureManager(window.getGLContext(), 200000, mapconf);
     }
 
     @Test
     public final void testGetTexture() {
         TestSource source = new TestSource();
-        TextureManager man = new TextureManager((GLContext) window.getEasel(), 200000, mapconf);
+        TextureManager man = new TextureManager(window.getGLContext(), 200000, mapconf);
         OSMTile t = new OSMTile(2, 1, 0);
         int subdivision = 1;
         ProjectedTile lin = new ProjectedTile(t, new LinearProjection(), 0,
@@ -56,22 +55,38 @@ public class TextureManagerTest {
         TransformedTexture id = man.getTexture(lin.tile, 3);
         assertNotNull(id);
         
-        //more testing...
-        
-        //assertTrue(id > 0);
     }
 
     @Test
+    public final void testSetMapConfiguration() {
+    	TestSource source = new TestSource();
+        TextureManager man = new TextureManager(window.getGLContext(), 200000, mapconf);
+        OSMTile t = new OSMTile(2, 1, 0);
+        int subdivision = 1;
+        ProjectedTile lin = new ProjectedTile(t, new LinearProjection(), 0,
+        		subdivision, FlatHeightMap.getInstance());
+        TransformedTexture id = man.getTexture(lin.tile, 3);
+        
+        MapConfiguration map2 = new OSMMapConfiguration(OSMMapType.MAPNIK);
+        man.setMapConfiguration(map2);
+        TransformedTexture id2 = man.getTexture(lin.tile, 3);
+        
+        assertTrue(id != id2);
+        
+    }
+    
+    
+    @Test
     public final void testAddSurfaceListener() {
         TestSource source = new TestSource();
-        TextureManager man = new TextureManager((GLContext) window.getEasel(), 200000, mapconf);
+        TextureManager man = new TextureManager(window.getGLContext(), 200000, mapconf);
         man.addSurfaceListener(new TestSurfaceListener());
     }
 
     @Test
     public final void testRemoveSurfaceListener() {
         TestSource source = new TestSource();
-        TextureManager man = new TextureManager((GLContext) window.getEasel(), 200000, mapconf);
+        TextureManager man = new TextureManager(window.getGLContext(), 200000, mapconf);
         TestSurfaceListener listener = new TestSurfaceListener();
         man.addSurfaceListener(new TestSurfaceListener());
         man.removeSurfaceListener(listener);
