@@ -25,13 +25,13 @@ public class SphereTessellator implements Tessellator {
 
     private static void writeSingleVertex(float[] vertices, int vIndex, double lon, double lat,
             double lonStep, double latStep, HeightMap heightMap, double textureX, double textureY) {
-        Vector3 vertex = getSurfaceVector(lon, lat, latStep, heightMap), east = getSurfaceVector(
-                lon + lonStep, lat, latStep, heightMap), north = getSurfaceVector(lon, lat
-                + latStep, latStep, heightMap), west = getSurfaceVector(lon - lonStep, lat,
-                latStep, heightMap), south = getSurfaceVector(lon, lat - latStep, latStep,
-                heightMap);
+        Vector3 vertex = getSurfaceVector(lon, lat, latStep, heightMap), 
+                east = getSurfaceVector(lon + latStep*2, lat, latStep, heightMap), 
+                north = getSurfaceVector(lon, lat + latStep*2, latStep, heightMap), 
+                west = getSurfaceVector(lon - latStep*2, lat, latStep, heightMap), 
+                south = getSurfaceVector(lon, lat - latStep*2, latStep, heightMap);
 
-        Vector3 normal = east.minus(west).crossProduct(south.minus(north)).normalized();
+        Vector3 normal = east.minus(west).crossProduct(north.minus(south)).normalized();
         writeVertex(vertices, vIndex, vertex.x, vertex.y, vertex.z);
         writeNormal(vertices, vIndex, normal.x, normal.y, normal.z);
         writeTextureCoordinates(vertices, vIndex, textureX, textureY);
