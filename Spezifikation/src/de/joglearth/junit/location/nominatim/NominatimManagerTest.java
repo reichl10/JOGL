@@ -1,4 +1,4 @@
-package de.joglearth.location.nominatim;
+package de.joglearth.junit.location.nominatim;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,8 @@ import org.junit.Test;
 
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.location.Location;
+import de.joglearth.location.nominatim.NominatimManager;
+import de.joglearth.location.nominatim.NominatimQuery;
 import de.joglearth.location.nominatim.NominatimQuery.Type;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.source.SourceListener;
@@ -57,6 +59,7 @@ public class NominatimManagerTest {
             }
         }
         manager.shutDown();
+        manager.dispose();
     }
 
 }
