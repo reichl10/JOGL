@@ -1730,8 +1730,12 @@ public class MainWindow extends JFrame {
             scaleCanvas.getSize(dimensionScaleCanv);
             double sizeScreen = camera.getSurfaceScale() * rad;
             double scale = dimensionCvas.getWidth() / dimensionScaleCanv.getWidth();
-            double scaleSize = Math.round(sizeScreen / scale);
-            scaleLabel.setText(String.valueOf(scaleSize) + " m");
+            int scaleSize = (int) Math.round(sizeScreen / scale);
+            if (scaleSize > 1000) {
+                scaleLabel.setText(String.valueOf(scaleSize/1000)+ " km");
+            } else {
+                scaleLabel.setText(String.valueOf(scaleSize) + " m");
+            }
         }
 
     }
