@@ -8,6 +8,7 @@ import de.joglearth.geometry.Tile;
 import de.joglearth.junit.GLTestWindow;
 import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.rendering.Mesh;
+import de.joglearth.rendering.ProjectedTile;
 import de.joglearth.rendering.Tessellator;
 import de.joglearth.rendering.VertexBufferLoader;
 import de.joglearth.source.SourceListener;
@@ -18,13 +19,13 @@ public class TileMeshSourceTest {
     @Test(timeout=100)
     public void testTileMeshSource() {
         TestTessellator tessl = new TestTessellator();
-        VertexBufferLoader s = new VertexBufferLoader(window.getGL(), tessl);
-        s.setTileSubdivisions(2732);
-        s.setHeightMapEnabled(true);
+        VertexBufferLoader s = new VertexBufferLoader(window.getGLContext(), tessl);
+//        s.setTileSubdivisions(2732);
+//        s.setHeightMapEnabled(true);
         TestSourceListener l = new TestSourceListener();
         s.requestObject(new Tile(3, 1, 1), l);
         while (l.buffer == null);
-        assertTrue(tessl.m.indexCount == l.buffer.indexCount);
+        assertTrue(tessl.m.indexCount == l.buffer.getIndexCount());
         assertTrue(tessl.lastSubDiv == 2732);
         assertTrue(tessl.lastHeightMap);
     }
@@ -33,8 +34,9 @@ public class TileMeshSourceTest {
         public int lastSubDiv = 0;
         public boolean lastHeightMap = false;
         public Mesh m = new Mesh();
+        
         @Override
-        public Mesh tessellateTile(Tile tile, int subdivisions, boolean heightMap) {
+        public Mesh tessellateTile(ProjectedTile tile) {
             return m;
         }
         

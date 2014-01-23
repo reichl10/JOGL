@@ -6,6 +6,7 @@ import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.glu.GLU.GLU_INSIDE;
 import static javax.media.opengl.glu.GLU.GLU_OUTSIDE;
 
+import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
@@ -235,20 +236,17 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         int minFilter, magFilter;
         switch (filter) {
             case NEAREST:
-                // System.err.println("NEAREST");
                 minFilter = GL_NEAREST;
                 magFilter = GL_NEAREST;
                 break;
 
             case BILINEAR:
-                // System.err.println("BILINEAR");
                 minFilter = GL_LINEAR;
                 magFilter = GL_LINEAR;
                 break;
 
             default:
                 // Anisotropic filtering is a variation of trilinear
-                // System.err.println("ANISO");
                 minFilter = GL_LINEAR_MIPMAP_LINEAR;
                 magFilter = GL_LINEAR;
         }
@@ -293,8 +291,8 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * Loads a texture from an input stream via the JOGL Texture API.
      * 
      * @param stream The input stream.
-     * @param suffix The file suffix, used to determine the content type.
-     * @param mipmap Whether to create and use mipmaps.
+     * @param suffix The file suffix, used to determine the content type
+     * @param mipmap Whether to create and use mipmaps
      * @return The texture
      * @throws IOException An error occurred while loading the image data
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
@@ -371,7 +369,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     /**
      * Removes a texture from OpenGL graphics memory.
      * 
-     * @param tex
+     * @param tex The texture
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      */
     public void deleteTexture(Texture tex) {
@@ -518,14 +516,14 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     }
 
     /**
-     * Draws a sphere with the given values with the primitives of JOGL and catches exceptions
-     * that occur in OpenGL.
+     * Draws a sphere with the given values with the primitives of JOGL and catches exceptions that
+     * occur in OpenGL.
      * 
      * @param radius The radius of the sphere
      * @param slices The slices of the sphere
      * @param stacks The stacks of the sphere
-     * @param inside Whether to draw the vertices facing inside (<code>true</code>)
-     *                  or outside (<code>false</code>)
+     * @param inside Whether to draw the vertices facing inside (<code>true</code>) or outside (
+     *        <code>false</code>)
      * @param color4 A float array describing the color of the sphere
      */
     public void drawSphere(double radius, int slices, int stacks, boolean inside, float[] color4) {
@@ -553,8 +551,8 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     }
 
     /**
-     * Draws a rectangle described by the given values (Two corners of the rectangle),
-     * draws a texture on it and catches exceptions that occur in OpenGL.
+     * Draws a rectangle described by the given values (Two corners of the rectangle), draws a
+     * texture on it and catches exceptions that occur in OpenGL.
      * 
      * @param upperLeft The upper left corner of the rectangle
      * @param lowerRight The lower right corner of the rectangle
@@ -563,10 +561,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     public void drawRectangle(ScreenCoordinates upperLeft, ScreenCoordinates lowerRight,
             Texture texture) {
 
-        float left = (float) upperLeft.x * 2 - 1,
-              top = (float) lowerRight.y * 2 - 1,
-              right = (float) lowerRight.x * 2 - 1,
-              bottom = (float) upperLeft.y * 2 - 1;
+        float left = (float) upperLeft.x * 2 - 1, top = (float) lowerRight.y * 2 - 1, right = (float) lowerRight.x * 2 - 1, bottom = (float) upperLeft.y * 2 - 1;
 
         float[] vertices = {
                 left, bottom, 0,
@@ -661,24 +656,32 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         gl.glLightModelfv(GL_LIGHT_MODEL_AMBIENT, new float[] { fi, fi, fi, 1 }, 0);
         GLError.throwIfActive(gl);
     }
-    
-    
+
+    /**
+     * Sets the parameters for the GL internal fog effect which can be enabled
+     * by the feature GL_FOG.
+     * 
+     * @param mode The mode as set by glFog(GL_FOG_MODE, ...)
+     * @param color The color of the fog
+     * @param density The fog density
+     * @param hint Fog rendering hints such as GL_NICEST
+     */
     public void setFogParameters(int mode, float[] color, double density, int hint) {
         assertIsInitialized();
         assertIsInsideCallback();
         assertIsValidIntensity(density);
-        
+
         gl.glFogi(GL_FOG_MODE, mode);
         GLError.throwIfActive(gl);
-        
+
         gl.glFogfv(GL_FOG_COLOR, color, 0);
         GLError.throwIfActive(gl);
-        
+
         gl.glFogf(GL_FOG_DENSITY, (float) density);
         GLError.throwIfActive(gl);
-        
+
         gl.glHint(GL_FOG_HINT, hint);
-        GLError.throwIfActive(gl);        
+        GLError.throwIfActive(gl);
     }
 
     /**
@@ -882,6 +885,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             l.display(this);
         }
         endDisplay(true);
+        caller.swapBuffers();
     }
 
     @Override
@@ -918,15 +922,6 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         animator = new FPSAnimator(drawable, 60);
 
         beginDisplay();
-        /*
-         * gl.glDepthFunc(GL_LEQUAL); GLError.throwIfActive(gl);
-         * 
-         * gl.glDepthMask(true); GLError.throwIfActive(gl);
-         * 
-         * gl.glDepthRange(0, 1); GLError.throwIfActive(gl);
-         * 
-         * gl.glClearDepth(1); GLError.throwIfActive(gl);
-         */
 
         int[] integers = new int[1];
         gl.glGetIntegerv(GL_MAX_LIGHTS, integers, 0);
@@ -959,6 +954,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         for (GLContextListener l : listeners) {
             l.initialize(this);
         }
+        
         // No endFrame(), display() will be called afterwards
         endDisplay(false);
     }
@@ -971,6 +967,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         for (GLContextListener l : listeners) {
             l.reshape(this, width, height);
         }
+        
         // No endFrame(), display() will be called afterwards
         endDisplay(false);
     }
@@ -978,7 +975,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     /**
      * Adds a @link{GLContextListener}.
      * 
-     * @param l The listener.
+     * @param l The listener
      */
     public void addGLContextListener(GLContextListener l) {
         listeners.add(l);
@@ -987,10 +984,11 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     /**
      * Removes a @link{GLContextListener}.
      * 
-     * @param l The listener.
+     * @param l The listener
      */
     public void removeGLContextListener(GLContextListener l) {
-        while (listeners.remove(l));
+        while (listeners.remove(l))
+            ;
     }
 
     /**
@@ -1036,6 +1034,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * asynchronously and the function returns immediately.
      */
     public void postRedisplay() {
+        
         // When the initialization occurs, a frame will be drawn anyway.
         if (isInitialized()) {
             synchronized (this) {
@@ -1077,14 +1076,10 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
 
     @Override
     public void invokeLater(Runnable runnable) {
-        // System.out.println("Trying to sync");
         synchronized (pendingInvocations) {
-            // System.out.println("Synced");
             pendingInvocations.add(runnable);
         }
-        // System.out.println("Exited Sync");
         postRedisplay();
-        // System.out.println("Redisplay");
     }
 
     @Override

@@ -5,10 +5,10 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * TODO
- *
+ * Used to load translations.
  */
 public class Messages {
+    
 	private static final String BUNDLE_NAME = "de.joglearth.ui.messages"; //$NON-NLS-1$
 	private static Locale locale;
 
@@ -19,9 +19,10 @@ public class Messages {
 	}
 
 	/**
-	 * TODO
-	 * @param key
-	 * @return
+	 * Used to load the translation of a given key.
+	 * 
+	 * @param key The key to translate
+	 * @return The translation
 	 */
 	public static String getString(String key) {
 		try {
@@ -32,8 +33,9 @@ public class Messages {
 	}
 	
 	/**
-	 * TODO
-	 * @param l
+	 * Set the {@link Locale} to use.
+	 * 
+	 * @param l The Locale
 	 */
 	public static void setLocale(Locale l) {
 		locale = l;

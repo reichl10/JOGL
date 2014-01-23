@@ -4,8 +4,7 @@ import java.io.File;
 import java.util.regex.Pattern;
 
 /**
- * TODO
- *
+ * Helper class for accessing the OS-specific storage of application data.
  */
 public final class ApplicationData {
     
@@ -27,17 +26,19 @@ public final class ApplicationData {
     }
     
     /**
-     * TODO
-     * @return
+     * Returns the application data root directory
+     * 
+     * @return The directory
      */
     public static String getDirectory() {
         return getDirectory("");
     }
     
     /**
-     * TODO
-     * @param subPath
-     * @return
+     * Returns a sub-directory of the application data root
+     * 
+     * @param subPath The relative sub-directory
+     * @return The sub-directory
      */
     public static String getDirectory(String subPath) {
         String[] hierarchy = subPath.split(Pattern.quote(File.separator));

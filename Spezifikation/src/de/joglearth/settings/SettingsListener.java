@@ -1,10 +1,10 @@
 package de.joglearth.settings;
 
 /**
- * The listener interface to receive notification about a changed setting. The class interested in
- * listening to settings changes implements this interface. The listener object created from that
- * class can then be registered on a {@link de.joglearth.settings.Settings} object for a setting using
- * {@link Settings.addSettingsListener(String key, SettingsListener listener)}.
+ * The listener interface to receive notification about a changed setting. Classes interested in
+ * listening to settings changes implement this interface. The listener object created from that
+ * class can then be registered on a {@link Settings} object for a setting
+ * using {@link Settings.addSettingsListener(String key, SettingsListener listener)}.
  */
 public interface SettingsListener {
 

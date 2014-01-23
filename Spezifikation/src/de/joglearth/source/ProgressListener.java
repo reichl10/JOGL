@@ -13,8 +13,8 @@ public interface ProgressListener {
     void updateProgress(double prog);
 
     /**
-     * Is called when {@link ProgressManager.abortPendingRequests()} is invoked. An implementation should
-     * attempt to stop any pending asynchronous request.
+     * Is called when {@link ProgressManager#abortPendingRequests()} is invoked. An implementation
+     * should attempt to stop any pending asynchronous request.
      */
     void abortPendingRequests();
 }

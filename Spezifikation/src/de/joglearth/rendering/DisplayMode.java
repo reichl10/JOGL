@@ -2,7 +2,7 @@ package de.joglearth.rendering;
 
 
 /**
- * Enumerates the display modes supported by the {@link de.joglearth.rendering.Renderer}.
+ * Enumerates the display modes supported by the {@link Renderer}.
  */
 public enum DisplayMode {
     

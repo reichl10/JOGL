@@ -11,18 +11,18 @@ import de.joglearth.geometry.TransformedTile;
  * the different transformations that exist.
  */
 public final class TransformedTexture {
-    
 
     /**
      * The texture that is given in a certain transformation.
      */
     public final Texture texture;
-    
+
     /**
      * The transformation matrix that describes the transformation of the texture.
      */
     public final Matrix4 transformation;
-    
+
+
     /**
      * Creates a {@link TransformedTexture} as it assigns values to the attributes of the tile.
      * 

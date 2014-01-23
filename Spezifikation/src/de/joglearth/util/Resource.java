@@ -26,6 +26,7 @@ public final class Resource {
     
     /**
      * Reads an URL given as an input String and opens the download stream.
+     * 
      * @param name The URL in String representation
      * @return The InputStream opened with the URL
      * @throws IOException If the name can't be resolved to a valid URL
@@ -41,6 +42,7 @@ public final class Resource {
     
     /**
      * Checks if the URL to a given name exists.
+     * 
      * @param name The name of the URL to check
      * @return true, if the URL exists, false if not
      */
@@ -65,6 +67,7 @@ public final class Resource {
     /**
      * Loads a CSVMap that contains a certain name and opens a Stream to load the right part
      * of the CSVMap.
+     * 
      * @param name The name to look for in the map
      * @param separatorRegex The separator of the values
      * @return A map containing the searched values
@@ -92,6 +95,7 @@ public final class Resource {
     
     /**
      * Loads a binary file from a given source.
+     * 
      * @param name The String representation of the source
      * @return A byte array containing the wanted binary.
      */

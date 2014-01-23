@@ -22,8 +22,8 @@ import de.joglearth.ui.Messages;
 
 
 /**
- * Static main class of the application.
- * Provides application-specific constants and the main method.
+ * Static main class of the application. Provides application-specific constants and the main
+ * method.
  */
 public final class JoglEarth {
 

@@ -11,8 +11,7 @@ import de.joglearth.source.SourceResponseType;
 
 
 /**
- * Adapter for a {@link de.joglearth.rendering.Tessellator} to use it as a
- * {@link de.joglearth.source.Source}.
+ * Adapter for a {@link Tessellator} to use it as a {@link Source}.
  */
 public class VertexBufferLoader implements Source<ProjectedTile, VertexBuffer> {
 
@@ -21,8 +20,8 @@ public class VertexBufferLoader implements Source<ProjectedTile, VertexBuffer> {
     
 
     /**
-     * Constructor. Initializes the {@link de.joglearth.rendering.VertexBufferLoader} as it assign
-     * values to its GL context and {@link de.joglearth.rendering.Tesselator}.
+     * Constructor. Initializes the {@link VertexBufferLoader} as it assign
+     * values to its GL context and {@link Tesselator}.
      * 
      * @param gl The GL context of <code>TileMeshManager</code>. Must not be null
      * @param t The <code>Tesselator</code> of the <code>TileMeshManager</code>. May be null
@@ -36,8 +35,8 @@ public class VertexBufferLoader implements Source<ProjectedTile, VertexBuffer> {
     }
 
     /**
-     * Sets the {@link de.joglearth.rendering.Tessellator} of the
-     * {@link de.joglearth.rendering.VertexBufferLoader}
+     * Sets the {@link Tessellator} of the
+     * {@link VertexBufferLoader}
      * 
      * @param t The new <code>Tesselator</code>. May be null.
      */

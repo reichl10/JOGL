@@ -12,9 +12,9 @@ public class VertexBufferPool<Key> extends MemoryCache<Key, VertexBuffer> {
 
     private GLContext gl;
 
+
     /**
-     * Constructor. Initializes the {@link de.joglearth.rendering.VertexBufferPool} and assigns
-     * a value to the GL context.
+     * Constructor. Initializes the {@link VertexBufferPool} and assigns a value to the GL context.
      * 
      * @param gl The GL context. Must not be null
      */
@@ -22,7 +22,7 @@ public class VertexBufferPool<Key> extends MemoryCache<Key, VertexBuffer> {
         if (gl == null) {
             throw new IllegalArgumentException();
         }
-        
+
         this.gl = gl;
     }
 
@@ -32,6 +32,7 @@ public class VertexBufferPool<Key> extends MemoryCache<Key, VertexBuffer> {
 
         if (vbo != null) {
             gl.invokeLater(new Runnable() {
+
                 public void run() {
                     gl.deleteVertexBuffer(vbo);
                 };

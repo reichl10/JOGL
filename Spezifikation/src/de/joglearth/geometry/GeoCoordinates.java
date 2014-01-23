@@ -10,8 +10,10 @@ import java.util.regex.Pattern;
 
 /**
  * Structure holding longitude and latitude coordinates.
+ * 
+ * The longitude is encoded in the interval (-pi, pi]
+ * The latitude is encoded in the interval (-pi/2, pi/2]
  */
-// TODO Detailed description of the internal lon/lat format.
 public final class GeoCoordinates implements Cloneable {
 
     private double longitude; // Longitude, in radians

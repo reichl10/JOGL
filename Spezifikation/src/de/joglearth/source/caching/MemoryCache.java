@@ -8,8 +8,7 @@ import de.joglearth.source.SourceResponseType;
 
 
 /**
- * Implements the {@link de.joglearth.source.caching.Cache} interface in such way that it stores
- * objects in the memory.
+ * Implements the {@link Cache} interface in such way that it stores objects in the memory.
  * 
  */
 public class MemoryCache<Key, Value> implements Cache<Key, Value> {
