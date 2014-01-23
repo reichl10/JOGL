@@ -71,6 +71,7 @@ public class SettingsContractTest {
         }
         if (!settingsFile.exists()) {
             settingsFile.mkdirs();
+            settingsFile.createNewFile();
         }
         FileOutputStream fos = new FileOutputStream(settingsFile);
         fos.write(TEST_XML.getBytes(StandardCharsets.UTF_8));
