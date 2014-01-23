@@ -239,7 +239,7 @@ public class Camera {
     }
 
     public double getLongitudeScale() {
-        return getSurfaceScale() / geometry.getLongitudeDisortion(position);
+        return getSurfaceScale() / geometry.getLongitudeDistortion(position);
     }
 
     /**

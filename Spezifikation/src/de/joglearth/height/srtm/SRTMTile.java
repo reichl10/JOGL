@@ -21,7 +21,7 @@ public final class SRTMTile {
     
     /**
      * Size of the original tile and all its interpolated versions, in byte.
-     * Calculated as 2*(sum floor(1201/(2^n))^2 from n = 0 to 10)
+     * Calculated as 2*(sum floor(1201/(2^n))^2 from n = 0 to 10).
      */
     public static final int SIZE_IN_MEMORY = 3_844_642;
     

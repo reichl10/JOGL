@@ -6,11 +6,6 @@ package de.joglearth.map.single;
 public enum SingleMapType {
 
     /**
-     * Simple satellite imagery.
-     */
-    SATELLITE,
-
-    /**
      * A children's map of the world, showing colored continents and native animals.
      */
     CHILDREN
