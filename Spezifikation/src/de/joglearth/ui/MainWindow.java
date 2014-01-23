@@ -1109,20 +1109,30 @@ public class MainWindow extends JFrame {
                                 case SOLAR_SYSTEM:
                                     setSolarsystemMode(true);
                                     break;
-                                case GLOBE_MAP:
-                                case PLANE_MAP:
-                                    setSolarsystemMode(false);
-                                    break;
                                 default:
-                                    setSolarsystemMode(false);
                                     break;
                             }
                             Settings.getInstance().putString(SettingsContract.DISPLAY_MODE,
                                     mode.name());
                         }
+
+                    }
+                } else if (arg0.getStateChange() == ItemEvent.DESELECTED) {
+                    System.out.println("Deselected!");
+                    IconizedItem<DisplayMode> selected = (IconizedItem<DisplayMode>) arg0
+                            .getItem();
+                    if (selected != null) {
+                        DisplayMode mode = selected.getValue();
+                        switch (mode) {
+                            case SOLAR_SYSTEM:
+                                setSolarsystemMode(false);
+                                break;
+
+                            default:
+                                break;
+                        }
                     }
                 }
-
             }
         });
         paraMapTypeComboBox.addItemListener(new ItemListener() {
