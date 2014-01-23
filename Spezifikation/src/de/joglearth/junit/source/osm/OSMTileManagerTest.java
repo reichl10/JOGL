@@ -3,39 +3,53 @@ package de.joglearth.junit.source.osm;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import de.joglearth.geometry.Tile;
+import de.joglearth.map.MapConfiguration;
+import de.joglearth.map.TileName;
+import de.joglearth.map.osm.OSMMapConfiguration;
 import de.joglearth.map.osm.OSMMapType;
+import de.joglearth.map.osm.OSMTile;
 import de.joglearth.map.osm.OSMTileManager;
+import de.joglearth.settings.SettingsContract;
 import de.joglearth.source.SourceListener;
-import de.joglearth.source.osm.OSMTileName;
 
 
 public class OSMTileManagerTest {
+    
+    @Before
+    public final void setUp(){
+        SettingsContract.setDefaultSettings();
+    }
 
     @Test
-    public void testGetInstance() {
+    public void testGetInstance() {       
         OSMTileManager m = OSMTileManager.getInstance();
         assertNotNull(m);
     }
 
     @Test(timeout = 5000)
-    public void testRequestObject() {
+    public void testRequestObject() {    
         OSMTileManager m = OSMTileManager.getInstance();
         TestSourceListener l = new TestSourceListener();
-        m.requestObject(new OSMTileName(new Tile(2, 1, 1), OSMMapType.CYCLING), l);
-        while(!l.gotAnswer);
-        assertNotNull(l.tile);
+        MapConfiguration config = new OSMMapConfiguration(OSMMapType.CYCLING);
+        OSMTile testTile = new OSMTile(2, 1, 1);
+        TileName testName = new TileName(config, testTile);
+        
+        m.requestObject(testName, l); 
     }
-    private class TestSourceListener implements SourceListener<OSMTileName, byte[]> {
-        public byte[] tile;
-        public boolean gotAnswer = false;
-        OSMTileName t = new OSMTileName(new Tile(2, 1, 1), OSMMapType.CYCLING);
+    
+    private class TestSourceListener implements SourceListener<TileName, byte[]> {
+        public byte[] tile;        
+        MapConfiguration config = new OSMMapConfiguration(OSMMapType.CYCLING);
+        OSMTile testTile = new OSMTile(2, 1, 1);
+        TileName testName = new TileName(config, testTile);
+        
         @Override
-        public void requestCompleted(OSMTileName key, byte[] value) {
-            assertEquals(t, key);
-            gotAnswer = true;
+        public void requestCompleted(TileName key, byte[] value) {          
+            assertEquals(testName, key);
+            assertNotNull(tile);
         }
     }
 }
