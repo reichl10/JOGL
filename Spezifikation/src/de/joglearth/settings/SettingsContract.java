@@ -255,7 +255,9 @@ public final class SettingsContract {
                 case START_ELEMENT:
                     if (reader.getLocalName().equals(XML_ELEMENT_LOC)) {
                         Location location = readLocation(reader);
-                        settings.putLocation(keyString, location);
+                        if (location != null) {
+                            settings.putLocation(keyString, location);
+                        }
                         reader.require(END_ELEMENT, null, XML_ELEMENT_LOC);
                     }
                     break;
