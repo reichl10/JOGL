@@ -13,6 +13,7 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -215,7 +216,7 @@ public class MainWindow extends JFrame {
     private Map<JButton, JButton> closingMap = new HashMap<JButton, JButton>();
     private double cTiltX = 0.0d;
     private double cTiltY = 0.0d;
-    private Canvas scaleCanvas;
+    private JPanel scaleCanvasPanel;
     private DetailsListener lastDetailsListener = null;
     private JTextArea detailsDescTextArea;
     private JScrollPane scrollPane_1;
@@ -958,9 +959,8 @@ public class MainWindow extends JFrame {
                         FormFactory.DEFAULT_ROWSPEC,
                         RowSpec.decode("default:grow"), }));
 
-        scaleCanvas = new Canvas();
-        scaleCanvas.setBackground(Color.LIGHT_GRAY);
-        scalePanel.add(scaleCanvas, "1, 2, fill, fill");
+        scaleCanvasPanel = new ScaleJPanel();
+        scalePanel.add(scaleCanvasPanel, "1, 2, fill, fill");
 
         scaleLabel = new JLabel("1 km"); //$NON-NLS-1$
         scalePanel.add(scaleLabel, "1, 3"); //$NON-NLS-1$
@@ -1736,7 +1736,7 @@ public class MainWindow extends JFrame {
 
             scaleLabel.setText(Double.toString(camera.getSurfaceScale()));
             easel.getSize(dimensionCvas);
-            scaleCanvas.getSize(dimensionScaleCanv);
+            scaleCanvasPanel.getSize(dimensionScaleCanv);
             double sizeScreen = camera.getSurfaceScale() * rad;
             double scale = dimensionCvas.getWidth() / dimensionScaleCanv.getWidth();
             int scaleSize = (int) Math.round(sizeScreen / scale);
@@ -2153,5 +2153,23 @@ public class MainWindow extends JFrame {
             }
         }
 
+    }
+    
+    private class ScaleJPanel extends JPanel {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = -6147161184990032887L;
+
+        
+        @Override
+        public void paint(Graphics g) {
+            g.setColor(Color.BLACK);
+            Dimension d = getSize();
+            System.out.println("W: "+d.width+ "H: "+d.height);
+            g.fillRect(0, (d.height/2-1), d.width, 2);
+            g.fillRect(0, 0, 2, d.height);
+            g.fillRect(d.width-2, 0, 2, d.height);
+        }
     }
 }
