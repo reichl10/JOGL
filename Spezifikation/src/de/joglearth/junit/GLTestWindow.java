@@ -11,6 +11,9 @@ import javax.swing.JFrame;
 import com.jogamp.opengl.util.Animator;
 
 import de.joglearth.async.AWTInvoker;
+import de.joglearth.opengl.Antialiasing;
+import de.joglearth.opengl.GLContext;
+import de.joglearth.opengl.GLEasel;
 import de.joglearth.opengl.GLError;
 
 
@@ -20,6 +23,9 @@ import de.joglearth.opengl.GLError;
 public class GLTestWindow {
 
     private JFrame frame;
+    private GLEasel eas;
+    private GLProfile prof = GLProfile.get(GLProfile.GL2ES1);
+    private GLContext context = new GLContext();
     private GLCanvas canvas;
     private Animator anim;
     private boolean quit;
@@ -51,7 +57,7 @@ public class GLTestWindow {
                     frame.setSize(400, 300);
 
                     quit = false;
-                    canvas = new GLCanvas(new GLCapabilities(GLProfile.getDefault()));
+                    canvas = eas.newCanvas(prof, Antialiasing.MSAA_16X);
                     canvas.addGLEventListener(new GLEventListener() {
 
                         @Override
@@ -98,10 +104,22 @@ public class GLTestWindow {
      * 
      * @return The context
      */
-    public GL2 getGL() {
-        return canvas.getGL().getGL2();
+    public GLProfile getGLProfile() {
+        return prof;
     }
 
+    /**
+     * Returns the GLEasel.
+     * 
+     * @return The easel
+     */
+    public GLEasel getEasel() {
+        return eas;
+    }
+    
+    public GLContext getGLContext() {
+        return context;
+    }
     public void display(Runnable r) throws Throwable {
         nextDisplay = r;
         AWTInvoker.invoke(new Runnable() {
