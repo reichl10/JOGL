@@ -1,7 +1,25 @@
 package de.joglearth.rendering;
 
-import static java.lang.Math.*;
-import static javax.media.opengl.GL2.*;
+import static java.lang.Math.PI;
+import static java.lang.Math.abs;
+import static java.lang.Math.ceil;
+import static java.lang.Math.exp;
+import static java.lang.Math.log;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+import static java.lang.Math.pow;
+import static javax.media.opengl.GL.GL_BLEND;
+import static javax.media.opengl.GL.GL_COLOR_BUFFER_BIT;
+import static javax.media.opengl.GL.GL_CULL_FACE;
+import static javax.media.opengl.GL.GL_DEPTH_BUFFER_BIT;
+import static javax.media.opengl.GL.GL_DEPTH_TEST;
+import static javax.media.opengl.GL.GL_ONE_MINUS_SRC_ALPHA;
+import static javax.media.opengl.GL.GL_SRC_ALPHA;
+import static javax.media.opengl.GL.GL_TEXTURE;
+import static javax.media.opengl.GL.GL_TEXTURE_2D;
+import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHTING;
+import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
+import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -38,8 +56,6 @@ import de.joglearth.location.LocationType;
 import de.joglearth.map.MapConfiguration;
 import de.joglearth.map.osm.OSMMapConfiguration;
 import de.joglearth.map.osm.OSMMapType;
-import de.joglearth.map.single.SingleMapConfiguration;
-import de.joglearth.map.single.SingleMapType;
 import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.GLContextListener;
 import de.joglearth.opengl.TextureFilter;
