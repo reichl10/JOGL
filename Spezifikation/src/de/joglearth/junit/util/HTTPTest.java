@@ -35,8 +35,8 @@ public class HTTPTest {
         byte[] data = HTTP.get("http://posttestserver.com/post.php", get);
         assertNotNull("GetRequest Failed", data);
         String string = new String(data, Charset.forName("UTF-8"));
-        assertTrue("Whole GetRequest failed.", string.contains("QUERY_STRING = "));
-        assertTrue("Encoding failed.", string.contains("QUERY_STRING = dump&test1=test%C2%B5test"));
+        assertTrue("Whole GetRequest failed.", string.contains("QUERY_STRING"));
+        assertTrue("Encoding failed.", string.contains("QUERY_STRING = dump&test1test%C2%B5test"));
     }
 
 }
