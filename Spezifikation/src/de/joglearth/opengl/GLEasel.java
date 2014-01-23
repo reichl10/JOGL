@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 
 
 /**
- * Holds a canvas - just like you'd expect. This component class allows re-instantiating a 
- * GLCanvas if the creation GLCapabilities, such as the level of anti-aliasing, change.
+ * Holds a canvas - just like you'd expect. This component class allows re-instantiating a GLCanvas
+ * if the creation GLCapabilities, such as the level of anti-aliasing, change.
  * 
  */
 public class GLEasel extends JPanel {
@@ -44,11 +44,12 @@ public class GLEasel extends JPanel {
      * @return <code>true</code> if the canvas can be reset, <code>false</code> if not
      */
     public boolean canReset() {
-    	return canvas == null || initialized;
+        return canvas == null || initialized;
     }
-    
+
     /**
      * Creates a new GL canvas, destroying a previously existing canvas.
+     * 
      * @param caps The GLCapabilities describing the context to create.
      * @return The new canvas
      */
@@ -58,9 +59,9 @@ public class GLEasel extends JPanel {
         }
 
         if (canvas != null) {
-        	if (!initialized) {
-        		throw new IllegalStateException();
-        	}
+            if (!initialized) {
+                throw new IllegalStateException();
+            }
             canvas.destroy();
             remove(canvas);
         }
@@ -77,7 +78,7 @@ public class GLEasel extends JPanel {
 
             @Override
             public void init(GLAutoDrawable drawable) {
-            	initialized = true;
+                initialized = true;
             }
 
             @Override
@@ -86,31 +87,44 @@ public class GLEasel extends JPanel {
             @Override
             public void display(GLAutoDrawable drawable) {}
         });
+        
+        canvas.setAutoSwapBufferMode(false);
 
         add(canvas);
         doLayout();
         return canvas;
     }
 
-    
     /**
      * Creates a new GL canvas, destroying a previously existing canvas.
+     * 
      * @param prof The GLProfile used to create the context
      * @param aa The level of anti-aliasing to use in the new context
      * @return The new canvas
      */
     public GLCanvas newCanvas(GLProfile prof, Antialiasing aa) {
-        
+
         int numSamples = 0;
         switch (aa) {
-            case NONE: numSamples = 0; break;
-            case MSAA_2X: numSamples = 2; break;
-            case MSAA_4X: numSamples = 4; break;
-            case MSAA_8X: numSamples = 8; break;
-            case MSAA_16X: numSamples = 16; break;
+            case NONE:
+                numSamples = 0;
+                break;
+            case MSAA_2X:
+                numSamples = 2;
+                break;
+            case MSAA_4X:
+                numSamples = 4;
+                break;
+            case MSAA_8X:
+                numSamples = 8;
+                break;
+            case MSAA_16X:
+                numSamples = 16;
+                break;
         }
-        
+
         GLCapabilities caps = new GLCapabilities(prof);
+        caps.setDoubleBuffered(true);
         if (numSamples > 0) {
             caps.setSampleBuffers(true);
             caps.setNumSamples(numSamples);
@@ -118,9 +132,9 @@ public class GLEasel extends JPanel {
         return newCanvas(caps);
     }
 
-    
     /**
      * Returns the currently active GLCanvas.
+     * 
      * @return The canvas, or null if none has been created yet
      */
     public GLCanvas getCanvas() {

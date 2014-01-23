@@ -27,7 +27,7 @@ import de.joglearth.settings.SettingsContract;
 
 /**
  * Dialog for entering information about a location. You can add a <code>WindowListener</code> to
- * this dialog reaction to it closing. The given <code>Location</code> object will be manipulated
+ * this dialog reaction to it closing. The given {@link Location} object will be manipulated
  * before closing to represent the users input.
  */
 public class LocationEditDialog extends JDialog {
@@ -45,7 +45,7 @@ public class LocationEditDialog extends JDialog {
     /**
      * Create the dialog for entering information about a location.
      * 
-     * @param location The <code>Location</code> object will be changed before closing
+     * @param location The {@link Location} object will be changed before closing
      */
     public LocationEditDialog(Location location, Frame parent) {
         super(parent);

@@ -10,7 +10,7 @@ import javax.swing.ListCellRenderer;
 /**
  * Renderer implementation used to render iconized List and ComboBox items.
  * 
- * @param E The item type, usually {@link de.joglearth.ui.IconizedItem}
+ * @param E The item type, usually {@link IconizedItem}
  */
 public class IconListCellRenderer<E> extends JLabel implements ListCellRenderer<E> {
 

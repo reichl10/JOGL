@@ -1,7 +1,7 @@
 package de.joglearth.async;
 
 /**
- * TODO
+ * Manages the invocation of asynchronous tasks.
  */
 public interface Invoker {
 

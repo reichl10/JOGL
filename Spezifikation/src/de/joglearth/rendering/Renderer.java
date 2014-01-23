@@ -115,8 +115,9 @@ public class Renderer {
     }
 
     /**
-     * TODO
-     * @param gl
+     * Sets the {@link GLContext} to a given value.
+     * 
+     * @param gl The new {@link GLContext}
      */
     public void setGLContext(GLContext gl) {
         if (gl == null) {
@@ -128,8 +129,9 @@ public class Renderer {
     }
 
     /**
-     * TODO
-     * @param manager
+     * Sets the {@link LocationManager} to a given value.
+     * 
+     * @param manager The new {@link LocationManager}
      */
     public void setLocationManager(LocationManager manager) {
         if (manager == null) {
@@ -319,8 +321,9 @@ public class Renderer {
     }
 
     /**
-     * TODO
-     * @return
+     * Returns the current {@link Camera}.
+     * 
+     * @return The {@link Camera}
      */
     public Camera getCamera() {
         return camera;

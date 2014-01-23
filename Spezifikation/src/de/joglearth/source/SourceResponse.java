@@ -19,7 +19,7 @@ public class SourceResponse<Value> {
 
 
     /**
-     * TODO: leer? JavaDoc fehlt?
+     * Constructs a new {@link SourceResponse} as a default constructor.
      */
     public SourceResponse() {
 
@@ -28,9 +28,9 @@ public class SourceResponse<Value> {
     /**
      * Constructor. Initializes the {@link SourceResponse}.
      * 
-     * @param r <code>SourceResponseType</code> of the response of a source
-     * @param v Value of the response (Only necessary, when the <code>SourceResponseType</code> of
-     *        the response is <code>SYNCHRONOUS</code>)
+     * @param r {@link SourceResponseType} of the response of a source
+     * @param v Value of the response (Only necessary, when the {@link SourceResponseType} of
+     *        the response is {@link SourceResponseType#ASYNCHRONOUS})
      */
     public SourceResponse(SourceResponseType r, Value v) {
         response = r;

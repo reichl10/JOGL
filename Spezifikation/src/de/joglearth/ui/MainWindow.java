@@ -157,11 +157,6 @@ public class MainWindow extends JFrame {
     private LocationManager locationManager;
 
     /**
-     * Stores the reference to the <code>ViewEventListener</code> that is created on initialization.
-     */
-    private ViewEventListener viewEventListener; // TODO: not used
-
-    /**
      * Stores the reference to the <code>Camera</code> that it gets through the constructor.
      */
     private Camera camera;
@@ -206,7 +201,6 @@ public class MainWindow extends JFrame {
     private JSlider zoomSlider;
     private UISettingsListener settingsListener;
     private JLabel scaleLabel;
-    private static final double ZOOM_FACTOR = 10.d;
     private static final double MAX_DIST = 2.d;
     private JButton searchButton;
     private JList<Location> searchResultList;
@@ -264,7 +258,6 @@ public class MainWindow extends JFrame {
         setTitle(JoglEarth.PRODUCT_NAME);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
-        this.viewEventListener = new ViewEventListener(camera);
         this.settingsListener = new UISettingsListener();
         Settings.getInstance().addSettingsListener(SettingsContract.ANTIALIASING, settingsListener);
         getContentPane().setLayout(
@@ -603,14 +596,6 @@ public class MainWindow extends JFrame {
         checkboxToLocationTypeMap.put(box, LocationType.CITY);
         overlaysPanel.add(box);
         box.addItemListener(overlayListener);
-        //        box = new JCheckBox(Messages.getString("MainWindow.town")); //$NON-NLS-1$
-        // checkboxToLocationTypeMap.put(box, LocationType.TOWN);
-        // overlaysPanel.add(box);
-        // box.addItemListener(overlayListener);
-        //        box = new JCheckBox(Messages.getString("MainWindow.village")); //$NON-NLS-1$
-        // checkboxToLocationTypeMap.put(box, LocationType.VILLAGE);
-        // overlaysPanel.add(box);
-        // box.addItemListener(overlayListener);
         box = new JCheckBox(Messages.getString("MainWindow.user_tags")); //$NON-NLS-1$
         checkboxToLocationTypeMap.put(box, LocationType.USER_TAG);
         overlaysPanel.add(box);
@@ -699,6 +684,7 @@ public class MainWindow extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
+                    @SuppressWarnings("unchecked")
                     NamedItem<Antialiasing> item = (NamedItem<Antialiasing>) e
                             .getItem();
                     Antialiasing type = item.getValue();
@@ -734,6 +720,7 @@ public class MainWindow extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
+                    @SuppressWarnings("unchecked")
                     NamedItem<TextureFilter> item = (NamedItem<TextureFilter>) e.getItem();
                     Settings.getInstance().putString(
                             SettingsContract.TEXTURE_FILTER, item.getValue().name());
@@ -755,9 +742,12 @@ public class MainWindow extends JFrame {
                 .getString("MainWindow.141"), LevelOfDetail.HIGH)); //$NON-NLS-1$
         lodComboBox.addItemListener(new ItemListener() {
 
+            @SuppressWarnings("static-access")
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == e.SELECTED) {
+                    
+                    @SuppressWarnings("unchecked")
                     LevelOfDetail detail = ((NamedItem<LevelOfDetail>) e.getItem()).getValue();
                     Settings.getInstance().putString(
                             SettingsContract.LEVEL_OF_DETAIL, detail.name());
@@ -1081,8 +1071,10 @@ public class MainWindow extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                @SuppressWarnings("unchecked")
                 JComboBox<IconizedItem<Locale>> cBox = (JComboBox<IconizedItem<Locale>>) e
                         .getSource();
+                @SuppressWarnings("unchecked")
                 IconizedItem<Locale> item = (IconizedItem<Locale>) cBox
                         .getSelectedItem();
                 Locale language = item.getValue();
@@ -1098,6 +1090,7 @@ public class MainWindow extends JFrame {
             public void itemStateChanged(ItemEvent arg0) {
                 if (arg0.getStateChange() == ItemEvent.SELECTED) {
                     if (camera != null) {
+                        @SuppressWarnings("unchecked")
                         IconizedItem<DisplayMode> selected = (IconizedItem<DisplayMode>) arg0
                                 .getItem();
                         if (selected != null) {
@@ -1119,6 +1112,7 @@ public class MainWindow extends JFrame {
                     }
                 } else if (arg0.getStateChange() == ItemEvent.DESELECTED) {
                     System.out.println("Deselected!");
+                    @SuppressWarnings("unchecked")
                     IconizedItem<DisplayMode> selected = (IconizedItem<DisplayMode>) arg0
                             .getItem();
                     if (selected != null) {
@@ -1141,6 +1135,7 @@ public class MainWindow extends JFrame {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     System.out.println("Mapconfig-Listener (1)");
+                    @SuppressWarnings("unchecked")
                     IconizedItem<MapConfiguration> item = (IconizedItem<MapConfiguration>) e
                             .getItem();
                     mapConfiguration = (MapConfiguration) item.getValue();
@@ -1165,6 +1160,7 @@ public class MainWindow extends JFrame {
                 }
             }
         });
+        @SuppressWarnings("serial")
         Action action = new AbstractAction() {
 
             @Override
@@ -1173,6 +1169,7 @@ public class MainWindow extends JFrame {
                 MainWindow.this.dispose();
             }
         };
+        @SuppressWarnings("serial")
         Action showManualAction = new AbstractAction() {
 
             @Override
@@ -1197,6 +1194,7 @@ public class MainWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String queryString = searchTextField.getText();
                 if (localSearchRadioButton.isSelected()) {
+                    @SuppressWarnings("unchecked")
                     MapConfiguration configuration = ((IconizedItem<MapConfiguration>) paraMapTypeComboBox
                             .getSelectedItem()).getValue();
                     locationManager.searchLocal(
@@ -2059,7 +2057,6 @@ public class MainWindow extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            final GeoCoordinates geo = camera.getGeoCoordinates(new ScreenCoordinates(0.5d, 0.5d));
             SwingUtilities.invokeLater(new Runnable() {
 
                 @Override

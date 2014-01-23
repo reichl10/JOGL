@@ -46,12 +46,12 @@ public final class Mesh {
 
 
     /**
-     * Constructor. Initializes the {@link de.joglearth.rendering.Mesh}
+     * Constructor. Initializes the {@link Mesh}.
      * 
      * @param vertices The array of vertices, normals and texture coordinates according to the
      *        vertex format
      * @param glVertexFormat The OpenGL vertex format used. Describes the layout of the vertex
-     *        array.
+     *        array
      * @param indices The array of indices
      */
     public Mesh(int glVertexFormat, float[] vertices, int primitiveType, int[] indices,
@@ -64,7 +64,7 @@ public final class Mesh {
     }
 
     /**
-     * Default constructor. Initializes an empty {@link de.joglearth.rendering.Mesh}.
+     * Default constructor. Initializes an empty {@link Mesh}.
      */
     public Mesh() {
 

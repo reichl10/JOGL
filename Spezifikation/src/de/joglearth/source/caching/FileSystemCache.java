@@ -22,8 +22,7 @@ import de.joglearth.source.SourceResponseType;
 
 
 /**
- * Implements the {@link de.joglEarth.source.caching.Cache} interface in such way that it stores
- * objects in the file system.
+ * Implements the {@link Cache} interface in such way that it stores objects in the file system.
  * 
  */
 public class FileSystemCache<Key> implements Cache<Key, byte[]> {
@@ -38,9 +37,8 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
 
     /**
-     * Constructor.Initializes a {@link de.joglearth.source.caching.FileSystemCache} as it assigns
-     * values to the <code>folder</code> value and the
-     * {@link de.joglEarth.source.caching.PathTranslator}.
+     * Constructor.Initializes a {@link FileSystemCache} as it assigns values to the
+     * <code>folder</code> value and the {@link PathTranslator}.
      * 
      * @param folder The name of the folder where the objects should be stored
      * @param p The <code>PathTranslator</code> that is used by the <code>FileSystemCache</code> to
@@ -166,11 +164,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
         public FileVisitResult postVisitDirectory(Path dir, IOException e)
                 throws IOException {
-            /*
-             * Uncomment to remove directors if (e == null) { Files.delete(dir);
-             * 
-             * } else { throw e; }
-             */
+            
             return FileVisitResult.CONTINUE;
         }
 
@@ -199,7 +193,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
          * Takes a Set to which it adds the keys of the found files and a basePath to remove from
          * the filesPath.
          * 
-         * @param s the set to use
+         * @param s The set to use
          */
         public FileIndexerWalker(Set<Key> s, Path base, PathTranslator<Key> pt) {
             fileKeySet = s;
@@ -300,6 +294,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
     /**
      * Determines the size of a certain Key.
+     * 
      * @param k The Key object
      * @return The size of the object
      */

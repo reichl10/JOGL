@@ -30,90 +30,89 @@ import de.joglearth.util.ApplicationData;
 
 
 /**
- * Class that contains Constants and static methods to work with the
- * {@link de.joglearth.settings.Settings Settings} class.
+ * Class that contains Constants and static methods to work with the {@link Settings} class.
  */
 public final class SettingsContract {
 
-    private static final String XML_ENCODING          = "UTF-8";
+    private static final String XML_ENCODING = "UTF-8";
 
     /**
      * Name constant for the Language setting. You should save a string to settings using this.
      */
-    public static final String  LANGUAGE              = "Language";
+    public static final String LANGUAGE = "Language";
 
     /**
      * Name constant for the texture filter setting. You should save a boolean to settings using
      * this. (Only on/off)
      */
-    public static final String  TEXTURE_FILTER        = "TextureFilter";
+    public static final String TEXTURE_FILTER = "TextureFilter";
 
     /**
      * Name constant for the level of details setting. You should save a String to settings using
      * this. Use <code>name</code> of the Enum.
      */
-    public static final String  LEVEL_OF_DETAIL      = "LevelOfDetail";
+    public static final String LEVEL_OF_DETAIL = "LevelOfDetail";
 
     /**
      * Name constant for the users Locations. You should save {@link de.joglearth.location.Location}
      * objects using this key.
      */
-    public static final String  USER_LOCATIONS        = "UserLocations";
+    public static final String USER_LOCATIONS = "UserLocations";
 
     /**
      * Name constant for Antialiasing. You should save a String of AntialiasingType.name using this
      * key.
      */
-    public static final String  ANTIALIASING          = "Antialiasing";
+    public static final String ANTIALIASING = "Antialiasing";
 
     /**
      * Name constant for the memory cache's size. You should save an integer using this key.
      */
-    public static final String  CACHE_SIZE_MEMORY     = "CacheSizeMemory";
+    public static final String CACHE_SIZE_MEMORY = "CacheSizeMemory";
 
     /**
      * Name constant for the HeightMap setting. You should save a boolean using this key.
      */
-    public static final String  HEIGHT_MAP_ENABLED    = "HeightMap";
+    public static final String HEIGHT_MAP_ENABLED = "HeightMap";
 
     /**
      * Name constant for the MapType setting. You should save a String using this key. The String
      * should be created using the #name of {@link SingleMapType} or {@link TildMapType}.
      */
-    public static final String  MAP_TYPE              = "MapType";
+    public static final String MAP_TYPE = "MapType";
 
     /**
      * Name constant for the DisplayMode setting. You should save a String using this key. The
      * String should be created using the #name of {@link DisplayMode}.
      */
-    public static final String  DISPLAY_MODE          = "DisplayMode";
+    public static final String DISPLAY_MODE = "DisplayMode";
 
     /**
      * Name constant for the file system cache's size. You should save an integer using this key.
      */
-    public static final String  CACHE_SIZE_FILESYSTEM = "CacheSizeFileSystem";
-    private static final String XML_ELEMENT_SETTINGS  = "settings";
+    public static final String CACHE_SIZE_FILESYSTEM = "CacheSizeFileSystem";
+    private static final String XML_ELEMENT_SETTINGS = "settings";
     private static final String XML_ATTR_TYPE_BOOLEAN = "Boolean";
-    private static final String XML_ATTR_TYPE_DOUBLE  = "Double";
-    private static final String XML_ATTR_TYPE_STRING  = "String";
+    private static final String XML_ATTR_TYPE_DOUBLE = "Double";
+    private static final String XML_ATTR_TYPE_STRING = "String";
     private static final String XML_ATTR_TYPE_INTEGER = "Integer";
-    private static final String XML_ATTR_TYPE_LONG    = "Long";
-    private static final String XML_ATTR_TYPE_FLOAT   = "Float";
-    private static final String XML_ELEMENT_ENTRY     = "entry";
-    private static final String XML_ATTR_ENTRY_KEY    = "key";
-    private static final String XML_ATTR_ENTRY_TYPE   = "type";
-    private static final String XML_ATTR_ENTRY_VALUE  = "value";
-    private static final String XML_ELEMENT_LOCS      = "locations";
-    private static final String XML_ATTR_LOCS_KEY     = "key";
-    private static final String XML_ELEMENT_LOC       = "location";
-    private static final String XML_ATTR_LOC_DETAILS  = "details";
-    private static final String XML_ATTR_LOC_NAME     = "name";
-    private static final String XML_ATTR_LOC_TYPE     = "type";
-    private static final String XML_ELEMENT_GEO       = "geocoordinates";
-    private static final String XML_ATTR_GEO_LONG     = "longitude";
-    private static final String XML_ATTR_GEO_LAT      = "latitude";
+    private static final String XML_ATTR_TYPE_LONG = "Long";
+    private static final String XML_ATTR_TYPE_FLOAT = "Float";
+    private static final String XML_ELEMENT_ENTRY = "entry";
+    private static final String XML_ATTR_ENTRY_KEY = "key";
+    private static final String XML_ATTR_ENTRY_TYPE = "type";
+    private static final String XML_ATTR_ENTRY_VALUE = "value";
+    private static final String XML_ELEMENT_LOCS = "locations";
+    private static final String XML_ATTR_LOCS_KEY = "key";
+    private static final String XML_ELEMENT_LOC = "location";
+    private static final String XML_ATTR_LOC_DETAILS = "details";
+    private static final String XML_ATTR_LOC_NAME = "name";
+    private static final String XML_ATTR_LOC_TYPE = "type";
+    private static final String XML_ELEMENT_GEO = "geocoordinates";
+    private static final String XML_ATTR_GEO_LONG = "longitude";
+    private static final String XML_ATTR_GEO_LAT = "latitude";
 
-    private static String       FILE_LOCATION         = getFileLocation();
+    private static String FILE_LOCATION = getFileLocation();
 
 
     /**
@@ -130,8 +129,8 @@ public final class SettingsContract {
         s.putString(TEXTURE_FILTER, TextureFilter.TRILINEAR.name());
         s.putString(ANTIALIASING, Antialiasing.NONE.name());
         s.putString(LEVEL_OF_DETAIL, LevelOfDetail.LOW.name());
-        s.putInteger(CACHE_SIZE_FILESYSTEM, new Integer(1000*1024*1024));
-        s.putInteger(CACHE_SIZE_MEMORY, new Integer(200*1024*1024));
+        s.putInteger(CACHE_SIZE_FILESYSTEM, new Integer(1000 * 1024 * 1024));
+        s.putInteger(CACHE_SIZE_MEMORY, new Integer(200 * 1024 * 1024));
         s.putBoolean(HEIGHT_MAP_ENABLED, false);
     }
 
@@ -140,7 +139,7 @@ public final class SettingsContract {
      * same files the {@link #saveSettings()} saves to.
      */
     public static void loadSettings() {
-      //TODO settings not used
+        // TODO settings not used
         Settings settings = Settings.getInstance();
         File sFile = new File(FILE_LOCATION);
         if (sFile.exists()) {
@@ -417,8 +416,8 @@ public final class SettingsContract {
         writer.writeStartElement(XML_ELEMENT_LOCS);
         writer.writeAttribute(XML_ATTR_LOCS_KEY, key);
         if (set != null) {
-        for (Location l : set)
-            writeLocation(writer, l);
+            for (Location l : set)
+                writeLocation(writer, l);
         }
         writer.writeEndElement();
     }
