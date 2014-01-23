@@ -19,8 +19,6 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.geometry.Tile;
-import de.joglearth.geometry.TransformedTile;
 import de.joglearth.location.Location;
 import de.joglearth.location.LocationType;
 import de.joglearth.location.nominatim.NominatimSource;
@@ -298,7 +296,6 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
                     } else if (xmlReader.getLocalName().equals("tag")) {
                         if (xmlReader.getAttributeValue(null, "k").equals("name")) {
                             temp.name = xmlReader.getAttributeValue(null, "v");
-                            // TODO Details suchen.
                             temp.details = temp.name;
                         }
                     }
