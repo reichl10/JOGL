@@ -11,6 +11,7 @@ import org.junit.Test;
 import de.joglearth.geometry.Tile;
 import de.joglearth.junit.GLTestWindow;
 import de.joglearth.map.osm.OSMMapType;
+import de.joglearth.map.osm.OSMTile;
 import de.joglearth.map.osm.OSMTileManager;
 import de.joglearth.map.osm.OSMTileSource;
 import de.joglearth.rendering.TextureLoader;
@@ -34,9 +35,9 @@ public class TextureSourceTest {
 		window.display(new Runnable() {
 			@Override
 			public void run() {
-				TextureLoader<OSMTileName> source
-					= new TextureLoader<OSMTileName>(window.getGL(), OSMTileManager.getInstance());
-				OSMTileName key = new OSMTileName(new Tile(0, 0, 0), OSMMapType.SKIING);
+                OSMTile key = new OSMTile(0, 0, 0);
+				TextureLoader<OSMTile> source
+					= new TextureLoader<OSMTile>(window.getGLContext(), Source<key, byte[]>(), OSMMapType.CYCLING);
 				TestSourceListener listener = new TestSourceListener(Thread
 						.currentThread());
 				SourceResponse<Integer> response = source.requestObject(key,

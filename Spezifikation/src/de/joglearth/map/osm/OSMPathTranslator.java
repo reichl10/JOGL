@@ -14,7 +14,7 @@ import de.joglearth.source.caching.PathTranslator;
 
 
 /**
- * Implements the {@link de.joglearth.source.caching.PathTranslator} interface to work with 
+ * Implements the {@link PathTranslator} interface to work with 
  * OpenStreetMap image data.
  */
 public class OSMPathTranslator implements PathTranslator<TileName> {

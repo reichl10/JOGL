@@ -12,7 +12,6 @@ import de.joglearth.height.HeightMap;
  */
 public class PlaneGeometry implements Geometry {
 
-    // TODO: Wird die Variable noch benötigt?
     private static final double DISTANCE_LIMIT = 2;
 
 
@@ -22,13 +21,11 @@ public class PlaneGeometry implements Geometry {
             throw new IllegalArgumentException();
         }
 
-        //TODO: Wird das noch benötigt?
         /*
          * A point is visible if the intersection of the camera position's perpendicular with the
          * plane ("ground position") is not farther away from it than the distance of camera and
          * plane times the DISTANCE_LIMIT.
-        
-
+        */
         if (cameraPosition.z <= 0) {
             return false;
         }
@@ -36,12 +33,12 @@ public class PlaneGeometry implements Geometry {
         Vector3 surfacePosition = cameraPosition.clone();
         surfacePosition.z = 0;
         return surfacePosition.to(getSpacePosition(geo)).length()
-                                <= cameraPosition.z * DISTANCE_LIMIT; */
-        return true;
+                <= cameraPosition.z * DISTANCE_LIMIT;
     }
 
     @Override
     public Vector3 getSpacePosition(GeoCoordinates geo) {
+        
         /*
          * The plane is laid out to be 2 units wide, 1 unit high and perpendicular to the Z axis,
          * with lon=0/lat=0 being the center (0, 0, 0).
@@ -54,6 +51,7 @@ public class PlaneGeometry implements Geometry {
         if (cameraPosition == null || viewVector == null) {
             throw new IllegalArgumentException();
         }
+        
         /*
          * If the viewer looks in positive Z direction, the camera has a negative Z coordinate, or
          * the view vector is the zero vector, he is not looking down on the plane. Therefore, there
@@ -104,7 +102,7 @@ public class PlaneGeometry implements Geometry {
     }
 
     @Override
-    public double getLongitudeDisortion(GeoCoordinates position) {
+    public double getLongitudeDistortion(GeoCoordinates position) {
         return 1;
     }
 

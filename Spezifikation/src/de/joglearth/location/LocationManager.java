@@ -25,10 +25,8 @@ import de.joglearth.source.SourceResponseType;
 
 
 /**
- * Administers the visibility of particular points gathered from
- * {@link de.joglearth.location.overpass.OverpassSource} and
- * {@link de.joglearth.location.nominatim.NominatimSource}, and user marks from
- * {@link de.joglearth.settings.Settings}.
+ * Administers the visibility of particular points gathered from {@link OverpassSource} and
+ * {@link NominatimSource}, and user marks from {@link Settings}.
  */
 public class LocationManager {
 
@@ -39,6 +37,7 @@ public class LocationManager {
     private OverpassManager overpassManager = OverpassManager.getInstance();
     private Set<LocationType> activeLocationTypes;
     private boolean locationTypesEnabled;
+
 
     private class UserTagsListener implements SettingsListener {
 
@@ -258,7 +257,8 @@ public class LocationManager {
                 return null;
             }
 
-        };
+        }
+        ;
 
         QueryTile t = new QueryTile(minLongitude, maxLongitude, minLatitude, maxLatitude);
         NominatimQuery nominatimQuery = new NominatimQuery(
@@ -300,8 +300,8 @@ public class LocationManager {
     }
 
     /**
-     * Gets the details of a point with given {@link de.joglearth.geometry.ScreenCoordinates}. To
-     * achieve that it asks the {@link de.joglearth.source.caching.RequestDistributor}.
+     * Gets the details of a point with given {@link ScreenCoordinates}.
+     * To achieve that it asks the {@link RequestDistributor}.
      * 
      * @param coordinates The <code>GeoCoordinates</code> of the point
      * @return The <code>Location</code> with details that is located on the given point or a
@@ -335,9 +335,10 @@ public class LocationManager {
         }
         return baseLocation;
     }
-    
+
     /**
-     * Enabled or Disabled LocationTypes that need to be loaded.
+     * Enabled or Disabled {@link LocationTypes} that need to be loaded.
+     * 
      * @param enabled true to enable or false to disable
      */
     public void enableLocations(boolean enabled) {

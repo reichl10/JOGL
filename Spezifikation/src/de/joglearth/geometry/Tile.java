@@ -9,28 +9,28 @@ public interface Tile extends Cloneable {
     /**
      * Returns the lower longitude bound of the tile.
      * 
-     * @return The longitude, in radians
+     * @return The longitude in radians
      */
     double getLongitudeFrom();
 
     /**
      * Returns the upper longitude bound of the tile.
      * 
-     * @return The longitude, in radians
+     * @return The longitude in radians
      */
     double getLongitudeTo();
 
     /**
      * Returns the lower latitude bound of the tile.
      * 
-     * @return The latitude, in radians
+     * @return The latitude in radians
      */
     double getLatitudeFrom();
 
     /**
      * Returns the upper latitude bound of the tile.
      * 
-     * @return The latitude, in radians.
+     * @return The latitude in radians.
      */
     double getLatitudeTo();
     

@@ -81,7 +81,7 @@ public final class Vector3 implements Cloneable {
     }
 
     /**
-     * Calculates the difference vector to another Vecotr3.
+     * Calculates the difference vector to another {@link Vector3}.
      * 
      * @param v The vector to subtract, must not be <code>null</code>
      * @return The difference

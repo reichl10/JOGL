@@ -19,6 +19,7 @@ import javax.xml.stream.XMLStreamReader;
 
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.location.Location;
+import de.joglearth.location.LocationManager;
 import de.joglearth.location.LocationType;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
@@ -33,7 +34,7 @@ import de.joglearth.util.HTTP;
 /**
  * Provides responses of search requests, for e.g. search requests for places or detailed
  * information to a point. The response will be prepared for the
- * {@link de.joglearth.surface.LocationManager}; uses the {@link de.joglearth.util.HTTP} for the
+ * {@link LocationManager}; uses the {@link HTTP} for the
  * search request.
  * 
  */
@@ -44,7 +45,7 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
 
 
     /**
-     * Constructor. Initializes the {@link de.joglearth.location.nominatim.NominatimSource}.
+     * Constructor. Initializes the {@link NominatimSource}.
      */
     public NominatimSource() {
         executor = Executors.newFixedThreadPool(1);
@@ -159,9 +160,10 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
     }
 
     /**
-     * Searches for an address and geo coordinates by a OSM reference. More Information about the
-     * reference ID and the reference type you can find in the OSM-Wiki
-     * http://wiki.openstreetmap.org/wiki/Nominatim.
+     * Searches for an address and {@link GeoCoordinates} by a OSM reference.
+     * More Information about the reference ID and the reference type you can find in the OSM-Wiki
+     * <a href="http://wiki.openstreetmap.org/wiki/Nominatim">
+     * http://wiki.openstreetmap.org/wiki/Nominatim</a>.
      * 
      * @param osmId OSM reference ID of the element
      * @param osmType Specifies the kind of element.

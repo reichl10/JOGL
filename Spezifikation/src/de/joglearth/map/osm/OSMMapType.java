@@ -35,5 +35,8 @@ public enum OSMMapType {
      */
     OSM_NOLABELS,
     
+    /**
+     * Satellite Tiles without labels.
+     */
     SATELLITE
 }

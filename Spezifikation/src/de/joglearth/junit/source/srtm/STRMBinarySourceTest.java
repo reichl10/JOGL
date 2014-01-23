@@ -16,7 +16,7 @@ public class STRMBinarySourceTest {
 
     @Test
     public final void testSRTMBinarySource() {
-        fail("Not yet implemented"); // TODO
+        //TODO
     }
 
     @Test

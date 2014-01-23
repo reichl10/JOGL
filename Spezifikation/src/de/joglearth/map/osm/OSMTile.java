@@ -9,7 +9,7 @@ import de.joglearth.geometry.TransformedTile;
 
 
 /**
- * An implementation of the {@link de.joglearth.geometry.Tile} interface modeling an OpenStreetMap
+ * An implementation of the {@link Tile} interface modeling an OpenStreetMap
  * surface tile.
  */
 public final class OSMTile extends AbstractTile {

@@ -23,21 +23,21 @@ public class Camera {
     private double tiltY = 0;
     private double verticalFOV, horizontalFOV;
     private Matrix4 projectionMatrix,
-                    modelCameraMatrix = new Matrix4(),
-                    modelViewMatrix = new Matrix4(),
-                    skyViewMatrix = new Matrix4(),
-                    transformationMatrix;
-    private HeightMap heightMap = FlatHeightMap.getInstance();    
-    private Geometry geometry = null;    
-    private List<CameraListener> listeners = new ArrayList<CameraListener>();    
+            modelCameraMatrix = new Matrix4(),
+            modelViewMatrix = new Matrix4(),
+            skyViewMatrix = new Matrix4(),
+            transformationMatrix;
+    private HeightMap heightMap = FlatHeightMap.getInstance();
+    private Geometry geometry = null;
+    private List<CameraListener> listeners = new ArrayList<CameraListener>();
     private boolean updatesEnabled = false;
     private SurfaceListener heightListener = new SurfaceHeightListener();
-    
-    
+
+
     public synchronized void setUpdatesEnabled(boolean enabled) {
         updatesEnabled = enabled;
     }
-    
+
     private void updateCameraTransformation() {
         transformationMatrix = projectionMatrix.clone();
         transformationMatrix.mult(modelViewMatrix);
@@ -47,40 +47,38 @@ public class Camera {
             }
         }
     }
-    
-    
+
     private boolean tiltTransformation(Matrix4 matrix) {
-//        Vector3 center = matrix.transform(new Vector3(0, 0, 0)).divide();
-//        Vector3 zAxis = matrix.transform(new Vector3(0, 0, -1)).divide().minus(center)
-//                .normalized();
-//
-//        if (zAxis.x == 0 && zAxis.z == 0) {
-//            return false;
-//        }
-//
-//        Vector3 earthAxis = matrix.transform(new Vector3(0, 1, 0)).divide().minus(center);
-//        Vector3 xAxis = zAxis.crossProduct(earthAxis).normalized();
-//
-//        matrix.rotate(zAxis, -tiltY);
-//        matrix.rotate(xAxis, tiltX);
-        
-        Matrix4 rotation =  new Matrix4();
+        // Vector3 center = matrix.transform(new Vector3(0, 0, 0)).divide();
+        // Vector3 zAxis = matrix.transform(new Vector3(0, 0, -1)).divide().minus(center)
+        // .normalized();
+        //
+        // if (zAxis.x == 0 && zAxis.z == 0) {
+        // return false;
+        // }
+        //
+        // Vector3 earthAxis = matrix.transform(new Vector3(0, 1, 0)).divide().minus(center);
+        // Vector3 xAxis = zAxis.crossProduct(earthAxis).normalized();
+        //
+        // matrix.rotate(zAxis, -tiltY);
+        // matrix.rotate(xAxis, tiltX);
+
+        Matrix4 rotation = new Matrix4();
         rotation.rotate(new Vector3(1, 0, 0), tiltX);
         rotation.rotate(new Vector3(0, 1, 0), tiltY);
-        
+
         matrix.mult(rotation);
-        
+
         return true;
     }
-    
 
     private boolean updateCamera() {
-        
+
         double altitude = distance;
         if (getSurfaceScale() < 0.005) {
-            altitude += heightMap.getHeight(position, 1e-4); 
+            altitude += heightMap.getHeight(position, 1e-4);
         }
-        
+
         Matrix4 newCameraMatrix = geometry.getModelCameraTransformation(position, altitude);
         tiltTransformation(newCameraMatrix);
 
@@ -107,8 +105,8 @@ public class Camera {
         @Override
         public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
 
-            if (position.getLatitude() >= latFrom 
-                    && position.getLatitude() <= latTo && position.getLongitude() >= lonFrom 
+            if (position.getLatitude() >= latFrom
+                    && position.getLatitude() <= latTo && position.getLongitude() >= lonFrom
                     && position.getLongitude() <= lonTo) {
                 if (!updateCamera()) {
                     throw new IllegalStateException();
@@ -136,7 +134,7 @@ public class Camera {
         if (!updateCamera()) {
             throw new IllegalStateException();
         }
-        
+
         updatesEnabled = true;
     }
 
@@ -162,30 +160,30 @@ public class Camera {
             }
         }
     }
-    
-   /**
-    *  Sets the HeightMap to a given value, e.g. the height profile was activated and has
-    *  been deactivated, the HeightMap would be changed to another value.
-    * @param heightMap The new HeightMap
-    */
+
+    /**
+     * Sets the HeightMap to a given value, e.g. the height profile was activated and has been
+     * deactivated, the HeightMap would be changed to another value.
+     * 
+     * @param heightMap The new HeightMap
+     */
     public synchronized void setHeightMap(HeightMap heightMap) {
         if (heightMap == null) {
             throw new IllegalArgumentException();
         }
-        
+
         this.heightMap.removeSurfaceListener(heightListener);
         this.heightMap = heightMap;
         this.heightMap.addSurfaceListener(heightListener);
     }
-    
 
     /**
      * Sets the position the {@link de.joglearth.geometry.Camera} is currently over.
      * 
-     * @param coords The <code>GeoCoordinates</code> of the camera's position. Must not be null.
+     * @param coords The {@link GeoCoordinates} of the camera's position. Must not be null.
      */
     public synchronized void setPosition(GeoCoordinates coords) {
-        if (coords == null || coords.getLatitude() >= PI/2 || coords.getLatitude() <= -PI/2) {
+        if (coords == null || coords.getLatitude() >= PI / 2 || coords.getLatitude() <= -PI / 2) {
             throw new IllegalArgumentException();
         }
 
@@ -197,9 +195,9 @@ public class Camera {
     }
 
     /**
-     * Returns the position the camera is currently over.
+     * Returns the position the {@link Camera} is currently over.
      * 
-     * @return The position.
+     * @return The position given as {@link GeoCoordinates}.
      */
     public GeoCoordinates getPosition() {
         return position;
@@ -223,25 +221,25 @@ public class Camera {
     }
 
     /**
-     * Returns the camera's distance to the surface.
+     * Returns the {@link Camera}'s distance to the surface.
      * 
-     * @return The distance.
+     * @return The distance
      */
     public double getDistance() {
         return distance;
     }
 
     /**
-     * Returns the camera's scale
+     * Returns the {@link Camera}'s scale
      * 
-     * @return
+     * @return The scale of the surface
      */
     public double getSurfaceScale() {
         return distance * tan(horizontalFOV / 2) / PI;
     }
-    
+
     public double getLongitudeScale() {
-        return getSurfaceScale() / geometry.getLongitudeDisortion(position);
+        return getSurfaceScale() / geometry.getLongitudeDistortion(position);
     }
 
     /**
@@ -265,7 +263,7 @@ public class Camera {
 
         this.verticalFOV = fov;
         this.horizontalFOV = 2 * atan(aspectRatio * tan(verticalFOV / 2));
-        
+
         double f = 1 / tan(fov * 0.5);
         projectionMatrix = new Matrix4(new double[] {
                 f / aspectRatio, 0, 0, 0,
@@ -273,7 +271,7 @@ public class Camera {
                 0, 0, (far + near) / (near - far), -1,
                 0, 0, (2 * near * far) / (near - far), 0
         });
-        
+
         updateCameraTransformation();
     }
 
@@ -293,9 +291,9 @@ public class Camera {
      * Sets the {@link de.joglearth.geometry.Camera} tilt to a specific value.
      * 
      * @param x The tilt around the x axis ("up and down"). Must be inside the interval [-pi/2,
-     *        pi/2].
+     *        pi/2]
      * @param y The tilt around the y axis ("left and right"). Must be inside the interval [-pi/2,
-     *        pi/2].
+     *        pi/2]
      */
     public synchronized void setTilt(double x, double y) {
 
@@ -361,7 +359,7 @@ public class Camera {
     public void move(double deltaLon, double deltaLat) {
         double newLon = position.getLongitude() + deltaLon;
         double newLat = position.getLatitude() + deltaLat;
-        if (newLat < PI/2 && newLat > -PI/2 
+        if (newLat < PI / 2 && newLat > -PI / 2
                 && (newLon > -PI && newLon < PI || geometry.allowsLongitudinalTraversal())) {
             setPosition(new GeoCoordinates(newLon, newLat));
         }
@@ -373,11 +371,11 @@ public class Camera {
     }
 
     /**
-     * Determines whether a surface point is visible by the {@link de.joglearth.geometry.Camera}.
+     * Determines whether a surface point is visible by the {@link Camera}.
      * The visibility is limited by both the viewport (the clipping planes) and parts of the scene
      * closer to the camera that might shadow others (the back of the globe, for example).
      * 
-     * @param geo The coordinates to check for
+     * @param geo The {@link GeoCoordinates} to check for
      * @return Whether the point is visible
      */
     public boolean isPointVisible(GeoCoordinates geo) {
@@ -390,7 +388,7 @@ public class Camera {
         return isPointVisible(geometry.getSpacePosition(geo))
                 && geometry.isPointVisible(cameraPosition, geo);
     }
-    
+
     public Vector3 getSpacePosition(GeoCoordinates geo) {
         return geometry.getSpacePosition(geo);
     }
@@ -399,7 +397,7 @@ public class Camera {
      * Calculates the screen coordinates of a visible point given in longitude and latitude
      * coordinates. If the point is not visible, the result is unspecified.
      * 
-     * @param geo The point's coordinates
+     * @param geo The point's {@link GeoCoordinates}
      * @return The coordinates of the point on the screen
      */
     public synchronized ScreenCoordinates getScreenCoordinates(GeoCoordinates geo) {
@@ -420,7 +418,7 @@ public class Camera {
      * Calculates the longitude and latitude coordinates of the point underneath a point on the
      * screen.
      * 
-     * @param screen The screen coordinates
+     * @param screen The {@link ScreenCoordinates}
      * @return The surface coordinates if the point maps to the surface, <code>null</code> if it
      *         points outside the plane or globe ("space")
      */
@@ -434,14 +432,15 @@ public class Camera {
         }
         Vector3 cameraPosition = modelCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
         Vector3 earthAxis = new Vector3(0, 1, 0);
-        
-        Vector3 zAxis = modelCameraMatrix.transform(new Vector3(0, 0, -1)).divide().minus(cameraPosition).normalized();
+
+        Vector3 zAxis = modelCameraMatrix.transform(new Vector3(0, 0, -1)).divide()
+                .minus(cameraPosition).normalized();
         Vector3 xAxis = earthAxis.crossProduct(zAxis).normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
-        
-        double yAngle = atan((1-2*screen.x))*tan(horizontalFOV/2);
-        double xAngle = atan((1-2*screen.y))*tan(verticalFOV/2);
-        
+
+        double yAngle = atan((1 - 2 * screen.x)) * tan(horizontalFOV / 2);
+        double xAngle = atan((1 - 2 * screen.y)) * tan(verticalFOV / 2);
+
         Matrix4 directionMatrix = new Matrix4();
         directionMatrix.rotate(yAxis, yAngle);
         directionMatrix.rotate(xAxis, -xAngle);
@@ -451,26 +450,41 @@ public class Camera {
     }
 
     /**
-     * Returns the projection matrix derived from the current camera settings.
+     * Returns the projection matrix derived from the current {@link Camera} settings.
      * 
      * The result may be directly passed to OpenGL as a projection matrix, and is guaranteed to
      * produce a picture corresponding to whatever results the camera visibility and projection
      * methods produced for these settings.
      * 
-     * @return The projection matrix
+     * @return The projection matrix given as a {@link Matrix4}
      */
     public Matrix4 getProjectionMatrix() {
         return projectionMatrix;
     }
-    
+
+    /**
+     * Returns the modelView matrix derived from the current {@link Camera} settings.
+     * 
+     * @return The modelView matrix given as a {@link Matrix4}
+     */
     public Matrix4 getModelViewMatrix() {
         return modelViewMatrix;
     }
-    
+
+    /**
+     * Returns the skyView matrix derived from the current {@link Camera} settings.
+     * 
+     * @return The skyView matrix given as a {@link Matrix4}
+     */
     public Matrix4 getSkyViewMatrix() {
         return skyViewMatrix;
     }
-    
+
+    /**
+     * Returns the transformation matrix derived from the current {@link Camera} settings.
+     * 
+     * @return The ModelView matrix given as a {@link Matrix4}
+     */
     public Matrix4 getTransformationMatrix() {
         return transformationMatrix;
     }

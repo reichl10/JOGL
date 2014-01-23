@@ -3,9 +3,10 @@ package de.joglearth.async;
 
 public abstract class AbstractInvoker implements Invoker {
 
-    
-    // Wraps a Runnable(-WithResult) and a Listener inside a Runnable, calling the callback on 
-    // completion.
+    /*
+     * Wraps a Runnable(-WithResult) and a Listener inside a Runnable, calling the callback on 
+     * completion.
+     */
     private static class RunnableCallbackWrapper implements Runnable {
         
         private Object runnable;
@@ -59,7 +60,6 @@ public abstract class AbstractInvoker implements Invoker {
 
     };
 
-    
     @Override
     public void invokeLater(RunnableWithResult runnable, RunnableResultListener listener) {
         if (runnable == null) {
@@ -89,6 +89,7 @@ public abstract class AbstractInvoker implements Invoker {
             if (listener != null) {
                 listener.runnableCompleted(null);
             }
+            
         } else {
             invokeLater(runnable, listener);
         }
@@ -139,6 +140,7 @@ public abstract class AbstractInvoker implements Invoker {
                     }
                 }
             });
+            
             synchronized (monitor) {
                 monitor.wait();
             }

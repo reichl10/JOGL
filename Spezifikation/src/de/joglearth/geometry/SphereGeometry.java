@@ -109,7 +109,7 @@ public class SphereGeometry implements Geometry {
     }
 
     @Override
-    public double getLongitudeDisortion(GeoCoordinates position) {
+    public double getLongitudeDistortion(GeoCoordinates position) {
         return cos(position.getLatitude());
     }
 
