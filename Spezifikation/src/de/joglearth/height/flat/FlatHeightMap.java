@@ -4,13 +4,21 @@ import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.height.HeightMap;
 
-
+/**
+ * Singleton class that returns 0 for all height requests.
+ * 
+ */
 public class FlatHeightMap implements HeightMap {
 
     private static FlatHeightMap instance;
     
     private FlatHeightMap() {  }
-    
+
+    /**
+     * Returns the instance of the class or creates it, if it does not exist yet.
+     * 
+     * @return The instance of <code>FlatHeightMap</code>
+     */
     public static FlatHeightMap getInstance() {
         if (instance == null) {
             instance = new FlatHeightMap();

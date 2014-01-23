@@ -18,22 +18,17 @@ public class TileTest {
         
         assertNotNull(testTile1);
 
+        /* check tiles attributes */
         assertTrue(testTile1.getLongitudeIndex() == 3);
         assertTrue(testTile1.getLongitudeIndex() == testTile2.getLongitudeIndex());
         assertTrue(testTile1.getLatitudeIndex() == 5);
         assertTrue(testTile1.getDetailLevel() == 3);
         assertTrue(testTile1.equals(testTile2));
 
-        /*
-         * Wir brauchen ein Tile, wo wir die Begrenzungen von Längen & Breitengrad kennen und 1
-         * Punkt der darin liegt
-         */
+        /* check if a given point is within the tile */
         double lon = (testTile1.getLongitudeFrom() + testTile1.getLongitudeTo()) / 2;
         double lat = (testTile1.getLatitudeFrom() + testTile1.getLatitudeTo()) / 2;
-        
         GeoCoordinates coords = new GeoCoordinates(lon, lat);
-        
         assertTrue(testTile1.contains(coords));
-        
     }
 }

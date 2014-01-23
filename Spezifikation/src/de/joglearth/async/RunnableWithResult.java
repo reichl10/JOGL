@@ -12,5 +12,4 @@ public interface RunnableWithResult {
      * @return The result
      */
     Object run();
-
 }

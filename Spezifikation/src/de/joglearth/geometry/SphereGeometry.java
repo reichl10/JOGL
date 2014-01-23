@@ -12,6 +12,7 @@ public class SphereGeometry implements Geometry {
 
     @Override
     public boolean isPointVisible(Vector3 cameraPosition, GeoCoordinates geo) {
+        
         /* A point is on the back side of the sphere if its distance to the camera is greater
          * than the distance to the boundary point of the sphere and its tangent through the 
          * camera origin.

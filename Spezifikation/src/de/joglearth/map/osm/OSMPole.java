@@ -46,6 +46,10 @@ public class OSMPole extends AbstractTile {
         return pole;
     }
     
+    /**
+     * Determines the actual zoom level.
+     * @return The zoom level
+     */
     public int getZoomLevel() {
         return zoomLevel;
     }
@@ -82,5 +86,4 @@ public class OSMPole extends AbstractTile {
     public TransformedTile getScaledAlternative() {
         return null;
     }
-    
 }

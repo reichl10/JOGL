@@ -17,10 +17,8 @@ import de.joglearth.source.caching.RequestDistributor;
 public final class NominatimManager implements Source<NominatimQuery, Collection<Location>> {
 
     private static NominatimManager instance = null;
-
     private Cache<NominatimQuery, Collection<Location>> cache;
     private Source<NominatimQuery, Collection<Location>> source;
-
     private RequestDistributor<NominatimQuery, Collection<Location>> dist;
 
 
@@ -36,6 +34,9 @@ public final class NominatimManager implements Source<NominatimQuery, Collection
         return instance;
     }
 
+    /**
+     *  Called if the program has been closed to terminate all pending processes.
+     */
     public static void shutDown() {
         if (instance != null) {
             instance.dispose();

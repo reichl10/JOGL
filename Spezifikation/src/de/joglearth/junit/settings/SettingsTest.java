@@ -21,11 +21,11 @@ import de.joglearth.settings.SettingsContract;
 
 public class SettingsTest {
 
-    private static final Integer  TEST_INTEGER  = new Integer(32789);
+    private static final Integer TEST_INTEGER = new Integer(32789);
     private static final Location TEST_LOCATION = new Location(new GeoCoordinates(3.32d, 1.45d),
-                                                        LocationType.USER_TAG,
-                                                        "City next to the border", "Passau");
-    private static Settings       s;
+            LocationType.USER_TAG,
+            "City next to the border", "Passau");
+    private static Settings s;
 
 
     @Before
@@ -38,11 +38,10 @@ public class SettingsTest {
 
     }
 
-    // Nicht verwendete Methoden der Settings: putFloat(), putDouble(), getFloat(), getDouble(),
-    // putLong(), getLong()
-
     @Test
     public void test() throws Exception {
+        
+        /* check if settings get changed */
         s.putInteger(SettingsContract.CACHE_SIZE_MEMORY, TEST_INTEGER);
         assertEquals(TEST_INTEGER, s.getInteger(SettingsContract.CACHE_SIZE_MEMORY));
 
@@ -60,10 +59,10 @@ public class SettingsTest {
         s.dropLocation(SettingsContract.USER_LOCATIONS, TEST_LOCATION);
         locationSet = s.getLocations(SettingsContract.USER_LOCATIONS);
         assertTrue(locationSet.size() == 0);
-        
+
         try {
             s.putString(SettingsContract.CACHE_SIZE_FILESYSTEM, null);
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             fail("An IllegalArgumentException occurred!");
         }
     }

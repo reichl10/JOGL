@@ -12,5 +12,4 @@ public class UnityMeasure<T> implements ObjectMeasure<T> {
     public int getSize(T t) {
         return 1;
     }
-
 }

@@ -1,11 +1,21 @@
 package de.joglearth.map.osm;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBuffer;
+import java.awt.image.DataBufferByte;
+import java.awt.image.Raster;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
+
+import javax.imageio.ImageIO;
 
 import de.joglearth.map.TileName;
 import de.joglearth.source.ProgressManager;
@@ -22,6 +32,10 @@ import de.joglearth.util.Resource;
  */
 public class OSMTileSource implements Source<TileName, byte[]> {
 
+    private Map<OSMMapType, ServerSet> serverSets;
+    private final ExecutorService executor;
+
+
     private class ServerSet {
 
         public String[] servers;
@@ -33,16 +47,10 @@ public class OSMTileSource implements Source<TileName, byte[]> {
     }
 
 
-    private Map<OSMMapType, ServerSet> serverSets;
-    
-    private final ExecutorService executor;
-    
-    
     private static byte[] loadLocalOSMTile(OSMMapType map, String type) {
-        return Resource.loadBinary(String.format("osmLocal/%s-%s.%s", map, type, 
+        return Resource.loadBinary(String.format("osmLocal/%s-%s.%s", map, type,
                 getImageFormatSuffix(map)));
     }
-    
 
     /**
      * Constructor. Initializes the {@link de.joglearth.map.osm.OSMTileSource}.
@@ -51,8 +59,7 @@ public class OSMTileSource implements Source<TileName, byte[]> {
      */
     public OSMTileSource() {
         executor = Executors.newFixedThreadPool(4);
-        //executor = new ThreadPoolExecutor(2, 2, 0L, TimeUnit.MILLISECONDS, new LIFOBlockingDeque<Runnable>());
-        
+
         serverSets = new HashMap<>();
         serverSets.put(OSMMapType.CYCLING, new ServerSet(new String[] {
                 "http://a.tile.opencyclemap.org/cycle/",
@@ -73,12 +80,18 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         serverSets.put(OSMMapType.MAPNIK, new ServerSet(new String[] {
                 "http://otile1.mqcdn.com/tiles/1.0.0/osm/",
                 "http://otile2.mqcdn.com/tiles/1.0.0/osm/" }));
-        
+        serverSets.put(OSMMapType.SATELLITE, new ServerSet(new String[] {
+                "http://otile1.mqcdn.com/tiles/1.0.0/sat/",
+                "http://otile2.mqcdn.com/tiles/1.0.0/sat/",
+                "http://otile3.mqcdn.com/tiles/1.0.0/sat/",
+                "http://otile4.mqcdn.com/tiles/1.0.0/sat/" }));
+
     }
 
     @Override
     public SourceResponse<byte[]> requestObject(final TileName k,
             final SourceListener<TileName, byte[]> sender) {
+        
         if (k.configuration instanceof OSMMapConfiguration) {
             final OSMMapConfiguration configuration = (OSMMapConfiguration) k.configuration;
             if (k.tile instanceof OSMTile) {
@@ -117,9 +130,43 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         return new SourceResponse<byte[]>(SourceResponseType.MISSING, null);
     }
 
+    
+    private static void colorCorrectImage(BufferedImage img) {           
+        Raster raster = img.getData();
+        DataBuffer buffer = raster.getDataBuffer();
+        if (buffer.getDataType() != DataBuffer.TYPE_BYTE) 
+            System.err.println("Fuck");
+        DataBufferByte bytebuf = (DataBufferByte) buffer;
+        byte[] data = bytebuf.getData();
+        System.out.println(bytebuf.getNumBanks());
+        float[] hsb = new float[3];
+        for (int j = 0; j < data.length; j += 3) {
+            
+            int red = data[j+2] < 0 ? 0x100 +data[j+2] : data[j+2];
+            int green = data[j+1] < 0 ? 0x100 + data[j+1] : data[j+1];
+            int blue = data[j] < 0 ? 0x100 + data[j] : data[j];
+
+            green = (int) (green * 1.2);
+            if (green > 255) green = 255;
+                                    
+            Color.RGBtoHSB(red, green, blue, hsb);
+            
+            hsb[1] += 0.1;
+            if (hsb[1] > 1) hsb[1] = 1;
+            hsb[2] -= 0.15;
+            if (hsb[2] < 0) hsb[2] = 0;
+            
+            int rgb = Color.HSBtoRGB(hsb[0], hsb[1], hsb[2]);
+            data[j] = (byte) (rgb & 0xff);
+            data[j+1] = (byte) ((rgb >> 8) & 0xff);
+            data[j+2] = (byte) ((rgb >> 16) & 0xff);
+                
+        }
+        img.setData(raster);
+    }
+    
+    
     private byte[] fetchRemoteTile(OSMTile tile, OSMMapType mapType) {
-        // TODO System.err.println("OSMTileSource: loading " + tile + " with type " +
-        // type.toString());
 
         // Spezialfall Kartenrand (Longitude)
         double lonFrom = tile.getLongitudeFrom();
@@ -158,9 +205,6 @@ public class OSMTileSource implements Source<TileName, byte[]> {
 
         int ytile = tile.getLatitudeIndex();
 
-        // TODO
-        // //TODO System.out.println("ytile: "+ytile+" latitude: "+y);
-
         // Build URL
         ServerSet set = serverSets.get(mapType);
         StringBuilder builder = new StringBuilder();
@@ -182,79 +226,32 @@ public class OSMTileSource implements Source<TileName, byte[]> {
             response = HTTP.get(builder.toString(), null);
 
             ++i;
-            /*
-             * if (response == null) { set.offset++; }
-             * 
-             * if (set.offset == set.servers.length) { set.offset = 0; }
-             */
         }
+        
+        
+        if (response != null && mapType == OSMMapType.SATELLITE && tile.getDetailLevel() > 8) {
+            BufferedImage img;
+            try {
+                img = ImageIO.read(new ByteArrayInputStream(response));
+            } catch (IOException e) {
+                return null;
+            }
+            
+            colorCorrectImage(img);
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-        // TODO System.err.println("OSMTileSource: done " + (response == null ? "(null) " : "")
-        // + "loading " + tile);
+            try {
+                ImageIO.write(img, "jpg", out);
+            } catch (IOException e) {
+                return null;
+            }
+            
+            response = out.toByteArray();
+        }
+        
 
         return response;
     }
-
-    /*
-     * public static void main(String[] args) { // Tile tile1 = new Tile(2, 0, 0); // Tile tile2 =
-     * new Tile(2, 0, 1); // Tile tile3 = new Tile(2, 0, 2); // Tile tile4 = new Tile(2, 0, 3); //
-     * Tile tile5 = new Tile(2, 1, 0); // Tile tile6 = new Tile(2, 1, 1); // Tile tile7 = new
-     * Tile(2, 1, 2); // Tile tile8 = new Tile(2, 1, 3); // Tile tile9 = new Tile(2, 2, 0); // Tile
-     * tile10 = new Tile(2, 2, 1); // Tile tile11 = new Tile(2, 2, 2); // Tile tile12 = new Tile(2,
-     * 2, 3); // Tile tile13 = new Tile(2, 3, 0); // Tile tile14 = new Tile(2, 1, 1); // Tile tile15
-     * = new Tile(2, 3, 2); // Tile tile16 = new Tile(2, 3, 3); // // OSMTile osm1 = new
-     * OSMTile(tile1, TiledMapType.OSM_MAPNIK); // OSMTile osm2 = new OSMTile(tile2,
-     * TiledMapType.OSM_MAPNIK); // OSMTile osm3 = new OSMTile(tile3, TiledMapType.OSM_MAPNIK); //
-     * OSMTile osm4 = new OSMTile(tile4, TiledMapType.OSM_MAPNIK); // OSMTile osm5 = new
-     * OSMTile(tile5, TiledMapType.OSM_MAPNIK); // OSMTile osm6 = new OSMTile(tile6,
-     * TiledMapType.OSM_MAPNIK); // OSMTile osm7 = new OSMTile(tile7, TiledMapType.OSM_MAPNIK); //
-     * OSMTile osm8 = new OSMTile(tile8, TiledMapType.OSM_MAPNIK); // OSMTile osm9 = new
-     * OSMTile(tile9, TiledMapType.OSM_MAPNIK); // OSMTile osm10 = new OSMTile(tile10,
-     * TiledMapType.OSM_MAPNIK); // OSMTile osm11 = new OSMTile(tile11, TiledMapType.OSM_MAPNIK); //
-     * OSMTile osm12 = new OSMTile(tile12, TiledMapType.OSM_MAPNIK); // OSMTile osm13 = new
-     * OSMTile(tile13, TiledMapType.OSM_MAPNIK); // OSMTile osm14 = new OSMTile(tile14,
-     * TiledMapType.OSM_MAPNIK); // OSMTile osm15 = new OSMTile(tile15, TiledMapType.OSM_MAPNIK); //
-     * OSMTile osm16 = new OSMTile(tile16, TiledMapType.OSM_MAPNIK);
-     * 
-     * OSMTileSource source = new OSMTileSource(); final int zoom = 5; int n = (int) Math.pow(2,
-     * zoom);
-     * 
-     * for (int i = 0; i < n; i++) { OSMTile tile = new OSMTile(zoom, n/2 , i); TileName osm = new
-     * TileName(tile, OSMMapType.MAPNIK); source.requestObject(osm, new TestRequester());
-     * 
-     * }
-     * 
-     * // source.requestObject(osm1, new TestRequester()); // source.requestObject(osm2, new
-     * TestRequester()); // source.requestObject(osm3, new TestRequester()); //
-     * source.requestObject(osm4, new TestRequester()); // source.requestObject(osm5, new
-     * TestRequester()); // source.requestObject(osm6, new TestRequester()); //
-     * source.requestObject(osm7, new TestRequester()); // source.requestObject(osm8, new
-     * TestRequester()); // source.requestObject(osm9, new TestRequester()); //
-     * source.requestObject(osm10, new TestRequester()); // source.requestObject(osm11, new
-     * TestRequester()); // source.requestObject(osm12, new TestRequester()); //
-     * source.requestObject(osm13, new TestRequester()); // source.requestObject(osm14, new
-     * TestRequester()); // source.requestObject(osm15, new TestRequester()); //
-     * source.requestObject(osm16, new TestRequester());
-     * 
-     * // //TODO System.out.println(Math.cos(((1 - Math.log(Math.tan(Math.PI/2) + // 1 /
-     * Math.cos(Math.PI/2)) / Math.PI) /2 * Math.pow(2, 6)))); // //TODO
-     * System.out.println(Math.cos(((1 - Math.log(Math.tan(Math.PI/2) + //
-     * Math.sqrt((Math.tan(Math.PI/2)) + 1)) / Math.PI) /2 * Math.pow(2, 6))));
-     * 
-     * }
-     * 
-     * 
-     * static class TestRequester implements SourceListener<TileName, byte[]> {
-     * 
-     * public TestRequester() {
-     * 
-     * }
-     * 
-     * @Override public void requestCompleted(TileName key, byte[] value) { // TODO Auto-generated
-     * method stub
-     * 
-     * } }
-     */
 
     @Override
     public void dispose() {
@@ -263,33 +260,40 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         }
     }
 
+    /**
+     * TODO
+     * @param mapType
+     * @return
+     */
     public static String getImageFormatSuffix(OSMMapType mapType) {
         switch (mapType) {
-            case MAPNIK: 
+            case MAPNIK:
+            case SATELLITE:
                 return "jpg";
-                
-            default: 
+
+            default:
                 return "png";
         }
     }
 
-    private class LIFOBlockingDeque <C> extends LinkedBlockingDeque<C> {
+    //TODO: Vorlage für prio
+    private class LIFOBlockingDeque<C> extends LinkedBlockingDeque<C> {
+
         @Override
         public boolean offer(C e) {
             return super.offerFirst(e);
         }
-        
+
         @Override
         public boolean offer(C e, long timeout, TimeUnit unit) throws InterruptedException {
             return super.offerFirst(e, timeout, unit);
         }
-        
+
         @Override
         public boolean add(C e) {
             return super.offerFirst(e);
         }
-        
-        
+
         @Override
         public void put(C e) throws InterruptedException {
             super.putFirst(e);

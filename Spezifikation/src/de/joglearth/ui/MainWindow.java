@@ -159,7 +159,7 @@ public class MainWindow extends JFrame {
     /**
      * Stores the reference to the <code>ViewEventListener</code> that is created on initialization.
      */
-    private ViewEventListener viewEventListener;
+    private ViewEventListener viewEventListener; //TODO: not used
 
     /**
      * Stores the reference to the <code>Camera</code> that it gets through the constructor.
@@ -517,6 +517,10 @@ public class MainWindow extends JFrame {
                         FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
 
         scrollPane = new JScrollPane();
+        scrollPane.getHorizontalScrollBar().setUnitIncrement(5);
+        scrollPane.getHorizontalScrollBar().setBlockIncrement(50);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(5);
+        scrollPane.getVerticalScrollBar().setBlockIncrement(50);
         userTagPanel.add(scrollPane, "2, 2, fill, fill");
 
         userTagListPanel = new JPanel();
@@ -536,6 +540,10 @@ public class MainWindow extends JFrame {
                         FormFactory.NARROW_LINE_GAP_ROWSPEC, }));
 
         overlayScrollPane = new JScrollPane();
+        overlayScrollPane.getHorizontalScrollBar().setUnitIncrement(5);
+        overlayScrollPane.getHorizontalScrollBar().setBlockIncrement(50);
+        overlayScrollPane.getVerticalScrollBar().setUnitIncrement(5);
+        overlayScrollPane.getVerticalScrollBar().setBlockIncrement(50);
         overlayPanel.add(overlayScrollPane, "2, 2, fill, fill"); //$NON-NLS-1$
 
         overlaysPanel = new JPanel();
@@ -988,13 +996,11 @@ public class MainWindow extends JFrame {
 
             @Override
             public void keyTyped(KeyEvent e) {
-                // TODO Auto-generated method stub
 
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                // TODO Auto-generated method stub
 
             }
 
@@ -1036,13 +1042,11 @@ public class MainWindow extends JFrame {
 
             @Override
             public void keyTyped(KeyEvent e) {
-                // TODO Auto-generated method stub
 
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                // TODO Auto-generated method stub
 
             }
 
@@ -1054,7 +1058,7 @@ public class MainWindow extends JFrame {
                         GeoCoordinates geo = GeoCoordinates.parseCoordinates(
                                 longitudeTextField.getText(), latitudeTextField.getText());
                         camera.setPosition(geo);
-                    } catch (NumberFormatException ex) { 
+                    } catch (NumberFormatException ex) {
                         GeoCoordinates geo = camera.getPosition();
                         longitudeTextField.setText(geo.getLongitudeString());
                         latitudeTextField.setText(geo.getLatitudeString());
@@ -1202,7 +1206,7 @@ public class MainWindow extends JFrame {
         Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS,
                 new UIUserLocationListener());
         searchResultList.addMouseListener(new MouseAdapter() {
-            
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 Location location = searchResultList.getSelectedValue();
@@ -1232,6 +1236,14 @@ public class MainWindow extends JFrame {
                 longitudeTextField.setEnabled(!enabled);
                 zoomSlider.setEnabled(!enabled);
                 scalePanel.setVisible(!enabled);
+                searchButton.setEnabled(!enabled);
+                searchTextField.setText("");
+                searchTextField.setEnabled(!enabled);
+                searchResultList.removeAll();
+                searchResultList.setEnabled(!enabled);
+                localSearchRadioButton.setEnabled(!enabled);
+                globalSearchRadioButton.setEnabled(!enabled);
+                detailsPanel.setVisible(!enabled);
             }
         });
     }
@@ -1263,7 +1275,7 @@ public class MainWindow extends JFrame {
                 paraMapTypeComboBox
                         .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.70"), //$NON-NLS-1$
-                                loadIcon("icons/mapSatellite.png"), new SingleMapConfiguration(SingleMapType.SATELLITE))); //$NON-NLS-1$
+                                loadIcon("icons/mapSatellite.png"), new OSMMapConfiguration(OSMMapType.SATELLITE))); //$NON-NLS-1$
                 paraMapTypeComboBox
                         .addItem(new IconizedItem<MapConfiguration>(
                                 Messages.getString("MainWindow.72"), //$NON-NLS-1$
@@ -1719,7 +1731,7 @@ public class MainWindow extends JFrame {
             double sizeScreen = camera.getSurfaceScale() * rad;
             double scale = dimensionCvas.getWidth() / dimensionScaleCanv.getWidth();
             double scaleSize = Math.round(sizeScreen / scale);
-            scaleLabel.setText(String.valueOf(scaleSize)+" m");
+            scaleLabel.setText(String.valueOf(scaleSize) + " m");
         }
 
     }
@@ -1749,13 +1761,6 @@ public class MainWindow extends JFrame {
                                 * abs(newGeo.getLatitude() - lastGeo.getLatitude());
 
                         camera.move(deltaLon, deltaLat);
-                        /*
-                         * TODO System.out.format(
-                         * 
-                         * "Move: deltaX=%g,  deltaY=%g, deltaLon=%g, deltaLat=%g\n", newPos.x -
-                         * lastPos.x, newPos.y - lastPos.y, newGeo.getLongitude() -
-                         * lastGeo.getLongitude(), newGeo.getLatitude() - lastGeo.getLatitude());
-                         */
                     }
                 }
             } else if (SwingUtilities.isRightMouseButton(e)) {
@@ -1989,13 +1994,39 @@ public class MainWindow extends JFrame {
         @Override
         public void stateChanged(ChangeEvent e) {
             JSlider slider = (JSlider) e.getSource();
-            label.setText(Integer.toString(slider.getValue()));
+            int value = slider.getValue();
+            label.setText(Integer.toString(value));
             updateZoom();
             requestDetails();
+            if (value < 90) {
+                enableOptionalOverlays(false);
+            } else {
+                enableOptionalOverlays(true);
+            }
         }
 
     }
 
+
+    private void enableOptionalOverlays(boolean enable) {
+        locationManager.enableLocations(enable);
+        Set<Entry<JCheckBox, LocationType>> entrys = checkboxToLocationTypeMap.entrySet();
+        for (Entry<JCheckBox, LocationType> entry : entrys) {
+            LocationType type = entry.getValue();
+            if (type != LocationType.SEARCH && type != LocationType.USER_TAG) {
+                JCheckBox box = entry.getKey();
+                if (enable) {
+                    if (!box.isEnabled()) {
+                        box.setEnabled(true);
+                    }
+                } else {
+                    if (box.isEnabled()) {
+                        box.setEnabled(false);
+                    }
+                }
+            }
+        }
+    }
 
     private void updateZoom() {
         double factor = 1 - zoomSlider.getValue() / (double) zoomSlider.getMaximum();
@@ -2006,8 +2037,6 @@ public class MainWindow extends JFrame {
         }
 
         camera.setDistance(minDist + (MAX_DIST - minDist) * pow(factor, 3));
-        // TODO System.out.println("Distance " + camera.getDistance());
-        // TODO System.out.println("SliderValue " + zoomSlider.getValue());
     }
 
 

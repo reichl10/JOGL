@@ -15,6 +15,7 @@ public class ScreenCoordinatesTest {
         ScreenCoordinates testCoord1 = new ScreenCoordinates(0, 0);
         ScreenCoordinates testCoord2= new ScreenCoordinates(0.33, 0.88);
         
+        /* check screenCoordinates attributes */
         assertFalse(testCoord1.equals(testCoord2));
         testCoord2 = testCoord1.clone();
         assertTrue(testCoord1.equals(testCoord2));

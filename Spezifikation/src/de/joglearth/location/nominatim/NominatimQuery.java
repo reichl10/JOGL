@@ -1,7 +1,6 @@
 package de.joglearth.location.nominatim;
 
 import de.joglearth.geometry.GeoCoordinates;
-import de.joglearth.geometry.ScreenCoordinates;
 import de.joglearth.geometry.Tile;
 
 
@@ -14,22 +13,23 @@ public class NominatimQuery {
     /**
      * Query type.
      */
-    public Type              type;
-    
+    public Type type;
+
     /**
      * The area of the query.
      */
-    public Tile              area;
-    
+    public Tile area;
+
     /**
      * Coordinates of the point.
      */
     public GeoCoordinates point;
-    
+
     /**
      * The query.
      */
-    public String            query;
+    public String query;
+
 
     /**
      * Constructor. Assigns a value to a {@link de.joglearth.source.nominatim.Type}.
@@ -39,8 +39,7 @@ public class NominatimQuery {
     public NominatimQuery(Type type) {
         this.type = type;
     }
-    
-    
+
     @Override
     public int hashCode() {
         StringBuffer sBuffer = new StringBuffer();
@@ -56,26 +55,27 @@ public class NominatimQuery {
         sBuffer.append(type.name());
         return sBuffer.toString().hashCode();
     }
-    
+
     @Override
     public boolean equals(Object other) {
         if (!(other == null) && other.getClass() == this.getClass()) {
             NominatimQuery o = (NominatimQuery) other;
-            if(o.type.equals(this.type)) {
-                if((o.area == null && this.area == null) || (o.area.equals(this.area))) {
-                    if((o.point == null && this.point == null) || (o.point.equals(this.point))) {
+            if (o.type.equals(this.type)) {
+                if ((o.area == null && this.area == null) || (o.area.equals(this.area))) {
+                    if ((o.point == null && this.point == null) || (o.point.equals(this.point))) {
                         return true;
                     }
                 }
             }
         }
-        
+
         return false;
     }
 
 
     /**
-     * {@link de.joglearth.source.nominatim.Type} of the {@link de.joglearth.location.nominatim.NominatimQuery}.
+     * {@link de.joglearth.source.nominatim.Type} of the
+     * {@link de.joglearth.location.nominatim.NominatimQuery}.
      */
     public enum Type {
 

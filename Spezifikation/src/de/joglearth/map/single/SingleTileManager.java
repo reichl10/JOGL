@@ -58,5 +58,4 @@ public final class SingleTileManager implements Source<TileName, byte[]> {
     public void dispose() {
 
     }
-
 }

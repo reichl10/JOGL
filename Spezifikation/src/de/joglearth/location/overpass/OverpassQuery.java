@@ -10,7 +10,14 @@ import de.joglearth.location.LocationType;
  */
 public class OverpassQuery {
 
+    /**
+     * The area where certain operations should be made given as a Tile.
+     */
     public Tile area;
+    
+    /**
+     * The location type that should be displayed.
+     */
     public LocationType type;
 
 
@@ -61,8 +68,4 @@ public class OverpassQuery {
         }
         return true;
     }
-
-
-    
-    
 }

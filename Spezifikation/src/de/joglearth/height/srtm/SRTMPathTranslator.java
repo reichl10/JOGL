@@ -28,5 +28,4 @@ public class SRTMPathTranslator implements PathTranslator<SRTMTileName> {
             return null;
         }
     }
-
 }

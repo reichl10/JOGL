@@ -38,6 +38,11 @@ public class GLEasel extends JPanel {
         setBackground(Color.BLACK);
     }
 
+    /**
+     * Determines whether the GLCanvas can be reset.
+     * 
+     * @return <code>true</code> if the canvas can be reset, <code>false</code> if not
+     */
     public boolean canReset() {
     	return canvas == null || initialized;
     }

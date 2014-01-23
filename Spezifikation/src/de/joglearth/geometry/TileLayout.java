@@ -10,6 +10,7 @@ package de.joglearth.geometry;
  * neighboring GridPoints.
  */
 public interface TileLayout {
+    
     /**
      * Constructs a Tile identified by a corner GridPoint. Which corner that is is up to the 
      * implementation, as long as the choice is consistent (i.e. always the bottom-left corner).

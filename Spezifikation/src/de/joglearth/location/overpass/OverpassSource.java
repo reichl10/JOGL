@@ -49,7 +49,7 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
     public OverpassSource() {
         executor = Executors.newFixedThreadPool(1);
         info = new NominatimSource();
-        
+
         locationRequest = new HashMap<LocationType, String>();
         locationRequest.put(LocationType.RESTAURANT, OverpassQueryGenerator.restaurant);
         locationRequest.put(LocationType.ACTIVITY, OverpassQueryGenerator.activity);
@@ -117,14 +117,13 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
         ArrayList<String> getRequest = new ArrayList<String>();
         getRequest.add("data");
         getRequest.add(query);
-        
-        
+
         byte[] response = HTTP.get(url, getRequest);
         if (response == null) {
             return new ArrayList<Location>();
         }
         String xml = new String(response);
-        
+
         return parseXml(xml, request.type);
 
     }
@@ -218,60 +217,4 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
             executor.shutdownNow();
         }
     }
-
-    public static void main(String[] args) {
-        OverpassSource source = new OverpassSource();
-        Collection<Location> loc = source.getLocations(new OverpassQuery(LocationType.TOWN, new Tile() {
-            
-            @Override
-            public boolean intersects(double lonFrom, double latFrom, double lonTo, double latTo) {
-                // TODO Auto-generated method stub
-                return false;
-            }
-
-            @Override
-            public double getLongitudeTo() {
-                // TODO Auto-generated method stub
-                return Math.toRadians(14);
-            }
-
-            @Override
-            public double getLongitudeFrom() {
-                // TODO Auto-generated method stub
-                return Math.toRadians(12);
-            }
-
-            @Override
-            public double getLatitudeTo() {
-                // TODO Auto-generated method stub
-                return Math.toRadians(50);
-            }
-
-            @Override
-            public double getLatitudeFrom() {
-                // TODO Auto-generated method stub
-                return Math.toRadians(48);
-            }
-
-            @Override
-            public boolean contains(GeoCoordinates coords) {
-                // TODO Auto-generated method stub
-                return false;
-            }
-
-            @Override
-            public TransformedTile getScaledAlternative() {
-                return null;
-            }
-        }));
-        
-        for(Location i:loc) {
-            System.out.println("Location");
-            System.out.println(i.details);
-        }
-
-        source.dispose();
-
-    }
-
 }

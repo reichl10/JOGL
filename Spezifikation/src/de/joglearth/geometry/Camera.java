@@ -50,34 +50,36 @@ public class Camera {
     
     
     private boolean tiltTransformation(Matrix4 matrix) {
-        Vector3 center = matrix.transform(new Vector3(0, 0, 0)).divide();
-        Vector3 zAxis = matrix.transform(new Vector3(0, 0, -1)).divide().minus(center)
-                .normalized();
-
-        if (zAxis.x == 0 && zAxis.z == 0) {
-            return false;
-        }
-
-        Vector3 earthAxis = matrix.transform(new Vector3(0, 1, 0)).divide().minus(center);
-        Vector3 xAxis = zAxis.crossProduct(earthAxis).normalized();
-
-        matrix.rotate(zAxis, -tiltY);
-        matrix.rotate(xAxis, tiltX);
+//        Vector3 center = matrix.transform(new Vector3(0, 0, 0)).divide();
+//        Vector3 zAxis = matrix.transform(new Vector3(0, 0, -1)).divide().minus(center)
+//                .normalized();
+//
+//        if (zAxis.x == 0 && zAxis.z == 0) {
+//            return false;
+//        }
+//
+//        Vector3 earthAxis = matrix.transform(new Vector3(0, 1, 0)).divide().minus(center);
+//        Vector3 xAxis = zAxis.crossProduct(earthAxis).normalized();
+//
+//        matrix.rotate(zAxis, -tiltY);
+//        matrix.rotate(xAxis, tiltX);
+        
+        Matrix4 rotation =  new Matrix4();
+        rotation.rotate(new Vector3(1, 0, 0), tiltX);
+        rotation.rotate(new Vector3(0, 1, 0), tiltY);
+        
+        matrix.mult(rotation);
         
         return true;
     }
     
 
     private boolean updateCamera() {
-        // TODO sign!
-        // TODO Height map resolution is a wild guess
-
-       
+        
         double altitude = distance;
         if (getSurfaceScale() < 0.005) {
             altitude += heightMap.getHeight(position, 1e-4); 
         }
-        //TODO System.err.println("Camera: updating, altitude=" + altitude);
         
         Matrix4 newCameraMatrix = geometry.getModelCameraTransformation(position, altitude);
         tiltTransformation(newCameraMatrix);
@@ -161,7 +163,11 @@ public class Camera {
         }
     }
     
-   
+   /**
+    *  Sets the HeightMap to a given value, e.g. the height profile was activated and has
+    *  been deactivated, the HeightMap would be changed to another value.
+    * @param heightMap The new HeightMap
+    */
     public synchronized void setHeightMap(HeightMap heightMap) {
         if (heightMap == null) {
             throw new IllegalArgumentException();
@@ -429,7 +435,7 @@ public class Camera {
         Vector3 cameraPosition = modelCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
         Vector3 earthAxis = new Vector3(0, 1, 0);
         
-        Vector3 zAxis = cameraPosition.times(-1).normalized();
+        Vector3 zAxis = modelCameraMatrix.transform(new Vector3(0, 0, -1)).divide().minus(cameraPosition).normalized();
         Vector3 xAxis = earthAxis.crossProduct(zAxis).normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
         
@@ -441,7 +447,6 @@ public class Camera {
         directionMatrix.rotate(xAxis, -xAngle);
 
         Vector3 viewVector = directionMatrix.transform(zAxis).divide();
-
         return geometry.getSurfaceCoordinates(cameraPosition, viewVector);
     }
 

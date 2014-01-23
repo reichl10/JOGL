@@ -54,6 +54,10 @@ public interface Tile extends Cloneable {
      */
     boolean intersects(double lonFrom, double latFrom, double lonTo, double latTo);
     
+    /**
+     * Returns a scaled alternative of a tile to achieve that the lack of textures disappears.
+     * @return The scaled alternative of a tile
+     */
     TransformedTile getScaledAlternative();
     
 }

@@ -1,22 +1,38 @@
 package de.joglearth.height.srtm;
 
-import static java.lang.Math.*;
+import static java.lang.Math.PI;
+import static java.lang.Math.floor;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.height.HeightMap;
 import de.joglearth.source.SourceListener;
 
-
+/**
+ * Singleton class that returns certain values for height requests.
+ * 
+ */
 public class SRTMHeightMap implements HeightMap {
 
     private static SRTMHeightMap instance = null;
     
+    /**
+     * The radius of the earth given in meters.
+     */
     public final static double EARTH_RADIUS_METERS = 6378000.0;
+    
+    /**
+     * The maximal height of a point on the sphere.
+     */
     public final static double MAX_HEIGHT = Short.MAX_VALUE / EARTH_RADIUS_METERS;
+    
+    /**
+     * The minimal height of a point on the sphere.
+     */
     public final static double MIN_HEIGHT = -MAX_HEIGHT;
     
     private final SRTMListener srtmListener = new SRTMListener();
@@ -89,6 +105,11 @@ public class SRTMHeightMap implements HeightMap {
 
     private SRTMHeightMap() {}
     
+    /**
+     * Returns the instance of the class or creates it, if it does not exist yet.
+     * 
+     * @return The instance of <code>SRTMHeightMap</code>
+     */
     public static SRTMHeightMap getInstance() {
         if (instance == null) {
             instance = new SRTMHeightMap();
@@ -111,8 +132,6 @@ public class SRTMHeightMap implements HeightMap {
 
     @Override
     public double getHeight(GeoCoordinates coords, double angularResolution) {
-        //TODO System.err.println("HeightMap: requesting height of " + coords + " with resolution "
-        //        + resolution);
         
         SRTMTileName index = new SRTMTileName(toTileIndex(coords.getLongitude()), 
                 toTileIndex(coords.getLatitude()));

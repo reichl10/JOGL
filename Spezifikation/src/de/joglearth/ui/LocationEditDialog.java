@@ -38,7 +38,6 @@ public class LocationEditDialog extends JDialog {
     private static final long serialVersionUID = -8715326019757123990L;
 
     private JTextField nameTextField;
-
     private JTextArea descriptionTextArea;
     private Location loc;
 
@@ -127,5 +126,4 @@ public class LocationEditDialog extends JDialog {
         nameTextField.setText(loc.name);
         setLocationRelativeTo(parent);
     }
-
 }

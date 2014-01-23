@@ -33,6 +33,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      */
     private List<Cache<Key, Value>> caches;
     private Map<Cache<Key, Value>, Integer> cacheSizeMap;
+    
     /**
      * Holds the source.
      */
@@ -64,6 +65,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         if (!(cache instanceof FileSystemCache)) {
             usedSizeMap.put(cache, new Integer(0));
         } else {
+            //TODO: unsafety cast
             FileSystemCache<Key> fsCache = (FileSystemCache<Key>) cache;
             Integer sizeOfObjects = 0;
             Iterable<Key> cachedObjectsIterable = cache.getExistingObjects();
@@ -409,8 +411,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         if (caches.size() <= index || space == 0)
             return;
         Cache<Key, Value> cache = caches.get(index);
-        Integer cacheSize = cacheSizeMap.get(cache);
-        Integer spaceUsed = usedSizeMap.get(cache);
 
         Map<Key, BigInteger> lastUsed = lastUsedMap.get(cache);
         Set<Entry<Key, BigInteger>> entrySet = lastUsed.entrySet();
@@ -460,6 +460,8 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                     cache.dropObject(listener.key);
                 }
             } else {
+                
+                @SuppressWarnings("unchecked")
                 FileSystemCache<Key> fsCache = (FileSystemCache<Key>) cache;
                 Integer itemSizeInteger = fsCache.sizeOf(entry.getKey());
                 removeFromCache(cache, entry.getKey(), itemSizeInteger);
@@ -488,7 +490,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         private int cIndex;
         Source<Key, Value> _source;
         RequestDistributor<Key, Value> _rd;
-
 
         public ObjectRequestListener(List<Cache<Key, Value>> caches, int currentIndex,
                 Source<Key, Value> s, RequestDistributor<Key, Value> r) {
@@ -572,7 +573,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
         RequestDistributor<Key, Value> rd;
 
-
         public SourceAsker(RequestDistributor<Key, Value> r) {
             rd = r;
         }
@@ -590,7 +590,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         public Value value;
         public BigInteger lastUsed;
 
-
         public CacheEntry(Key k, Value v, BigInteger l) {
             key = k;
             value = v;
@@ -599,10 +598,9 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     private class CacheMoveListener implements SourceListener<Key, Value> {
-
+        
         public volatile Key key;
         public volatile Value value;
-
 
         public CacheMoveListener() {}
 
@@ -620,8 +618,6 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
     @Override
     public void dispose() {
-        // TODO: Block incomming changes
-        // move to filesystemcache if last cache is one!
         if (caches.size() > 1) {
             Cache<Key, Value> lastCache = caches.get(caches.size() - 1);
             if (lastCache instanceof FileSystemCache) {

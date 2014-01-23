@@ -1,6 +1,7 @@
 package de.joglearth.map.osm;
 
 import java.awt.Dimension;
+import static java.lang.Math.*;
 
 import de.joglearth.geometry.Camera;
 import de.joglearth.geometry.MapProjection;
@@ -32,7 +33,18 @@ public class OSMMapConfiguration implements MapConfiguration {
     
     @Override
     public TileLayout getOptimalTileLayout(Camera camera, Dimension screenSize) {
-        return new OSMTileLayout(OSMTileLayout.getOptimalZoomLevel(camera, screenSize.width/256));
+        int maxZoomLevel;
+        switch (mapType) {
+            case SATELLITE:
+                maxZoomLevel = 11;
+                break;
+            default:
+                maxZoomLevel = 18;
+                break;
+        }
+        
+        int zoomLevel = OSMTileLayout.getOptimalZoomLevel(camera, screenSize.width / 256);
+        return new OSMTileLayout(min(zoomLevel, maxZoomLevel));
     }
     
     @Override
@@ -94,5 +106,4 @@ public class OSMMapConfiguration implements MapConfiguration {
     public double getMinimumCameraDistance() {
         return 1e-5;
     }
-
 }

@@ -12,6 +12,7 @@ import de.joglearth.source.Source;
  * Models the combination of tile layouts and image source forming a valid map configuration.
  */
 public interface MapConfiguration {
+    
     /**
      * Determines the optimal tile layout for a camera its viewport size.
      * @param camera The camera. Must not be null
@@ -33,7 +34,15 @@ public interface MapConfiguration {
      */
     String getImageFormatSuffix();
     
+    /**
+     * Determines the projection of a tile.
+     * @return The projection format of a Tile.
+     */
     MapProjection getProjection();
     
+    /**
+     * Determines the minimal distance of the surface to the camera-
+     * @return The minimal distance
+     */
     double getMinimumCameraDistance();
 }

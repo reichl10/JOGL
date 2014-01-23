@@ -53,5 +53,4 @@ public class SingleTileLayout implements TileLayout {
     public GridPoint modulo(GridPoint point) {
         return new GridPoint(0, 0);
     }
-
 }

@@ -140,6 +140,7 @@ public final class SettingsContract {
      * same files the {@link #saveSettings()} saves to.
      */
     public static void loadSettings() {
+      //TODO settings not used
         Settings settings = Settings.getInstance();
         File sFile = new File(FILE_LOCATION);
         if (sFile.exists()) {
@@ -170,13 +171,10 @@ public final class SettingsContract {
                     }
                 }
             } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (XMLStreamException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (FactoryConfigurationError e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -345,8 +343,6 @@ public final class SettingsContract {
      * {@link #loadSettings()} loads them from.
      */
     public static void saveSettings() {
-        //TODO System.err.println("SaveSettings!");
-        //TODO System.err.println("Saving to SettingsLocation:" +FILE_LOCATION);
         Settings s = Settings.getInstance();
         File f = new File(FILE_LOCATION);
         f.getParentFile().mkdirs();

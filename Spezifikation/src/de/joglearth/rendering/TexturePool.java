@@ -41,6 +41,5 @@ public class TexturePool<Key> extends MemoryCache<Key, Texture> {
         }
         super.dropObject(key);
     }
-
 }
 

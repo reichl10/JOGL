@@ -22,7 +22,6 @@ public final class OSMTileManager implements Source<TileName, byte[]> {
     private RequestDistributor<TileName, byte[]> dist;
     private Cache<TileName, byte[]> memoryCache;
     private Cache<TileName, byte[]> fsCache;
-
     private static OSMTileManager instance = null;
 
 
@@ -42,7 +41,10 @@ public final class OSMTileManager implements Source<TileName, byte[]> {
         }
         return instance;
     }
-    
+
+    /**
+     *  Called if the program has been closed to terminate all pending processes.
+     */
     public static void shutDown() {
         if (instance != null) {
             instance.dispose();

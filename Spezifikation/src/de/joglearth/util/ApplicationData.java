@@ -3,7 +3,10 @@ package de.joglearth.util;
 import java.io.File;
 import java.util.regex.Pattern;
 
-
+/**
+ * TODO
+ *
+ */
 public final class ApplicationData {
     
     private static String dataRootDirectory = buildRootPath();
@@ -23,10 +26,19 @@ public final class ApplicationData {
         }
     }
     
+    /**
+     * TODO
+     * @return
+     */
     public static String getDirectory() {
         return getDirectory("");
     }
     
+    /**
+     * TODO
+     * @param subPath
+     * @return
+     */
     public static String getDirectory(String subPath) {
         String[] hierarchy = subPath.split(Pattern.quote(File.separator));
         String absolutePath = dataRootDirectory;
@@ -42,5 +54,4 @@ public final class ApplicationData {
         }
         return absolutePath;
     }
-    
 }

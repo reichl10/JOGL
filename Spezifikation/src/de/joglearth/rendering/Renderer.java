@@ -2,18 +2,12 @@ package de.joglearth.rendering;
 
 import static java.lang.Math.*;
 import static javax.media.opengl.GL2.*;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHTING;
-import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
-import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
-
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.LinkedHashMap;
-import java.util.ArrayList;
 import java.util.Map;
 
 import com.jogamp.opengl.util.awt.TextRenderer;
@@ -74,9 +68,7 @@ public class Renderer {
     private SettingsListener settingsListener = new GraphicsSettingsListener();
     private MapConfiguration mapConfiguration = new SingleMapConfiguration(SingleMapType.SATELLITE);
     private Dimension screenSize = new Dimension(640, 480);
-
     private final static int ICON_SIZE = 24;
-
     private final static double FOV = PI / 2;
     private double aspectRatio = 1;
 
@@ -91,6 +83,7 @@ public class Renderer {
     private InitState initState;
     private HeightMap heightMap = FlatHeightMap.getInstance();
     private LevelOfDetail levelOfDetail;
+    private TextRenderer locationTextRenderer;
 
 
     /**
@@ -118,6 +111,10 @@ public class Renderer {
         });
     }
 
+    /**
+     * TODO
+     * @param gl
+     */
     public void setGLContext(GLContext gl) {
         if (gl == null) {
             throw new IllegalArgumentException();
@@ -127,6 +124,10 @@ public class Renderer {
         gl.addGLContextListener(glContextListener);
     }
 
+    /**
+     * TODO
+     * @param manager
+     */
     public void setLocationManager(LocationManager manager) {
         if (manager == null) {
             throw new IllegalArgumentException();
@@ -232,9 +233,7 @@ public class Renderer {
             int equatorSubdivisions = (1 << max(0, (int) ceil(log((double) screenSize.width
                     / subdivisionPixels / camera.getSurfaceScale())
                     / log(2)))), minEquatorSubdivisions = layout.getHoritzontalTileCount();
-
             Iterable<Tile> tiles = CameraUtils.getVisibleTiles(camera, layout, 500);
-            System.out.println(((ArrayList<Tile>) tiles).size() + " Kacheln");
             
             for (Tile tile : tiles) {
                 int scaleDown = (int) abs(camera.getSpacePosition(
@@ -261,18 +260,13 @@ public class Renderer {
             
             gl.loadMatrix(GL_PROJECTION, new Matrix4());
             gl.loadMatrix(GL_MODELVIEW, new Matrix4());
-            gl.loadMatrix(GL_TEXTURE, new Matrix4());
-            
+            gl.loadMatrix(GL_TEXTURE, new Matrix4());            
 
-            // TextRenderer textRenderer = new TextRenderer(new Font(Font.SANS_SERIF, 0, 10));
-            // textRenderer.beginRendering(screenSize.width, screenSize.height);
 
             double xOffset = (double) ICON_SIZE / screenSize.width / 2, yOffset = (double) ICON_SIZE
                     / screenSize.height / 2;
 
-            Collection<Location> locations = locationManager.getActiveLocations(tiles);
-            //System.out.println(locations);
-            //System.out.println();
+            Collection<Location> locations = locationManager.getActiveLocations(tiles);;
             // Collection<Location> locations = new ArrayList<>();
             // locations.add(new Location(new GeoCoordinates(0, 0), LocationType.BANK, null, null));
 
@@ -291,26 +285,40 @@ public class Renderer {
 
                         gl.drawRectangle(upperLeft, lowerRight, overlayTexture);
                     }
-
-                    /*
-                     * if (location.name != null && (location.type == LocationType.CITY ||
-                     * location.type == LocationType.TOWN || location.type == LocationType.VILLAGE))
-                     * { String text = location.name; Dimension textSize =
-                     * textRenderer.getBounds(text).getBounds().getSize(); textRenderer.draw(text,
-                     * (int)(center.x * screenSize.width) + ICON_SIZE / 2 + 4, (int)(center.y *
-                     * screenSize.width) - textSize.height); }
-                     */
                 }
             }
+            
+            locationTextRenderer.beginRendering(screenSize.width, screenSize.height);
+
+            for (Location location : locations) {
+                if (location.point != null && camera.isPointVisible(location.point)) {
+                    ScreenCoordinates center = camera.getScreenCoordinates(location.point);
+                    if (location.name != null)
+                    {
+                        String text = location.name;
+                        Dimension textSize =
+                                locationTextRenderer.getBounds(text).getBounds().getSize();
+                        locationTextRenderer.draw(text,
+                                (int) (center.x * screenSize.width) + ICON_SIZE / 2 + 4,
+                                (int) (center.y * screenSize.height) - textSize.height);
+                    }
+
+                }
+            }
+            
+            locationTextRenderer.endRendering();
 
             gl.drawRectangle(new ScreenCoordinates(0.5 - xOffset, 0.5 - yOffset),
                     new ScreenCoordinates(0.5 + xOffset, 0.5 + yOffset), crosshair);
 
             gl.setFeatureEnabled(GL_BLEND, false);
-            // textRenderer.endRendering();
         }
     }
 
+    /**
+     * TODO
+     * @return
+     */
     public Camera getCamera() {
         return camera;
     }
@@ -336,7 +344,10 @@ public class Renderer {
                 SettingsContract.LEVEL_OF_DETAIL);
         LevelOfDetail lod = LevelOfDetail.valueOf(lvlOfDetailsString);
         setLevelOfDetail(lod);
+        
         gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        locationTextRenderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.BOLD, 12));
     }
 
     private void dispose() {
@@ -599,5 +610,4 @@ public class Renderer {
             gl.postRedisplay();
         }
     }
-
 }

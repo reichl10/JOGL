@@ -12,6 +12,7 @@ import de.joglearth.height.HeightMap;
  */
 public class PlaneGeometry implements Geometry {
 
+    // TODO: Wird die Variable noch benötigt?
     private static final double DISTANCE_LIMIT = 2;
 
 
@@ -21,6 +22,7 @@ public class PlaneGeometry implements Geometry {
             throw new IllegalArgumentException();
         }
 
+        //TODO: Wird das noch benötigt?
         /*
          * A point is visible if the intersection of the camera position's perpendicular with the
          * plane ("ground position") is not farther away from it than the distance of camera and
@@ -52,7 +54,6 @@ public class PlaneGeometry implements Geometry {
         if (cameraPosition == null || viewVector == null) {
             throw new IllegalArgumentException();
         }
-
         /*
          * If the viewer looks in positive Z direction, the camera has a negative Z coordinate, or
          * the view vector is the zero vector, he is not looking down on the plane. Therefore, there
@@ -61,9 +62,11 @@ public class PlaneGeometry implements Geometry {
         if (viewVector.z >= 0 || cameraPosition.z <= 0 || viewVector.length() == 0) {
             return null;
         }
-
-        double lon = (cameraPosition.x - cameraPosition.z / viewVector.z * viewVector.x);
-        double lat = (cameraPosition.y - cameraPosition.z / viewVector.z * viewVector.y);
+        
+        double lon = cameraPosition.x 
+                + (-HeightMap.MIN_HEIGHT - cameraPosition.z) / viewVector.z * viewVector.x;
+        double lat = cameraPosition.y
+                + (-HeightMap.MIN_HEIGHT - cameraPosition.z) / viewVector.z * viewVector.y;
 
         // These conditions hold if and only if the centered point is on the plane.
         if (lon > -PI && lon <= PI && lat >= -PI / 2 && lat <= PI / 2) {

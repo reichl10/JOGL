@@ -5,6 +5,7 @@ package de.joglearth.opengl;
  * Enumerates texture filtering modes supported by the {@link GLContext}.
  */
 public enum TextureFilter {
+    
     /**
      * Nearest-neighbour interpolation. Chooses the texel closest to the pixel's center. 
      * Fast, creates a sharp look for scaled-down, a blocky look for scaled-up textures.

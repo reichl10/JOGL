@@ -22,10 +22,8 @@ import de.joglearth.util.Resource;
 public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
 
     private final static String serverURL = "http://dds.cr.usgs.gov/srtm/version2_1/SRTM3/";
-
     private final static Map<String, String> tileRegionMap = Resource.loadCSVMap("srtm_map.csv",
             "\\s");
-
     private ExecutorService executor;
 
 
@@ -44,7 +42,7 @@ public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
         if (key == null) {
             throw new IllegalArgumentException();
         }
-        
+
         ProgressManager.getInstance().requestArrived();
 
         String region = tileRegionMap.get(key.toString());
@@ -52,6 +50,7 @@ public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
             return new SourceResponse<byte[]>(SourceResponseType.MISSING, null);
         }
 
+        /* builds the url to gets the srtm data from internet */
         final String url = serverURL + tileRegionMap.get(key.toString()) + "/" + key.toString()
                 + ".hgt.zip";
 

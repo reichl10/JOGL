@@ -25,6 +25,7 @@ public class SphereTessellator implements Tessellator {
 
     private static void writeSingleVertex(float[] vertices, int vIndex, double lon, double lat,
             double lonStep, double latStep, HeightMap heightMap, double textureX, double textureY) {
+
         Vector3 vertex = getSurfaceVector(lon, lat, latStep, heightMap), 
                 east = getSurfaceVector(lon + latStep*2, lat, latStep, heightMap), 
                 north = getSurfaceVector(lon, lat + latStep*2, latStep, heightMap), 
@@ -98,7 +99,7 @@ public class SphereTessellator implements Tessellator {
     }
 
     private int getMaxShrinkCount(int quads, int minQuads) {
-        // Find out how often "quads" can be divided by 2.
+        // Finds out how often "quads" can be divided by 2.
         int maxShrinkCount = 0;
         while (quads % 2 == 0 && quads / 2 >= minQuads) {
             ++maxShrinkCount;
@@ -153,8 +154,7 @@ public class SphereTessellator implements Tessellator {
         int[] indices = new int[nRows * (rowWidth - 1) * 6];
         int vIndex = 0, iIndex = 0;
 
-        double textureY = direction > 0 ? 0 : 1; // bugfix: vorzeichenfehler
-        // textureStep = (double) direction / nRows; //bugfix: vorzeichenfehler
+        double textureY = direction > 0 ? 0 : 1;
         double projectedLatStart = projection.projectLatitude(latStart), projectedLatRange = projection
                 .projectLatitude(latEnd) - projectedLatStart;
 
@@ -205,5 +205,4 @@ public class SphereTessellator implements Tessellator {
     public int hashCode() {
         return "SphereTessellator".hashCode();
     }
-
 }

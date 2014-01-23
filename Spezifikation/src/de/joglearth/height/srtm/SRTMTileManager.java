@@ -16,8 +16,7 @@ import de.joglearth.util.ApplicationData;
  */
 public final class SRTMTileManager implements Source<SRTMTileName, SRTMTile> {
 
-    private static SRTMTileManager                      instance = null;
-
+    private static SRTMTileManager instance = null;
     private RequestDistributor<SRTMTileName, SRTMTile> tileRequestDistributor;
     private RequestDistributor<SRTMTileName, byte[]> binaryRequestDistributor;
 
@@ -34,7 +33,10 @@ public final class SRTMTileManager implements Source<SRTMTileName, SRTMTile> {
         }
         return instance;
     }
-    
+
+    /**
+     *  Called if the program has been closed to terminate all pending processes.
+     */
     public static void shutDown() {
         if (instance != null) {
             instance.dispose();
@@ -44,12 +46,12 @@ public final class SRTMTileManager implements Source<SRTMTileName, SRTMTile> {
     // Default constructor
     private SRTMTileManager(String folder, int memCacheBytes, int fsCacheBytes) {
         SRTMBinarySource binarySource = new SRTMBinarySource();
-        FileSystemCache<SRTMTileName> binaryCache 
-            = new FileSystemCache<>(folder, new SRTMPathTranslator());
+        FileSystemCache<SRTMTileName> binaryCache = new FileSystemCache<>(folder,
+                new SRTMPathTranslator());
         binaryRequestDistributor = new RequestDistributor<>(new ByteArrayMeasure());
         binaryRequestDistributor.setSource(binarySource);
         binaryRequestDistributor.addCache(binaryCache, fsCacheBytes);
-        
+
         SRTMTileSource tileSource = new SRTMTileSource(binaryRequestDistributor);
         MemoryCache<SRTMTileName, SRTMTile> tileCache = new MemoryCache<>();
         tileRequestDistributor = new RequestDistributor<>(new UnityMeasure<SRTMTile>());

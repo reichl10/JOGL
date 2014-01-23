@@ -89,5 +89,4 @@ public final class MeshUtils {
         vertices[iOut + 3] = (float) normal.y;
         vertices[iOut + 4] = (float) normal.z;
     }
-
 }

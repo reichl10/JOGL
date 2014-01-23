@@ -1,8 +1,5 @@
 package de.joglearth.util;
 
-import static javax.media.opengl.GL.GL_MAX_TEXTURE_SIZE;
-
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,12 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-import javax.media.opengl.GL2;
-import javax.media.opengl.GLProfile;
 import javax.swing.ImageIcon;
-
-import com.jogamp.opengl.util.texture.TextureData;
-import com.jogamp.opengl.util.texture.TextureIO;
 
 
 /**
@@ -32,8 +24,13 @@ public final class Resource {
         return Thread.currentThread().getContextClassLoader().getResource(name);
     }
     
+    /**
+     * Reads an URL given as an input String and opens the download stream.
+     * @param name The URL in String representation
+     * @return The InputStream opened with the URL
+     * @throws IOException If the name can't be resolved to a valid URL
+     */
     public static InputStream open(String name) throws IOException {
-        //System.err.println("Opening "+name);
         URL url = getURL(name);
         if (url == null) {
             throw new IOException("Resource not found");
@@ -42,6 +39,11 @@ public final class Resource {
         }
     }
     
+    /**
+     * Checks if the URL to a given name exists.
+     * @param name The name of the URL to check
+     * @return true, if the URL exists, false if not
+     */
     public static boolean exists(String name) {
         return getURL(name) != null;
     }
@@ -60,6 +62,13 @@ public final class Resource {
         }
     }
 
+    /**
+     * Loads a CSVMap that contains a certain name and opens a Stream to load the right part
+     * of the CSVMap.
+     * @param name The name to look for in the map
+     * @param separatorRegex The separator of the values
+     * @return A map containing the searched values
+     */
     public static Map<String, String> loadCSVMap(String name, String separatorRegex) {
         Map<String, String> map = new HashMap<>();
         try {
@@ -81,6 +90,11 @@ public final class Resource {
         return map;
     }
     
+    /**
+     * Loads a binary file from a given source.
+     * @param name The String representation of the source
+     * @return A byte array containing the wanted binary.
+     */
     public static byte[] loadBinary(String name) {
         try {
             InputStream input = open(name);

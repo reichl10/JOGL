@@ -23,5 +23,4 @@ public class MercatorProjection implements MapProjection {
 	public boolean equals(Object other) {
 		return other != null && this.getClass() == other.getClass();
 	}
-
 }

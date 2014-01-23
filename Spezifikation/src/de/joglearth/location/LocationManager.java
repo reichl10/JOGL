@@ -38,13 +38,13 @@ public class LocationManager {
     private Collection<Location> lastSearchLocations;
     private OverpassManager overpassManager = OverpassManager.getInstance();
     private Set<LocationType> activeLocationTypes;
-
+    private boolean locationTypesEnabled;
 
     private class UserTagsListener implements SettingsListener {
 
         @Override
         public void settingsChanged(String key, Object valOld, Object valNew) {
-
+            callSurfaceListeners(-Math.PI, -(Math.PI / 2), Math.PI, Math.PI / 2);
         }
     }
 
@@ -60,6 +60,7 @@ public class LocationManager {
         activeLocationTypes = new HashSet<LocationType>();
         Settings.getInstance().addSettingsListener(SettingsContract.USER_LOCATIONS,
                 new UserTagsListener());
+        locationTypesEnabled = false;
 
     }
 
@@ -75,7 +76,7 @@ public class LocationManager {
         } else {
             activeLocationTypes.remove(type);
         }
-        callSurfaceListeners(-Math.PI, -(Math.PI/2), Math.PI, Math.PI/2);
+        callSurfaceListeners(-Math.PI, -(Math.PI / 2), Math.PI, Math.PI / 2);
     }
 
     /**
@@ -94,33 +95,36 @@ public class LocationManager {
                 }
             }
         }
+
         if (activeLocationTypes.contains(LocationType.USER_TAG)) {
             Set<Location> userLocations = Settings.getInstance().getLocations(
                     SettingsContract.USER_LOCATIONS);
             if (userLocations != null)
-            for (Location location : userLocations) {
-                if (activeLocationTypes.contains(location.type)) {
-                    locations.add(location);
+                for (Location location : userLocations) {
+                    if (activeLocationTypes.contains(location.type)) {
+                        locations.add(location);
+                    }
                 }
-            }
         }
-        for (final Tile tile : area) {
-            for (LocationType lType : activeLocationTypes) {
-                OverpassQuery opQuery = new OverpassQuery(lType, tile);
-                SourceResponse<Collection<Location>> response = overpassManager.requestObject(
-                        opQuery, new SourceListener<OverpassQuery, Collection<Location>>() {
+        if (locationTypesEnabled) {
+            for (final Tile tile : area) {
+                for (LocationType lType : activeLocationTypes) {
+                    OverpassQuery opQuery = new OverpassQuery(lType, tile);
+                    SourceResponse<Collection<Location>> response = overpassManager.requestObject(
+                            opQuery, new SourceListener<OverpassQuery, Collection<Location>>() {
 
-                            @Override
-                            public void requestCompleted(OverpassQuery key,
-                                    Collection<Location> value) {
-                                callSurfaceListeners(tile.getLongitudeFrom(),
-                                        tile.getLatitudeFrom(), tile.getLongitudeTo(),
-                                        tile.getLatitudeTo());
-                            }
-                        });
+                                @Override
+                                public void requestCompleted(OverpassQuery key,
+                                        Collection<Location> value) {
+                                    callSurfaceListeners(tile.getLongitudeFrom(),
+                                            tile.getLatitudeFrom(), tile.getLongitudeTo(),
+                                            tile.getLatitudeTo());
+                                }
+                            });
 
-                if (response.response == SourceResponseType.SYNCHRONOUS) {
-                    locations.addAll(response.value);
+                    if (response.response == SourceResponseType.SYNCHRONOUS) {
+                        locations.addAll(response.value);
+                    }
                 }
             }
         }
@@ -151,9 +155,7 @@ public class LocationManager {
             lastSearchLocations.clear();
             lastSearchLocations.addAll(response.value);
             callLocationListeners(response.value);
-
         }
-
     }
 
     /**
@@ -163,129 +165,127 @@ public class LocationManager {
      * @param area A collection of tiles where the search should be performed on
      */
     public void searchLocal(String query, Iterable<Tile> area) {
-        
-		double minLongitude = Math.PI, maxLongitude = -Math.PI, minLatitude = Math.PI/2, maxLatitude = -Math.PI/2;
-		for (Tile t : area) {
-			if (t.getLatitudeFrom() < minLatitude) {
-				minLatitude = t.getLatitudeFrom();
-			}
-			if (t.getLatitudeTo() > maxLatitude) {
-				maxLatitude = t.getLatitudeTo();
-			}
-			if (t.getLongitudeFrom() < minLongitude) {
-				minLongitude = t.getLongitudeFrom();
-			}
-			if (t.getLongitudeTo() > maxLongitude) {
-				maxLongitude = t.getLongitudeTo();
-			}
-		}
-    	
-		/**
-		 * Inner class to build a tile that covers a certain area. Used for local search
-		 */
-		final class QueryTile implements Tile {
 
-			private double lonTo;
-			private double lonFrom;
-			private double latTo;
-			private double latFrom;
+        double minLongitude = Math.PI, maxLongitude = -Math.PI, minLatitude = Math.PI / 2, maxLatitude = -Math.PI / 2;
+        for (Tile t : area) {
+            if (t.getLatitudeFrom() < minLatitude) {
+                minLatitude = t.getLatitudeFrom();
+            }
+            if (t.getLatitudeTo() > maxLatitude) {
+                maxLatitude = t.getLatitudeTo();
+            }
+            if (t.getLongitudeFrom() < minLongitude) {
+                minLongitude = t.getLongitudeFrom();
+            }
+            if (t.getLongitudeTo() > maxLongitude) {
+                maxLongitude = t.getLongitudeTo();
+            }
+        }
 
-			public QueryTile(double lonFrom, double lonTo,
-					double latFrom, double latTo) {
-				this.lonFrom = lonFrom;
-				this.lonTo = lonTo;
-				this.latFrom = latFrom;
-				this.latTo = latTo;
-			}
+        /**
+         * Inner class to build a tile that covers a certain area. Used for local search.
+         */
+        final class QueryTile implements Tile {
 
-			@Override
-			public boolean intersects(double lonFrom, double latFrom,
-					double lonTo, double latTo) {
-				return false;
-			}
+            private double lonTo;
+            private double lonFrom;
+            private double latTo;
+            private double latFrom;
 
-			@Override
-			public double getLongitudeTo() {
-				return lonTo;
-			}
 
-			@Override
-			public double getLongitudeFrom() {
-				return lonFrom;
-			}
+            public QueryTile(double lonFrom, double lonTo,
+                    double latFrom, double latTo) {
+                this.lonFrom = lonFrom;
+                this.lonTo = lonTo;
+                this.latFrom = latFrom;
+                this.latTo = latTo;
+            }
 
-			@Override
-			public double getLatitudeTo() {
-				return latTo;
-			}
+            @Override
+            public boolean intersects(double lonFrom, double latFrom,
+                    double lonTo, double latTo) {
+                return false;
+            }
 
-			@Override
-			public double getLatitudeFrom() {
-				return latFrom;
-			}
+            @Override
+            public double getLongitudeTo() {
+                return lonTo;
+            }
 
-			@Override
-			public boolean contains(GeoCoordinates coords) {
-				if (coords == null) {
-					throw new IllegalArgumentException();
-				}
-				double lon = coords.getLongitude(), lat = coords.getLatitude();
-				double lonFrom = getLongitudeFrom(), latFrom = getLatitudeFrom(),
-						lonTo = getLongitudeTo(), latTo = getLatitudeTo();
+            @Override
+            public double getLongitudeFrom() {
+                return lonFrom;
+            }
 
-				return rectangleLongitudeContains(lonFrom, lonTo, lon)
-						&& ((lat >= latFrom && lat <= latTo) || (lat <= latFrom && lat >= latTo));
-			}
+            @Override
+            public double getLatitudeTo() {
+                return latTo;
+            }
 
-			//Checks if a rectangle contains the given longitude
-			private boolean rectangleLongitudeContains(double lonFrom,
-					double lonTo, double lon) {
+            @Override
+            public double getLatitudeFrom() {
+                return latFrom;
+            }
 
-				if (lonTo <= lonFrom) {
-					if (lon > 0) {
-						lonTo += 2 * PI;
-					} else {
-						lonFrom -= 2 * PI;
-					}
-				}
-				return ((lon >= lonFrom && lon <= lonTo) || (lon <= lonFrom && lon >= lonTo));
-			}
+            @Override
+            public boolean contains(GeoCoordinates coords) {
+                if (coords == null) {
+                    throw new IllegalArgumentException();
+                }
+                double lon = coords.getLongitude(), lat = coords.getLatitude();
+                double lonFrom = getLongitudeFrom(), latFrom = getLatitudeFrom(), lonTo = getLongitudeTo(), latTo = getLatitudeTo();
+
+                return rectangleLongitudeContains(lonFrom, lonTo, lon)
+                        && ((lat >= latFrom && lat <= latTo) || (lat <= latFrom && lat >= latTo));
+            }
+
+            // Checks if a rectangle contains the given longitude
+            private boolean rectangleLongitudeContains(double lonFrom,
+                    double lonTo, double lon) {
+
+                if (lonTo <= lonFrom) {
+                    if (lon > 0) {
+                        lonTo += 2 * PI;
+                    } else {
+                        lonFrom -= 2 * PI;
+                    }
+                }
+                return ((lon >= lonFrom && lon <= lonTo) || (lon <= lonFrom && lon >= lonTo));
+            }
 
             @Override
             public TransformedTile getScaledAlternative() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
-		};
-		
-		QueryTile t = new QueryTile(minLongitude, maxLongitude, minLatitude, maxLatitude);
+        };
 
-		NominatimQuery nominatimQuery = new NominatimQuery(
-				NominatimQuery.Type.LOCAL);
-		nominatimQuery.query = query;
-		nominatimQuery.area = t;
-		SourceResponse<Collection<Location>> response = nominatimManager
-				.requestObject(
-						nominatimQuery,
-						new SourceListener<NominatimQuery, Collection<Location>>() {
+        QueryTile t = new QueryTile(minLongitude, maxLongitude, minLatitude, maxLatitude);
+        NominatimQuery nominatimQuery = new NominatimQuery(
+                NominatimQuery.Type.LOCAL);
+        nominatimQuery.query = query;
+        nominatimQuery.area = t;
+        SourceResponse<Collection<Location>> response = nominatimManager
+                .requestObject(
+                        nominatimQuery,
+                        new SourceListener<NominatimQuery, Collection<Location>>() {
 
-							@Override
-							public void requestCompleted(NominatimQuery key,
-									Collection<Location> value) {
-								lastSearchLocations.clear();
-								lastSearchLocations.addAll(value);
-								callLocationListeners(value);
-							}
-						});
+                            @Override
+                            public void requestCompleted(NominatimQuery key,
+                                    Collection<Location> value) {
+                                lastSearchLocations.clear();
+                                lastSearchLocations.addAll(value);
+                                callLocationListeners(value);
+                            }
+                        });
 
-		if (response.response != SourceResponseType.ASYNCHRONOUS
-				&& response.response != SourceResponseType.MISSING) {
-			lastSearchLocations.clear();
-			lastSearchLocations.addAll(response.value);
-			callLocationListeners(response.value);
-		}
-	}
+        if (response.response != SourceResponseType.ASYNCHRONOUS
+                && response.response != SourceResponseType.MISSING) {
+            lastSearchLocations.clear();
+            lastSearchLocations.addAll(response.value);
+            callLocationListeners(response.value);
+        }
+    }
 
     private void callLocationListeners(Collection<Location> results) {
         for (LocationListener listener : locationListeners) {
@@ -307,7 +307,8 @@ public class LocationManager {
      * @return The <code>Location</code> with details that is located on the given point or a
      *         <code>Location</code> without details if the details are not yet loaded.
      */
-    public Location getDetails(final GeoCoordinates coordinates, final SourceListener<GeoCoordinates, Location> sListener) {
+    public Location getDetails(final GeoCoordinates coordinates,
+            final SourceListener<GeoCoordinates, Location> sListener) {
         NominatimQuery nominatimQuery = new NominatimQuery(NominatimQuery.Type.POINT);
         nominatimQuery.point = coordinates;
         final Location baseLocation = new Location(coordinates, null, null, null);
@@ -334,41 +335,48 @@ public class LocationManager {
         }
         return baseLocation;
     }
+    
+    /**
+     * Enabled or Disabled LocationTypes that need to be loaded.
+     * @param enabled true to enable or false to disable
+     */
+    public void enableLocations(boolean enabled) {
+        locationTypesEnabled = enabled;
+    }
 
     /**
      * Adds a new {@link SurfaceListener} that is called on every change of the surface.
      * 
-     * @param l The new <code>SurfaceListener</code>
+     * @param listener The new <code>SurfaceListener</code>
      */
-    public void addSurfaceListener(SurfaceListener l) {
-        surfaceListeners.add(l);
+    public void addSurfaceListener(SurfaceListener listener) {
+        surfaceListeners.add(listener);
     }
 
     /**
      * Removes a specific {@link SurfaceListener}.
      * 
-     * @param l The <code>SurfaceListener</code> that should be removed
+     * @param listener The <code>SurfaceListener</code> that should be removed
      */
-    public void removeSurfaceListener(SurfaceListener l) {
-        surfaceListeners.remove(l);
+    public void removeSurfaceListener(SurfaceListener listener) {
+        surfaceListeners.remove(listener);
     }
 
     /**
      * Adds a new {@link LocationListener} that is called when the search results are available.
      * 
-     * @param l The new <code>LocationListener</code>
+     * @param listener The new <code>LocationListener</code>
      */
-    public void addLocationListener(LocationListener l) {
-        locationListeners.add(l);
+    public void addLocationListener(LocationListener listener) {
+        locationListeners.add(listener);
     }
 
     /**
      * Removes a specific {@link LocationListener}.
      * 
-     * @param l The <code>LocationListener</code> that should be removed
+     * @param listener The <code>LocationListener</code> that should be removed
      */
-    public void removeLocationListener(LocationListener l) {
-        locationListeners.remove(l);
-
+    public void removeLocationListener(LocationListener listener) {
+        locationListeners.remove(listener);
     }
 }

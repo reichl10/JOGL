@@ -20,6 +20,7 @@ public final class Settings {
 
     private final Map<String, Object> valueMap;
     private final Map<String, List<SettingsListener>> listenerMap;
+    
     /**
      * Class to store settings.
      */
@@ -128,6 +129,7 @@ public final class Settings {
         Set<Location> set = null;
         if (val == null || !(val instanceof Set<?>)) {
             val = new HashSet<Location>();
+            //TODO 2 unsafety cast
             set = (Set<Location>) val;
             valueMap.put(key, set);
         } else {
@@ -150,6 +152,7 @@ public final class Settings {
         
         
         if ((val != null) && (val instanceof Set<?>)) {
+          //TODO unsafety cast
             Set<Location> set = (Set<Location>) val;
             set.remove(value);
             callListenersForKey(key, set, value);;
@@ -286,6 +289,7 @@ public final class Settings {
         Object val = valueMap.get(key);
         if (val == null || !(val instanceof Set<?>))
             return null;
+      //TODO unsafety cast
         return (Set<Location>) val;
     }
 
@@ -306,5 +310,4 @@ public final class Settings {
                 l.settingsChanged(key, valueOld, valueNew);
             }
     }
-
 }

@@ -32,7 +32,7 @@ public class NamedItem<E> {
     }
 
     /**
-     * Returns the item's svalue.
+     * Returns the item's value.
      */
     public E getValue() {
         return value;
@@ -43,7 +43,7 @@ public class NamedItem<E> {
         if (obj == null)
             return false;
         if (obj.getClass() == getClass()) {
-            NamedItem<E> item = (NamedItem<E>) obj;
+            NamedItem<E> item = (NamedItem<E>) obj; //TODO: unsafety cast
             return value.equals(item.value);
         }
         return false;

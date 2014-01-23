@@ -337,6 +337,4 @@ public final class Matrix4 implements Cloneable {
         final Matrix4 other = (Matrix4) obj;
         return Arrays.equals(m, other.m);
     }
-    
-    
 }

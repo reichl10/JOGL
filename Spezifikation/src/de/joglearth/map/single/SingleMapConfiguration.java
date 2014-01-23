@@ -94,5 +94,4 @@ public class SingleMapConfiguration implements MapConfiguration {
     public double getMinimumCameraDistance() {
         return 0.5;
     }
-
 }

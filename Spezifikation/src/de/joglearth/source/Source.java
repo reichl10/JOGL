@@ -20,5 +20,9 @@ public interface Source<Key, Value> {
      */
     SourceResponse<Value> requestObject(Key key, SourceListener<Key, Value> sender);
     
+
+    /**
+     *  Called if the program has been closed to terminate all pending processes.
+     */
     void dispose();
 }

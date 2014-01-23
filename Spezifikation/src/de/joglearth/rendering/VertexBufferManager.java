@@ -5,18 +5,14 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.joglearth.geometry.SimpleTile;
 import de.joglearth.geometry.SurfaceListener;
-import de.joglearth.geometry.Tile;
 import de.joglearth.height.HeightMap;
-import de.joglearth.height.flat.FlatHeightMap;
 import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.caching.RequestDistributor;
-import de.joglearth.util.Predicate;
 
 
 /**
@@ -25,7 +21,6 @@ import de.joglearth.util.Predicate;
 public class VertexBufferManager implements Source<ProjectedTile, VertexBuffer> {
 
     private final int VERTEX_BUFFER_CACHE_SIZE = 500;
-
     private RequestDistributor<ProjectedTile, VertexBuffer> dist;
     private VertexBufferPool<ProjectedTile> cache;
     private VertexBufferLoader source;
@@ -64,7 +59,9 @@ public class VertexBufferManager implements Source<ProjectedTile, VertexBuffer> 
         public void surfaceChanged(final double lonFrom, final double latFrom,
                 final double lonTo, final double latTo) {
              
-            dist.dropAll();/* TODO new Predicate<ProjectedTile>() {
+            dist.dropAll();
+            
+            /* TODO new Predicate<ProjectedTile>() {
 
                 @Override
                 public boolean test(ProjectedTile t) {
@@ -127,6 +124,9 @@ public class VertexBufferManager implements Source<ProjectedTile, VertexBuffer> 
         listeners.remove(l);
     }
 
+    /**
+     * TODO
+     */
     public void dispose() {
         gl.invokeSooner(new Runnable() {
             
@@ -136,5 +136,4 @@ public class VertexBufferManager implements Source<ProjectedTile, VertexBuffer> 
             }
         });
     }
-
 }

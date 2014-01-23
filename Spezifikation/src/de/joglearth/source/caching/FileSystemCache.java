@@ -155,6 +155,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
      */
     private class DirectoryCleaner extends SimpleFileVisitor<Path> {
 
+        
         public DirectoryCleaner() {}
 
         @Override
@@ -237,7 +238,6 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
         private Key key;
 
-
         public FileLoaderRunnable(Key k) {
             this.key = k;
         }
@@ -298,6 +298,11 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
         executorService.shutdown();
     }
 
+    /**
+     * Determines the size of a certain Key.
+     * @param k The Key object
+     * @return The size of the object
+     */
     public int sizeOf(Key k) {
         Path filePath = pathFromKey(k);
         int size = 0;

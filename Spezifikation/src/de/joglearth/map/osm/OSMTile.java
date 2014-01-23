@@ -161,5 +161,4 @@ public final class OSMTile extends AbstractTile {
         }
         return true;
     }
-    
 }

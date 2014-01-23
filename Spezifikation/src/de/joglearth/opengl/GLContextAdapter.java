@@ -29,5 +29,4 @@ public class GLContextAdapter implements GLContextListener {
     @Override
     public void dispose(GLContext context) {
     }
-
 }
