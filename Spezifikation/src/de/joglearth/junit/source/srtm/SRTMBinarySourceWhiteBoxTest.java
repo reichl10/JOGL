@@ -1,6 +1,6 @@
 package de.joglearth.junit.source.srtm;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
@@ -14,13 +14,14 @@ public class SRTMBinarySourceWhiteBoxTest {
     @Test
     public void test() throws Exception {
         SRTMBinarySource srtm = new SRTMBinarySource();
-        
+                
         class SRTMListener implements SourceListener<SRTMTileName, byte[]> {            
             public byte[] result;
             
             @Override
             public void requestCompleted(SRTMTileName key, byte[] value) {
                 result = value;
+                assertNotNull(result);
                 
                 synchronized (SRTMBinarySourceWhiteBoxTest.this) {
                     //SRTMBinarySourceWhiteBoxTest.this.notify();
@@ -28,17 +29,7 @@ public class SRTMBinarySourceWhiteBoxTest {
             }
         };
         
-        SRTMListener listener = new SRTMListener();
-        
+        SRTMListener listener = new SRTMListener();   
         srtm.requestObject(new SRTMTileName(61,  36), listener);
-        
-        synchronized (this) {
-            //wait();
-        }
-        
-        byte[] bytes = listener.result;
-        
-        assertNotNull(bytes);
     }
-
 }
