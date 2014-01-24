@@ -206,8 +206,6 @@ Nummer & Titel & Beschreibung \\
 \hline
 \#13 & Implementierung der Maßstabsanzeige zeigt Schwächen & \\
 \hline
-\#16 & Bestimmte PDF-Reader öffnen Handbuch inkorrekt & Es ist z.B. der Adobe Reader 9 unter Linux betroffen \\
-\hline
 \#17 & Sprachänderung inkonsistent & Bei der Änderung der Sprache von Deutsch nach Englisch wurden z.B. 'Längengrad' und 'Breitengrad' nicht übersetzt\\
 \hline
 \#18 & Zoombalken stimmt noch nicht mit Zoom bei OSM überein & Zoombalken 100\% sollte 'OSM' Zoomstufe 18 sein. Momentan Zoomstufe 14 maximal möglich\\
@@ -264,6 +262,8 @@ Nummer & Titel & Beschreibung \\
 \hline
 \#68 & Bestimmen der Viewbox bei der lokalen Suche & \\
 \hline
+\#69 & Deadlock durch GLContext & \\
+\hline
 \#70 & AWT-Segfault unter Windows 7 & \\
 \hline
 \#71 & Unter Windows 7 / 8.1 wird keine Szene gerendert & \\
@@ -284,8 +284,11 @@ Nummer & Titel & Beschreibung \\
 \hline
 \#91 & Erneut Auswahl des bereits gewählten Suchergebnisses macht nichts. & \\
 \hline
+\#93 & Overlays bewegen sich bei eingeschaltetem Höhenprofil mit. & \\
+\hline
+\#96 & Textrenderer funktioniert noch nicht & \\
+\hline
 \end{longtable}
-
 \newpage
 
 \section{Gelöste Bugs}
@@ -295,15 +298,39 @@ Diese Liste enthält alle gelösten Bugs.
 Nummer & Titel & Anmerkung \\
 \hline
 \hline
+\#1 & Sternenhimmel funktioniert unter Windows 8.1 nicht & \\
+\hline
 \#2 & Zu viele Nominatim-Anfragen &  \\
 \hline
 \#3 & Settings werden nicht korrekt in das UI geladen & \\
 \hline
 \#4 & Detaillevel-Einstellung stimmt nicht mit dem UI überein &  \\
 \hline
+\#5 & Letzter Frame wird nicht angestoßen & Bei der Umstellung zu Globus oder Einblendung von Overlays wird der Rendervorgang nicht angestoßen \\
+\hline
+\#6 & Kugel wird bei kleinem Zoomlevel zu niedrig aufgelöst & \\
+\hline
+\#8 & Kugel zeigt bei bestimmtem Zoomlevel Artefakte & Zoomlevel 3 oder 4 führt dazu, dass am 60. Breitengrad Artefakte durch die Längengradreduktion des 'SphereTessellators' auftreten \\
+\hline
+\#9,\#10 & Layout der Oberfläche wird nicht korrekt angezeigt & Bei gewissen Fenstermanagern wird die Oberfläche nicht korrekt angezeigt; es wird ein grau/blauer Balken angezeigt der optisch irritiert. Deshalb wird ein Stück der Oberfläche abgeschnitten \\
+\hline
+\#13 & Implementierung der Maßstabsanzeige zeigt Schwächen & \\
+\hline
 \#17 & Sprachänderung inkonsistent & \\
 \hline
+\#18 & Zoombalken stimmt noch nicht mit Zoom bei OSM überein & Zoombalken 100\% sollte 'OSM' Zoomstufe 18 sein. Momentan Zoomstufe 14 maximal möglich\\
+\hline
+\#19 & Höhenprofil funktioniert noch nicht & Kacheln werden manchmal geladen, aber zu viele und sie werden nicht verarbeitet \\
+\hline
+\#20 & Kippen der Kamera mit Tastatureingaben zum Teil seltsam & Pos1, Ende, Bild Aus, Bild Ab macht seltsame Bewegungen (Zu ruckartig) \\
+\hline
 \#21 & Noch nicht implementierte Tastatureingaben & \\
+\hline
+\#22 & Details zu Punkt noch nicht angezeigt & Detailfeld bleibt leer \\
+\hline
+\#23 & Knopf zum Löschen der Benutzermarkierungen fehlt & Löschen der Benutzermarkierungen noch nicht implementiert \\
+\hline
+\#24 & Markierung für Bildmittelpunkt nicht am korrekten Platz angezeigt & Overlays wurden an falsche Stellen gezeichnet \\
 \hline
 \#27 & Exception im MainWindow bei initialem Programmstart & \\
 \hline
@@ -311,13 +338,27 @@ Nummer & Titel & Anmerkung \\
 \hline
 \#30 & Aus- und Einblenden der Seitenleiste zerstört das Layout der Oberfläche & \\
 \hline
+\#31 & Kippen funktioniert nicht konsistent mit der Drehung & \\
+\hline
+\#32 & Verschieben ist nicht konsistent mit der Kartenoberfläche & \\
+\hline
+\#33 & Drehen über 180\° Ost funktioniert mit der Tastatur nicht & \\
+\hline
 \#34 & Liste der Auswahlmöglichkeiten verschiebt Labels bei langen Suchergebnissen & \\
 \hline
+\#43 & GL Out of Memory Error tritt selten und zufällig auf & \\
+\hline
 \#44 & NumberFormatException bei 'GeoCoordinates' wird nicht gefangen & \\
+\hline
+\#45 & Position des Mittelpuktes bei Kartenansicht im Zoomlevel 0/1/2/3 stimmt nicht & \\
 \hline
 \#47 & 'ProgressManager' wird nach vollständigem Laden nicht zurückgesetzt & \\
 \hline 
 \#50 & Overpass-Anfragen dauern zu lange & \\
+\hline
+\#56 & Bildschirmecken werden bei der Sichtbarkeitsberechnung falsch behandelt & \\
+\hline
+\#57 & Sichtbarkeitsberechnung der Ebene fehlerhaft. Es werden generell alle Kacheln geladen & \\
 \hline
 \#58 & Lokale Suche funktioniert nicht & \\
 \hline
@@ -331,6 +372,8 @@ Nummer & Titel & Anmerkung \\
 \hline
 \#68 & Bestimmen der Viewbox bei der lokalen Suche & \\
 \hline
+\#69 & Deadlock durch GLContext & \\
+\hline
 \#70 & AWT-Segfault unter Windows 7 & \\
 \hline
 \#71 & Unter Windows 7 / 8.1 wird keine Szene gerendert & \\
@@ -351,6 +394,10 @@ Nummer & Titel & Anmerkung \\
 \hline
 \#91 & Erneut Auswahl des bereits gewählten Suchergebnisses macht nichts. & \\
 \hline
+\#93 & Overlays bewegen sich bei eingeschaltetem Höhenprofil mit. & \\
+\hline
+\#96 & Textrenderer funktioniert noch nicht & \\
+\hline
 \end{longtable}
 
 \section{Verbesserungsvorschläge}
@@ -363,13 +410,11 @@ Nummer & Titel & Beschreibung \\
 \hline
 \#12 & In der Kugelansicht sollte das Zoomlevel anders berechnet werden & Derzeitige Berechnung führt zu Unregelmäßigkeiten in Grenzregionen \\
 \hline
-\#13 & Ausgrauen von Längen- und Breitengradeingabe im Sonnensystemmodus & Eingabe des Benutzers in dieser Ansicht eventuell nicht gewünscht \\
+\#14 & Ausgrauen von Längen- und Breitengradeingabe im Sonnensystemmodus & Eingabe des Benutzers in dieser Ansicht eventuell nicht gewünscht \\
 \hline
 \#15 & Mond im Sonnensystemmodus entzerren & Er scheint etwas in der Form verunstaltet zu sein \\
 \hline
 \#25 & Die Einheit der Cachegrößen sollte angezeigt werden & Momentan sind keine Einheiten angegeben \\
-\hline
-\#26 & Nach Auswahl des Kartentyps bewirkt Pfeil auf und Pfeil ab eine erneute Änderung des Typs & Statt die Karte zu bewegen wird durch die Kartentypen navigiert \\
 \hline
 \#35 & Hineinzoomen beim Sonnensystemmodus sollte in die Globusansicht wechseln & Durch die niedrige Auflösung der mitgelieferten Textur sollte bei hohem Zoomlevel in die Globusansicht gewechselt werden \\
 \hline
@@ -399,9 +444,21 @@ Sollte in Zehnerschritten erfolgen \\
 \hline
 \#63 & Bei Adressen sollte im Detailfenster als Überschrift die Straße stehen \\
 \hline
+\#73 & Auf höheres Zoomlevel übergehen bei klick auf Suchergebnis. & Nicht zu weit rein zoomen, ca. 90\% \\
+\hline
+\#81 & Dropdownliste der letzten Suchanfragen & \\
+\hline
 \#82 & Suche sollte mit "Enter" angestoßen werden können & \\
 \hline
-\#91 & Bei Maßstabsanzeige sollte Einheit angegeben werden. & \\
+\#85 & Im Sonnensystemmodus sollte das Detailfenster verschwinden & \\
+\hline
+\#87 & Overlay Stadt & LocationManager sollte Anfragen nach City, Town, Village gebündelt senden wenn das Overlay Stadt aktiv ist. & \\
+\hline
+\#88 & Overlays erst ab bestimmten Zoomlevel laden/anzeigen & \\
+\hline
+\#89 & Bei Maßstabsanzeige sollte Einheit angeben werde & \\
+\hline 
+\#90 & Detailfenster soll mit Fenstergröße wachsen. & \\
 \hline
 \end{longtable}
 
@@ -413,6 +470,10 @@ Nicht umgesetzte Verbesserungen tragen einen entsprechenden Hinweis.
 Nummer & Titel & Anmerkung \\
 \hline
 \hline
+\#12 & In der Kugelansicht sollte das Zoomlevel anders berechnet werden & Derzeitige Berechnung führt zu Unregelmäßigkeiten in Grenzregionen \\
+\hline
+\#14 & Ausgrauen von Längen- und Breitengradeingabe im Sonnensystemmodus & Eingabe des Benutzers in dieser Ansicht eventuell nicht gewünscht \\
+\hline
 \#15 & Mond im Sonnensystemmodus sieht verzerrt aus & Wird nicht umgesetzt \\
 \hline
 \#25 & Die Einheit der Cachegrößen sollte angezeigt werden & \\ 
@@ -421,6 +482,8 @@ Nummer & Titel & Anmerkung \\
 \hline
 \#49 & Schrittgröße im Spinner für Cachegröße & \\
 \hline
+\#53 & Globus wird niedriger Detailstufe zu einer Ebene & Es wird versucht aus 4 Punkten eine Kugel zu zeichnen \\
+\hline
 \#59 & Beschreibung markierter Punkte in Detailfenster \\
 \hline
 \#61 & Noch nicht geladene Kacheln sollten durch skalierte eines niedrigeren Zoomlevels ersetzt werden \\
@@ -428,11 +491,13 @@ Nummer & Titel & Anmerkung \\
 \hline
 \#63 & Bei Adressen sollte im Detailfenster als Überschrift die Straße stehen \\
 \hline
+\#73 & Auf höheres Zoomlevel übergehen bei klick auf Suchergebnis. & Nicht zu weit rein zoomen, ca. 90\% \\
+\hline
 \#82 & Suche sollte mit "Enter" angestoßen werden können & \\
 \hline
-\#91 & Bei Maßstabsanzeige sollte Einheit angegeben werden. & \\
+\#85 & Im Sonnensystemmodus sollte das Detailfenster verschwinden & \\
 \hline
-93,92,90,88,87,85,91,80,73,57,56,55,52,51,48,41,36,35,31,29,20,16,11,7
+\#89 & Bei Maßstabsanzeige sollte Einheit angeben werde & \\
 \hline
 \end{longtable}
 
@@ -498,30 +563,55 @@ Abdeckung & Abgedeckte Klassen & Nicht abgedeckte Klassen & Gesamt Klassen \\
 Es wurde eine Automatisierung der GUI mit Hilfe der AWT Robot Class geschrieben, diese wurde unter Windows 7 für einige Zeit benutzt.
 Dabei traten keine sonderlichen Fehler auf.
 \chapter{Profiling}
-\subsection{CPU-Profiling}
+\section{CPU-Profiling}
 Beim CPU-Profiling wurden die Erwartungen bestätigt, dass die meiste Zeit mit Laden von Daten aus dem Netz verwendet wird.
 Zudem befanden sich auch andere Funktionen deren Zeitlast abzusehen war unter den Methoden mit dem höchsten Zeitverbrauch. Hier fielen uns keine Methoden auf deren Zeitverbrauch ungewöhnlich war.
-\subsection{Speicher-Profiling}
+\section{Speicher-Profiling}
 Das Speicher-Profiling verhielt sich im allgemeinen auch wie erwartet, die hohe Anzahl an ints entsteht durch die gespeicherten VertexBuffer und Texturen.
 Bei einem Weiteren Profilingvorgang trat auf einmal ein rasanter Anstieg an Speicherverbrauch durch Vector3 Objecte hervor.
 \chapter{Änderungen zur Implementierung}
+\section{Neue Klassen}
+de.joglearth.geometry.TransformedTile
+de.joglearth.opengl.TransformedTexture
+de.joglearth.geometry.MapProjection
+de.joglearth.geometry.LinearProjection
+de.joglearth.geometry.MercatorProjection
+de.joglearth.geometry.ProjectedTile
+\section{Neue Methoden}
+geometry.Tile.getScaledAlternative()
+de.joglearth.map.osm.OSMTile.getScaledAlternative()
+de.joglearth.map.single.SingleTile.getScaledAlternative()
+de.joglearth.async.Invoker.canInvokeDirectly()
+de.joglearth.geometry.Geometry.getLongitudeDisortion()
+de.joglearth.geometry.PlaneGeometry.getLongitudeDisortion()
+de.joglearth.geometry.SphereGeometry.getLongitudeDisortion()
+de.joglearth.geometry.Geometry.allowsLongitudalTraversal()
+de.joglearth.geometry.PlaneGeometry.allowsLongitudalTraversal()
+de.joglearth.geometry.SphereGeometry.allowsLongitudalTraversal()
+de.joglearth.geometry.location.LocationManager.enableLocations()
+\section{Geänderte Signaturen}
+de.joglearth.rendering.TextureManager.getTexture()
+de.joglearth.rendering.Tessellator.tessellateTile()
+de.joglearth.rendering.PlaneTessellator.tessellateTile()
+de.joglearth.rendering.SphereTessellator.tessellateTile()
+de.joglearth.async.AbstractInvoker.canInvokeDirectly()
+de.joglearth.opengl.GLContext.canInvokeDirectly()
+de.joglearth.async.AWTInvoker.canInvokeDirectly()
+de.joglearth.geometry.location.LocationManager.getDetails()
+
+\section{Geänderte Funktionen}
+
+
 \chapter{Lines of Code}
 Zu Ende von Milestone 3:
 \begin{longtable}{|l|p{4,4cm}|p{4,4cm}||}
 \hline
-Code & Kommentare & Leere Zeilen\\
+Phase & Code & Kommentare & Leere Zeilen\\
 \hline
 \hline
-11088 & 3180 & 2861 \\
+Implementierungs-Phase & 11088 & 3180 & 2861 \\
 \hline
-\end{longtable}
-Zu Ende von der Validierung:
-\begin{longtable}{|l|p{4,4cm}|p{4,4cm}||}
-\hline
-Code & Kommentare & Leere Zeilen\\
-\hline
-\hline
-12569 & 3325 & 2971 \\
+Validierungs-Phase & 12569 & 3325 & 2971 \\
 \hline
 \end{longtable}
 \end{document}
