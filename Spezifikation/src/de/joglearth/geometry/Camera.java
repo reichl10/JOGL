@@ -409,7 +409,7 @@ public class Camera {
         Vector3 t = transformationMatrix.transform(getSpacePosition(geo)).divide();
 
         if ((t.x >= -1 && t.x <= 1) && (t.y >= -1 && t.y <= 1)) {
-            return new ScreenCoordinates((t.x + 1) / 2, (t.y + 1) / 2);
+            return new ScreenCoordinates((t.x + 1) / 2, 1 - (t.y + 1) / 2);
         } else {
             return null;
         }

@@ -24,6 +24,8 @@ import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Point;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
@@ -92,6 +94,7 @@ public class Renderer {
     private final static double FOV = PI / 2;
     private double aspectRatio = 1;
     private double solarSystemEarthRotation = 0, solarSystemMoonRevolution = 0;
+    private Texture[][] bubble = new Texture[3][3];
     
 
     private enum InitState {
@@ -104,6 +107,8 @@ public class Renderer {
     private InitState initState;
     private HeightMap heightMap = FlatHeightMap.getInstance();
     private TextRenderer locationTextRenderer;
+    private TextRenderer bubbleCaptionRenderer;
+    private TextRenderer bubbleTextRenderer;
 
 
     /**
@@ -198,6 +203,87 @@ public class Renderer {
         tr.draw(text, x, y);
         tr.setColor(Color.WHITE);
     }
+    
+    
+    private ScreenCoordinates sizeToScreenCoordinates(int x, int y) {
+        return new ScreenCoordinates((double) x / screenSize.width, 
+                (double) y / screenSize.height);
+    }
+    
+    
+    private void drawRectangleUpLeft(ScreenCoordinates lowerRight, ScreenCoordinates size, 
+            Texture texture) {
+        ScreenCoordinates upperLeft = new ScreenCoordinates(
+                lowerRight.x - size.x , lowerRight.y - size.y);   
+        gl.drawRectangle(upperLeft, lowerRight, texture);  
+    }
+    
+    
+    private void drawBubble(ScreenCoordinates origin, String caption, String[] text) {
+        Rectangle2D captionSize = bubbleCaptionRenderer.getBounds(caption);
+        Rectangle2D[] textSizes = new Rectangle2D[text.length];
+        int width = 25, height = (int) captionSize.getHeight() + 1;
+       
+        for (int i=0; i<text.length; ++i) {
+            textSizes[i] = bubbleTextRenderer.getBounds(text[i]);
+            width = max(width, (int) textSizes[i].getWidth());
+            height += 5 + (int) textSizes[i].getHeight();
+        }        
+        
+        ScreenCoordinates 
+            lowerRight = origin.clone(),
+            size = sizeToScreenCoordinates(bubble[2][2].getWidth(), bubble[2][2].getHeight());
+        drawRectangleUpLeft(lowerRight, size, bubble[2][2]);
+        lowerRight.x -= size.x;
+        size = sizeToScreenCoordinates(
+                width - (bubble[2][2].getWidth() - bubble[0][2].getWidth()), 
+                bubble[2][1].getHeight());
+        drawRectangleUpLeft(lowerRight, size, bubble[2][1]);
+        lowerRight.x -= size.x;
+        size = sizeToScreenCoordinates(bubble[2][0].getWidth(), bubble[2][0].getHeight());
+        drawRectangleUpLeft(lowerRight, size, bubble[2][0]);      
+        
+        lowerRight = new ScreenCoordinates(origin.x, origin.y - size.y);
+        size = sizeToScreenCoordinates(bubble[1][2].getWidth(), height);        
+        drawRectangleUpLeft(lowerRight, size, bubble[1][2]);      
+        lowerRight.x -= size.x;
+        size = sizeToScreenCoordinates(width, height);
+        drawRectangleUpLeft(lowerRight, size, bubble[1][1]);
+        lowerRight.x -= size.x;
+        size = sizeToScreenCoordinates(bubble[1][0].getWidth(), height);
+        drawRectangleUpLeft(lowerRight, size, bubble[1][0]);      
+        
+        lowerRight = new ScreenCoordinates(origin.x, lowerRight.y - size.y);
+        size = sizeToScreenCoordinates(bubble[0][2].getWidth(), bubble[0][2].getHeight());        
+        drawRectangleUpLeft(lowerRight, size, bubble[0][2]);   
+        lowerRight.x -= size.x;
+        size = sizeToScreenCoordinates(width, bubble[0][1].getHeight());
+        drawRectangleUpLeft(lowerRight, size, bubble[0][1]);  
+        lowerRight.x -= size.x;
+        size = sizeToScreenCoordinates(bubble[0][0].getWidth(), bubble[0][0].getHeight());
+        drawRectangleUpLeft(lowerRight, size, bubble[0][0]);      
+
+        Point textOrigin = new Point((int) (lowerRight.x * screenSize.width), 
+                                     (int) (lowerRight.y * screenSize.height));
+
+        bubbleCaptionRenderer.beginRendering(screenSize.width, screenSize.height);
+        bubbleCaptionRenderer.setColor(Color.BLACK);
+        bubbleCaptionRenderer.draw(caption, textOrigin.x,
+                screenSize.height - textOrigin.y - (int) captionSize.getHeight());
+        bubbleCaptionRenderer.setColor(Color.WHITE);
+        bubbleCaptionRenderer.endRendering();
+        
+        bubbleTextRenderer.beginRendering(screenSize.width, screenSize.height);
+        bubbleTextRenderer.setColor(Color.BLACK);
+        int textY =  screenSize.height - textOrigin.y - (int) captionSize.getHeight() - 1;
+        for (int i=0; i<text.length; ++i) {
+            textY -= textSizes[i].getHeight() + 5;
+            bubbleTextRenderer.draw(text[i] , textOrigin.x, textY);
+        }
+        bubbleTextRenderer.setColor(Color.WHITE);
+        bubbleTextRenderer.endRendering();       
+    }
+    
     
     private void render() {
         
@@ -340,7 +426,7 @@ public class Renderer {
                                 locationTextRenderer.getBounds(text).getBounds().getSize();
                         drawOutlinedText(locationTextRenderer,
                                 (int) (center.x * screenSize.width) + ICON_SIZE / 2 + 4,
-                                (int) (center.y * screenSize.height) - textSize.height / 2,
+                                screenSize.height - ((int) (center.y * screenSize.height) + textSize.height / 2),
                                 text, 1.2);
                     }
 
@@ -351,7 +437,7 @@ public class Renderer {
 
             gl.drawRectangle(new ScreenCoordinates(0.5 - xOffset, 0.5 - yOffset),
                     new ScreenCoordinates(0.5 + xOffset, 0.5 + yOffset), crosshair);
-
+            
             gl.setFeatureEnabled(GL_BLEND, false);
         }
     }
@@ -390,6 +476,10 @@ public class Renderer {
         gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         locationTextRenderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.BOLD, 12), true, 
+                false);        
+        bubbleCaptionRenderer = new TextRenderer(new Font(Font.SANS_SERIF, Font.BOLD, 12), true, 
+                false);        
+        bubbleTextRenderer = new TextRenderer(new Font(Font.SANS_SERIF, 0, 12), true, 
                 false);
         
         camera.setPosition(new GeoCoordinates(30*PI/180, 15*PI/180));
@@ -438,15 +528,25 @@ public class Renderer {
         nightSky = loadTextureResource("textures/sky.png", "png", textureFilter);
         crosshair = loadTextureResource("icons/crosshair.png", "png", textureFilter);
         
-            overlayIconTextures = new LinkedHashMap<>();
-            for (LocationType key : LocationType.values()) {
-                String resourceName = "locationIcons/" + key.toString() + ".png";
-                if (Resource.exists(resourceName)) {
-                    Texture value;
-                    value = loadTextureResource(resourceName, "png", TextureFilter.TRILINEAR);
-                    overlayIconTextures.put(key, value);                    
-                }
+        overlayIconTextures = new LinkedHashMap<>();
+        for (LocationType key : LocationType.values()) {
+            String resourceName = "locationIcons/" + key.toString() + ".png";
+            if (Resource.exists(resourceName)) {
+                Texture value;
+                value = loadTextureResource(resourceName, "png", TextureFilter.TRILINEAR);
+                overlayIconTextures.put(key, value);                    
             }
+        }
+        
+        for (int vert = 0; vert < 3; ++vert) {
+            for (int horz = 0; horz < 3; ++horz) {
+                String vString = vert == 0 ? "top" : vert == 1 ? "middle" : "bottom",
+                       hString = horz == 0 ? "Left" : horz == 1 ? "Center" : "Right";  
+                
+                bubble[vert][horz] = loadTextureResource("bubble/" + vString + hString + ".png",
+                        "png", TextureFilter.NEAREST);
+            }
+        }
     }
 
     private void freeTextures() {
