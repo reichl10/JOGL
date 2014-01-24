@@ -103,7 +103,6 @@ public class Renderer {
 
     private InitState initState;
     private HeightMap heightMap = FlatHeightMap.getInstance();
-    private LevelOfDetail levelOfDetail;
     private TextRenderer locationTextRenderer;
 
 
@@ -417,6 +416,9 @@ public class Renderer {
         try {
             InputStream rsrcStream = Resource.open(name);
             TextureData data = gl.loadTextureData(rsrcStream, extension);
+            if (data == null) {
+                data = gl.loadTextureDataScaled(rsrcStream, extension);
+            }
             return gl.loadTexture(data, textureFilter);
         } catch (IOException e) {
             e.printStackTrace();
@@ -472,7 +474,6 @@ public class Renderer {
                 case HIGH:
                     subdivisionPixels = 20;
             }
-            this.levelOfDetail = lod;
         }
         gl.postRedisplay();
     }
