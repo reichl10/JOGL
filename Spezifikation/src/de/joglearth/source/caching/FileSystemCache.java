@@ -61,19 +61,23 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     }
 
     @Override
-    public synchronized SourceResponse<byte[]> requestObject(Key key,
+    public SourceResponse<byte[]> requestObject(Key key,
             SourceListener<Key, byte[]> sender) {
         SourceResponseType responseType;
-        if (keySet.contains(key)) {
-            lockedFileSet.add(key);
-            registerListener(key, sender);
-            responseType = SourceResponseType.ASYNCHRONOUS;
-            ProgressManager.getInstance().requestArrived();
-            executorService.execute(new FileLoaderRunnable(key));
-        } else {
-            responseType = SourceResponseType.MISSING;
-        }
+        synchronized (keySet) {
 
+            if (keySet.contains(key)) {
+                synchronized (lockedFileSet) {
+                    lockedFileSet.add(key);
+                }
+                registerListener(key, sender);
+                responseType = SourceResponseType.ASYNCHRONOUS;
+                ProgressManager.getInstance().requestArrived();
+                executorService.execute(new FileLoaderRunnable(key));
+            } else {
+                responseType = SourceResponseType.MISSING;
+            }
+        }
         return new SourceResponse<byte[]>(responseType, null);
     }
 
@@ -84,30 +88,40 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     }
 
     @Override
-    public synchronized void dropObject(Key k) {
-        keySet.remove(k);
+    public void dropObject(Key k) {
+        synchronized (keySet) {
+            keySet.remove(k);
+        }
+
         if (lockedFileSet.contains(k)) {
-            filesForDroping.add(k);
+            synchronized (lockedFileSet) {
+                filesForDroping.add(k);
+            }
             return;
         }
-        try {
-            Files.deleteIfExists(pathFromKey(k));
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        executorService.execute(new DeleteIfExistsRunnable(k));
+    }
+
+    @Override
+    public Iterable<Key> getExistingObjects() {
+        synchronized (keySet) {
+
+            return new HashSet<Key>(keySet);
         }
     }
 
     @Override
-    public synchronized Iterable<Key> getExistingObjects() {
-        return new HashSet<Key>(keySet);
-    }
+    public void dropAll() {
+        synchronized (keySet) {
+            keySet.clear();
+        }
 
-    @Override
-    public synchronized void dropAll() {
-        keySet.clear();
         if (lockedFileSet.size() > 0) {
-            for (Key key : keySet) {
-                filesForDroping.add(key);
+            synchronized (lockedFileSet) {
+                for (Key key : keySet) {
+                    filesForDroping.add(key);
+                }
             }
             return;
         } else {
@@ -117,6 +131,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
                 e.printStackTrace();
             }
         }
+
     }
 
     private Path pathFromKey(Key k) {
@@ -126,21 +141,26 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     }
 
     private void registerListener(Key k, SourceListener<Key, byte[]> sender) {
-        Set<SourceListener<Key, byte[]>> listenerSet = registredListeners.get(k);
-        if (listenerSet == null) {
-            listenerSet = new HashSet<SourceListener<Key, byte[]>>();
-            registredListeners.put(k, listenerSet);
+        synchronized (registredListeners) {
+
+            Set<SourceListener<Key, byte[]>> listenerSet = registredListeners.get(k);
+            if (listenerSet == null) {
+                listenerSet = new HashSet<SourceListener<Key, byte[]>>();
+                registredListeners.put(k, listenerSet);
+            }
+            listenerSet.add(sender);
         }
-        listenerSet.add(sender);
     }
 
     private void callListener(Key k, byte[] data) {
         Set<SourceListener<Key, byte[]>> listenerSet;
-        synchronized (this) {
+        synchronized (registredListeners) {
             listenerSet = registredListeners.remove(k);
         }
         if (listenerSet == null)
             return;
+        long startCall = 0;
+        long endCall = 0;
         for (SourceListener<Key, byte[]> sourceListener : listenerSet) {
             sourceListener.requestCompleted(k, data);
         }
@@ -152,7 +172,6 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
      */
     private class DirectoryCleaner extends SimpleFileVisitor<Path> {
 
-        
         public DirectoryCleaner() {}
 
         @Override
@@ -163,7 +182,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
         public FileVisitResult postVisitDirectory(Path dir, IOException e)
                 throws IOException {
-            
+
             return FileVisitResult.CONTINUE;
         }
 
@@ -231,6 +250,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
 
         private Key key;
 
+
         public FileLoaderRunnable(Key k) {
             this.key = k;
         }
@@ -244,7 +264,7 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
                 callListener(key, null);
                 e.printStackTrace();
             }
-            synchronized (FileSystemCache.this) {
+            synchronized (lockedFileSet) {
                 lockedFileSet.remove(key);
                 for (Key k : filesForDroping) {
                     keySet.remove(k);
@@ -262,9 +282,11 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
     }
 
     private class FileWriterRunnable implements Runnable {
+
         private Key key;
         private byte[] data;
-        
+
+
         public FileWriterRunnable(Key key, byte[] data) {
             this.key = key;
             this.data = data;
@@ -276,8 +298,8 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
                 Path filePath = pathFromKey(key);
                 Files.createDirectories(filePath.getParent());
                 Files.write(filePath, data, StandardOpenOption.CREATE);
-                synchronized (FileSystemCache.this) {
-                    keySet.add(key);                    
+                synchronized (keySet) {
+                    keySet.add(key);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -285,7 +307,27 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
             ProgressManager.getInstance().requestCompleted();
         }
     }
-    
+
+    private class DeleteIfExistsRunnable implements Runnable {
+
+        private Key key;
+
+
+        public DeleteIfExistsRunnable(Key k) {
+            key = k;
+        }
+
+        @Override
+        public void run() {
+            try {
+                Files.deleteIfExists(pathFromKey(key));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
     @Override
     public void dispose() {
         executorService.shutdown();
