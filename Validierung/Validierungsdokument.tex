@@ -24,6 +24,7 @@
 \usepackage{textcomp}
 \usepackage{calc}
 \usepackage{ulem}
+\usepackage{subfigure}
 \usepackage[table]{xcolor}
 %\usepackage{hyperref}
 %\hypersetup{%
@@ -342,7 +343,7 @@ Nummer & Titel & Anmerkung \\
 \hline
 \#32 & Verschieben ist nicht konsistent mit der Kartenoberfläche & \\
 \hline
-\#33 & Drehen über 180\° Ost funktioniert mit der Tastatur nicht & \\
+\#33 & Drehen über 180$^\circ$ Ost funktioniert mit der Tastatur nicht & \\
 \hline
 \#34 & Liste der Auswahlmöglichkeiten verschiebt Labels bei langen Suchergebnissen & \\
 \hline
@@ -452,7 +453,7 @@ Sollte in Zehnerschritten erfolgen \\
 \hline
 \#85 & Im Sonnensystemmodus sollte das Detailfenster verschwinden & \\
 \hline
-\#87 & Overlay Stadt & LocationManager sollte Anfragen nach City, Town, Village gebündelt senden wenn das Overlay Stadt aktiv ist. & \\
+\#87 & Overlay Stadt & LocationManager sollte Anfragen nach City, Town, Village gebündelt senden wenn das Overlay Stadt aktiv ist. \\
 \hline
 \#88 & Overlays erst ab bestimmten Zoomlevel laden/anzeigen & \\
 \hline
@@ -560,51 +561,64 @@ Abdeckung & Abgedeckte Klassen & Nicht abgedeckte Klassen & Gesamt Klassen \\
 \hline
 \end{longtable}
 \chapter{Belastungstest}
-Es wurde eine Automatisierung der GUI mit Hilfe der AWT Robot Class geschrieben, diese wurde unter Windows 7 für einige Zeit benutzt.
-Dabei traten keine sonderlichen Fehler auf.
+Es wurde eine Automatisierung der GUI mit Hilfe der AWT Robot Class geschrieben, der die verschiedenen Karten und Ansichtsmodie durchschaltet und in diesen auf der Karte zufällig den Zoom benutzt sowie die Karte verschiebt. Diese wurde unter Windows 7 für einige Zeit benutzt. Dabei traten keine bei der Nachtkontrolle sichtbaren Fehler auf.
 \chapter{Profiling}
 \section{CPU-Profiling}
+\begin{figure}[!htb]
+\includegraphics[scale=0.8]{cpu_profiling_normal.jpg}
+\end{figure}
+\vspace{3mm}
 Beim CPU-Profiling wurden die Erwartungen bestätigt, dass die meiste Zeit mit Laden von Daten aus dem Netz verwendet wird.
 Zudem befanden sich auch andere Funktionen deren Zeitlast abzusehen war unter den Methoden mit dem höchsten Zeitverbrauch. Hier fielen uns keine Methoden auf deren Zeitverbrauch ungewöhnlich war.
+\newpage
 \section{Speicher-Profiling}
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.8]{memory_profile_normal.jpg}
+\caption{Normaler Programmablauf}
+\end{figure}
+\begin{figure}[!htb]
+\centering
+\hspace{5mm}
+\includegraphics[scale=0.8]{memory_profile_shitgotreal.jpg}
+\caption{Massenhaftes Auftreten von Vector3 Objekten}
+\end{figure}
 Das Speicher-Profiling verhielt sich im allgemeinen auch wie erwartet, die hohe Anzahl an ints entsteht durch die gespeicherten VertexBuffer und Texturen.
-Bei einem Weiteren Profilingvorgang trat auf einmal ein rasanter Anstieg an Speicherverbrauch durch Vector3 Objecte hervor.
+Bei einem Weiteren Profilingvorgang trat auf einmal ein rasanter Anstieg an Speicherverbrauch durch Vector3 Objecte hervor, dieser Bug wurde behoben.
 \chapter{Änderungen zur Implementierung}
 \section{Neue Klassen}
-de.joglearth.geometry.TransformedTile
-de.joglearth.opengl.TransformedTexture
-de.joglearth.geometry.MapProjection
-de.joglearth.geometry.LinearProjection
-de.joglearth.geometry.MercatorProjection
-de.joglearth.geometry.ProjectedTile
+de.joglearth.geometry.TransformedTile\\
+de.joglearth.opengl.TransformedTexture\\
+de.joglearth.geometry.MapProjection\\
+de.joglearth.geometry.LinearProjection\\
+de.joglearth.geometry.MercatorProjection\\
+de.joglearth.geometry.ProjectedTile\\
 \section{Neue Methoden}
-geometry.Tile.getScaledAlternative()
-de.joglearth.map.osm.OSMTile.getScaledAlternative()
-de.joglearth.map.single.SingleTile.getScaledAlternative()
-de.joglearth.async.Invoker.canInvokeDirectly()
-de.joglearth.geometry.Geometry.getLongitudeDisortion()
-de.joglearth.geometry.PlaneGeometry.getLongitudeDisortion()
-de.joglearth.geometry.SphereGeometry.getLongitudeDisortion()
-de.joglearth.geometry.Geometry.allowsLongitudalTraversal()
-de.joglearth.geometry.PlaneGeometry.allowsLongitudalTraversal()
-de.joglearth.geometry.SphereGeometry.allowsLongitudalTraversal()
-de.joglearth.geometry.location.LocationManager.enableLocations()
+geometry.Tile.getScaledAlternative()\\
+de.joglearth.map.osm.OSMTile.getScaledAlternative()\\
+de.joglearth.map.single.SingleTile.getScaledAlternative()\\
+de.joglearth.async.Invoker.canInvokeDirectly()\\
+de.joglearth.geometry.Geometry.getLongitudeDisortion()\\
+de.joglearth.geometry.PlaneGeometry.getLongitudeDisortion()\\
+de.joglearth.geometry.SphereGeometry.getLongitudeDisortion()\\
+de.joglearth.geometry.Geometry.allowsLongitudalTraversal()\\
+de.joglearth.geometry.PlaneGeometry.allowsLongitudalTraversal()\\
+de.joglearth.geometry.SphereGeometry.allowsLongitudalTraversal()\\
+de.joglearth.geometry.location.LocationManager.enableLocations()\\
 \section{Geänderte Signaturen}
-de.joglearth.rendering.TextureManager.getTexture()
-de.joglearth.rendering.Tessellator.tessellateTile()
-de.joglearth.rendering.PlaneTessellator.tessellateTile()
-de.joglearth.rendering.SphereTessellator.tessellateTile()
-de.joglearth.async.AbstractInvoker.canInvokeDirectly()
-de.joglearth.opengl.GLContext.canInvokeDirectly()
-de.joglearth.async.AWTInvoker.canInvokeDirectly()
-de.joglearth.geometry.location.LocationManager.getDetails()
-
-\section{Geänderte Funktionen}
+de.joglearth.rendering.TextureManager.getTexture()\\
+de.joglearth.rendering.Tessellator.tessellateTile()\\
+de.joglearth.rendering.PlaneTessellator.tessellateTile()\\
+de.joglearth.rendering.SphereTessellator.tessellateTile()\\
+de.joglearth.async.AbstractInvoker.canInvokeDirectly()\\
+de.joglearth.opengl.GLContext.canInvokeDirectly()\\
+de.joglearth.async.AWTInvoker.canInvokeDirectly()\\
+de.joglearth.geometry.location.LocationManager.getDetails()\\
 
 
 \chapter{Lines of Code}
 Zu Ende von Milestone 3:
-\begin{longtable}{|l|p{4,4cm}|p{4,4cm}||}
+\begin{longtable}{|l|p{4,0cm}|p{4,0cm}|p{4,0cm}|}
 \hline
 Phase & Code & Kommentare & Leere Zeilen\\
 \hline
