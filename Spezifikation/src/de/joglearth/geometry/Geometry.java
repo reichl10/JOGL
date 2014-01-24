@@ -23,6 +23,7 @@ public interface Geometry {
      * is ignored.
      * 
      * @param geo The surface point
+     * @param The height of the surface.
      * @return The position
      */
     public Vector3 getSpacePosition(GeoCoordinates geo, double altitude);
