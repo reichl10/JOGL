@@ -514,6 +514,33 @@ Nummer & Titel & Anmerkung \\
 
 \chapter{Code Coverage}
 \section{Pflichtenheft-Tests}
+\subsection{Line Coverage}
+\begin{longtable}{|l|p{4,4cm}|p{4,4cm}|p{4,5cm}|}
+\hline
+Abdeckung & Abgedeckte Zeilen & Nicht abgedeckte Zeilen & Gesamt Zeilen \\
+\hline
+\hline
+63,7\% & 4832 & 2751 & 7583 \\
+\hline
+\end{longtable}
+\subsection{Branch Coverage}
+\begin{longtable}{|l|p{4,4cm}|p{4,4cm}|p{4,5cm}|}
+\hline
+Abdeckung & Abgedeckte Verzweigungen & Nicht abgedeckte Verzweigungen & Gesamt Verzweigungen \\
+\hline
+\hline
+49,8\% & 1283 & 1295 & 2578 \\
+\hline
+\end{longtable}
+\subsection{Class Coverage}
+\begin{longtable}{|l|p{4,4cm}|p{4,4cm}|p{4,5cm}|}
+\hline
+Abdeckung & Abgedeckte Klassen & Nicht abgedeckte Klassen & Gesamt Klassen \\
+\hline
+\hline
+69,6\% & 181 & 79 & 260 \\
+\hline
+\end{longtable}
 \section{JUnit-Test}
 Leider war es nicht möglich die Unittests bei der Coverage ausschließen zu lassen, daher befinden sich diese immer unter den nicht gecoverten Anteilen. Dabei muss beachtet werden das Code wie die UI nicht mit Unittest getestet werden Können und diese sehr viel Code besitzen. So wie die JUnittests die mehre tausend Zeilen habe.
 \subsection{Line Coverage}
