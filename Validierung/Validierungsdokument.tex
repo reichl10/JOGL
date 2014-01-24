@@ -515,13 +515,14 @@ Nummer & Titel & Anmerkung \\
 \chapter{Code Coverage}
 \section{Pflichtenheft-Tests}
 \section{JUnit-Test}
+Leider war es nicht möglich die Unittests bei der Coverage ausschließen zu lassen, daher befinden sich diese immer unter den nicht gecoverten Anteilen. Dabei muss beachtet werden das Code wie die UI nicht mit Unittest getestet werden Können und diese sehr viel Code besitzen. So wie die JUnittests die mehre tausend Zeilen habe.
 \subsection{Line Coverage}
 \begin{longtable}{|l|p{4,4cm}|p{4,4cm}|p{4,5cm}|}
 \hline
 Abdeckung & Abgedeckte Zeilen & Nicht abgedeckte Zeilen & Gesamt Zeilen \\
 \hline
 \hline
-32,2\% & 2,127 & 4,484 & 6,611 \\
+25,0\% & 1897 & 5686 & 7583 \\
 \hline
 \end{longtable}
 \subsection{Branch Coverage}
@@ -530,7 +531,7 @@ Abdeckung & Abgedeckte Zeilen & Nicht abgedeckte Zeilen & Gesamt Zeilen \\
 Abdeckung & Abgedeckte Verzweigungen & Nicht abgedeckte Verzweigungen & Gesamt Verzweigungen \\
 \hline
 \hline
-26,1\% & 559 & 1,579 & 2,138 \\
+22,5\% & 579 & 1999 & 2578 \\
 \hline
 \end{longtable}
 \subsection{Class Coverage}
@@ -539,7 +540,7 @@ Abdeckung & Abgedeckte Verzweigungen & Nicht abgedeckte Verzweigungen & Gesamt V
 Abdeckung & Abgedeckte Klassen & Nicht abgedeckte Klassen & Gesamt Klassen \\
 \hline
 \hline
-41,2\% & 105 & 150 & 255 \\
+31,5\% 82 & 178 & 260 \\
 \hline
 \end{longtable}
 \section{Test per Hand}
@@ -549,7 +550,7 @@ Abdeckung & Abgedeckte Klassen & Nicht abgedeckte Klassen & Gesamt Klassen \\
 Abdeckung & Abgedeckte Zeilen & Nicht abgedeckte Zeilen & Gesamt Zeilen \\
 \hline
 \hline
-63,6\% & 4,210 & 2,411 & 6,621 \\
+67,3\% & 5,122 & 2,491 & 7,613 \\
 \hline
 \end{longtable}
 \subsection{Branch Coverage}
@@ -558,7 +559,7 @@ Abdeckung & Abgedeckte Zeilen & Nicht abgedeckte Zeilen & Gesamt Zeilen \\
 Abdeckung & Abgedeckte Verzweigungen & Nicht abgedeckte Verzweigungen & Gesamt Verzweigungen \\
 \hline
 \hline
-48,9\% & 1,049 & 1,095 & 2,144 \\
+54,1\% & 1,394 & 1,182 & 2,576 \\
 \hline
 \end{longtable}
 \subsection{Class Coverage}
@@ -567,7 +568,7 @@ Abdeckung & Abgedeckte Verzweigungen & Nicht abgedeckte Verzweigungen & Gesamt V
 Abdeckung & Abgedeckte Klassen & Nicht abgedeckte Klassen & Gesamt Klassen \\
 \hline
 \hline
-63,1\% & 161 & 94 & 255 \\
+70,6\% & 187 & 78 & 265 \\
 \hline
 \end{longtable}
 \chapter{Belastungstest}
