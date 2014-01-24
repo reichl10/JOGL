@@ -144,9 +144,9 @@ public class SphereTessellator implements Tessellator {
         
         boolean bothHemispheres = tile.getLatitudeFrom() < 0 && tile.getLatitudeTo() > 0;
 
-        int maxShrinkCount = bothHemispheres ? 0 : getMaxShrinkCount(horizontalQuads, minHorizontalQuads), shrinkCount = getShrinkCount(
-                lat, maxShrinkCount), rowWidth = max(2,
-                (subdivisions + 1) / (int) pow(2, shrinkCount)) + 1;
+        int maxShrinkCount = bothHemispheres ? 0 : getMaxShrinkCount(horizontalQuads, minHorizontalQuads),
+                shrinkCount = getShrinkCount(lat, maxShrinkCount),
+                rowWidth = max(2,(subdivisions + 1) / (int) pow(2, shrinkCount)) + 1;
 
         double lonStep = largeLonStep / (rowWidth - 1), latStep = direction
                 * (tile.getLatitudeTo() - tile.getLatitudeFrom()) / nRows;

@@ -147,6 +147,7 @@ public class LocationManager {
                         lastSearchLocations.clear();
                         lastSearchLocations.addAll(value);
                         callLocationListeners(value);
+                        callSurfaceListeners(-PI, -PI/2, PI, PI/2);
                     }
                 });
 
@@ -154,6 +155,7 @@ public class LocationManager {
             lastSearchLocations.clear();
             lastSearchLocations.addAll(response.value);
             callLocationListeners(response.value);
+            callSurfaceListeners(-PI, -PI/2, PI, PI/2);
         }
     }
 
@@ -231,8 +233,12 @@ public class LocationManager {
                 if (coords == null) {
                     throw new IllegalArgumentException();
                 }
-                double lon = coords.getLongitude(), lat = coords.getLatitude();
-                double lonFrom = getLongitudeFrom(), latFrom = getLatitudeFrom(), lonTo = getLongitudeTo(), latTo = getLatitudeTo();
+                double lon = coords.getLongitude(),
+                       lat = coords.getLatitude(),
+                       lonFrom = getLongitudeFrom(),
+                       latFrom = getLatitudeFrom(),
+                       lonTo = getLongitudeTo(),
+                       latTo = getLatitudeTo();
 
                 return rectangleLongitudeContains(lonFrom, lonTo, lon)
                         && ((lat >= latFrom && lat <= latTo) || (lat <= latFrom && lat >= latTo));
@@ -261,8 +267,7 @@ public class LocationManager {
         ;
 
         QueryTile t = new QueryTile(minLongitude, maxLongitude, minLatitude, maxLatitude);
-        NominatimQuery nominatimQuery = new NominatimQuery(
-                NominatimQuery.Type.LOCAL);
+        NominatimQuery nominatimQuery = new NominatimQuery(NominatimQuery.Type.LOCAL);
         nominatimQuery.query = query;
         nominatimQuery.area = t;
         SourceResponse<Collection<Location>> response = nominatimManager
@@ -276,6 +281,7 @@ public class LocationManager {
                                 lastSearchLocations.clear();
                                 lastSearchLocations.addAll(value);
                                 callLocationListeners(value);
+                                callSurfaceListeners(-PI, -PI/2, PI, PI/2);
                             }
                         });
 
@@ -284,6 +290,7 @@ public class LocationManager {
             lastSearchLocations.clear();
             lastSearchLocations.addAll(response.value);
             callLocationListeners(response.value);
+            callSurfaceListeners(minLongitude, minLatitude, maxLongitude, maxLatitude);
         }
     }
 

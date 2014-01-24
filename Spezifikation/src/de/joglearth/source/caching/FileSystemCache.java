@@ -112,7 +112,6 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
             return;
         } else {
             try {
-                System.out.println(getClass().getSimpleName()+" Delete all!");
                 Files.walkFileTree(basePath, new DirectoryCleaner());
             } catch (IOException e) {
                 e.printStackTrace();
