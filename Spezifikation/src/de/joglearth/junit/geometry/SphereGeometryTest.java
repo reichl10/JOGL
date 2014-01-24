@@ -31,7 +31,7 @@ public class SphereGeometryTest {
         assertFalse(geo.isPointVisible(tV2, gC2));
 
         /* check position of the point in space */
-        tV2 = geo.getSpacePosition(gC2);
+        tV2 = geo.getSpacePosition(gC2, 0);
         assertEquals(tV2.x, 0.0, 0.1);
         assertEquals(tV2.y, 0.0, 0.1);
         assertEquals(tV2.z, -1.0, 0.1);

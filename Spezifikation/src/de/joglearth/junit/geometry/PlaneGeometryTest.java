@@ -29,7 +29,7 @@ public class PlaneGeometryTest {
         assertFalse(geo.isPointVisible(tV2, gC2));
 
         /* check position of a point in space based on geographic coordinates */
-        tV2 = geo.getSpacePosition(gC2);
+        tV2 = geo.getSpacePosition(gC2, 0);
         assertEquals(tV2.x, gC2.getLongitude(), 0.1);
         assertEquals(tV2.y, gC2.getLatitude(), 0.1);
         assertEquals(tV2.z, 0.0, 0.1);
