@@ -289,8 +289,11 @@ Nummer & Titel & Beschreibung \\
 \hline
 \#96 & Textrenderer funktioniert noch nicht & \\
 \hline
+\#98 & Es werden übermäßig viele Vector3 Objekte erzeugt. & Beim Kartentyp Satellietenbild werden bei hohem Zoomlevel (fast 100\%) übermäßig viele Vector3 Objekte erzeugt. Dies führt zu einem OutOfMemoryError\\
+\hline
 \end{longtable}
-\newpage
+
+\vspace{15mm}
 
 \section{Gelöste Bugs}
 Diese Liste enthält alle gelösten Bugs.
@@ -399,7 +402,11 @@ Nummer & Titel & Anmerkung \\
 \hline
 \#96 & Textrenderer funktioniert noch nicht & \\
 \hline
+\#98 & Es werden übermäßig viele Vector3 Objekte erzeugt. & Beim Kartentyp Satellietenbild werden bei hohem Zoomlevel (fast 100\%) übermäßig viele Vector3 Objekte erzeugt. Dies führt zu einem OutOfMemoryError\\
+\hline
 \end{longtable}
+
+\newpage
 
 \section{Verbesserungsvorschläge}
 \begin{longtable}{|c|p{5.2cm}|p{8.2cm}|}
@@ -438,12 +445,13 @@ Sollte in Zehnerschritten erfolgen \\
 \hline
 \#55 & Ausgewählte Overlays könnten gespeichert werden & Die Anwahl von Overlays könnten eventuell über das Beenden des Programms hinaus gespeichert werden um dann beim Start geladen zu werden \\
 \hline
-\#59 & Beschreibung markierter Punkte in Detailfenster \\
+\#59 & Beschreibung markierter Punkte in Detailfenster & \\
 \hline
-\#61 & Noch nicht geladene Kacheln sollten durch skalierte eines niedrigeren Zoomlevels ersetzt werden \\
-\#62 & Zoomlevel sollte beeinflussen was als Detailstitel genommen wird \\
+\#61 & Noch nicht geladene Kacheln sollten durch skalierte eines niedrigeren Zoomlevels ersetzt werden  & \\
 \hline
-\#63 & Bei Adressen sollte im Detailfenster als Überschrift die Straße stehen \\
+\#62 & Zoomlevel sollte beeinflussen was als Detailstitel genommen wird & \\
+\hline
+\#63 & Bei Adressen sollte im Detailfenster als Überschrift die Straße stehen & \\
 \hline
 \#73 & Auf höheres Zoomlevel übergehen bei klick auf Suchergebnis. & Nicht zu weit rein zoomen, ca. 90\% \\
 \hline
@@ -463,6 +471,7 @@ Sollte in Zehnerschritten erfolgen \\
 \hline
 \end{longtable}
 
+\vspace{15mm}
 
 \section{Abgeschlossene Verbesserungen}
 Nicht umgesetzte Verbesserungen tragen einen entsprechenden Hinweis.
@@ -485,12 +494,13 @@ Nummer & Titel & Anmerkung \\
 \hline
 \#53 & Globus wird niedriger Detailstufe zu einer Ebene & Es wird versucht aus 4 Punkten eine Kugel zu zeichnen \\
 \hline
-\#59 & Beschreibung markierter Punkte in Detailfenster \\
+\#59 & Beschreibung markierter Punkte in Detailfenster & \\
 \hline
-\#61 & Noch nicht geladene Kacheln sollten durch skalierte eines niedrigeren Zoomlevels ersetzt werden \\
-\#62 & Zoomlevel sollte beeinflussen was als Detailstitel genommen wird \\
+\#61 & Noch nicht geladene Kacheln sollten durch skalierte eines niedrigeren Zoomlevels ersetzt werden & \\
 \hline
-\#63 & Bei Adressen sollte im Detailfenster als Überschrift die Straße stehen \\
+\#62 & Zoomlevel sollte beeinflussen was als Detailstitel genommen wird & \\
+\hline
+\#63 & Bei Adressen sollte im Detailfenster als Überschrift die Straße stehen & \\
 \hline
 \#73 & Auf höheres Zoomlevel übergehen bei klick auf Suchergebnis. & Nicht zu weit rein zoomen, ca. 90\% \\
 \hline

@@ -219,6 +219,7 @@ public class MainWindow extends JFrame {
     private DetailsListener lastDetailsListener = null;
     private JTextArea detailsDescTextArea;
     private JScrollPane scrollPane_1;
+    private ItemListener aaListener;
 
     private MapConfiguration mapConfiguration = null;
     private JPanel scalePanel;
@@ -679,20 +680,6 @@ public class MainWindow extends JFrame {
         antialiasingComboBox.addItem(new NamedItem<Antialiasing>(
                 Messages.getString("MainWindow.msaa16x"), //$NON-NLS-1$
                 Antialiasing.MSAA_16X));
-        antialiasingComboBox.addItemListener(new ItemListener() {
-
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    @SuppressWarnings("unchecked")
-                    NamedItem<Antialiasing> item = (NamedItem<Antialiasing>) e
-                            .getItem();
-                    Antialiasing type = item.getValue();
-                    Settings.getInstance().putString(
-                            SettingsContract.ANTIALIASING, type.name());
-                }
-            }
-        });
 
         graphicsPanel.add(antialiasingComboBox, "4, 2, fill, default"); //$NON-NLS-1$
 
@@ -1133,15 +1120,13 @@ public class MainWindow extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    System.out.println("Mapconfig-Listener (1)");
+                    
                     @SuppressWarnings("unchecked")
                     IconizedItem<MapConfiguration> item = (IconizedItem<MapConfiguration>) e
                             .getItem();
                     mapConfiguration = (MapConfiguration) item.getValue();
                     updateZoom();
-                    System.out.println("Mapconfig-Listener (2)");
                     renderer.setMapConfiguration(mapConfiguration);
-                    System.out.println("Mapconfig-Listener (3)");
                 }
             }
         });
@@ -1220,13 +1205,14 @@ public class MainWindow extends JFrame {
                 Location location = searchResultList.getSelectedValue();
                 if (location != null) {
                     camera.setPosition(location.point);
-                    camera.setDistance(2.599987500000007E-4);
-                    zoomSlider.setValue(95);
+                    camera.setDistance(0.002009989999999999);
+                    zoomSlider.setValue(90);
                     requestDetails();
                 }
                 super.mouseClicked(e);
             }
         });
+        antialiasingComboBox.addItemListener(aaListener);
     }
 
     private void setSolarsystemMode(final boolean enabled) {
@@ -1261,6 +1247,7 @@ public class MainWindow extends JFrame {
 
             @Override
             public void run() {
+                antialiasingComboBox.removeItemListener(aaListener);
                 overlayPanel.setBorder(BorderFactory
                         .createTitledBorder(Messages.getString("MainWindow.0"))); //$NON-NLS-1$ 
                 graphicsPanel.setBorder(BorderFactory
@@ -1456,6 +1443,7 @@ public class MainWindow extends JFrame {
                 }
                 latitudeLabel.setText(Messages.getString("MainWindow.2"));
                 longitudeLabel.setText(Messages.getString("MainWindow.209"));
+                antialiasingComboBox.addItemListener(aaListener);
             }
         });
 
@@ -1525,6 +1513,20 @@ public class MainWindow extends JFrame {
     public MainWindow(GLProfile prof, final LocationManager locationManager) {
         setIconImage(Toolkit.getDefaultToolkit().getImage(
                 MainWindow.class.getResource("/icons/joglEarth.png")));
+        aaListener = (new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    @SuppressWarnings("unchecked")
+                    NamedItem<Antialiasing> item = (NamedItem<Antialiasing>) e
+                            .getItem();
+                    Antialiasing type = item.getValue();
+                    Settings.getInstance().putString(
+                            SettingsContract.ANTIALIASING, type.name());
+                }
+            }
+        });
         this.locationManager = locationManager;
         this.glProfile = prof;
 
@@ -1814,9 +1816,7 @@ public class MainWindow extends JFrame {
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() >= 2) {
                 ScreenCoordinates screenCoord = getScreenCoordinates(e.getPoint());
-                System.out.println("ScreenCoords: " + screenCoord);
                 GeoCoordinates geoCoord = camera.getGeoCoordinates(screenCoord);
-                System.out.println("GeoCoords: " + geoCoord);
                 if (geoCoord != null) {
                     camera.setPosition(geoCoord);
                 }
@@ -2052,7 +2052,8 @@ public class MainWindow extends JFrame {
         if (mapConfiguration != null) {
             minDist = mapConfiguration.getMinimumCameraDistance();
         }
-
+        
+        System.out.println("Distance: " + (minDist + (MAX_DIST - minDist) * pow(factor, 3)));
         camera.setDistance(minDist + (MAX_DIST - minDist) * pow(factor, 3));
     }
 
