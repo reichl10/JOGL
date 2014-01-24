@@ -456,7 +456,7 @@ public class Renderer {
         gl.setLightIntensity(0, 1);
         gl.setMaterialSpecularity(0.02);
 
-        textureManager = new TextureManager(gl, 500, mapConfiguration);
+        textureManager = new TextureManager(gl, 1500, mapConfiguration);
         textureManager.addSurfaceListener(new SurfaceValidator());
 
         loadTextures();
