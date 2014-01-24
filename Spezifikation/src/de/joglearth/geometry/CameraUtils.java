@@ -149,7 +149,7 @@ public final class CameraUtils {
                 visibleModuloPoints.add(tileLayout.modulo(new GridPoint(lon, lat)));
             }
         }
-
+        
         return visibleModuloPoints;
     }
 
