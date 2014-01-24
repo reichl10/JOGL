@@ -103,7 +103,6 @@ public class Renderer {
 
     private InitState initState;
     private HeightMap heightMap = FlatHeightMap.getInstance();
-    private LevelOfDetail levelOfDetail;
     private TextRenderer locationTextRenderer;
 
 
@@ -417,6 +416,12 @@ public class Renderer {
         try {
             InputStream rsrcStream = Resource.open(name);
             TextureData data = gl.loadTextureData(rsrcStream, extension);
+            if (data == null) {
+                rsrcStream.close();
+                rsrcStream = Resource.open(name);
+                data = gl.loadTextureDataScaled(rsrcStream, extension);
+            }
+            rsrcStream.close();
             return gl.loadTexture(data, textureFilter);
         } catch (IOException e) {
             e.printStackTrace();
@@ -436,11 +441,9 @@ public class Renderer {
             overlayIconTextures = new LinkedHashMap<>();
             for (LocationType key : LocationType.values()) {
                 String resourceName = "locationIcons/" + key.toString() + ".png";
-                System.err.println(key.name() + " Texture loading...!");
                 if (Resource.exists(resourceName)) {
                     Texture value;
                     value = loadTextureResource(resourceName, "png", TextureFilter.TRILINEAR);
-                    System.err.println(key.name() + " Texure loaded!");
                     overlayIconTextures.put(key, value);                    
                 }
             }
@@ -472,7 +475,6 @@ public class Renderer {
                 case HIGH:
                     subdivisionPixels = 20;
             }
-            this.levelOfDetail = lod;
         }
         gl.postRedisplay();
     }

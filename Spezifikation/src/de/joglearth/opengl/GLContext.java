@@ -6,7 +6,6 @@ import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.glu.GLU.GLU_INSIDE;
 import static javax.media.opengl.glu.GLU.GLU_OUTSIDE;
 
-import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
@@ -30,6 +29,7 @@ import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureData;
+import com.jogamp.opengl.util.texture.TextureIO;
 import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
 import de.joglearth.async.AWTInvoker;
@@ -287,6 +287,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         return tex;
     }
 
+    
     /**
      * Loads a texture from an input stream via the JOGL Texture API.
      * 
@@ -303,9 +304,36 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             throw new IllegalArgumentException();
         }
 
+        try {
+            TextureData data = TextureIO.newTextureData(gl.getGLProfile(), stream, true, suffix);
+            if (data.getWidth() > maxTextureSize || data.getHeight() > maxTextureSize) {
+                return null;
+            } else {
+                return data;
+            }
+        } catch (RuntimeException e) {
+            throw new IOException("Error loading texture data", e);
+        }
+    }
+    
+    
+    /**
+     * Loads a texture from an input stream via the JOGL Texture API.
+     * 
+     * @param stream The input stream.
+     * @param suffix The file suffix, used to determine the content type
+     * @param mipmap Whether to create and use mipmaps
+     * @return The texture
+     * @throws IOException An error occurred while loading the image data
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     */
+    public TextureData loadTextureDataScaled(InputStream stream, String suffix)
+            throws IOException {
+        if (stream == null || suffix == null) {
+            throw new IllegalArgumentException();
+        }
+
         TextureData data;
-        System.out.println("Load Texture Data");
-        long start = System.currentTimeMillis();
         BufferedImage bImg = ImageIO.read(stream);
         if (bImg == null) {
             bImg = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
@@ -337,8 +365,6 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         } catch (RuntimeException e) {
             throw new IOException("Error loading texture data", e);
         }
-        long end = System.currentTimeMillis();
-        System.out.println("Loading took: " + (end - start));
 
         return data;
     }

@@ -134,11 +134,8 @@ public class OSMTileSource implements Source<TileName, byte[]> {
     private static void colorCorrectImage(BufferedImage img) {           
         Raster raster = img.getData();
         DataBuffer buffer = raster.getDataBuffer();
-        if (buffer.getDataType() != DataBuffer.TYPE_BYTE) 
-            System.err.println("Fuck");
         DataBufferByte bytebuf = (DataBufferByte) buffer;
         byte[] data = bytebuf.getData();
-        System.out.println(bytebuf.getNumBanks());
         float[] hsb = new float[3];
         for (int j = 0; j < data.length; j += 3) {
             
@@ -262,30 +259,6 @@ public class OSMTileSource implements Source<TileName, byte[]> {
 
             default:
                 return "png";
-        }
-    }
-
-    //TODO: Vorlage für prio
-    private class LIFOBlockingDeque<C> extends LinkedBlockingDeque<C> {
-
-        @Override
-        public boolean offer(C e) {
-            return super.offerFirst(e);
-        }
-
-        @Override
-        public boolean offer(C e, long timeout, TimeUnit unit) throws InterruptedException {
-            return super.offerFirst(e, timeout, unit);
-        }
-
-        @Override
-        public boolean add(C e) {
-            return super.offerFirst(e);
-        }
-
-        @Override
-        public void put(C e) throws InterruptedException {
-            super.putFirst(e);
         }
     }
 }
