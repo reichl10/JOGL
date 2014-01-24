@@ -1133,15 +1133,13 @@ public class MainWindow extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    System.out.println("Mapconfig-Listener (1)");
+                    
                     @SuppressWarnings("unchecked")
                     IconizedItem<MapConfiguration> item = (IconizedItem<MapConfiguration>) e
                             .getItem();
                     mapConfiguration = (MapConfiguration) item.getValue();
                     updateZoom();
-                    System.out.println("Mapconfig-Listener (2)");
                     renderer.setMapConfiguration(mapConfiguration);
-                    System.out.println("Mapconfig-Listener (3)");
                 }
             }
         });
@@ -1220,8 +1218,8 @@ public class MainWindow extends JFrame {
                 Location location = searchResultList.getSelectedValue();
                 if (location != null) {
                     camera.setPosition(location.point);
-                    camera.setDistance(2.599987500000007E-4);
-                    zoomSlider.setValue(95);
+                    camera.setDistance(0.002009989999999999);
+                    zoomSlider.setValue(90);
                     requestDetails();
                 }
                 super.mouseClicked(e);
@@ -1814,9 +1812,7 @@ public class MainWindow extends JFrame {
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() >= 2) {
                 ScreenCoordinates screenCoord = getScreenCoordinates(e.getPoint());
-                System.out.println("ScreenCoords: " + screenCoord);
                 GeoCoordinates geoCoord = camera.getGeoCoordinates(screenCoord);
-                System.out.println("GeoCoords: " + geoCoord);
                 if (geoCoord != null) {
                     camera.setPosition(geoCoord);
                 }
@@ -2052,7 +2048,8 @@ public class MainWindow extends JFrame {
         if (mapConfiguration != null) {
             minDist = mapConfiguration.getMinimumCameraDistance();
         }
-
+        
+        System.out.println("Distance: " + (minDist + (MAX_DIST - minDist) * pow(factor, 3)));
         camera.setDistance(minDist + (MAX_DIST - minDist) * pow(factor, 3));
     }
 
