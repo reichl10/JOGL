@@ -390,7 +390,8 @@ public class Camera {
     }
 
     public Vector3 getSpacePosition(GeoCoordinates geo) {
-        return geometry.getSpacePosition(geo, heightMap.getHeight(geo, 1e-4));
+        HeightMap effectiveHeightMap = distance < 0.005 ? heightMap : FlatHeightMap.getInstance();
+        return geometry.getSpacePosition(geo, effectiveHeightMap.getHeight(geo, 1e-4));
     }
 
     /**

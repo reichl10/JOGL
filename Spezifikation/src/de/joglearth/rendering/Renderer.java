@@ -201,6 +201,7 @@ public class Renderer {
     }
     
     private void render() {
+        
         // Construct projection matrix based on the distance to avoid clipping. Constants cause
         // problem with graphics adapters that don't support a 24 bit depth buffer.
         double zNear = camera.getDistance() / 10, zFar = zNear * 2000;
@@ -263,15 +264,6 @@ public class Renderer {
             gl.setFeatureEnabled(GL_LIGHTING, true);
             
             gl.loadMatrix(GL_MODELVIEW, camera.getModelViewMatrix());
-            /*
-            int slices = 0;
-            switch (levelOfDetail) {
-                case LOW: slices = 100; break;
-                case MEDIUM: slices = 250; break;
-                case HIGH: slices = 750; break;
-            }
-            
-            gl.drawSphere(1, slices, slices / 2, false, new float[] {0.8f, 0.8f, 0.8f, 1});*/
             
             // The sky is drawn close to the camera to avoid clipping, but is always in the background
             gl.setFeatureEnabled(GL_DEPTH_TEST, true);
@@ -288,13 +280,11 @@ public class Renderer {
                         new GeoCoordinates(tile.getLongitudeFrom(), tile.getLatitudeFrom()))
                         .to(camera.getSpacePosition(camera.getPosition())).length()
                         / camera.getDistance() / 2);
-                TransformedTexture texture = null;
-                if (scaleDown <= 2) {
-                    texture = textureManager.getTexture(tile, scaleDown);
+                TransformedTexture texture = textureManager.getTexture(tile, 0);
                     gl.loadMatrix(GL_TEXTURE, texture.transformation);
-                }
-                HeightMap effectiveHeightMap = (camera.getSurfaceScale() < 0.005 && scaleDown <= 2 )? heightMap
-                        : FlatHeightMap.getInstance();
+                    
+                HeightMap effectiveHeightMap = (camera.getSurfaceScale() < 0.005 && scaleDown <= 2 )
+                        ? heightMap : FlatHeightMap.getInstance();
 
                 // tsb.append(texture.getTextureObject());
                 // tsb.append(", ");

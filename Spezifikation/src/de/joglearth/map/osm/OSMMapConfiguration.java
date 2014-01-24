@@ -99,6 +99,11 @@ public class OSMMapConfiguration implements MapConfiguration {
 
     @Override
     public double getMinimumCameraDistance() {
-        return 1e-5;
+        switch (mapType) {
+            case SATELLITE:
+                return 5e-3;
+            default:
+                return 1e-5;
+        }
     }
 }
