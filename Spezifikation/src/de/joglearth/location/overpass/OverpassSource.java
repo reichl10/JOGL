@@ -11,7 +11,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLInputFactory;
@@ -25,6 +26,7 @@ import de.joglearth.location.nominatim.NominatimSource;
 import de.joglearth.source.ProgressManager;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
+import de.joglearth.source.PriorizedRunnableQueue;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
 import de.joglearth.util.HTTP;
@@ -39,13 +41,15 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
     private final ExecutorService executor;
     private final String url = "http://overpass.osm.rambler.ru/cgi/interpreter";
     private NominatimSource info;
+    private PriorizedRunnableQueue queue;
 
 
     /**
      * Constructor. Initializes the {@link OverpassSource}.
      */
     public OverpassSource() {
-        executor = Executors.newFixedThreadPool(1);
+        queue = new PriorizedRunnableQueue();
+        executor = new ThreadPoolExecutor(4, 4, 0, TimeUnit.MILLISECONDS, queue);
         info = new NominatimSource();
 
         locationRequest = new HashMap<LocationType, String>();
@@ -320,5 +324,10 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
         synchronized (executor) {
             executor.shutdownNow();
         }
+    }
+
+    @Override
+    public void increasePriority() {
+        queue.increasePriority();
     }
 }

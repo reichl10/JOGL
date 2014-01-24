@@ -3,6 +3,7 @@ package de.joglearth.location.nominatim;
 import java.util.Collection;
 
 import de.joglearth.location.Location;
+import de.joglearth.source.Priorized;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
@@ -14,7 +15,8 @@ import de.joglearth.source.caching.RequestDistributor;
 /**
  * Singleton class that retrieves data from the {@link NominatimSource}.
  */
-public final class NominatimManager implements Source<NominatimQuery, Collection<Location>> {
+public final class NominatimManager 
+        implements Source<NominatimQuery, Collection<Location>>, Priorized {
 
     private static NominatimManager instance = null;
     private Cache<NominatimQuery, Collection<Location>> cache;
@@ -73,5 +75,20 @@ public final class NominatimManager implements Source<NominatimQuery, Collection
         if (instance != null) {
             dist.dispose();
         }
+    }
+
+    @Override
+    public void setPriority(long priority) {
+        source.setPriority(priority);
+    }
+
+    @Override
+    public long getPriority() {
+        return source.getPriority();
+    }
+
+    @Override
+    public void increasePriority() {
+        source.increasePriority();
     }
 }

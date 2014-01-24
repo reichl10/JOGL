@@ -21,7 +21,6 @@ public class SRTMTileSource implements Source<SRTMTileName, SRTMTile> {
 
     private Source<SRTMTileName, byte[]> binarySource;
 
-
     /**
      * Constructor. Initializes the {@link de.joglearth.height.srtm.SRTMTileSource} as it assigns a
      * value to the {@link de.joglearth.source.Source} of <code>SRTMTileSource</code>.
@@ -79,5 +78,10 @@ public class SRTMTileSource implements Source<SRTMTileName, SRTMTile> {
     @Override
     public void dispose() {
         binarySource.dispose();
+    }
+
+    @Override
+    public void increasePriority() {
+        binarySource.increasePriority();
     }
 }

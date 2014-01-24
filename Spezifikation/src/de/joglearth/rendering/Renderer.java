@@ -103,7 +103,6 @@ public class Renderer {
 
     private InitState initState;
     private HeightMap heightMap = FlatHeightMap.getInstance();
-    private LevelOfDetail levelOfDetail;
     private TextRenderer locationTextRenderer;
 
 
@@ -482,7 +481,6 @@ public class Renderer {
                 case HIGH:
                     subdivisionPixels = 20;
             }
-            this.levelOfDetail = lod;
         }
         gl.postRedisplay();
     }

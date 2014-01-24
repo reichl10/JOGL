@@ -6,7 +6,6 @@ import static javax.media.opengl.GL2.*;
 import static javax.media.opengl.glu.GLU.GLU_INSIDE;
 import static javax.media.opengl.glu.GLU.GLU_OUTSIDE;
 
-import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;

@@ -139,8 +139,6 @@ public final class SettingsContract {
      * same files the {@link #saveSettings()} saves to.
      */
     public static void loadSettings() {
-        // TODO settings not used
-        Settings settings = Settings.getInstance();
         File sFile = new File(FILE_LOCATION);
         if (sFile.exists()) {
             try {

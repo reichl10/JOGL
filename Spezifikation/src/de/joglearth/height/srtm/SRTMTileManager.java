@@ -19,6 +19,7 @@ public final class SRTMTileManager implements Source<SRTMTileName, SRTMTile> {
     private static SRTMTileManager instance = null;
     private RequestDistributor<SRTMTileName, SRTMTile> tileRequestDistributor;
     private RequestDistributor<SRTMTileName, byte[]> binaryRequestDistributor;
+    private SRTMTileSource tileSource;
 
 
     /**
@@ -52,7 +53,7 @@ public final class SRTMTileManager implements Source<SRTMTileName, SRTMTile> {
         binaryRequestDistributor.setSource(binarySource);
         binaryRequestDistributor.addCache(binaryCache, fsCacheBytes);
 
-        SRTMTileSource tileSource = new SRTMTileSource(binaryRequestDistributor);
+        tileSource = new SRTMTileSource(binaryRequestDistributor);
         MemoryCache<SRTMTileName, SRTMTile> tileCache = new MemoryCache<>();
         tileRequestDistributor = new RequestDistributor<>(new UnityMeasure<SRTMTile>());
         tileRequestDistributor.setSource(tileSource);
@@ -69,5 +70,10 @@ public final class SRTMTileManager implements Source<SRTMTileName, SRTMTile> {
     public void dispose() {
         tileRequestDistributor.dispose();
         binaryRequestDistributor.dispose();
+    }
+
+    @Override
+    public void increasePriority() {
+        tileSource.increasePriority();
     }
 }

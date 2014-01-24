@@ -39,10 +39,11 @@ public class NamedItem<E> {
     }
     
     @Override
+    @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
         if (obj == null)
             return false;
-        if (obj.getClass() == getClass()) {
+        if (obj.getClass() == this.getClass()) {
             NamedItem<E> item = (NamedItem<E>) obj;
             return value.equals(item.value);
         }

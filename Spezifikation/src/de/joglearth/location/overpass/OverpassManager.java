@@ -72,4 +72,9 @@ public final class OverpassManager implements Source<OverpassQuery, Collection<L
     public void dispose() {
         dist.dispose();
     }
+
+    @Override
+    public void increasePriority() {
+        source.increasePriority();
+    }
 }
