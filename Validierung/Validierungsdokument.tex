@@ -515,14 +515,14 @@ Nummer & Titel & Anmerkung \\
 \chapter{Code Coverage}
 \section{Pflichtenheft-Tests}
 \section{JUnit-Test}
-Leider war es nicht möglich die Unittests bei der Coverage ausschließen zu lassen, daher befinden sich diese immer unter den nicht gecoverten Anteilen.
+Leider war es nicht möglich die Unittests bei der Coverage ausschließen zu lassen, daher befinden sich diese immer unter den nicht gecoverten Anteilen. Dabei muss beachtet werden das Code wie die UI nicht mit Unittest getestet werden Können und diese sehr viel Code besitzen. So wie die JUnittests die mehre tausend Zeilen habe.
 \subsection{Line Coverage}
 \begin{longtable}{|l|p{4,4cm}|p{4,4cm}|p{4,5cm}|}
 \hline
 Abdeckung & Abgedeckte Zeilen & Nicht abgedeckte Zeilen & Gesamt Zeilen \\
 \hline
 \hline
-32,2\% & 2,127 & 4,484 & 6,611 \\
+25,0\% & 1897 & 5686 & 7583 \\
 \hline
 \end{longtable}
 \subsection{Branch Coverage}
@@ -531,7 +531,7 @@ Abdeckung & Abgedeckte Zeilen & Nicht abgedeckte Zeilen & Gesamt Zeilen \\
 Abdeckung & Abgedeckte Verzweigungen & Nicht abgedeckte Verzweigungen & Gesamt Verzweigungen \\
 \hline
 \hline
-26,1\% & 559 & 1,579 & 2,138 \\
+22,5\% & 579 & 1999 & 2578 \\
 \hline
 \end{longtable}
 \subsection{Class Coverage}
@@ -540,7 +540,7 @@ Abdeckung & Abgedeckte Verzweigungen & Nicht abgedeckte Verzweigungen & Gesamt V
 Abdeckung & Abgedeckte Klassen & Nicht abgedeckte Klassen & Gesamt Klassen \\
 \hline
 \hline
-41,2\% & 105 & 150 & 255 \\
+31,5\% 82 & 178 & 260 \\
 \hline
 \end{longtable}
 \section{Test per Hand}
