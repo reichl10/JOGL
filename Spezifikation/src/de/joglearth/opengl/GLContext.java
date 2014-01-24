@@ -334,8 +334,6 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         }
 
         TextureData data;
-        System.out.println("Load Texture Data");
-        long start = System.currentTimeMillis();
         BufferedImage bImg = ImageIO.read(stream);
         if (bImg == null) {
             bImg = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
@@ -367,8 +365,6 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         } catch (RuntimeException e) {
             throw new IOException("Error loading texture data", e);
         }
-        long end = System.currentTimeMillis();
-        System.out.println("Loading took: " + (end - start));
 
         return data;
     }
