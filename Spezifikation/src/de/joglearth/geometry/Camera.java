@@ -390,7 +390,8 @@ public class Camera {
     }
 
     public Vector3 getSpacePosition(GeoCoordinates geo) {
-        return geometry.getSpacePosition(geo, heightMap.getHeight(geo, 1e-4));
+        HeightMap effectiveHeightMap = distance < 0.005 ? heightMap : FlatHeightMap.getInstance();
+        return geometry.getSpacePosition(geo, effectiveHeightMap.getHeight(geo, 1e-4));
     }
 
     /**
@@ -408,7 +409,7 @@ public class Camera {
         Vector3 t = transformationMatrix.transform(getSpacePosition(geo)).divide();
 
         if ((t.x >= -1 && t.x <= 1) && (t.y >= -1 && t.y <= 1)) {
-            return new ScreenCoordinates((t.x + 1) / 2, (t.y + 1) / 2);
+            return new ScreenCoordinates((t.x + 1) / 2, 1 - (t.y + 1) / 2);
         } else {
             return null;
         }

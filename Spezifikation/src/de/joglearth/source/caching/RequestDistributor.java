@@ -33,7 +33,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      */
     private List<Cache<Key, Value>> caches;
     private Map<Cache<Key, Value>, Integer> cacheSizeMap;
-    
+
     /**
      * Holds the source.
      */
@@ -277,9 +277,9 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                 dropObjectFromCache(c, k);
                 lastUsedMap.get(c).remove(k);
             }
-            
+
         }
-        
+
     }
 
     private void dropObjectFromCache(Cache<Key, Value> c, Key k) {
@@ -334,15 +334,17 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         }
     }
 
-    private synchronized void removeFromCache(Cache<Key, Value> c, Key k, Value v) {
+    private void removeFromCache(Cache<Key, Value> c, Key k, Value v) {
         Integer size = measure.getSize(v);
         removeFromCache(c, k, size);
     }
 
-    private synchronized void removeFromCache(Cache<Key, Value> cache, Key k, Integer size) {
+    private void removeFromCache(Cache<Key, Value> cache, Key k, Integer size) {
         removeUsedSpace(cache, size);
         cache.dropObject(k);
-        lastUsedMap.get(cache).remove(k);
+        synchronized (this) {
+            lastUsedMap.get(cache).remove(k);
+        }
     }
 
     private void addToCaches(Key k, Value v) {
@@ -386,7 +388,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         usedSizeMap.put(cache, usedSizeOfCache + space);
     }
 
-    private void removeUsedSpace(Cache<Key, Value> cache, Integer space) {
+    private synchronized void removeUsedSpace(Cache<Key, Value> cache, Integer space) {
         Integer usedSizeOfCache = usedSizeMap.get(cache);
         usedSizeMap.put(cache, usedSizeOfCache - space);
     }
@@ -451,9 +453,8 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                     cache.dropObject(listener.key);
                 }
             } else {
-                
-                @SuppressWarnings("unchecked")
-                FileSystemCache<Key> fsCache = (FileSystemCache<Key>) cache;
+
+                @SuppressWarnings("unchecked") FileSystemCache<Key> fsCache = (FileSystemCache<Key>) cache;
                 Integer itemSizeInteger = fsCache.sizeOf(entry.getKey());
                 removeFromCache(cache, entry.getKey(), itemSizeInteger);
                 spaceMade += itemSizeInteger;
@@ -482,6 +483,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         Source<Key, Value> _source;
         RequestDistributor<Key, Value> _rd;
 
+
         public ObjectRequestListener(List<Cache<Key, Value>> caches, int currentIndex,
                 Source<Key, Value> s, RequestDistributor<Key, Value> r) {
             this._caches = caches;
@@ -494,15 +496,32 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         public void requestCompleted(Key key, Value value) {
 
             boolean doReqComp = false;
-            synchronized (RequestDistributor.this) {
-                if (value == null) {
-                    if (caches.size() > cIndex + 1) {
-                        Cache<Key, Value> nextCache = _caches.get(cIndex + 1);
-                        ObjectRequestListener listener = new ObjectRequestListener(_caches,
-                                cIndex + 1,
-                                _source, _rd);
-                        SourceResponse<Value> response = nextCache.requestObject(key,
-                                listener);
+            if (value == null) {
+                if (caches.size() > cIndex + 1) {
+                    Cache<Key, Value> nextCache = _caches.get(cIndex + 1);
+                    ObjectRequestListener listener = new ObjectRequestListener(_caches,
+                            cIndex + 1,
+                            _source, _rd);
+                    SourceResponse<Value> response = nextCache.requestObject(key,
+                            listener);
+                    switch (response.response) {
+                        case MISSING:
+                            value = null;
+                            doReqComp = true;
+
+                            break;
+                        case SYNCHRONOUS:
+                            _rd.cacheRequestCompleted(nextCache, key, response.value);
+                            break;
+                        case ASYNCHRONOUS:
+                            break;
+                        default:
+                            break;
+                    }
+                } else {
+                    if (_source != null) {
+                        SourceResponse<Value> response = _source.requestObject(key,
+                                new SourceAsker(_rd));
                         switch (response.response) {
                             case MISSING:
                                 value = null;
@@ -510,7 +529,9 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
 
                                 break;
                             case SYNCHRONOUS:
-                                _rd.cacheRequestCompleted(nextCache, key, response.value);
+                                value = null;
+                                doReqComp = true;
+
                                 break;
                             case ASYNCHRONOUS:
                                 break;
@@ -518,40 +539,17 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
                                 break;
                         }
                     } else {
-                        if (_source != null) {
-                            SourceResponse<Value> response = _source.requestObject(key,
-                                    new SourceAsker(_rd));
-                            switch (response.response) {
-                                case MISSING:
-                                    value = null;
-                                    doReqComp = true;
-
-                                    break;
-                                case SYNCHRONOUS:
-                                    value = null;
-                                    doReqComp = true;
-
-                                    break;
-                                case ASYNCHRONOUS:
-                                    break;
-                                default:
-                                    break;
-                            }
-                        } else {
-                            value = null;
-                            doReqComp = true;
-                            _rd.requestCompleted(key, null);
-                        }
+                        value = null;
+                        doReqComp = true;
+                        _rd.requestCompleted(key, null);
                     }
-                } else {
-                    if (cIndex > 0) {
-                        Cache<Key, Value> cache = caches.get(cIndex);
-                        removeFromCache(cache, key, value);
-                    }
-                    doReqComp = true;
-
                 }
-
+            } else {
+                if (cIndex > 0) {
+                    Cache<Key, Value> cache = caches.get(cIndex);
+                    removeFromCache(cache, key, value);
+                }
+                doReqComp = true;
             }
             if (doReqComp) {
                 _rd.requestCompleted(key, value);
@@ -563,6 +561,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     private class SourceAsker implements SourceListener<Key, Value> {
 
         RequestDistributor<Key, Value> rd;
+
 
         public SourceAsker(RequestDistributor<Key, Value> r) {
             rd = r;
@@ -581,6 +580,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
         public Value value;
         public BigInteger lastUsed;
 
+
         public CacheEntry(Key k, Value v, BigInteger l) {
             key = k;
             value = v;
@@ -589,9 +589,10 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
     }
 
     private class CacheMoveListener implements SourceListener<Key, Value> {
-        
+
         public volatile Key key;
         public volatile Value value;
+
 
         public CacheMoveListener() {}
 

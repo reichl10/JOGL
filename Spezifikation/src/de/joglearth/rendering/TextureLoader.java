@@ -2,13 +2,17 @@ package de.joglearth.rendering;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureData;
+import com.sun.rmi.rmid.ExecOptionPermission;
 
 import de.joglearth.async.RunnableResultListener;
 import de.joglearth.async.RunnableWithResult;
@@ -31,6 +35,7 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
     private ImageSourceListener imageSourceListener = new ImageSourceListener();
     private TextureFilter textureFilter;
     private String formatSuffix;
+    private ExecutorService executor;
 
     // Stores requests requiring a callback on completion
     private Map<Key, Collection<SourceListener<Key, Texture>>> pendingRequests = new HashMap<>();
@@ -53,60 +58,49 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
         this.imageSource = imageSource;
         this.textureFilter = TextureFilter.TRILINEAR;
         this.formatSuffix = formatSuffix;
+        
+        this.executor = Executors.newSingleThreadExecutor();
     }
 
 
-    private class LoaderRunnable implements RunnableWithResult {
+    private void loadTexture(final Key key, final SourceListener<Key, Texture> sender, byte[] raw) {
 
-        private TextureData data;
-
-
-        public LoaderRunnable(TextureData data) {
-            this.data = data;
+        final TextureData data;
+        try {
+            InputStream input = new ByteArrayInputStream(raw);
+            try {
+                data = gl.loadTextureData(input, formatSuffix);
+            } finally {
+                input.close();
+            }        
+        } catch (IOException e) {
+            sender.requestCompleted(key, null);
+            return;
         }
 
-        @Override
-        public Object run() {
-            if (data == null) {
-                return null;
+        gl.invokeLater(new RunnableWithResult() {
+
+            @Override
+            public Object run() {
+                if (data == null) {
+                    return null;
+                }
+
+                return gl.loadTexture(data, textureFilter);
             }
 
-            return gl.loadTexture(data, textureFilter);
-        }
+        }, new RunnableResultListener() {
 
-    }
-
-
-    private SourceResponse<Texture> loadTexture(final Key key,
-            final SourceListener<Key, Texture> sender, byte[] raw) {
-
-        TextureData data;
-        try {
-            data = gl.loadTextureData(new ByteArrayInputStream(raw), formatSuffix);
-        } catch (IOException e) {
-            return new SourceResponse<Texture>(SourceResponseType.MISSING, null);
-        }
-
-        LoaderRunnable loader = new LoaderRunnable(data);
-        if (gl.canInvokeDirectly()) {
-            return new SourceResponse<Texture>(SourceResponseType.SYNCHRONOUS,
-                    (Texture) loader.run());
-        } else {
-            gl.invokeLater(loader, new RunnableResultListener() {
-
-                @Override
-                public synchronized void runnableCompleted(Object result) {
-                    sender.requestCompleted(key, (Texture) result);
-                }
-            });
-
-            return new SourceResponse<Texture>(SourceResponseType.ASYNCHRONOUS, null);
-        }
+            @Override
+            public synchronized void runnableCompleted(Object result) {
+                sender.requestCompleted(key, (Texture) result);
+            }
+        });
     }
 
     @Override
-    public synchronized SourceResponse<Texture> requestObject(Key key,
-            SourceListener<Key, Texture> sender) {
+    public synchronized SourceResponse<Texture> requestObject(final Key key,
+            final SourceListener<Key, Texture> sender) {
 
         if (key == null) {
             throw new IllegalArgumentException();
@@ -120,19 +114,27 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
             } else {
                 return new SourceResponse<Texture>(SourceResponseType.MISSING, null);
             }
+            
         } else if (sender != null) {
             SourceResponse<byte[]> response = imageSource.requestObject(key, imageSourceListener);
             if (response.response != SourceResponseType.MISSING) {
                 if (response.response == SourceResponseType.SYNCHRONOUS) {
-                    return loadTexture(key, sender, response.value);
+                    final byte[] raw = response.value;
+                    executor.execute(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            loadTexture(key, sender, raw);
+                        }                        
+                    });
                 } else {
                     if (listeners == null) {
                         listeners = new LinkedList<>();
                         pendingRequests.put(key, listeners);
                     }
                     listeners.add(sender);
-                    return new SourceResponse<Texture>(SourceResponseType.ASYNCHRONOUS, null);
                 }
+                return new SourceResponse<Texture>(SourceResponseType.ASYNCHRONOUS, null);
             }
         }
 

@@ -8,6 +8,7 @@ import java.awt.image.Raster;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -135,11 +136,8 @@ public class OSMTileSource implements Source<TileName, byte[]> {
     private static void colorCorrectImage(BufferedImage img) {           
         Raster raster = img.getData();
         DataBuffer buffer = raster.getDataBuffer();
-        if (buffer.getDataType() != DataBuffer.TYPE_BYTE) 
-            System.err.println("Fuck");
         DataBufferByte bytebuf = (DataBufferByte) buffer;
         byte[] data = bytebuf.getData();
-        System.out.println(bytebuf.getNumBanks());
         float[] hsb = new float[3];
         for (int j = 0; j < data.length; j += 3) {
             
@@ -221,7 +219,12 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         if (response != null && mapType == OSMMapType.SATELLITE && tile.getDetailLevel() > 8) {
             BufferedImage img;
             try {
-                img = ImageIO.read(new ByteArrayInputStream(response));
+                InputStream stream = new ByteArrayInputStream(response);
+                try {
+                    img = ImageIO.read(stream);
+                } finally {
+                    stream.close();
+                }
             } catch (IOException e) {
                 return null;
             }
@@ -230,10 +233,14 @@ public class OSMTileSource implements Source<TileName, byte[]> {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
 
             try {
-                ImageIO.write(img, "jpg", out);
+                try {
+                    ImageIO.write(img, "jpg", out);
+                } finally {
+                    out.close();
+                }
             } catch (IOException e) {
                 return null;
-            }
+            } 
             
             response = out.toByteArray();
         }
@@ -265,10 +272,13 @@ public class OSMTileSource implements Source<TileName, byte[]> {
                 return "png";
         }
     }
+<<<<<<< HEAD
 
     @Override
     public void increasePriority() {
         queue.increasePriority();
     }
 
+=======
+>>>>>>> master
 }

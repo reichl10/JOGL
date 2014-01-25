@@ -31,6 +31,32 @@ public class SRTMTileSource implements Source<SRTMTileName, SRTMTile> {
         this.binarySource = binarySource;
     }
 
+    
+    private byte[] unzipFile(byte[] zipBytes, String fileName) throws IOException {
+        ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(zipBytes));
+        try {
+            ZipEntry entry = zip.getNextEntry();
+            if (entry.getName().equals(fileName)) {
+                ByteArrayOutputStream tileStream = new ByteArrayOutputStream();
+                try {
+                    int n = -1;
+                    byte[] buf = new byte[4096];
+                    while ((n = zip.read(buf)) != -1) {
+                        tileStream.write(buf, 0, n);
+                    }
+                    return tileStream.toByteArray();                    
+                } finally {
+                    tileStream.close();
+                }
+            } else { 
+                return null;
+            }
+        } finally {
+            zip.close();
+        }            
+    }
+    
+    
     @Override
     public SourceResponse<SRTMTile> requestObject(SRTMTileName key,
             final SourceListener<SRTMTileName, SRTMTile> sender) {
@@ -43,20 +69,9 @@ public class SRTMTileSource implements Source<SRTMTileName, SRTMTile> {
 	                byte[] tileBytes = null;
 	                if (zipBytes != null) {
 	                    try {
-	                        ZipInputStream zip 
-	                            = new ZipInputStream(new ByteArrayInputStream(zipBytes));
-	                        ZipEntry entry = zip.getNextEntry();
-	                        if (entry.getName().equals(key.toString() + ".hgt")) {
-	                            ByteArrayOutputStream tileStream = new ByteArrayOutputStream();
-	                            int n = -1;
-	                            byte[] buf = new byte[4096];
-	                            while ((n = zip.read(buf)) != -1) {
-	                                tileStream.write(buf, 0, n);
-	                            }
-	                            tileBytes = tileStream.toByteArray();
-	                            if (tileBytes.length != 1201*1201*2) {
-	                                tileBytes = null;
-	                            }
+	                        tileBytes = unzipFile(zipBytes, key.toString() + ".hgt");
+	                        if (tileBytes.length != 1201*1201*2) {
+	                            tileBytes = null;
 	                        }
 	                    } catch (IOException e) {
 	                        tileBytes = null;

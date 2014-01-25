@@ -29,6 +29,7 @@ import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureData;
+import com.jogamp.opengl.util.texture.TextureIO;
 import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
 import de.joglearth.async.AWTInvoker;
@@ -286,6 +287,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         return tex;
     }
 
+    
     /**
      * Loads a texture from an input stream via the JOGL Texture API.
      * 
@@ -302,9 +304,36 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
             throw new IllegalArgumentException();
         }
 
+        try {
+            TextureData data = TextureIO.newTextureData(gl.getGLProfile(), stream, true, suffix);
+            if (data.getWidth() > maxTextureSize || data.getHeight() > maxTextureSize) {
+                return null;
+            } else {
+                return data;
+            }
+        } catch (RuntimeException e) {
+            throw new IOException("Error loading texture data", e);
+        }
+    }
+    
+    
+    /**
+     * Loads a texture from an input stream via the JOGL Texture API.
+     * 
+     * @param stream The input stream.
+     * @param suffix The file suffix, used to determine the content type
+     * @param mipmap Whether to create and use mipmaps
+     * @return The texture
+     * @throws IOException An error occurred while loading the image data
+     * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
+     */
+    public TextureData loadTextureDataScaled(InputStream stream, String suffix)
+            throws IOException {
+        if (stream == null || suffix == null) {
+            throw new IllegalArgumentException();
+        }
+
         TextureData data;
-        System.out.println("Load Texture Data");
-        long start = System.currentTimeMillis();
         BufferedImage bImg = ImageIO.read(stream);
         if (bImg == null) {
             bImg = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
@@ -336,8 +365,6 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         } catch (RuntimeException e) {
             throw new IOException("Error loading texture data", e);
         }
-        long end = System.currentTimeMillis();
-        System.out.println("Loading took: " + (end - start));
 
         return data;
     }
@@ -560,7 +587,10 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
     public void drawRectangle(ScreenCoordinates upperLeft, ScreenCoordinates lowerRight,
             Texture texture) {
 
-        float left = (float) upperLeft.x * 2 - 1, top = (float) lowerRight.y * 2 - 1, right = (float) lowerRight.x * 2 - 1, bottom = (float) upperLeft.y * 2 - 1;
+        float left = (float) upperLeft.x * 2 - 1, 
+              top = (float) -upperLeft.y * 2 + 1, 
+              right = (float) lowerRight.x * 2 - 1, 
+              bottom = (float) -lowerRight.y * 2 + 1;
 
         float[] vertices = {
                 left, bottom, 0,
@@ -693,6 +723,60 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         assertIsInitialized();
         return lightCount;
     }
+    
+    
+    public int loadShaders(String vertexShaderSource, String fragmentShaderSource) {
+        assertIsInitialized();
+        assertIsInsideCallback();
+        
+        // Load and compile vertex shader
+        int vertexShader = gl.glCreateShader(GL_VERTEX_SHADER);
+        GLError.throwIfActive(gl);
+        
+        gl.glShaderSource(vertexShader, 1, new String[] { vertexShaderSource }, null, 0);
+        GLError.throwIfActive(gl);
+        
+        gl.glCompileShader(vertexShader);
+        GLError.throwIfActive(gl);
+        
+        // Load and compile fragment shader
+        int fragmentShader = gl.glCreateShader(GL_FRAGMENT_SHADER);
+        GLError.throwIfActive(gl);
+
+        gl.glShaderSource(fragmentShader, 1, new String[] { fragmentShaderSource }, null, 0);
+        GLError.throwIfActive(gl);
+        
+        gl.glCompileShader(fragmentShader);
+        GLError.throwIfActive(gl);
+        
+        // Link shaders into shader program
+        int program = gl.glCreateProgram();
+        GLError.throwIfActive(gl);
+        
+        gl.glAttachShader(program, vertexShader);
+        GLError.throwIfActive(gl);
+        
+        gl.glAttachShader(program, fragmentShader);
+        GLError.throwIfActive(gl);  
+        
+        gl.glLinkProgram(program);
+        GLError.throwIfActive(gl);  
+        
+        gl.glValidateProgram(program);   
+        GLError.throwIfActive(gl);  
+        
+        return program;
+    }
+    
+    
+    public void bindShaders(int program) {
+        assertIsInitialized();
+        assertIsInsideCallback();
+        
+        gl.glUseProgram(program);
+        GLError.throwIfActive(gl);                
+    }
+    
 
     /**
      * Places a GL light in the scene. The position is affected by the model-view-matrix.
@@ -749,7 +833,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * Returns whether a light is currently enabled.
      * 
      * @param index The light index. Must be between (including) 0 and getLightCount()-1
-     * @return Whether the light is enabled
+     * @return Whether the light is enablled
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      * @throws GLError An internal OpenGL error has occurred
      */

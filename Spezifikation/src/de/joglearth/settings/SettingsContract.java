@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Set;
 
 import javax.xml.stream.FactoryConfigurationError;
@@ -142,32 +144,36 @@ public final class SettingsContract {
         File sFile = new File(FILE_LOCATION);
         if (sFile.exists()) {
             try {
-                XMLStreamReader xmlReader = XMLInputFactory.newInstance()
-                        .createXMLStreamReader(
-                                new FileInputStream(FILE_LOCATION),
-                                XML_ENCODING);
-                while (xmlReader.hasNext()) {
-                    int event = xmlReader.next();
-                    switch (event) {
-                        case END_DOCUMENT:
-                            xmlReader.close();
-                            break;
-                        case START_ELEMENT:
-                            if (xmlReader.getLocalName().equals(
-                                    XML_ELEMENT_SETTINGS)) {
-                                readSettings(xmlReader);
-                                xmlReader.require(END_ELEMENT, null,
-                                        XML_ELEMENT_SETTINGS);
-                            }
-                        case END_ELEMENT:
-                        case CHARACTERS:
-                            break;
-
-                        default:// We don't need the other stuff
-                            break;
+                InputStream stream = new FileInputStream(FILE_LOCATION);
+                try {
+                    XMLStreamReader xmlReader = XMLInputFactory.newInstance()
+                            .createXMLStreamReader(new FileInputStream(FILE_LOCATION),
+                                    XML_ENCODING);
+                    while (xmlReader.hasNext()) {
+                        int event = xmlReader.next();
+                        switch (event) {
+                            case END_DOCUMENT:
+                                xmlReader.close();
+                                break;
+                            case START_ELEMENT:
+                                if (xmlReader.getLocalName().equals(
+                                        XML_ELEMENT_SETTINGS)) {
+                                    readSettings(xmlReader);
+                                    xmlReader.require(END_ELEMENT, null,
+                                            XML_ELEMENT_SETTINGS);
+                                }
+                            case END_ELEMENT:
+                            case CHARACTERS:
+                                break;
+    
+                            default:// We don't need the other stuff
+                                break;
+                        }
                     }
+                } finally {
+                    stream.close();
                 }
-            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             } catch (XMLStreamException e) {
                 e.printStackTrace();
@@ -344,24 +350,29 @@ public final class SettingsContract {
         f.getParentFile().mkdirs();
         XMLStreamWriter xmlWriter = null;
         try {
-            xmlWriter = XMLOutputFactory.newInstance().createXMLStreamWriter(
-                    new FileOutputStream(f), XML_ENCODING);
-            writeStart(xmlWriter);
-            writeEntry(xmlWriter, LANGUAGE, s.getString(LANGUAGE));
-            writeEntry(xmlWriter, TEXTURE_FILTER, s.getString(TEXTURE_FILTER));
-            writeEntry(xmlWriter, LEVEL_OF_DETAIL,
-                    s.getString(LEVEL_OF_DETAIL));
-            writeEntry(xmlWriter, ANTIALIASING, s.getString(ANTIALIASING));
-            writeEntry(xmlWriter, CACHE_SIZE_FILESYSTEM,
-                    s.getInteger(CACHE_SIZE_FILESYSTEM));
-            writeEntry(xmlWriter, CACHE_SIZE_MEMORY,
-                    s.getInteger(CACHE_SIZE_MEMORY));
-            writeEntry(xmlWriter, HEIGHT_MAP_ENABLED, s.getBoolean(HEIGHT_MAP_ENABLED));
-            writeLocationSet(xmlWriter, USER_LOCATIONS,
-                    s.getLocations(USER_LOCATIONS));
-            writeEnd(xmlWriter);
-            xmlWriter.close();
-        } catch (FileNotFoundException fex) {
+            FileOutputStream output = new FileOutputStream(f);
+            try {
+                xmlWriter = XMLOutputFactory.newInstance().createXMLStreamWriter(
+                        output, XML_ENCODING);
+                writeStart(xmlWriter);
+                writeEntry(xmlWriter, LANGUAGE, s.getString(LANGUAGE));
+                writeEntry(xmlWriter, TEXTURE_FILTER, s.getString(TEXTURE_FILTER));
+                writeEntry(xmlWriter, LEVEL_OF_DETAIL,
+                        s.getString(LEVEL_OF_DETAIL));
+                writeEntry(xmlWriter, ANTIALIASING, s.getString(ANTIALIASING));
+                writeEntry(xmlWriter, CACHE_SIZE_FILESYSTEM,
+                        s.getInteger(CACHE_SIZE_FILESYSTEM));
+                writeEntry(xmlWriter, CACHE_SIZE_MEMORY,
+                        s.getInteger(CACHE_SIZE_MEMORY));
+                writeEntry(xmlWriter, HEIGHT_MAP_ENABLED, s.getBoolean(HEIGHT_MAP_ENABLED));
+                writeLocationSet(xmlWriter, USER_LOCATIONS,
+                        s.getLocations(USER_LOCATIONS));
+                writeEnd(xmlWriter);
+                xmlWriter.close();
+            } finally {
+                output.close();
+            }
+        } catch (IOException fex) {
             return;
         } catch (XMLStreamException xex) {
             return;

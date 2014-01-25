@@ -28,30 +28,22 @@ public class OSMTileLayout implements TileLayout {
         }
 
         this.zoomLevel = zoomLevel;
-        if (zoomLevel == 0) {
-            minLon = maxLon = 0;
-        } else {
-            minLon = -(1 << (zoomLevel - 1));
-            maxLon = (1 << (zoomLevel - 1)) - 1;
-        }
-        minLat = minLon - 1;
-        maxLat = maxLon + 1;
+        minLon = 0;
+        maxLon = (1 << zoomLevel) - 1;
+        minLat = - 1;
+        maxLat = (1 << zoomLevel);
     }
 
     @Override
     public GridPoint getTileOrigin(Tile tile) {
         if (tile instanceof OSMTile) {
 
-            int lon = ((OSMTile) tile).getLongitudeIndex(), lat = ((OSMTile) tile)
-                    .getLatitudeIndex();
-            if (zoomLevel > 0 && lon >= 1 << (zoomLevel - 1)) {
-                lon = lon - (1 << zoomLevel);
-            }
-            return new GridPoint(lon, (1 << (zoomLevel - 1)) - 1 - lat);
+            return new GridPoint(((OSMTile) tile).getLongitudeIndex(), 
+                    ((OSMTile) tile).getLatitudeIndex());
 
         } else if (tile instanceof OSMPole) {
 
-            return new GridPoint(0, ((OSMPole) tile).getPole() == OSMPole.NORTH ? maxLat : minLat);
+            return new GridPoint(0, ((OSMPole) tile).getPole() == OSMPole.NORTH ? minLat : maxLat);
 
         } else {
             throw new IllegalArgumentException();
@@ -64,17 +56,14 @@ public class OSMTileLayout implements TileLayout {
 
         int lon = moduloPoint.getLongitude(), lat = moduloPoint.getLatitude();
 
-        if (lat == maxLat) {
+        if (lat == minLat) {
             return new OSMPole(zoomLevel, OSMPole.NORTH);
-        } else if (lat == minLat) {
+        } else if (lat == maxLat) {
             return new OSMPole(zoomLevel, OSMPole.SOUTH);
         } else if (zoomLevel == 0) {
             return new OSMTile(0, 0, 0);
         } else {
-            if (lon < 0) {
-                lon += (1 << zoomLevel);
-            }
-            return new OSMTile(zoomLevel, lon, (1 << (zoomLevel - 1)) - 1 - lat);
+            return new OSMTile(zoomLevel, lon, lat);
         }
     }
 
@@ -100,19 +89,23 @@ public class OSMTileLayout implements TileLayout {
         } else if (coords.getLatitude() <= OSMTile.MIN_LATITUDE) {
             return new OSMPole(zoomLevel, OSMPole.SOUTH);
         } else {
-            int lonIndex = (int) floor((coords.getLongitude() + PI) / (2 * PI) * (1 << zoomLevel));
-            if (lonIndex == (1 << zoomLevel)) {
-                lonIndex = 0;
-            }
-
-            int latIndex = (int) floor((1 -
-                    (log(tan(coords.getLatitude()) + 1 / cos(coords.getLatitude()))) / PI)
-                    * (1 << (zoomLevel - 1)));
-
-            if (latIndex >= 0 && latIndex < (1 << zoomLevel)) {
-                return new OSMTile(zoomLevel, lonIndex, latIndex);
+            if (zoomLevel > 0) {
+                int lonIndex = (int) floor((coords.getLongitude() + PI) / (2 * PI) * (1 << zoomLevel));
+                if (lonIndex == (1 << zoomLevel)) {
+                    lonIndex = 0;
+                }
+    
+                int latIndex = (int) floor((1 -
+                        (log(tan(coords.getLatitude()) + 1 / cos(coords.getLatitude()))) / PI)
+                        * (1 << (zoomLevel - 1)));
+                
+                if (latIndex >= 0 && latIndex < (1 << zoomLevel)) {
+                    return new OSMTile(zoomLevel, lonIndex, latIndex);
+                } else {
+                    return null;
+                }
             } else {
-                return null;
+                return new OSMTile(0, 0, 0);
             }
         }
     }
@@ -147,8 +140,8 @@ public class OSMTileLayout implements TileLayout {
             GridPoint origin = getTileOrigin(tile);
             return new GridPoint[] {
                     origin, new GridPoint(origin.getLongitude() + 1, origin.getLatitude()),
-                    new GridPoint(origin.getLongitude(), origin.getLatitude() + 1),
-                    new GridPoint(origin.getLongitude() + 1, origin.getLatitude() + 1) };
+                    new GridPoint(origin.getLongitude(), origin.getLatitude() - 1),
+                    new GridPoint(origin.getLongitude() + 1, origin.getLatitude() - 1) };
 
         } else if (tile instanceof OSMPole) {
 
@@ -156,7 +149,7 @@ public class OSMTileLayout implements TileLayout {
             int slices = 1 << zoomLevel;
             GridPoint[] corners = new GridPoint[slices];
             for (int i = 0; i < slices; ++i) {
-                corners[i] = new GridPoint(i, pole == OSMPole.NORTH ? maxLat - 1 : minLat + 1);
+                corners[i] = new GridPoint(i, pole == OSMPole.NORTH ? minLat : maxLat);
             }
             return corners;
 

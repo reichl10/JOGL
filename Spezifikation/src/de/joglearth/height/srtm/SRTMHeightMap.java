@@ -129,6 +129,22 @@ public class SRTMHeightMap implements HeightMap {
         
         return (angle / PI * 180) % 1;
     }
+    
+    
+    private static double catmullRomSpline(double[] p, double d) {
+        double[] a = { 2*p[1], -p[0]+p[2], 2*p[0]-5*p[1]+4*p[2]-p[3], -p[0]+3*p[1]-3*p[2]+p[3] };
+        double accum = 0, dpow =  1;
+        for (int i=0; i<4; ++i) {
+            accum += dpow * a[i];
+            dpow *= d;
+        }
+        return 0.5 * accum;
+    }
+    
+    private static int clamp(int value, int lower, int upper) {
+        return min(upper, max(lower, value));
+    }
+    
 
     @Override
     public double getHeight(GeoCoordinates coords, double angularResolution) {
@@ -142,26 +158,26 @@ public class SRTMHeightMap implements HeightMap {
             while (lod < 10 && angularResolution > lodResolutions[lod]) {
                 ++lod;
             }
-            if (lod < 10) ++lod;
-            if (lod < 10) ++lod;
             short[][] values = tile.getTile(lod);
-            double x = getTileOffset(coords.getLongitude()) * values.length,
-                   y = getTileOffset(coords.getLatitude()) * values.length;
+            double tileOffsetX = getTileOffset(coords.getLongitude()) * values.length,
+                   tileOffsetY = getTileOffset(coords.getLatitude()) * values.length,
+                   pixelOffsetX = tileOffsetX - floor(tileOffsetX),
+                   pixelOffsetY = tileOffsetY - floor(tileOffsetY);
             
-            int leftIndex = (int) floor(x), rightIndex = min(values.length-1, leftIndex+1), 
-               bottomIndex = values.length - 1 - (int) floor(y), topIndex = max(0, bottomIndex-1);
-            short topLeft = values[topIndex][leftIndex],
-                  topRight = values[topIndex][rightIndex], 
-                  bottomLeft = values[bottomIndex][leftIndex], 
-                  bottomRight = values[bottomIndex][rightIndex];
+            int leftIndex = (int) floor(tileOffsetX)-1, 
+                bottomIndex = values.length - (int) floor(tileOffsetY) + 1;
             
-            double rightFraction = (x - floor(x)), bottomFraction = 1 - (y - floor(y)), 
-                   leftFraction = 1 - rightFraction, topFraction = 1 - bottomFraction;
-            
-            double interpolated = (topLeft * leftFraction + topRight * rightFraction) * topFraction
-                    + (bottomLeft * leftFraction + bottomRight * rightFraction) * bottomFraction;
-            
-            return interpolated / EARTH_RADIUS_METERS;
+            double[] py = new double[4];
+            for (int i=0; i<4; ++i) {
+                double[] px = new double[4];
+                int yIndex = clamp(bottomIndex - i, 0, values.length-1);
+                for (int j=0; j<4; ++j) {
+                    int xIndex = clamp(leftIndex + j, 0, values.length-1);
+                    px[j] = values[yIndex][xIndex];
+                }
+                py[i] = catmullRomSpline(px, pixelOffsetX);
+            }            
+            return catmullRomSpline(py, pixelOffsetY) / EARTH_RADIUS_METERS;   
         } else {
             return 0;
         }

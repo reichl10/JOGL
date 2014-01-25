@@ -40,6 +40,7 @@ public class GLTestWindow {
                     frame = new JFrame("GL Test Window");
                     frame.setSize(400, 300);
 
+                    eas = new GLEasel();
                     canvas = eas.newCanvas(prof, Antialiasing.MSAA_16X);
                     canvas.addGLEventListener(new GLEventListener() {
 
@@ -61,7 +62,7 @@ public class GLTestWindow {
                         }
                     });
 
-                    frame.add(canvas);
+                    frame.add(eas);
                     frame.setVisible(true);
                 }
 
