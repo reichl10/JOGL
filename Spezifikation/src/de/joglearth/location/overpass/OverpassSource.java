@@ -23,6 +23,7 @@ import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.location.Location;
 import de.joglearth.location.LocationType;
 import de.joglearth.location.nominatim.NominatimSource;
+import de.joglearth.source.Priorized;
 import de.joglearth.source.ProgressManager;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
@@ -35,7 +36,7 @@ import de.joglearth.util.HTTP;
 /**
  * Provides responses from the OverpassAPI, for e.g. detailed information to a POI or a place.
  */
-public class OverpassSource implements Source<OverpassQuery, Collection<Location>> {
+public class OverpassSource implements Source<OverpassQuery, Collection<Location>>, Priorized {
 
     private Map<LocationType, String> locationRequest;
     private final ExecutorService executor;
@@ -49,7 +50,7 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
      */
     public OverpassSource() {
         queue = new PriorizedRunnableQueue();
-        executor = new ThreadPoolExecutor(4, 4, 0, TimeUnit.MILLISECONDS, queue);
+        executor = new ThreadPoolExecutor(2, 2, 0, TimeUnit.MILLISECONDS, queue);
         info = new NominatimSource();
 
         locationRequest = new HashMap<LocationType, String>();
@@ -330,4 +331,5 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
     public void increasePriority() {
         queue.increasePriority();
     }
+
 }

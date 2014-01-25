@@ -94,13 +94,4 @@ public class SRTMBinarySource implements Source<SRTMTileName, byte[]>, Priorized
         queue.increasePriority();
     }
 
-    @Override
-    public void setPriority(long priority) {
-        queue.setPriority(priority);
-    }
-
-    @Override
-    public long getPriority() {
-        return queue.getPriority();
-    }
 }

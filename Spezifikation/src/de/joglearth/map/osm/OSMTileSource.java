@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 import javax.imageio.ImageIO;
 
 import de.joglearth.map.TileName;
+import de.joglearth.source.Priorized;
 import de.joglearth.source.ProgressManager;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
@@ -31,7 +32,7 @@ import de.joglearth.util.Resource;
 /**
  * Loads OpenStreetMap image tiles by their coordinates via HTTP.
  */
-public class OSMTileSource implements Source<TileName, byte[]> {
+public class OSMTileSource implements Source<TileName, byte[]>, Priorized {
 
     private Map<OSMMapType, ServerSet> serverSets;
     private final ExecutorService executor;
@@ -272,13 +273,10 @@ public class OSMTileSource implements Source<TileName, byte[]> {
                 return "png";
         }
     }
-<<<<<<< HEAD
 
     @Override
     public void increasePriority() {
         queue.increasePriority();
     }
 
-=======
->>>>>>> master
 }

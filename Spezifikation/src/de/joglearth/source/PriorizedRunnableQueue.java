@@ -85,6 +85,7 @@ public class PriorizedRunnableQueue implements BlockingQueue<Runnable>, Priorize
     }
     
     
+    @Override
     public synchronized void increasePriority() {
         ++this.currentPriority;
     }

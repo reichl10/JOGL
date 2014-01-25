@@ -20,7 +20,7 @@ public final class NominatimManager
 
     private static NominatimManager instance = null;
     private Cache<NominatimQuery, Collection<Location>> cache;
-    private Source<NominatimQuery, Collection<Location>> source;
+    private NominatimSource source;
     private RequestDistributor<NominatimQuery, Collection<Location>> dist;
 
 
@@ -75,16 +75,6 @@ public final class NominatimManager
         if (instance != null) {
             dist.dispose();
         }
-    }
-
-    @Override
-    public void setPriority(long priority) {
-        source.setPriority(priority);
-    }
-
-    @Override
-    public long getPriority() {
-        return source.getPriority();
     }
 
     @Override

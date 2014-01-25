@@ -52,6 +52,8 @@ import de.joglearth.geometry.Vector3;
 import de.joglearth.geometry.Vector4;
 import de.joglearth.height.HeightMap;
 import de.joglearth.height.flat.FlatHeightMap;
+import de.joglearth.height.srtm.SRTMHeightMap;
+import de.joglearth.height.srtm.SRTMTileManager;
 import de.joglearth.location.Location;
 import de.joglearth.location.LocationManager;
 import de.joglearth.location.LocationType;
@@ -66,6 +68,7 @@ import de.joglearth.opengl.VertexBuffer;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
+import de.joglearth.source.Priorized;
 import de.joglearth.ui.Messages;
 import de.joglearth.util.Resource;
 
@@ -286,7 +289,7 @@ public class Renderer {
     
     
     private void render() {
-        
+                
         // Construct projection matrix based on the distance to avoid clipping. Constants cause
         // problem with graphics adapters that don't support a 24 bit depth buffer.
         double zNear = camera.getDistance() / 10, zFar = zNear * 2000;
@@ -333,6 +336,12 @@ public class Renderer {
             gl.setFeatureEnabled(GL_LIGHTING, false);
 
         } else {
+            
+            textureManager.increasePriority();
+            locationManager.increasePriority();        
+            if (heightMap instanceof Priorized) {
+                ((Priorized) heightMap).increasePriority();
+            }
             
             // Blend inner day sky
             gl.setBlendingFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

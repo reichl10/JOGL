@@ -94,9 +94,4 @@ public class SRTMTileSource implements Source<SRTMTileName, SRTMTile> {
     public void dispose() {
         binarySource.dispose();
     }
-
-    @Override
-    public void increasePriority() {
-        binarySource.increasePriority();
-    }
 }

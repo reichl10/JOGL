@@ -10,13 +10,14 @@ import java.util.ArrayList;
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.geometry.SurfaceListener;
 import de.joglearth.height.HeightMap;
+import de.joglearth.source.Priorized;
 import de.joglearth.source.SourceListener;
 
 /**
  * Singleton class that returns certain values for height requests.
  * 
  */
-public class SRTMHeightMap implements HeightMap {
+public class SRTMHeightMap implements HeightMap, Priorized {
 
     private static SRTMHeightMap instance = null;
     
@@ -210,6 +211,11 @@ public class SRTMHeightMap implements HeightMap {
     @Override
     public boolean equals(Object obj) {
         return obj != null && this.getClass() == obj.getClass();
+    }
+
+    @Override
+    public void increasePriority() {
+        SRTMTileManager.getInstance().increasePriority();
     }
     
 }
