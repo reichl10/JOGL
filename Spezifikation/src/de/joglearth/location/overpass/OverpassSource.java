@@ -11,7 +11,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLInputFactory;
@@ -22,9 +23,11 @@ import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.location.Location;
 import de.joglearth.location.LocationType;
 import de.joglearth.location.nominatim.NominatimSource;
+import de.joglearth.source.Priorized;
 import de.joglearth.source.ProgressManager;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
+import de.joglearth.source.PriorizedRunnableQueue;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
 import de.joglearth.util.HTTP;
@@ -33,19 +36,21 @@ import de.joglearth.util.HTTP;
 /**
  * Provides responses from the OverpassAPI, for e.g. detailed information to a POI or a place.
  */
-public class OverpassSource implements Source<OverpassQuery, Collection<Location>> {
+public class OverpassSource implements Source<OverpassQuery, Collection<Location>>, Priorized {
 
     private Map<LocationType, String> locationRequest;
     private final ExecutorService executor;
     private final String url = "http://overpass.osm.rambler.ru/cgi/interpreter";
     private NominatimSource info;
+    private PriorizedRunnableQueue queue;
 
 
     /**
      * Constructor. Initializes the {@link OverpassSource}.
      */
     public OverpassSource() {
-        executor = Executors.newFixedThreadPool(1);
+        queue = new PriorizedRunnableQueue();
+        executor = new ThreadPoolExecutor(2, 2, 0, TimeUnit.MILLISECONDS, queue);
         info = new NominatimSource();
 
         locationRequest = new HashMap<LocationType, String>();
@@ -321,4 +326,10 @@ public class OverpassSource implements Source<OverpassQuery, Collection<Location
             executor.shutdownNow();
         }
     }
+
+    @Override
+    public void increasePriority() {
+        queue.increasePriority();
+    }
+
 }

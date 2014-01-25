@@ -19,6 +19,8 @@ import de.joglearth.opengl.TransformedTexture;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
+import de.joglearth.source.Priorized;
+import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.caching.RequestDistributor;
@@ -28,7 +30,7 @@ import de.joglearth.source.caching.RequestDistributor;
  * Executes requests for textures of the {@link Renderer}. Loads textures from a
  * {@link RequestDistrubutor} which accesses a {@link TextureLoader} and a {@link TexturePool}.
  */
-public class TextureManager {
+public class TextureManager implements Priorized {
 
     private Texture placeholder;
     private List<SurfaceListener> listeners = new ArrayList<>();
@@ -39,6 +41,7 @@ public class TextureManager {
     private TextureLoader<TileName> textureSource;
     private TextureSettingsListener settingsListener;
     private MapConfiguration mapConfiguration;
+    private Source<TileName, byte[]> imageSource;
 
 
     /**
@@ -51,8 +54,9 @@ public class TextureManager {
     public TextureManager(GLContext gl, int textureCacheSize, MapConfiguration configuration) {
         this.gl = gl;
         this.mapConfiguration = configuration;
-        this.textureSource = new TextureLoader<TileName>(gl,
-                configuration.getImageSource(), configuration.getImageFormatSuffix());
+        this.imageSource = configuration.getImageSource();
+        this.textureSource = new TextureLoader<TileName>(gl, imageSource, 
+                configuration.getImageFormatSuffix());
 
         dist = new RequestDistributor<>();
         dist.addCache(new TexturePool<TileName>(gl), textureCacheSize);
@@ -132,8 +136,8 @@ public class TextureManager {
      */
     public synchronized void setMapConfiguration(MapConfiguration configuration) {
         mapConfiguration = configuration;
-        textureSource.setImageSource(configuration.getImageSource(),
-                configuration.getImageFormatSuffix());
+        this.imageSource = configuration.getImageSource();
+        textureSource.setImageSource(imageSource, configuration.getImageFormatSuffix());
     }
 
     /**
@@ -232,5 +236,14 @@ public class TextureManager {
         return gl.loadTexture(image, blocks * pixelsPerBlock, blocks * pixelsPerBlock, GL_RGB,
                 GL_RGB,
                 textureFilter);
+    }
+    
+
+    @Override
+    public void increasePriority() {
+        textureSource.increasePriority();
+        if (imageSource instanceof Priorized) {
+            ((Priorized) imageSource).increasePriority();
+        }
     }
 }

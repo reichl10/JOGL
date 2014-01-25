@@ -3,7 +3,6 @@ package de.joglearth.opengl;
 import com.jogamp.opengl.util.texture.Texture;
 
 import de.joglearth.geometry.Matrix4;
-import de.joglearth.geometry.TransformedTile;
 
 
 /**

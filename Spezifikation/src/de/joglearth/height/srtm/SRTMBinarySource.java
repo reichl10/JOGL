@@ -1,12 +1,15 @@
 package de.joglearth.height.srtm;
 
 import java.util.Map;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
+import de.joglearth.source.Priorized;
 import de.joglearth.source.ProgressManager;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
+import de.joglearth.source.PriorizedRunnableQueue;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
 import de.joglearth.util.HTTP;
@@ -19,11 +22,12 @@ import de.joglearth.util.Resource;
  * elevation zero' the WGS84 spheroid is used. Only necessary if the HightProfile is activated.
  * 
  */
-public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
+public class SRTMBinarySource implements Source<SRTMTileName, byte[]>, Priorized {
 
     private final static String serverURL = "http://dds.cr.usgs.gov/srtm/version2_1/SRTM3/";
     private final static Map<String, String> tileRegionMap = Resource.loadCSVMap("srtm_map.csv",
             "\\s");
+    private PriorizedRunnableQueue queue;
     private ExecutorService executor;
 
 
@@ -32,7 +36,8 @@ public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
      * 
      */
     public SRTMBinarySource() {
-        executor = Executors.newFixedThreadPool(2);
+        queue = new PriorizedRunnableQueue();
+        executor = new ThreadPoolExecutor(2, 2, 0, TimeUnit.MILLISECONDS, queue);
     }
 
     @Override
@@ -83,4 +88,10 @@ public class SRTMBinarySource implements Source<SRTMTileName, byte[]> {
             executor.shutdownNow();
         }
     }
+
+    @Override
+    public void increasePriority() {
+        queue.increasePriority();
+    }
+
 }

@@ -10,7 +10,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLInputFactory;
@@ -23,6 +24,8 @@ import de.joglearth.location.LocationManager;
 import de.joglearth.location.LocationType;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
+import de.joglearth.source.Priorized;
+import de.joglearth.source.PriorizedRunnableQueue;
 import de.joglearth.source.ProgressManager;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
@@ -38,17 +41,19 @@ import de.joglearth.util.HTTP;
  * search request.
  * 
  */
-public class NominatimSource implements Source<NominatimQuery, Collection<Location>> {
+public class NominatimSource implements Source<NominatimQuery, Collection<Location>>, Priorized {
 
     private static final String XML_ELEMENT_ENTRY = "place";
     private final ExecutorService executor;
+    private PriorizedRunnableQueue queue;
 
 
     /**
      * Constructor. Initializes the {@link NominatimSource}.
      */
     public NominatimSource() {
-        executor = Executors.newFixedThreadPool(1);
+        queue = new PriorizedRunnableQueue();
+        executor = new ThreadPoolExecutor(1, 1, 0, TimeUnit.MILLISECONDS, queue);
     }
 
     @Override
@@ -324,5 +329,10 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         synchronized (executor) {
             executor.shutdownNow();
         }
+    }
+
+    @Override
+    public void increasePriority() {
+        queue.increasePriority();
     }
 }

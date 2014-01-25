@@ -8,16 +8,18 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureData;
-import com.sun.rmi.rmid.ExecOptionPermission;
 
 import de.joglearth.async.RunnableResultListener;
 import de.joglearth.async.RunnableWithResult;
 import de.joglearth.opengl.GLContext;
 import de.joglearth.opengl.TextureFilter;
+import de.joglearth.source.Priorized;
+import de.joglearth.source.PriorizedRunnableQueue;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
@@ -28,7 +30,7 @@ import de.joglearth.source.SourceResponseType;
  * Loads the textures into OpenGL returning the ID. Implements {@link Source} to get a new texture,
  * when it is needed. Owns a {@link Source} for image data.
  */
-public class TextureLoader<Key> implements Source<Key, Texture> {
+public class TextureLoader<Key> implements Source<Key, Texture>, Priorized {
 
     private GLContext gl;
     private Source<Key, byte[]> imageSource;
@@ -36,6 +38,7 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
     private TextureFilter textureFilter;
     private String formatSuffix;
     private ExecutorService executor;
+    private PriorizedRunnableQueue queue;
 
     // Stores requests requiring a callback on completion
     private Map<Key, Collection<SourceListener<Key, Texture>>> pendingRequests = new HashMap<>();
@@ -59,7 +62,8 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
         this.textureFilter = TextureFilter.TRILINEAR;
         this.formatSuffix = formatSuffix;
         
-        this.executor = Executors.newSingleThreadExecutor();
+        this.queue = new PriorizedRunnableQueue();
+        this.executor = new ThreadPoolExecutor(1, 1, 0, TimeUnit.MILLISECONDS, queue);
     }
 
 
@@ -187,5 +191,11 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
 
         this.imageSource = imageSource;
         this.formatSuffix = formatSuffix;
+    }
+
+
+    @Override
+    public void increasePriority() {
+        queue.increasePriority();
     }
 }

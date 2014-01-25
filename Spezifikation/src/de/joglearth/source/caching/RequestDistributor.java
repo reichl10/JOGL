@@ -52,6 +52,7 @@ public class RequestDistributor<Key, Value> implements Source<Key, Value> {
      * @param maxSize The maximum size in units defined by the ObjectMeasure passed in the
      *        constructor, has to be greater than <code>0</code>
      */
+    @SuppressWarnings("unchecked")
     public synchronized void addCache(Cache<Key, Value> cache, int maxSize) {
         if (cache == null)
             return;

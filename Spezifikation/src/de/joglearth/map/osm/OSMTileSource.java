@@ -12,16 +12,17 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
 import de.joglearth.map.TileName;
+import de.joglearth.source.Priorized;
 import de.joglearth.source.ProgressManager;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
+import de.joglearth.source.PriorizedRunnableQueue;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
 import de.joglearth.util.HTTP;
@@ -31,16 +32,16 @@ import de.joglearth.util.Resource;
 /**
  * Loads OpenStreetMap image tiles by their coordinates via HTTP.
  */
-public class OSMTileSource implements Source<TileName, byte[]> {
+public class OSMTileSource implements Source<TileName, byte[]>, Priorized {
 
     private Map<OSMMapType, ServerSet> serverSets;
     private final ExecutorService executor;
+    private PriorizedRunnableQueue queue;
 
 
     private class ServerSet {
 
         public String[] servers;
-
 
         public ServerSet(String[] servers) {
             this.servers = servers;
@@ -59,7 +60,8 @@ public class OSMTileSource implements Source<TileName, byte[]> {
      * @param servers An array containing the server strings
      */
     public OSMTileSource() {
-        executor = Executors.newFixedThreadPool(4);
+        queue = new PriorizedRunnableQueue();
+        executor = new ThreadPoolExecutor(4, 4, 0, TimeUnit.MILLISECONDS, queue);
 
         serverSets = new HashMap<>();
         serverSets.put(OSMMapType.CYCLING, new ServerSet(new String[] {
@@ -271,4 +273,10 @@ public class OSMTileSource implements Source<TileName, byte[]> {
                 return "png";
         }
     }
+
+    @Override
+    public void increasePriority() {
+        queue.increasePriority();
+    }
+
 }

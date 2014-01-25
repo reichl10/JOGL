@@ -1,5 +1,6 @@
 package de.joglearth.height.srtm;
 
+import de.joglearth.source.Priorized;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
@@ -14,11 +15,13 @@ import de.joglearth.util.ApplicationData;
 /**
  * Singleton class that retrieves data from the {@link de.joglearth.height.srtm.SRTMTileSource}.
  */
-public final class SRTMTileManager implements Source<SRTMTileName, SRTMTile> {
+public final class SRTMTileManager implements Source<SRTMTileName, SRTMTile>, Priorized {
 
     private static SRTMTileManager instance = null;
     private RequestDistributor<SRTMTileName, SRTMTile> tileRequestDistributor;
     private RequestDistributor<SRTMTileName, byte[]> binaryRequestDistributor;
+    private SRTMTileSource tileSource;
+    private SRTMBinarySource binarySource;
 
 
     /**
@@ -45,14 +48,14 @@ public final class SRTMTileManager implements Source<SRTMTileName, SRTMTile> {
 
     // Default constructor
     private SRTMTileManager(String folder, int memCacheBytes, int fsCacheBytes) {
-        SRTMBinarySource binarySource = new SRTMBinarySource();
+        binarySource = new SRTMBinarySource();
         FileSystemCache<SRTMTileName> binaryCache = new FileSystemCache<>(folder,
                 new SRTMPathTranslator());
         binaryRequestDistributor = new RequestDistributor<>(new ByteArrayMeasure());
         binaryRequestDistributor.setSource(binarySource);
         binaryRequestDistributor.addCache(binaryCache, fsCacheBytes);
 
-        SRTMTileSource tileSource = new SRTMTileSource(binaryRequestDistributor);
+        tileSource = new SRTMTileSource(binaryRequestDistributor);
         MemoryCache<SRTMTileName, SRTMTile> tileCache = new MemoryCache<>();
         tileRequestDistributor = new RequestDistributor<>(new UnityMeasure<SRTMTile>());
         tileRequestDistributor.setSource(tileSource);
@@ -67,7 +70,13 @@ public final class SRTMTileManager implements Source<SRTMTileName, SRTMTile> {
 
     @Override
     public void dispose() {
-        tileRequestDistributor.dispose();
-        binaryRequestDistributor.dispose();
+        tileSource.dispose();
+        binarySource.dispose();
     }
+
+    @Override
+    public void increasePriority() {
+        binarySource.increasePriority();
+    }
+
 }

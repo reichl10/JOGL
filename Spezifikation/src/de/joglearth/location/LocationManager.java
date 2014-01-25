@@ -19,6 +19,7 @@ import de.joglearth.location.overpass.OverpassQuery;
 import de.joglearth.settings.Settings;
 import de.joglearth.settings.SettingsContract;
 import de.joglearth.settings.SettingsListener;
+import de.joglearth.source.Priorized;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
 import de.joglearth.source.SourceResponseType;
@@ -28,7 +29,7 @@ import de.joglearth.source.SourceResponseType;
  * Administers the visibility of particular points gathered from {@link OverpassSource} and
  * {@link NominatimSource}, and user marks from {@link Settings}.
  */
-public class LocationManager {
+public class LocationManager implements Priorized {
 
     private Set<SurfaceListener> surfaceListeners;
     private Set<LocationListener> locationListeners;
@@ -386,5 +387,11 @@ public class LocationManager {
      */
     public void removeLocationListener(LocationListener listener) {
         locationListeners.remove(listener);
+    }
+
+    @Override
+    public void increasePriority() {
+        overpassManager.increasePriority();
+        nominatimManager.increasePriority();
     }
 }

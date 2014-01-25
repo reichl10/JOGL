@@ -3,6 +3,7 @@ package de.joglearth.location.overpass;
 import java.util.Collection;
 
 import de.joglearth.location.Location;
+import de.joglearth.source.Priorized;
 import de.joglearth.source.Source;
 import de.joglearth.source.SourceListener;
 import de.joglearth.source.SourceResponse;
@@ -14,11 +15,12 @@ import de.joglearth.source.caching.RequestDistributor;
 /**
  * Singleton class that retrieves data from the {@link OverpassSource}.
  */
-public final class OverpassManager implements Source<OverpassQuery, Collection<Location>> {
+public final class OverpassManager implements Source<OverpassQuery, Collection<Location>>, 
+        Priorized {
 
     private static OverpassManager instance;
     private RequestDistributor<OverpassQuery, Collection<Location>> dist;
-    private Source<OverpassQuery, Collection<Location>> source;
+    private OverpassSource source;
     private Cache<OverpassQuery, Collection<Location>> cache;
 
 
@@ -71,5 +73,10 @@ public final class OverpassManager implements Source<OverpassQuery, Collection<L
     @Override
     public void dispose() {
         dist.dispose();
+    }
+
+    @Override
+    public void increasePriority() {
+        source.increasePriority();
     }
 }
