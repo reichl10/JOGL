@@ -1,8 +1,6 @@
 package de.joglearth.map.osm;
 
-import static java.lang.Math.PI;
-import static java.lang.Math.atan;
-import static java.lang.Math.sinh;
+import static java.lang.Math.*;
 import de.joglearth.geometry.AbstractTile;
 import de.joglearth.geometry.Matrix4;
 import de.joglearth.geometry.TransformedTile;
@@ -17,6 +15,8 @@ public final class OSMTile extends AbstractTile {
     private int zoomLevel;
     private int lonIndex;
     private int latIndex;
+    
+    private Double longitudeFrom, longitudeTo, latitudeFrom, latitudeTo;
     
     /**
      * The maximum latitude covered by OSM tiles, that is 85.05° N or arctan(sinh(pi)) rad.
@@ -62,22 +62,34 @@ public final class OSMTile extends AbstractTile {
 
     @Override
     public double getLongitudeFrom() {
-        return getLongitudeAngle(lonIndex);
+        if (longitudeFrom == null) {
+            longitudeFrom = getLongitudeAngle(lonIndex);
+        }
+        return longitudeFrom;
     }
 
     @Override
     public double getLongitudeTo() {
-        return getLongitudeAngle(lonIndex + 1);
+        if (longitudeTo == null) {
+            longitudeTo = getLongitudeAngle(lonIndex + 1);
+        }
+        return longitudeTo;
     }
 
     @Override
     public double getLatitudeFrom() {
-        return getLatitudeAngle(latIndex + 1);
+        if (latitudeFrom == null) {
+            latitudeFrom = getLatitudeAngle(latIndex + 1);
+        }
+        return latitudeFrom;
     }
 
     @Override
     public double getLatitudeTo() {
-        return getLatitudeAngle(latIndex);
+        if (latitudeTo == null) {
+            latitudeTo = getLatitudeAngle(latIndex);
+        }
+        return latitudeTo;
     }
 
     /**
