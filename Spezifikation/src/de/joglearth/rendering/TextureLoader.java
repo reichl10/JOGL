@@ -2,6 +2,7 @@ package de.joglearth.rendering;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -66,7 +67,12 @@ public class TextureLoader<Key> implements Source<Key, Texture> {
 
         final TextureData data;
         try {
-            data = gl.loadTextureData(new ByteArrayInputStream(raw), formatSuffix);
+            InputStream input = new ByteArrayInputStream(raw);
+            try {
+                data = gl.loadTextureData(input, formatSuffix);
+            } finally {
+                input.close();
+            }        
         } catch (IOException e) {
             sender.requestCompleted(key, null);
             return;

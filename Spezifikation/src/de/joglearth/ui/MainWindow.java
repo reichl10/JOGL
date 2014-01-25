@@ -837,9 +837,13 @@ public class MainWindow extends JFrame {
     private void openManual() {
         try {
             Path pdfPath = Files.createTempFile(null, ".pdf");
-            InputStream in = Resource.open("Handbuch.pdf");
-            Files.copy(in, pdfPath, StandardCopyOption.REPLACE_EXISTING);
-            Desktop.getDesktop().open(pdfPath.toFile());
+            InputStream input = Resource.open("Handbuch.pdf");
+            try {
+                Files.copy(input, pdfPath, StandardCopyOption.REPLACE_EXISTING);
+                Desktop.getDesktop().open(pdfPath.toFile());
+            } finally {
+                input.close();
+            }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, Messages.getString("MainWindow.manualFailed"),
                     JoglEarth.PRODUCT_NAME, JOptionPane.ERROR_MESSAGE);

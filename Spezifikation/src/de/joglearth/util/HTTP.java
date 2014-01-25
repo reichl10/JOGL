@@ -92,21 +92,24 @@ public final class HTTP {
         byte[] response = null;
         byte[] buffer = new byte[4096];
         try {
-
             InputStream in = connection.getInputStream();
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-            /* Value -1 shows the end of the HTTP content */
-            int n = -1;
-
-            while ((n = in.read(buffer)) != -1) {
-                out.write(buffer, 0, n);
+            try {
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                try {
+                    /* Value -1 shows the end of the HTTP content */
+                    int n = -1;
+        
+                    while ((n = in.read(buffer)) != -1) {
+                        out.write(buffer, 0, n);
+                    }
+        
+                    response = out.toByteArray();
+                } finally {
+                    out.close();
+                } 
+            } finally {
+                in.close();
             }
-
-            response = out.toByteArray();
-
-            out.close();
-            in.close();
         } catch (IOException ioe) {
             return null;
         }
@@ -202,12 +205,14 @@ public final class HTTP {
         connection.setDoOutput(true);
 
         /* Handle OutputStream */
-        DataOutputStream dos;
         try {
-            dos = new DataOutputStream(connection.getOutputStream());
-            dos.writeBytes(post.toString());
-            dos.flush();
-            dos.close();
+            DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
+            try {
+                dos.writeBytes(post.toString());
+                dos.flush();
+            } finally {
+                dos.close();
+            }
         } catch (IOException e) {
             return null;
         }
@@ -225,21 +230,25 @@ public final class HTTP {
         byte[] response = null;
         byte[] buffer = new byte[4096];
         try {
-
             InputStream in = connection.getInputStream();
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-            /* Value -1 shows the end of the HTTP content */
-            int n = -1;
-
-            while ((n = in.read(buffer)) != -1) {
-                out.write(buffer, 0, n);
+            try {
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                try {
+        
+                    /* Value -1 shows the end of the HTTP content */
+                    int n = -1;
+        
+                    while ((n = in.read(buffer)) != -1) {
+                        out.write(buffer, 0, n);
+                    }
+        
+                    response = out.toByteArray();
+                } finally {
+                    out.close();
+                }
+            } finally {
+                in.close();
             }
-
-            response = out.toByteArray();
-
-            out.close();
-            in.close();
         } catch (IOException ioe) {
             return null;
         }

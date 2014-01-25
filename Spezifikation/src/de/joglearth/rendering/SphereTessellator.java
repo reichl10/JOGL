@@ -23,17 +23,22 @@ public class SphereTessellator implements Tessellator {
         Vector3 vec = new Vector3(cos(lat) * sin(lon), sin(lat), cos(lat) * cos(lon));
         return vec.times(1 + heightMap.getHeight(new GeoCoordinates(lon, lat), latStep));
     }
+    
+    private static Vector3 tangent(Vector3 a, Vector3 b, Vector3 c) {
+        return c.minus(b).normalized().minus(a.minus(b).normalized());
+    }
 
     private static void writeSingleVertex(float[] vertices, int vIndex, double lon, double lat,
             double lonStep, double latStep, HeightMap heightMap, double textureX, double textureY) {
 
         Vector3 vertex = getSurfaceVector(lon, lat, latStep, heightMap), 
-                east = getSurfaceVector(lon + latStep*2, lat, latStep, heightMap), 
-                north = getSurfaceVector(lon, lat + latStep*2, latStep, heightMap), 
-                west = getSurfaceVector(lon - latStep*2, lat, latStep, heightMap), 
-                south = getSurfaceVector(lon, lat - latStep*2, latStep, heightMap);
+                east = getSurfaceVector(lon - lonStep, lat, lonStep, heightMap), 
+                north = getSurfaceVector(lon, lat + latStep, latStep, heightMap), 
+                west = getSurfaceVector(lon + lonStep, lat, lonStep, heightMap), 
+                south = getSurfaceVector(lon, lat - latStep, latStep, heightMap);
 
-        Vector3 normal = east.minus(west).crossProduct(north.minus(south)).normalized();
+        Vector3 normal = tangent(east, vertex, west).crossProduct(
+                    tangent(north, vertex, south)).normalized();
         writeVertex(vertices, vIndex, vertex.x, vertex.y, vertex.z);
         writeNormal(vertices, vIndex, normal.x, normal.y, normal.z);
         writeTextureCoordinates(vertices, vIndex, textureX, textureY);

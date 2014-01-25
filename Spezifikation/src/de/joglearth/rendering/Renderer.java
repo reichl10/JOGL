@@ -482,7 +482,7 @@ public class Renderer {
         bubbleTextRenderer = new TextRenderer(new Font(Font.SANS_SERIF, 0, 12), true, 
                 false);
         
-        camera.setPosition(new GeoCoordinates(30*PI/180, 15*PI/180));
+        camera.setPosition(new GeoCoordinates(30*PI/180, 15*PI/180));        
     }
 
     private void dispose() {
@@ -505,14 +505,17 @@ public class Renderer {
     {
         try {
             InputStream rsrcStream = Resource.open(name);
-            TextureData data = gl.loadTextureData(rsrcStream, extension);
-            if (data == null) {
+            try {
+                TextureData data = gl.loadTextureData(rsrcStream, extension);
+                if (data == null) {
+                    rsrcStream.close();
+                    rsrcStream = Resource.open(name);
+                    data = gl.loadTextureDataScaled(rsrcStream, extension);
+                }
+                return gl.loadTexture(data, textureFilter);
+            } finally {
                 rsrcStream.close();
-                rsrcStream = Resource.open(name);
-                data = gl.loadTextureDataScaled(rsrcStream, extension);
             }
-            rsrcStream.close();
-            return gl.loadTexture(data, textureFilter);
         } catch (IOException e) {
             e.printStackTrace();
             return null;

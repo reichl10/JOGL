@@ -723,6 +723,60 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         assertIsInitialized();
         return lightCount;
     }
+    
+    
+    public int loadShaders(String vertexShaderSource, String fragmentShaderSource) {
+        assertIsInitialized();
+        assertIsInsideCallback();
+        
+        // Load and compile vertex shader
+        int vertexShader = gl.glCreateShader(GL_VERTEX_SHADER);
+        GLError.throwIfActive(gl);
+        
+        gl.glShaderSource(vertexShader, 1, new String[] { vertexShaderSource }, null, 0);
+        GLError.throwIfActive(gl);
+        
+        gl.glCompileShader(vertexShader);
+        GLError.throwIfActive(gl);
+        
+        // Load and compile fragment shader
+        int fragmentShader = gl.glCreateShader(GL_FRAGMENT_SHADER);
+        GLError.throwIfActive(gl);
+
+        gl.glShaderSource(fragmentShader, 1, new String[] { fragmentShaderSource }, null, 0);
+        GLError.throwIfActive(gl);
+        
+        gl.glCompileShader(fragmentShader);
+        GLError.throwIfActive(gl);
+        
+        // Link shaders into shader program
+        int program = gl.glCreateProgram();
+        GLError.throwIfActive(gl);
+        
+        gl.glAttachShader(program, vertexShader);
+        GLError.throwIfActive(gl);
+        
+        gl.glAttachShader(program, fragmentShader);
+        GLError.throwIfActive(gl);  
+        
+        gl.glLinkProgram(program);
+        GLError.throwIfActive(gl);  
+        
+        gl.glValidateProgram(program);   
+        GLError.throwIfActive(gl);  
+        
+        return program;
+    }
+    
+    
+    public void bindShaders(int program) {
+        assertIsInitialized();
+        assertIsInsideCallback();
+        
+        gl.glUseProgram(program);
+        GLError.throwIfActive(gl);                
+    }
+    
 
     /**
      * Places a GL light in the scene. The position is affected by the model-view-matrix.
@@ -779,7 +833,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
      * Returns whether a light is currently enabled.
      * 
      * @param index The light index. Must be between (including) 0 and getLightCount()-1
-     * @return Whether the light is enabled
+     * @return Whether the light is enablled
      * @throws IllegalStateException The context has not yet been initialized by a GLAutoDrawable
      * @throws GLError An internal OpenGL error has occurred
      */

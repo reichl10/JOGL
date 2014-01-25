@@ -8,6 +8,7 @@ import java.awt.image.Raster;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -217,7 +218,12 @@ public class OSMTileSource implements Source<TileName, byte[]> {
         if (response != null && mapType == OSMMapType.SATELLITE && tile.getDetailLevel() > 8) {
             BufferedImage img;
             try {
-                img = ImageIO.read(new ByteArrayInputStream(response));
+                InputStream stream = new ByteArrayInputStream(response);
+                try {
+                    img = ImageIO.read(stream);
+                } finally {
+                    stream.close();
+                }
             } catch (IOException e) {
                 return null;
             }
@@ -226,10 +232,14 @@ public class OSMTileSource implements Source<TileName, byte[]> {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
 
             try {
-                ImageIO.write(img, "jpg", out);
+                try {
+                    ImageIO.write(img, "jpg", out);
+                } finally {
+                    out.close();
+                }
             } catch (IOException e) {
                 return null;
-            }
+            } 
             
             response = out.toByteArray();
         }

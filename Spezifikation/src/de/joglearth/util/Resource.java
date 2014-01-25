@@ -6,8 +6,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -58,7 +61,12 @@ public final class Resource {
      */
     public static ImageIcon loadIcon(String name) {
         try {
-            return new ImageIcon(ImageIO.read(open(name)));
+            InputStream input = open(name);
+            try {
+                return new ImageIcon(ImageIO.read(input));
+            } finally {
+                input.close();
+            }
         } catch (IOException e) {
             throw new RuntimeException("Loading resource " + name + " failed", e);
         }
@@ -76,17 +84,23 @@ public final class Resource {
         Map<String, String> map = new HashMap<>();
         try {
             InputStream resourceStream = open(name);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    resourceStream));
-            
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(separatorRegex);
-                if (parts.length == 2) {
-                    map.put(parts[0], parts[1]);
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(
+                        resourceStream));
+                try {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String[] parts = line.split(separatorRegex);
+                        if (parts.length == 2) {
+                            map.put(parts[0], parts[1]);
+                        }
+                    }
+                } finally {
+                    reader.close();
                 }
+            } finally {
+                resourceStream.close();
             }
-            resourceStream.close();
         } catch (IOException e) {
             throw new RuntimeException("Loading resource " + name + " failed", e);
         }
@@ -102,13 +116,30 @@ public final class Resource {
     public static byte[] loadBinary(String name) {
         try {
             InputStream input = open(name);
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-            byte[] buf = new byte[0x10000];
-            int n;
-            while ((n = input.read(buf)) != -1) {
-                output.write(buf, 0, n);
+            try {
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                byte[] buf = new byte[0x10000];
+                int n;
+                while ((n = input.read(buf)) != -1) {
+                    output.write(buf, 0, n);
+                }
+                return output.toByteArray();
+            } finally {
+                input.close();
             }
-            return output.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException("Loading resource " + name + " failed", e);
+        }
+    }
+    
+    public static String loadText(String name) {
+        try {
+            InputStream input = open(name);
+            try {
+                return new Scanner(input).useDelimiter("\\Z").next();
+            } finally {
+                input.close();
+            }
         } catch (IOException e) {
             throw new RuntimeException("Loading resource " + name + " failed", e);
         }
