@@ -12,12 +12,13 @@ public class PriorizedRunnableQueue implements BlockingQueue<Runnable>, Priorize
     
     private class QueueEntry implements Comparable<QueueEntry>
     {
-        public final long priority;
+        public final long priority, sequenceNo;
         public final Runnable value; 
         
-        public QueueEntry(Runnable value, long priority) {
+        public QueueEntry(Runnable value, long priority, long sequenceNo) {
             this.priority = priority;
             this.value = value;
+            this.sequenceNo = sequenceNo;
         }
         
         @Override
@@ -27,7 +28,13 @@ public class PriorizedRunnableQueue implements BlockingQueue<Runnable>, Priorize
             } else if (this.priority > other.priority) {
                 return +1;
             } else {
-                return 0;
+                if (this.sequenceNo > other.sequenceNo) {
+                    return +1;
+                } else if (this.sequenceNo < other.sequenceNo){
+                    return -1;
+                } else {
+                    return 0; // Should not happen!
+                }
             }
         }
 
@@ -72,22 +79,13 @@ public class PriorizedRunnableQueue implements BlockingQueue<Runnable>, Priorize
     
     PriorityBlockingQueue<QueueEntry> queue = new PriorityBlockingQueue<>();
     private long currentPriority = 0;
+    private long sequenceNo = 0;
     
-    
-    public synchronized void setPriority(long priority) {
-        if (priority < 0) throw new IllegalArgumentException();
-        this.currentPriority = priority;
-    }
-    
-    
-    public synchronized long getPriority() {
-        return currentPriority;
-    }
-    
-    
+        
     @Override
     public synchronized void increasePriority() {
         ++this.currentPriority;
+        this.sequenceNo = 0;
     }
     
     
@@ -118,23 +116,24 @@ public class PriorizedRunnableQueue implements BlockingQueue<Runnable>, Priorize
     
     
     @Override
-    public boolean offer(Runnable e) {
-        return queue.offer(new QueueEntry(e, currentPriority));
+    public synchronized boolean offer(Runnable e) {
+        return queue.offer(new QueueEntry(e, currentPriority, sequenceNo++));
     }
 
     @Override
-    public boolean offer(Runnable e, long timeout, TimeUnit unit) throws InterruptedException {
-        return queue.offer(new QueueEntry(e, currentPriority), timeout, unit);
+    public synchronized boolean offer(Runnable e, long timeout, TimeUnit unit) 
+            throws InterruptedException {
+        return queue.offer(new QueueEntry(e, currentPriority, sequenceNo++), timeout, unit);
     }
 
     @Override
-    public boolean add(Runnable e) {
-        return queue.add(new QueueEntry(e, currentPriority));
+    public synchronized boolean add(Runnable e) {
+        return queue.add(new QueueEntry(e, currentPriority, sequenceNo++));
     }
 
     @Override
-    public void put(Runnable e) throws InterruptedException {
-        queue.put(new QueueEntry(e, currentPriority));
+    public synchronized void put(Runnable e) throws InterruptedException {
+        queue.put(new QueueEntry(e, currentPriority, sequenceNo++));
     }
 
     @Override
@@ -162,10 +161,10 @@ public class PriorizedRunnableQueue implements BlockingQueue<Runnable>, Priorize
     }
 
     @Override
-    public boolean addAll(Collection<? extends Runnable> collection) {
+    public synchronized boolean addAll(Collection<? extends Runnable> collection) {
         ArrayList<QueueEntry> entryCollection = new ArrayList<>();
         for (Runnable Runnable : collection) {
-            entryCollection.add(new QueueEntry(Runnable, currentPriority));
+            entryCollection.add(new QueueEntry(Runnable, currentPriority, sequenceNo++));
         }
         return queue.addAll(entryCollection);
     }
@@ -176,10 +175,10 @@ public class PriorizedRunnableQueue implements BlockingQueue<Runnable>, Priorize
     }
 
     @Override
-    public boolean containsAll(Collection<?> collection) {
+    public synchronized boolean containsAll(Collection<?> collection) {
         ArrayList<Object> entryCollection = new ArrayList<>();
         for (Object Runnable : collection) {
-            entryCollection.add(new QueueEntry((Runnable) Runnable, currentPriority));
+            entryCollection.add(new QueueEntry((Runnable) Runnable, currentPriority, sequenceNo++));
         }
         return queue.containsAll(entryCollection);
     }
@@ -196,19 +195,19 @@ public class PriorizedRunnableQueue implements BlockingQueue<Runnable>, Priorize
     }
 
     @Override
-    public boolean removeAll(Collection<?> collection) {
+    public synchronized boolean removeAll(Collection<?> collection) {
         ArrayList<Object> entryCollection = new ArrayList<>();
         for (Object Runnable : collection) {
-            entryCollection.add(new QueueEntry((Runnable) Runnable, currentPriority));
+            entryCollection.add(new QueueEntry((Runnable) Runnable, currentPriority, sequenceNo++));
         }
         return queue.removeAll(entryCollection);
     }
 
     @Override
-    public boolean retainAll(Collection<?> collection) {
+    public synchronized boolean retainAll(Collection<?> collection) {
         ArrayList<Object> entryCollection = new ArrayList<>();
         for (Object Runnable : collection) {
-            entryCollection.add(new QueueEntry((Runnable) Runnable, currentPriority));
+            entryCollection.add(new QueueEntry((Runnable) Runnable, currentPriority, sequenceNo++));
         }
         return queue.removeAll(entryCollection);
     }
@@ -239,11 +238,11 @@ public class PriorizedRunnableQueue implements BlockingQueue<Runnable>, Priorize
     }
 
     @Override
-    public boolean contains(Object value) {
+    public synchronized boolean contains(Object value) {
         if (!(value instanceof QueueEntry)) {
             return false;
         }
-        return queue.contains(new QueueEntry((Runnable) value, currentPriority));
+        return queue.contains(new QueueEntry((Runnable) value, currentPriority, sequenceNo++));
     }
 
     @Override
@@ -282,7 +281,7 @@ public class PriorizedRunnableQueue implements BlockingQueue<Runnable>, Priorize
         if (!(arg0 instanceof QueueEntry[])) {
             return false;
         }
-        return queue.remove(new QueueEntry((Runnable) arg0, 0));
+        return queue.remove(new QueueEntry((Runnable) arg0, 0, 0));
     }
 
     @Override
