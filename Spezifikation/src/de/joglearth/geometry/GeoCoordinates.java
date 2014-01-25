@@ -156,9 +156,24 @@ public final class GeoCoordinates implements Cloneable {
     }
 
     private String getCoordinateString(double coord) {
-        double deg = radToDeg(abs(coord)), ideg = floor(deg), imin = Math
-                .floor((deg - ideg) * 60), isec = floor((deg - ideg - (imin / 60)) * 3600);
-        return String.format("%d° %02d' %02d\"", (int) ideg, (int) imin, (int) isec);
+        double deg = radToDeg(abs(coord));
+        int ideg = (int) deg, imin = (int) ((deg - ideg) * 60),
+            isec = (int)((deg - ideg - (imin / 60.0)) * 3600);
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append(ideg);
+        sb.append("° ");
+        if (imin < 10) {
+            sb.append('0');
+        }
+        sb.append(imin);
+        sb.append("' ");
+        if (isec < 10) {
+            sb.append('0');
+        }
+        sb.append(isec);
+        sb.append('"');
+        return sb.toString();
     }
 
     /**
