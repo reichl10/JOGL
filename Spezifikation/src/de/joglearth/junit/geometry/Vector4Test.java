@@ -12,7 +12,7 @@ public class Vector4Test {
 
     @Test
     public final void testVector4() {
-        Vector4 resultVector = new Vector4();
+        Vector4 resultVector = Vector4.IDENTITY;
         double[] resultArray = {resultVector.x, resultVector.y, resultVector.z, resultVector.w};
         double[] expected = {0d,0d,0d,1d};
         assertArrayEquals(expected, resultArray, 0.0000001d);
@@ -37,7 +37,7 @@ public class Vector4Test {
     @Test
     public final void testDivide() {
         Vector4 v1 = new Vector4(0.1234d, 234.4033d, 23.343d, 232.309d);
-        Vector3 resultVector = v1.divide();
+        Vector3 resultVector = v1.perspectiveDivide();
         double[] resultArray = {resultVector.x, resultVector.y, resultVector.z};
         double[] expected = {0.1234d/232.309d, 234.4033d/232.309d, 23.343d/232.309d};
         assertArrayEquals(expected, resultArray, 0.0000001d);

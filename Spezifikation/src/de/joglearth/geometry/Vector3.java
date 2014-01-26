@@ -19,14 +19,10 @@ public final class Vector3 {
      * The Z (third) component of the vector.
      */
     public final double z;
-
-
-    /**
-     * Constructor. Creates a zero vector.
-     */
-    public Vector3() {
-        this(0, 0, 0);
-    }
+    
+    
+    public final static Vector3 ZERO = new Vector3(0, 0, 0);
+    
 
     /**
      * Constructor. Initializes a vector with the parameters provided.

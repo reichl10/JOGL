@@ -97,8 +97,8 @@ public class SphereGeometry implements Geometry {
                 .rotate(earthAxis, position.longitude)
                 .translate(0, 0, 1);
         
-        Vector3 cameraPosition = mat.transform(new Vector3(0, 0, 0)).divide(),
-                viewVector = mat.transform(new Vector3(0, 0, -1)).divide().minus(cameraPosition),
+        Vector3 cameraPosition = mat.transform(new Vector3(0, 0, 0)).perspectiveDivide(),
+                viewVector = mat.transform(new Vector3(0, 0, -1)).perspectiveDivide().minus(cameraPosition),
                 cameraXAxis = earthAxis.crossProduct(viewVector).normalized();
         
         return Matrix4.IDENTITY

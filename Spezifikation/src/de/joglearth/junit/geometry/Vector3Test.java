@@ -13,7 +13,7 @@ public class Vector3Test {
 
     @Test
     public final void testVector3() {
-        Vector3 vector3 = new Vector3();
+        Vector3 vector3 = Vector3.ZERO;
         assertEquals(0.0d, vector3.x, 0.00000001d);
         assertEquals(0.0d, vector3.y, 0.00000001d);
         assertEquals(0.0d, vector3.z, 0.00000001d);
@@ -96,8 +96,8 @@ public class Vector3Test {
 
     @Test
     public final void testEqualsObject() {
-        Vector3 vector1 = new Vector3();
-        Vector3 vector2 = new Vector3();
+        Vector3 vector1 = Vector3.ZERO;
+        Vector3 vector2 = Vector3.ZERO;
         assertEquals(vector1, vector2);
         double x = 0.0, y = 0.0, z = 0.0;
         for (;x <= 10.0; x=x+0.323) {

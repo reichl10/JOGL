@@ -24,16 +24,12 @@ public final class Vector4 {
      * The scaling factor.
      */
     public final double w;
+    
 
+    public static final Vector4 ZERO = new Vector4(0, 0, 0, 0);
+    
+    public static final Vector4 IDENTITY = new Vector4(0, 0, 0, 1);
 
-    /**
-     * Default constructor. Initializes a zero vector with scaling factor 1.
-     * 
-     * The resulting vector will have x=0, y=0, z=0, w=1.
-     */
-    public Vector4() {
-        this(0, 0, 0, 1);
-    }
 
     /**
      * Constructor.
@@ -64,7 +60,7 @@ public final class Vector4 {
      * 
      * @return The scaled three-dimensional vector.
      */
-    public Vector3 divide() {
+    public Vector3 perspectiveDivide() {
         return new Vector3(x / w, y / w, z / w);
     }
 

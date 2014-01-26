@@ -63,8 +63,8 @@ public class Camera {
         Matrix4 newCameraMatrix 
             = tiltTransformation(geometry.getModelCameraTransformation(position, altitude));
 
-        Vector3 cameraPosition = newCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
-        Vector3 viewVector = newCameraMatrix.transform(new Vector3(0, 0, -1)).divide()
+        Vector3 cameraPosition = newCameraMatrix.transform(new Vector3(0, 0, 0)).perspectiveDivide();
+        Vector3 viewVector = newCameraMatrix.transform(new Vector3(0, 0, -1)).perspectiveDivide()
                 .minus(cameraPosition);
 
         if (geometry.getSurfaceCoordinates(cameraPosition, viewVector) != null) {
@@ -347,7 +347,7 @@ public class Camera {
     }
 
     private boolean isPointVisible(Vector3 point) {
-        Vector3 t = transformationMatrix.transform(point).divide();
+        Vector3 t = transformationMatrix.transform(point).perspectiveDivide();
         return ((t.x >= -1 && t.x <= 1) && (t.y >= -1 && t.y <= 1) && (t.z >= -1 && t.z <= 1));
     }
 
@@ -364,7 +364,7 @@ public class Camera {
             throw new IllegalArgumentException();
         }
 
-        Vector3 cameraPosition = modelCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
+        Vector3 cameraPosition = modelCameraMatrix.transform(new Vector3(0, 0, 0)).perspectiveDivide();
 
         return isPointVisible(geometry.getSpacePosition(geo, 0))
                 && geometry.isPointVisible(cameraPosition, geo);
@@ -387,7 +387,7 @@ public class Camera {
             throw new IllegalArgumentException();
         }
 
-        Vector3 t = transformationMatrix.transform(getSpacePosition(geo)).divide();
+        Vector3 t = transformationMatrix.transform(getSpacePosition(geo)).perspectiveDivide();
 
         if ((t.x >= -1 && t.x <= 1) && (t.y >= -1 && t.y <= 1)) {
             return new ScreenCoordinates((t.x + 1) / 2, 1 - (t.y + 1) / 2);
@@ -412,10 +412,10 @@ public class Camera {
         if (screen.x < 0 || screen.x > 1 || screen.y < 0 || screen.y > 1) {
             return null;
         }
-        Vector3 cameraPosition = modelCameraMatrix.transform(new Vector3(0, 0, 0)).divide();
+        Vector3 cameraPosition = modelCameraMatrix.transform(new Vector3(0, 0, 0)).perspectiveDivide();
         Vector3 earthAxis = new Vector3(0, 1, 0);
 
-        Vector3 zAxis = modelCameraMatrix.transform(new Vector3(0, 0, -1)).divide()
+        Vector3 zAxis = modelCameraMatrix.transform(new Vector3(0, 0, -1)).perspectiveDivide()
                 .minus(cameraPosition).normalized();
         Vector3 xAxis = earthAxis.crossProduct(zAxis).normalized();
         Vector3 yAxis = zAxis.crossProduct(xAxis).normalized();
@@ -427,7 +427,7 @@ public class Camera {
                 .rotate(yAxis, yAngle)
                 .rotate(xAxis, -xAngle);
 
-        Vector3 viewVector = directionMatrix.transform(zAxis).divide();
+        Vector3 viewVector = directionMatrix.transform(zAxis).perspectiveDivide();
         return geometry.getSurfaceCoordinates(cameraPosition, viewVector);
     }
 
