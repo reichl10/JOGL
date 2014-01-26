@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * The longitude is encoded in the interval (-pi, pi]
  * The latitude is encoded in the interval (-pi/2, pi/2]
  */
-public final class GeoCoordinates implements Cloneable {
+public final class GeoCoordinates {
 
     /**
      * The longitude in radians, where negative values mean west, positive ones east longitude.

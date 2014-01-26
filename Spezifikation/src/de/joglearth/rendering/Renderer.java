@@ -212,11 +212,11 @@ public class Renderer {
     }
     
     
-    private void drawRectangleUpLeft(ScreenCoordinates lowerRight, ScreenCoordinates size, 
+    private void drawRectangleUpLeft(double right, double bottom, ScreenCoordinates size, 
             Texture texture) {
         ScreenCoordinates upperLeft = new ScreenCoordinates(
-                lowerRight.x - size.x , lowerRight.y - size.y);   
-        gl.drawRectangle(upperLeft, lowerRight, texture);  
+                right - size.x , bottom - size.y);   
+        gl.drawRectangle(upperLeft, new ScreenCoordinates(right, bottom), texture);  
     }
     
     
@@ -232,40 +232,43 @@ public class Renderer {
         }        
         
         ScreenCoordinates 
-            lowerRight = origin.clone(),
             size = sizeToScreenCoordinates(bubble[2][2].getWidth(), bubble[2][2].getHeight());
-        drawRectangleUpLeft(lowerRight, size, bubble[2][2]);
-        lowerRight.x -= size.x;
+        double right = origin.x, bottom = origin.y;
+        
+        drawRectangleUpLeft(right, bottom, size, bubble[2][2]);
+        right -= size.x;
         size = sizeToScreenCoordinates(
                 width - (bubble[2][2].getWidth() - bubble[0][2].getWidth()), 
                 bubble[2][1].getHeight());
-        drawRectangleUpLeft(lowerRight, size, bubble[2][1]);
-        lowerRight.x -= size.x;
+        drawRectangleUpLeft(right, bottom, size, bubble[2][1]);
+        right -= size.x;
         size = sizeToScreenCoordinates(bubble[2][0].getWidth(), bubble[2][0].getHeight());
-        drawRectangleUpLeft(lowerRight, size, bubble[2][0]);      
+        drawRectangleUpLeft(right, bottom, size, bubble[2][0]);      
         
-        lowerRight = new ScreenCoordinates(origin.x, origin.y - size.y);
+        right = origin.x;
+        bottom = origin.y - size.y;
         size = sizeToScreenCoordinates(bubble[1][2].getWidth(), height);        
-        drawRectangleUpLeft(lowerRight, size, bubble[1][2]);      
-        lowerRight.x -= size.x;
+        drawRectangleUpLeft(right, bottom, size, bubble[1][2]);      
+        right -= size.x;
         size = sizeToScreenCoordinates(width, height);
-        drawRectangleUpLeft(lowerRight, size, bubble[1][1]);
-        lowerRight.x -= size.x;
+        drawRectangleUpLeft(right, bottom, size, bubble[1][1]);
+        right -= size.x;
         size = sizeToScreenCoordinates(bubble[1][0].getWidth(), height);
-        drawRectangleUpLeft(lowerRight, size, bubble[1][0]);      
-        
-        lowerRight = new ScreenCoordinates(origin.x, lowerRight.y - size.y);
-        size = sizeToScreenCoordinates(bubble[0][2].getWidth(), bubble[0][2].getHeight());        
-        drawRectangleUpLeft(lowerRight, size, bubble[0][2]);   
-        lowerRight.x -= size.x;
-        size = sizeToScreenCoordinates(width, bubble[0][1].getHeight());
-        drawRectangleUpLeft(lowerRight, size, bubble[0][1]);  
-        lowerRight.x -= size.x;
-        size = sizeToScreenCoordinates(bubble[0][0].getWidth(), bubble[0][0].getHeight());
-        drawRectangleUpLeft(lowerRight, size, bubble[0][0]);      
+        drawRectangleUpLeft(right, bottom, size, bubble[1][0]);      
 
-        Point textOrigin = new Point((int) (lowerRight.x * screenSize.width), 
-                                     (int) (lowerRight.y * screenSize.height));
+        right = origin.x;
+        bottom -= size.y;
+        size = sizeToScreenCoordinates(bubble[0][2].getWidth(), bubble[0][2].getHeight());        
+        drawRectangleUpLeft(right, bottom, size, bubble[0][2]);   
+        right -= size.x;
+        size = sizeToScreenCoordinates(width, bubble[0][1].getHeight());
+        drawRectangleUpLeft(right, bottom, size, bubble[0][1]);  
+        right -= size.x;
+        size = sizeToScreenCoordinates(bubble[0][0].getWidth(), bubble[0][0].getHeight());
+        drawRectangleUpLeft(right, bottom, size, bubble[0][0]);      
+
+        Point textOrigin = new Point((int) (right * screenSize.width), 
+                                     (int) (bottom * screenSize.height));
 
         bubbleCaptionRenderer.beginRendering(screenSize.width, screenSize.height);
         bubbleCaptionRenderer.setColor(Color.BLACK);
