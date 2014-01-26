@@ -1766,47 +1766,53 @@ public class MainWindow extends JFrame {
 
         private ScreenCoordinates getScreenCoordinates(Point p) {
             Dimension canvasSize = easel.getCanvas().getSize();
-            return new ScreenCoordinates(p.getX() / canvasSize.width,
-                    p.getY() / canvasSize.height);
+            double x = p.getX() / canvasSize.width, y = p.getY() / canvasSize.height;
+            if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
+                return new ScreenCoordinates(x, y);
+            } else {
+                return null;
+            }
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
             ScreenCoordinates newPos = getScreenCoordinates(e.getPoint());
-            if (SwingUtilities.isLeftMouseButton(e)) {
-                if (lastPos != null && newPos != null) {
-                    GeoCoordinates lastGeo = camera.getGeoCoordinates(lastPos);
-                    GeoCoordinates newGeo = camera.getGeoCoordinates(newPos);
-                    if (lastGeo != null && newGeo != null) {
-                        double deltaLon = -signum(newPos.x - lastPos.x)
-                                * abs(newGeo.longitude - lastGeo.longitude);
-                        double deltaLat = signum(newPos.y - lastPos.y)
-                                * abs(newGeo.latitude - lastGeo.latitude);
-
-                        camera.move(deltaLon, deltaLat);
+            if (newPos != null) {
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    if (lastPos != null && newPos != null) {
+                        GeoCoordinates lastGeo = camera.getGeoCoordinates(lastPos);
+                        GeoCoordinates newGeo = camera.getGeoCoordinates(newPos);
+                        if (lastGeo != null && newGeo != null) {
+                            double deltaLon = -signum(newPos.x - lastPos.x)
+                                    * abs(newGeo.longitude - lastGeo.longitude);
+                            double deltaLat = signum(newPos.y - lastPos.y)
+                                    * abs(newGeo.latitude - lastGeo.latitude);
+    
+                            camera.move(deltaLon, deltaLat);
+                        }
                     }
+                } else if (SwingUtilities.isRightMouseButton(e)) {
+                    double diffY = newPos.x - lastPos.x;
+                    double diffX = newPos.y - lastPos.y;
+                    // -pi/2,pi/2
+                    cTiltX += (diffX * SCALE_TILT);
+                    cTiltY += (diffY * SCALE_TILT);
+                    if (cTiltX < -(Math.PI / 6)) {
+                        cTiltX = -(Math.PI / 6);
+                    }
+                    if (cTiltY < -(Math.PI / 6)) {
+                        cTiltY = -(Math.PI / 6);
+                    }
+                    if (cTiltX > (Math.PI / 6)) {
+                        cTiltX = (Math.PI / 6);
+                    }
+                    if (cTiltY > (Math.PI / 6)) {
+                        cTiltY = (Math.PI / 6);
+                    }
+                    camera.setTilt(cTiltX, cTiltY);
                 }
-            } else if (SwingUtilities.isRightMouseButton(e)) {
-                double diffY = newPos.x - lastPos.x;
-                double diffX = newPos.y - lastPos.y;
-                // -pi/2,pi/2
-                cTiltX += (diffX * SCALE_TILT);
-                cTiltY += (diffY * SCALE_TILT);
-                if (cTiltX < -(Math.PI / 6)) {
-                    cTiltX = -(Math.PI / 6);
-                }
-                if (cTiltY < -(Math.PI / 6)) {
-                    cTiltY = -(Math.PI / 6);
-                }
-                if (cTiltX > (Math.PI / 6)) {
-                    cTiltX = (Math.PI / 6);
-                }
-                if (cTiltY > (Math.PI / 6)) {
-                    cTiltY = (Math.PI / 6);
-                }
-                camera.setTilt(cTiltX, cTiltY);
+                lastPos = newPos;
             }
-            lastPos = newPos;
             super.mouseDragged(e);
         }
 
@@ -1820,9 +1826,11 @@ public class MainWindow extends JFrame {
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() >= 2) {
                 ScreenCoordinates screenCoord = getScreenCoordinates(e.getPoint());
-                GeoCoordinates geoCoord = camera.getGeoCoordinates(screenCoord);
-                if (geoCoord != null) {
-                    camera.setPosition(geoCoord);
+                if (screenCoord != null) {
+                    GeoCoordinates geoCoord = camera.getGeoCoordinates(screenCoord);
+                    if (geoCoord != null) {
+                        camera.setPosition(geoCoord);
+                    }
                 }
             }
 
