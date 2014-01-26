@@ -13,27 +13,11 @@ import static java.lang.Double.*;
  */
 public final class Matrix4 implements Cloneable {
 
-    // Holds the matrix data in column-first ordering.
-    private double[] m = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 };
+    public static final Matrix4 IDENTITY 
+        = new Matrix4(new double[] { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 });
 
-
-    /**
-     * Constructor. Initializes an identity matrix.
-     */
-    public Matrix4() {}
-
-    /**
-     * Creates a deep copy of the matrix.
-     * 
-     * @return The copied matrix
-     */
-    @Override
-    public Matrix4 clone() {
-        Matrix4 c = new Matrix4();
-        System.arraycopy(m, 0, c.m, 0, 16);
-        return c;
-    }
-
+    private final double[] m = new double[16];
+    
     /**
      * Creates a matrix from a double value array.
      * 
@@ -45,22 +29,9 @@ public final class Matrix4 implements Cloneable {
         }
         System.arraycopy(init, 0, m, 0, 16);
     }
-
-    /**
-     * Replaces the matrix by an identity matrix.
-     */
-    public void reset() {
-        double[] identity = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 };
-        System.arraycopy(identity, 0, m, 0, 16);
-    }
     
-    /**
-     * Multiplies the matrix with another matrix, given by a double value array.
-     * 
-     * Mathematical equivalent: this' := this * rhs
-     * @param rhs The matrix to multiply with
-     */
-    public void mult(double[] rhs) {
+    
+    public Matrix4 multiply(double[] rhs) {
         if (rhs == null || rhs.length != 16) {
             throw new IllegalArgumentException();
         }
@@ -72,7 +43,7 @@ public final class Matrix4 implements Cloneable {
                 }
             }
         }
-        m = r;
+        return new Matrix4(r);
     }
 
     /**
@@ -82,11 +53,11 @@ public final class Matrix4 implements Cloneable {
      * 
      * @param rhs The matrix to multiply with
      */
-    public void mult(Matrix4 rhs) {
+    public Matrix4 multiply(Matrix4 rhs) {
         if (rhs == null) { 
             throw new IllegalArgumentException();
         }
-        mult(rhs.m);
+        return multiply(rhs.m);
     }
 
     /**
@@ -94,13 +65,15 @@ public final class Matrix4 implements Cloneable {
      * 
      * @param rhs The matrix to add
      */
-    public void add(double[] rhs) {
+    public Matrix4 plus(double[] rhs) {
         if (rhs == null || rhs.length != 16) {
             throw new IllegalArgumentException();
         }
+        double[] r = new double[16];
         for (int i = 0; i < 16; ++i) {
-            m[i] += rhs[i];
+            r[i] += rhs[i];
         }
+        return new Matrix4(r);
     }
 
     /**
@@ -108,8 +81,8 @@ public final class Matrix4 implements Cloneable {
      * 
      * @param rhs The matrix to add
      */
-    public void add(Matrix4 rhs) {
-        add(rhs.m);
+    public Matrix4 plus(Matrix4 rhs) {
+        return plus(rhs.m);
     }
 
     /**
@@ -117,8 +90,8 @@ public final class Matrix4 implements Cloneable {
      * 
      * @return The matrix values in column-first ordering
      */
-    public double[] doubles() {
-        return m;
+    public double[] toArray() {
+        return Arrays.copyOf(m, m.length);
     }
 
     /**
@@ -130,8 +103,8 @@ public final class Matrix4 implements Cloneable {
      * @param y Translation by the Y (second) coordinate
      * @param z Translation by the Z (third) coordinate
      */
-    public void translate(double x, double y, double z) {
-        mult(new double[] { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1 });
+    public Matrix4 translate(double x, double y, double z) {
+        return multiply(new double[] { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1 });
     }
 
     /**
@@ -141,11 +114,11 @@ public final class Matrix4 implements Cloneable {
      * 
      * @param v Translation for all three coordinates, must not be <code>null</code>
      */
-    public void translate(Vector3 v) {
+    public Matrix4 translate(Vector3 v) {
         if (v == null) {
             throw new IllegalArgumentException();
         }
-        translate(v.x, v.y, v.z);
+        return translate(v.x, v.y, v.z);
     }
 
     /**
@@ -156,7 +129,7 @@ public final class Matrix4 implements Cloneable {
      * @param axis The axis that should be rotated around, must not be <code>null</code>
      * @param rad The rotation angle, in radians
      */
-    public void rotate(Vector3 axis, double rad) {
+    public Matrix4 rotate(Vector3 axis, double rad) {
         if (axis == null || axis.length() == 0 || isNaN(axis.length()) || isInfinite(axis.length())
                 || isNaN(rad) || isInfinite(rad)) {
             throw new IllegalArgumentException();
@@ -164,7 +137,7 @@ public final class Matrix4 implements Cloneable {
         
         axis = axis.normalized();
         final double n1 = axis.x, n2 = axis.y, n3 = axis.z, c = cos(rad), s = sin(rad);
-        mult(new double[] { 
+        return multiply(new double[] { 
                 n1*n1*(1-c)+c, n2*n1*(1-c)+n3*s, n3*n1*(1-c)-n2*s, 0,
                 n1*n2*(1-c)-n3*s, n2*n2*(1-c)+c, n3*n2*(1-c)+n1*s, 0,
                 n1*n3*(1-c)+n2*s, n2*n3*(1-c)-n1*s, n3*n3*(1-c)+c, 0,
@@ -182,8 +155,8 @@ public final class Matrix4 implements Cloneable {
      * @param y The scale in Y direction (The second axis)
      * @param z The scale in Z direction (The third axis)
      */
-    public void scale(double x, double y, double z) {
-        mult(new double[] { x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1 });
+    public Matrix4 scale(double x, double y, double z) {
+        return multiply(new double[] { x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1 });
     }
 
     /**
@@ -194,8 +167,8 @@ public final class Matrix4 implements Cloneable {
      * 
      * @param v The scale in all three dimensions, must not be <code>null</code>
      */
-    public void scale(Vector3 v) {
-        scale(v.x, v.y, v.z);
+    public Matrix4 scale(Vector3 v) {
+        return scale(v.x, v.y, v.z);
     }
 
     /**
@@ -205,80 +178,80 @@ public final class Matrix4 implements Cloneable {
      * @return The inverse
      */
     public Matrix4 inverse() {
-        final Matrix4 i = new Matrix4();
+        double[] i = new double[16];
 
-        i.m[0] = m[5] * m[10] * m[15] - m[5] * m[11] * m[14] - m[9] * m[6]
+        i[0] = m[5] * m[10] * m[15] - m[5] * m[11] * m[14] - m[9] * m[6]
                 * m[15] + m[9] * m[7] * m[14] + m[13] * m[6] * m[11] - m[13]
                 * m[7] * m[10];
 
-        i.m[1] = -m[1] * m[10] * m[15] + m[1] * m[11] * m[14] + m[9] * m[2]
+        i[1] = -m[1] * m[10] * m[15] + m[1] * m[11] * m[14] + m[9] * m[2]
                 * m[15] - m[9] * m[3] * m[14] - m[13] * m[2] * m[11] + m[13]
                 * m[3] * m[10];
 
-        i.m[2] = m[1] * m[6] * m[15] - m[1] * m[7] * m[14] - m[5] * m[2]
+        i[2] = m[1] * m[6] * m[15] - m[1] * m[7] * m[14] - m[5] * m[2]
                 * m[15] + m[5] * m[3] * m[14] + m[13] * m[2] * m[7] - m[13]
                 * m[3] * m[6];
 
-        i.m[3] = -m[1] * m[6] * m[11] + m[1] * m[7] * m[10] + m[5] * m[2]
+        i[3] = -m[1] * m[6] * m[11] + m[1] * m[7] * m[10] + m[5] * m[2]
                 * m[11] - m[5] * m[3] * m[10] - m[9] * m[2] * m[7] + m[9]
                 * m[3] * m[6];
 
-        i.m[4] = -m[4] * m[10] * m[15] + m[4] * m[11] * m[14] + m[8] * m[6]
+        i[4] = -m[4] * m[10] * m[15] + m[4] * m[11] * m[14] + m[8] * m[6]
                 * m[15] - m[8] * m[7] * m[14] - m[12] * m[6] * m[11] + m[12]
                 * m[7] * m[10];
 
-        i.m[5] = m[0] * m[10] * m[15] - m[0] * m[11] * m[14] - m[8] * m[2]
+        i[5] = m[0] * m[10] * m[15] - m[0] * m[11] * m[14] - m[8] * m[2]
                 * m[15] + m[8] * m[3] * m[14] + m[12] * m[2] * m[11] - m[12]
                 * m[3] * m[10];
 
-        i.m[6] = -m[0] * m[6] * m[15] + m[0] * m[7] * m[14] + m[4] * m[2]
+        i[6] = -m[0] * m[6] * m[15] + m[0] * m[7] * m[14] + m[4] * m[2]
                 * m[15] - m[4] * m[3] * m[14] - m[12] * m[2] * m[7] + m[12]
                 * m[3] * m[6];
 
-        i.m[7] = m[0] * m[6] * m[11] - m[0] * m[7] * m[10] - m[4] * m[2]
+        i[7] = m[0] * m[6] * m[11] - m[0] * m[7] * m[10] - m[4] * m[2]
                 * m[11] + m[4] * m[3] * m[10] + m[8] * m[2] * m[7] - m[8]
                 * m[3] * m[6];
 
-        i.m[8] = m[4] * m[9] * m[15] - m[4] * m[11] * m[13] - m[8] * m[5]
+        i[8] = m[4] * m[9] * m[15] - m[4] * m[11] * m[13] - m[8] * m[5]
                 * m[15] + m[8] * m[7] * m[13] + m[12] * m[5] * m[11] - m[12]
                 * m[7] * m[9];
 
-        i.m[9] = -m[0] * m[9] * m[15] + m[0] * m[11] * m[13] + m[8] * m[1]
+        i[9] = -m[0] * m[9] * m[15] + m[0] * m[11] * m[13] + m[8] * m[1]
                 * m[15] - m[8] * m[3] * m[13] - m[12] * m[1] * m[11] + m[12]
                 * m[3] * m[9];
 
-        i.m[10] = m[0] * m[5] * m[15] - m[0] * m[7] * m[13] - m[4] * m[1]
+        i[10] = m[0] * m[5] * m[15] - m[0] * m[7] * m[13] - m[4] * m[1]
                 * m[15] + m[4] * m[3] * m[13] + m[12] * m[1] * m[7] - m[12]
                 * m[3] * m[5];
 
-        i.m[11] = -m[0] * m[5] * m[11] + m[0] * m[7] * m[9] + m[4] * m[1]
+        i[11] = -m[0] * m[5] * m[11] + m[0] * m[7] * m[9] + m[4] * m[1]
                 * m[11] - m[4] * m[3] * m[9] - m[8] * m[1] * m[7] + m[8] * m[3]
                 * m[5];
 
-        i.m[12] = -m[4] * m[9] * m[14] + m[4] * m[10] * m[13] + m[8] * m[5]
+        i[12] = -m[4] * m[9] * m[14] + m[4] * m[10] * m[13] + m[8] * m[5]
                 * m[14] - m[8] * m[6] * m[13] - m[12] * m[5] * m[10] + m[12]
                 * m[6] * m[9];
 
-        i.m[13] = m[0] * m[9] * m[14] - m[0] * m[10] * m[13] - m[8] * m[1]
+        i[13] = m[0] * m[9] * m[14] - m[0] * m[10] * m[13] - m[8] * m[1]
                 * m[14] + m[8] * m[2] * m[13] + m[12] * m[1] * m[10] - m[12]
                 * m[2] * m[9];
 
-        i.m[14] = -m[0] * m[5] * m[14] + m[0] * m[6] * m[13] + m[4] * m[1]
+        i[14] = -m[0] * m[5] * m[14] + m[0] * m[6] * m[13] + m[4] * m[1]
                 * m[14] - m[4] * m[2] * m[13] - m[12] * m[1] * m[6] + m[12]
                 * m[2] * m[5];
 
-        i.m[15] = m[0] * m[5] * m[10] - m[0] * m[6] * m[9] - m[4] * m[1]
+        i[15] = m[0] * m[5] * m[10] - m[0] * m[6] * m[9] - m[4] * m[1]
                 * m[10] + m[4] * m[2] * m[9] + m[8] * m[1] * m[6] - m[8] * m[2]
                 * m[5];
 
-        final double det = m[0] * i.m[0] + m[1] * i.m[4] + m[2] * i.m[8] + m[3]
-                * i.m[12];
+        final double det = m[0] * i[0] + m[1] * i[4] + m[2] * i[8] + m[3]
+                * i[12];
 
         for (int j = 0; j < 16; ++j) {
-            i.m[j] /= det;
+            i[j] /= det;
         }
 
-        return i;
+        return new Matrix4(i);
     }
 
     /**

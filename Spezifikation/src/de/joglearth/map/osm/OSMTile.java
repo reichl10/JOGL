@@ -124,9 +124,9 @@ public final class OSMTile extends AbstractTile {
         if (zoomLevel == 0) {
             return null;
         } else {
-            Matrix4 transformation = new Matrix4();
-            transformation.scale(0.5, 0.5, 1);
-            transformation.translate(lonIndex % 2, 1 - latIndex % 2, 0);
+            Matrix4 transformation = Matrix4.IDENTITY
+                    .scale(0.5, 0.5, 1)
+                    .translate(lonIndex % 2, 1 - latIndex % 2, 0);
             OSMTile scaledTile = new OSMTile(zoomLevel-1, lonIndex / 2, latIndex / 2);
             return new TransformedTile(scaledTile, transformation);
         }

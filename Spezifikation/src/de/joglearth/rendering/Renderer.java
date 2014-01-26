@@ -183,9 +183,7 @@ public class Renderer {
     }
 
     private Matrix4 correctGLUTransformation(Matrix4 matrix) {
-        matrix = matrix.clone();
-        matrix.rotate(new Vector3(-1, 0, 0), PI / 2);
-        return matrix;
+        return matrix.rotate(new Vector3(-1, 0, 0), PI / 2);
     }
     
 
@@ -214,9 +212,12 @@ public class Renderer {
     
     private void drawRectangleUpLeft(double right, double bottom, ScreenCoordinates size, 
             Texture texture) {
-        ScreenCoordinates upperLeft = new ScreenCoordinates(
-                right - size.x , bottom - size.y);   
-        gl.drawRectangle(upperLeft, new ScreenCoordinates(right, bottom), texture);  
+        double left = right - size.x, top = bottom - size.y;
+        if (left >= 0 && left <= 1 && top >= 0 && top <= 1 && right >= 0 && right <= 1
+                && bottom >= 0 && bottom <= 1) {
+            gl.drawRectangle(new ScreenCoordinates(left, top),
+                    new ScreenCoordinates(right, bottom), texture);  
+        }
     }
     
     
@@ -321,16 +322,16 @@ public class Renderer {
             gl.placeLight(0, new Vector4(0, -5, 0, 0));
             gl.setFeatureEnabled(GL_LIGHTING, true);
             
-            Matrix4 earthMatrix = camera.getModelViewMatrix().clone();
-            earthMatrix.rotate(new Vector3(1, 0, 0), 23.0*PI/180.0);
-            earthMatrix.rotate(new Vector3(0, 1, 0), solarSystemEarthRotation);
+            Matrix4 earthMatrix = camera.getModelViewMatrix()
+                    .rotate(new Vector3(1, 0, 0), 23.0*PI/180.0)
+                    .rotate(new Vector3(0, 1, 0), solarSystemEarthRotation);
             earthMatrix = correctGLUTransformation(earthMatrix);
             gl.loadMatrix(GL_MODELVIEW, earthMatrix);
             gl.drawSphere(1, 60, 40, false, earth);
 
-            Matrix4 moonMatrix = camera.getModelViewMatrix().clone();
-            moonMatrix.rotate(new Vector3(0, 1, 0), solarSystemMoonRevolution);
-            moonMatrix.translate(-3, 0, 0);
+            Matrix4 moonMatrix = camera.getModelViewMatrix()
+                    .rotate(new Vector3(0, 1, 0), solarSystemMoonRevolution)
+                    .translate(-3, 0, 0);
             gl.loadMatrix(GL_MODELVIEW, correctGLUTransformation(moonMatrix));
             gl.drawSphere(0.2, 30, 20, false, moon);
 
@@ -354,7 +355,7 @@ public class Renderer {
 
             gl.setAmbientLight(1.0);
             
-            gl.loadMatrix(GL_MODELVIEW, new Matrix4());
+            gl.loadMatrix(GL_MODELVIEW, Matrix4.IDENTITY);
             gl.placeLight(0, new Vector4(-camera.getDistance(), 0, 0, 1));
             gl.setFeatureEnabled(GL_LIGHTING, true);
             
@@ -391,9 +392,9 @@ public class Renderer {
             
             gl.setFeatureEnabled(GL_LIGHTING, false);
             
-            gl.loadMatrix(GL_PROJECTION, new Matrix4());
-            gl.loadMatrix(GL_MODELVIEW, new Matrix4());
-            gl.loadMatrix(GL_TEXTURE, new Matrix4());            
+            gl.loadMatrix(GL_PROJECTION, Matrix4.IDENTITY);
+            gl.loadMatrix(GL_MODELVIEW, Matrix4.IDENTITY);
+            gl.loadMatrix(GL_TEXTURE, Matrix4.IDENTITY);            
 
 
             double xOffset = (double) ICON_SIZE / screenSize.width / 2, yOffset = (double) ICON_SIZE
@@ -410,11 +411,15 @@ public class Renderer {
                     Texture overlayTexture = overlayIconTextures.get(location.type);
                     ScreenCoordinates center = camera.getScreenCoordinates(location.point);
                     if (center != null && overlayTexture != null) {
-                        ScreenCoordinates upperLeft = new ScreenCoordinates(center.x - xOffset,
-                                center.y - yOffset), lowerRight = new ScreenCoordinates(center.x
-                                + xOffset, center.y + yOffset);
-
-                        gl.drawRectangle(upperLeft, lowerRight, overlayTexture);
+                        double left = center.x - xOffset, top = center.y - yOffset,
+                               right = center.x + xOffset, bottom = center.y + yOffset;
+                        
+                        if (left >= 0 && top >= 0 && right <= 1 && bottom <= 1) {
+                            ScreenCoordinates upperLeft = new ScreenCoordinates(left, top), 
+                                    lowerRight = new ScreenCoordinates(right, bottom);
+    
+                            gl.drawRectangle(upperLeft, lowerRight, overlayTexture);
+                        }
                     }
                 }
             }

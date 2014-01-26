@@ -18,7 +18,7 @@ public interface TileLayout {
      * @param origin One of the tile's corners. Must not be null
      * @return The tile. Must not be null
      */
-    Tile createTile(GridPoint origin);
+    public Tile createTile(GridPoint origin);
     
     /**
      * Constructs a Tile containing given {@link GeoCoordinates}. Every pair of coordinates must 
@@ -26,26 +26,26 @@ public interface TileLayout {
      * @param geo The coordinates. Must not be null
      * @return The tile. Must not be null
      */
-    Tile getContainingTile(GeoCoordinates geo);
+    public Tile getContainingTile(GeoCoordinates geo);
     
     /**
      * Returns the {@link GeoCoordinates} mapping to the {@link GridPoint} provided.
      * @param point The grid point. Must not be null
      * @return The coordinates. Must not be null
      */
-    GeoCoordinates getGeoCoordinates(GridPoint point);    
+    public GeoCoordinates getGeoCoordinates(GridPoint point);    
     
     /**
      * Returns the maximum number of different tiles with the same origin latitude. 
      * @return The number of tiles
      */
-    int getHoritzontalTileCount();
+    public int getHoritzontalTileCount();
 
     /**
      * Returns the maximum number of different tiles with the same origin longitude. 
      * @return The number of tiles
      */
-    int getVerticalTileCount();
+    public int getVerticalTileCount();
 
     /**
      * Returns a grid point that can be used to construct the tile given.
@@ -54,7 +54,7 @@ public interface TileLayout {
      * @return The origin grid point
      * @throws IllegalArgumentException The passed tile was not of a type used by the layout
      */
-    GridPoint getTileOrigin(Tile tile);
+    public GridPoint getTileOrigin(Tile tile);
     
     /**
      * Returns all grid points contained in the tile's border. One of these grid points must be
@@ -63,7 +63,7 @@ public interface TileLayout {
      * @return An array of corner grid points. Must not be null
      * @throws IllegalArgumentException The passed tile was not of a type used by the layout
      */
-    GridPoint[] getTileCorners(Tile tile);
+    public GridPoint[] getTileCorners(Tile tile);
     
     /**
      * Maps all equal grid points to the same exact point.
@@ -74,5 +74,5 @@ public interface TileLayout {
      * @param point The point. Must not be null
      * @return The unique representation of the point. Must not be null
      */
-    GridPoint modulo(GridPoint point);
+    public GridPoint modulo(GridPoint point);
 }

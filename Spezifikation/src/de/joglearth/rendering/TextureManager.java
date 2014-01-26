@@ -94,13 +94,12 @@ public class TextureManager implements Priorized {
             throw new IllegalArgumentException();
         }
         
-        Matrix4 transformation = new Matrix4();
+        Matrix4 transformation = Matrix4.IDENTITY;
         while (scaleDown > 0) {
             TransformedTile scaledTile = tile.getScaledAlternative();
             if (scaledTile != null) {
                 tile = scaledTile.tile;
-                scaledTile.transformation.mult(transformation);
-                transformation = scaledTile.transformation;
+                transformation = scaledTile.transformation.multiply(transformation);
             } else {
                 break;
             }
@@ -119,14 +118,13 @@ public class TextureManager implements Priorized {
                 TransformedTile alternative = tile.getScaledAlternative();
                 if (alternative != null) {
                     tile = alternative.tile;
-                    alternative.transformation.mult(transformation);
-                    transformation = alternative.transformation;
+                    transformation = alternative.transformation.multiply(transformation);
                 } else {
                     tile = null;
                 }
             }
         }
-        return new TransformedTexture(placeholder, new Matrix4());
+        return new TransformedTexture(placeholder, Matrix4.IDENTITY);
     }
 
     /**

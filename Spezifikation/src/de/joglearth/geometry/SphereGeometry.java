@@ -79,9 +79,8 @@ public class SphereGeometry implements Geometry {
             throw new IllegalArgumentException();
         }
                 
-        Matrix4 mat = getSkyCameraTransformation(position, altitude);
-        mat.translate(0, 0, 1 + altitude);
-        return mat;
+        return getSkyCameraTransformation(position, altitude)
+                .translate(0, 0, 1 + altitude);
     }
     
 
@@ -94,18 +93,17 @@ public class SphereGeometry implements Geometry {
                 
         Vector3 earthAxis = new Vector3(0, 1, 0);        
         
-        Matrix4 mat = new Matrix4();
-        mat.rotate(earthAxis, position.longitude);
-        mat.translate(0, 0, 1);
+        Matrix4 mat = Matrix4.IDENTITY
+                .rotate(earthAxis, position.longitude)
+                .translate(0, 0, 1);
         
         Vector3 cameraPosition = mat.transform(new Vector3(0, 0, 0)).divide(),
                 viewVector = mat.transform(new Vector3(0, 0, -1)).divide().minus(cameraPosition),
                 cameraXAxis = earthAxis.crossProduct(viewVector).normalized();
         
-        mat = new Matrix4();
-        mat.rotate(cameraXAxis, position.latitude);
-        mat.rotate(earthAxis, position.longitude);
-        return mat;
+        return Matrix4.IDENTITY
+            .rotate(cameraXAxis, position.latitude)
+            .rotate(earthAxis, position.longitude);
     }
 
     @Override

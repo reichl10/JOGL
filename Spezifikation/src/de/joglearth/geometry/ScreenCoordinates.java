@@ -33,11 +33,6 @@ public final class ScreenCoordinates {
     }
 
     @Override
-    public ScreenCoordinates clone() {
-        return new ScreenCoordinates(x, y);
-    }
-
-    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;

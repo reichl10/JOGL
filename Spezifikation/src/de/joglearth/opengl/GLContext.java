@@ -427,7 +427,7 @@ public final class GLContext extends AbstractInvoker implements GLEventListener 
         gl.glMatrixMode(slot);
         GLError.throwIfActive(gl);
 
-        gl.glLoadMatrixd(matrix.doubles(), 0);
+        gl.glLoadMatrixd(matrix.toArray(), 0);
         GLError.throwIfActive(gl);
     }
 

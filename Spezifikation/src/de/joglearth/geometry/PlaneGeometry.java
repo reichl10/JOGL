@@ -84,10 +84,8 @@ public class PlaneGeometry implements Geometry {
          * Assumes that the default looking direction is (0, 0, -1). Might have to be corrected by
          * adding a rotate()ion.
          */
-        Matrix4 mat = new Matrix4();
-        mat.translate(position.longitude, position.latitude, altitude 
-                - HeightMap.MIN_HEIGHT);
-        return mat;
+        return Matrix4.IDENTITY
+            .translate(position.longitude, position.latitude, altitude - HeightMap.MIN_HEIGHT);
     }
 
     @Override
@@ -97,7 +95,7 @@ public class PlaneGeometry implements Geometry {
             throw new IllegalArgumentException();
         }
         
-        return new Matrix4();
+        return Matrix4.IDENTITY;
     }
 
     @Override
