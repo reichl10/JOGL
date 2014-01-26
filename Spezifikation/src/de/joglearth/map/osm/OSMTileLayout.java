@@ -54,7 +54,7 @@ public class OSMTileLayout implements TileLayout {
     public Tile createTile(GridPoint bottomLeft) {
         GridPoint moduloPoint = modulo(bottomLeft);
 
-        int lon = moduloPoint.getLongitude(), lat = moduloPoint.getLatitude();
+        int lon = moduloPoint.longitude, lat = moduloPoint.latitude;
 
         if (lat == minLat) {
             return new OSMPole(zoomLevel, OSMPole.NORTH);
@@ -139,9 +139,9 @@ public class OSMTileLayout implements TileLayout {
 
             GridPoint origin = getTileOrigin(tile);
             return new GridPoint[] {
-                    origin, new GridPoint(origin.getLongitude() + 1, origin.getLatitude()),
-                    new GridPoint(origin.getLongitude(), origin.getLatitude() - 1),
-                    new GridPoint(origin.getLongitude() + 1, origin.getLatitude() - 1) };
+                    origin, new GridPoint(origin.longitude + 1, origin.latitude),
+                    new GridPoint(origin.longitude, origin.latitude - 1),
+                    new GridPoint(origin.longitude + 1, origin.latitude - 1) };
 
         } else if (tile instanceof OSMPole) {
 
@@ -160,7 +160,7 @@ public class OSMTileLayout implements TileLayout {
 
     @Override
     public GridPoint modulo(GridPoint point) {
-        int lon = point.getLongitude(), lat = point.getLatitude();
+        int lon = point.longitude, lat = point.latitude;
         while (lat >= maxLat + getVerticalTileCount()) {
             lat -= 2 * getVerticalTileCount();
         }

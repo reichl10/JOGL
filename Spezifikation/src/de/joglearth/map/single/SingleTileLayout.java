@@ -23,7 +23,7 @@ public class SingleTileLayout implements TileLayout {
 
     @Override
     public GeoCoordinates getGeoCoordinates(GridPoint point) {
-        switch (point.getLatitude() % 2) {
+        switch (point.latitude % 2) {
             case 0: return new GeoCoordinates(0, -PI/2);
             default: return new GeoCoordinates(0, PI/2);
         }

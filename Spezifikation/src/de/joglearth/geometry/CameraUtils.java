@@ -93,9 +93,9 @@ public final class CameraUtils {
         GridPoint start = walker.getPoint();
         border.add(start);
 
-        int lonMin = start.getLongitude(),
+        int lonMin = start.longitude,
             lonMax = lonMin,
-            latMin = start.getLatitude(),
+            latMin = start.latitude,
             latMax = latMin;
 
         // Step "onto the border"
@@ -118,10 +118,10 @@ public final class CameraUtils {
 
             // Find minimum and maximum to get a surrounding rectangle
             GridPoint p = walker.getPoint();
-            lonMin = min(lonMin, p.getLongitude());
-            lonMax = max(lonMax, p.getLongitude());
-            latMin = min(latMin, p.getLatitude());
-            latMax = max(latMax, p.getLatitude());
+            lonMin = min(lonMin, p.longitude);
+            lonMax = max(lonMax, p.longitude);
+            latMin = min(latMin, p.latitude);
+            latMax = max(latMax, p.latitude);
             border.add(p);
             
         // Until the start point is hit again
@@ -205,7 +205,7 @@ public final class CameraUtils {
          * Returns a grid point that would be next in line if it is actually visible, else null.
          */
         private GridPoint peek() {
-            int peekLon = pos.getLongitude(), peekLat = pos.getLatitude();
+            int peekLon = pos.longitude, peekLat = pos.latitude;
             switch (direction) {
                 case RIGHT:
                     peekLon += 1;
@@ -240,8 +240,8 @@ public final class CameraUtils {
             // Prevent "running in a circle" around the globe by artificially treating points too
             // far away as invisible
             if (camera.isPointVisible(tileLayout.getGeoCoordinates(p))
-                    && p.getLongitude() >= -2 * maxLon && p.getLongitude() <= 2 * maxLon
-                    && p.getLatitude() >= -2 * maxLat && p.getLatitude() <= 2 * maxLat) {
+                    && p.longitude >= -2 * maxLon && p.longitude <= 2 * maxLon
+                    && p.latitude >= -2 * maxLat && p.latitude <= 2 * maxLat) {
                 pos = p;
                 return true;
             } else {
@@ -290,8 +290,8 @@ public final class CameraUtils {
             }
 
             this.points = points;
-            this.lon = center.getLongitude();
-            this.lat = center.getLatitude();
+            this.lon = center.longitude;
+            this.lat = center.latitude;
             this.currentTile = tileLayout.createTile(center);
             this.tileLayout = tileLayout;
             this.maxMaxSteps = 2 * tileLayout.getHoritzontalTileCount();

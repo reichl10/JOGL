@@ -6,24 +6,15 @@ package de.joglearth.geometry;
  */
 public final class GridPoint {
 
-    private int longitude, latitude;
-
+    /**
+     * The point's longitude index.
+     */
+    public final int longitude;
 
     /**
-     * Returns the point's longitude index.
-     * @return The longitude, as passed to the constructor
+     * The point's latitude index.
      */
-    public int getLongitude() {
-        return longitude;
-    }
-
-    /**
-     * Returns the point's latitude index.
-     * @return The latitude, as passed to the constructor
-     */
-    public int getLatitude() {
-        return latitude;
-    }
+    public final int latitude;
 
     /**
      * Constructor
