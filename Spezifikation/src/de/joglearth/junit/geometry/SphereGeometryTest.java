@@ -42,7 +42,7 @@ public class SphereGeometryTest {
          */
         Vector3 tV3 = new Vector3(0, 0, -1);
         gC2 = geo.getSurfaceCoordinates(tV1, tV3);
-        assertEquals(tV1.x, gC2.getLongitude(), 0.1);
-        assertEquals(tV1.y, gC2.getLatitude(), 0.1);
+        assertEquals(tV1.x, gC2.longitude, 0.1);
+        assertEquals(tV1.y, gC2.latitude, 0.1);
     }
 }

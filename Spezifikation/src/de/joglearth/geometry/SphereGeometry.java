@@ -25,9 +25,9 @@ public class SphereGeometry implements Geometry {
     @Override
     public Vector3 getSpacePosition(GeoCoordinates geo, double altitude) {
         // The earth axis is equal to the y axis, lon=0, lat=0 has the coordinates (0, 0, 1).
-        return new Vector3(cos(geo.getLatitude()) * sin(geo.getLongitude()),
-                sin(geo.getLatitude()),
-                cos(geo.getLatitude()) * cos(geo.getLongitude())).times(1 + altitude);
+        return new Vector3(cos(geo.latitude) * sin(geo.longitude),
+                sin(geo.latitude),
+                cos(geo.latitude) * cos(geo.longitude)).times(1 + altitude);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class SphereGeometry implements Geometry {
         Vector3 earthAxis = new Vector3(0, 1, 0);        
         
         Matrix4 mat = new Matrix4();
-        mat.rotate(earthAxis, position.getLongitude());
+        mat.rotate(earthAxis, position.longitude);
         mat.translate(0, 0, 1);
         
         Vector3 cameraPosition = mat.transform(new Vector3(0, 0, 0)).divide(),
@@ -103,14 +103,14 @@ public class SphereGeometry implements Geometry {
                 cameraXAxis = earthAxis.crossProduct(viewVector).normalized();
         
         mat = new Matrix4();
-        mat.rotate(cameraXAxis, position.getLatitude());
-        mat.rotate(earthAxis, position.getLongitude());
+        mat.rotate(cameraXAxis, position.latitude);
+        mat.rotate(earthAxis, position.longitude);
         return mat;
     }
 
     @Override
     public double getLongitudeDistortion(GeoCoordinates position) {
-        return cos(position.getLatitude());
+        return cos(position.latitude);
     }
 
     @Override

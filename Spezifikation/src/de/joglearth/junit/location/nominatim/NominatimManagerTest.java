@@ -4,9 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Collection;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 import de.joglearth.geometry.GeoCoordinates;
 import de.joglearth.location.Location;
@@ -59,8 +57,11 @@ public class NominatimManagerTest {
             }
         }
         manager.setCacheSize(1000);
-        manager.shutDown();
-        manager.dispose();
+    }
+    
+    @AfterClass 
+    public final void tearDownClass() {
+        NominatimManager.shutDown();
     }
 
 }

@@ -1779,9 +1779,9 @@ public class MainWindow extends JFrame {
                     GeoCoordinates newGeo = camera.getGeoCoordinates(newPos);
                     if (lastGeo != null && newGeo != null) {
                         double deltaLon = -signum(newPos.x - lastPos.x)
-                                * abs(newGeo.getLongitude() - lastGeo.getLongitude());
+                                * abs(newGeo.longitude - lastGeo.longitude);
                         double deltaLat = signum(newPos.y - lastPos.y)
-                                * abs(newGeo.getLatitude() - lastGeo.getLatitude());
+                                * abs(newGeo.latitude - lastGeo.latitude);
 
                         camera.move(deltaLon, deltaLat);
                     }

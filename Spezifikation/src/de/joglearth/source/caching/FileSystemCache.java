@@ -159,8 +159,6 @@ public class FileSystemCache<Key> implements Cache<Key, byte[]> {
         }
         if (listenerSet == null)
             return;
-        long startCall = 0;
-        long endCall = 0;
         for (SourceListener<Key, byte[]> sourceListener : listenerSet) {
             sourceListener.requestCompleted(k, data);
         }

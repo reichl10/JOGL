@@ -141,9 +141,9 @@ public class NominatimSource implements Source<NominatimQuery, Collection<Locati
         getRequest.add("xml");
 
         getRequest.add("lat");
-        getRequest.add("" + Math.toDegrees(query.point.getLatitude()));
+        getRequest.add("" + Math.toDegrees(query.point.latitude));
         getRequest.add("lon");
-        getRequest.add("" + Math.toDegrees(query.point.getLongitude()));
+        getRequest.add("" + Math.toDegrees(query.point.longitude));
 
         byte[] httpRes = HTTP.get(url, getRequest);
 

@@ -1,4 +1,4 @@
-package de.joglearth.junit.source.opengl;
+package de.joglearth.junit.rendering;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import de.joglearth.geometry.LinearProjection;
-import de.joglearth.geometry.Tile;
 import de.joglearth.height.HeightMap;
 import de.joglearth.height.flat.FlatHeightMap;
 import de.joglearth.height.srtm.SRTMHeightMap;
@@ -26,7 +25,6 @@ public class TileMeshSourceTest {
     public void testTileMeshSource() {
         TestTessellator tessl = new TestTessellator();
         VertexBufferLoader s = new VertexBufferLoader(window.getGLContext(), tessl);
-//        s.setTileSubdivisions(2732);
         TestSourceListener l = new TestSourceListener();
         
         
@@ -35,9 +33,8 @@ public class TileMeshSourceTest {
         ProjectedTile lin = new ProjectedTile(t, new LinearProjection(), 0,
         		subdivision, SRTMHeightMap.getInstance());
 
-        s.requestObject(lin, (SourceListener) l);
+        s.requestObject(lin, l);
         while (l.buffer == null);
-//        assertTrue(tessl.m.indexCount == l.buffer.getIndexCount());
         assertTrue(tessl.lastSubDiv == 4);
         assertEquals(tessl.lastHeightMap, SRTMHeightMap.getInstance());
     }
@@ -58,10 +55,10 @@ public class TileMeshSourceTest {
         }
         
     }
-    private class TestSourceListener implements SourceListener<Tile, VertexBuffer> {
+    private class TestSourceListener implements SourceListener<ProjectedTile, VertexBuffer> {
         public VertexBuffer buffer;
         @Override
-        public void requestCompleted(Tile key, VertexBuffer value) {
+        public void requestCompleted(ProjectedTile key, VertexBuffer value) {
             buffer = value;
         }
     }

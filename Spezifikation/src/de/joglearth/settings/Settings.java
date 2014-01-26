@@ -124,16 +124,15 @@ public final class Settings {
      * @param key The locations key. <code>Null</code> is not allowed
      * @param value The location to add to this key
      */
+    @SuppressWarnings("unchecked")
     public synchronized void putLocation(final String key, final Location value) {
-        Object val = valueMap.get(key);
         Set<Location> set = null;
-        if (val == null || !(val instanceof Set<?>)) {
-            val = new HashSet<Location>();
-            //TODO 2 unsafety cast
+        Object val = valueMap.get(key);
+        if (val != null && val instanceof Set<?>) {
             set = (Set<Location>) val;
-            valueMap.put(key, set);
         } else {
-            set = (Set<Location>) val;
+            set = new HashSet<Location>();
+            valueMap.put(key, set);
         }
         set.add(value);
         callListenersForKey(key, set, value);
@@ -149,15 +148,12 @@ public final class Settings {
      */
     public synchronized void dropLocation(final String key, final Location value) {
         Object val = valueMap.get(key);
-        
-        
-        if ((val != null) && (val instanceof Set<?>)) {
-          //TODO unsafety cast
+        if (val != null && val instanceof Set<?>) {
+            @SuppressWarnings("unchecked")
             Set<Location> set = (Set<Location>) val;
             set.remove(value);
             callListenersForKey(key, set, value);;
-        }
-        
+        }        
     }
 
     /**
@@ -285,12 +281,14 @@ public final class Settings {
      * @return A <code>Set</code> of <code>Location</code> objects stored under the given key or
      *         <code>null</code> if no <code>Location</code> object is found using this key
      */
+    @SuppressWarnings("unchecked")
     public synchronized Set<Location> getLocations(final String key) {
         Object val = valueMap.get(key);
-        if (val == null || !(val instanceof Set<?>))
+        if (val != null && val instanceof Set<?>) {
+            return (Set<Location>) val;
+        } else {
             return null;
-      //TODO unsafety cast
-        return (Set<Location>) val;
+        }
     }
 
     private void putObjectAndCallListeners(final String key, final Object value) {

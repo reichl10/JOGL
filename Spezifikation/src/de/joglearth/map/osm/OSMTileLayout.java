@@ -84,19 +84,19 @@ public class OSMTileLayout implements TileLayout {
             throw new IllegalArgumentException();
         }
 
-        if (coords.getLatitude() >= OSMTile.MAX_LATITUDE) {
+        if (coords.latitude >= OSMTile.MAX_LATITUDE) {
             return new OSMPole(zoomLevel, OSMPole.NORTH);
-        } else if (coords.getLatitude() <= OSMTile.MIN_LATITUDE) {
+        } else if (coords.latitude <= OSMTile.MIN_LATITUDE) {
             return new OSMPole(zoomLevel, OSMPole.SOUTH);
         } else {
             if (zoomLevel > 0) {
-                int lonIndex = (int) floor((coords.getLongitude() + PI) / (2 * PI) * (1 << zoomLevel));
+                int lonIndex = (int) floor((coords.longitude + PI) / (2 * PI) * (1 << zoomLevel));
                 if (lonIndex == (1 << zoomLevel)) {
                     lonIndex = 0;
                 }
     
                 int latIndex = (int) floor((1 -
-                        (log(tan(coords.getLatitude()) + 1 / cos(coords.getLatitude()))) / PI)
+                        (log(tan(coords.latitude) + 1 / cos(coords.latitude))) / PI)
                         * (1 << (zoomLevel - 1)));
                 
                 if (latIndex >= 0 && latIndex < (1 << zoomLevel)) {

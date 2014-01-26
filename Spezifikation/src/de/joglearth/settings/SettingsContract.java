@@ -7,7 +7,6 @@ import static javax.xml.stream.XMLStreamConstants.START_ELEMENT;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -447,9 +446,9 @@ public final class SettingsContract {
             GeoCoordinates geo) throws XMLStreamException {
         writer.writeStartElement(XML_ELEMENT_GEO);
         writer.writeAttribute(XML_ATTR_GEO_LONG,
-                new Double(geo.getLongitude()).toString());
+                new Double(geo.longitude).toString());
         writer.writeAttribute(XML_ATTR_GEO_LAT,
-                new Double(geo.getLatitude()).toString());
+                new Double(geo.latitude).toString());
         writer.writeEndElement();
     }
 

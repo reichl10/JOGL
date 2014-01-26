@@ -52,8 +52,6 @@ import de.joglearth.geometry.Vector3;
 import de.joglearth.geometry.Vector4;
 import de.joglearth.height.HeightMap;
 import de.joglearth.height.flat.FlatHeightMap;
-import de.joglearth.height.srtm.SRTMHeightMap;
-import de.joglearth.height.srtm.SRTMTileManager;
 import de.joglearth.location.Location;
 import de.joglearth.location.LocationManager;
 import de.joglearth.location.LocationType;

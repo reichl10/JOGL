@@ -33,8 +33,8 @@ public abstract class AbstractTile implements Tile {
         if (coords == null) {
             throw new IllegalArgumentException();
         }
-        double lon = coords.getLongitude(),
-               lat = coords.getLatitude(),
+        double lon = coords.longitude,
+               lat = coords.latitude,
                lonFrom = getLongitudeFrom(),
                latFrom = getLatitudeFrom(),
                lonTo = getLongitudeTo(),

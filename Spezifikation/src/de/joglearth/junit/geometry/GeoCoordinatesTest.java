@@ -19,8 +19,8 @@ public class GeoCoordinatesTest {
         testCoord2 = testCoord1.clone();
         assertTrue(testCoord1.equals(testCoord2));
 
-        assertTrue(testCoord1.getLongitude() == 2.44);
-        assertFalse(testCoord1.getLatitude() == 0.789999999);
+        assertTrue(testCoord1.longitude == 2.44);
+        assertFalse(testCoord1.latitude == 0.789999999);
 
         /* check coordinate parsing */
         try {

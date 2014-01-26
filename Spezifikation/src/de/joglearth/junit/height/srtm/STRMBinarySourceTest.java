@@ -1,4 +1,4 @@
-package de.joglearth.junit.source.srtm;
+package de.joglearth.junit.height.srtm;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;

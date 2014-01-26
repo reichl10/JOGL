@@ -1,4 +1,4 @@
-package de.joglearth.junit.source.osm;
+package de.joglearth.junit.map.osm;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

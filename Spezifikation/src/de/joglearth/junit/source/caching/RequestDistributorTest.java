@@ -218,7 +218,7 @@ public class RequestDistributorTest {
     public void testDropAll() {
         source.setResponse(SourceResponseType.SYNCHRONOUS, new Integer(42));
         for (int i = 0; i < 3; ++i) {
-            SourceResponse<Object> r = dist.requestObject(new Integer(i), null);
+            dist.requestObject(new Integer(i), null);
         }
         
         //test commented away, because RequDist is allowed to drop any time he wants!

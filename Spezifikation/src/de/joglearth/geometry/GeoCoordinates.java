@@ -1,8 +1,6 @@
 package de.joglearth.geometry;
 
-import static java.lang.Math.PI;
-import static java.lang.Math.abs;
-import static java.lang.Math.floor;
+import static java.lang.Math.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,8 +14,17 @@ import java.util.regex.Pattern;
  */
 public final class GeoCoordinates implements Cloneable {
 
-    private double longitude; // Longitude, in radians
-    private double latitude; // Latitude, in radians
+    /**
+     * The longitude in radians, where negative values mean west, positive ones east longitude.
+     */
+    public final double longitude;
+
+    /**
+     * The latitude in radians, where negative values mean south, positive ones north longitude.
+     */
+    public final double latitude;
+    
+    
     private static final double ALLOWEDDIFF = 1.0E-13;
 
 
@@ -81,12 +88,12 @@ public final class GeoCoordinates implements Cloneable {
     }
 
     //Defines the pattern which describes coordinates
+    // TODO Allow different decimal separators
     private static final Pattern coordinatePattern = Pattern.compile(
             "\\s*(\\d{1,3})\\s*°\\s*((\\d{1,2})\\s*'\\s*" +
                     "((\\d{1,2}(\\.\\d+)?)\\s*\"\\s*)?)?([NSEOW])\\s*");
 
 
-    // TODO Allow different decimal separators
     private static double parseSingleCoordinate(String coord) {
         Matcher matcher = coordinatePattern.matcher(coord);
         if (!matcher.matches()) {
@@ -137,23 +144,6 @@ public final class GeoCoordinates implements Cloneable {
         return new GeoCoordinates(longitude, latitude);
     }
 
-    /**
-     * Returns the longitude in radians.
-     * 
-     * @return The longitude
-     */
-    public double getLongitude() {
-        return longitude;
-    }
-
-    /**
-     * Returns the latitude in radians.
-     * 
-     * @return The latitude
-     */
-    public double getLatitude() {
-        return latitude;
-    }
 
     private String getCoordinateString(double coord) {
         double deg = radToDeg(abs(coord));

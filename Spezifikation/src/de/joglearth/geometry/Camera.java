@@ -105,9 +105,9 @@ public class Camera {
         @Override
         public void surfaceChanged(double lonFrom, double latFrom, double lonTo, double latTo) {
 
-            if (position.getLatitude() >= latFrom
-                    && position.getLatitude() <= latTo && position.getLongitude() >= lonFrom
-                    && position.getLongitude() <= lonTo) {
+            if (position.latitude >= latFrom
+                    && position.latitude <= latTo && position.longitude >= lonFrom
+                    && position.longitude <= lonTo) {
                 if (!updateCamera()) {
                     throw new IllegalStateException();
                 }
@@ -183,7 +183,7 @@ public class Camera {
      * @param coords The {@link GeoCoordinates} of the camera's position. Must not be null.
      */
     public synchronized void setPosition(GeoCoordinates coords) {
-        if (coords == null || coords.getLatitude() >= PI / 2 || coords.getLatitude() <= -PI / 2) {
+        if (coords == null || coords.latitude >= PI / 2 || coords.latitude <= -PI / 2) {
             throw new IllegalArgumentException();
         }
 
@@ -357,8 +357,8 @@ public class Camera {
      * @param deltaLat The angular distance to move in latitude direction
      */
     public void move(double deltaLon, double deltaLat) {
-        double newLon = position.getLongitude() + deltaLon;
-        double newLat = position.getLatitude() + deltaLat;
+        double newLon = position.longitude + deltaLon;
+        double newLat = position.latitude + deltaLat;
         if (newLat < PI / 2 && newLat > -PI / 2
                 && (newLon > -PI && newLon < PI || geometry.allowsLongitudinalTraversal())) {
             setPosition(new GeoCoordinates(newLon, newLat));

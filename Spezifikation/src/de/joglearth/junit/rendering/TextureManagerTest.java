@@ -1,4 +1,4 @@
-package de.joglearth.junit.surface;
+package de.joglearth.junit.rendering;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import de.joglearth.geometry.LinearProjection;
 import de.joglearth.geometry.SurfaceListener;
-import de.joglearth.geometry.Tile;
 import de.joglearth.height.flat.FlatHeightMap;
 import de.joglearth.junit.GLTestWindow;
 import de.joglearth.rendering.ProjectedTile;
@@ -40,13 +39,12 @@ public class TextureManagerTest {
 
     @Test
     public final void testTextureManager() {
-        TestSource source = new TestSource();
-        TextureManager man = new TextureManager(window.getGLContext(), 200000, mapconf);
+        new TestSource();
+        new TextureManager(window.getGLContext(), 200000, mapconf);
     }
 
     @Test
     public final void testGetTexture() {
-        TestSource source = new TestSource();
         TextureManager man = new TextureManager(window.getGLContext(), 200000, mapconf);
         OSMTile t = new OSMTile(2, 1, 0);
         int subdivision = 1;
@@ -59,7 +57,7 @@ public class TextureManagerTest {
 
     @Test
     public final void testSetMapConfiguration() {
-    	TestSource source = new TestSource();
+    	new TestSource();
         TextureManager man = new TextureManager(window.getGLContext(), 200000, mapconf);
         OSMTile t = new OSMTile(2, 1, 0);
         int subdivision = 1;
@@ -78,14 +76,14 @@ public class TextureManagerTest {
     
     @Test
     public final void testAddSurfaceListener() {
-        TestSource source = new TestSource();
+        new TestSource();
         TextureManager man = new TextureManager(window.getGLContext(), 200000, mapconf);
         man.addSurfaceListener(new TestSurfaceListener());
     }
 
     @Test
     public final void testRemoveSurfaceListener() {
-        TestSource source = new TestSource();
+        new TestSource();
         TextureManager man = new TextureManager(window.getGLContext(), 200000, mapconf);
         TestSurfaceListener listener = new TestSurfaceListener();
         man.addSurfaceListener(new TestSurfaceListener());

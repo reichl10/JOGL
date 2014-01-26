@@ -1,4 +1,4 @@
-package de.joglearth.junit.source.opengl;
+package de.joglearth.junit.rendering;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;

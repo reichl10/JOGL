@@ -150,8 +150,8 @@ public class SRTMHeightMap implements HeightMap, Priorized {
     @Override
     public double getHeight(GeoCoordinates coords, double angularResolution) {
         
-        SRTMTileName index = new SRTMTileName(toTileIndex(coords.getLongitude()), 
-                toTileIndex(coords.getLatitude()));
+        SRTMTileName index = new SRTMTileName(toTileIndex(coords.longitude), 
+                toTileIndex(coords.latitude));
         SRTMTile tile = getSRTMTile(index);
         
         if (tile != null) {
@@ -160,8 +160,8 @@ public class SRTMHeightMap implements HeightMap, Priorized {
                 ++lod;
             }
             short[][] values = tile.getTile(lod);
-            double tileOffsetX = getTileOffset(coords.getLongitude()) * values.length,
-                   tileOffsetY = getTileOffset(coords.getLatitude()) * values.length,
+            double tileOffsetX = getTileOffset(coords.longitude) * values.length,
+                   tileOffsetY = getTileOffset(coords.latitude) * values.length,
                    pixelOffsetX = tileOffsetX - floor(tileOffsetX),
                    pixelOffsetY = tileOffsetY - floor(tileOffsetY);
             

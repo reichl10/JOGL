@@ -31,7 +31,6 @@ public class GLTestWindow {
      * in the event queue.
      */
     public GLTestWindow() {
-        ClearableEventQueue.impose();
         try {
             AWTInvoker.getInstance().invokeLater(new Runnable() {
 
@@ -70,8 +69,6 @@ public class GLTestWindow {
         } catch (Throwable e) {
             throw new RuntimeException("GLTestWindow initialization failed", e);
         }
-        
-        ClearableEventQueue.getInstance().clear();
     }
 
     /**
@@ -104,14 +101,9 @@ public class GLTestWindow {
     public GLContext getGLContext() {
         return context;
     }
+    
     public void display(Runnable r) throws Throwable {
-        nextDisplay = r;
-        AWTInvoker.getInstance().invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                canvas.display();
-            }
-        });
+        context.invokeLater(r);
     }
 
     /**

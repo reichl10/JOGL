@@ -1,9 +1,6 @@
 package de.joglearth.junit.geometry;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -27,14 +24,14 @@ public class ProjectionTest {
     	MapProjection lin = new LinearProjection();
     	MapProjection merc = new MercatorProjection();
     	
-    	assertEquals(geo1.getLongitude(), lin.projectLongitude(geo1.getLongitude()), 0.1);
-    	assertEquals(geo1.getLatitude(), lin.projectLatitude(geo1.getLatitude()), 0.1);
+    	assertEquals(geo1.longitude, lin.projectLongitude(geo1.longitude), 0.1);
+    	assertEquals(geo1.latitude, lin.projectLatitude(geo1.latitude), 0.1);
     	
-    	assertEquals(geo1.getLongitude(), merc.projectLongitude(geo1.getLongitude()), 0.1);
-    	assertEquals(geo1.getLatitude(), merc.projectLatitude(geo1.getLatitude()), 0.1);
+    	assertEquals(geo1.longitude, merc.projectLongitude(geo1.longitude), 0.1);
+    	assertEquals(geo1.latitude, merc.projectLatitude(geo1.latitude), 0.1);
     	
-    	assertEquals(3.34d, merc.projectLatitude(geo2.getLatitude()), 0.1);
-    	assertEquals(3.34d, merc.projectLatitude(geo2.getLatitude() + 2.0 * Math.PI), 0.1);
+    	assertEquals(3.34d, merc.projectLatitude(geo2.latitude), 0.1);
+    	assertEquals(3.34d, merc.projectLatitude(geo2.latitude + 2.0 * Math.PI), 0.1);
     	
        
     }

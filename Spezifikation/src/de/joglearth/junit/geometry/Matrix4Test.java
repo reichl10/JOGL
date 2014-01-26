@@ -54,7 +54,7 @@ public class Matrix4Test {
          * System.out.print("{"); for (int i = 0; i < res.length; i++) System.out.print(res[i]+",");
          * //TODO System.out.println("}");
          */
-        assertArrayEquals(result, matrix4.doubles(), 0.0001d);
+        assertArrayEquals(result, res, 0.0001d);
     }
 
     @Test

@@ -43,7 +43,7 @@ public class PlaneGeometry implements Geometry {
          * The plane is laid out to be 2 units wide, 1 unit high and perpendicular to the Z axis,
          * with lon=0/lat=0 being the center (0, 0, 0).
          */
-        return new Vector3(geo.getLongitude(), geo.getLatitude(), altitude - HeightMap.MIN_HEIGHT);
+        return new Vector3(geo.longitude, geo.latitude, altitude - HeightMap.MIN_HEIGHT);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class PlaneGeometry implements Geometry {
          * adding a rotate()ion.
          */
         Matrix4 mat = new Matrix4();
-        mat.translate(position.getLongitude(), position.getLatitude(), altitude 
+        mat.translate(position.longitude, position.latitude, altitude 
                 - HeightMap.MIN_HEIGHT);
         return mat;
     }
