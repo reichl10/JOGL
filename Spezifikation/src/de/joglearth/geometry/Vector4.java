@@ -3,27 +3,27 @@ package de.joglearth.geometry;
 /**
  * A structure for 4-dimensional vectors in homogeneous coordinates.
  */
-public final class Vector4 implements Cloneable {
+public final class Vector4 {
 
     /**
      * The first (X) component.
      */
-    public double x;
+    public final double x;
 
     /**
      * The second (Y) component.
      */
-    public double y;
+    public final double y;
 
     /**
      * The third (Z) component.
      */
-    public double z;
+    public final double z;
 
     /**
      * The scaling factor.
      */
-    public double w;
+    public final double w;
 
 
     /**
@@ -99,5 +99,9 @@ public final class Vector4 implements Cloneable {
         }
         Vector4 other = (Vector4) obj;
         return this.x == other.x && this.y == other.y && this.z == other.z && this.w == other.w;
+    }
+
+    public double[] toArray() {
+        return new double[] { x, y, z, w };
     }
 }

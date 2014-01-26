@@ -75,16 +75,6 @@ public class Vector3Test {
     }
 
     @Test
-    public final void testAdd() {
-        Vector3 vector1 = new Vector3(1.312d, 34.23d, 42.213d);
-        Vector3 toAdd = new Vector3(2.5d, 1.5d, 3.5d);
-        vector1.add(toAdd);
-        assertEquals(1.312d+2.5d, vector1.x, 1E12d);
-        assertEquals(34.23d+1.5d, vector1.y, 1E12d);
-        assertEquals(42.213d+3.5d, vector1.x, 1E12d);
-    }
-
-    @Test
     public final void testNormalized() {
         Vector3 vector1 = new Vector3(1.312d, 34.23d, 42.213d);
         double length = Math.sqrt(1.312d*1.312d + 34.23d*34.23d + 42.213d*42.213d);

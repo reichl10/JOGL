@@ -30,8 +30,7 @@ public class PlaneGeometry implements Geometry {
             return false;
         }
 
-        Vector3 surfacePosition = cameraPosition.clone();
-        surfacePosition.z = 0;
+        Vector3 surfacePosition = new Vector3(cameraPosition.x, cameraPosition.y, 0);
         return surfacePosition.to(getSpacePosition(geo, 0)).length()
                 <= cameraPosition.z * DISTANCE_LIMIT;
     }

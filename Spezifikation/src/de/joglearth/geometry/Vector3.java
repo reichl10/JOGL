@@ -3,22 +3,22 @@ package de.joglearth.geometry;
 /**
  * A structure for 3-dimensional vectors in Cartesian coordinates.
  */
-public final class Vector3 implements Cloneable {
+public final class Vector3 {
 
     /**
      * The X (first) component of the vector.
      */
-    public double x;
+    public final double x;
 
     /**
      * The Y (second) component of the vector.
      */
-    public double y;
+    public final double y;
 
     /**
      * The Z (third) component of the vector.
      */
-    public double z;
+    public final double z;
 
 
     /**
@@ -39,15 +39,6 @@ public final class Vector3 implements Cloneable {
         this.x = x;
         this.y = y;
         this.z = z;
-    }
-
-    /**
-     * Creates a deep copy.
-     * 
-     * @return An exact copy of the vector
-     */
-    public Vector3 clone() {
-        return new Vector3(x, y, z);
     }
 
     /**
@@ -97,17 +88,6 @@ public final class Vector3 implements Cloneable {
      */
     public double length() {
         return (double) Math.sqrt(x * x + y * y + z * z);
-    }
-
-    /**
-     * Adds another vector to this vector.
-     * 
-     * @param v The vector to add, must not be <code>null</code>
-     */
-    public void add(Vector3 v) {
-        x += v.x;
-        y += v.y;
-        z += v.z;
     }
 
     /**
@@ -163,4 +143,8 @@ public final class Vector3 implements Cloneable {
         return "(" + x + ", " + y + ", " + z + ")";
     }
 
+    public double[] toArray() {
+        return new double[] { x, y, z };
+    }
+    
 }
