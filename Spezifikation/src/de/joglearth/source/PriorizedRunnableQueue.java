@@ -24,9 +24,9 @@ public class PriorizedRunnableQueue implements BlockingQueue<Runnable>, Priorize
         @Override
         public int compareTo(QueueEntry other) {
             if (this.priority < other.priority) {
-                return -1;
-            } else if (this.priority > other.priority) {
                 return +1;
+            } else if (this.priority > other.priority) {
+                return -1;
             } else {
                 if (this.sequenceNo > other.sequenceNo) {
                     return +1;

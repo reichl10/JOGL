@@ -1,25 +1,7 @@
 package de.joglearth.rendering;
 
-import static java.lang.Math.PI;
-import static java.lang.Math.abs;
-import static java.lang.Math.ceil;
-import static java.lang.Math.exp;
-import static java.lang.Math.log;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-import static java.lang.Math.pow;
-import static javax.media.opengl.GL.GL_BLEND;
-import static javax.media.opengl.GL.GL_COLOR_BUFFER_BIT;
-import static javax.media.opengl.GL.GL_CULL_FACE;
-import static javax.media.opengl.GL.GL_DEPTH_BUFFER_BIT;
-import static javax.media.opengl.GL.GL_DEPTH_TEST;
-import static javax.media.opengl.GL.GL_ONE_MINUS_SRC_ALPHA;
-import static javax.media.opengl.GL.GL_SRC_ALPHA;
-import static javax.media.opengl.GL.GL_TEXTURE;
-import static javax.media.opengl.GL.GL_TEXTURE_2D;
-import static javax.media.opengl.fixedfunc.GLLightingFunc.GL_LIGHTING;
-import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_MODELVIEW;
-import static javax.media.opengl.fixedfunc.GLMatrixFunc.GL_PROJECTION;
+import static java.lang.Math.*;
+import static javax.media.opengl.GL2.*;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -541,7 +523,7 @@ public class Renderer {
         TextureFilter textureFilter = TextureFilter.valueOf(Settings.getInstance().getString(
                 SettingsContract.TEXTURE_FILTER));
 
-        earth = loadTextureResource("textures/earth.png", "png", textureFilter);
+        earth = loadTextureResource("textures/earth.jpg", "jpg", textureFilter);
         moon = loadTextureResource("textures/moon.jpg", "jpg", textureFilter);
         nightSky = loadTextureResource("textures/sky.png", "png", textureFilter);
         crosshair = loadTextureResource("icons/crosshair.png", "png", textureFilter);
@@ -669,6 +651,7 @@ public class Renderer {
             gl.setFeatureEnabled(GL_CULL_FACE, true);
             gl.setFeatureEnabled(GL_TEXTURE_2D, true);
             gl.setFeatureEnabled(GL_BLEND, true);
+            //gl.setPolygonMode(GL_LINE);
             
             initState = InitState.AWAITING;
         }
